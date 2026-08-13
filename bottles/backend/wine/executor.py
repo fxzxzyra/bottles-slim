@@ -509,9 +509,11 @@ class WineExecutor:
         return res
 
     def __launch_with_bridge(self):
-        if self.use_winebridge and self.exec_type == "exe":
-            winebridge = WineBridge(self.config)
-            winepath = WinePath(self.config)
+        winepath = WinePath(self.config)
+        is_unix_path = winepath.is_unix(self._raw_exec_path)
+        is_in_bottle = False
+        raw_path = self._raw_exec_path
+        if is_unix_path:
             raw_path = os.path.realpath(self._raw_exec_path)
             bottle_path = os.path.realpath(
                 ManagerUtils.get_bottle_path(self.config)
@@ -521,13 +523,16 @@ class WineExecutor:
                     os.path.commonpath((raw_path, bottle_path)) == bottle_path
                 )
             except ValueError:
-                is_in_bottle = False
+                pass
+
+        if self.use_winebridge and self.exec_type == "exe":
+            winebridge = WineBridge(self.config)
             if winebridge.is_available() and (
-                not winepath.is_unix(self._raw_exec_path) or is_in_bottle
+                not is_unix_path or is_in_bottle
             ):
                 exec_path = (
                     winepath.to_windows(self._raw_exec_path, native=True)
-                    if winepath.is_unix(self._raw_exec_path)
+                    if is_unix_path
                     else self._raw_exec_path
                 )
                 res = winebridge.run_exe(
@@ -538,19 +543,8 @@ class WineExecutor:
                     sandbox_override=self.sandbox_override,
                 )
                 return Result(status=True, data={"output": res})
-        winepath = WinePath(self.config)
         if self.use_virt_desktop:
-            if winepath.is_unix(self._raw_exec_path):
-                raw_path = os.path.realpath(self._raw_exec_path)
-                bottle_path = os.path.realpath(
-                    ManagerUtils.get_bottle_path(self.config)
-                )
-                try:
-                    is_in_bottle = (
-                        os.path.commonpath((raw_path, bottle_path)) == bottle_path
-                    )
-                except ValueError:
-                    is_in_bottle = False
+            if is_unix_path:
                 windows_path = winepath.to_windows(
                     raw_path if is_in_bottle else self._raw_exec_path,
                     native=is_in_bottle,
@@ -558,6 +552,8 @@ class WineExecutor:
                 )
                 self.exec_path = shlex.quote(windows_path)
             return self.__launch_with_explorer()
+        if is_unix_path and not is_in_bottle and self.exec_type == "exe":
+            return self.__launch_with_starter(host_cwd=True)
         if winepath.is_windows(self.exec_path) or (
             self.hide_console and self.exec_type == "exe"
         ):
@@ -626,7 +622,7 @@ class WineExecutor:
         )
         return Result(status=True, data={"output": res})
 
-    def __launch_with_starter(self):
+    def __launch_with_starter(self, host_cwd: bool = False):
         start = Start(self.config)
         res = start.run(
             file=self.exec_path,
@@ -640,6 +636,7 @@ class WineExecutor:
             cwd=self.cwd,
             background=self.hide_console,
             sandbox_override=self.sandbox_override,
+            host_cwd=host_cwd,
         )
         self.__set_monitors()
         return Result(status=True, data={"output": res})
