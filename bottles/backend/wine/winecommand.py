@@ -342,6 +342,7 @@ class WineCommand:
         self.communicate = communicate
         self.colors = colors
         self.vmtouch_files = None
+        self.returncode = None
 
     def _get_config(self, config: BottleConfig) -> BottleConfig:
         if cnf := config.data.get("config"):
@@ -1137,6 +1138,7 @@ class WineCommand:
             return Result(True)
 
         stdout_data, _ = proc.communicate()
+        self.returncode = proc.returncode
 
         if vmtouch_available and self.config.Parameters.vmtouch:
             # don't call vmtouch_free while running via external terminal
