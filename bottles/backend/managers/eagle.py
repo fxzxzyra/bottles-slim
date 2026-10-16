@@ -175,9 +175,13 @@ class EagleManager:
             logging.warning(f"[Eagle] Error checking directory safety: {e}")
             return True
 
+    def _send(self, signal: Signals, result: Result) -> None:
+        result.eagle_source = self
+        SignalManager.send(signal, result)
+
     def _send_step(self, msg: str, delay: bool = True) -> None:
         """Send a step update to the UI with optional delay."""
-        SignalManager.send(Signals.EagleStep, Result(status=True, data=msg))
+        self._send(Signals.EagleStep, Result(status=True, data=msg))
         logging.info(f"[Eagle] {msg}")
         if delay:
             time.sleep(STEP_DELAY)
@@ -624,7 +628,7 @@ class EagleManager:
                     "intel": intel_plan,
                 }
                 self._send_step("MSI analysis complete.")
-                SignalManager.send(Signals.EagleFinished, Result(status=True, data=results))
+                self._send(Signals.EagleFinished, Result(status=True, data=results))
                 return
 
             self._send_step("Loading PE structure (Could take a while)...")
@@ -1134,12 +1138,12 @@ class EagleManager:
             }
 
             self._send_step("Analysis complete.")
-            SignalManager.send(Signals.EagleFinished, Result(status=True, data=results))
+            self._send(Signals.EagleFinished, Result(status=True, data=results))
 
         except Exception as e:
             self._send_step(f"Error: {str(e)}")
             logging.error(f"[Eagle] {str(e)}")
-            SignalManager.send(Signals.EagleFinished, Result(status=False, data={"error": str(e)}))
+            self._send(Signals.EagleFinished, Result(status=False, data={"error": str(e)}))
         finally:
             if extract_dir:
                 self._cleanup_extraction(extract_dir)
