@@ -5,9 +5,8 @@ from types import SimpleNamespace
 import gi
 
 gi.require_version("Adw", "1")
-from gi.repository import Adw, Gio
+from gi.repository import Adw
 
-Gio.resources_register(Gio.Resource.load("/app/share/bottles/bottles.gresource"))
 
 from bottles.frontend.widgets.component import ComponentEntry  # noqa: E402
 

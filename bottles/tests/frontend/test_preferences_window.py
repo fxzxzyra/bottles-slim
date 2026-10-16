@@ -1,24 +1,12 @@
 # ruff: noqa: E402
 
-import os
-from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import Mock
 
 import pytest
-from gi.repository import Gio
 
 from bottles.backend.models.result import Result
 
-resource_path = Path(
-    os.environ.get("BOTTLES_TEST_RESOURCE", "/app/share/bottles/bottles.gresource")
-)
-if not resource_path.exists():
-    pytest.skip(
-        "Preferences frontend tests require the Bottles resource bundle",
-        allow_module_level=True,
-    )
-Gio.resources_register(Gio.Resource.load(str(resource_path)))
 
 from bottles.frontend.windows import window as window_module
 from bottles.frontend.windows.window import BottlesWindow
@@ -50,7 +38,6 @@ def test_preferences_window_is_reused(monkeypatch):
 
     assert len(PreferencesWindowStub.instances) == 1
     assert window._preferences_window.presented_with is window
-
 
 
 @pytest.mark.parametrize(

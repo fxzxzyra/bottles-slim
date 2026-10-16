@@ -3,10 +3,6 @@
 from types import SimpleNamespace
 from unittest.mock import Mock
 
-from gi.repository import Gio
-
-bottles_resource = Gio.Resource.load("/app/share/bottles/bottles.gresource")
-bottles_resource._register()
 
 from bottles.frontend.windows import drives
 

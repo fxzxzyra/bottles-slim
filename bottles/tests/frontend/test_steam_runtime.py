@@ -1,6 +1,5 @@
 # ruff: noqa: E402
 
-from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import Mock
 
@@ -11,17 +10,10 @@ gi.require_version("Adw", "1")
 gi.require_version("Gtk", "4.0")
 gi.require_version("Xdp", "1.0")
 
-from gi.repository import Adw, Gio
+from gi.repository import Adw
 
 Adw.init()
 
-resource_path = Path("/app/share/bottles/bottles.gresource")
-if not resource_path.exists():
-    pytest.skip(
-        "Steam Runtime frontend tests require the Bottles Flatpak runtime",
-        allow_module_level=True,
-    )
-Gio.resources_register(Gio.Resource.load(str(resource_path)))
 
 from bottles.backend.models.config import BottleConfig
 from bottles.backend.models.result import Result

@@ -1,6 +1,5 @@
 # ruff: noqa: E402
 
-import os
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -10,14 +9,7 @@ import pytest
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 gi.require_version("GtkSource", "5")
-from gi.repository import Gio
 
-resource_path = Path(
-    os.environ.get("BOTTLES_TEST_RESOURCE", "/app/share/bottles/bottles.gresource")
-)
-if not resource_path.exists():
-    pytest.skip("Eagle launch tests require the Bottles resource bundle", allow_module_level=True)
-Gio.resources_register(Gio.Resource.load(str(resource_path)))
 
 from bottles.backend.managers.manager import Manager
 from bottles.backend.models.config import BottleConfig

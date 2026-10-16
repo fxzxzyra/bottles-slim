@@ -1,19 +1,9 @@
-from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import Mock
 
 import pytest
-from gi.repository import Gio
 
 from bottles.backend.models.config import BottleConfig
-
-resource_path = Path("/app/share/bottles/bottles.gresource")
-if not resource_path.exists():
-    pytest.skip(
-        "Bottle preferences tests require the Bottles Flatpak runtime",
-        allow_module_level=True,
-    )
-Gio.resources_register(Gio.Resource.load(str(resource_path)))
 
 
 def _make_view(config):
@@ -116,9 +106,6 @@ def test_unchanged_sync_does_not_update_bottle(monkeypatch):
     view.manager.update_config.assert_not_called()
     view.combo_sync.set_sensitive.assert_not_called()
     view.queue.add_task.assert_not_called()
-
-
-
 
 
 def _make_graphics_view(config):

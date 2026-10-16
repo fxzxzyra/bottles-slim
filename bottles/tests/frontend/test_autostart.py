@@ -1,11 +1,9 @@
 # ruff: noqa: E402
 from types import SimpleNamespace
 
-from gi.repository import Gio
 
 from bottles.frontend.utils.autostart import set_autostart_enabled
 
-Gio.resources_register(Gio.Resource.load("/app/share/bottles/bottles.gresource"))
 
 from bottles.frontend.windows import launchoptions
 

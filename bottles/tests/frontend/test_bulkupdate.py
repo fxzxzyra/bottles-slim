@@ -1,18 +1,9 @@
 # ruff: noqa: E402
 
-from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
-from gi.repository import Gio
 
-resource_path = Path("/app/share/bottles/bottles.gresource")
-if not resource_path.exists():
-    pytest.skip(
-        "Bulk update tests require the Bottles Flatpak runtime",
-        allow_module_level=True,
-    )
-Gio.resources_register(Gio.Resource.load(str(resource_path)))
 
 from bottles.frontend.windows.bulkupdate import BottlesBulkUpdateDialog
 

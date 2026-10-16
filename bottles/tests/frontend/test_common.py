@@ -4,10 +4,7 @@ from types import SimpleNamespace
 from unittest.mock import Mock
 
 import pytest
-from gi.repository import Gio
 
-bottles_resource = Gio.Resource.load("/app/share/bottles/bottles.gresource")
-bottles_resource._register()
 
 from bottles.backend.utils.manager import ManagerUtils
 from bottles.frontend.utils.common import format_runner_name

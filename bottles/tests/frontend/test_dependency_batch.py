@@ -1,17 +1,5 @@
-from pathlib import Path
 from types import SimpleNamespace
 
-import pytest
-from gi.repository import Gio
-
-resource_path = Path("/app/share/bottles/bottles.gresource")
-if not resource_path.is_file():
-    pytest.skip(
-        "Dependency frontend tests require the Bottles Flatpak runtime",
-        allow_module_level=True,
-    )
-
-Gio.resources_register(Gio.Resource.load(str(resource_path)))
 
 from bottles.backend.models.config import BottleConfig  # noqa: E402
 from bottles.backend.models.result import Result  # noqa: E402

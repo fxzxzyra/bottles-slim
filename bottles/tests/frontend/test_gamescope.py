@@ -1,21 +1,11 @@
-from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import Mock
 
 import pytest
-from gi.repository import Gio
 
 from bottles.backend.models.config import BottleConfig
 from bottles.backend.wine import winecommand
 from bottles.backend.wine.winecommand import WineCommand
-
-resource_path = Path("/app/share/bottles/bottles.gresource")
-if not resource_path.exists():
-    pytest.skip(
-        "Gamescope frontend tests require the Bottles Flatpak runtime",
-        allow_module_level=True,
-    )
-Gio.resources_register(Gio.Resource.load(str(resource_path)))
 
 
 def _make_dialog(callback):

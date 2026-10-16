@@ -1,23 +1,9 @@
-import os
-from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import Mock, call
 
-import pytest
-from gi.repository import Gio
 
 from bottles.backend.models.config import BottleConfig
 from bottles.backend.models.result import Result
-
-resource_path = Path(
-    os.environ.get("BOTTLES_TEST_RESOURCE", "/app/share/bottles/bottles.gresource")
-)
-if not resource_path.exists():
-    pytest.skip(
-        "Drive tests require the Bottles Flatpak runtime",
-        allow_module_level=True,
-    )
-Gio.resources_register(Gio.Resource.load(str(resource_path)))
 
 
 def test_device_drive_shows_eject_action(tmp_path):

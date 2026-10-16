@@ -8,10 +8,6 @@ import pytest
 
 gi.require_version("Adw", "1")
 
-from gi.repository import Gio
-
-bottles_resource = Gio.Resource.load("/app/share/bottles/bottles.gresource")
-bottles_resource._register()
 
 from bottles.frontend.utils import flatpak
 from bottles.frontend.views import new_bottle_dialog, preferences

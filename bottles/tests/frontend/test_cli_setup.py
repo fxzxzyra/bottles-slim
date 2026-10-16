@@ -138,7 +138,6 @@ def test_list_components_prepares_directories(monkeypatch, capsys):
     assert "Found 0 runners" in capsys.readouterr().out
 
 
-
 def test_edit_renderer_applies_registry_before_config(monkeypatch):
     config = SimpleNamespace()
     calls = []

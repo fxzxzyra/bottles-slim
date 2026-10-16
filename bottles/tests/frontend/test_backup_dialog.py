@@ -3,10 +3,7 @@
 from types import SimpleNamespace
 
 import pytest
-from gi.repository import Gio
 
-bottles_resource = Gio.Resource.load("/app/share/bottles/bottles.gresource")
-bottles_resource._register()
 
 from bottles.frontend.views import bottle_details
 

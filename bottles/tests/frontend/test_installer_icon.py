@@ -1,9 +1,6 @@
 # ruff: noqa: E402
 import urllib.error
 
-from gi.repository import Gio
-
-Gio.resources_register(Gio.Resource.load("/app/share/bottles/bottles.gresource"))
 
 from bottles.frontend.windows.installer import fetch_installer_icon
 

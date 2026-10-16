@@ -8,9 +8,6 @@ gi.require_version("Adw", "1")
 gi.require_version("Xdp", "1.0")
 gi.require_version("XdpGtk4", "1.0")
 
-from gi.repository import Gio
-
-Gio.resources_register(Gio.Resource.load("/app/share/bottles/bottles.gresource"))
 
 from bottles.frontend import params
 
