@@ -15,6 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import filecmp
 import os
 import shutil
 import uuid
@@ -127,6 +128,10 @@ class LibraryManager:
 
         try:
             os.makedirs(grids_path, exist_ok=True)
+            for name in os.listdir(grids_path):
+                candidate = os.path.join(grids_path, name)
+                if os.path.isfile(candidate) and filecmp.cmp(source_path, candidate, shallow=False):
+                    return f"grid:{name}"
             shutil.copy2(source_path, destination)
         except OSError as error:
             logging.warning(f"Could not import library thumbnail: {error}")
@@ -154,6 +159,7 @@ class LibraryManager:
         )
         if (
             old_thumbnail
+            and old_thumbnail != thumbnail
             and old_thumbnail.startswith("grid:")
             and not thumbnail_is_shared
         ):
@@ -196,14 +202,24 @@ class LibraryManager:
 
         return False
 
-    def remove_from_library(self, _uuid: str):
-        """
-        Removes an entry from the library.yml file.
-        """
-        if self.__library.get(_uuid):
-            logging.info(f"Removing entry from library: {_uuid}")
+    def remove_from_library(self, _uuid: str, config: BottleConfig = None):
+        """Remove an entry and its unshared managed cover, when its bottle is known."""
+        entry = self.__library.get(_uuid)
+        if entry:
+            thumbnail = entry.get("thumbnail")
+            shared = any(
+                key != _uuid and item.get("thumbnail") == thumbnail
+                for key, item in self.__library.items()
+            )
             del self.__library[_uuid]
             self.save_library()
+            if config is not None and thumbnail and not shared and thumbnail.startswith("grid:"):
+                filename = thumbnail.removeprefix("grid:")
+                if filename and os.path.basename(filename) == filename:
+                    try:
+                        os.remove(os.path.join(ManagerUtils.get_bottle_path(config), "grids", filename))
+                    except FileNotFoundError:
+                        pass
             return
         logging.warning(f"Entry not found in library, nothing to remove: {_uuid}")
 

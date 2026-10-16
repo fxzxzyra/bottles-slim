@@ -132,7 +132,7 @@ def test_set_thumbnail_replaces_managed_cover(tmp_path, library_manager):
     first_cover = tmp_path / "first.png"
     _write_cover(first_cover)
     second_cover = tmp_path / "second.jpg"
-    _write_cover(second_cover)
+    second_cover.write_bytes(PNG_DATA + b"\n")
 
     manager.add_to_library(
         {
@@ -148,8 +148,27 @@ def test_set_thumbnail_replaces_managed_cover(tmp_path, library_manager):
 
     entry = manager.get_library()[entry_uuid]
     new_cover = bottle_path / "grids" / entry["thumbnail"].removeprefix("grid:")
-    assert new_cover.read_bytes() == PNG_DATA
+    assert new_cover.read_bytes() == PNG_DATA + b"\n"
     assert not old_cover.exists()
+
+
+def test_set_thumbnail_reuses_identical_managed_cover(tmp_path, library_manager):
+    manager, bottle_path = library_manager
+    program_folder = tmp_path / "program"
+    program_folder.mkdir()
+    first_cover = tmp_path / "first.png"
+    second_cover = tmp_path / "second.png"
+    _write_cover(first_cover)
+    _write_cover(second_cover)
+    config = _config(program_folder)
+    thumbnail = manager.import_thumbnail(first_cover, config)
+    manager.add_to_library({**_entry(), "thumbnail": thumbnail}, config)
+    entry_uuid = next(iter(manager.get_library()))
+
+    assert manager.set_thumbnail(entry_uuid, second_cover, config)
+
+    assert manager.get_library()[entry_uuid]["thumbnail"] == thumbnail
+    assert (bottle_path / "grids" / thumbnail.removeprefix("grid:")).exists()
 
 
 def test_set_thumbnail_keeps_cover_used_by_another_entry(tmp_path, library_manager):
@@ -172,3 +191,39 @@ def test_set_thumbnail_keeps_cover_used_by_another_entry(tmp_path, library_manag
 
     assert manager.set_thumbnail(entry_uuid, second_cover, config)
     assert old_cover.exists()
+
+def test_remove_from_library_removes_managed_cover(tmp_path, library_manager):
+    manager, bottle_path = library_manager
+    program_folder = tmp_path / "program"
+    program_folder.mkdir()
+    cover = tmp_path / "cover.png"
+    _write_cover(cover)
+    config = _config(program_folder)
+    thumbnail = manager.import_thumbnail(cover, config)
+    manager.add_to_library({**_entry(), "thumbnail": thumbnail}, config)
+    entry_uuid = next(iter(manager.get_library()))
+    stored_cover = bottle_path / "grids" / thumbnail.removeprefix("grid:")
+
+    manager.remove_from_library(entry_uuid, config)
+
+    assert entry_uuid not in manager.get_library()
+    assert not stored_cover.exists()
+
+
+def test_import_thumbnail_reuses_identical_cover(tmp_path, library_manager):
+    manager, bottle_path = library_manager
+    program_folder = tmp_path / "program"
+    program_folder.mkdir()
+    first = tmp_path / "first.png"
+    second = tmp_path / "second.png"
+    _write_cover(first)
+    _write_cover(second)
+    config = _config(program_folder)
+
+    first_thumbnail = manager.import_thumbnail(first, config)
+    second_thumbnail = manager.import_thumbnail(second, config)
+
+    assert second_thumbnail == first_thumbnail
+    assert len(list((bottle_path / "grids").iterdir())) == 1
+
+
