@@ -19,6 +19,7 @@ import os
 import time
 import subprocess
 import json
+import logging
 import tempfile
 from concurrent.futures import CancelledError
 from contextlib import contextmanager
