@@ -26,7 +26,7 @@ bottles_sources = [
   'gsettings_stub.py',
   'json.py',
   'lsfgvk.py',
-  'singleton.py'
+  'singleton.py',
 ]
 
 install_data(bottles_sources, install_dir: utilsdir)

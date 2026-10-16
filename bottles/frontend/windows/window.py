@@ -509,8 +509,7 @@ class BottlesWindow(Adw.ApplicationWindow):
         self.show_prefs_view(widget, view=2)
 
     def check_crash_log(self):
-        xdg_data_home = GLib.get_user_data_dir()
-        log_path = f"{xdg_data_home}/bottles/crash.log"
+        log_path = Paths.crash_log
 
         with contextlib.suppress(FileNotFoundError):
             with open(log_path, "r") as log_file:

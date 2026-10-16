@@ -98,7 +98,7 @@ class Logger(logging.getLoggerClass()):
         Writes a crash.log file. It finds and replace the user's home directory
         with "USER" as a proposed standard for crash reports.
         """
-        log_path = f"{Paths.xdg_data_home}/bottles/crash.log"
+        log_path = Paths.crash_log
 
         with open(log_path, "w") as crash_log:
             for d in data:

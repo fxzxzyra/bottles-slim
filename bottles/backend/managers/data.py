@@ -44,7 +44,7 @@ class DataManager:
     """
 
     __data: dict = {}
-    __p_data = f"{Paths.base}/data.yml"
+    __p_data = Paths.user_settings
 
     def __init__(self):
         self.__get_data()
@@ -67,8 +67,7 @@ class DataManager:
             self.__create_data_file()
 
     def __create_data_file(self):
-        if not os.path.exists(Paths.base):
-            os.makedirs(Paths.base)
+        os.makedirs(Paths.config, mode=0o700, exist_ok=True)
         with open(self.__p_data, "w") as s:
             yaml.dump(Samples.data, s)
         self.__get_data()

@@ -43,7 +43,7 @@ class JournalManager:
     contain only important Bottles events.
     """
 
-    path = f"{Paths.base}/journal.yml"
+    path = Paths.journal
 
     @staticmethod
     def __get_journal() -> dict:

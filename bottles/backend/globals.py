@@ -23,6 +23,12 @@ from typing import Dict
 from bottles.backend.utils import json, yaml
 
 
+def _xdg_home(variable: str, default: str) -> str:
+    """XDG base directories must be nonempty absolute paths."""
+    value = os.environ.get(variable, "")
+    return value if os.path.isabs(value) else os.path.join(Path.home(), default)
+
+
 def _has_windows_unsafe_component(path: str) -> bool:
     return any(
         part.endswith((".", " "))
@@ -51,20 +57,27 @@ def _get_wine_compatible_base(path: str) -> str:
 
 
 class Paths:
-    xdg_data_home = os.environ.get(
-        "XDG_DATA_HOME", os.path.join(Path.home(), ".local/share")
-    )
+    xdg_data_home = _xdg_home("XDG_DATA_HOME", ".local/share")
+    xdg_config_home = _xdg_home("XDG_CONFIG_HOME", ".config")
+    xdg_cache_home = _xdg_home("XDG_CACHE_HOME", ".cache")
+    xdg_state_home = _xdg_home("XDG_STATE_HOME", ".local/state")
 
     # Icon paths
     icons_user = f"{xdg_data_home}/icons"
 
     # Local paths
     base = _get_wine_compatible_base(f"{xdg_data_home}/bottles")
+    config = f"{xdg_config_home}/bottles"
+    cache = f"{xdg_cache_home}/bottles"
+    state = f"{xdg_state_home}/bottles"
+    user_settings = f"{config}/data.yml"
+    journal = f"{state}/journal.yml"
+    crash_log = f"{state}/crash.log"
 
     # User applications path
     applications = f"{xdg_data_home}/applications/"
 
-    temp = f"{base}/temp"
+    temp = f"{cache}/temp"
     runtimes = f"{base}/runtimes"
     winebridge = f"{base}/winebridge"
     runners = f"{base}/runners"
@@ -75,9 +88,9 @@ class Paths:
     vkd3d = f"{base}/vkd3d"
     nvapi = f"{base}/nvapi"
     latencyflex = f"{base}/latencyflex"
-    templates = f"{base}/templates"
+    templates = f"{cache}/templates"
     library = f"{base}/library.yml"
-    process_metrics = f"{base}/process_metrics.sqlite"
+    process_metrics = f"{state}/process_metrics.sqlite"
 
     @staticmethod
     def is_vkbasalt_available():
@@ -125,8 +138,10 @@ class TrdyPaths:
     bottlesv1 = f"{Path.home()}/.Bottles"
 
 
-# check if bottles exists in xdg data path
-os.makedirs(Paths.base, exist_ok=True)
+# Create only application-owned base directories. Wine prefixes stay under data.
+for directory in (Paths.base, Paths.config, Paths.cache, Paths.state):
+    os.makedirs(directory, mode=0o700, exist_ok=True)
+
 
 try:
     os.getcwd()
