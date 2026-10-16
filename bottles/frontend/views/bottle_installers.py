@@ -88,7 +88,6 @@ class InstallersView(Adw.Bin):
         if config is None:
             config = BottleConfig()
         self.config = config
-        installers = self.manager.supported_installers.items()
 
         self.list_installers.set_sensitive(False)
 
@@ -108,6 +107,11 @@ class InstallersView(Adw.Bin):
         def process_installers():
             time.sleep(0.5)  # workaround for freezing bug on bottle load
             GLib.idle_add(self.empty_list)
+
+            catalog = self.manager.installer_manager.refresh_catalog()
+            if catalog:
+                self.manager.supported_installers = catalog
+            installers = self.manager.supported_installers.items()
 
             if len(installers) == 0:
                 return Result(False)

@@ -274,3 +274,24 @@ def test_installer_step_reports_failed_executable(mocker):
     )
 
     assert result is False
+
+def test_installer_refreshes_catalog_and_cached_manifests(mocker):
+    repository = mocker.Mock()
+    repository.catalog = {"old": {"Name": "Old"}}
+
+    def refresh():
+        repository.catalog = {"new": {"Name": "New"}}
+
+    repository.refresh.side_effect = refresh
+    installer = object.__new__(InstallerManager)
+    installer._InstallerManager__repo = repository
+    installer._InstallerManager__utils_conn = mocker.Mock(check_connection=lambda: True)
+
+    assert installer.fetch_catalog() == {"old": {"Name": "Old"}}
+    repository.get.return_value = {"Version": 1}
+    assert installer.get_installer("office") == {"Version": 1}
+    repository.get.return_value = {"Version": 2}
+    assert installer.refresh_catalog() == {"new": {"Name": "New"}}
+    assert installer.get_installer("office") == {"Version": 2}
+
+
