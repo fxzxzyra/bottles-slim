@@ -93,3 +93,28 @@ def test_gamescope_toggle_refreshes_hdr_sensitivity():
         state=True, key="gamescope"
     )
     view._PreferencesView__update_hdr_sensitivity.assert_called_once_with()
+
+def test_unchanged_sync_does_not_update_bottle(monkeypatch):
+    from bottles.frontend.views import bottle_preferences
+    from bottles.frontend.views.bottle_preferences import PreferencesView
+
+    config = BottleConfig()
+    config.Parameters.sync = "ntsync"
+    view = SimpleNamespace(
+        config=config,
+        combo_sync=Mock(),
+        manager=Mock(),
+        queue=Mock(),
+    )
+    view.combo_sync.get_selected.return_value = 3
+    run_async = Mock()
+    monkeypatch.setattr(bottle_preferences, "RunAsync", run_async)
+
+    PreferencesView._PreferencesView__set_sync_type(view)
+
+    run_async.assert_not_called()
+    view.manager.update_config.assert_not_called()
+    view.combo_sync.set_sensitive.assert_not_called()
+    view.queue.add_task.assert_not_called()
+
+
