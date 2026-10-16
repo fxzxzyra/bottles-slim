@@ -144,6 +144,7 @@ def test_run_winecommand_waits_and_reports_failure(mocker):
         arguments="query HKCU",
         minimal=True,
         communicate=True,
+        capture_exit_code=False,
     )
 
 
@@ -293,5 +294,31 @@ def test_installer_refreshes_catalog_and_cached_manifests(mocker):
     repository.get.return_value = {"Version": 2}
     assert installer.refresh_catalog() == {"new": {"Name": "New"}}
     assert installer.get_installer("office") == {"Version": 2}
+
+
+
+def test_run_winecommand_accepts_truncated_configured_exit_status(mocker):
+    winecommand = mocker.patch(
+        "bottles.backend.managers.installer.WineCommand",
+        autospec=True,
+    )
+    winecommand.return_value.returncode = 1073
+    winecommand.return_value.run.return_value = Result(False, message="failed")
+
+    result = InstallerManager._InstallerManager__step_run_winecommand(
+        BottleConfig(Name="Test"),
+        {
+            "commands": [
+                {
+                    "command": "sc",
+                    "arguments": "create TestService",
+                    "wait": True,
+                    "success_codes": [0, 49],
+                }
+            ]
+        },
+    )
+
+    assert result is True
 
 
