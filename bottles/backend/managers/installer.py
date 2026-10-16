@@ -47,6 +47,7 @@ class InstallerManager:
         )
         self.__component_manager = manager.component_manager
         self.__local_resources = {}
+        self.__manifests = {}
 
     @lru_cache
     def get_review(self, installer_name, parse: bool = True) -> str:
@@ -58,7 +59,6 @@ class InstallerManager:
             return markdown.markdown(review)
         return review
 
-    @lru_cache
     def get_installer(
         self, installer_name: str, plain: bool = False
     ) -> str | dict | bool:
@@ -66,7 +66,13 @@ class InstallerManager:
         Return an installer manifest from the repository. Use the plain
         argument to get the manifest as plain text.
         """
-        return self.__repo.get(installer_name, plain)
+        key = (installer_name, plain)
+        if key not in self.__manifests:
+            manifest = self.__repo.get(installer_name, plain)
+            if manifest:
+                self.__manifests[key] = manifest
+            return manifest
+        return self.__manifests[key]
 
     def fetch_catalog(self) -> dict:
         """Fetch the installers catalog from the repository"""
@@ -83,7 +89,7 @@ class InstallerManager:
 
     def refresh_catalog(self) -> dict:
         self.__repo.refresh()
-        self.get_installer.cache_clear()
+        self.__manifests.clear()
         self.get_review.cache_clear()
         return self.fetch_catalog()
 
@@ -381,6 +387,8 @@ class InstallerManager:
     def count_steps(self, installer) -> dict:
         manifest = self.get_installer(installer[0])
         steps = {"total": 0, "sections": []}
+        if not isinstance(manifest, dict):
+            return steps
         if manifest.get("Dependencies"):
             i = int(len(manifest.get("Dependencies")))
             steps["sections"] += i * ["deps"]
@@ -403,6 +411,8 @@ class InstallerManager:
 
     def has_local_resources(self, installer):
         manifest = self.get_installer(installer[0])
+        if not isinstance(manifest, dict):
+            return []
         steps = manifest.get("Steps", [])
         exe_msi_steps = [
             s
@@ -426,6 +436,8 @@ class InstallerManager:
         local_resources: Optional[dict] = None,
     ):
         manifest = self.get_installer(installer[0])
+        if not isinstance(manifest, dict):
+            return Result(False, data={"message": f"Cannot find manifest for {installer[0]}."})
         _config = config
 
         bottle = ManagerUtils.get_bottle_path(config)
