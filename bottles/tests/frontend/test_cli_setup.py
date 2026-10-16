@@ -17,6 +17,7 @@ class FakeManager:
         self.create_result = create_result
         self.calls = []
         self.runners_available = []
+        self.d7vk_available = []
         self.dxvk_available = []
         self.vkd3d_available = []
         self.nvapi_available = []
@@ -31,6 +32,9 @@ class FakeManager:
 
     def check_runners(self, _install_latest):
         self.calls.append(("check_runners", {}))
+
+    def check_d7vk(self, _install_latest):
+        self.calls.append(("check_d7vk", {}))
 
     def check_dxvk(self, _install_latest):
         self.calls.append(("check_dxvk", {}))
@@ -58,6 +62,25 @@ def _new_cli():
         custom_environment=None,
         arch="win64",
         runner=None,
+        d7vk=None,
+        dxvk=None,
+        vkd3d=None,
+        nvapi=None,
+        latencyflex=None,
+    )
+    return instance
+
+
+def _edit_cli(params):
+    instance = object.__new__(cli.CLI)
+    instance.settings = object()
+    instance.args = SimpleNamespace(
+        bottle="Test",
+        params=params,
+        env_var=None,
+        win=None,
+        runner=None,
+        d7vk=None,
         dxvk=None,
         vkd3d=None,
         nvapi=None,
@@ -113,3 +136,57 @@ def test_list_components_prepares_directories(monkeypatch, capsys):
 
     assert manager.calls[0][0] == "check_app_dirs"
     assert "Found 0 runners" in capsys.readouterr().out
+
+
+
+def test_edit_renderer_applies_registry_before_config(monkeypatch):
+    config = SimpleNamespace()
+    calls = []
+    manager = SimpleNamespace(
+        local_bottles={"Test": config},
+        check_bottles=lambda: None,
+        update_config=lambda bottle, key, value, scope: calls.append(
+            ("config", bottle, key, value, scope)
+        ),
+    )
+    monkeypatch.setattr(cli, "Manager", lambda **_kwargs: manager)
+    monkeypatch.setattr(
+        cli,
+        "RegKeys",
+        lambda bottle: SimpleNamespace(
+            set_renderer=lambda value: calls.append(("registry", bottle, value))
+        ),
+    )
+
+    _edit_cli("renderer:gdi").edit_bottle()
+
+    assert calls == [
+        ("registry", config, "gdi"),
+        ("config", config, "renderer", "gdi", "Parameters"),
+    ]
+
+
+def test_edit_invalid_renderer_keeps_config(monkeypatch, capsys):
+    config = SimpleNamespace()
+    updates = []
+    manager = SimpleNamespace(
+        local_bottles={"Test": config},
+        check_bottles=lambda: None,
+        update_config=lambda *args, **kwargs: updates.append((args, kwargs)),
+    )
+    monkeypatch.setattr(cli, "Manager", lambda **_kwargs: manager)
+    class InvalidRegKeys:
+        def __init__(self, _bottle):
+            pass
+
+        def set_renderer(self, _value):
+            raise ValueError("invalid renderer")
+
+    monkeypatch.setattr(cli, "RegKeys", InvalidRegKeys)
+
+    with pytest.raises(SystemExit) as error:
+        _edit_cli("renderer:invalid").edit_bottle()
+
+    assert error.value.code == 1
+    assert capsys.readouterr().err == "invalid renderer\n"
+    assert updates == []
