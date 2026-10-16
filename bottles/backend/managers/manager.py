@@ -1970,11 +1970,8 @@ class Manager(metaclass=Singleton):
             return cancel_result
 
         if not WineUtils.ensure_user_profile_alias(bottle_complete_path):
-            logging.warning(
-                "Could not create a shared Wine and Proton user profile, "
-                "continuing with the existing profiles."
-            )
-            log_update(_("Could not share the user profile, continuing…"))
+            logging.error("Failed to prepare the bottle user profile.")
+            return Result(False, message="Failed to prepare the bottle user profile.")
 
         # initialize wineprefix
         reg = Reg(config)
