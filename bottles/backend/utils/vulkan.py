@@ -15,12 +15,85 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import ctypes
 import filecmp
 import os
-import shutil
-import subprocess
 from functools import lru_cache
 from glob import glob
+
+
+class _InstanceCreateInfo(ctypes.Structure):
+    # VkInstanceCreateInfo, using native pointer alignment on both ILP32 and LP64.
+    _fields_ = [
+        ("sType", ctypes.c_uint32),
+        ("pNext", ctypes.c_void_p),
+        ("flags", ctypes.c_uint32),
+        ("pApplicationInfo", ctypes.c_void_p),
+        ("enabledLayerCount", ctypes.c_uint32),
+        ("ppEnabledLayerNames", ctypes.POINTER(ctypes.c_char_p)),
+        ("enabledExtensionCount", ctypes.c_uint32),
+        ("ppEnabledExtensionNames", ctypes.POINTER(ctypes.c_char_p)),
+    ]
+
+
+@lru_cache(maxsize=1)
+def _probe_vulkan() -> tuple[bool, str]:
+    """Probe the current process ABI via the system loader, without WSI or a CLI.
+
+    A null application info requests Vulkan 1.0. No layers or extensions are
+    required; the loader handles ICD selection and the user's Vulkan environment.
+    This checks device enumeration, not DXVK feature levels or 32-bit Wine.
+    """
+    try:
+        loader = ctypes.CDLL("libvulkan.so.1")
+        create = loader.vkCreateInstance
+        create.argtypes = [
+            ctypes.POINTER(_InstanceCreateInfo),
+            ctypes.c_void_p,
+            ctypes.POINTER(ctypes.c_void_p),
+        ]
+        create.restype = ctypes.c_int32
+        enumerate_devices = loader.vkEnumeratePhysicalDevices
+        enumerate_devices.argtypes = [
+            ctypes.c_void_p,
+            ctypes.POINTER(ctypes.c_uint32),
+            ctypes.POINTER(ctypes.c_void_p),
+        ]
+        enumerate_devices.restype = ctypes.c_int32
+        destroy = loader.vkDestroyInstance
+        destroy.argtypes = [ctypes.c_void_p, ctypes.c_void_p]
+        destroy.restype = None
+    except (OSError, AttributeError) as error:
+        return False, f"Vulkan loader unavailable: {error}"
+
+    instance = ctypes.c_void_p()
+    result = create(
+        ctypes.byref(_InstanceCreateInfo(sType=1)), None, ctypes.byref(instance)
+    )
+    if result != 0:
+        return False, f"vkCreateInstance failed: VkResult {result}"
+    try:
+        # The device set may change between the count and list calls.
+        for _attempt in range(3):
+            count = ctypes.c_uint32()
+            result = enumerate_devices(instance, ctypes.byref(count), None)
+            if result != 0:
+                return False, f"vkEnumeratePhysicalDevices failed: VkResult {result}"
+            if count.value == 0:
+                return False, "Vulkan loader found no physical devices"
+            devices = (ctypes.c_void_p * count.value)()
+            result = enumerate_devices(instance, ctypes.byref(count), devices)
+            if result == 5:  # VK_INCOMPLETE: retry with the new count.
+                continue
+            if result != 0:
+                return False, f"vkEnumeratePhysicalDevices failed: VkResult {result}"
+            return (
+                bool(count.value),
+                f"Vulkan physical devices: {count.value} (process ABI: {ctypes.sizeof(ctypes.c_void_p) * 8}-bit)",
+            )
+        return False, "Vulkan device enumeration remained incomplete"
+    finally:
+        destroy(instance, None)
 
 
 class VulkanUtils:
@@ -80,40 +153,10 @@ class VulkanUtils:
         return icd
 
     @staticmethod
-    @lru_cache(maxsize=1)
     def check_support() -> bool:
-        """
-        Return True if Vulkan is actually functional on this system.
-        Uses `vulkaninfo --summary` for a lightweight probe that works both
-        on the host and inside the Flatpak sandbox.  Checking only for ICD
-        loader files is not reliable inside Flatpak because the runtime may
-        ship generic loaders even when the GPU does not support Vulkan.
-        """
-        if shutil.which("vulkaninfo") is None:
-            return False
-        try:
-            result = subprocess.run(
-                ["vulkaninfo", "--summary"],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                timeout=10,
-            )
-            # vulkaninfo exits 0 only when at least one GPU is usable.
-            return result.returncode == 0
-        except (subprocess.TimeoutExpired, OSError):
-            return False
+        """Return whether the system loader can enumerate Vulkan devices."""
+        return _probe_vulkan()[0]
 
     @staticmethod
     def test_vulkan():
-        if shutil.which("vulkaninfo") is None:
-            return "vulkaninfo tool not found"
-
-        res = (
-            subprocess.Popen(
-                "vulkaninfo", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
-            )
-            .communicate()[0]
-            .decode("utf-8")
-        )
-
-        return res
+        return _probe_vulkan()[1]
