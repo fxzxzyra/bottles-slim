@@ -932,9 +932,18 @@ class WineCommand:
 
                 # Create the sh script where Gamescope will execute it
                 file = ["#!/usr/bin/env sh\n"]
-                file.append(f"{command} $@")
                 if mangohud_available and params.mangohud:
-                    file.append(" &\nmangoapp")
+                    file.append(
+                        "mangoapp &\n"
+                        "mangoapp_pid=$!\n"
+                        f'{command} "$@"\n'
+                        "status=$?\n"
+                        'kill "$mangoapp_pid" 2>/dev/null || true\n'
+                        'wait "$mangoapp_pid" 2>/dev/null || true\n'
+                        'exit "$status"'
+                    )
+                else:
+                    file.append(f'{command} "$@"')
                 with open(gamescope_run, "w") as f:
                     f.write("".join(file))
 
