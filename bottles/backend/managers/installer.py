@@ -488,8 +488,6 @@ class InstallerManager:
                 _config, dependencies, step_fn, is_final
             )
             if not result.ok:
-                if log_fn:
-                    log_fn(result.message)
                 return Result(
                     False, data={"message": result.message}, message=result.message
                 )

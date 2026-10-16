@@ -26,6 +26,7 @@ from bottles.backend.models.result import Result
 from bottles.backend.utils.threading import RunAsync
 from bottles.backend.wine.executor import WineExecutor
 from bottles.backend.wine.wineboot import WineBoot
+from bottles.backend.wine.winedbg import WineDbg
 from bottles.frontend.utils.gtk import GtkUtils
 from bottles.frontend.utils.sandbox_guard import guard_sandbox_launch
 

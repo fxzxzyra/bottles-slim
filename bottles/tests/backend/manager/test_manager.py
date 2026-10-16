@@ -67,6 +67,9 @@ def test_delete_sandboxed_bottle_does_not_restart_wine(
     wineboot = mocker.patch.object(manager_module, "WineBoot")
     wineserver = mocker.patch.object(manager_module, "WineServer").return_value
     library = mocker.patch.object(manager_module, "LibraryManager").return_value
+    library.get_library.return_value = {
+        "game": {"bottle": {"name": "Sandboxed"}},
+    }
     signal_send = mocker.patch.object(manager_module.SignalManager, "send")
     manager = object.__new__(Manager)
     manager.check_bottles = mocker.Mock()
@@ -76,7 +79,7 @@ def test_delete_sandboxed_bottle_does_not_restart_wine(
     wineboot.assert_not_called()
     wineserver.force_kill.assert_called_once_with()
     wineserver.wait.assert_not_called()
-    library.remove_bottle_entries.assert_called_once_with("Sandboxed")
+    library.remove_from_library.assert_called_once_with("game")
     manager.check_bottles.assert_called_once_with(silent=True)
     signal_send.assert_not_called()
 

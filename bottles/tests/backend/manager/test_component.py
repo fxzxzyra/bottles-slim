@@ -60,6 +60,7 @@ def test_external_runner_cannot_be_uninstalled(tmp_path):
         local_bottles={},
     )
     component_manager = object.__new__(ComponentManager)
+    component_manager._ComponentManager__manifests = {}
     component_manager._ComponentManager__manager = manager
 
     result = component_manager.uninstall("runner:proton", runner.name)

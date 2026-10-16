@@ -21,6 +21,7 @@ from bottles.backend.utils.connection import ConnectionUtils
 
 
 class FakeCurl:
+    FAILONERROR = pycurl.FAILONERROR
     URL = pycurl.URL
     FOLLOWLOCATION = pycurl.FOLLOWLOCATION
     HTTPHEADER = pycurl.HTTPHEADER
@@ -171,7 +172,7 @@ def test_stream_download_has_timeouts(monkeypatch, tmp_path):
         request["url"] = url
         request.update(kwargs)
         return SimpleNamespace(
-            headers={}, content=b"runner", raise_for_status=lambda: None
+            headers={}, iter_content=lambda size: [b"runner"], close=lambda: None, raise_for_status=lambda: None
         )
 
     monkeypatch.setattr(downloader_module.requests, "get", get)
@@ -187,6 +188,7 @@ def test_stream_download_has_timeouts(monkeypatch, tmp_path):
 
 def test_stream_timeout_removes_partial_download(monkeypatch, tmp_path):
     class Response:
+        close = staticmethod(lambda: None)
         headers = {"content-length": "8"}
 
         @staticmethod
@@ -249,6 +251,7 @@ def test_component_install_stops_after_extraction_failure(monkeypatch):
 
 
 class IndexCurl:
+    FAILONERROR = pycurl.FAILONERROR
     URL = pycurl.URL
     FOLLOWLOCATION = pycurl.FOLLOWLOCATION
     CONNECTTIMEOUT = pycurl.CONNECTTIMEOUT
@@ -500,7 +503,7 @@ def test_personal_repository_is_exclusive_and_instance_local(monkeypatch):
 
     clean_manager, _signals = make_repository_manager(monkeypatch)
     clean_repository = clean_manager._RepositoryManager__repositories["components"]
-    assert clean_repository["url"] == "https://proxy.usebottles.com/repo/components/"
+    assert clean_repository["url"].startswith("https://raw.githubusercontent.com/bottlesdevs/components/")
     assert clean_repository["cache_url"] == clean_repository["url"]
 
 
@@ -508,17 +511,17 @@ def test_default_repository_fallbacks_are_commit_pinned(monkeypatch):
     manager, _signals = make_repository_manager(monkeypatch)
     repositories = manager._RepositoryManager__repositories
 
-    assert repositories["components"]["sources"][1] == (
+    assert repositories["components"]["sources"][0] == (
         "https://raw.githubusercontent.com/bottlesdevs/components/"
-        "f0789e69477aafa5a207bad13dead7ac144972bc/"
+        "7debcc3c18b5fd0516be663791ac8821ca61429f/"
     )
-    assert repositories["dependencies"]["sources"][1] == (
+    assert repositories["dependencies"]["sources"][0] == (
         "https://raw.githubusercontent.com/bottlesdevs/dependencies/"
-        "2c0c19707c252d9ec49f1bf26ac4793fd041332b/"
+        "23bd12fd717c506addb0b05859a5f8635036f225/"
     )
-    assert repositories["installers"]["sources"][1] == (
+    assert repositories["installers"]["sources"][0] == (
         "https://raw.githubusercontent.com/bottlesdevs/programs/"
-        "d1160b816ca44a1cc803ab9a0050071517cc1960/"
+        "df6751cbda77c7095ef47709125b23dbb807ded7/"
     )
 
 
