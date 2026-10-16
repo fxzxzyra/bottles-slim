@@ -25,7 +25,7 @@ from bottles.backend.managers.thumbnail import ThumbnailManager
 from bottles.backend.models.result import Result
 from bottles.backend.utils.threading import RunAsync
 from bottles.backend.wine.executor import WineExecutor
-from bottles.backend.wine.winedbg import WineDbg
+from bottles.backend.wine.wineboot import WineBoot
 from bottles.frontend.utils.gtk import GtkUtils
 from bottles.frontend.utils.sandbox_guard import guard_sandbox_launch
 
@@ -281,9 +281,18 @@ class LibraryEntry(Gtk.Box):
 
     def stop_process(self, widget):
         self.window.show_toast(_('Stopping "{0}"…').format(self.program["name"]))
-        winedbg = WineDbg(self.config)
-        winedbg.kill_process(name=self.program["executable"])
-        self.__reset_buttons(True)
+        self.btn_stop.set_sensitive(False)
+
+        def complete(_result=None, error=False):
+            self.__reset_buttons(True)
+            if error:
+                self.window.show_toast(_("The game could not be stopped."))
+
+        RunAsync(
+            WineBoot(self.config).kill,
+            callback=complete,
+            force_if_stalled=True,
+        )
 
     def __on_motion_enter(self, *args):
         self.revealer_run.set_reveal_child(True)
