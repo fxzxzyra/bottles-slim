@@ -42,7 +42,6 @@ gi.require_version("XdpGtk4", "1.0")
 from gi.repository import Adw, Gio, GLib, GObject, Gtk  # type: ignore
 
 from bottles.frontend.utils.gtk import FontScaleManager
-from bottles.frontend.views.preferences import PreferencesWindow
 from bottles.frontend.windows.window import BottlesWindow
 
 logging = Logger()
@@ -350,8 +349,7 @@ class Bottles(Adw.Application):
         self.win.manager.update_bottles()
 
     def __show_preferences(self, *args):
-        preferences_window = PreferencesWindow(self.win)
-        preferences_window.present()
+        self.win.show_prefs_view()
 
     def __new_bottle(self, *args):
         self.win.show_add_view()

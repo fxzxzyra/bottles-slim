@@ -501,7 +501,9 @@ class BottlesWindow(Adw.ApplicationWindow):
         self.main_leaf.set_visible_child(self.page_importer)
 
     def show_prefs_view(self, widget=False, view=0):
-        preferences_window = PreferencesWindow(self)
+        if getattr(self, "_preferences_window", None) is None:
+            self._preferences_window = PreferencesWindow(self)
+        preferences_window = self._preferences_window
         preferences_window.present()
 
     def show_download_preferences_view(self, widget=False):
