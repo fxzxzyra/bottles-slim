@@ -1,3 +1,4 @@
+import pytest
 import tarfile
 from types import SimpleNamespace
 
@@ -68,3 +69,49 @@ def test_external_runner_cannot_be_uninstalled(tmp_path):
         "message": "External runners cannot be removed from Bottles."
     }
     assert runner.is_dir()
+
+
+@pytest.mark.parametrize("plain", [False, True])
+def test_component_manifest_retries_failed_fetch(plain):
+    manifest = "File: []\n" if plain else {"File": []}
+    responses = iter([False, manifest])
+    calls = []
+
+    def fetch(name, requested_plain=False):
+        calls.append((name, requested_plain))
+        return next(responses)
+
+    repo = SimpleNamespace(get=fetch)
+    manager = SimpleNamespace(
+        is_cli=True,
+        repository_manager=SimpleNamespace(get_repo=lambda *a, **kw: repo),
+    )
+    components = ComponentManager(manager)
+
+    assert components.get_component("runner", plain) is False
+    assert components.get_component("runner", plain=plain) == manifest
+    assert components.get_component("runner", plain) == manifest
+    assert calls == [("runner", plain), ("runner", plain)]
+
+
+def test_component_manifest_cache_keeps_parsed_and_plain_separate():
+    calls = []
+    manifest = {"File": []}
+
+    def fetch(name, plain=False):
+        calls.append((name, plain))
+        return "File: []\n" if plain else manifest
+
+    manager = SimpleNamespace(
+        is_cli=True,
+        repository_manager=SimpleNamespace(
+            get_repo=lambda *a, **kw: SimpleNamespace(get=fetch)
+        ),
+    )
+    components = ComponentManager(manager)
+
+    assert components.get_component("runner") == manifest
+    assert components.get_component("runner", False) == manifest
+    assert components.get_component("runner", plain=True) == "File: []\n"
+    assert components.get_component("runner", True) == "File: []\n"
+    assert calls == [("runner", False), ("runner", True)]
