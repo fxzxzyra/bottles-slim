@@ -402,7 +402,6 @@ class Bottles(Adw.Application):
         about_dialog.set_translator_credits(_("translator_credits"))
         about_dialog.set_artists(artists)
         about_dialog.set_debug_info(HealthChecker().get_results(plain=True))
-        about_dialog.add_link(_("Donate"), "https://usebottles.com/funding")
         about_dialog.add_legal_section(
             _("Eagle Intelligence Data"),
             _("Data derived from ProtonDB and winetricks"),
@@ -451,16 +450,6 @@ class Bottles(Adw.Application):
                 "pathvalidate https://github.com/thombashi/pathvalidate",
                 "protondb-data https://github.com/bdefore/protondb-data",
                 "winetricks https://github.com/Winetricks/winetricks",
-            ],
-        )
-        about_dialog.add_acknowledgement_section(
-            _("Sponsored and Funded by"),
-            [
-                "JetBrains https://www.jetbrains.com/?from=bottles",
-                "GitBook https://www.gitbook.com/?ref=bottles",
-                "Linode https://www.linode.com/?from=bottles",
-                "Appwrite https://appwrite.io/?from=bottles",
-                "Community ❤️ https://usebottles.com/funding",
             ],
         )
         about_dialog.present(self.win)

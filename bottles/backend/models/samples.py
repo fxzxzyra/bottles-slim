@@ -1,6 +1,5 @@
 class Samples:
     data = {
-        "funding_dialog_dismissed": False,
         "personal_repositories": {},
     }
     default_inherited_environment = [

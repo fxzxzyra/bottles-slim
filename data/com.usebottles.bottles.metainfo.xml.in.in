@@ -72,7 +72,6 @@
   <url type="homepage">https://usebottles.com</url>
   <url type="bugtracker">https://github.com/bottlesdevs/Bottles/issues</url>
   <url type="help">https://docs.usebottles.com</url>
-  <url type="donation">https://usebottles.com/funding</url>
   <url type="translate">https://hosted.weblate.org/engage/bottles</url>
   <url type="vcs-browser">https://github.com/bottlesdevs/Bottles</url>
   <url type="contribute">https://github.com/bottlesdevs/Bottles/blob/main/CONTRIBUTING.md</url>
@@ -160,7 +159,7 @@
           <li>Fixed nothing launching in a dedicated sandbox when the program is stored outside the bottle, Bottles now warns and lets you run it without the sandbox or copy it into the bottle and keep the sandbox on</li>
           <li>Eagle now scans executables for known malware and stealer patterns and warns you before running a flagged program</li>
           <li>Eagle automatically offers to analyze a program when it crashes or closes immediately</li>
-          <li>Eagle results now include a security section and a way to support Bottles</li>
+          <li>Eagle results now include a security section</li>
           <li>Added settings to control Eagle threat scanning and crash detection</li>
           <li>Added ntsync support</li>
           <li>Added a home card and dialog to update components across all bottles at once</li>
@@ -205,7 +204,7 @@
         <ul>
           <li>Eagle now scans executables for known malware and stealer patterns and warns you before running a flagged program</li>
           <li>Eagle automatically offers to analyze a program when it crashes or closes immediately</li>
-          <li>Eagle results now include a security section and a way to support Bottles</li>
+          <li>Eagle results now include a security section</li>
           <li>Added settings to control Eagle threat scanning and crash detection</li>
           <li>Added ntsync support</li>
           <li>Added a home card and dialog to update components across all bottles at once</li>
@@ -292,7 +291,6 @@
           <li>Fix: Detect GPUs categorized as Display controller</li>
           <li>Allow adding valid system environment variable names</li>
           <li>Fix: Flatpak devel build bottles-cli functionality</li>
-          <li>Fix: Daily donation nag screen</li>
           <li>Add support for the Dynamic Launcher portal</li>
           <li>Provide progress information on backup and restore</li>
           <li>FSR: Only set in Gamescope (remove Wine FSR)</li>
@@ -381,7 +379,6 @@
           <li>Fixed an issue where orphaned entries were not removed from the library after uninstalling a program</li>
           <li>Fixed a bug that prevented the configuration from loading in certain cases</li>
           <li>Font smoothing is now enabled by default</li>
-          <li>Made the donation button more prominent</li>
           <li>Resolved a long-standing issue with Weblate — translations are now updating again</li>
         </ul>
       </description>
@@ -400,7 +397,6 @@
     <release version="51.24" date="2025-07-15">
       <description translate="no">
         <ul>
-          <li>Add donation dialog</li>
           <li>Re-add the NVIDIA Flatpak Workaround</li>
         </ul>
       </description>
@@ -415,7 +411,6 @@
     <release version="51.22" date="2025-07-15">
       <description translate="no">
         <ul>
-          <li>Added donation dialog</li>
           <li>Re-added the NVIDIA Flatpak Workaround</li>
         </ul>
       </description>

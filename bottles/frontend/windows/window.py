@@ -18,7 +18,6 @@
 import contextlib
 import os
 import webbrowser
-from datetime import datetime, timedelta
 from gettext import gettext as _
 from typing import Optional
 
@@ -48,7 +47,6 @@ from bottles.frontend.views.preferences import PreferencesWindow
 from bottles.frontend.windows.crash import CrashReportDialog
 from bottles.frontend.windows.depscheck import DependenciesCheckDialog
 from bottles.frontend.windows.eagleintel import EagleIntelDialog
-from bottles.frontend.windows.funding import FundingDialog
 from bottles.frontend.windows.onboard import OnboardDialog
 from bottles.frontend.windows.winebridgeupdate import WineBridgeUpdateDialog
 
@@ -63,7 +61,6 @@ class BottlesWindow(Adw.ApplicationWindow):
     stack_main = Gtk.Template.Child()
     btn_add = Gtk.Template.Child()
     btn_search = Gtk.Template.Child()
-    btn_donate = Gtk.Template.Child()
     btn_noconnection = Gtk.Template.Child()
     banner_offline = Gtk.Template.Child()
     box_actions = Gtk.Template.Child()
@@ -90,24 +87,6 @@ class BottlesWindow(Adw.ApplicationWindow):
         self._show_eagle_intel_announcement = not self.data_mgr.get(
             UserDataKeys.EagleIntelAnnouncementSeen, False
         )
-        self._show_funding = False
-        
-        show_funding_setting = self.settings.get_boolean("show-funding")
-        dismissed = self.data_mgr.get(UserDataKeys.FundingDismissed, False)
-        
-        if show_funding_setting and not dismissed:
-            last_prompt = self.data_mgr.get(UserDataKeys.LastFundingPrompt, "")
-            
-            if not last_prompt:
-                self._show_funding = True
-            else:
-                try:
-                    last_date = datetime.strptime(last_prompt, "%Y-%m-%d")
-                    if datetime.now() - last_date >= timedelta(days=7):
-                        self._show_funding = True
-                except ValueError:
-                    self._show_funding = True
-
         self.utils_conn = ConnectionUtils(
             force_offline=self.settings.get_boolean("force-offline")
         )
@@ -122,9 +101,6 @@ class BottlesWindow(Adw.ApplicationWindow):
 
         if PROFILE == "development":
             self.add_css_class("devel")
-
-        self.btn_donate.add_css_class("donate")
-        self.__schedule_donate_icon_swap()
 
         # Set night theme according to user settings
         if self.settings.get_boolean("dark-theme"):
@@ -170,11 +146,6 @@ class BottlesWindow(Adw.ApplicationWindow):
         self.headerbar.add_css_class("flat")
 
         # Signal connections
-        self.btn_donate.connect(
-            "clicked",
-            self.open_url,
-            "https://usebottles.com/funding/",
-        )
         self.btn_add.connect("clicked", self.show_add_view)
         self.btn_noconnection.connect("clicked", self.check_for_connection)
         self.banner_offline.connect("button-clicked", self.check_for_connection)
@@ -205,40 +176,6 @@ class BottlesWindow(Adw.ApplicationWindow):
         logging.info(
             "Bottles Started!",
         )
-
-    def __schedule_donate_icon_swap(self):
-        GLib.timeout_add_seconds(5, self.__on_donate_icon_timeout)
-
-    def __on_donate_icon_timeout(self):
-        icon_name = self.__resolve_donate_icon_name()
-        if icon_name:
-            self.btn_donate.set_label("")
-            self.btn_donate.set_icon_name(icon_name)
-        return GLib.SOURCE_REMOVE
-
-    def __resolve_donate_icon_name(self) -> Optional[str]:
-        display = self.get_display()
-        icon_theme = None
-        if display is not None:
-            icon_theme = Gtk.IconTheme.get_for_display(display)
-        if icon_theme is None:
-            icon_theme = Gtk.IconTheme.get_default()
-        if icon_theme is None:
-            return None
-
-        try:
-            icon_theme.add_resource_path("/com/usebottles/bottles/icons")
-        except AttributeError:
-            pass
-
-        for icon_name in (
-            "heart-symbolic",
-            "love-symbolic",
-            "emblem-favorite-symbolic",
-        ):
-            if icon_theme.has_icon(icon_name):
-                return icon_name
-        return None
 
     @Gtk.Template.Callback()
     def on_close_request(self, *args):
@@ -549,25 +486,9 @@ class BottlesWindow(Adw.ApplicationWindow):
     def __custom_path_response(self, _dialog, _response):
         GLib.idle_add(self.__maybe_show_eagle_intel_dialog)
 
-    def __maybe_show_funding_dialog(self):
-        if not self._show_funding:
-            GLib.idle_add(self.__maybe_prompt_winebridge_update)
-            return
-
-        self._show_funding = False
-        count = self.data_mgr.get(UserDataKeys.FundingPromptCount) or 0
-        self.data_mgr.set(UserDataKeys.FundingPromptCount, count + 1)
-        
-        today = datetime.now().strftime("%Y-%m-%d")
-        self.data_mgr.set(UserDataKeys.LastFundingPrompt, today)
-
-        dialog = FundingDialog(self, show_dont_show=count >= 7)
-        dialog.connect("response", self.__funding_response)
-        dialog.present()
-
     def __maybe_show_eagle_intel_dialog(self):
         if not self._show_eagle_intel_announcement:
-            self.__maybe_show_funding_dialog()
+            self.__maybe_prompt_winebridge_update()
             return
 
         self._show_eagle_intel_announcement = False
@@ -577,14 +498,6 @@ class BottlesWindow(Adw.ApplicationWindow):
 
     def __eagle_intel_response(self, dialog, _response):
         self.data_mgr.set(UserDataKeys.EagleIntelAnnouncementSeen, True)
-        dialog.destroy()
-        GLib.idle_add(self.__maybe_show_funding_dialog)
-
-    def __funding_response(self, dialog, response):
-        if response == "dismiss":
-            self.data_mgr.set(UserDataKeys.FundingDismissed, True)
-            self.settings.set_boolean("show-funding", False)
-
         dialog.destroy()
         GLib.idle_add(self.__maybe_prompt_winebridge_update)
 

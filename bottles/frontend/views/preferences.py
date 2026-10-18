@@ -52,7 +52,6 @@ class PreferencesWindow(Adw.PreferencesWindow):
     switch_theme = Gtk.Template.Child()
     switch_notifications = Gtk.Template.Child()
     switch_component_updates = Gtk.Template.Child()
-    switch_show_funding = Gtk.Template.Child()
     switch_force_offline = Gtk.Template.Child()
     switch_home_drive = Gtk.Template.Child()
     switch_temp = Gtk.Template.Child()
@@ -158,12 +157,6 @@ class PreferencesWindow(Adw.PreferencesWindow):
         self.settings.bind(
             "show-component-updates",
             self.switch_component_updates,
-            "active",
-            Gio.SettingsBindFlags.DEFAULT,
-        )
-        self.settings.bind(
-            "show-funding",
-            self.switch_show_funding,
             "active",
             Gio.SettingsBindFlags.DEFAULT,
         )

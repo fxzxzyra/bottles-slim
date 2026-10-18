@@ -19,6 +19,3 @@ If you want to inquire to understand the code base, you can contact us via [Disc
 
 ## Want to Translate Bottles?
 You can help Bottles speak your language by translating on [Weblate](https://hosted.weblate.org/projects/bottles).
-
-## Want to Donate or Sponsor Bottles?
-You can financially support Bottles through [donations and sponsorships](https://usebottles.com/funding).

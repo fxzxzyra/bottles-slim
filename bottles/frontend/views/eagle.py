@@ -50,8 +50,6 @@ class EagleView(Gtk.Box):
     list_warnings = Gtk.Template.Child()
     btn_launch = Gtk.Template.Child()
     btn_report = Gtk.Template.Child()
-    group_donate = Gtk.Template.Child()
-    btn_eagle_donate = Gtk.Template.Child()
 
     def __init__(self, details, config: BottleConfig, **kwargs):
         super().__init__(**kwargs)
@@ -66,7 +64,6 @@ class EagleView(Gtk.Box):
 
         self.btn_launch.connect("clicked", self.__on_launch_clicked)
         self.btn_report.connect("clicked", self.__on_report_clicked)
-        self.btn_eagle_donate.connect("clicked", self.__on_donate_clicked)
         
         SignalManager.connect(Signals.EagleStep, self.__on_eagle_step)
         SignalManager.connect(Signals.EagleFinished, self.__on_eagle_finished)
@@ -89,7 +86,6 @@ class EagleView(Gtk.Box):
         self.btn_report.set_visible(False)
         self.btn_launch.set_visible(False)
         self.group_results.set_visible(False)
-        self.group_donate.set_visible(False)
 
         if self._analysis_steps:
              self._analysis_steps.clear()
@@ -217,7 +213,6 @@ class EagleView(Gtk.Box):
         details = data.get("details", {})
         
         self.group_results.set_visible(True)
-        self.group_donate.set_visible(res.status)
 
         # Clear existing rows
         if self._results_rows:
@@ -783,9 +778,6 @@ class EagleView(Gtk.Box):
         RunAsync(_run, callback=_callback)
         
         self.details.go_back_sidebar()
-
-    def __on_donate_clicked(self, _widget) -> None:
-        webbrowser.open_new_tab("https://usebottles.com/funding/")
 
     def __intel_link_button(self, url: str, tooltip: str) -> Gtk.Button:
         button = Gtk.Button(
