@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+import pytest
+
 from bottles.frontend.utils.localization import (
     UI_LANGUAGES,
     apply_ui_language,
@@ -21,12 +23,13 @@ def test_ui_languages_match_shipped_catalogs():
     assert len(codes) == len(set(codes))
 
 
-def test_ui_language_overrides_messages(monkeypatch):
+@pytest.mark.parametrize("language", ["en", "lv"])
+def test_ui_language_overrides_messages(monkeypatch, language):
     monkeypatch.setenv("LANGUAGE", "ja")
 
-    apply_ui_language("en")
+    apply_ui_language(language)
 
-    assert os.environ["LANGUAGE"] == "en"
+    assert os.environ["LANGUAGE"] == language
 
 
 def test_system_ui_language_keeps_environment(monkeypatch):

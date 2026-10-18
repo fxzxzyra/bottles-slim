@@ -20,7 +20,7 @@ import os
 import re
 from gettext import gettext as _
 
-from gi.repository import Adw, Gdk, Gtk, Xdp
+from gi.repository import Adw, Gdk, Gtk
 
 from bottles.backend.globals import (
     gamemode_available,
@@ -191,9 +191,6 @@ class PreferencesView(Adw.PreferencesPage):
                     "access to Steam files, then restart Bottles."
                 )
             )
-
-        if not Xdp.Portal.running_under_sandbox():
-            return
 
         _not_available = _("This feature is unavailable on your system.")
         _flatpak_not_available = _("{} To add this feature, please run").format(

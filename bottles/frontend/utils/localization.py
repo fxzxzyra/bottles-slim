@@ -45,6 +45,7 @@ UI_LANGUAGES = (
     ("sl", "Slovenščina"),
     ("ca", "Català"),
     ("lt", "Lietuvių"),
+    ("lv", "Latviešu"),
     ("sr", "Српски"),
     ("et", "Eesti"),
     ("ta", "தமிழ்"),

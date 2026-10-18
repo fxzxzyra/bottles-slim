@@ -1,8 +1,12 @@
 # ruff: noqa: E402
 
+from dataclasses import replace
 from types import SimpleNamespace
 
 import pytest
+from gi.repository import Gtk
+
+from bottles.backend.utils.runners import RunnerRegistry
 
 
 from bottles.backend.models.config import BottleConfig
@@ -24,18 +28,27 @@ class WidgetStub:
         pass
 
 
-def test_flatpak_system_runner_uses_builtin_label(monkeypatch):
-    runner_label = WidgetStub()
+@pytest.mark.parametrize("flatpak", [False, True])
+@pytest.mark.parametrize("source, expected", [
+    ("system", "System · wine-11.0 (wine-11.1)"),
+    ("user", "User · wine-11.0 (wine-11.1)"),
+])
+def test_runner_label_uses_registered_source_and_version(
+    monkeypatch, runner_factory, flatpak, source, expected,
+):
+    info = runner_factory("wine-11.0", source)
+    RunnerRegistry.entries[info.identifier] = replace(info, version="wine-11.1")
+    runner_label = Gtk.Label()
     widget = WidgetStub()
     config = BottleConfig(
         Name="Test",
-        Runner="sys-wine-11.0",
+        Runner=info.identifier,
         Environment="Gaming",
         Update_Date="2026-01-01 00:00:00.000000",
     )
     view = SimpleNamespace(
         manager=SimpleNamespace(
-            runners_available=["sys-wine-11.0"],
+            runners_available=[info.identifier],
             versioning_manager=SimpleNamespace(needs_migration=lambda _config: False),
         ),
         label_name=widget,
@@ -50,7 +63,10 @@ def test_flatpak_system_runner_uses_builtin_label(monkeypatch):
         update_programs=lambda: None,
         populate_updates=lambda: None,
     )
-    monkeypatch.setenv("FLATPAK_ID", "com.usebottles.bottles")
+    if flatpak:
+        monkeypatch.setenv("FLATPAK_ID", "com.usebottles.bottles")
+    else:
+        monkeypatch.delenv("FLATPAK_ID", raising=False)
     monkeypatch.setattr(
         bottle_details.ManagerUtils,
         "get_bottle_path",
@@ -60,7 +76,8 @@ def test_flatpak_system_runner_uses_builtin_label(monkeypatch):
 
     BottleView.set_config(view, config)
 
-    assert runner_label.text == "Built-in Wine 11.0"
+    assert runner_label.get_text() == expected
+    assert config.Runner == info.identifier
 
 
 def test_missing_runner_dialog_waits_for_versioning_upgrade(monkeypatch):

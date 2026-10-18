@@ -28,7 +28,15 @@ from bottles.frontend.views.bottle_preferences import PreferencesView
         ({"scout": {}}, True),
     ],
 )
-def test_steam_runtime_row_explains_availability(monkeypatch, runtimes, sensitive):
+@pytest.mark.parametrize("flatpak", [False, True])
+def test_steam_runtime_row_explains_availability(monkeypatch, runtimes, sensitive, flatpak):
+    if flatpak:
+        monkeypatch.setenv("FLATPAK_ID", "com.usebottles.bottles")
+    else:
+        monkeypatch.delenv("FLATPAK_ID", raising=False)
+    monkeypatch.setattr(bottle_preferences.GPUUtils, "is_gpu", lambda _vendor: False)
+    monkeypatch.setattr(bottle_preferences.VulkanUtils, "check_support", lambda: False)
+    monkeypatch.setattr(bottle_preferences.DisplayUtils, "display_server_type", lambda: "x11")
     monkeypatch.setattr(bottle_preferences, "gamemode_available", False)
     monkeypatch.setattr(
         bottle_preferences.RuntimeManager,
@@ -68,3 +76,13 @@ def test_steam_runtime_row_explains_availability(monkeypatch, runtimes, sensitiv
         )
     else:
         manager.update_config.assert_not_called()
+
+    # An ordinary application preference must also be wired outside a sandbox.
+    # Checking only the Steam row would miss the constructor's early return.
+    manager.update_config.reset_mock()
+    view.switch_winebridge.emit("state-set", False)
+    manager.update_config.assert_called_once_with(
+        config=config, key="winebridge", value=False, scope="Parameters",
+    )
+    assert view.switch_gamemode.get_sensitive() is False
+    assert view.combo_dxvk.get_sensitive() is False
