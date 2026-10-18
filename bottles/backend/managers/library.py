@@ -19,6 +19,7 @@ import filecmp
 import os
 import shutil
 import uuid
+from pathlib import Path
 
 import gi
 
@@ -34,6 +35,8 @@ gi.require_version("GdkPixbuf", "2.0")
 from gi.repository import GdkPixbuf
 
 logging = Logger()
+
+LOCAL_COVER_EXTENSIONS = (".png", ".jpg", ".jpeg", ".webp")
 
 
 class LibraryManager:
@@ -105,8 +108,18 @@ class LibraryManager:
 
         if program_path:
             executable = program_path.replace("\\", "/").rsplit("/", 1)[-1]
-            folder = ManagerUtils.get_exe_parent_dir(config, program_path)
-            yield os.path.join(folder, f"{executable}.png")
+            folder = Path(ManagerUtils.get_exe_parent_dir(config, program_path))
+            try:
+                candidates = sorted(folder.iterdir(), key=lambda path: path.name)
+            except OSError:
+                candidates = []
+            for extension in LOCAL_COVER_EXTENSIONS:
+                for candidate in candidates:
+                    if candidate.suffix.casefold() != extension:
+                        continue
+                    if candidate.name[: -len(candidate.suffix)] != executable:
+                        continue
+                    yield candidate
 
         yield os.path.join(ManagerUtils.get_bottle_path(config), "library.png")
 
