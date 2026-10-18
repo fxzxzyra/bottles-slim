@@ -35,7 +35,7 @@ APP_VERSION = "@APP_VERSION@"
 pkgdatadir = "@pkgdatadir@"
 # noinspection DuplicatedCode
 gresource_path = f"{pkgdatadir}/bottles.gresource"
-sys.path.insert(1, pkgdatadir)
+sys.path.insert(1, "@pythondir@")
 
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 
@@ -211,7 +211,7 @@ class CLI:
             "--win", help="Change Windows version (e.g. '--win win7')"
         )
         edit_parser.add_argument(
-            "--runner", help="Change Runner (e.g. '--runner caffe-7.2')"
+            "--runner", help="Change local runner (see list components)"
         )
         edit_parser.add_argument(
             "--d7vk", help="Change D7VK or disable it (e.g. '--d7vk d7vk-v2.0')"
@@ -407,7 +407,7 @@ class CLI:
     def list_components(self, c_filter=None):
         mng = Manager(g_settings=self.settings, is_cli=True)
         mng.check_app_dirs()
-        mng.check_runners(False)
+        mng.check_runners()
         mng.check_d7vk(False)
         mng.check_dxvk(False)
         mng.check_vkd3d(False)
@@ -719,7 +719,10 @@ class CLI:
             RegKeys(bottle).lg_set_windows(_win)
 
         if _runner is not None:
-            Runner.runner_update(bottle, mng, _runner)
+            result = Runner.runner_update(bottle, mng, _runner)
+            if not result.ok:
+                sys.stderr.write(f"{result.message or 'Could not change runner'}\n")
+                sys.exit(1)
 
         if _d7vk is not None:
             if _d7vk.lower() == "disabled":

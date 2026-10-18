@@ -24,12 +24,13 @@ from pathlib import Path
 from typing import ClassVar
 
 from bottles.backend.globals import Paths
+from bottles.backend.params import PKGDATADIR
 from bottles.backend.logger import Logger
 
 logging = Logger()
 
 SCHEMA_VERSION = "1"
-PACKAGED_DB_PATH = str(Path(__file__).resolve().parents[3] / "eagle-intel.sqlite")
+PACKAGED_DB_PATH = os.path.join(PKGDATADIR, "eagle-intel.sqlite")
 REQUIRED_TABLES = {"artifact", "meta", "report_agg", "software", "trick", "tweak"}
 
 ENV_ALLOWED_PREFIXES = ("DXVK_", "VKD3D_", "WINE_")

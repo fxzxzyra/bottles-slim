@@ -21,6 +21,7 @@ from gi.repository import Adw, Gtk
 
 from bottles.backend.models.result import Result
 from bottles.backend.utils.threading import RunAsync
+from bottles.backend.utils.runners import system_runner_guidance
 from bottles.frontend.utils.gtk import GtkUtils
 
 
@@ -43,13 +44,13 @@ class OnboardDialog(Adw.Dialog):
     label_status = Gtk.Template.Child()
     page_welcome = Gtk.Template.Child()
     page_bottles = Gtk.Template.Child()
-    page_download = Gtk.Template.Child()
+    page_setup = Gtk.Template.Child()
     page_finish = Gtk.Template.Child()
     img_welcome = Gtk.Template.Child()
     label_skip = Gtk.Template.Child()
     # endregion
 
-    carousel_pages = ["welcome", "bottles", "download", "finish"]
+    carousel_pages = ["welcome", "bottles", "setup", "finish"]
     images = [
         "/com/usebottles/bottles/images/images/bottles-welcome.svg",
         "/com/usebottles/bottles/images/images/bottles-welcome-night.svg",
@@ -72,7 +73,7 @@ class OnboardDialog(Adw.Dialog):
         self.btn_close.connect("clicked", self.__close_dialog)
         self.btn_back.connect("clicked", self.__previous_page)
         self.btn_next.connect("clicked", self.__next_page)
-        self.btn_install.connect("clicked", self.__install_runner)
+        self.btn_install.connect("clicked", self.__prepare_components)
         self.btn_cancel.connect("clicked", self.__close_dialog)
         self.__settings.connect(
             "notify::gtk-application-prefer-dark-theme", self.__theme_changed
@@ -104,10 +105,11 @@ class OnboardDialog(Adw.Dialog):
         if page == "finish":
             self.btn_back.set_visible(False)
             self.btn_next.set_visible(False)
-        elif page == "download":
+        elif page == "setup":
             self.btn_back.set_visible(True)
             self.btn_next.set_visible(False)
             self.btn_install.set_visible(True)
+            self.btn_cancel.set_visible(True)
         elif page == "welcome":
             self.btn_back.set_visible(False)
             self.btn_next.set_visible(True)
@@ -119,7 +121,14 @@ class OnboardDialog(Adw.Dialog):
     def __quit(widget=False):
         quit()
 
-    def __install_runner(self, widget):
+    def __prepare_components(self, widget):
+        if not self.manager.check_runners():
+            self.label_status.set_label(system_runner_guidance())
+            self.label_status.set_visible(True)
+            self.btn_cancel.set_visible(True)
+            self.set_can_close(True)
+            return
+
         @GtkUtils.run_in_main_loop
         def set_completed(result: Result | None, error: Exception | None = None):
             if error is None and result is not None and result.ok:
@@ -138,7 +147,7 @@ class OnboardDialog(Adw.Dialog):
                 self.label_status.set_visible(True)
                 self.label_status.set_label(
                     _(
-                        "Setup could not be completed. Check your connection and "
+                        "Component setup could not be completed. Check your connection and "
                         "try again, or skip setup for now."
                     )
                 )
@@ -178,34 +187,6 @@ class OnboardDialog(Adw.Dialog):
 
     def __handle_progress(self, **kwargs):
         self.__update_progress(**kwargs)
-
-    @GtkUtils.run_in_main_loop
-    def __update_progress(
-        self,
-        description: str,
-        current_step: int,
-        total_steps: int,
-        completed: bool,
-    ):
-        if total_steps:
-            self.__progress_total = total_steps
-
-        displayed_step = current_step
-        completed_steps = current_step if completed else max(0, current_step - 1)
-
-        if self.__progress_total:
-            self.progressbar.set_fraction(completed_steps / self.__progress_total)
-            self.progressbar.set_visible(True)
-            self.label_progress.set_visible(True)
-            self.label_progress.set_label(
-                _("Step {current} of {total}").format(
-                    current=displayed_step, total=self.__progress_total
-                )
-            )
-
-        if not completed:
-            self.label_status.set_visible(True)
-            self.label_status.set_label(description)
 
     @GtkUtils.run_in_main_loop
     def __update_progress(

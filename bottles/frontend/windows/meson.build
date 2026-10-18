@@ -1,6 +1,3 @@
-pkgdatadir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name())
-dialogsdir = join_paths(pkgdatadir, 'bottles/frontend/windows')
-
 bottles_sources = [
   '__init__.py',
   'crash.py',
@@ -43,4 +40,4 @@ bottles_sources = [
   'versioning_manage_branches.py',
 ]
 
-install_data(bottles_sources, install_dir: dialogsdir)
+python.install_sources(bottles_sources, subdir: 'bottles/frontend/windows')

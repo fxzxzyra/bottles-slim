@@ -421,9 +421,8 @@ def test_component_catalog_is_available_without_connection():
     component_manager._ComponentManager__manager = manager
     component_manager._ComponentManager__repo = SimpleNamespace(catalog=catalog)
 
-    assert component_manager.fetch_catalog()["wine"] == {
-        "test-runner": catalog["test-runner"]
-    }
+    assert "wine" not in component_manager.fetch_catalog()
+    assert "proton" not in component_manager.fetch_catalog()
     assert component_manager.fetch_catalog()["d7vk"] == {
         "d7vk-v2.0": catalog["d7vk-v2.0"]
     }
@@ -435,13 +434,11 @@ def test_component_catalog_marks_checksum_valid_cache(tmp_path, monkeypatch):
     payload.write_bytes(b"runner")
     catalog = {
         "cached": {
-            "Category": "runners",
-            "Sub-category": "wine",
+            "Category": "dxvk",
             "Channel": "stable",
         },
         "missing": {
-            "Category": "runners",
-            "Sub-category": "wine",
+            "Category": "dxvk",
             "Channel": "stable",
         },
     }
@@ -477,30 +474,30 @@ def test_component_catalog_marks_checksum_valid_cache(tmp_path, monkeypatch):
     component_manager._ComponentManager__offline = True
     component_manager._ComponentManager__checksum_cache = {}
 
-    wine = component_manager.fetch_catalog()["wine"]
+    dlls = component_manager.fetch_catalog()["dxvk"]
 
-    assert wine["cached"]["Cached"] is True
-    assert wine["missing"]["Cached"] is False
+    assert dlls["cached"]["Cached"] is True
+    assert dlls["missing"]["Cached"] is False
 
 
 def test_cached_component_installs_without_network(tmp_path, monkeypatch):
     temp = tmp_path / "temp"
-    runners = tmp_path / "runners"
-    payload = tmp_path / "payload" / "test-runner" / "bin"
+    components = tmp_path / "dxvk"
+    payload = tmp_path / "payload" / "test-dxvk" / "bin"
     temp.mkdir()
-    runners.mkdir()
+    components.mkdir()
     payload.mkdir(parents=True)
     (payload / "wine").write_text("runner")
-    archive = temp / "test-runner.tar.gz"
+    archive = temp / "test-dxvk.tar.gz"
     with tarfile.open(archive, "w:gz") as tar:
-        tar.add(payload.parent, arcname="test-runner")
+        tar.add(payload.parent, arcname="test-dxvk")
 
     monkeypatch.setattr(Paths, "temp", str(temp))
-    monkeypatch.setattr(Paths, "runners", str(runners))
+    monkeypatch.setattr(Paths, "dxvk", str(components))
     manifest = {
         "File": [
             {
-                "url": "https://example.invalid/test-runner.tar.gz",
+                "url": "https://example.invalid/test-dxvk.tar.gz",
                 "file_name": archive.name,
                 "rename": "",
                 "file_checksum": "",
@@ -509,7 +506,7 @@ def test_cached_component_installs_without_network(tmp_path, monkeypatch):
     }
     manager = SimpleNamespace(
         check_app_dirs=lambda: None,
-        check_runners=lambda: None,
+        check_dxvk=lambda: None,
         organize_components=lambda: None,
     )
     component_manager = object.__new__(ComponentManager)
@@ -520,10 +517,10 @@ def test_cached_component_installs_without_network(tmp_path, monkeypatch):
     )
     tasks_before = set(TaskManager._TASKS)
 
-    result = component_manager.install("runner", "test-runner")
+    result = component_manager.install("dxvk", "test-dxvk")
 
     assert result.ok
-    assert (runners / "test-runner" / "bin" / "wine").read_text() == "runner"
+    assert (components / "test-dxvk" / "bin" / "wine").read_text() == "runner"
     assert set(TaskManager._TASKS) == tasks_before
 
 

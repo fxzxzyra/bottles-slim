@@ -4,7 +4,8 @@ from bottles.backend.models.result import Result
 from bottles.backend.runner import Runner
 
 
-def test_runner_update_unlinks_only_new_user_profile(monkeypatch, tmp_path):
+def test_runner_update_unlinks_only_new_user_profile(monkeypatch, tmp_path, runner_factory):
+    runner_factory("system-wine", "system")
     prefix = tmp_path / "prefix"
     users = prefix / "drive_c" / "users"
     existing = users / "mirko"
@@ -59,7 +60,7 @@ def test_runner_update_unlinks_only_new_user_profile(monkeypatch, tmp_path):
         runner_module.SteamUtils, "is_proton", lambda _runner_path: False
     )
 
-    result = Runner.runner_update(config, Manager(), "sys-wine")
+    result = Runner.runner_update(config, Manager(), "system-wine")
 
     created = users / "steamuser"
     assert result.ok is True

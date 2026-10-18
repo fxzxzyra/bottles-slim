@@ -1,12 +1,10 @@
-pkgdatadir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name())
-utilsdir = join_paths(pkgdatadir, 'bottles/backend/utils')
-
 bottles_sources = [
   '__init__.py',
   'display.py',
   'gpu.py',
   'hidraw.py',
   'manager.py',
+  'runners.py',
   'vulkan.py',
   'terminal.py',
   'file.py',
@@ -29,4 +27,4 @@ bottles_sources = [
   'singleton.py',
 ]
 
-install_data(bottles_sources, install_dir: utilsdir)
+python.install_sources(bottles_sources, subdir: 'bottles/backend/utils')

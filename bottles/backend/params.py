@@ -1,3 +1,5 @@
 APP_VERSION = "@APP_VERSION@"
 BASE_ID = "@BASE_ID@"
 APP_ID = "@APP_ID@"
+PKGDATADIR = "@pkgdatadir@"
+SYSTEM_RUNNERS_DIR = "@system_runners_dir@"

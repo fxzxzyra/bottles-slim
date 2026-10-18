@@ -1,6 +1,3 @@
-pkgdatadir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name())
-utilsdir = join_paths(pkgdatadir, 'bottles/frontend/utils')
-
 bottles_sources = [
   '__init__.py',
   'autostart.py',
@@ -14,4 +11,4 @@ bottles_sources = [
   'sandbox_guard.py',
 ]
 
-install_data(bottles_sources, install_dir: utilsdir)
+python.install_sources(bottles_sources, subdir: 'bottles/frontend/utils')

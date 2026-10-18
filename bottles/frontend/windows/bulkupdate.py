@@ -42,7 +42,6 @@ class BottlesBulkUpdateDialog(Adw.Dialog):
 
     # Preferred display order for the component checklist.
     __component_order: ClassVar[list[str]] = [
-        "runner",
         "d7vk",
         "dxvk",
         "vkd3d",
@@ -151,9 +150,7 @@ class BottlesBulkUpdateDialog(Adw.Dialog):
     @staticmethod
     def __cleanup_target(update: dict):
         component = update["id"]
-        if component == "runner":
-            component_type = update["component_type"]
-        elif component in {"d7vk", "dxvk", "vkd3d", "nvapi", "latencyflex"}:
+        if component in {"d7vk", "dxvk", "vkd3d", "nvapi", "latencyflex"}:
             component_type = component
         else:
             return None
@@ -171,10 +168,7 @@ class BottlesBulkUpdateDialog(Adw.Dialog):
         cleanup_targets = set()
 
         for _path, config, updates in jobs:
-            # apply the runner first, so the DLL overrides get re-initialized
-            # on top of the new runner prefix
-            ordered = sorted(updates, key=lambda u: 0 if u["id"] == "runner" else 1)
-            for update in ordered:
+            for update in updates:
                 step += 1
                 GLib.idle_add(
                     self.__set_progress, step, config.Name, update["title"]

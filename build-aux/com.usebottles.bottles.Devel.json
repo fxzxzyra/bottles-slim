@@ -107,6 +107,13 @@
       "merge-dirs": "bin",
       "no-autodownload": true,
       "autodelete": false
+    },
+    "com.usebottles.bottles.runners": {
+      "directory": "share/bottles/runners",
+      "version": "1",
+      "subdirectories": true,
+      "no-autodownload": true,
+      "autodelete": true
     }
   },
   "sdk-extensions": [
@@ -129,7 +136,8 @@
   "cleanup-commands": [
     "mkdir -p /app/utils",
     "mkdir -p /app/share/steam/compatibilitytools.d",
-    "mkdir -p /app/share/vulkan/implicit_layer.d/"
+    "mkdir -p /app/share/vulkan/implicit_layer.d/",
+    "mkdir -p /app/share/bottles/runners"
   ],
   "modules": [
     {

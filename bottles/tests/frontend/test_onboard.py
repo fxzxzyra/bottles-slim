@@ -83,7 +83,7 @@ def probe_failed_setup(queue, raises_error):
     onboard_module.GtkUtils.run_in_main_loop = staticmethod(lambda func: func)
 
     dialog = SimpleNamespace(
-        manager=SimpleNamespace(checks=lambda: None),
+        manager=SimpleNamespace(checks=lambda: None, check_runners=lambda: True),
         btn_back=FakeWidget(),
         btn_next=FakeWidget(),
         btn_install=FakeWidget(),
@@ -98,7 +98,7 @@ def probe_failed_setup(queue, raises_error):
         _OnboardDialog__handle_progress=lambda **_kwargs: None,
     )
 
-    onboard_module.OnboardDialog._OnboardDialog__install_runner(dialog, None)
+    onboard_module.OnboardDialog._OnboardDialog__prepare_components(dialog, None)
     result = None if raises_error else Result(False)
     error = RuntimeError("network failure") if raises_error else None
     callback["finished"](result, error)
@@ -114,7 +114,7 @@ def probe_failed_setup(queue, raises_error):
         "status": dialog.label_status.label,
     }
 
-    onboard_module.OnboardDialog._OnboardDialog__install_runner(dialog, None)
+    onboard_module.OnboardDialog._OnboardDialog__prepare_components(dialog, None)
     retrying = {
         "can_close": dialog.can_close,
         "skip_visible": dialog.btn_cancel.visible,
@@ -149,7 +149,7 @@ def test_failed_setup_can_retry_or_skip_setup(raises_error):
         "progress_visible": False,
         "progress_label_visible": False,
         "status": (
-            "Setup could not be completed. Check your connection and try again, "
+            "Component setup could not be completed. Check your connection and try again, "
             "or skip setup for now."
         ),
     }

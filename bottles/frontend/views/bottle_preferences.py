@@ -42,6 +42,7 @@ from bottles.backend.runner import Runner
 from bottles.backend.utils.display import DisplayUtils
 from bottles.backend.utils.gpu import GPUUtils, GPUVendors
 from bottles.backend.utils.manager import ManagerUtils
+from bottles.backend.utils.runners import RunnerRegistry
 from bottles.backend.utils.threading import RunAsync
 from bottles.backend.utils.vulkan import VulkanUtils
 from bottles.backend.wine.regkeys import RegKeys
@@ -578,7 +579,8 @@ class PreferencesView(Adw.PreferencesPage):
         for index, vkd3d in enumerate(self.manager.vkd3d_available):
             self.str_list_vkd3d.append(vkd3d)
 
-        for index, runner in enumerate(self.manager.runners_available):
+        self._runner_ids = list(self.manager.runners_available)
+        for index, runner in enumerate(self._runner_ids):
             self.str_list_runner.append(format_runner_name(runner))
 
         for index, nvapi in enumerate(self.manager.nvapi_available):
@@ -739,16 +741,7 @@ class PreferencesView(Adw.PreferencesPage):
         else:
             self.combo_latencyflex.set_selected(0)
 
-        _runner = self.config.Runner
-        if _runner in self.manager.runners_available:
-            _i_runner = self.manager.runners_available.index(_runner)
-            self.combo_runner.set_selected(_i_runner)
-        elif self.manager.runners_available:
-            _fallback_runner = self.manager.runners_available[0]
-            self.combo_runner.set_selected(0)
-            self.config = self.manager.update_config(
-                config=self.config, key="Runner", value=_fallback_runner
-            ).data["config"]
+        self.__select_configured_runner()
 
         sync_types = [
             "wine",
@@ -896,6 +889,16 @@ class PreferencesView(Adw.PreferencesPage):
 
         self.__toggle_feature(state=state, key="dxvk_nvapi")
 
+    def __select_configured_runner(self):
+        # Call with the selection handler blocked. Missing means unselected;
+        # displaying preferences must never rewrite the bottle's runner.
+        selected = (
+            self._runner_ids.index(self.config.Runner)
+            if self.config.Runner in self._runner_ids
+            else Gtk.INVALID_LIST_POSITION
+        )
+        self.combo_runner.set_selected(selected)
+
     def __set_runner(self, *_args):
         """Set the runner to use for the bottle"""
 
@@ -918,7 +921,7 @@ class PreferencesView(Adw.PreferencesPage):
 
         @GtkUtils.run_in_main_loop
         def update(result: Result[dict], error=False):
-            if isinstance(result, Result) and isinstance(
+            if isinstance(result, Result) and result.ok and isinstance(
                 result.data, dict
             ):  # expecting Result[dict].data["config"]
                 self.details.update_runner_label(runner)
@@ -934,10 +937,19 @@ class PreferencesView(Adw.PreferencesPage):
                         self.__toggle_feature_cb
                     )
 
+            if error or not isinstance(result, Result) or not result.ok:
+                self.combo_runner.handler_block_by_func(self.__set_runner)
+                self.__select_configured_runner()
+                self.combo_runner.handler_unblock_by_func(self.__set_runner)
+                self.window.show_toast(_("Could not switch to the selected runner."))
+
             set_widgets_status(True)
             self.queue.end_task()
 
-        runner = self.manager.runners_available[self.combo_runner.get_selected()]
+        index = self.combo_runner.get_selected()
+        if index >= len(self._runner_ids):
+            return
+        runner = self._runner_ids[index]
 
         def run_task(status=True):
             if not status:
@@ -957,13 +969,13 @@ class PreferencesView(Adw.PreferencesPage):
 
         def apply_runner():
             set_widgets_status(False)
-            if re.search("^(GE-)?Proton", runner):
+            if re.search("^(GE-)?Proton", RunnerRegistry.name(runner)):
                 dialog = ProtonAlertDialog(self.window, run_task)
                 dialog.show()
             else:
                 run_task()
 
-        if self.config.Parameters.hidraw_devices and "soda" not in runner.lower():
+        if self.config.Parameters.hidraw_devices and "soda" not in RunnerRegistry.name(runner).lower():
             dialog = Adw.MessageDialog.new(
                 self.window,
                 _("HIDRAW support is not guaranteed"),
@@ -986,9 +998,9 @@ class PreferencesView(Adw.PreferencesPage):
                     return
 
                 self.combo_runner.handler_block_by_func(self.__set_runner)
-                if self.config.Runner in self.manager.runners_available:
+                if self.config.Runner in self._runner_ids:
                     self.combo_runner.set_selected(
-                        self.manager.runners_available.index(self.config.Runner)
+                        self._runner_ids.index(self.config.Runner)
                     )
                 self.combo_runner.handler_unblock_by_func(self.__set_runner)
 

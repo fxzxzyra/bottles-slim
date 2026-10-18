@@ -17,7 +17,6 @@
 
 import contextlib
 import os
-import sys
 import shutil
 import stat
 import tarfile
@@ -39,7 +38,6 @@ from bottles.backend.state import (
     TaskStreamUpdateHandler,
 )
 from bottles.backend.utils.file import FileUtils
-from bottles.backend.utils.generic import is_glibc_min_available
 from bottles.backend.utils.manager import ManagerUtils
 
 logging = Logger()
@@ -124,8 +122,6 @@ class ComponentManager:
         """
         catalog = {
             "runtimes": {},
-            "wine": {},
-            "proton": {},
             "d7vk": {},
             "dxvk": {},
             "vkd3d": {},
@@ -135,8 +131,6 @@ class ComponentManager:
         }
         components_available = {
             "runtimes": self.__manager.runtimes_available,
-            "wine": self.__manager.runners_available,
-            "proton": self.__manager.runners_available,
             "d7vk": self.__manager.d7vk_available,
             "dxvk": self.__manager.dxvk_available,
             "vkd3d": self.__manager.vkd3d_available,
@@ -162,37 +156,6 @@ class ComponentManager:
                 or not isinstance(component[1].get("Category"), str)
                 or not isinstance(component[1].get("Channel"), str)
             ):
-                continue
-
-            if component[1].get("Category") == "runners":
-                if "soda" in component[0].lower() or "caffe" in component[0].lower():
-                    # Mitigation to avoid mcsoda from appearing on non MacOS systems
-                    if "mcsoda" in component[0].lower() and sys.platform != "darwin":
-                        continue
-                    if not is_glibc_min_available():
-                        logging.warning(
-                            f"{component[0]} was found but it requires "
-                            "glibc >= 2.32 and your system is running an older "
-                            "version. Use the Flatpak instead if you can't "
-                            "upgrade your system. This runner will be ignored, "
-                            "please keep in mind that Bottles and all our "
-                            "installers are only tested with Soda and Caffe runners."
-                        )
-                        continue
-
-                sub_category = component[1].get("Sub-category")
-                if sub_category not in ("wine", "proton"):
-                    continue
-                catalog[sub_category][component[0]] = component[1]
-                if component[0] in components_available[sub_category]:
-                    catalog[sub_category][component[0]]["Installed"] = True
-                else:
-                    catalog[sub_category][component[0]].pop("Installed", None)
-                    if getattr(self, "_ComponentManager__offline", False):
-                        catalog[sub_category][component[0]]["Cached"] = (
-                            self.is_component_cached(component[0])
-                        )
-
                 continue
 
             category = component[1].get("Category")
@@ -382,9 +345,7 @@ class ComponentManager:
     def extract(name: str, component: str, archive: str) -> bool:
         """Extract a component from an archive."""
 
-        if component in ["runner", "runner:proton"]:
-            path = Paths.runners
-        elif component == "d7vk":
+        if component == "d7vk":
             path = Paths.d7vk
         elif component == "dxvk":
             path = Paths.dxvk
@@ -518,6 +479,8 @@ class ComponentManager:
         gets the manifest from the given component and then calls the
         download and extract functions.
         """
+        if component_type not in {"d7vk", "dxvk", "vkd3d", "nvapi", "latencyflex", "runtime", "winebridge"}:
+            return Result(False, message="Unknown component type.")
         manifest = self.get_component(component_name)
 
         if not isinstance(manifest, dict):
@@ -592,10 +555,7 @@ class ComponentManager:
             with contextlib.suppress(FileNotFoundError):
                 os.remove(os.path.join(Paths.temp, archive))
 
-        if component_type in ["runner", "runner:proton"]:
-            self.__manager.check_runners()
-
-        elif component_type == "d7vk":
+        if component_type == "d7vk":
             self.__manager.check_d7vk()
 
         elif component_type == "dxvk":
@@ -623,9 +583,7 @@ class ComponentManager:
         source = post.get("source")
         dest = post.get("dest")
 
-        if component_type in ["runner", "runner:proton"]:
-            path = Paths.runners
-        elif component_type == "d7vk":
+        if component_type == "d7vk":
             path = Paths.d7vk
         elif component_type == "dxvk":
             path = Paths.dxvk
@@ -647,8 +605,6 @@ class ComponentManager:
     def is_in_use(self, component_type: str, component_name: str):
         bottles = self.__manager.local_bottles
 
-        if component_type in ["runner", "runner:proton"]:
-            return component_name in [b["Runner"] for _, b in bottles.items()]
         if component_type == "d7vk":
             return component_name in [
                 b.D7VK for b in bottles.values() if b.Parameters.d7vk
@@ -674,19 +630,7 @@ class ComponentManager:
                 },
             )
 
-        if (
-            component_type in ["runner", "runner:proton"]
-            and component_name in self.__manager.external_runners
-        ):
-            return Result(
-                False,
-                data={"message": "External runners cannot be removed from Bottles."},
-            )
-
-        if component_type in ["runner", "runner:proton"]:
-            path = ManagerUtils.get_runner_path(component_name)
-
-        elif component_type == "d7vk":
+        if component_type == "d7vk":
             path = ManagerUtils.get_d7vk_path(component_name)
 
         elif component_type == "dxvk":
@@ -719,10 +663,7 @@ class ComponentManager:
         Note: I know that this is not the most efficient way to do this,
         please give feedback if you know a better way to avoid this.
         """
-        if component_type in ["runner", "runner:proton"]:
-            self.__manager.check_runners()
-
-        elif component_type == "d7vk":
+        if component_type == "d7vk":
             self.__manager.check_d7vk(False)
 
         elif component_type == "dxvk":

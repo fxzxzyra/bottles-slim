@@ -188,7 +188,7 @@ class SteamUtils:
 
         try:
             runner_path = os.path.realpath(path)
-            runners_path = os.path.realpath(Paths.runners)
+            runners_path = os.path.realpath(Paths.user_runners)
             managed_runner = (
                 runner_path != runners_path
                 and os.path.commonpath((runner_path, runners_path)) == runners_path

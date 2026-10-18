@@ -23,6 +23,7 @@ import shutil
 import subprocess
 import time
 import uuid
+import uuid
 from copy import deepcopy
 from datetime import datetime
 from gettext import gettext as _
@@ -75,6 +76,12 @@ from bottles.backend.utils.gpu import GPUUtils, GPUVendors
 from bottles.backend.utils.gsettings_stub import GSettingsStub
 from bottles.backend.utils.lnk import LnkUtils
 from bottles.backend.utils.manager import ManagerUtils
+from bottles.backend.utils.runners import (
+    RunnerRegistry,
+    SYSTEM_WINE,
+    SYSTEM_RUNNER_PREFIX,
+    system_runner_guidance,
+)
 from bottles.backend.utils.singleton import Singleton
 from bottles.backend.utils.steam import SteamUtils
 from bottles.backend.utils.threading import RunAsync
@@ -103,7 +110,6 @@ class Manager(metaclass=Singleton):
     runtimes_available = []
     winebridge_available = []
     runners_available = []
-    external_runners: set[str] = set()
     d7vk_available: ClassVar[list] = []
     dxvk_available = []
     vkd3d_available = []
@@ -113,8 +119,6 @@ class Manager(metaclass=Singleton):
     _programs_cache: Dict[str, List[dict]] = {}
     supported_runtimes = {}
     supported_winebridge = {}
-    supported_wine_runners = {}
-    supported_proton_runners = {}
     supported_d7vk: ClassVar[dict] = {}
     supported_dxvk = {}
     supported_vkd3d = {}
@@ -212,6 +216,8 @@ class Manager(metaclass=Singleton):
             times.update(self.checks(install_latest=False, first_run=True).data)
         else:
             logging.set_silent()
+            self.check_app_dirs()
+            self.check_runners()
 
         if "BOOT_TIME" in os.environ:
             _temp_times = times.copy()
@@ -276,7 +282,7 @@ class Manager(metaclass=Singleton):
             (
                 "check_runners",
                 _("Preparing runners…"),
-                lambda: self.check_runners(install_latest),
+                self.check_runners,
             ),
         ]
 
@@ -591,9 +597,9 @@ class Manager(metaclass=Singleton):
         Checks for the existence of the bottles' directories, and creates them
         if they don't exist.
         """
-        if not os.path.isdir(Paths.runners):
+        if not os.path.isdir(Paths.user_runners):
             logging.info("Runners path doesn't exist, creating now.")
-            os.makedirs(Paths.runners, exist_ok=True)
+            os.makedirs(Paths.user_runners, exist_ok=True)
 
         if not os.path.isdir(Paths.runtimes):
             logging.info("Runtimes path doesn't exist, creating now.")
@@ -653,8 +659,6 @@ class Manager(metaclass=Singleton):
             logging.info("No components found.")
             return
 
-        self.supported_wine_runners = catalog["wine"]
-        self.supported_proton_runners = catalog["proton"]
         self.supported_runtimes = catalog["runtimes"]
         self.supported_winebridge = catalog["winebridge"]
         self.supported_d7vk = catalog["d7vk"]
@@ -721,123 +725,70 @@ class Manager(metaclass=Singleton):
         )
         return Result(status=True, data={"removed": True})
 
-    def check_runners(self, install_latest: bool = True) -> bool:
-        """
-        Check for available runners (both system and Bottles) and install
-        the latest version if install_latest is True. It also masks the
-        winemenubuilder tool.
-        """
-        runners = glob(f"{Paths.runners}/*/")
-        managed_runners = {
-            os.path.basename(os.path.normpath(runner)) for runner in runners
-        }
-        external_runner_paths = {
-            name: path
-            for name, path in self.steam_manager.list_compatibility_tools().items()
-            if name not in managed_runners
-        }
-        ManagerUtils.set_external_runner_paths(external_runner_paths)
-        self.external_runners = set(external_runner_paths)
-        runners.extend(external_runner_paths.values())
-        self.runners_available, runners_available = [], []
+    def check_runners(self) -> bool:
+        """Discover usable local runners, with package-supplied Wine first."""
+        entries = RunnerRegistry.packaged(Paths.system_runners)
+        # PATH is relative to the current execution environment, including
+        # the sandbox when packaged. It does not access the host's Wine.
+        system = RunnerRegistry.system()
+        if system:
+            entries[system.identifier] = system
 
-        # lock winemenubuilder.exe
-        for runner in runners:
-            if not SteamUtils.is_proton(runner):
-                winemenubuilder_paths = [
-                    f"{runner}lib64/wine/x86_64-windows/winemenubuilder.exe",
-                    f"{runner}lib/wine/x86_64-windows/winemenubuilder.exe",
-                    f"{runner}lib32/wine/i386-windows/winemenubuilder.exe",
-                    f"{runner}lib/wine/i386-windows/winemenubuilder.exe",
-                ]
-                for winemenubuilder in winemenubuilder_paths:
-                    if os.path.isfile(winemenubuilder):
-                        os.rename(winemenubuilder, f"{winemenubuilder}.lock")
-
-        # check system wine
-        if system_wine := shutil.which("wine"):
-            """
-            If the Wine command is available, get the runner version
-            and add it to the runners_available list.
-            """
+        candidates = {
+            os.path.basename(os.path.normpath(path)): path
+            for path in sorted(glob(f"{Paths.user_runners}/*/"))
+        }
+        # Previously downloaded runners remain usable local user runners.
+        for name, path in self.steam_manager.list_compatibility_tools().items():
+            candidates.setdefault(name, path)
+        candidates.update(self.data_mgr.get(UserDataKeys.UserRunners) or {})
+        for identifier, path in candidates.items():
+            if (
+                identifier == SYSTEM_WINE
+                or identifier.startswith("sys-")
+                or identifier.startswith(SYSTEM_RUNNER_PREFIX)
+            ):
+                logging.warning(f"Reserved runner identifier: {identifier}")
+                continue
             try:
-                result = subprocess.run(
-                    [system_wine, "--version"],
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
-                )
-                version = result.stdout.decode("utf-8").split()
-                if result.returncode == 0 and version:
-                    runners_available.append(f"sys-{version[0]}")
-                else:
-                    logging.warning("System Wine version check failed.")
-            except OSError as error:
-                logging.warning(f"System Wine is not executable: {error}")
+                entries[identifier] = RunnerRegistry.inspect(identifier, path)
+            except (OSError, ValueError) as error:
+                logging.warning(f"Ignoring unavailable user runner {identifier}: {error}")
 
-        # check bottles runners
-        for runner in runners:
-            _runner = os.path.basename(os.path.normpath(runner))
-            runners_available.append(_runner)
+        RunnerRegistry.entries = entries
+        self.runners_available = list(entries)
+        return bool(entries)
 
-        runners_available = self.__sort_runners(runners_available, "")
+    def add_user_runner(self, path: str) -> Result:
+        """Register a local directory without copying or modifying its files."""
+        path = os.path.realpath(path)
+        if any(
+            os.path.realpath(info.root) == path
+            for info in RunnerRegistry.entries.values()
+        ):
+            return Result(False, message=_("This runner is already available."))
+        identifier = f"user-{uuid.uuid4().hex}"
+        try:
+            RunnerRegistry.inspect(identifier, path)
+        except (OSError, ValueError) as error:
+            return Result(False, message=str(error))
+        registrations = dict(self.data_mgr.get(UserDataKeys.UserRunners) or {})
+        registrations[identifier] = path
+        self.data_mgr.set(UserDataKeys.UserRunners, registrations)
+        self.check_runners()
+        return Result(True, data={"runner": identifier})
 
-        runners_order = {
-            "soda": [],
-            "caffe": [],
-            "vaniglia": [],
-            "lutris": [],
-            "others": [],
-            "sys-": [],
-        }
-
-        for i in runners_available:
-            for r in runners_order:
-                if i.startswith(r):
-                    runners_order[r].append(i)
-                    break
-            else:
-                runners_order["others"].append(i)
-
-        self.runners_available = [x for l in list(runners_order.values()) for x in l]
-
-        if len(self.runners_available) > 0:
-            logging.info(
-                "Runners found:\n - {0}".format("\n - ".join(self.runners_available))
-            )
-
-        tmp_runners = self.get_managed_wine_runners()
-
-        if len(tmp_runners) == 0 and install_latest:
-            logging.warning("No managed runners found.")
-
-            if self.utils_conn.check_connection():
-                # if connected, install the latest runner from repository
-                try:
-                    if not self.settings.get_boolean("release-candidate"):
-                        tmp_runners = []
-                        for runner in self.supported_wine_runners.items():
-                            if runner[1]["Channel"] not in ["rc", "unstable"]:
-                                tmp_runners.append(runner)
-                                break
-                        runner_name = next(iter(tmp_runners))[0]
-                    else:
-                        tmp_runners = self.supported_wine_runners
-                        runner_name = next(iter(tmp_runners))
-                    self.component_manager.install("runner", runner_name)
-                except StopIteration:
-                    return False
-            else:
-                return False
-
-        return True
-
-    def get_managed_wine_runners(self) -> list[str]:
-        """Return managed runners that can create regular Wine bottles."""
-        return [
-            runner
-            for runner in self.runners_available
-            if not runner.startswith("sys-")
-        ]
+    def remove_user_runner(self, identifier: str) -> Result:
+        """Forget an explicit import; never delete the user's runner directory."""
+        if any(config.Runner == identifier for config in self.local_bottles.values()):
+            return Result(False, message=_("This runner is used by a bottle."))
+        registrations = dict(self.data_mgr.get(UserDataKeys.UserRunners) or {})
+        if identifier not in registrations:
+            return Result(False, message=_("This runner is managed outside Bottles."))
+        del registrations[identifier]
+        self.data_mgr.set(UserDataKeys.UserRunners, registrations)
+        self.check_runners()
+        return Result(True)
 
     def check_runtimes(self, install_latest: bool = True) -> bool:
         self.runtimes_available = []
@@ -998,14 +949,6 @@ class Manager(metaclass=Singleton):
                 "available": self.latencyflex_available,
                 "supported": self.supported_latencyflex,
             },
-            "runner": {
-                "available": self.runners_available,
-                "supported": self.supported_wine_runners,
-            },
-            "runner:proton": {
-                "available": self.runners_available,
-                "supported": self.supported_proton_runners,
-            },
         }
         if component_type not in components:
             logging.warning(f"Unknown component type found: {component_type}")
@@ -1017,20 +960,6 @@ class Manager(metaclass=Singleton):
                 component_list["supported"].keys()
             )
         )
-
-        if component_type == "runner":
-            offline_components = [
-                runner
-                for runner in offline_components
-                if not runner.startswith("sys-")
-                and not SteamUtils.is_proton(ManagerUtils.get_runner_path(runner))
-            ]
-        elif component_type == "runner:proton":
-            offline_components = [
-                runner
-                for runner in offline_components
-                if SteamUtils.is_proton(ManagerUtils.get_runner_path(runner))
-            ]
 
         if (
             extra_name_check
@@ -1410,19 +1339,8 @@ class Manager(metaclass=Singleton):
                     scope="Parameters",
                 )
 
-            system_runners = [
-                runner for runner in self.runners_available if runner.startswith("sys-")
-            ]
-            if (
-                config.Environment != "Steam"
-                and config.Runner.startswith("sys-")
-                and len(system_runners) == 1
-                and config.Runner != system_runners[0]
-            ):
-                logging.info(
-                    f"System Wine changed from {config.Runner} to {system_runners[0]}."
-                )
-                config.Runner = system_runners[0]
+            if config.Environment != "Steam" and config.Runner.startswith("sys-"):
+                config.Runner = SYSTEM_WINE
                 persisted_config = config.copy()
                 persisted_config.session_arguments = session_arguments
                 persisted_config.run_in_terminal = run_in_terminal
@@ -1622,8 +1540,10 @@ class Manager(metaclass=Singleton):
             if key not in config.keys():
                 config[key] = sample[key]
 
-        if config.Runner not in self.runners_available:
-            config.Runner = self.get_latest_runner()
+        if config.Runner.startswith("sys-"):
+            config.Runner = SYSTEM_WINE
+        elif not config.Runner:
+            config.Runner = self.get_default_runner()
 
         if config.DXVK not in self.dxvk_available:
             config.DXVK = self.dxvk_available[0] if self.dxvk_available else ""
@@ -1716,6 +1636,14 @@ class Manager(metaclass=Singleton):
                 return None
             return abort_build(message)
 
+        runner = runner or self.get_default_runner()
+        try:
+            RunnerRegistry.require(runner)
+        except FileNotFoundError as error:
+            message = f"{error}. {system_runner_guidance()}"
+            log_update(message)
+            return Result(False, message=message)
+
         # check for essential components
         check_attempts = 0
 
@@ -1727,19 +1655,16 @@ class Manager(metaclass=Singleton):
                 log_update(_("Fail to install components, tried 3 times."))
                 return False
 
-            # Only runner, DXVK and VKD3D are truly essential. NVAPI and
+            # DXVK and VKD3D are required by the existing creation flow. NVAPI and
             # LatencyFleX are optional (useless without an NVIDIA GPU / not
             # always wanted) so a missing or 404 optional component must not
             # abort bottle creation; they are still attempted below.
             if 0 in [
-                len(self.runners_available),
                 len(self.dxvk_available),
                 len(self.vkd3d_available),
             ]:
                 logging.error("Missing essential components. Installing…")
                 log_update(_("Missing essential components. Installing…"))
-                if len(self.runners_available) == 0:
-                    self.check_runners()
                 if len(self.dxvk_available) == 0:
                     self.check_dxvk()
                 if len(self.vkd3d_available) == 0:
@@ -1774,9 +1699,6 @@ class Manager(metaclass=Singleton):
             return cancel_result
 
         # default components versions if not specified
-        if not runner:
-            # if no runner is specified, use the first one from available
-            runner = self.get_latest_runner()
         runner_name = runner
 
         if not dxvk:
@@ -2030,7 +1952,8 @@ class Manager(metaclass=Singleton):
             logging.info("Setting Windows version…")
             log_update(_("Setting Windows version…"))
             if config.Windows != "win10" or (
-                "soda" not in runner_name.lower() and "caffe" not in runner_name.lower()
+                "soda" not in RunnerRegistry.name(runner_name).lower()
+                and "caffe" not in RunnerRegistry.name(runner_name).lower()
             ):
                 try:
                     rk.lg_set_windows(config.Windows)
@@ -2277,27 +2200,9 @@ class Manager(metaclass=Singleton):
 
         return Result(status=True, data={"config": config})
 
-    @staticmethod
-    def __sort_runners(runner_list: list, prefix: str) -> sorted:
-        """
-        Return a sorted list of runners for a given prefix. Fallback to the
-        first available if fallback argument is True.
-        """
-        runners = [runner for runner in runner_list if runner.startswith(prefix)]
-
-        try:
-            runners = sort_by_version(runners, "")
-        except ValueError:
-            runners = sorted(runners, key=lambda x: x.split("-")[1], reverse=True)
-
-        return runners
-
-    def get_latest_runner(self, runner_prefix: str = "soda") -> list:
-        """Return the latest available runner for a given prefix."""
-        runners = self.__sort_runners(self.runners_available, runner_prefix)
-        if not runners:
-            runners = self.__sort_runners(self.runners_available, "")
-        return runners[0] if runners else []
+    def get_default_runner(self) -> str:
+        """The discovered system runner is first; local imports are the fallback."""
+        return self.runners_available[0] if self.runners_available else ""
 
     # Config version key for each DLL component that supports upgrades.
     __dll_component_keys = {
@@ -2322,10 +2227,6 @@ class Manager(metaclass=Singleton):
 
         if config.Environment == "Steam":
             return updates
-
-        runner_update = self.__collect_runner_update(config)
-        if runner_update:
-            updates.append(runner_update)
 
         component_meta = {
             "d7vk": {
@@ -2386,30 +2287,11 @@ class Manager(metaclass=Singleton):
         downloading the target version first if it is not installed yet."""
         component = update["id"]
 
-        if component == "runner":
-            return self.__update_runner_component(
-                config, update["latest"], update["component_type"]
-            )
         if component == "winebridge":
             return self.__update_winebridge_component(config, update["latest"])
+        if component not in self.__dll_component_keys:
+            return Result(False, message="Unknown component type.")
         return self.__update_dll_component(config, component, update["latest"])
-
-    def __collect_runner_update(self, config: BottleConfig) -> Optional[dict]:
-        runner = config.Runner or ""
-        if not runner or runner.startswith("sys-"):
-            return None
-
-        latest, component_type = self.__latest_runner_for(runner)
-        if not latest:
-            return None
-
-        return {
-            "id": "runner",
-            "title": _("Runner"),
-            "current": runner,
-            "latest": latest,
-            "component_type": component_type,
-        }
 
     def __collect_winebridge_update(self, config: BottleConfig) -> Optional[dict]:
         if not config.Parameters.winebridge:
@@ -2426,52 +2308,6 @@ class Manager(metaclass=Singleton):
             "current": installed or _("Not installed"),
             "latest": latest,
         }
-
-    def __latest_runner_for(self, runner: str):
-        """Return (latest_runner_name, component_type) for the newest catalog
-        runner that shares the exact family/variant of the given runner, or
-        (None, "") if none is newer. Matching is done on a version-stripped
-        identity so different variants (e.g. kron4ek wine vs staging vs proton)
-        never get mixed up, and versions are compared as integer tuples so
-        10.20 ranks above 10.0."""
-        family, version = self.__runner_identity(runner)
-
-        for catalog, component_type in (
-            (self.supported_wine_runners, "runner"),
-            (self.supported_proton_runners, "runner:proton"),
-        ):
-            catalog = self.__filter_update_catalog(catalog)
-            if not catalog:
-                continue
-            same_family = [
-                (name, self.__runner_identity(name)[1])
-                for name in catalog.keys()
-                if self.__runner_identity(name)[0] == family
-            ]
-            if not same_family:
-                continue
-            # the runner belongs to this catalog; pick the newest same-family
-            # version, only if it is strictly newer than the current one
-            best_name, best_version = None, version
-            for name, candidate_version in same_family:
-                if candidate_version > best_version:
-                    best_name, best_version = name, candidate_version
-            return best_name, (component_type if best_name else "")
-
-        return None, ""
-
-    @staticmethod
-    def __runner_identity(name: str):
-        """Split a runner name into (family, version_tuple). The version is the
-        first dotted/dashed number group (e.g. 10.20, 8-26); the family is the
-        name with that version removed, so it keeps any variant suffix."""
-        normalized = (name or "").lower()
-        match = re.search(r"\d+(?:[.-]\d+)+", normalized)
-        if not match:
-            return normalized, ()
-        version = tuple(int(part) for part in re.split(r"[.-]", match.group(0)))
-        family = normalized[: match.start()] + normalized[match.end() :]
-        return family, version
 
     def __filter_update_catalog(self, catalog: dict) -> dict:
         if self.settings.get_boolean("release-candidate"):
@@ -2711,17 +2547,6 @@ class Manager(metaclass=Singleton):
             return component.uninstall(config)
         return True
 
-    def __update_runner_component(
-        self, config: BottleConfig, runner: str, component_type: str
-    ) -> Result:
-        from bottles.backend.runner import Runner
-
-        if runner not in self.runners_available:
-            res = self.component_manager.install(component_type, runner)
-            if not res.ok:
-                return res
-        return Runner.runner_update(config=config, manager=self, runner=runner)
-
     def __update_winebridge_component(
         self, config: BottleConfig, version: str
     ) -> Result:
@@ -2796,7 +2621,7 @@ class Manager(metaclass=Singleton):
         # create new config with path as name and Custom environment
         new_config = BottleConfig()
         new_config.Name = config.Name
-        new_config.Runner = self.get_latest_runner()
+        new_config.Runner = self.get_default_runner()
         new_config.Path = config.Name
         new_config.Environment = "Custom"
         new_config.Creation_Date = str(datetime.now())

@@ -15,7 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
 from typing import TYPE_CHECKING
 
 from bottles.backend.logger import Logger
@@ -23,6 +22,7 @@ from bottles.backend.managers.runtime import RuntimeManager
 from bottles.backend.models.config import BottleConfig
 from bottles.backend.models.result import Result
 from bottles.backend.utils.manager import ManagerUtils
+from bottles.backend.utils.runners import RunnerRegistry
 from bottles.backend.utils.steam import SteamUtils
 from bottles.backend.utils.wine import WineUtils
 from bottles.backend.wine.wineboot import WineBoot
@@ -54,12 +54,10 @@ class Runner:
         logging.info(f"Doing runner update for bottle: {config.Name}")
         wineboot = WineBoot(config)
 
-        if not runner.startswith("sys-"):
-            runner_path = ManagerUtils.get_runner_path(runner)
-
-            if not os.path.exists(runner_path):
-                logging.error(f"Runner {runner} not found in {runner_path}")
-                return Result(status=False, data={"config": config})
+        try:
+            RunnerRegistry.require(runner)
+        except FileNotFoundError as error:
+            return Result(False, data={"config": config}, message=str(error))
 
         # kill wineserver after update
         wineboot.kill(force_if_stalled=True)

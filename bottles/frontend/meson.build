@@ -1,6 +1,3 @@
-pkgdatadir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name())
-frontenddir = join_paths(pkgdatadir, 'bottles/frontend')
-
 subdir('ui')
 subdir('utils')
 subdir('views')
@@ -30,4 +27,4 @@ bottles_sources = [
   params_file,
 ]
 
-install_data(bottles_sources, install_dir: frontenddir)
+python.install_sources(bottles_sources, subdir: 'bottles/frontend')

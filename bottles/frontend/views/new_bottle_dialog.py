@@ -133,8 +133,9 @@ class BottlesNewBottleDialog(Adw.Dialog):
         # Populate widgets
         self.label_choose_env.set_label(self.default_string)
         self.label_choose_path.set_label(self.default_string)
+        self._runner_ids = list(self.manager.runners_available)
         self.str_list_runner.splice(
-            0, 0, [format_runner_name(r) for r in self.manager.runners_available]
+            0, 0, [format_runner_name(r) for r in self._runner_ids]
         )
         self.str_list_arch.splice(0, 0, list(self.arch.values()))
 
@@ -239,8 +240,8 @@ class BottlesNewBottleDialog(Adw.Dialog):
 
         runner_index = self.combo_runner.get_selected()
         self.runner = (
-            self.manager.runners_available[runner_index]
-            if runner_index < len(self.manager.runners_available)
+            self._runner_ids[runner_index]
+            if runner_index < len(self._runner_ids)
             else False
         )
 

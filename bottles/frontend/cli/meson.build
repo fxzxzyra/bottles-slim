@@ -1,12 +1,9 @@
-pkgdatadir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name())
-clidir = join_paths(pkgdatadir, 'bottles/frontend/cli')
-
 bottles_sources = [
   '__init__.py',
   'utils.py',
 ]
 
-install_data(bottles_sources, install_dir: clidir)
+python.install_sources(bottles_sources, subdir: 'bottles/frontend/cli')
 
 configure_file(
   input: 'cli.py',

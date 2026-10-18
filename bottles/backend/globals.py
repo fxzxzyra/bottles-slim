@@ -20,6 +20,7 @@ import shutil
 from pathlib import Path
 from typing import Dict
 
+from bottles.backend.params import SYSTEM_RUNNERS_DIR
 from bottles.backend.utils import json, yaml
 
 
@@ -80,7 +81,10 @@ class Paths:
     temp = f"{cache}/temp"
     runtimes = f"{base}/runtimes"
     winebridge = f"{base}/winebridge"
-    runners = f"{base}/runners"
+    user_runners = f"{base}/runners"
+    # The package configures this from prefix/datadir: /app/share for Flatpak,
+    # or the selected native prefix. No host-specific fallback directories.
+    system_runners = (SYSTEM_RUNNERS_DIR,) if os.path.isabs(SYSTEM_RUNNERS_DIR) else ()
     bottles = f"{base}/bottles"
     steam = f"{base}/steam"
     d7vk = f"{base}/d7vk"

@@ -22,10 +22,13 @@ from gettext import gettext as _
 
 from gi.repository import Adw, Gio, GLib, Gtk
 
-from bottles.backend.managers.data import DataManager, UserDataKeys
+from bottles.backend.managers.data import UserDataKeys
 from bottles.backend.state import EventManager, Events
 from bottles.backend.utils.generic import sort_by_version
 from bottles.backend.utils.threading import RunAsync
+from bottles.backend.utils.manager import ManagerUtils
+from bottles.backend.utils.runners import RunnerRegistry, system_runner_guidance
+from bottles.frontend.utils.common import format_runner_name
 from bottles.frontend.utils.flatpak import resolve_bottles_directory
 from bottles.frontend.utils.gtk import FONT_SCALE_VALUES
 from bottles.frontend.utils.localization import (
@@ -40,8 +43,6 @@ class PreferencesWindow(Adw.PreferencesWindow):
     __gtype_name__ = "PreferencesWindow"
 
     # region Widgets
-    installers_stack = Gtk.Template.Child()
-    installers_spinner = Gtk.Template.Child()
     dlls_stack = Gtk.Template.Child()
     dlls_spinner = Gtk.Template.Child()
     cache_stack = Gtk.Template.Child()
@@ -71,7 +72,10 @@ class PreferencesWindow(Adw.PreferencesWindow):
     combo_font_scale = Gtk.Template.Child()
     combo_audio_driver = Gtk.Template.Child()
     spin_eagle_limit = Gtk.Template.Child()
-    list_runners = Gtk.Template.Child()
+    system_runners = Gtk.Template.Child()
+    user_runners = Gtk.Template.Child()
+    btn_add_runner = Gtk.Template.Child()
+    btn_refresh_runners = Gtk.Template.Child()
     list_dlls = Gtk.Template.Child()
     action_prerelease = Gtk.Template.Child()
     btn_bottles_path = Gtk.Template.Child()
@@ -100,7 +104,7 @@ class PreferencesWindow(Adw.PreferencesWindow):
         self.window = window
         self.settings = window.settings
         self.manager = window.manager
-        self.data = DataManager()
+        self.data = self.manager.data_mgr
         self.style_manager = Adw.StyleManager.get_default()
 
         self.__audio_driver_values = [
@@ -137,6 +141,7 @@ class PreferencesWindow(Adw.PreferencesWindow):
             row.connect("apply", self.__on_personal_repo_apply, repo_name)
             row.connect("changed", self.__on_personal_repo_changed, repo_name)
 
+        self.__runner_rows = []
         self.__cache_registry = []
         self.__registry = []
 
@@ -272,15 +277,12 @@ class PreferencesWindow(Adw.PreferencesWindow):
         )
 
         # setup loading screens
-        self.installers_stack.set_visible_child_name("installers_loading")
-        self.installers_spinner.start()
         self.dlls_stack.set_visible_child_name("dlls_loading")
         self.dlls_spinner.start()
         self.cache_stack.set_visible_child_name("cache_loading")
         self.cache_spinner.start()
 
         if not self.manager.utils_conn.status:
-            self.installers_stack.set_visible_child_name("installers_offline")
             self.dlls_stack.set_visible_child_name("dlls_offline")
 
         RunAsync(self.ui_update)
@@ -292,6 +294,8 @@ class PreferencesWindow(Adw.PreferencesWindow):
         self.settings.connect(
             "changed::show-component-updates", self.__toggle_component_updates
         )
+        self.btn_add_runner.connect("clicked", self.__choose_user_runner)
+        self.btn_refresh_runners.connect("clicked", self.__refresh_runners)
         self.btn_bottles_path.connect("clicked", self.__choose_bottles_path)
         self.btn_bottles_path_reset.connect("clicked", self.__reset_bottles_path)
         self.btn_steam_proton_doc.connect("clicked", self.__open_steam_proton_doc)
@@ -609,192 +613,78 @@ class PreferencesWindow(Adw.PreferencesWindow):
                 self.list_dlls.add(expander)
                 self.__registry.append(expander)
 
-    def __populate_runners_helper(
-        self, runner_type, supported_runners_dict, identifiable_runners_struct
-    ):
-        offline_runners_list = self.manager.get_offline_components(runner_type)
-        if self.__display_unstable_candidate():
-            for offline_runner_name in offline_runners_list:
-                offline_runner = [
-                    offline_runner_name,
-                    {
-                        "Installed": True,
-                        "Channel": "unstable",
-                        "Category": "runners",
-                        "Sub-category": "wine" if runner_type == "runner" else "proton",
-                    },
-                ]
-                _runner_name = offline_runner_name.lower()
-                for identifiable_runner in identifiable_runners_struct:
-                    if _runner_name.startswith(identifiable_runner["prefix"]):
-                        identifiable_runner["offline_runners"].append(offline_runner)
-                        break
+    def __refresh_runners(self, *_args):
+        self.btn_refresh_runners.set_sensitive(False)
+        self.btn_add_runner.set_sensitive(False)
 
-        for supported_runner in supported_runners_dict.items():
-            _runner_name = supported_runner[0].lower()
-            if not self.__display_unstable_candidate(supported_runner):
-                continue
+        def completed(_result, _error=False):
+            self.btn_refresh_runners.set_sensitive(True)
+            self.btn_add_runner.set_sensitive(True)
+            self.populate_runners_list()
 
-            _entry = ComponentEntry(self.window, supported_runner, runner_type)
-            for identifiable_runner in identifiable_runners_struct:
-                if _runner_name.startswith(identifiable_runner["prefix"]):
-                    while (
-                        identifiable_runner["offline_runners"]
-                        and sort_by_version(
-                            [
-                                identifiable_runner["offline_runners"][0][0],
-                                supported_runner[0],
-                            ]
-                        )[0]
-                        == identifiable_runner["offline_runners"][0][0]
-                    ):
-                        offline_runner = identifiable_runner["offline_runners"].pop(0)
-                        _offline_entry = ComponentEntry(
-                            self.window, offline_runner, runner_type
-                        )
-                        identifiable_runner["expander"].add_row(_offline_entry)
-                        identifiable_runner["count"] += 1
-                    identifiable_runner["expander"].add_row(_entry)
-                    identifiable_runner["count"] += 1
-                    break
+        RunAsync(self.manager.check_runners, callback=completed)
 
-        # Don't forget left over offline runners
-        for identifiable_runner in identifiable_runners_struct:
-            while identifiable_runner["offline_runners"]:
-                offline_runner = identifiable_runner["offline_runners"].pop(0)
-                _offline_entry = ComponentEntry(
-                    self.window, offline_runner, runner_type
-                )
-                identifiable_runner["expander"].add_row(_offline_entry)
-                identifiable_runner["count"] += 1
+    def __choose_user_runner(self, *_args):
+        def selected(dialog, response):
+            if response != Gtk.ResponseType.ACCEPT:
+                return
+            chosen = dialog.get_file()
+            path = ManagerUtils.resolve_portal_path(chosen.get_path()) if chosen else None
+            if not path or ("/run/user/" in path and "/doc/" in path):
+                self.add_toast(Adw.Toast.new(_(
+                    "Grant Bottles direct access to the runner directory, "
+                    "then select it again."
+                )))
+                return
+            result = self.manager.add_user_runner(path)
+            if result.ok:
+                self.populate_runners_list()
+            else:
+                self.add_toast(Adw.Toast.new(result.message))
+
+        dialog = Gtk.FileChooserNative.new(
+            title=_("Add Local Runner"), action=Gtk.FileChooserAction.SELECT_FOLDER,
+            parent=self,
+        )
+        dialog.set_modal(True)
+        dialog.connect("response", selected)
+        dialog.show()
+
+    def __forget_user_runner(self, _button, identifier):
+        result = self.manager.remove_user_runner(identifier)
+        if result.ok:
+            self.populate_runners_list()
+        else:
+            self.add_toast(Adw.Toast.new(result.message))
 
     def populate_runners_list(self):
-        exp_soda = ComponentExpander(
-            "Soda", _("Based on Valve's Wine, includes Staging and Proton patches.")
-        )
-        exp_caffe = ComponentExpander(
-            "Caffe", _("Based on Wine upstream, includes Staging and Proton patches.")
-        )
-        exp_wine_ge = ComponentExpander(
-            "wine-GE",
-            _("Unmaintained. Wine-GE has been archived in favor of umu-launcher."),
-        )
-        exp_kron4ek = ComponentExpander(
-            "Kron4ek",
-            _(
-                "Based on Wine upstream, Staging, Staging-TkG and Proton patchset optionally available."
-            ),
-        )
-        exp_lutris = ComponentExpander("Lutris", _("Unmaintained legacy runners."))
-        exp_vaniglia = ComponentExpander(
-            "Vaniglia", _("Based on Wine upstream, includes Staging patches.")
-        )
-        exp_proton_ge = ComponentExpander(
-            "proton-GE",
-            _(
-                "Based on most recent bleeding-edge Valve's Proton Experimental, "
-                "includes Staging and custom patches. "
-                "Using the Steam Runtime is recommended."
-            ),
-        )
-        exp_proton_cachyos = ComponentExpander(
-            "Proton CachyOS",
-            _("CachyOS Proton builds. Using the Steam Runtime is recommended."),
-        )
-        exp_other_wine = ComponentExpander(_("Other Wine runners"))
-        exp_other_proton = ComponentExpander(_("Other Proton runners"))
-
-        identifiable_wine_runners = [
-            {"prefix": "soda", "count": 0, "expander": exp_soda, "offline_runners": []},
-            {
-                "prefix": "caffe",
-                "count": 0,
-                "expander": exp_caffe,
-                "offline_runners": [],
-            },
-            {
-                "prefix": "vaniglia",
-                "count": 0,
-                "expander": exp_vaniglia,
-                "offline_runners": [],
-            },
-            {
-                "prefix": "kron4ek",
-                "count": 0,
-                "expander": exp_kron4ek,
-                "offline_runners": [],
-            },
-        ]
-        deprecated_wine_runners = [
-            {
-                "prefix": "wine-ge",
-                "count": 0,
-                "expander": exp_wine_ge,
-                "offline_runners": [],
-            },
-            {
-                "prefix": "lutris",
-                "count": 0,
-                "expander": exp_lutris,
-                "offline_runners": [],
-            },
-        ]
-        identifiable_proton_runners = [
-            {
-                "prefix": "proton-cachyos",
-                "count": 0,
-                "expander": exp_proton_cachyos,
-                "offline_runners": [],
-            },
-            {
-                "prefix": "ge-proton",
-                "count": 0,
-                "expander": exp_proton_ge,
-                "offline_runners": [],
-            }
-        ]
-        other_wine_runners = [
-            {
-                "prefix": "",
-                "count": 0,
-                "expander": exp_other_wine,
-                "offline_runners": [],
-            },
-        ]
-        other_proton_runners = [
-            {
-                "prefix": "",
-                "count": 0,
-                "expander": exp_other_proton,
-                "offline_runners": [],
-            },
-        ]
-
-        self.__populate_runners_helper(
-            "runner",
-            self.manager.supported_wine_runners,
-            identifiable_wine_runners
-            + deprecated_wine_runners
-            + other_wine_runners,
-        )
-        self.__populate_runners_helper(
-            "runner:proton",
-            self.manager.supported_proton_runners,
-            identifiable_proton_runners + other_proton_runners,
-        )
-
-        for runner in (
-            identifiable_wine_runners
-            + identifiable_proton_runners
-            + other_wine_runners
-            + other_proton_runners
-            + deprecated_wine_runners
-        ):
-            if runner["count"] > 0:
-                self.list_runners.add(runner["expander"])
-                self.__registry.append(runner["expander"])
-
-        self.installers_stack.set_visible_child_name("installers_list")
+        for group, row in self.__runner_rows:
+            group.remove(row)
+        self.__runner_rows = []
+        registrations = self.manager.data_mgr.get(UserDataKeys.UserRunners) or {}
+        for identifier, info in RunnerRegistry.entries.items():
+            group = self.system_runners if info.source == "system" else self.user_runners
+            row = Adw.ActionRow(title=format_runner_name(identifier), subtitle=info.root)
+            if identifier in registrations:
+                button = Gtk.Button(icon_name="list-remove-symbolic", valign=Gtk.Align.CENTER)
+                button.set_tooltip_text(_("Remove from list (keep files)"))
+                button.connect("clicked", self.__forget_user_runner, identifier)
+                row.add_suffix(button)
+            group.add(row)
+            self.__runner_rows.append((group, row))
+        # Keep broken explicit imports visible so they can be removed/re-added.
+        for identifier, path in registrations.items():
+            if identifier not in RunnerRegistry.entries:
+                row = Adw.ActionRow(title=_("Unavailable runner"), subtitle=path)
+                button = Gtk.Button(icon_name="list-remove-symbolic", valign=Gtk.Align.CENTER)
+                button.connect("clicked", self.__forget_user_runner, identifier)
+                row.add_suffix(button)
+                self.user_runners.add(row)
+                self.__runner_rows.append((self.user_runners, row))
+        if not any(info.source == "system" for info in RunnerRegistry.entries.values()):
+            row = Adw.ActionRow(title=_("System Wine is unavailable"), subtitle=system_runner_guidance())
+            self.system_runners.add(row)
+            self.__runner_rows.append((self.system_runners, row))
 
     def populate_cache_list(self):
         self.cache_stack.set_visible_child_name("cache_loading")

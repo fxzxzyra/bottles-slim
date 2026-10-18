@@ -301,3 +301,6 @@ def test_create_bottle_handles_home_directory_links(
         assert not bottle_path.exists()
         if custom_path:
             assert not (tmp_path / "Sandboxed").exists()
+
+
+pytestmark = pytest.mark.usefixtures("local_runner")

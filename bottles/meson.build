@@ -1,10 +1,10 @@
-pkgdatadir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name())
-moduledir = join_paths(pkgdatadir, 'bottles')
-
-python = import('python')
+pkgdatadir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name(), 'resources')
+system_runners_dir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name(), 'runners')
+python = import('python').find_installation('python3', pure: true)
+pythondir = python.get_install_dir()
 
 conf = configuration_data()
-conf.set('PYTHON', python.find_installation('python3').full_path())
+conf.set('PYTHON', python.full_path())
 conf.set('BASE_ID', BASE_ID)
 conf.set('APP_ID', APP_ID)
 conf.set('APP_NAME', APP_NAME)
@@ -14,6 +14,8 @@ conf.set('APP_MINOR_VERSION', APP_MINOR_VERSION)
 conf.set('PROFILE', PROFILE)
 conf.set('localedir', join_paths(get_option('prefix'), get_option('localedir')))
 conf.set('pkgdatadir', pkgdatadir)
+conf.set('pythondir', pythondir)
+conf.set('system_runners_dir', system_runners_dir)
 
 subdir('backend')
 subdir('frontend')
@@ -23,4 +25,4 @@ bottles_sources = [
   '__init__.py',
 ]
 
-install_data(bottles_sources, install_dir: moduledir)
+python.install_sources(bottles_sources, subdir: 'bottles')

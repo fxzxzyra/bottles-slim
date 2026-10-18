@@ -90,12 +90,6 @@ class BottlesBottleRow(Adw.ActionRow):
             except ValueError:
                 update_date = _("N/A")
 
-        # Check runner type by name
-        if self.config.Runner.startswith("lutris"):
-            self.runner_type = "wine"
-        else:
-            self.runner_type = "proton"
-
         # connect signals
         self.connect("activated", self.show_details)
         self.button_run.connect("clicked", self.run_executable)

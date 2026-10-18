@@ -12,15 +12,6 @@ from bottles.frontend.windows.bulkupdate import BottlesBulkUpdateDialog
     ("update", "expected"),
     [
         (
-            {
-                "id": "runner",
-                "component_type": "runner:proton",
-                "current": "ge-proton11-1",
-                "latest": "ge-proton11-3",
-            },
-            ("runner:proton", "ge-proton11-1"),
-        ),
-        (
             {"id": "dxvk", "current": "dxvk-3.0", "latest": "dxvk-3.0.2"},
             ("dxvk", "dxvk-3.0"),
         ),

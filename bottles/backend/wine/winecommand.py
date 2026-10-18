@@ -27,6 +27,7 @@ from bottles.backend.utils.gpu import GPUUtils
 from bottles.backend.utils.hidraw import normalize_hidraw_id
 from bottles.backend.utils.lsfgvk import get_lsfg_vk_dll_path
 from bottles.backend.utils.manager import ManagerUtils
+from bottles.backend.utils.runners import RunnerRegistry, SYSTEM_WINE
 from bottles.backend.utils.steam import SteamUtils
 from bottles.backend.utils.terminal import TerminalUtils
 
@@ -331,6 +332,15 @@ class WineCommand:
         self.arguments = arguments
         self.cwd = self._get_cwd(cwd)
         self.runner, self.runner_runtime = self._get_runner_info()
+        self.terminal = terminal
+        self.communicate = communicate
+        self.colors = colors
+        self.vmtouch_files = None
+        self.returncode = None
+        if self.runner is None:
+            self.command = ""
+            self.env = None
+            return
         self.gamescope_activated = (
             environment["GAMESCOPE"] == "1"
             if "GAMESCOPE" in environment
@@ -344,12 +354,7 @@ class WineCommand:
             post_script_args,
             environment=_environment,
         )
-        self.terminal = terminal
         self.env = self.get_env(_environment)
-        self.communicate = communicate
-        self.colors = colors
-        self.vmtouch_files = None
-        self.returncode = None
 
     def _prepare_exit_code_capture(
         self, command: str, arguments: str
@@ -485,7 +490,7 @@ class WineCommand:
         ld = []
 
         # Bottle environment variables
-        if _needs_steam_virtual_gamepad_workaround(config.Runner) and not env.has(
+        if _needs_steam_virtual_gamepad_workaround(RunnerRegistry.name(config.Runner)) and not env.has(
             "SteamVirtualGamepadInfo"
         ):
             env.add("SteamVirtualGamepadInfo", "", override=True)
@@ -584,7 +589,7 @@ class WineCommand:
             ]
             gst_libs = ["lib/gstreamer-1.0", "lib32/gstreamer-1.0"]
 
-        if not config.Runner.startswith("sys-"):
+        if config.Environment == "Steam" or config.Runner != SYSTEM_WINE:
             for lib in runner_libs:
                 _path = os.path.join(runner_path, lib)
                 if os.path.exists(_path):
@@ -740,6 +745,11 @@ class WineCommand:
             env.remove("WINEDLLOVERRIDES")
 
         if not return_steam_env:
+            if config.Environment != "Steam":
+                info = RunnerRegistry.entries.get(config.Runner)
+                if info:
+                    env.add("WINESERVER", info.wineserver, override=True)
+                    env.add("WINELOADER", info.wine_for_arch(config.Arch), override=True)
             # Wine prefix
             env.add("WINEPREFIX", bottle, override=True)
             # Wine arch
@@ -792,43 +802,25 @@ class WineCommand:
                 )
                 env.add("WINEFSYNC", "1")
 
-    def _get_runner_info(self) -> tuple[str, str]:
+    def _get_runner_info(self) -> tuple[Optional[str], str]:
         config = self.config
-        runner = ManagerUtils.get_runner_path(config.Runner)
-        arch = config.Arch
         runner_runtime = ""
-
         if config.Environment == "Steam":
-            runner = config.RunnerPath
-
-        if runner in [None, ""]:
-            return "", ""
-
-        if SteamUtils.is_proton(runner):
-            """
-            If the runner is Proton, set the path to /dist or /files
-            based on check if files exists.
-            Additionally, check for its corresponding runtime.
-            """
-            runner_runtime = SteamUtils.get_associated_runtime(runner)
-            runner = os.path.join(SteamUtils.get_dist_directory(runner), "bin/wine")
-
-        elif runner.startswith("sys-"):
-            """
-            If the runner type is system, set the runner binary
-            path to the system command. Else set it to the full path.
-            """
-            runner = shutil.which("wine")
-
+            root = config.RunnerPath
+            runner_runtime = SteamUtils.get_associated_runtime(root)
+            runner = os.path.join(SteamUtils.get_dist_directory(root), "bin/wine")
+            if config.Arch == "win64" and os.path.isfile(f"{runner}64"):
+                runner = f"{runner}64"
         else:
-            runner = f"{runner}/bin/wine"
-
-        if arch == "win64" and os.path.exists(f"{runner}64"):
-            runner = f"{runner}64"
-
-        runner = shlex.quote(runner)  # type: ignore
-
-        return runner, runner_runtime
+            try:
+                info = RunnerRegistry.require(config.Runner)
+            except FileNotFoundError as error:
+                logging.error(str(error))
+                return None, ""
+            runner = info.wine_for_arch(config.Arch)
+            if SteamUtils.is_proton(info.root):
+                runner_runtime = SteamUtils.get_associated_runtime(info.root)
+        return shlex.quote(runner), runner_runtime
 
     def get_cmd(
         self,
@@ -1072,12 +1064,12 @@ class WineCommand:
         )
 
     def _get_sandbox_manager(self) -> SandboxManager:
-        # Steam/Proton runners live outside Paths.runners (in the Steam data
+        # Steam/Proton runners live outside Paths.user_runners (in the Steam data
         # directory) and rely on their associated Steam Linux Runtime. Expose
         # the runner root and that runtime, otherwise the runtime's own bwrap
         # cannot find its entry point inside the dedicated sandbox. Symlinks are
         # resolved so the real target gets shared, not just the link.
-        share_paths_ro = [Paths.runners, Paths.temp]
+        share_paths_ro = [Paths.user_runners, Paths.temp]
 
         runner_root = (
             self.config.RunnerPath
@@ -1085,7 +1077,7 @@ class WineCommand:
             else ManagerUtils.get_runner_path(self.config.Runner)
         )
         for extra in (runner_root, self.steam_runtime_root):
-            if extra and not str(extra).startswith("sys-"):
+            if extra and not (extra == runner_root and self.config.Runner == SYSTEM_WINE):
                 share_paths_ro.append(os.path.realpath(extra))
 
         # The working directory may be a transient document portal path

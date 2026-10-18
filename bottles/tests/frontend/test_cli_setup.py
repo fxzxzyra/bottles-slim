@@ -30,7 +30,7 @@ class FakeManager:
     def check_app_dirs(self):
         self.calls.append(("check_app_dirs", {}))
 
-    def check_runners(self, _install_latest):
+    def check_runners(self):
         self.calls.append(("check_runners", {}))
 
     def check_d7vk(self, _install_latest):

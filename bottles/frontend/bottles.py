@@ -29,7 +29,7 @@ localedir = "@localedir@"
 # noinspection DuplicatedCode
 data_gresource_path = f"{pkgdatadir}/data.gresource"
 bottles_gresource_path = f"{pkgdatadir}/bottles.gresource"
-sys.path.insert(1, pkgdatadir)
+sys.path.insert(1, "@pythondir@")
 
 # Remove GTK_THEME variable to prevent breakages
 # REF: https://github.com/bottlesdevs/Bottles/pull/2886

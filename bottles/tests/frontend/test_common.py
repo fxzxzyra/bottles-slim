@@ -11,30 +11,28 @@ from bottles.frontend.utils.common import format_runner_name
 from bottles.frontend.views.bottle_preferences import PreferencesView
 
 
-@pytest.mark.parametrize(
-    ("runner", "expected"),
-    [
-        ("sys-wine-11.0", "Built-in Wine 11.0"),
-        ("soda-11.0-3", "soda-11.0-3"),
-    ],
-)
-def test_flatpak_runner_name(monkeypatch, runner, expected):
-    monkeypatch.setenv("FLATPAK_ID", "com.usebottles.bottles")
+@pytest.mark.parametrize("flatpak", [False, True])
+def test_system_source_is_independent_of_packaging(monkeypatch, runner_factory, flatpak):
+    from dataclasses import replace
+    from bottles.backend.utils.runners import RunnerRegistry
 
-    assert format_runner_name(runner) == expected
-
-
-def test_native_system_runner_name_is_unchanged(monkeypatch):
-    monkeypatch.delenv("FLATPAK_ID", raising=False)
-
-    assert format_runner_name("sys-wine-11.0") == "sys-wine-11.0"
+    info = runner_factory("system-wine", "system")
+    RunnerRegistry.entries[info.identifier] = replace(info, version="wine-11.0")
+    if flatpak:
+        monkeypatch.setenv("FLATPAK_ID", "com.usebottles.bottles")
+    else:
+        monkeypatch.delenv("FLATPAK_ID", raising=False)
+    assert format_runner_name(info.identifier) == "System · system-wine (wine-11.0)"
 
 
-def test_runner_dropdown_uses_display_names_without_changing_ids(monkeypatch):
+def test_runner_dropdown_uses_display_names_without_changing_ids(monkeypatch, runner_factory):
+    runner_factory("system-wine", "system")
+    runner_factory("soda-11.0-3")
     monkeypatch.setenv("FLATPAK_ID", "com.usebottles.bottles")
     monkeypatch.setattr(ManagerUtils, "get_languages", lambda: [])
     manager = SimpleNamespace(
-        runners_available=["soda-11.0-3", "sys-wine-11.0"],
+        runners_available=["system-wine", "soda-11.0-3"],
+        d7vk_available=[],
         dxvk_available=[],
         vkd3d_available=[],
         nvapi_available=[],
@@ -43,6 +41,7 @@ def test_runner_dropdown_uses_display_names_without_changing_ids(monkeypatch):
     view = SimpleNamespace(manager=manager)
     for name in (
         "runner",
+        "d7vk",
         "dxvk",
         "vkd3d",
         "nvapi",
@@ -54,6 +53,7 @@ def test_runner_dropdown_uses_display_names_without_changing_ids(monkeypatch):
         setattr(view, f"_PreferencesView__set_{name}", Mock())
     for name in (
         "runner",
+        "d7vk",
         "dxvk",
         "vkd3d",
         "nvapi",
@@ -66,5 +66,5 @@ def test_runner_dropdown_uses_display_names_without_changing_ids(monkeypatch):
     PreferencesView.update_combo_components(view)
 
     labels = [call.args[0] for call in view.str_list_runner.append.call_args_list]
-    assert labels == ["soda-11.0-3", "Built-in Wine 11.0"]
-    assert manager.runners_available[1] == "sys-wine-11.0"
+    assert labels == ["System · system-wine", "User · soda-11.0-3"]
+    assert manager.runners_available[0] == "system-wine"

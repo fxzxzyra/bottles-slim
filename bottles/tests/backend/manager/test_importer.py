@@ -50,7 +50,7 @@ def test_import_wineprefix_copies_spaces_hidden_files_and_symlinks(
     monkeypatch.setattr(Paths, "bottles", str(destination))
 
     manager = SimpleNamespace(
-        get_latest_runner=lambda: "soda-9.0-1",
+        get_default_runner=lambda: "soda-9.0-1",
         update_bottles=lambda **_kwargs: None,
     )
     result = ImportManager(manager).import_wineprefix(
@@ -84,7 +84,7 @@ def test_import_wineprefix_rolls_back_when_config_cannot_be_saved(
         "bottles.backend.managers.importer.BottleConfig.dump",
         lambda *_args, **_kwargs: Result(False),
     )
-    manager = SimpleNamespace(get_latest_runner=lambda: "soda-9.0-1")
+    manager = SimpleNamespace(get_default_runner=lambda: "soda-9.0-1")
 
     result = ImportManager(manager).import_wineprefix(
         {

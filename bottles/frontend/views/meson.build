@@ -1,6 +1,3 @@
-pkgdatadir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name())
-viewsdir = join_paths(pkgdatadir, 'bottles/frontend/views')
-
 bottles_sources = [
   '__init__.py',
   'new_bottle_dialog.py',
@@ -21,4 +18,4 @@ bottles_sources = [
   'eagle.py'
 ]
 
-install_data(bottles_sources, install_dir: viewsdir)
+python.install_sources(bottles_sources, subdir: 'bottles/frontend/views')

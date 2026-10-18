@@ -372,8 +372,7 @@ class BottlesWindow(Adw.ApplicationWindow):
         def set_manager(result: Manager, error=None):
             self.manager = result
 
-            tmp_runners = self.manager.get_managed_wine_runners()
-            if len(tmp_runners) == 0:
+            if not self.manager.runners_available:
                 self._showing_onboard = True
                 self.show_onboard_view()
 

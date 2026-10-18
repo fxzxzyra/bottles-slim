@@ -32,6 +32,8 @@ class ComponentRepo(Repo):
             return False
 
         category = entry.get("Category")
+        if category == "runners":
+            return False
         subcategory = entry.get("Sub-category")
         if not isinstance(category, str) or not category:
             return False

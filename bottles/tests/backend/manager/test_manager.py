@@ -1,21 +1,15 @@
 """Core Manager tests"""
 
 import contextlib
-from pathlib import Path
-from threading import Event
-from types import SimpleNamespace
 
 import pytest
 
 from bottles.backend.managers import manager as manager_module
-from bottles.backend.managers import steam as steam_module
 from bottles.backend.managers.data import DataManager, UserDataKeys
 from bottles.backend.managers.manager import Manager
-from bottles.backend.managers.steam import SteamManager
 from bottles.backend.models.config import BottleConfig
 from bottles.backend.utils.connection import ConnectionUtils
 from bottles.backend.utils.gsettings_stub import GSettingsStub
-from bottles.backend.utils.manager import ManagerUtils
 
 
 @pytest.fixture(autouse=True)
@@ -84,64 +78,6 @@ def test_delete_sandboxed_bottle_does_not_restart_wine(
     signal_send.assert_not_called()
 
 
-def test_check_runners_discovers_external_steam_proton(tmp_path, monkeypatch):
-    runners = tmp_path / "runners"
-    (runners / "soda-11.0").mkdir(parents=True)
-    external = (
-        tmp_path
-        / ".local"
-        / "share"
-        / "Steam"
-        / "compatibilitytools.d"
-        / "GE-Proton10-4"
-    )
-    external.mkdir(parents=True)
-    (external / "toolmanifest.vdf").write_text(
-        '"manifest"\n{\n'
-        '    "commandline" "/proton run"\n'
-        '    "compatmanager_layer_name" "proton"\n'
-        "}\n"
-    )
-    monkeypatch.setattr(manager_module.Paths, "runners", str(runners))
-    monkeypatch.setattr(manager_module.shutil, "which", lambda _command: None)
-    monkeypatch.setattr(ManagerUtils, "external_runner_paths", {})
-    monkeypatch.setattr(steam_module, "STEAM_COMPATIBILITY_TOOL_PATHS", ())
-    monkeypatch.setattr(Path, "home", lambda: tmp_path)
-    manager = object.__new__(Manager)
-    manager.steam_manager = SteamManager(check_only=True)
-
-    assert manager.check_runners(install_latest=False)
-    assert "GE-Proton10-4" in manager.runners_available
-    assert manager.external_runners == {"GE-Proton10-4"}
-    assert ManagerUtils.get_runner_path("GE-Proton10-4") == str(external)
-
-
-def test_managed_runner_takes_precedence_over_steam_copy(tmp_path, monkeypatch):
-    runners = tmp_path / "runners"
-    managed = runners / "GE-Proton10-4"
-    managed.mkdir(parents=True)
-    external = tmp_path / "Steam" / "compatibilitytools.d" / "GE-Proton10-4"
-    external.mkdir(parents=True)
-    monkeypatch.setattr(manager_module.Paths, "runners", str(runners))
-    monkeypatch.setattr(manager_module.shutil, "which", lambda _command: None)
-    monkeypatch.setattr(ManagerUtils, "external_runner_paths", {})
-    manager = object.__new__(Manager)
-    manager.steam_manager = SimpleNamespace(
-        list_compatibility_tools=lambda: {"GE-Proton10-4": str(external)}
-    )
-
-    assert manager.check_runners(install_latest=False)
-    assert manager.external_runners == set()
-    assert ManagerUtils.get_runner_path("GE-Proton10-4") == str(managed)
-
-
-def test_managed_proton_runner_satisfies_runner_setup_check():
-    manager = object.__new__(Manager)
-    manager.runners_available = ["GE-Proton10-4", "sys-wine-11.0"]
-
-    assert manager.get_managed_wine_runners() == ["GE-Proton10-4"]
-
-
 def test_manager_cli_checks_connection_when_online(mocker):
     check_connection = mocker.patch.object(
         ConnectionUtils,
@@ -185,59 +121,13 @@ def test_manager_forced_offline_setting_skips_connection_check(mocker):
     checks.assert_called_once()
 
 
-def test_check_runners_ignores_failed_system_wine(mocker):
-    run = mocker.patch.object(manager_module.subprocess, "run")
-    run.return_value.returncode = 126
-    run.return_value.stdout = b""
-    mocker.patch.object(manager_module.shutil, "which", return_value="/app/bin/wine")
-    mocker.patch.object(manager_module, "glob", return_value=[])
-    manager = object.__new__(Manager)
-    manager.steam_manager = SimpleNamespace(list_compatibility_tools=lambda: {})
-
-    assert manager.check_runners(install_latest=False) is True
-    assert manager.runners_available == []
-
-
-def test_check_runners_ignores_unexecutable_system_wine(mocker):
-    mocker.patch.object(
-        manager_module.subprocess,
-        "run",
-        side_effect=OSError(8, "Exec format error"),
-    )
-    mocker.patch.object(manager_module.shutil, "which", return_value="/app/bin/wine")
-    mocker.patch.object(manager_module, "glob", return_value=[])
-    manager = object.__new__(Manager)
-    manager.steam_manager = SimpleNamespace(list_compatibility_tools=lambda: {})
-
-    assert manager.check_runners(install_latest=False) is True
-    assert manager.runners_available == []
-
-
-def test_check_runners_adds_usable_system_wine(mocker):
-    run = mocker.patch.object(manager_module.subprocess, "run")
-    run.return_value.returncode = 0
-    run.return_value.stdout = b"wine-11.0\n"
-    mocker.patch.object(manager_module.shutil, "which", return_value="/app/bin/wine")
-    mocker.patch.object(manager_module, "glob", return_value=[])
-    manager = object.__new__(Manager)
-    manager.steam_manager = SimpleNamespace(list_compatibility_tools=lambda: {})
-
-    assert manager.check_runners(install_latest=False) is True
-    assert manager.runners_available == ["sys-wine-11.0"]
-    run.assert_called_once_with(
-        ["/app/bin/wine", "--version"],
-        stdout=manager_module.subprocess.PIPE,
-        stderr=manager_module.subprocess.PIPE,
-    )
-
-
 def test_manager_rejects_file_as_custom_bottles_path(monkeypatch, tmp_path):
     custom_path = tmp_path / "custom-path"
     custom_path.write_text("")
     default_path = tmp_path / "bottles"
 
     for name in (
-        "runners",
+        "user_runners",
         "runtimes",
         "winebridge",
         "d7vk",
@@ -268,12 +158,12 @@ def test_manager_rejects_file_as_custom_bottles_path(monkeypatch, tmp_path):
 @pytest.mark.parametrize(
     ("environment", "runners", "expected"),
     [
-        ("Gaming", ["soda-11.0-1", "sys-wine-11.0"], "sys-wine-11.0"),
-        ("Gaming", ["soda-11.0-1"], "sys-wine-10.20"),
+        ("Gaming", ["soda-11.0-1", "system-wine"], "system-wine"),
+        ("Gaming", ["soda-11.0-1"], "system-wine"),
         (
             "Gaming",
             ["soda-11.0-1", "sys-wine-11.0", "sys-wine-current"],
-            "sys-wine-10.20",
+            "system-wine",
         ),
         ("Steam", ["soda-11.0-1", "sys-wine-11.0"], "sys-wine-10.20"),
     ],
@@ -477,38 +367,19 @@ def test_get_programs_deduplicates_renamed_epic_game(
     assert [program["name"] for program in programs] == expected_names
 
 
-def test_create_bottle_checks_every_essential_component_before_retry():
+def test_missing_runner_stops_creation_before_component_download(mocker):
+    from bottles.backend.utils.runners import RunnerRegistry
+
     manager = object.__new__(Manager)
     manager.runners_available = []
-    manager.dxvk_available = []
-    manager.vkd3d_available = []
-    manager.nvapi_available = ["nvapi"]
-    manager.latencyflex_available = ["latencyflex"]
-    calls = []
+    manager.check_dxvk = mocker.Mock()
+    mocker.patch.object(RunnerRegistry, "entries", {})
 
-    def make_available(name, values):
-        def check():
-            calls.append(name)
-            values.append(name)
-            return True
-
-        return check
-
-    manager.check_runners = make_available("runner", manager.runners_available)
-    manager.check_dxvk = make_available("dxvk", manager.dxvk_available)
-    manager.check_vkd3d = make_available("vkd3d", manager.vkd3d_available)
-    manager.organize_components = lambda: None
-    cancelled = Event()
-    cancelled.set()
-
-    result = manager.create_bottle(
-        name="Test",
-        environment="application",
-        cancel_event=cancelled,
-    )
+    result = manager.create_bottle(name="Test", environment="application")
 
     assert not result.ok
-    assert calls == ["runner", "dxvk", "vkd3d"]
+    assert "Runner is unavailable" in result.message
+    manager.check_dxvk.assert_not_called()
 
 
 class ComponentUpdateSettings:
@@ -526,50 +397,22 @@ class ComponentUpdateSettings:
 def test_component_updates_can_be_disabled_globally(mocker):
     manager = object.__new__(Manager)
     manager.settings = ComponentUpdateSettings(show_updates=False)
-    manager._Manager__collect_runner_update = mocker.Mock()
     manager._Manager__collect_winebridge_update = mocker.Mock()
     config = BottleConfig()
 
     assert Manager.get_component_updates(manager, config) == []
-    manager._Manager__collect_runner_update.assert_not_called()
     manager._Manager__collect_winebridge_update.assert_not_called()
 
 
-def test_component_update_checks_are_enabled_by_default():
-    manager = object.__new__(Manager)
-    manager.settings = ComponentUpdateSettings()
-    manager.supported_wine_runners = {"soda-11.0-1": {}}
-    manager.supported_proton_runners = {}
+def test_runner_updates_are_absent():
+    manager = _make_update_manager(False)
     config = BottleConfig(Runner="soda-10.0-1")
-
-    assert Manager.get_component_updates(manager, config) == [
-        {
-            "id": "runner",
-            "title": "Runner",
-            "current": "soda-10.0-1",
-            "latest": "soda-11.0-1",
-            "component_type": "runner",
-        }
-    ]
-
-
-def test_custom_runner_is_not_compared_with_an_unrelated_family():
-    manager = object.__new__(Manager)
-    manager.settings = GSettingsStub()
-    manager.supported_wine_runners = {"wine-ge-proton8-27-lol": {}}
-    manager.supported_proton_runners = {}
-
-    assert manager._Manager__latest_runner_for("wine-10.19-staging-tkg-amd64") == (
-        None,
-        "",
-    )
+    assert Manager.get_component_updates(manager, config) == []
 
 
 def _make_update_manager(release_candidate: bool) -> Manager:
     manager = object.__new__(Manager)
     manager.settings = ComponentUpdateSettings(release_candidate=release_candidate)
-    manager.supported_wine_runners = {}
-    manager.supported_proton_runners = {}
     manager.supported_d7vk = {}
     manager.supported_dxvk = {}
     manager.supported_vkd3d = {}
@@ -624,25 +467,6 @@ def test_check_d7vk_clears_stale_available_versions():
 
     assert Manager.check_d7vk(manager, False)
     assert manager.d7vk_available == []
-
-
-@pytest.mark.parametrize(
-    ("release_candidate", "expected"),
-    [(False, "soda-9.0-2"), (True, "soda-10.0-1")],
-)
-def test_runner_updates_respect_release_channel(release_candidate, expected):
-    manager = _make_update_manager(release_candidate)
-    manager.supported_wine_runners = {
-        "soda-10.0-1": {"Channel": "unstable"},
-        "soda-9.0-2": {"Channel": "stable"},
-    }
-    config = BottleConfig(Runner="soda-9.0-1")
-
-    updates = Manager.get_component_updates(manager, config)
-
-    assert {update["id"]: update["latest"] for update in updates} == {
-        "runner": expected
-    }
 
 
 def test_get_programs_can_refresh_cached_results(monkeypatch):

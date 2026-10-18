@@ -73,12 +73,7 @@ class ComponentEntry(Adw.ActionRow):
 
         if component[1].get("Installed"):
             self.btn_browse.set_visible(True)
-            if (
-                self.component_type in ["runner", "runner:proton"]
-                and self.name in self.manager.external_runners
-            ):
-                self.set_subtitle(_("Discovered in Steam"))
-            elif not self.manager.component_manager.is_in_use(
+            if not self.manager.component_manager.is_in_use(
                 self.component_type, self.name
             ):
                 self.btn_remove.set_visible(True)

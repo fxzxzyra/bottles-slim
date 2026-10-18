@@ -1,6 +1,3 @@
-pkgdatadir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name())
-backenddir = join_paths(pkgdatadir, 'bottles/backend')
-
 params_file = configure_file(
     input:  'params.py',
     output:  'params.py',
@@ -27,4 +24,4 @@ bottles_sources = [
   params_file
 ]
 
-install_data(bottles_sources, install_dir: backenddir)
+python.install_sources(bottles_sources, subdir: 'bottles/backend')

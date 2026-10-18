@@ -23,6 +23,7 @@ def _make_dialog(runners, dxvks, selected=0):
             set_sensitive=lambda _value: None,
             set_label=lambda _label: None,
         ),
+        _runner_ids=list(runners),
         combo_runner=SimpleNamespace(get_selected=lambda: selected),
         combo_arch=SimpleNamespace(get_selected=lambda: 0),
         switch_sandbox=SimpleNamespace(get_active=lambda: False),

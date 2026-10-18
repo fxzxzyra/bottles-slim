@@ -1,3 +1,4 @@
+import pytest
 from bottles.backend.managers import manager as manager_module
 from bottles.backend.managers.manager import Manager
 from bottles.backend.models.config import BottleConfig, BottleParams
@@ -174,3 +175,6 @@ def test_config_import_restores_runtime_settings(monkeypatch, tmp_path):
     ]
     assert windows_versions == ["win7"]
     assert wineboot_inits == [True]
+
+
+pytestmark = pytest.mark.usefixtures("local_runner")

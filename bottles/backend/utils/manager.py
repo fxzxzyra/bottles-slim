@@ -32,6 +32,7 @@ from bottles.backend.models.config import BottleConfig
 from bottles.backend.models.result import Result
 from bottles.backend.state import SignalManager, Signals
 from bottles.backend.utils.imagemagick import ImageMagickUtils
+from bottles.backend.utils.runners import RunnerRegistry
 
 gi.require_version("Xdp", "1.0")
 # ruff: noqa: E402
@@ -47,8 +48,6 @@ class ManagerUtils:
     This class contains methods (tools, utilities) that are not
     directly related to the Manager.
     """
-
-    external_runner_paths: dict[str, str] = {}
 
     @staticmethod
     def open_filemanager(
@@ -69,9 +68,7 @@ class ManagerUtils:
                 bottle_path = config.Path
             path = f"{bottle_path}/drive_c"
         elif component != "":
-            if path_type in ["runner", "runner:proton"]:
-                path = ManagerUtils.get_runner_path(component)
-            elif path_type == "d7vk":
+            if path_type == "d7vk":
                 path = ManagerUtils.get_d7vk_path(component)
             elif path_type == "dxvk":
                 path = ManagerUtils.get_dxvk_path(component)
@@ -205,15 +202,8 @@ class ManagerUtils:
 
     @staticmethod
     def get_runner_path(runner: str) -> str:
-        if runner.startswith("sys-"):
-            return runner
-        if runner in ManagerUtils.external_runner_paths:
-            return ManagerUtils.external_runner_paths[runner]
-        return f"{Paths.runners}/{runner}"
-
-    @staticmethod
-    def set_external_runner_paths(runners: dict[str, str]) -> None:
-        ManagerUtils.external_runner_paths = runners.copy()
+        info = RunnerRegistry.entries.get(runner)
+        return info.root if info else f"{Paths.user_runners}/{runner}"
 
     @staticmethod
     def get_dxvk_path(dxvk: str) -> str:

@@ -1,6 +1,3 @@
-pkgdatadir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name())
-reposdir = join_paths(pkgdatadir, 'bottles/backend/repos')
-
 bottles_sources = [
   '__init__.py',
   'repo.py',
@@ -9,4 +6,4 @@ bottles_sources = [
   'installer.py',
 ]
 
-install_data(bottles_sources, install_dir: reposdir)
+python.install_sources(bottles_sources, subdir: 'bottles/backend/repos')

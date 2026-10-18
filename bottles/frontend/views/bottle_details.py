@@ -620,10 +620,6 @@ class BottleView(Adw.PreferencesPage):
             if success and isinstance(result.data, dict):
                 if result.data.get("config"):
                     self.config = result.data["config"]
-                if update["id"] == "runner" and hasattr(
-                    self.details, "update_runner_label"
-                ):
-                    self.details.update_runner_label(self.config.Runner)
 
             if success:
                 self.window.show_toast(
@@ -908,8 +904,9 @@ class BottleView(Adw.PreferencesPage):
             self.window,
             _("Missing Runner"),
             _(
-                "The runner requested by this bottle is missing. Install it through \
-the Bottles preferences or choose a new one to run applications."
+                "The runner requested by this bottle is missing. Restore it using your "
+                "package manager, add its local directory in Preferences, or explicitly "
+                "choose another runner for this bottle."
             ),
         )
         dialog.add_response("ok", _("_Dismiss"))

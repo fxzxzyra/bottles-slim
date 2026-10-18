@@ -120,7 +120,7 @@ class ImportManager:
         # create bottle config
         new_config = BottleConfig()
         new_config.Name = wineprefix["Name"]
-        new_config.Runner = self.manager.get_latest_runner()
+        new_config.Runner = self.manager.get_default_runner()
         new_config.Path = bottle_path
         new_config.Environment = "Custom"
         new_config.Creation_Date = str(datetime.now())

@@ -1,6 +1,3 @@
-pkgdatadir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name())
-managersdir = join_paths(pkgdatadir, 'bottles/backend/managers')
-
 bottles_sources = [
   '__init__.py',
   'backup.py',
@@ -31,5 +28,5 @@ bottles_sources = [
   'intel.py'
 ]
 
-install_data(bottles_sources, install_dir: managersdir)
-install_data('eagle.yar', install_dir: managersdir)
+python.install_sources(bottles_sources, subdir: 'bottles/backend/managers')
+install_data('eagle.yar', install_dir: pkgdatadir)

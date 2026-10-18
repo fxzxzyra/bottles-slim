@@ -98,3 +98,6 @@ def test_create_bottle_applies_home_drive_after_wineboot(
     home_drive = tmp_path / "Default-Drives" / "dosdevices" / "z:"
     assert result.ok
     assert os.path.lexists(home_drive) is expose_home_drive
+
+
+pytestmark = pytest.mark.usefixtures("local_runner")

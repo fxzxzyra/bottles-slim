@@ -202,11 +202,11 @@ def test_system_runner_restores_multilib_builtin(
     config = BottleConfig(
         Path=str(prefix),
         Custom_Path=True,
-        Runner="sys-wine",
+        Runner="system-wine",
         Arch="win32" if arch == "i386" else "win64",
     )
     monkeypatch.setattr(
-        dll_module.shutil, "which", lambda *_args: str(system_root / "bin/wine")
+        dll_module.ManagerUtils, "get_runner_path", lambda *_args: str(system_root)
     )
     monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: Result(True))
     component = DXVKComponent("old")

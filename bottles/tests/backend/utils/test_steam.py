@@ -10,7 +10,7 @@ from bottles.backend.utils.steam import SteamUtils
 def runners_path(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> Path:
     path = tmp_path / "runners"
     path.mkdir()
-    monkeypatch.setattr("bottles.backend.utils.steam.Paths.runners", str(path))
+    monkeypatch.setattr("bottles.backend.utils.steam.Paths.user_runners", str(path))
     return path
 
 

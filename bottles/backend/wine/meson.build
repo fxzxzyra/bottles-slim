@@ -1,6 +1,3 @@
-pkgdatadir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name())
-winedir = join_paths(pkgdatadir, 'bottles/backend/wine')
-
 bottles_sources = [
   '__init__.py',
   'catalogs.py',
@@ -40,4 +37,4 @@ bottles_sources = [
   'xcopy.py',
 ]
 
-install_data(bottles_sources, install_dir: winedir)
+python.install_sources(bottles_sources, subdir: 'bottles/backend/wine')

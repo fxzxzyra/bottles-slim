@@ -5,6 +5,7 @@ import time
 from bottles.backend.logger import Logger
 from bottles.backend.utils.manager import ManagerUtils
 from bottles.backend.utils.proc import ProcUtils
+from bottles.backend.utils.runners import RunnerRegistry
 from bottles.backend.utils.steam import SteamUtils
 from bottles.backend.wine.wineprogram import WineProgram
 
@@ -15,86 +16,60 @@ class WineServer(WineProgram):
     program = "Wine Server"
     command = "wineserver"
 
+    def _server(self) -> str:
+        if self.config.Environment == "Steam":
+            root = SteamUtils.get_dist_directory(self.config.RunnerPath)
+            return os.path.join(root, "bin", "wineserver")
+        return RunnerRegistry.require(self.config.Runner).wineserver
+
+    def _server_environment(self) -> dict:
+        env = os.environ.copy()
+        env["WINEPREFIX"] = ManagerUtils.get_bottle_path(self.config)
+        return env
+
     def is_alive(self):
-        config = self.config
-
-        # If the config has no Runner, skip the execution
-        if not config.Runner:
+        if not self.config.Runner:
             return False
-
-        # Perform native check before wasting time using wine
-        res = subprocess.Popen(["pgrep", "wineserver"], stdout=subprocess.PIPE)
-        if res.stdout.read() == b"":
-            return False
-
-        # Check using wine
-        bottle = ManagerUtils.get_bottle_path(config)
-        runner = ManagerUtils.get_runner_path(config.Runner)
-
-        if config.Environment == "Steam":
-            bottle = config.Path
-            runner = config.RunnerPath
-
+        bottle = ManagerUtils.get_bottle_path(self.config)
         if not os.path.isdir(bottle):
             return False
-
-        if SteamUtils.is_proton(runner):
-            runner = SteamUtils.get_dist_directory(runner)
-
-        env = os.environ.copy()
-        env["WINEPREFIX"] = bottle
-        if not config.Runner.startswith("sys-"):
-            env["PATH"] = f"{runner}/bin:{env['PATH']}"
         try:
+            server = self._server()
             res = subprocess.Popen(
-                "wineserver -w",
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                shell=True,
-                cwd=bottle,
-                env=env,
+                [server, "-w"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                cwd=bottle, env=self._server_environment(),
             )
-        except FileNotFoundError:
+        except OSError:
             return False
         time.sleep(0.5)
-        if res.poll() is None:
-            res.kill()  # kill the process to avoid zombie incursion
-            return True
-        return False
+        alive = res.poll() is None
+        if alive:
+            res.kill()
+        res.wait()
+        return alive
 
     def wait(self):
-        config = self.config
-        bottle = ManagerUtils.get_bottle_path(config)
-        runner = ManagerUtils.get_runner_path(config.Runner)
-
-        if config.Environment == "Steam":
-            bottle = config.Path
-            runner = config.RunnerPath
-
-        if SteamUtils.is_proton(runner):
-            runner = SteamUtils.get_dist_directory(runner)
-
-        env = os.environ.copy()
-        env["WINEPREFIX"] = bottle
-        env["PATH"] = f"{runner}/bin:{env['PATH']}"
-
-        subprocess.Popen(
-            "wineserver -w",
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            shell=True,
-            cwd=bottle,
-            env=env,
-        ).wait()
+        bottle = ManagerUtils.get_bottle_path(self.config)
+        if not os.path.isdir(bottle):
+            return
+        try:
+            subprocess.Popen(
+                [self._server(), "-w"], cwd=bottle, env=self._server_environment(),
+            ).wait()
+        except OSError as error:
+            logging.warning(f"Cannot wait for the bottle's wineserver: {error}")
 
     def kill(self, signal: int = -1):
         args = "-k"
         if signal != -1:
             args += str(signal)
 
-        self.launch(
-            args=args, communicate=True, action_name="sending signal to the wine server"
-        )
+        try:
+            subprocess.run(
+                [self._server(), args], env=self._server_environment(), check=False,
+            )
+        except OSError as error:
+            logging.warning(f"Cannot signal the bottle's wineserver: {error}")
 
     def force_kill(self):
         bottle = ManagerUtils.get_bottle_path(self.config)

@@ -73,7 +73,7 @@ template $PreferencesWindow: Adw.PreferencesWindow {
 
       Adw.ActionRow {
         title: _("Show Component Updates");
-        subtitle: _("Show runner and component update suggestions for all bottles.");
+        subtitle: _("Show component update suggestions for all bottles.");
         activatable-widget: switch_component_updates;
 
         Switch switch_component_updates {
@@ -206,7 +206,7 @@ template $PreferencesWindow: Adw.PreferencesWindow {
 
       Adw.ActionRow action_prerelease {
         title: _("Pre-Release");
-        subtitle: _("Display unstable versions of runners and components.");
+        subtitle: _("Display unstable versions of components.");
         activatable-widget: switch_release_candidate;
 
         Switch switch_release_candidate {
@@ -323,45 +323,27 @@ template $PreferencesWindow: Adw.PreferencesWindow {
     icon-name: "system-run-symbolic";
     title: _("Runners");
 
-    Adw.PreferencesGroup {
-      Stack installers_stack {
-        transition-type: crossfade;
+    Adw.PreferencesGroup system_runners {
+      title: _("System Runners");
+      description: _("Used by default. Installed and updated by your distribution or Flatpak packaging.");
 
-        StackPage {
-          name: "installers_offline";
+      [header-suffix]
+      Button btn_refresh_runners {
+        icon-name: "view-refresh-symbolic";
+        tooltip-text: _("Check Installed Runners");
+        valign: center;
+      }
+    }
 
-          child: Adw.StatusPage {
-            icon-name: "network-error-symbolic";
-            title: _("You're offline :(");
-            vexpand: true;
-            hexpand: true;
-            description: _("Bottles is running in offline mode, so runners are not available.");
-          };
-        }
+    Adw.PreferencesGroup user_runners {
+      title: _("User Runners");
+      description: _("Local runners for applications that need a particular Wine version. Manage their files outside Bottles.");
 
-        StackPage {
-          name: "installers_loading";
-
-          child: Adw.StatusPage {
-            vexpand: true;
-            hexpand: true;
-
-            Spinner installers_spinner {
-              valign: center;
-            }
-          };
-        }
-
-        StackPage {
-          name: "installers_list";
-
-          child: Adw.PreferencesPage {
-            Adw.PreferencesGroup list_runners {
-              vexpand: true;
-              hexpand: true;
-            }
-          };
-        }
+      [header-suffix]
+      Button btn_add_runner {
+        icon-name: "list-add-symbolic";
+        tooltip-text: _("Add Local Runner");
+        valign: center;
       }
     }
   }
@@ -426,7 +408,7 @@ template $PreferencesWindow: Adw.PreferencesWindow {
 
            Adw.PreferencesGroup {
              title: _("Temp files");
-             description: _("Includes archives and extracted resources downloaded for runners, dependencies, and installers.");
+             description: _("Includes archives and extracted resources downloaded for components, dependencies, and installers.");
 
              Adw.ActionRow row_cache_temp {
                title: _("Temp cache");

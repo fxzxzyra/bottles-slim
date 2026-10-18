@@ -68,9 +68,9 @@ template $OnboardDialog: Adw.Dialog {
           hexpand: true;
         }
 
-        Adw.StatusPage page_download {
-          title: _("Almost Done");
-          description: _("We need a few more minutes to set everything up…");
+        Adw.StatusPage page_setup {
+          title: _("Check Your Runner");
+          description: _("Bottles uses system Wine by default. Check that it is installed, then prepare additional components. You can also add a local user runner later in Preferences.");
           vexpand: true;
           hexpand: true;
 
@@ -80,7 +80,7 @@ template $OnboardDialog: Adw.Dialog {
             spacing: 6;
 
             Button btn_install {
-              label: _("Continue");
+              label: _("Check and Continue");
               use-underline: true;
               halign: center;
 

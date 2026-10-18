@@ -20,6 +20,7 @@ from gettext import gettext as _
 from gi.repository import Adw, Gtk
 
 from bottles.backend.managers.sandbox import SandboxManager
+from bottles.backend.utils.runners import RunnerRegistry
 from bottles.backend.utils.hidraw import list_hidraw_devices, normalize_hidraw_id
 
 
@@ -85,7 +86,7 @@ class SandboxDialog(Adw.Window):
     def __set_hidraw_device(self, row, _pspec, identifier):
         if (
             not row.get_active()
-            or "soda" in self.config.Runner.lower()
+            or "soda" in RunnerRegistry.name(self.config.Runner).lower()
             or self.__hidraw_runner_confirmed
         ):
             self.__apply_hidraw_device(row, identifier)

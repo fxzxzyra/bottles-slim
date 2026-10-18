@@ -15,16 +15,21 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
 import webbrowser
 from gettext import gettext as _
 
 
 def format_runner_name(runner: str) -> str:
-    if "FLATPAK_ID" in os.environ and runner.startswith("sys-wine-"):
-        version = runner.removeprefix("sys-wine-")
-        return _("Built-in Wine {version}").format(version=version)
-    return runner
+    from bottles.backend.utils.runners import RunnerRegistry
+
+    info = RunnerRegistry.entries.get(runner)
+    if info is None:
+        return runner
+    source = _("System") if info.source == "system" else _("User")
+    return "{source} · {name}{version}".format(
+        source=source, name=info.name,
+        version=f" ({info.version})" if info.version else "",
+    )
 
 
 def open_doc_url(widget, page):

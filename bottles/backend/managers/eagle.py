@@ -31,6 +31,7 @@ from gettext import gettext as _
 
 from bottles.backend.globals import Paths
 from bottles.backend.managers.intel import EagleIntel
+from bottles.backend.params import PKGDATADIR
 from bottles.backend.models.config import BottleConfig
 from bottles.backend.models.result import Result
 from bottles.backend.state import SignalManager, Signals
@@ -131,7 +132,7 @@ class EagleManager:
         """Load YARA rules from the bundled file."""
 
         logging.info("[Eagle] Reloading YARA rules...")
-        rules_path = os.path.join(os.path.dirname(__file__), "eagle.yar")
+        rules_path = os.path.join(PKGDATADIR, "eagle.yar")
         if os.path.exists(rules_path):
             try:
                 cls._yara_rules = yara.compile(filepath=rules_path)

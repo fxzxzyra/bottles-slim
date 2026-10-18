@@ -196,12 +196,7 @@ class DLLComponent:
             if config.Environment == "Steam"
             else ManagerUtils.get_runner_path(config.Runner)
         )
-        if runner.startswith("sys-"):
-            wine = shutil.which("wine")
-            if not wine:
-                return None
-            runner = os.path.dirname(os.path.dirname(wine))
-        elif SteamUtils.is_proton(runner):
+        if SteamUtils.is_proton(runner):
             runner = SteamUtils.get_dist_directory(runner)
 
         arch = "i386" if system == "syswow64" or config.Arch == Arch.WIN32 else "x86_64"

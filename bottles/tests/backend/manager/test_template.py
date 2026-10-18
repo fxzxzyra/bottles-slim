@@ -1,3 +1,4 @@
+import pytest
 import shutil
 from threading import Event
 
@@ -183,3 +184,6 @@ def test_new_template_does_not_modify_bottle_config(monkeypatch, tmp_path):
     assert config.Path == str(bottle)
     assert hasattr(config, "Creation_Date")
     assert hasattr(config, "Update_Date")
+
+
+pytestmark = pytest.mark.usefixtures("local_runner")
