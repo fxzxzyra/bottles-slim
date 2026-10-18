@@ -100,6 +100,7 @@ class LibraryManager:
 
         self.__library[_uuid] = data
         self.save_library()
+        return _uuid
 
     @staticmethod
     def __get_local_covers(data: dict, config: BottleConfig):

@@ -261,3 +261,14 @@ def test_import_thumbnail_reuses_identical_cover(tmp_path, library_manager):
     assert len(list((bottle_path / "grids").iterdir())) == 1
 
 
+
+
+def test_add_to_library_returns_persisted_entry_id(library_manager):
+    manager, _bottle_path = library_manager
+    data = _entry()
+    data["thumbnail"] = "grid:existing.png"
+
+    entry_uuid = manager.add_to_library(data, BottleConfig(Name="Games", Path="Games"))
+
+    assert isinstance(entry_uuid, str)
+    assert LibraryManager().get_library()[entry_uuid] == data
