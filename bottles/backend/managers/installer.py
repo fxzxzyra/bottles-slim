@@ -483,7 +483,8 @@ class InstallerManager:
         if installers:
             logging.info("Installing dependent installers")
             for i in installers:
-                if not self.install(config, i, step_fn, False):
+                result = self.install(config, i, step_fn, False)
+                if not result.ok:
                     logging.error("Failed to install dependent installer(s)")
                     return Result(
                         False,

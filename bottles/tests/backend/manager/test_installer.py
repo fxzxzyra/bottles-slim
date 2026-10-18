@@ -633,3 +633,28 @@ def test_installer_skips_installed_dependencies(mocker):
     )
 
     manager.dependency_manager.install.assert_not_called()
+
+
+def test_failed_dependent_installer_stops_parent_registration(mocker, monkeypatch):
+    manager = mocker.Mock()
+    installer = object.__new__(InstallerManager)
+    installer._InstallerManager__manager = manager
+    manifests = {
+        "parent": {
+            "Name": "Parent",
+            "Installers": [("child",)],
+            "Executable": {"file": "parent.exe", "name": "Parent"},
+        },
+        "child": {"Name": "Child"},
+    }
+    monkeypatch.setattr(installer, "get_installer", manifests.__getitem__)
+    desktop_entry = mocker.patch(
+        "bottles.backend.managers.installer.ManagerUtils.create_desktop_entry"
+    )
+
+    result = installer.install(BottleConfig(Name="Test"), ("parent",), lambda: None)
+
+    assert result.ok is False
+    assert result.data["message"] == "Failed to install dependent installer(s)"
+    manager.update_config.assert_not_called()
+    desktop_entry.assert_not_called()
