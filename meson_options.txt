@@ -7,3 +7,5 @@ option (
     ],
     value: 'default'
 )
+
+option('tests', type: 'boolean', value: false, description: 'Enable Python regression suites (requires pytest, Xvfb and D-Bus)')

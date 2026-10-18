@@ -36,6 +36,7 @@ localedir = get_option('localedir')
 subdir('po')
 subdir('bottles')
 subdir('data')
+subdir('tests')
 
 gnome.post_install(
 	glib_compile_schemas: true,

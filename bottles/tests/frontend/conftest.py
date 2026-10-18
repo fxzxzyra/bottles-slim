@@ -15,7 +15,7 @@ from gi.repository import Adw, Gio  # noqa: E402
 for variable in ("BOTTLES_TEST_RESOURCE", "BOTTLES_TEST_DATA_RESOURCE"):
     filename = os.environ.get(variable)
     if not filename or not Path(filename).is_file():
-        raise pytest.UsageError(f"{variable} must point to a built resource; use tools/build_verify.py")
+        raise pytest.UsageError(f"{variable} must point to a built resource; use meson test -C build with -Dtests=true")
     Gio.resources_register(Gio.Resource.load(filename))
 
 Adw.init()

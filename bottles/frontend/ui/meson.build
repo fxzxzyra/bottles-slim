@@ -73,7 +73,7 @@ blueprints = custom_target('blueprints',
   output: '.',
   command: [find_program('blueprint-compiler'), 'batch-compile', '@OUTPUT@', '@CURRENT_SOURCE_DIR@', '@INPUT@'],)
 
-gnome.compile_resources('bottles',
+bottles_resources = gnome.compile_resources('bottles',
   'bottles.gresource.xml',
   gresource_bundle: true,
   dependencies: blueprints,

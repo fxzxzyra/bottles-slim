@@ -36,7 +36,7 @@ appstream_file = i18n.merge_file(
   install_dir: get_option('datadir') / 'metainfo'
 )
 
-gnome.compile_resources('data',
+data_resources = gnome.compile_resources('data',
   configure_file(
       input: 'data.gresource.xml.in',
       output: 'data.gresource.xml',
@@ -78,6 +78,10 @@ if compile_schemas.found()
   test('Validate schema file', compile_schemas,
     args: ['--strict', '--dry-run', meson.current_build_dir()]
   )
+endif
+
+if get_option('tests')
+  test_schemas = gnome.compile_schemas()
 endif
 
 subdir('icons')
