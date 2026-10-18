@@ -88,6 +88,7 @@ class InstallersView(Adw.Bin):
         if config is None:
             config = BottleConfig()
         self.config = config
+        include_unstable = self.window.settings.get_boolean("release-candidate")
 
         self.list_installers.set_sensitive(False)
 
@@ -123,11 +124,15 @@ class InstallersView(Adw.Bin):
                     continue
                 if installer[1].get("Arch", "win64") != self.config.Arch:
                     continue
+                if not self.manager.installer_manager.supports_channel(
+                    installer, include_unstable
+                ):
+                    continue
                 GLib.idle_add(new_installer, installer)
                 i += 1
 
             if i == 0:
-                return Result(False)  # there are no arch-compatible installers
+                return Result(False)  # no installers match the architecture and channel
 
             return Result(True)
 
