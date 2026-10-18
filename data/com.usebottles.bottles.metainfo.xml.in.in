@@ -70,11 +70,8 @@
   <translation type="gettext">com.usebottles.bottles</translation>
   <content_rating type="oars-1.1"/>
   <url type="homepage">https://usebottles.com</url>
-  <url type="bugtracker">https://github.com/bottlesdevs/Bottles/issues</url>
   <url type="help">https://docs.usebottles.com</url>
   <url type="translate">https://hosted.weblate.org/engage/bottles</url>
-  <url type="vcs-browser">https://github.com/bottlesdevs/Bottles</url>
-  <url type="contribute">https://github.com/bottlesdevs/Bottles/blob/main/CONTRIBUTING.md</url>
   <recommends>
     <control>pointing</control>
     <control>keyboard</control>
@@ -84,6 +81,17 @@
     <display_length compare="ge">768</display_length>
   </requires>
   <releases>
+    <release version="67.4" date="2026-10-18">
+      <description translate="no">
+        <p>Independent downstream release using upstream version numbering and a reviewed 65.4 feature baseline.</p>
+        <ul>
+          <li>Prefer system-provided Wine runners and support locally supplied user runners</li>
+          <li>Use standard Python installation paths, separate XDG directories and native Vulkan detection</li>
+          <li>Modernize GTK navigation, preferences and tables, and improve behavioral regression coverage</li>
+          <li>Include selected upstream improvements and fixes; omit UMU, remote runner management and sponsorship features</li>
+        </ul>
+      </description>
+    </release>
     <release version="65.4" date="2026-08-06">
       <description translate="no">
         <ul>

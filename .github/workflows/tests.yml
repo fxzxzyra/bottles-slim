@@ -1,0 +1,36 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  meson-tests:
+    name: Flatpak build and Meson tests
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-50
+      options: --privileged
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Build development manifest and run Meson tests
+        run: >-
+          flatpak-builder --user --install-deps-from=flathub
+          --force-clean --keep-build-dirs
+          build-dir build-aux/com.usebottles.bottles.Devel.json
+      - name: Save build and test reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: meson-test-reports-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            .flatpak-builder/build/bottles*/_flatpak_build/meson-logs/
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 14

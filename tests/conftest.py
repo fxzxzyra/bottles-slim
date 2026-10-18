@@ -1,20 +1,9 @@
-"""Pytest bootstrap for repository-local imports.
-
-Ensures the repository root is on sys.path so `import bottles` works when
-running `pytest` without installing the package.
-"""
+"""Keep imports on the package selected by the Meson test entry point."""
 
 import os
+from pathlib import Path
 import sys
 
-
-def _add_repo_root_to_syspath() -> None:
-    this_dir = os.path.dirname(__file__)
-    repo_root = os.path.abspath(os.path.join(this_dir, os.pardir))
-    if repo_root not in sys.path:
-        sys.path.insert(0, repo_root)
-
-
-_add_repo_root_to_syspath()
-
-
+package_root = os.environ.get("BOTTLES_TEST_PACKAGE_ROOT", str(Path(__file__).resolve().parents[1]))
+if package_root not in sys.path:
+    sys.path.insert(0, package_root)

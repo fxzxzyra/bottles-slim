@@ -3,13 +3,10 @@ name: python3-package-installation
 buildsystem: simple
 build-commands:
 - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
-  --prefix=${FLATPAK_DEST} --no-build-isolation wheel PyYAML pycurl chardet requests
-  PySocks Markdown icoextract patool pathvalidate FVS orjson pycairo PyGObject charset-normalizer
+  --prefix=${FLATPAK_DEST} --no-build-isolation PyYAML pycurl chardet requests
+  PySocks Markdown icoextract patool pathvalidate pycairo PyGObject charset-normalizer
   idna urllib3 certifi pefile yara-python
 sources:
-- type: file
-  url: https://files.pythonhosted.org/packages/f7/2f/cc09899755f94b36e7f570b9f9ca19a5fdff536e2614fd3ac1c28bb777f6/FVS-0.3.4.tar.gz
-  sha256: c987741f37706ea07d91ec498c145162676ca16b59b5c8c2351cf464954ce422
 - type: file
   url: https://files.pythonhosted.org/packages/64/69/4a5af2bc115a9a33fefe51709749de8262be3f9ba063d1753a837cdbc49c/markdown-3.10.3-py3-none-any.whl
   sha256: fa6c92a00a4a3c98b22728c64a935ae1928250ae65058a6ded814d2cc29a4cea
@@ -44,11 +41,6 @@ sources:
   url: https://files.pythonhosted.org/packages/1e/5e/d4e9f1a599fb8e573b7b87160658329fbf28d19eac2718f51fc3def3aa5a/idna-3.18-py3-none-any.whl
   sha256: 7f952cbe720b688055e3f87de14f5c3e5fdaa8bc3928985c4077ca689de849a2
 - type: file
-  url: https://files.pythonhosted.org/packages/a1/08/dca0082dd2a194acb93e5457e73455388e2e2ca464a2672449a9ddbb679d/orjson-3.11.9-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  sha256: 4e39364e726a8fff737309aff059ff67d8a8c8d5b677be7bb49a8b3e84b7e218
-  only-arches:
-  - x86_64
-- type: file
   url: https://files.pythonhosted.org/packages/9a/70/875f4a23bfc4731703a5835487d0d2fb999031bd415e7d17c0ae615c18b7/pathvalidate-3.3.1-py3-none-any.whl
   sha256: 5263baab691f8e1af96092fa5137ee17df5bdfbd6cff1fcac4d6ef4bc2e1735f
 - type: file
@@ -71,9 +63,6 @@ sources:
 - type: file
   url: https://files.pythonhosted.org/packages/7f/3e/5db95bcf282c52709639744ca2a8b149baccf648e39c8cc87553df9eae0c/urllib3-2.7.0-py3-none-any.whl
   sha256: 9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897
-- type: file
-  url: https://files.pythonhosted.org/packages/87/1b/9e33c09813d65e248f7f773119148a612516a4bea93e9c6f545f78455b7c/wheel-0.47.0-py3-none-any.whl
-  sha256: 212281cab4dff978f6cedd499cd893e1f620791ca6ff7107cf270781e587eced
 - type: file
   url: https://files.pythonhosted.org/packages/99/ee/21477d4c83e7f267ff7d61a518eb1b2d3eb7877031c5c07bd1dc0a54eb95/yara_python-4.5.4-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
   sha256: 9d9a58b7dc87411a2443d2e0382a111bd892aef9f6db2a1ebb4a9215eef0db71

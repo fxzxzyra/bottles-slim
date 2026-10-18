@@ -1,21 +1,11 @@
-# Contributing to Bottles
-First off, thanks for taking the time to contribute :heart:!
+# Contributing
 
-## Found a Problem?
-Before reporting a problem, be it a bug, design or others, we assume you have made sure that:
-1. the [Bottles wiki](https://github.com/bottlesdevs/Bottles/wiki) does not cover your problem
-1. the problem has not been reported in the [issue tracker](https://github.com/bottlesdevs/Bottles/issues)
-1. the problem is reproducible with [Bottles from Flathub](https://flathub.org/apps/details/com.usebottles.bottles)
+Report downstream problems in this repository. Include the source commit, package format, distribution, expected and actual behavior, and reproduction steps. Remove personal information from logs before sharing them. Keep discussions respectful and focused on the issue.
 
-If all apply, then please consider opening a [new issue](https://github.com/bottlesdevs/Bottles/issues/new/choose).
+See the [development guide](docs/development.md) for builds, Meson tests and translations, and [Linux layout](docs/linux-layout.md) for installation and runtime directories.
 
-## Want to Submit Code?
-You can submit code by [forking](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/about-forks) this project, editing the desired code and finally submitting a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request).
+Keep changes focused and test observable behavior, including failure cases. Run the relevant Meson suites and describe the validation performed. Do not commit credentials, personal data or generated build artifacts.
 
-To build Bottles, refer to the [Building](README.md#Building) instructions.
+The feature baseline is Bottles 65.4. Ordinary applications and games have equal priority; new features are reviewed individually, while fixes to retained functionality can be integrated directly. Follow the current design without adding old-version compatibility layers.
 
-### Having Trouble Understanding the Source Code?
-If you want to inquire to understand the code base, you can contact us via [Discord](https://discord.com/invite/wF4JAdYrTR). We'd love to help you out!
-
-## Want to Translate Bottles?
-You can help Bottles speak your language by translating on [Weblate](https://hosted.weblate.org/projects/bottles).
+Preserve upstream authorship and license notices. For upstream changes, retain the original commit reference through cherry-pick attribution or an `Upstream-commit` / `Upstream-fix-from` trailer, and describe any adaptation.
