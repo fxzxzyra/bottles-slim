@@ -1,6 +1,6 @@
 pkgdatadir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name(), 'resources')
 system_runners_dir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name(), 'runners')
-python = import('python').find_installation('python3', pure: true)
+python = import('python').find_installation(get_option('python_interpreter'), pure: true)
 pythondir = python.get_install_dir()
 
 conf = configuration_data()

@@ -9,3 +9,5 @@ option (
 )
 
 option('tests', type: 'boolean', value: false, description: 'Enable Python regression suites (requires pytest, Xvfb and D-Bus)')
+
+option('python_interpreter', type: 'string', value: 'python3', description: 'Python interpreter used for installation and tests')

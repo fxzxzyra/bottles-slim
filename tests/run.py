@@ -19,6 +19,50 @@ GROUPS = {
 }
 
 
+
+# Import names differ from distribution/package names (notably PyYAML).
+PYTHON_DEPENDENCIES = {
+    "pytest": "pytest", "pytest_mock": "pytest-mock", "freezegun": "freezegun",
+    "yaml": "PyYAML", "pycurl": "pycurl", "chardet": "chardet",
+    "requests": "requests", "markdown": "Markdown", "icoextract": "icoextract",
+    "patoolib": "patool", "pathvalidate": "pathvalidate", "pefile": "pefile",
+    "yara": "yara-python", "cairo": "pycairo", "gi": "PyGObject",
+}
+GI_DEPENDENCIES = {
+    "GLib": "2.0", "Gio": "2.0", "Gdk": "4.0", "Gtk": "4.0",
+    "Adw": "1", "GtkSource": "5", "GdkPixbuf": "2.0",
+    "Xdp": "1.0", "XdpGtk4": "1.0",
+}
+
+
+def check_dependencies() -> list[str]:
+    """Collect missing modules, unusable native bindings and GI namespaces at once."""
+    problems = []
+    gi = None
+    for module, distribution in PYTHON_DEPENDENCIES.items():
+        try:
+            loaded = importlib.import_module(module)
+            if module == "gi":
+                gi = loaded
+        except Exception as error:
+            problems.append(f"{distribution} (import {module}): {error}")
+    if gi is not None:
+        selected = []
+        # Select all versions before importing any namespace and its dependencies.
+        for namespace, version in GI_DEPENDENCIES.items():
+            try:
+                gi.require_version(namespace, version)
+                selected.append((namespace, version))
+            except Exception as error:
+                problems.append(f"GI {namespace}-{version}: {error}")
+        for namespace, version in selected:
+            try:
+                importlib.import_module(f"gi.repository.{namespace}")
+            except Exception as error:
+                problems.append(f"GI {namespace}-{version}: {error}")
+    return problems
+
+
 def worker(group: str, build: Path) -> int:
     package = Path(os.environ.get("BOTTLES_TEST_PACKAGE_ROOT", ROOT)).resolve()
     sys.path.insert(0, str(package))
@@ -60,10 +104,25 @@ def worker(group: str, build: Path) -> int:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--group", choices=GROUPS, required=True)
-    parser.add_argument("--build-root", type=Path, required=True)
+    parser.add_argument("--group", choices=GROUPS)
+    parser.add_argument("--build-root", type=Path)
+    parser.add_argument("--check-dependencies", action="store_true")
     parser.add_argument("--worker", action="store_true", help=argparse.SUPPRESS)
     args = parser.parse_args()
+    if args.check_dependencies:
+        problems = check_dependencies()
+        print(f"Python: {sys.executable}")
+        if problems:
+            print("Missing or unusable test/runtime dependencies:")
+            for problem in problems:
+                print(f"  - {problem}")
+            print("Prepare Python dependencies from requirements.txt and requirements.dev.txt.")
+            print("GI typelibs and their native libraries must be provided by the build environment.")
+            return 1
+        print("Python runtime/test modules and GI namespaces are available.")
+        return 0
+    if args.group is None or args.build_root is None:
+        parser.error("--group and --build-root are required for test execution")
     build = args.build_root.resolve()
     if args.worker:
         return worker(args.group, build)
