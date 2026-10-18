@@ -18,9 +18,10 @@
 from datetime import datetime
 from gettext import gettext
 
-from gi.repository import Adw, Gtk, Pango
+from gi.repository import Adw, Gio, GLib, Gtk
 
 from bottles.backend.managers.journal import JournalManager, JournalSeverity
+from bottles.frontend.utils.columns import TextRow, text_column
 
 
 @Gtk.Template(resource_path="/com/usebottles/bottles/dialog-journal.ui")
@@ -28,7 +29,7 @@ class JournalDialog(Adw.Window):
     __gtype_name__ = "JournalDialog"
 
     # region Widgets
-    tree_view = Gtk.Template.Child()
+    journal_view = Gtk.Template.Child()
     search_entry = Gtk.Template.Child()
     btn_all = Gtk.Template.Child()
     btn_critical = Gtk.Template.Child()
@@ -43,7 +44,7 @@ class JournalDialog(Adw.Window):
         super().__init__(**kwargs)
 
         self.journal = list(JournalManager.get(period="all").items())
-        self.store = Gtk.ListStore(str, str, str, bool)
+        self.store = Gio.ListStore.new(TextRow)
         self.current_severity = ""
 
         # connect signals
@@ -58,49 +59,13 @@ class JournalDialog(Adw.Window):
         )
         self.btn_info.connect("clicked", self.filter_results, JournalSeverity.INFO)
 
-        self.__setup_tree_view()
-        self.populate_tree_view()
+        self.journal_view.set_model(Gtk.NoSelection.new(self.store))
+        for index, title in enumerate((gettext("Severity"), gettext("Timestamp"), gettext("Message"))):
+            self.journal_view.append_column(text_column(title, index, expand=index == 2, markup=index < 2))
+        self.populate()
 
-    def __setup_tree_view(self):
-        self.tree_view.set_model(self.store)
-        self.tree_view.set_search_column(2)
-
-        for column in self.tree_view.get_columns():
-            self.tree_view.remove_column(column)
-
-        severity_renderer = Gtk.CellRendererText()
-        severity_column = Gtk.TreeViewColumn(gettext("Severity"), severity_renderer)
-        severity_column.set_cell_data_func(
-            severity_renderer, self.__get_cell_data_func(0)
-        )
-        severity_column.set_resizable(True)
-        severity_column.set_sizing(Gtk.TreeViewColumnSizing.AUTOSIZE)
-        self.tree_view.append_column(severity_column)
-
-        timestamp_renderer = Gtk.CellRendererText()
-        timestamp_column = Gtk.TreeViewColumn(gettext("Timestamp"), timestamp_renderer)
-        timestamp_column.set_cell_data_func(
-            timestamp_renderer, self.__get_cell_data_func(1)
-        )
-        timestamp_column.set_resizable(True)
-        timestamp_column.set_sizing(Gtk.TreeViewColumnSizing.AUTOSIZE)
-        self.tree_view.append_column(timestamp_column)
-
-        message_renderer = Gtk.CellRendererText()
-        message_renderer.set_property("ellipsize", Pango.EllipsizeMode.END)
-
-        message_column = Gtk.TreeViewColumn(gettext("Message"), message_renderer)
-        message_column.set_cell_data_func(
-            message_renderer, self.__get_cell_data_func(2)
-        )
-        message_column.set_expand(True)
-        message_column.set_resizable(True)
-        message_column.set_sizing(Gtk.TreeViewColumnSizing.GROW_ONLY)
-        message_column.set_min_width(260)
-        self.tree_view.append_column(message_column)
-
-    def populate_tree_view(self, query="", severity=None):
-        self.store.clear()
+    def populate(self, query="", severity=None):
+        self.store.remove_all()
 
         if severity is None:
             severity = self.current_severity
@@ -116,13 +81,13 @@ class JournalDialog(Adw.Window):
         last_date_label = None
 
         for _, value in self.journal:
-            if query.lower() not in value["message"].lower():
+            if query.casefold() not in (value.get("message") or "").casefold():
                 continue
 
             if severity not in ("", value["severity"]):
                 continue
 
-            timestamp = value.get("timestamp", "")
+            timestamp = value.get("timestamp") or ""
             try:
                 timestamp_dt = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S")
                 date_label = timestamp_dt.strftime("%Y-%m-%d")
@@ -130,30 +95,29 @@ class JournalDialog(Adw.Window):
                 date_label = ""
 
             if date_label != last_date_label:
-                self.store.append(["", date_label, "", True])
+                self.store.append(TextRow(("", f"<b>{GLib.markup_escape_text(date_label)}</b>", "")))
                 last_date_label = date_label
 
             self.store.append(
-                [
+                TextRow((
                     '<span foreground="{}"><b>{}</b></span>'.format(
                         colors.get(
                             value["severity"],
                             colors.get(JournalSeverity.INFO, "#3283a8"),
                         ),
-                        value["severity"].capitalize(),
+                        GLib.markup_escape_text(value["severity"].capitalize()),
                     ),
-                    timestamp,
-                    value.get("message", ""),
-                    False,
-                ]
+                    GLib.markup_escape_text(timestamp),
+                    value.get("message") or "",
+                ))
             )
 
     def on_search_changed(self, entry):
-        self.populate_tree_view(entry.get_text())
+        self.populate(entry.get_text())
 
     def filter_results(self, _, severity):
         self.current_severity = severity
-        self.populate_tree_view(self.search_entry.get_text())
+        self.populate(self.search_entry.get_text())
 
         severity_labels = {
             JournalSeverity.CRITICAL: gettext("Critical"),
@@ -165,28 +129,3 @@ class JournalDialog(Adw.Window):
 
         label = severity_labels.get(severity, gettext("All messages"))
         self.label_filter.set_text(label)
-
-    def __get_cell_data_func(self, column_index):
-        def _cell_data_func(column, renderer, model, iter_, _data=None):
-            self.__populate_cell(renderer, model, iter_, column_index)
-
-        return _cell_data_func
-
-    def __populate_cell(self, renderer, model, iter_, column_index):
-        is_group = model.get_value(iter_, 3)
-
-        renderer.set_property("text", None)
-
-        if is_group:
-            if column_index == 1:
-                renderer.set_property("markup", f"<b>{model.get_value(iter_, 1)}</b>")
-            else:
-                renderer.set_property("text", "")
-            return
-
-        if column_index == 0:
-            renderer.set_property("markup", model.get_value(iter_, 0))
-        elif column_index == 1:
-            renderer.set_property("text", model.get_value(iter_, 1))
-        elif column_index == 2:
-            renderer.set_property("text", model.get_value(iter_, 2))

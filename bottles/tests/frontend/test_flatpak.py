@@ -174,6 +174,6 @@ def test_preferences_picker_keeps_state_when_direct_access_is_missing(monkeypatc
         data=SimpleNamespace(set=lambda *args: data_calls.append(args)),
     )
 
-    preferences.PreferencesWindow._PreferencesWindow__choose_bottles_path(view, None)
+    preferences.PreferencesDialog._PreferencesDialog__choose_bottles_path(view, None)
 
     assert data_calls == []

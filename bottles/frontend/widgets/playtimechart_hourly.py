@@ -206,14 +206,8 @@ class PlaytimeChartHourly(Gtk.Box):
         bar_positions = self._chart_data["bar_positions"]
 
         # Get foreground color from theme
-        style_context = self.get_style_context()
-        fg_color = style_context.lookup_color("foreground")
-        if fg_color[0]:
-            ctx.set_source_rgba(
-                fg_color[1].red, fg_color[1].green, fg_color[1].blue, 0.7
-            )
-        else:
-            ctx.set_source_rgba(0.5, 0.5, 0.5, 0.7)
+        color = self.get_color()
+        ctx.set_source_rgba(color.red, color.green, color.blue, 0.7)
 
         ctx.select_font_face("", 0, 0)  # Default font
         font_scale = self._get_font_scale()
@@ -356,14 +350,8 @@ class PlaytimeChartHourly(Gtk.Box):
             self._chart_data["grid_end_x"] = grid_end_x
 
         # Draw grid lines
-        style_context = self.get_style_context()
-        fg_color = style_context.lookup_color("foreground")
-        if fg_color[0]:
-            ctx.set_source_rgba(
-                fg_color[1].red, fg_color[1].green, fg_color[1].blue, 0.25
-            )
-        else:
-            ctx.set_source_rgba(0.5, 0.5, 0.5, 0.25)
+        color = self.get_color()
+        ctx.set_source_rgba(color.red, color.green, color.blue, 0.25)
 
         ctx.set_line_width(1)
 
@@ -381,14 +369,8 @@ class PlaytimeChartHourly(Gtk.Box):
         label_x: float = grid_end_x + 0  # 0px gap after grid end
 
         # Set text color for labels
-        style_context = self.get_style_context()
-        fg_color = style_context.lookup_color("foreground")
-        if fg_color[0]:
-            ctx.set_source_rgba(
-                fg_color[1].red, fg_color[1].green, fg_color[1].blue, 0.7
-            )
-        else:
-            ctx.set_source_rgba(0.5, 0.5, 0.5, 0.7)
+        color = self.get_color()
+        ctx.set_source_rgba(color.red, color.green, color.blue, 0.7)
 
         ctx.select_font_face("", 0, 0)
         font_scale = self._get_font_scale()
@@ -406,14 +388,8 @@ class PlaytimeChartHourly(Gtk.Box):
             ctx.show_text(text)
 
         # Draw bars
-        style_context = self.get_style_context()
-        accent_color = style_context.lookup_color("accent_bg_color")
-        if accent_color[0]:
-            ctx.set_source_rgba(
-                accent_color[1].red, accent_color[1].green, accent_color[1].blue, 1.0
-            )
-        else:
-            ctx.set_source_rgba(0.6, 0.4, 0.8, 1.0)
+        color = Adw.StyleManager.get_default().get_accent_color_rgba()
+        ctx.set_source_rgba(color.red, color.green, color.blue, 1.0)
 
         for i, minutes in enumerate(daily_data):
             if minutes > 0:
@@ -444,14 +420,8 @@ class PlaytimeChartHourly(Gtk.Box):
             avg_y = height - (avg_minutes / grid_max_minutes) * height
 
             # Set dashed line style with theme-aware color
-            style_context = self.get_style_context()
-            fg_color = style_context.lookup_color("foreground")
-            if fg_color[0]:
-                ctx.set_source_rgba(
-                    fg_color[1].red, fg_color[1].green, fg_color[1].blue, 0.6
-                )
-            else:
-                ctx.set_source_rgba(0.5, 0.5, 0.5, 0.6)
+            color = self.get_color()
+            ctx.set_source_rgba(color.red, color.green, color.blue, 0.6)
 
             ctx.set_line_width(2)
             ctx.set_dash([5, 5])  # 5px dash, 5px gap

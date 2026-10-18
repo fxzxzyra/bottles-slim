@@ -17,13 +17,13 @@
 
 from typing import Optional
 
-from gi.repository import Gtk
+from gi.repository import Gio, Gtk
 
 from bottles.backend.models.config import BottleConfig
 from bottles.backend.utils.threading import RunAsync
 from bottles.backend.wine.winebridge import WineBridge
 from bottles.backend.wine.winedbg import WineDbg
-from bottles.frontend.utils.gtk import GtkUtils
+from bottles.frontend.utils.columns import TextRow, text_column
 
 
 @Gtk.Template(resource_path="/com/usebottles/bottles/details-taskmanager.ui")
@@ -31,7 +31,7 @@ class TaskManagerView(Gtk.ScrolledWindow):
     __gtype_name__ = "TaskManagerView"
 
     # region Widgets
-    treeview_processes = Gtk.Template.Child()
+    processes_view = Gtk.Template.Child()
     actions = Gtk.Template.Child()
     btn_update = Gtk.Template.Child()
     btn_kill = Gtk.Template.Child()
@@ -46,108 +46,78 @@ class TaskManagerView(Gtk.ScrolledWindow):
         self.manager = details.window.manager
         self.config = config
 
-        self.btn_update.connect("clicked", self.sensitive_update)
+        self._generation = 0
+        self.processes = Gio.ListStore.new(TextRow)
+        self.selection = Gtk.SingleSelection.new(self.processes)
+        self.selection.set_autoselect(False)
+        self.selection.set_can_unselect(True)
+        self.processes_view.set_model(self.selection)
+        for index, title in enumerate(("PID", "Name", "Threads")):
+            self.processes_view.append_column(text_column(title, index, expand=index == 1))
+        self.btn_update.connect("clicked", self.update)
         self.btn_kill.connect("clicked", self.kill_process)
-        self.treeview_processes.connect("cursor-changed", self.show_kill_btn)
-
-        # apply model to treeview_processes
-        self.liststore_processes = Gtk.ListStore(str, str, str)
-        self.treeview_processes.set_model(self.liststore_processes)
-
-        cell_renderer = Gtk.CellRendererText()
-        i = 0
-
-        for column in [
-            "PID",
-            "Name",
-            "Threads",
-            # "Parent"
-        ]:
-            """
-            For each column, add it to the treeview_processes
-            """
-            column = Gtk.TreeViewColumn(column, cell_renderer, text=i)
-            self.treeview_processes.append_column(column)
-            i += 1
-
-        self.update()
+        self.selection.connect("notify::selected-item", self.show_kill_btn)
+        self.show_kill_btn()
+        self.update(config=config)
 
     def set_config(self, config):
         self.config = config
+        self._generation += 1
+        self.processes.remove_all()
+        self.btn_update.set_sensitive(True)
+        self.show_kill_btn()
 
-    def show_kill_btn(self, widget):
-        selected = self.treeview_processes.get_selection()
-        model, treeiter = selected.get_selected()
-        if model is None or len(model) == 0:
-            self.btn_kill.set_sensitive(False)
-            return
-        self.btn_kill.set_sensitive(True)
+    def show_kill_btn(self, *_args):
+        self.btn_kill.set_sensitive(self.selection.get_selected_item() is not None)
 
-    def update(self, widget=False, config: Optional[BottleConfig] = None):
-        """
-        This function scan for new processed and update the
-        liststore_processes with the new data
-        """
-        self.liststore_processes.clear()
-
-        def fetch_processes(config: Optional[BottleConfig] = None):
-            if config is None:
-                config = BottleConfig()
+    def update(self, _widget=None, config: Optional[BottleConfig] = None):
+        if config is not None:
             self.config = config
-            if not config.Runner:
-                return []
-
-            winebridge = WineBridge(config)
-
-            if winebridge.is_available():
-                processes = winebridge.get_procs()
-            else:
-                winedbg = WineDbg(config)
-                processes = winedbg.get_processes()
-            return processes
-
-        def update_processes(processes: list, *_args):
-            if len(processes) > 0:
-                for process in processes:
-                    self.liststore_processes.append(
-                        [
-                            process.get("pid"),
-                            process.get("name", "n/a"),
-                            process.get("threads", "0"),
-                            # process.get("parent", "0")
-                        ]
-                    )
-
-        RunAsync(task_func=fetch_processes, callback=update_processes, config=config)
-
-    def sensitive_update(self, widget):
-        @GtkUtils.run_in_main_loop
-        def reset(result, error):
-            self.btn_update.set_sensitive(True)
-
+        current = self.config
+        self._generation += 1
+        generation = self._generation
+        self.processes.remove_all()
         self.btn_update.set_sensitive(False)
-        RunAsync(
-            task_func=self.update, callback=reset, widget=False, config=self.config
-        )
+        self.show_kill_btn()
 
-    def kill_process(self, widget):
-        winebridge = WineBridge(self.config)
-        selected = self.treeview_processes.get_selection()
-        model, treeiter = selected.get_selected()
+        def fetch():
+            if not current.Runner:
+                return []
+            bridge = WineBridge(current)
+            return bridge.get_procs() if bridge.is_available() else WineDbg(current).get_processes()
 
-        if model is None:
-            self.btn_kill.set_sensitive(False)
+        def loaded(processes, error=None):
+            if generation != self._generation:
+                return
+            rows = [] if error or not processes else [
+                TextRow((process["pid"], process.get("name", "n/a"), process.get("threads", "0")))
+                for process in processes if isinstance(process, dict) and process.get("pid") is not None
+            ]
+            self.processes.splice(0, self.processes.get_n_items(), rows)
+            self.btn_update.set_sensitive(True)
+            self.show_kill_btn()
+
+        RunAsync(fetch, loaded)
+
+    def kill_process(self, _widget=None):
+        selected = self.selection.get_selected_item()
+        if selected is None:
+            self.show_kill_btn()
             return
-
-        pid = model[treeiter][0]
+        current = self.config
+        generation = self._generation
         self.btn_kill.set_sensitive(False)
 
-        @GtkUtils.run_in_main_loop
-        def reset(result, error):
-            self.liststore_processes.remove(treeiter)
+        def stop():
+            bridge = WineBridge(current)
+            if bridge.is_available():
+                return bridge.kill_proc(pid=selected.values[0])
+            return WineDbg(current).kill_process(pid=selected.values[0])
 
-        if winebridge.is_available():
-            RunAsync(task_func=winebridge.kill_proc, callback=reset, pid=pid)
-        else:
-            winedbg = WineDbg(self.config)
-            RunAsync(task_func=winedbg.kill_process, callback=reset, pid=pid)
+        def stopped(_result, _error=None):
+            if generation == self._generation:
+                # Re-read Wine's actual process state even after a failed kill;
+                # removing the selected row optimistically hides running apps.
+                self.update(config=current)
+
+        RunAsync(stop, stopped)

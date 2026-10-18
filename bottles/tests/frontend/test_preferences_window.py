@@ -12,7 +12,7 @@ from bottles.frontend.windows import window as window_module
 from bottles.frontend.windows.window import BottlesWindow
 
 
-class PreferencesWindowStub:
+class PreferencesDialogStub:
     instances = []
 
     def __init__(self, window):
@@ -24,20 +24,20 @@ class PreferencesWindowStub:
     def set_visible_page_name(self, page):
         self.page_name = page
 
-    def present(self):
-        self.presented_with = self.window
+    def present(self, parent):
+        self.presented_with = parent
 
 
-def test_preferences_window_is_reused(monkeypatch):
-    PreferencesWindowStub.instances = []
-    monkeypatch.setattr(window_module, "PreferencesWindow", PreferencesWindowStub)
-    window = SimpleNamespace(_preferences_window=None)
+def test_preferences_dialog_is_reused(monkeypatch):
+    PreferencesDialogStub.instances = []
+    monkeypatch.setattr(window_module, "PreferencesDialog", PreferencesDialogStub)
+    window = SimpleNamespace(_preferences_dialog=None)
 
     BottlesWindow.show_prefs_view(window)
     BottlesWindow.show_prefs_view(window)
 
-    assert len(PreferencesWindowStub.instances) == 1
-    assert window._preferences_window.presented_with is window
+    assert len(PreferencesDialogStub.instances) == 1
+    assert window._preferences_dialog.presented_with is window
 
 
 @pytest.mark.parametrize(

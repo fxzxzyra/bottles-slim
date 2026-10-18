@@ -23,7 +23,6 @@ from gi.repository import Adw, GLib, Gtk
 
 from bottles.backend.managers.queue import QueueManager
 from bottles.backend.models.config import BottleConfig
-from bottles.backend.utils.threading import RunAsync
 from bottles.frontend.utils.common import format_runner_name
 from bottles.frontend.utils.gtk import GtkUtils
 from bottles.frontend.views.bottle_dependencies import DependenciesView
@@ -47,7 +46,9 @@ class DetailsView(Adw.Bin):
     __pages = {}
 
     # region Widgets
-    leaflet = Gtk.Template.Child()
+    section_navigation = Gtk.Template.Child()
+    overview_page = Gtk.Template.Child()
+    section_page = Gtk.Template.Child()
     default_view = Gtk.Template.Child()
     stack_bottle = Gtk.Template.Child()
     sidebar_headerbar = Gtk.Template.Child()
@@ -75,6 +76,8 @@ class DetailsView(Adw.Bin):
         self.manager = window.manager
         self.versioning_manager = window.manager.versioning_manager
         self.config = config
+        self._unloading = False
+        self._page_generation = 0
         self.queue = QueueManager(add_fn=self.lock_back, end_fn=self.unlock_back)
 
         self.view_bottle = BottleView(self, config)
@@ -88,43 +91,36 @@ class DetailsView(Adw.Bin):
 
         self.btn_back.connect("clicked", self.go_back)
         self.btn_back_sidebar.connect("clicked", self.go_back_sidebar)
-        self.window.main_leaf.connect(
-            "notify::visible-child", self.__on_main_leaf_changed
-        )
-        self.window.main_leaf.connect(
-            "notify::child-transition-running", self.__on_main_leaf_changed
-        )
+        self.window.details_page.connect("hidden", self.unload_view)
         self.default_actions.append(self.view_bottle.actions)
 
         # region signals
         self.stack_bottle.connect("notify::visible-child", self.__on_page_change)
         self.btn_operations.connect("activate", self.__on_operations_toggled)
         self.btn_operations.connect("notify::visible", self.__spin_tasks_toggle)
-        self.leaflet.connect("notify::folded", self.__on_leaflet_folded)
         # endregion
 
-        RunAsync(self.build_pages)
+        self.build_pages()
 
     def set_title(self, title, subtitle: str = ""):
         """
         This function is used to set the title of the DetailsView
         headerbar.
         """
+        self.section_page.set_title(title)
         self.content_title.set_title(title)
         self.content_title.set_subtitle(subtitle)
-
-    def __on_leaflet_folded(self, widget, *_args):
-        folded = widget.get_folded()
-        self.sidebar_headerbar.set_show_end_title_buttons(folded)
-        self.content_headerbar.set_show_start_title_buttons(folded)
-        self.btn_back_sidebar.set_visible(folded)
 
     def __on_page_change(self, *_args):
         """
         Update headerbar title according to the current page.
         """
-        self.window.toggle_selection_mode(False)
+        if self._unloading:
+            return
         page = self.stack_bottle.get_visible_child_name()
+        if page is None:
+            return
+        self.window.toggle_selection_mode(False)
 
         self.set_title(self.__pages[page]["title"], self.__pages[page]["description"])
         if page == "dependencies":
@@ -148,6 +144,8 @@ class DetailsView(Adw.Bin):
         user settings (some pages are shown only if experimental
         features are enabled).
         """
+        self._page_generation += 1
+        generation = self._page_generation
         self.__pages = {
             "preferences": {
                 "title": _("Settings"),
@@ -183,6 +181,8 @@ class DetailsView(Adw.Bin):
             del self.__pages["versioning"]
 
         def ui_update():
+            if generation != self._page_generation:
+                return
             if self.view_bottle.get_parent() is None:
                 self.default_view.append(self.view_bottle)
 
@@ -218,6 +218,7 @@ class DetailsView(Adw.Bin):
         to be updated during this process.
         """
         self.config = config
+        self.section_navigation.pop_to_tag("overview")
 
         # update widgets data with bottle configuration
         self.view_bottle.set_config(config=config)
@@ -243,30 +244,35 @@ class DetailsView(Adw.Bin):
             self.spinner_tasks.set_visible(False)
 
     def go_back(self, _widget=False):
-        self.window.main_leaf.navigate(Adw.NavigationDirection.BACK)
+        self.window.go_back()
+
+    def open_section(self):
+        if self.section_navigation.get_visible_page() is not self.section_page:
+            self.section_navigation.push(self.section_page)
 
     def go_back_sidebar(self, *_args):
-        self.leaflet.navigate(Adw.NavigationDirection.BACK)
-
-    def __on_main_leaf_changed(self, *_args):
-        leaflet = self.window.main_leaf
-        if leaflet.get_child_transition_running():
-            return
-        if leaflet.get_visible_child() is self:
-            return
-        self.unload_view()
+        self.section_navigation.pop()
 
     def unload_view(self, *_args):
-        while self.stack_bottle.get_first_child():
-            self.stack_bottle.remove(self.stack_bottle.get_first_child())
+        self._page_generation += 1
+        self._unloading = True
+        try:
+            while self.stack_bottle.get_first_child():
+                self.stack_bottle.remove(self.stack_bottle.get_first_child())
+        finally:
+            self._unloading = False
 
     @GtkUtils.run_in_main_loop
     def lock_back(self):
+        self.window.details_page.set_can_pop(False)
+        self.section_page.set_can_pop(False)
         self.btn_back.set_sensitive(False)
         self.btn_back.set_tooltip_text(_("Operations in progress, please wait."))
 
     @GtkUtils.run_in_main_loop
     def unlock_back(self):
+        self.window.details_page.set_can_pop(True)
+        self.section_page.set_can_pop(True)
         self.btn_back.set_sensitive(True)
         self.btn_back.set_tooltip_text(_("Return to your bottles."))
 

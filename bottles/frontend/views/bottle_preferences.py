@@ -797,10 +797,13 @@ class PreferencesView(Adw.PreferencesPage):
         )
         new_window.present()
 
-    def __show_feature_dialog(self, _widget: Gtk.Widget, dialog: Adw.Window) -> None:
+    def __show_feature_dialog(self, _widget: Gtk.Widget, dialog: type[Adw.Window] | type[Adw.Dialog]) -> None:
         """Present dialog of a specific feature."""
         window = dialog(window=self.window, config=self.config)
-        window.present()
+        if isinstance(window, Adw.Dialog):
+            window.present(self.window)
+        else:
+            window.present()
 
     def __toggle_feature(self, state: bool, key: str) -> None:
         """Toggle a specific feature."""

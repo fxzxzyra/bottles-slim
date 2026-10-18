@@ -82,7 +82,7 @@ class DLLEntry(Adw.ComboRow):
 
 
 @Gtk.Template(resource_path="/com/usebottles/bottles/dialog-dll-overrides.ui")
-class DLLOverridesDialog(Adw.PreferencesWindow):
+class DLLOverridesDialog(Adw.PreferencesDialog):
     __gtype_name__ = "DLLOverridesDialog"
 
     # region Widgets
@@ -94,7 +94,6 @@ class DLLOverridesDialog(Adw.PreferencesWindow):
 
     def __init__(self, window, config, **kwargs):
         super().__init__(**kwargs)
-        self.set_transient_for(window)
 
         # common variables and references
         self.window = window
@@ -127,8 +126,7 @@ class DLLOverridesDialog(Adw.PreferencesWindow):
             self.entry_row.set_show_apply_button(False)
         else:
             self.entry_row.remove_css_class("error")
-        # Needs to be set to true immediately
-        self.entry_row.set_show_apply_button(True)
+        self.entry_row.set_show_apply_button(bool(dll_name) and not is_invalid)
 
     def __save_override(self, *_args):
         """

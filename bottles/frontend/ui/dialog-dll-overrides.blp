@@ -1,9 +1,8 @@
 using Gtk 4.0;
 using Adw 1;
 
-template $DLLOverridesDialog: Adw.PreferencesWindow {
-  modal: true;
-  default-width: 500;
+template $DLLOverridesDialog: Adw.PreferencesDialog {
+  content-width: 500;
   search-enabled: false;
   title: _("DLL Overrides");
 

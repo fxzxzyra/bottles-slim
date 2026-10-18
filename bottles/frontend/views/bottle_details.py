@@ -123,7 +123,6 @@ class BottleView(Adw.PreferencesPage):
         self.window = details.window
         self.manager = details.window.manager
         self.stack_bottle = details.stack_bottle
-        self.leaflet = details.leaflet
         self.details = details
         self.config = config
         self.show_hidden = False
@@ -204,7 +203,7 @@ class BottleView(Adw.PreferencesPage):
             self.details.view_taskmanager.update(config=self.config)
         try:
             self.stack_bottle.set_visible_child_name(page_name)
-            self.leaflet.navigate(Adw.NavigationDirection.FORWARD)
+            self.details.open_section()
         except:  # pylint: disable=bare-except
             pass
 

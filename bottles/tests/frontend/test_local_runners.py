@@ -3,7 +3,7 @@ from types import SimpleNamespace
 from gi.repository import Adw
 
 from bottles.backend.utils.runners import RunnerRegistry
-from bottles.frontend.views.preferences import PreferencesWindow
+from bottles.frontend.views.preferences import PreferencesDialog
 
 
 def test_local_runner_groups_work_without_network(runner_factory):
@@ -15,13 +15,13 @@ def test_local_runner_groups_work_without_network(runner_factory):
         system_runners=Adw.PreferencesGroup(),
         user_runners=Adw.PreferencesGroup(),
         manager=SimpleNamespace(data_mgr=SimpleNamespace(get=lambda key: registrations)),
-        _PreferencesWindow__runner_rows=[],
-        _PreferencesWindow__forget_user_runner=lambda *_args: None,
+        _PreferencesDialog__runner_rows=[],
+        _PreferencesDialog__forget_user_runner=lambda *_args: None,
     )
 
-    PreferencesWindow.populate_runners_list(view)
+    PreferencesDialog.populate_runners_list(view)
 
-    rows = view._PreferencesWindow__runner_rows
+    rows = view._PreferencesDialog__runner_rows
     assert len(rows) == 2
     assert rows[0][0] is view.system_runners
     assert rows[1][0] is view.user_runners
@@ -36,13 +36,13 @@ def test_missing_system_runner_keeps_install_guidance_visible(monkeypatch):
         system_runners=Adw.PreferencesGroup(),
         user_runners=Adw.PreferencesGroup(),
         manager=SimpleNamespace(data_mgr=SimpleNamespace(get=lambda key: {})),
-        _PreferencesWindow__runner_rows=[],
+        _PreferencesDialog__runner_rows=[],
     )
 
-    PreferencesWindow.populate_runners_list(view)
+    PreferencesDialog.populate_runners_list(view)
 
-    assert len(view._PreferencesWindow__runner_rows) == 1
-    group, row = view._PreferencesWindow__runner_rows[0]
+    assert len(view._PreferencesDialog__runner_rows) == 1
+    group, row = view._PreferencesDialog__runner_rows[0]
     assert group is view.system_runners
     assert row.get_title() == "System Wine is unavailable"
     assert row.get_subtitle()

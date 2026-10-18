@@ -29,6 +29,8 @@ PYTHON_DEPENDENCIES = {
     "patoolib": "patool", "pathvalidate": "pathvalidate", "pefile": "pefile",
     "yara": "yara-python", "cairo": "pycairo", "gi": "PyGObject",
 }
+MINIMUM_UI_VERSIONS = {"Gtk": (4, 10), "Adw": (1, 6)}
+
 GI_DEPENDENCIES = {
     "GLib": "2.0", "Gio": "2.0", "Gdk": "4.0", "Gtk": "4.0",
     "Adw": "1", "GtkSource": "5", "GdkPixbuf": "2.0",
@@ -58,7 +60,15 @@ def check_dependencies() -> list[str]:
                 problems.append(f"GI {namespace}-{version}: {error}")
         for namespace, version in selected:
             try:
-                importlib.import_module(f"gi.repository.{namespace}")
+                loaded = importlib.import_module(f"gi.repository.{namespace}")
+                if namespace in MINIMUM_UI_VERSIONS:
+                    actual = (loaded.get_major_version(), loaded.get_minor_version())
+                    minimum = MINIMUM_UI_VERSIONS[namespace]
+                    if actual < minimum:
+                        problems.append(
+                            f"GI {namespace} requires >= {minimum[0]}.{minimum[1]}, "
+                            f"found {actual[0]}.{actual[1]}"
+                        )
             except Exception as error:
                 problems.append(f"GI {namespace}-{version}: {error}")
     return problems

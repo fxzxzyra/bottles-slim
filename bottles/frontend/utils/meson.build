@@ -4,6 +4,7 @@ bottles_sources = [
   'gtk.py',
   'localization.py',
   'common.py',
+  'columns.py',
   'filters.py',
   'flatpak.py',
   'playtime.py',

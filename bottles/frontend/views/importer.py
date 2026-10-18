@@ -254,4 +254,4 @@ class ImporterView(Adw.Bin):
         self.label_import_progress.set_text(text)
 
     def go_back(self, *_args):
-        self.window.main_leaf.navigate(Adw.NavigationDirection.BACK)
+        self.window.go_back()

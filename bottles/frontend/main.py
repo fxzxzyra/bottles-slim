@@ -355,7 +355,7 @@ class Bottles(Adw.Application):
         self.win.show_add_view()
 
     def __show_importer_view(self, widget=False, *args):
-        self.win.main_leaf.set_visible_child(self.win.page_importer)
+        self.win.show_importer_view()
 
     def __show_journal(self, *args):
         from bottles.frontend.windows.journal import JournalDialog

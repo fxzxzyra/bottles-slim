@@ -43,7 +43,7 @@ from bottles.frontend.views.library import LibraryView
 from bottles.frontend.views.list import BottleView
 from bottles.frontend.views.loading import LoadingView
 from bottles.frontend.views.new_bottle_dialog import BottlesNewBottleDialog
-from bottles.frontend.views.preferences import PreferencesWindow
+from bottles.frontend.views.preferences import PreferencesDialog
 from bottles.frontend.windows.crash import CrashReportDialog
 from bottles.frontend.windows.depscheck import DependenciesCheckDialog
 from bottles.frontend.windows.eagleintel import EagleIntelDialog
@@ -65,9 +65,12 @@ class BottlesWindow(Adw.ApplicationWindow):
     banner_offline = Gtk.Template.Child()
     box_actions = Gtk.Template.Child()
     headerbar = Gtk.Template.Child()
-    view_switcher_title = Gtk.Template.Child()
+    view_switcher = Gtk.Template.Child()
+    header_title = Gtk.Template.Child()
+    window_title = Gtk.Template.Child()
     view_switcher_bar = Gtk.Template.Child()
-    main_leaf = Gtk.Template.Child()
+    main_navigation = Gtk.Template.Child()
+    home_page = Gtk.Template.Child()
     toasts = Gtk.Template.Child()
     # endregion
 
@@ -107,34 +110,10 @@ class BottlesWindow(Adw.ApplicationWindow):
             manager = Adw.StyleManager.get_default()
             manager.set_color_scheme(Adw.ColorScheme.FORCE_DARK)
 
-        # Be VERY explicit that non-sandboxed environments are unsupported
-        if not Xdp.Portal.running_under_sandbox():
-
-            def response(dialog, response, *args):
-                if response == "close":
-                    quit(1)
-
-            body = _(
-                "Bottles is only supported within a sandboxed environment. Official sources of Bottles are available at"
-            )
-            download_url = "usebottles.com/download"
-
-            error_dialog = Adw.AlertDialog.new(
-                _("Unsupported Environment"),
-                f"{body} <a href='https://{download_url}' title='https://{download_url}'>{download_url}.</a>",
-            )
-
-            error_dialog.add_response("close", _("Close"))
-            error_dialog.set_body_use_markup(True)
-            error_dialog.connect("response", response)
-            error_dialog.present(self)
-            logging.error(
-                _(
-                    "Bottles is only supported within a sandboxed format. Official sources of Bottles are available at:"
-                )
-            )
-            logging.error("https://usebottles.com/download/")
-            return
+        breakpoint = Adw.Breakpoint.new(Adw.BreakpointCondition.parse("max-width: 550sp"))
+        breakpoint.add_setter(self.header_title, "visible-child-name", "title")
+        breakpoint.add_setter(self.view_switcher_bar, "reveal", True)
+        self.add_breakpoint(breakpoint)
 
         # Loading view
         self.page_loading = LoadingView()
@@ -244,8 +223,8 @@ class BottlesWindow(Adw.ApplicationWindow):
         GLib.idle_add(self.page_library.update)
 
     def title(self, title, subtitle: str = ""):
-        self.view_switcher_title.set_title(title)
-        self.view_switcher_title.set_subtitle(subtitle)
+        self.window_title.set_title(title)
+        self.window_title.set_subtitle(subtitle)
 
     def check_for_connection(self, *_args):
         """
@@ -314,16 +293,17 @@ class BottlesWindow(Adw.ApplicationWindow):
                 self.show_onboard_view()
 
             # Pages
+            self.details_page = Adw.NavigationPage(title=_("Details"), tag="details")
             self.page_details = DetailsView(self)
             self.page_list = BottleView(self, arg_bottle=self.arg_bottle)
             self.page_importer = ImporterView(self)
             self.page_library = LibraryView(self)
 
-            self.main_leaf.append(self.page_details)
-            self.main_leaf.append(self.page_importer)
-
-            self.main_leaf.get_page(self.page_details).set_navigatable(False)
-            self.main_leaf.get_page(self.page_importer).set_navigatable(False)
+            self.details_page.set_child(self.page_details)
+            self.importer_page = Adw.NavigationPage.new(self.page_importer, _("Import"))
+            self.importer_page.set_tag("importer")
+            self.main_navigation.add(self.details_page)
+            self.main_navigation.add(self.importer_page)
 
             self.stack_main.add_titled(
                 child=self.page_list, name="page_list", title=_("Bottles")
@@ -356,7 +336,7 @@ class BottlesWindow(Adw.ApplicationWindow):
             )
 
             self.lock_ui(False)
-            self.headerbar.get_style_context().remove_class("flat")
+            self.headerbar.remove_css_class("flat")
 
             user_defined_bottles_path = self.manager.data_mgr.get(
                 UserDataKeys.CustomBottlesPath
@@ -403,10 +383,11 @@ class BottlesWindow(Adw.ApplicationWindow):
             self.props.application.send_notification(None, notification)
 
     def go_back(self, *_args):
-        self.main_leaf.navigate(direction=Adw.NavigationDirection.BACK)
+        self.main_navigation.pop_to_tag("home")
 
     def show_details_view(self, widget=False, config: Optional[BottleConfig] = None):
-        self.main_leaf.set_visible_child(self.page_details)
+        if self.main_navigation.get_visible_page() is not self.details_page:
+            self.main_navigation.push_by_tag("details")
         self.page_details.set_config(config or BottleConfig())
 
     def show_loading_view(self, widget=False):
@@ -427,16 +408,18 @@ class BottlesWindow(Adw.ApplicationWindow):
         new_bottle_dialog.present(self)
 
     def show_list_view(self, widget=False):
+        self.main_navigation.pop_to_tag("home")
         self.stack_main.set_visible_child_name("page_list")
 
     def show_importer_view(self, widget=False):
-        self.main_leaf.set_visible_child(self.page_importer)
+        if self.main_navigation.get_visible_page() is not self.importer_page:
+            self.main_navigation.push_by_tag("importer")
 
     def show_prefs_view(self, widget=False, view=0):
-        if getattr(self, "_preferences_window", None) is None:
-            self._preferences_window = PreferencesWindow(self)
-        preferences_window = self._preferences_window
-        preferences_window.present()
+        if getattr(self, "_preferences_dialog", None) is None:
+            self._preferences_dialog = PreferencesDialog(self)
+        preferences_dialog = self._preferences_dialog
+        preferences_dialog.present(self)
 
     def show_download_preferences_view(self, widget=False):
         self.show_prefs_view(widget, view=1)
@@ -502,16 +485,16 @@ class BottlesWindow(Adw.ApplicationWindow):
         GLib.idle_add(self.__maybe_prompt_winebridge_update)
 
     def toggle_selection_mode(self, status: bool = True):
-        context = self.headerbar.get_style_context()
         if status:
-            context.add_class("selection-mode")
+            self.headerbar.add_css_class("selection-mode")
         else:
-            context.remove_class("selection-mode")
+            self.headerbar.remove_css_class("selection-mode")
 
     def lock_ui(self, status: bool = True):
+        self.view_switcher_bar.set_sensitive(not status)
         widgets = [
             self.btn_add,
-            self.view_switcher_title,
+            self.header_title,
         ]
         if self.btn_noconnection.get_visible():
             widgets.append(self.btn_noconnection)

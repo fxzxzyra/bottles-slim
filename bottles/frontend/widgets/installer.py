@@ -66,7 +66,7 @@ class InstallerEntry(Adw.ActionRow):
         self.set_title(name)
         self.set_subtitle(description)
         self.label_grade.set_text(grade)
-        self.label_grade.get_style_context().add_class(f"grade-{grade}")
+        self.label_grade.add_css_class(f"grade-{grade}")
         self.set_tooltip_text(grade_description)
 
         # connect signals

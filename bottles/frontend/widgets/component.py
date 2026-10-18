@@ -34,8 +34,8 @@ logging = Logger()
 class ComponentEntry(Adw.ActionRow):
     __gtype_name__ = "ComponentEntry"
     __gsignals__ = {
-        "component-installed": (GObject.SIGNAL_RUN_FIRST, None, ()),
-        "component-error": (GObject.SIGNAL_RUN_FIRST, None, ()),
+        "component-installed": (GObject.SignalFlags.RUN_FIRST, None, ()),
+        "component-error": (GObject.SignalFlags.RUN_FIRST, None, ()),
     }
 
     # region Widgets

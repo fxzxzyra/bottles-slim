@@ -67,13 +67,10 @@ template $JournalDialog: Adw.Window {
       hexpand: true;
       vexpand: true;
 
-      TreeView tree_view {
-        reorderable: true;
+      ColumnView journal_view {
         hexpand: true;
         vexpand: true;
-
-        [internal-child selection]
-        TreeSelection {}
+        show-row-separators: true;
       }
     }
   }

@@ -54,3 +54,19 @@ def iterate_until():
             time.sleep(0.001)
 
     return iterate
+
+
+@pytest.fixture
+def widget_texts():
+    """Read rendered label text through real GTK child widgets."""
+    from gi.repository import Gtk
+
+    def collect(widget):
+        result = [widget.get_text()] if isinstance(widget, Gtk.Label) else []
+        child = widget.get_first_child()
+        while child is not None:
+            result.extend(collect(child))
+            child = child.get_next_sibling()
+        return result
+
+    return collect

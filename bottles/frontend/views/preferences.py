@@ -39,8 +39,8 @@ from bottles.frontend.widgets.component import ComponentEntry, ComponentExpander
 
 
 @Gtk.Template(resource_path="/com/usebottles/bottles/preferences.ui")
-class PreferencesWindow(Adw.PreferencesWindow):
-    __gtype_name__ = "PreferencesWindow"
+class PreferencesDialog(Adw.PreferencesDialog):
+    __gtype_name__ = "PreferencesDialog"
 
     # region Widgets
     dlls_stack = Gtk.Template.Child()
@@ -97,7 +97,6 @@ class PreferencesWindow(Adw.PreferencesWindow):
 
     def __init__(self, window, **kwargs):
         super().__init__(**kwargs)
-        self.set_transient_for(window)
 
         # common variables and references
         self.window = window
@@ -744,7 +743,7 @@ class PreferencesWindow(Adw.PreferencesWindow):
 
             size_label = Gtk.Label(label=template.get("size", "0B"))
             size_label.set_xalign(1.0)
-            size_label.get_style_context().add_class("dim-label")
+            size_label.add_css_class("dim-label")
             row.add_suffix(size_label)
 
             btn_remove = Gtk.Button.new_with_label(_("_Delete"))

@@ -102,4 +102,4 @@ class LibraryView(Adw.Bin):
         self.update()
 
     def go_back(self, widget=False):
-        self.window.main_leaf.navigate(Adw.NavigationDirection.BACK)
+        self.window.go_back()

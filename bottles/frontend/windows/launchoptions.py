@@ -31,7 +31,7 @@ logging = Logger()
 class LaunchOptionsDialog(Adw.Window):
     __gtype_name__ = "LaunchOptionsDialog"
     __gsignals__ = {
-        "options-saved": (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        "options-saved": (GObject.SignalFlags.RUN_FIRST, None, (object,)),
     }
 
     # region Widgets
