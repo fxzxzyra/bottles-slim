@@ -63,13 +63,23 @@ class SteamUtils:
         if not os.path.isfile(toolmanifest):
             return False
 
-        f = open(toolmanifest, "r", errors="replace")
-        data = SteamUtils.parse_vdf(f.read())
-        compat_layer_name = data.get("manifest", {}).get("compatmanager_layer_name", {})
+        try:
+            with open(toolmanifest, "r", encoding="utf-8", errors="replace") as stream:
+                data = SteamUtils.parse_vdf(stream.read())
+        except (OSError, SyntaxError) as exc:
+            logging.warning(f"Cannot read runner manifest {toolmanifest}: {exc}")
+            return False
 
-        commandline = data.get("manifest", {}).get("commandline", {})
-
-        return "proton" in compat_layer_name or "proton" in commandline
+        manifest = data.get("manifest")
+        if not isinstance(manifest, dict):
+            return False
+        return any(
+            isinstance(value, str) and "proton" in value
+            for value in (
+                manifest.get("compatmanager_layer_name"),
+                manifest.get("commandline"),
+            )
+        )
 
     @staticmethod
     def get_associated_runtime(path: str) -> Optional[str]:

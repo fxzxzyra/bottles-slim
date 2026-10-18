@@ -51,8 +51,8 @@ def test_wine_executor_emits_and_updates_totals(mocker):
         mocker.patch.object(WineExecutor, "_WineExecutor__launch_dll", return_value=_stub_result)
 
         # Stub WinePath conversions to avoid system calls / missing libs
-        # Instance methods are bound; side_effect receives only the path argument
-        mocker.patch.object(WinePath, "to_unix", side_effect=lambda path: path)
+        # Match the public conversion signatures, including native path selection.
+        mocker.patch.object(WinePath, "to_unix", side_effect=lambda path, native=False, sandbox_override=None: path)
         mocker.patch.object(WinePath, "to_windows", side_effect=lambda path: path)
 
         execu = WineExecutor(

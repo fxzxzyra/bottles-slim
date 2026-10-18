@@ -57,7 +57,7 @@ from bottles.frontend.windows.lsfgvk import LsfgVkDialog
 from bottles.frontend.windows.mangohud import MangoHudDialog
 from bottles.frontend.windows.protonalert import ProtonAlertDialog
 from bottles.frontend.windows.sandbox import SandboxDialog
-from bottles.frontend.windows.vkbasalt import VkBasaltDialog
+from bottles.frontend.windows.vkbasalt import VkBasaltDialog, vkbasalt_config_available
 from bottles.frontend.windows.vmtouch import VmtouchDialog
 
 logging = Logger()
@@ -153,6 +153,16 @@ class PreferencesView(Adw.PreferencesPage):
     str_list_windows = Gtk.Template.Child()
 
     # endregion
+
+    def __update_vkbasalt_sensitivity(self):
+        self.switch_vkbasalt.set_sensitive(bool(vkbasalt_available))
+        self.btn_manage_vkbasalt.set_sensitive(
+            bool(vkbasalt_available) and vkbasalt_config_available
+        )
+        if vkbasalt_available and not vkbasalt_config_available:
+            self.btn_manage_vkbasalt.set_tooltip_text(
+                _("Install vkbasalt-cli to edit vkBasalt settings.")
+            )
 
     def __init__(self, details, config, **kwargs):
         super().__init__(**kwargs)
@@ -346,8 +356,7 @@ class PreferencesView(Adw.PreferencesPage):
         self.switch_gamemode.set_sensitive(gamemode_available)
         self.switch_gamescope.set_sensitive(gamescope_available)
         self.btn_manage_gamescope.set_sensitive(gamescope_available)
-        self.switch_vkbasalt.set_sensitive(vkbasalt_available)
-        self.btn_manage_vkbasalt.set_sensitive(vkbasalt_available)
+        self.__update_vkbasalt_sensitivity()
         _lsfg_vk_supported = lsfg_vk_available and config.Arch != Arch.WIN32
         self.switch_lsfg_vk.set_sensitive(_lsfg_vk_supported)
         self.btn_manage_lsfg_vk.set_sensitive(_lsfg_vk_supported)

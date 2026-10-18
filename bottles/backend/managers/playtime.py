@@ -275,21 +275,8 @@ class ProcessSessionTracker:
         base_timestamp = _utc_now_seconds()
 
         with self._lock:
-            # If database tracking is disabled, we only use in-memory tracking.
-            if not self.enabled:
-                session_id = -int(time.time() * 1000) % 2147483647
-                self._tracked[session_id] = _TrackedSession(
-                    session_id=session_id,
-                    bottle_id=bottle_id,
-                    program_id=program_id,
-                    program_name=program_name,
-                    started_at=base_timestamp,
-                    last_seen=base_timestamp,
-                )
-                logging.info(
-                    f"Session tracked (in-memory only): id={session_id} bottle={bottle_name} program={program_name}"
-                )
-                return session_id
+            if not self.enabled or self._closed:
+                return -1
 
             cur = self._conn.cursor()
 
@@ -393,13 +380,7 @@ class ProcessSessionTracker:
             return
 
         with self._lock:
-            # If tracking was in-memory only, just pop it and return
-            if not self.enabled and session_id in self._tracked:
-                self._tracked.pop(session_id, None)
-                logging.debug(f"Session ended (in-memory only): id={session_id}")
-                return
-
-            if session_id < 0:
+            if not self.enabled or self._closed or session_id < 0:
                 return
 
             cur = self._conn.cursor()

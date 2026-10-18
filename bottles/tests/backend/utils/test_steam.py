@@ -461,3 +461,12 @@ def test_prepare_proton_fsr4_kills_process_group_on_timeout(
         "pgid": 42,
         "signal": 9,
     }
+
+
+@pytest.mark.parametrize("manifest", [
+    '"manifest" {', '"manifest" "invalid"',
+    '"manifest" { "compatmanager_layer_name" {} }',
+])
+def test_invalid_toolmanifest_does_not_break_runner_detection(tmp_path, manifest):
+    (tmp_path / "toolmanifest.vdf").write_text(manifest, encoding="utf-8")
+    assert not SteamUtils.is_proton(str(tmp_path))

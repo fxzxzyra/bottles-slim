@@ -191,3 +191,18 @@ def test_graphics_success_updates_both_selectors():
     view.combo_dxvk.set_selected.assert_called_once_with(2)
     view.combo_vkd3d.set_selected.assert_called_once_with(2)
     view.queue.end_task.assert_called_once()
+
+
+@pytest.mark.parametrize("layer, helper", [(False, False), (False, True),
+                                         (True, False), (True, True)])
+def test_vkbasalt_editor_is_optional(monkeypatch, layer, helper):
+    from bottles.frontend.views import bottle_preferences as module
+
+    view = SimpleNamespace(switch_vkbasalt=Mock(), btn_manage_vkbasalt=Mock())
+    monkeypatch.setattr(module, "vkbasalt_available", layer)
+    monkeypatch.setattr(module, "vkbasalt_config_available", helper)
+    module.PreferencesView._PreferencesView__update_vkbasalt_sensitivity(view)
+    view.switch_vkbasalt.set_sensitive.assert_called_once_with(layer)
+    view.btn_manage_vkbasalt.set_sensitive.assert_called_once_with(layer and helper)
+    if layer and not helper:
+        view.btn_manage_vkbasalt.set_tooltip_text.assert_called_once()

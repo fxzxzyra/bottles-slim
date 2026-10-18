@@ -1579,3 +1579,25 @@ def test_gamescope_reaper_stops_orphaned_descendant(monkeypatch, tmp_path):
                 os.kill(int(child_pid.read_text()), 9)
             except ProcessLookupError:
                 pass
+
+
+@pytest.mark.parametrize("path, parent", [
+    ("C:/Game/game.exe", "C:/Game"),
+    (r"C:\Game\game.exe", r"C:\Game"),
+    ("C:/game.exe", "C:/"),
+    ("/home/user/game.exe", "/home/user"),
+])
+def test_default_working_directory_uses_executable_parent(mocker, path, parent):
+    from bottles.backend.wine.winepath import WinePath
+
+    executor = WineExecutor.__new__(WineExecutor)
+    executor.config = BottleConfig()
+    executor._raw_exec_path = path
+    convert = mocker.patch.object(WinePath, "to_unix", return_value="/converted")
+    actual = executor._WineExecutor__get_cwd(None)
+    if WinePath.is_windows(path):
+        convert.assert_called_once_with(parent, native=True)
+        assert actual == "/converted"
+    else:
+        convert.assert_not_called()
+        assert actual == parent

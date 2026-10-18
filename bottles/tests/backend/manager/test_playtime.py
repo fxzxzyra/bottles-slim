@@ -105,6 +105,8 @@ def test_disabled_tracker_is_noop():
             program_path="C:/Game/game.exe",
         )
         assert sid == -1
+        assert not tracker._tracked
+        tracker.mark_exit(123)  # Disabled tracking must not touch storage.
         tracker.shutdown()
 
 
@@ -300,6 +302,8 @@ def test_disable_tracking_method():
             program_path="C:/Game2/game2.exe",
         )
         assert sid2 == -1
+        assert not tracker._tracked
+        tracker.mark_exit(sid)  # Late exit after disabling uses a closed database.
 
 
 def test_start_session_collapses_duplicate_running_session():
@@ -487,3 +491,13 @@ def test_database_stores_normalized_paths():
         tracker.shutdown()
 
 
+def test_shutdown_tracker_ignores_late_launch_and_exit():
+    with tempfile.TemporaryDirectory() as tmp:
+        tracker = _new_tracker(tmp)
+        tracker.shutdown()
+        assert tracker.start_session(
+            bottle_id="b1", bottle_name="Bottle", bottle_path="/bottle",
+            program_name="App", program_path="C:/App/app.exe",
+        ) == -1
+        tracker.mark_exit(123)
+        assert not tracker._tracked

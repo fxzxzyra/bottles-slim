@@ -1,3 +1,4 @@
+import ntpath
 import os
 import re
 import shlex
@@ -334,7 +335,7 @@ class WineExecutor:
         if cwd in [None, ""]:
             path = self._raw_exec_path
             if winepath.is_windows(path):
-                windows_parent = "\\".join(path.split("\\")[:-1])
+                windows_parent = ntpath.dirname(path)
                 return winepath.to_unix(windows_parent, native=True)
             return os.path.dirname(path)
         return cwd  # will be set by WineCommand if None

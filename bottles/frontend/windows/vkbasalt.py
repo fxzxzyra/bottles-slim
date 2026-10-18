@@ -28,10 +28,16 @@ clut (or lut): Color LookUp Table
 import os
 
 from gi.repository import Adw, GLib, Gtk
-from vkbasalt.lib import ParseConfig, parse  # type: ignore [import-untyped]
 
 from bottles.backend.logger import Logger
 from bottles.backend.utils.manager import ManagerUtils
+
+try:
+    from vkbasalt.lib import ParseConfig, parse  # type: ignore [import-untyped]
+except ImportError:
+    ParseConfig = parse = None
+
+vkbasalt_config_available = ParseConfig is not None and parse is not None
 
 logging = Logger()
 
@@ -83,6 +89,8 @@ class VkBasaltDialog(Adw.Window):
     btn_save = Gtk.Template.Child()
 
     def __init__(self, window, config, **kwargs):
+        if not vkbasalt_config_available:
+            raise RuntimeError("vkbasalt-cli is required to edit vkBasalt settings")
         super().__init__(**kwargs)
         self.set_transient_for(window)
 
