@@ -588,10 +588,8 @@ class ProgramEntry(Adw.ActionRow):
                 for uuid, entry in entries.items():
                     if entry.get("id") == self.program["id"]:
                         entries[uuid]["name"] = new_name
-                        library_manager.download_thumbnail(uuid, self.config)
                         break
 
-                library_manager.__library = entries
                 library_manager.save_library()
 
             @GtkUtils.run_in_main_loop

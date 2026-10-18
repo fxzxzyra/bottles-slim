@@ -21,6 +21,7 @@ from gi.repository import Gdk, Gio, GLib, Gtk
 
 from bottles.backend.logger import Logger
 from bottles.backend.managers.library import LibraryManager
+from bottles.backend.managers.steamgriddb import SteamGridDBManager
 from bottles.backend.managers.thumbnail import ThumbnailManager
 from bottles.backend.models.result import Result
 from bottles.backend.utils.threading import RunAsync
@@ -120,20 +121,19 @@ class LibraryEntry(Gtk.Box):
             path = ThumbnailManager.get_path(self.config, entry["thumbnail"])
 
             if path is None:
-                # redownloading *should* never fail as it was successfully downloaded before
-                logging.info("Redownloading grid image...")
-                library_manager = LibraryManager()
-                result = library_manager.download_thumbnail(self.uuid, self.config)
-                if result:
-                    entry = library_manager.get_library().get(uuid)
-                    path = ThumbnailManager.get_path(self.config, entry["thumbnail"])
+                # A missing remote cover must not block construction of every card.
+                expected_thumbnail = entry["thumbnail"]
 
-            if path is not None:
-                # Gtk.Picture.set_pixbuf deprecated in GTK 4.12
-                texture = Gdk.Texture.new_from_filename(path)
-                self.img_cover.set_paintable(texture)
-                self.img_cover.set_visible(True)
-                self.label_no_cover.set_visible(False)
+                def restore_cover():
+                    return SteamGridDBManager.get_game_grid(self.name, self.config)
+
+                def cover_ready(thumbnail, error=False):
+                    if not error and thumbnail:
+                        self.__apply_downloaded_cover(thumbnail, expected_thumbnail)
+
+                RunAsync(restore_cover, callback=cover_ready)
+            else:
+                self.__set_cover(path)
 
         motion_ctrl = Gtk.EventControllerMotion.new()
         motion_ctrl.connect("enter", self.__on_motion_enter)
@@ -144,6 +144,31 @@ class LibraryEntry(Gtk.Box):
         self.btn_cover.connect("clicked", self.__choose_cover)
         self.btn_stop.connect("clicked", self.stop_process)
         self.btn_remove.connect("clicked", self.__remove_entry)
+
+    def __apply_downloaded_cover(self, thumbnail, expected_thumbnail):
+        # Apply against fresh state on the UI thread: a slow download must not
+        # resurrect a removed entry or overwrite a cover selected meanwhile.
+        library_manager = LibraryManager()
+        current = library_manager.get_library().get(self.uuid)
+        if current is None or current.get("thumbnail") != expected_thumbnail:
+            return
+        path = ThumbnailManager.get_path(self.config, thumbnail)
+        if path is None:
+            return
+        current["thumbnail"] = thumbnail
+        library_manager.save_library()
+        self.entry["thumbnail"] = thumbnail
+        self.__set_cover(path)
+
+    def __set_cover(self, path):
+        try:
+            texture = Gdk.Texture.new_from_filename(path)
+        except GLib.Error as error:
+            logging.warning(f"Could not load library cover {path}: {error}")
+            return
+        self.img_cover.set_paintable(texture)
+        self.img_cover.set_visible(True)
+        self.label_no_cover.set_visible(False)
 
     def __get_config(self):
         bottles = self.manager.local_bottles

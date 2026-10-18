@@ -533,8 +533,9 @@ class BottlesWindow(Adw.ApplicationWindow):
             toast.set_button_label(action_label)
 
             def wrapper_callback(*args):
+                if dismissed_callback:
+                    toast.handler_block_by_func(dismissed_callback)
                 action_callback(toast)
-                toast.handler_block_by_func(dismissed_callback)
 
             toast.connect("button-clicked", wrapper_callback)
 

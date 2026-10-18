@@ -242,7 +242,7 @@ class InstallerDialog(Adw.Window):
 
     def __installed(self):
         self.__stop_activity()
-        self.set_deletable(False)
+        self.set_deletable(True)
         self.stack.set_visible_child_name("page_installed")
         self.window.page_details.view_bottle.update_programs(force_update=True)
         self.window.page_details.go_back_sidebar()
@@ -256,6 +256,8 @@ class InstallerDialog(Adw.Window):
     @GtkUtils.run_in_main_loop
     def next_step(self, detail=None):
         """Next step"""
+        if self.__current_step >= len(self.__sections) or self.__steps <= 0:
+            return
         section = self.__sections[self.__current_step]
 
         if section == "deps" and detail is not None:
@@ -327,6 +329,7 @@ class InstallerDialog(Adw.Window):
         """Set steps"""
         self.__steps = steps["total"]
         self.__sections = steps["sections"]
+        self.__current_step = 0
 
     def add_resource(self, resource, path):
         self.__final_resources[resource] = path

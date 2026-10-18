@@ -15,11 +15,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import time
+from gi.repository import Adw, Gtk
 
-from gi.repository import Adw, GLib, Gtk
-
-from bottles.backend.models.config import BottleConfig
 from bottles.backend.models.result import Result
 from bottles.backend.utils.threading import RunAsync
 from bottles.frontend.utils.common import open_doc_url
@@ -29,7 +26,6 @@ from bottles.frontend.widgets.installer import InstallerEntry
 @Gtk.Template(resource_path="/com/usebottles/bottles/details-installers.ui")
 class InstallersView(Adw.Bin):
     __gtype_name__ = "DetailsInstallers"
-    __registry = []
 
     # region Widgets
     list_installers = Gtk.Template.Child()
@@ -40,7 +36,6 @@ class InstallersView(Adw.Bin):
     actions = Gtk.Template.Child()
     pref_page = Gtk.Template.Child()
     status_page = Gtk.Template.Child()
-    ev_controller = Gtk.EventControllerKey.new()
 
     # endregion
 
@@ -51,6 +46,9 @@ class InstallersView(Adw.Bin):
         self.window = details.window
         self.manager = details.window.manager
         self.config = config
+        self.__registry = []
+        self.__update_generation = 0
+        self.ev_controller = Gtk.EventControllerKey.new()
 
         self.ev_controller.connect("key-released", self.__search_installers)
         self.entry_search.add_controller(self.ev_controller)
@@ -69,10 +67,8 @@ class InstallersView(Adw.Bin):
 
     @staticmethod
     def __filter_installers(row, terms=None):
-        text = row.get_title().lower() + row.get_subtitle().lower()
-        if terms.lower() in text:
-            return True
-        return False
+        text = (row.get_title() or "") + (row.get_subtitle() or "")
+        return (terms or "").casefold() in text.casefold()
 
     def empty_list(self):
         for r in self.__registry:
@@ -86,54 +82,48 @@ class InstallersView(Adw.Bin):
         supported by the manager.
         """
         if config is None:
-            config = BottleConfig()
+            config = self.config
         self.config = config
+        self.__update_generation += 1
+        generation = self.__update_generation
         include_unstable = self.window.settings.get_boolean("release-candidate")
-
         self.list_installers.set_sensitive(False)
 
-        def new_installer(_installer):
-            entry = InstallerEntry(
-                window=self.window, config=self.config, installer=_installer
-            )
-            self.list_installers.append(entry)
-            self.__registry.append(entry)
-
         def callback(result, error=False):
-            self.status_page.set_visible(not result.status)
-            self.pref_page.set_visible(result.status)
-            self.list_installers.set_visible(result.status)
-            self.list_installers.set_sensitive(result.status)
+            if generation != self.__update_generation:
+                return
+            self.empty_list()
+            available = not error and isinstance(result, Result) and result.ok
+            entries = result.data["entries"] if available else []
+            if available:
+                self.manager.supported_installers = result.data["catalog"]
+                for installer in entries:
+                    entry = InstallerEntry(
+                        window=self.window, config=config, installer=installer
+                    )
+                    self.list_installers.append(entry)
+                    self.__registry.append(entry)
+            self.status_page.set_visible(not entries)
+            self.pref_page.set_visible(bool(entries))
+            self.list_installers.set_visible(bool(entries))
+            self.list_installers.set_sensitive(True)
 
         def process_installers():
-            time.sleep(0.5)  # workaround for freezing bug on bottle load
-            GLib.idle_add(self.empty_list)
-
             catalog = self.manager.installer_manager.refresh_catalog()
-            if catalog:
-                self.manager.supported_installers = catalog
-            installers = self.manager.supported_installers.items()
-
-            if len(installers) == 0:
-                return Result(False)
-
-            i = 0
-
-            for installer in installers:
-                if len(installer) != 2:
+            if not catalog:
+                catalog = self.manager.supported_installers
+            entries = []
+            for name, metadata in catalog.items():
+                if not isinstance(metadata, dict):
                     continue
-                if installer[1].get("Arch", "win64") != self.config.Arch:
+                installer = (name, metadata)
+                if metadata.get("Arch", "win64") != config.Arch:
                     continue
                 if not self.manager.installer_manager.supports_channel(
                     installer, include_unstable
                 ):
                     continue
-                GLib.idle_add(new_installer, installer)
-                i += 1
-
-            if i == 0:
-                return Result(False)  # no installers match the architecture and channel
-
-            return Result(True)
+                entries.append(installer)
+            return Result(True, data={"entries": entries, "catalog": catalog})
 
         RunAsync(process_installers, callback)

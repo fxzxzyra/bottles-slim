@@ -1,47 +1,7 @@
-from importlib import import_module
-from importlib.util import module_from_spec, spec_from_file_location
-from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import Mock
 
-
-class TemplateStub:
-    def __init__(self, **_kwargs):
-        pass
-
-    def __call__(self, cls):
-        return cls
-
-    @staticmethod
-    def Child():
-        return None
-
-
-def load_installer_dialog():
-    import gi
-
-    gi.require_version("Adw", "1")
-    gi.require_version("Gtk", "4.0")
-    Gtk = import_module("gi.repository.Gtk")
-
-    spec = spec_from_file_location(
-        "_test_installer_module",
-        Path(__file__).parents[2] / "frontend" / "windows" / "installer.py",
-    )
-    if spec is None or spec.loader is None:
-        raise RuntimeError("Unable to load the installer module")
-    installer_module = module_from_spec(spec)
-
-    template = Gtk.Template
-    Gtk.Template = TemplateStub
-    try:
-        spec.loader.exec_module(installer_module)
-    finally:
-        Gtk.Template = template
-    return installer_module.InstallerDialog
-
-
-InstallerDialog = load_installer_dialog()
+from bottles.frontend.windows.installer import InstallerDialog
 
 
 def test_installer_progress_displays_percentage():
@@ -75,3 +35,26 @@ def test_installer_activity_displays_manifest_label():
     dialog.label_activity.set_label.assert_called_once_with(
         "Running Microsoft 365 setup..."
     )
+
+
+def test_late_installer_step_does_not_overrun_completed_sections():
+    dialog = SimpleNamespace(
+        _InstallerDialog__current_step=1,
+        _InstallerDialog__steps=1,
+        _InstallerDialog__sections=["exe"],
+        progressbar=Mock(),
+    )
+    InstallerDialog.next_step.__wrapped__(dialog)
+    dialog.progressbar.set_fraction.assert_not_called()
+
+
+def test_installed_dialog_can_be_closed():
+    dialog = SimpleNamespace(
+        _InstallerDialog__stop_activity=Mock(),
+        set_deletable=Mock(),
+        stack=Mock(),
+        window=Mock(),
+    )
+    InstallerDialog._InstallerDialog__installed(dialog)
+    dialog.set_deletable.assert_called_once_with(True)
+    dialog._InstallerDialog__stop_activity.assert_called_once()
