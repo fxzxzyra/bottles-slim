@@ -22,7 +22,7 @@ from gi.repository import Adw, GObject, Gtk
 
 from bottles.backend.managers.library import LibraryManager
 from bottles.frontend.utils.gtk import GtkUtils
-from bottles.frontend.widgets.library import LibraryEntry
+from bottles.frontend.widgets.library import LibraryAddEntry, LibraryEntry
 
 
 @Gtk.Template(resource_path="/com/usebottles/bottles/library.ui")
@@ -32,11 +32,10 @@ class LibraryView(Adw.Bin):
     # region Widgets
     scroll_window = Gtk.Template.Child()
     main_flow = Gtk.Template.Child()
-    status_page = Gtk.Template.Child()
     style_provider = Gtk.CssProvider()
     # endregion
 
-    items_per_line = GObject.property(type=int, default=0)  # type: ignore
+    items_per_line = GObject.property(type=int, default=1, minimum=1)  # type: ignore
 
     def __init__(self, window, **kwargs):
         super().__init__(**kwargs)
@@ -51,21 +50,29 @@ class LibraryView(Adw.Bin):
         while self.main_flow.get_first_child() is not None:
             self.main_flow.remove(self.main_flow.get_first_child())
 
-        self.status_page.set_visible(len(entries) == 0)
-        self.scroll_window.set_visible(not len(entries) == 0)
-
-        self.items_per_line = len(entries)
-
+        entry_count = 0
         for u, e in entries.items():
-            # We suppress exceptions so that it doesn't continue if the init fails
             with contextlib.suppress(Exception):
                 entry = LibraryEntry(self, u, e)
                 self.main_flow.append(entry)
+                entry_count += 1
+
+        if entry_count == 0:
+            self.main_flow.append(LibraryAddEntry(self))
+        self.items_per_line = max(entry_count, 1)
+
+    def show_bottle_programs(self, *_args):
+        self.window.show_list_view()
+        self.window.show_toast(
+            _("Open a Bottle and choose Add to Library from one of its programs.")
+        )
 
     def remove_entry(self, entry):
+        previous_items_per_line = self.items_per_line
+
         @GtkUtils.run_in_main_loop
         def undo_callback(*args):
-            self.items_per_line += 1
+            self.items_per_line = previous_items_per_line
             entry.show()
 
         @GtkUtils.run_in_main_loop
@@ -73,7 +80,7 @@ class LibraryView(Adw.Bin):
             self.__delete_entry(entry)
 
         entry.hide()
-        self.items_per_line -= 1
+        self.items_per_line = max(self.items_per_line - 1, 1)
         self.window.show_toast(
             message=_('"{0}" removed from the library.').format(entry.name),
             timeout=5,
@@ -85,6 +92,7 @@ class LibraryView(Adw.Bin):
     def __delete_entry(self, entry):
         library_manager = LibraryManager()
         library_manager.remove_from_library(entry.uuid, entry.config)
+        self.update()
 
     def go_back(self, widget=False):
         self.window.main_leaf.navigate(Adw.NavigationDirection.BACK)

@@ -1,0 +1,52 @@
+using Gtk 4.0;
+
+template $LibraryAddEntry: Box {
+  orientation: vertical;
+  width-request: 128;
+  height-request: 348;
+  overflow: hidden;
+
+  Button btn_bottle {
+    width-request: 226;
+    height-request: 348;
+    hexpand: true;
+    vexpand: true;
+    tooltip-text: _("Add to Library");
+
+    Box {
+      orientation: vertical;
+      spacing: 12;
+      halign: center;
+      valign: center;
+      margin-start: 12;
+      margin-end: 12;
+
+      Image {
+        icon-name: "list-add-symbolic";
+        pixel-size: 64;
+      }
+
+      Label {
+        label: _("Add to Library");
+        styles [ "title", ]
+      }
+
+      Label {
+        label: _("Add items here from your bottle\'s program list");
+        wrap: true;
+        justify: center;
+        styles [ "dim-label", ]
+      }
+    }
+
+    styles [
+      "flat",
+      "library-entry-launch",
+    ]
+  }
+
+  styles [
+    "card",
+    "library-entry",
+  ]
+}

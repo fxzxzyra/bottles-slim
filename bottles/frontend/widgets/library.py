@@ -39,6 +39,17 @@ class LibraryEntryInitializationError(Exception):
     pass
 
 
+@Gtk.Template(resource_path="/com/usebottles/bottles/library-add-entry.ui")
+class LibraryAddEntry(Gtk.Box):
+    __gtype_name__ = "LibraryAddEntry"
+
+    btn_bottle = Gtk.Template.Child()
+
+    def __init__(self, library, **kwargs):
+        super().__init__(**kwargs)
+        self.btn_bottle.connect("clicked", library.show_bottle_programs)
+
+
 @Gtk.Template(resource_path="/com/usebottles/bottles/library-entry.ui")
 class LibraryEntry(Gtk.Box):
     __gtype_name__ = "LibraryEntry"
@@ -53,7 +64,6 @@ class LibraryEntry(Gtk.Box):
     label_bottle = Gtk.Template.Child()
     label_no_cover = Gtk.Template.Child()
     img_cover = Gtk.Template.Child()
-    revealer_run = Gtk.Template.Child()
     revealer_details = Gtk.Template.Child()
     overlay = Gtk.Template.Child()
 
@@ -296,11 +306,9 @@ class LibraryEntry(Gtk.Box):
         )
 
     def __on_motion_enter(self, *args):
-        self.revealer_run.set_reveal_child(True)
         self.revealer_details.set_reveal_child(True)
 
     def __on_motion_leave(self, *args):
-        self.revealer_run.set_reveal_child(False)
         self.revealer_details.set_reveal_child(False)
 
     # hide() and show() are essentialy workarounds to avoid keeping
