@@ -3,7 +3,23 @@
 from types import SimpleNamespace
 
 from bottles.frontend.views import library as library_module
-from bottles.frontend.views.library import LibraryView
+from bottles.frontend.views.library import LibraryView, _ordered_library_entries
+
+
+def test_library_entries_are_ordered_by_name():
+    entries = {
+        "third": {"name": "Zulu"},
+        "first": {"name": "alpha"},
+        "second": {"name": "Bravo"},
+    }
+
+    ordered = _ordered_library_entries(entries)
+
+    assert [entry_uuid for entry_uuid, _entry in ordered] == [
+        "first",
+        "second",
+        "third",
+    ]
 
 
 def test_delete_entry_refreshes_library(monkeypatch):

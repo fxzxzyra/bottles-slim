@@ -25,6 +25,13 @@ from bottles.frontend.utils.gtk import GtkUtils
 from bottles.frontend.widgets.library import LibraryAddEntry, LibraryEntry
 
 
+def _ordered_library_entries(entries):
+    return sorted(
+        entries.items(),
+        key=lambda item: str(item[1].get("name") or "").casefold(),
+    )
+
+
 @Gtk.Template(resource_path="/com/usebottles/bottles/library.ui")
 class LibraryView(Adw.Bin):
     __gtype_name__ = "LibraryView"
@@ -51,7 +58,7 @@ class LibraryView(Adw.Bin):
             self.main_flow.remove(self.main_flow.get_first_child())
 
         entry_count = 0
-        for u, e in entries.items():
+        for u, e in _ordered_library_entries(entries):
             with contextlib.suppress(Exception):
                 entry = LibraryEntry(self, u, e)
                 self.main_flow.append(entry)
