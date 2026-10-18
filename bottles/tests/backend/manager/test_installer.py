@@ -98,7 +98,27 @@ def test_installer_preserves_file_associations_for_existing_program(
     ]
 
 
-def test_installer_registers_program_without_icon(mocker, monkeypatch, tmp_path):
+@pytest.mark.parametrize(
+    "program_options",
+    [
+        {},
+        {
+            "pre_script": "%BOTTLE_PATH%/prepare.sh",
+            "post_script": "%BOTTLE_PATH%/cleanup.sh",
+            "pre_script_args": "--prepare",
+            "post_script_args": "--cleanup",
+            "environment": {"EDITOR_MODE": "plain"},
+            "folder": "C:\\Program Files\\Editor",
+            "dxvk": False,
+            "hide_console": False,
+            "sync": None,
+        },
+    ],
+    ids=["without-options", "preserves-launch-options"],
+)
+def test_installer_registers_program_without_icon(
+    mocker, monkeypatch, tmp_path, program_options
+):
     manager = mocker.Mock()
     installer = object.__new__(InstallerManager)
     installer._InstallerManager__manager = manager
@@ -111,6 +131,8 @@ def test_installer_registers_program_without_icon(mocker, monkeypatch, tmp_path)
             "path": "Program Files/Editor/editor.exe",
         },
     }
+
+    manifest["Executable"].update(program_options)
 
     monkeypatch.setattr(installer, "get_installer", lambda _name: manifest)
     monkeypatch.setattr(
@@ -130,6 +152,11 @@ def test_installer_registers_program_without_icon(mocker, monkeypatch, tmp_path)
         False,
         "",
     )
+
+    manager.update_config.assert_called_once()
+    saved_program = manager.update_config.call_args.kwargs["value"]
+    assert saved_program.items() >= program_options.items()
+    assert desktop_entry.call_args.args[1] == saved_program
 
 
 def test_run_winecommand_waits_and_reports_failure(mocker):
