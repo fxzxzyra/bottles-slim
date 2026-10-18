@@ -77,10 +77,10 @@ def test_gamescope_mangohud_payload_exits_with_the_game(monkeypatch, tmp_path):
 
     gamescope_command = command.get_cmd("app.exe")
     arguments = shlex.split(gamescope_command)
-    payload = Path(arguments[arguments.index("--") + 1])
+    launcher = arguments[arguments.index("--") + 1:]
     environment = os.environ | {"PATH": f"{bin_dir}:{os.environ['PATH']}"}
 
-    result = subprocess.run([payload], env=environment, timeout=5, check=False)
+    result = subprocess.run(launcher, env=environment, timeout=5, check=False)
 
     pid = int(mangoapp_pid.read_text())
     for _ in range(50):
@@ -1539,3 +1539,43 @@ def test_dedicated_sandbox_shares_forwarded_document_read_write(monkeypatch, tmp
     assert document in sandbox.share_paths_rw
     assert command_document in sandbox.share_paths_rw
     assert other_path not in sandbox.share_paths_rw
+
+
+def test_gamescope_reaper_stops_orphaned_descendant(monkeypatch, tmp_path):
+    config = BottleConfig()
+    config.Parameters.gamescope = True
+    config.Parameters.gamescope_fullscreen = False
+    child_pid = tmp_path / "child.pid"
+    runner = tmp_path / "runner"
+    runner.write_text(
+        "#!/bin/sh\nsleep 60 &\n"
+        f"echo $! > {shlex.quote(str(child_pid))}\n"
+        "exit 23\n"
+    )
+    runner.chmod(0o755)
+    command = _gamescope_command(config, runner)
+    monkeypatch.setattr(winecommand, "gamescope_available", "gamescope")
+    monkeypatch.setattr(winecommand, "gamemode_available", False)
+    monkeypatch.setattr(winecommand, "mangohud_available", False)
+    monkeypatch.setattr(winecommand, "obs_vkc_available", False)
+    monkeypatch.setattr(winecommand.Paths, "temp", str(tmp_path))
+    arguments = shlex.split(command.get_cmd("app.exe"))
+    launcher = arguments[arguments.index("--") + 1:]
+    try:
+        result = subprocess.run(launcher, timeout=5, check=False)
+        assert result.returncode == 23
+        pid = int(child_pid.read_text())
+        for _ in range(50):
+            try:
+                os.kill(pid, 0)
+            except ProcessLookupError:
+                break
+            time.sleep(0.01)
+        else:
+            pytest.fail("orphaned child remained after the game exited")
+    finally:
+        if child_pid.exists():
+            try:
+                os.kill(int(child_pid.read_text()), 9)
+            except ProcessLookupError:
+                pass

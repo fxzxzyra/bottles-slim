@@ -947,8 +947,71 @@ class WineCommand:
                 with open(gamescope_run, "w") as f:
                     f.write("".join(file))
 
+                # Adopt and reap orphaned descendants after the payload exits.
+                with tempfile.NamedTemporaryFile(
+                    mode="w", suffix=".py", dir=Paths.temp, delete=False
+                ) as reaper_file:
+                    reaper_file.write("""#!/usr/bin/env python3
+import ctypes
+import os
+import signal
+import subprocess
+import sys
+import time
+
+
+def descendants():
+    pending = [os.getpid()]
+    found = []
+    while pending:
+        parent = pending.pop()
+        try:
+            children = open(
+                f"/proc/{parent}/task/{parent}/children", encoding="ascii"
+            ).read()
+        except OSError:
+            continue
+        for value in children.split():
+            child = int(value)
+            if child not in found:
+                found.append(child)
+                pending.append(child)
+    return found
+
+
+if ctypes.CDLL(None).prctl(36, 1, 0, 0, 0) != 0:
+    os.execv(sys.argv[1], sys.argv[1:])
+
+process = subprocess.Popen(sys.argv[1:])
+status = process.wait()
+for sig in (signal.SIGTERM, signal.SIGKILL):
+    for child in descendants():
+        try:
+            os.kill(child, sig)
+        except ProcessLookupError:
+            pass
+    if sig == signal.SIGTERM:
+        deadline = time.monotonic() + 0.5
+        while descendants() and time.monotonic() < deadline:
+            time.sleep(0.05)
+
+while True:
+    try:
+        child, _ = os.waitpid(-1, os.WNOHANG)
+        if child == 0:
+            break
+    except ChildProcessError:
+        break
+raise SystemExit(status if status >= 0 else 128 - status)
+""")
+                    gamescope_reaper = reaper_file.name
+                os.chmod(gamescope_reaper, 0o700)
+
                 # Update command
-                command = f"{self._get_gamescope_cmd(return_steam_cmd, environment)} -- {gamescope_run}"
+                command = (
+                    f"{self._get_gamescope_cmd(return_steam_cmd, environment)} -- "
+                    f"{shlex.quote(gamescope_reaper)} {shlex.quote(gamescope_run)}"
+                )
                 logging.info(f"Running Gamescope command: '{command}'")
                 logging.info(f"{gamescope_run} contains:")
                 with open(gamescope_run, "r") as f:
@@ -994,6 +1057,13 @@ class WineCommand:
 
         if gamescope_available and self.gamescope_activated:
             gamescope_cmd = [gamescope_available]
+            gamescope_extension = "/usr/lib/extensions/vulkan/gamescope"
+            if gamescope_available.startswith(f"{gamescope_extension}/"):
+                gamescope_cmd = [
+                    "env",
+                    f"LD_LIBRARY_PATH={gamescope_extension}/lib${{LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}}",
+                    gamescope_available,
+                ]
             if return_steam_cmd:
                 gamescope_cmd = ["gamescope"]
             effective_environment = config.Environment_Variables.copy()
