@@ -64,6 +64,17 @@ def check_dependencies() -> list[str]:
     return problems
 
 
+def check_settings_schema(app_id: str, directory: Path):
+    """Look up the selected build's schema before Gio.Settings can abort Python."""
+    from gi.repository import Gio
+
+    source = Gio.SettingsSchemaSource.new_from_directory(str(directory), None, False)
+    schema = source.lookup(app_id, False)
+    if schema is None:
+        raise RuntimeError(f"Settings schema {app_id!r} is absent from {directory}")
+    return schema
+
+
 def worker(group: str, build: Path) -> int:
     package = Path(os.environ.get("BOTTLES_TEST_PACKAGE_ROOT", ROOT)).resolve()
     sys.path.insert(0, str(package))
@@ -86,9 +97,13 @@ def worker(group: str, build: Path) -> int:
     gi.require_version("Gtk", "4.0")
     gi.require_version("Adw", "1")
     from bottles.backend import params
+    from bottles.frontend import params as frontend_params
 
     if "@" in params.APP_VERSION:
         raise RuntimeError("Unconfigured params.py was imported")
+    if "@" in frontend_params.APP_ID:
+        raise RuntimeError("Unconfigured frontend params.py was imported")
+    check_settings_schema(frontend_params.APP_ID, Path(os.environ["GSETTINGS_SCHEMA_DIR"]))
     resource = Path(os.environ["BOTTLES_TEST_RESOURCE"])
     params.PKGDATADIR = str(resource.parent)
     params.SYSTEM_RUNNERS_DIR = str(Path(os.environ["XDG_DATA_HOME"]) / "system-runners")

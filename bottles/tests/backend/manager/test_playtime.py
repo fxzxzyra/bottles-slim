@@ -499,3 +499,21 @@ def test_shutdown_tracker_ignores_late_launch_and_exit():
         ) == -1
         tracker.mark_exit(123)
         assert not tracker._tracked
+
+
+
+def test_windows_and_prefix_paths_have_one_canonical_program_identity():
+    from bottles.backend.managers.playtime import _normalize_path_to_windows, _compute_program_id
+
+    paths = [
+        "C:/Office/editor.exe", r"C:\Office\editor.exe", r"C:\Office/editor.exe",
+        "/old-home/prefix/drive_c/Office/editor.exe",
+        "/new-home/prefix/dosdevices/c:/Office/editor.exe",
+    ]
+    expected = r"C:\Office\editor.exe"
+    for path in paths:
+        assert _normalize_path_to_windows("/prefix", path) == expected
+    ids = {_compute_program_id("b1", "/prefix", path) for path in paths}
+    assert len(ids) == 1
+    assert _compute_program_id("b2", "/prefix", expected) not in ids
+    assert _compute_program_id("b1", "/prefix", r"C:\Office\other.exe") not in ids

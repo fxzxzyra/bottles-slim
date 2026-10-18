@@ -65,16 +65,12 @@ def _normalize_path_to_windows(bottle_path: str, program_path: str) -> str:
         Windows-format path (e.g., C:\\Program Files\\game.exe)
     """
 
-    # Already Windows format? (copied from WinePath.is_windows)
-    if ":" in program_path or "\\" in program_path:
-        return program_path
-
-    # Convert Unix to Windows - copied from WinePath.to_windows(native=True)
-    # BUT: we can't rely on bottle_path matching the path prefix exactly,
-    # so we extract the drive letter and everything after it generically
     path = program_path
-
-    if "/drive_" in path:
+    # Windows accepts either separator. Canonicalize both spellings before
+    # hashing, otherwise launching the same executable splits its history.
+    if re.match(r"^[a-z]:", path, re.IGNORECASE) or ("\\" in path and not path.startswith("/")):
+        path = path.replace("/", "\\")
+    elif "/drive_" in path:
         # Extract drive letter and path after drive_X/
         # Use case-insensitive search but preserve original path case
         match = re.search(r"/drive_([a-z])/(.+)", path, re.IGNORECASE)

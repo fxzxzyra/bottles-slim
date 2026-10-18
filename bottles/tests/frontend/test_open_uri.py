@@ -9,10 +9,6 @@ gi.require_version("Xdp", "1.0")
 gi.require_version("XdpGtk4", "1.0")
 
 
-from bottles.frontend import params
-
-params.APP_ID = "com.usebottles.bottles"
-
 from bottles.backend.models.result import Result
 from bottles.frontend.windows import window
 from bottles.frontend.windows.window import BottlesWindow

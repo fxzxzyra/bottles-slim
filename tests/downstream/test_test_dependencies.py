@@ -42,3 +42,16 @@ def test_preflight_still_lists_all_python_failures_without_pygobject(monkeypatch
     assert len(problems) == len(entry.PYTHON_DEPENDENCIES)
     assert any("PyGObject" in item for item in problems)
     assert any("pytest-mock" in item for item in problems)
+
+
+
+def test_schema_preflight_reports_missing_id_without_constructing_settings():
+    import os
+    import pytest
+
+    directory = Path(os.environ["GSETTINGS_SCHEMA_DIR"])
+    from bottles.frontend.params import APP_ID
+
+    assert entry.check_settings_schema(APP_ID, directory) is not None
+    with pytest.raises(RuntimeError, match="is absent from"):
+        entry.check_settings_schema("invalid.bottles.test.schema", directory)

@@ -65,7 +65,7 @@ if appstream_util.found()
   )
 endif
 
-configure_file(
+settings_schema = configure_file(
   input: 'com.usebottles.bottles.gschema.xml',
   output: '@0@.gschema.xml'.format(APP_ID),
   configuration: conf,
@@ -73,7 +73,7 @@ configure_file(
   install_dir: join_paths(get_option('datadir'), 'glib-2.0/schemas')
 )
 
-compile_schemas = find_program('glib-compile-schemas', required: false)
+compile_schemas = find_program('glib-compile-schemas', required: get_option('tests'))
 if compile_schemas.found()
   test('Validate schema file', compile_schemas,
     args: ['--strict', '--dry-run', meson.current_build_dir()]
@@ -81,7 +81,15 @@ if compile_schemas.found()
 endif
 
 if get_option('tests')
-  test_schemas = gnome.compile_schemas()
+  test_schemas = custom_target(
+    'test-schemas',
+    input: settings_schema,
+    output: 'gschemas.compiled',
+    command: [
+      compile_schemas, '--strict', '--targetdir', meson.current_build_dir(),
+      meson.current_build_dir(),
+    ],
+  )
 endif
 
 subdir('icons')
