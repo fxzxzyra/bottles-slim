@@ -19,6 +19,7 @@ import contextlib
 import os
 import shutil
 import stat
+import sys
 import tarfile
 import tempfile
 import zipfile
@@ -38,9 +39,64 @@ from bottles.backend.state import (
     TaskStreamUpdateHandler,
 )
 from bottles.backend.utils.file import FileUtils
+from bottles.backend.utils.generic import get_host_architecture
 from bottles.backend.utils.manager import ManagerUtils
 
 logging = Logger()
+
+
+def _select_component_file(manifest: dict) -> Optional[dict]:
+    files = manifest.get("File")
+    if not isinstance(files, list):
+        return None
+
+    architecture = get_host_architecture()
+    host_platform = sys.platform
+    selected = None
+    selected_score = -1
+    for file in files:
+        if not isinstance(file, dict):
+            continue
+        file_architecture = file.get("architecture")
+        file_platform = file.get("platform")
+        if file_architecture is not None and (
+            not isinstance(file_architecture, str)
+            or file_architecture.lower() != architecture
+        ):
+            continue
+        if file_platform is not None and (
+            not isinstance(file_platform, str)
+            or file_platform.lower() != host_platform
+        ):
+            continue
+
+        score = int(file_architecture is not None) * 2 + int(
+            file_platform is not None
+        )
+        if score > selected_score:
+            selected = file
+            selected_score = score
+    return selected
+
+
+def _component_matches_host(component: dict) -> bool:
+    architectures = component.get("Architectures")
+    platforms = component.get("Platforms")
+    if architectures is not None and (
+        not isinstance(architectures, list)
+        or get_host_architecture()
+        not in {
+            value.lower() for value in architectures if isinstance(value, str)
+        }
+    ):
+        return False
+    if platforms is not None and (
+        not isinstance(platforms, list)
+        or sys.platform
+        not in {value.lower() for value in platforms if isinstance(value, str)}
+    ):
+        return False
+    return True
 
 
 def find_cached_file(
@@ -161,6 +217,8 @@ class ComponentManager:
             category = component[1].get("Category")
             if category not in catalog:
                 continue
+            if not _component_matches_host(component[1]):
+                continue
 
             catalog[category][component[0]] = component[1]
             if component[0] in components_available[category]:
@@ -179,11 +237,10 @@ class ComponentManager:
         if not isinstance(manifest, dict):
             return False
 
-        files = manifest.get("File")
-        if not isinstance(files, list) or not files or not isinstance(files[0], dict):
+        file = _select_component_file(manifest)
+        if file is None:
             return False
 
-        file = files[0]
         name = file.get("rename") or file.get("file_name")
         return bool(
             name
@@ -453,14 +510,18 @@ class ComponentManager:
             logging.error("Extraction failed! Archive ends earlier than expected.")
             return False
 
-        if root_dir.endswith("x86_64") and root_dir != name:
+        archive_suffix = next(
+            (
+                suffix
+                for suffix in ("-x86_64", "_x86_64", "-aarch64", "_aarch64")
+                if root_dir.endswith(suffix)
+            ),
+            None,
+        )
+        if archive_suffix and root_dir != name:
             try:
-                """
-                If the folder ends with x86_64, remove this from its name.
-                Return False if an folder with the same name already exists.
-                """
                 root_dir = os.path.join(path, root_dir)
-                shutil.move(src=root_dir, dst=root_dir[:-7])
+                shutil.move(src=root_dir, dst=root_dir[: -len(archive_suffix)])
             except (FileExistsError, shutil.Error):
                 logging.error("Extraction failed! Component already exists.")
                 return False
@@ -487,11 +548,19 @@ class ComponentManager:
             return Result(False)
 
         files = manifest.get("File")
-        if not isinstance(files, list) or not files or not isinstance(files[0], dict):
+        if not isinstance(files, list) or not files:
             return Result(False, message=f"Invalid manifest for {component_name}.")
 
         logging.info(f"Installing component: [{component_name}].")
-        file = files[0]
+        file = _select_component_file(manifest)
+        if file is None:
+            return Result(
+                False,
+                message=(
+                    f"Component {component_name} is not available for "
+                    f"{sys.platform}/{get_host_architecture()}."
+                ),
+            )
         if (
             not isinstance(file.get("url"), str)
             or not isinstance(file.get("file_name"), str)

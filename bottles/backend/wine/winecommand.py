@@ -22,7 +22,11 @@ from bottles.backend.managers.sandbox import SandboxManager
 from bottles.backend.models.config import BottleConfig
 from bottles.backend.models.result import Result
 from bottles.backend.utils.display import DisplayUtils
-from bottles.backend.utils.generic import detect_encoding, is_ntsync_available
+from bottles.backend.utils.generic import (
+    detect_encoding,
+    get_host_architecture,
+    is_ntsync_available,
+)
 from bottles.backend.utils.gpu import GPUUtils
 from bottles.backend.utils.hidraw import normalize_hidraw_id
 from bottles.backend.utils.lsfgvk import get_lsfg_vk_dll_path
@@ -588,6 +592,9 @@ class WineCommand:
                 "lib64/wine/i386-unix",
             ]
             gst_libs = ["lib/gstreamer-1.0", "lib32/gstreamer-1.0"]
+
+        if get_host_architecture() == "aarch64":
+            runner_libs[2:2] = ["lib/wine/aarch64-unix", "lib64/wine/aarch64-unix"]
 
         if config.Environment == "Steam" or config.Runner != SYSTEM_WINE:
             for lib in runner_libs:
