@@ -43,7 +43,7 @@ def test_same_program_aggregates_into_one_row(manager):
     )
     total_seconds, sessions_count = cur.fetchone()
     assert sessions_count == 2
-    assert total_seconds >= 120
+    assert total_seconds == 120
 
 
 def test_different_programs_separate_rows(manager):
@@ -75,3 +75,9 @@ def test_different_programs_separate_rows(manager):
     cur.execute("SELECT COUNT(*) FROM playtime_totals WHERE bottle_id=?", ("b1",))
     assert cur.fetchone()[0] == 2
 
+
+    cur.execute(
+        "SELECT program_name, total_seconds, sessions_count FROM playtime_totals "
+        "WHERE bottle_id=? ORDER BY program_name", ("b1",),
+    )
+    assert cur.fetchall() == [("Game1", 30, 1), ("Game2", 60, 1)]

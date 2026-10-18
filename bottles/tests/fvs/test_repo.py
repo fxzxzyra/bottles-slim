@@ -1,7 +1,8 @@
+import selectors
 import subprocess
 import sys
 import time
-from concurrent.futures import CancelledError
+from concurrent.futures import CancelledError, Future
 from pathlib import Path
 from threading import Event
 from threading import Thread
@@ -153,62 +154,71 @@ def test_commit_holds_process_lock_during_cancelled_restore(tmp_path, monkeypatc
     process = FakeProcess(cancel_event, tmp_path, "head")
     original_restore = repo._restore_commit_metadata
     original_popen = subprocess.Popen
-    errors = []
+    result = Future()
 
     def restore(snapshot):
         restore_started.set()
-        assert allow_restore.wait(1)
+        assert allow_restore.wait(5), "Test did not release metadata restore"
         original_restore(snapshot)
+
+    def commit():
+        try:
+            repo.commit("snapshot", cancel_event=cancel_event)
+        except CancelledError:
+            result.set_result(None)
+        except BaseException as error:
+            result.set_exception(error)
+        else:
+            result.set_exception(AssertionError("commit did not cancel"))
 
     monkeypatch.setattr(subprocess, "Popen", lambda *_args, **_kwargs: process)
     monkeypatch.setattr(repo, "_restore_commit_metadata", restore)
-
-    commit_thread = Thread(
-        target=lambda: run_cancelled_commit(repo, cancel_event, errors),
-    )
-    commit_thread.start()
-    assert restore_started.wait(1)
-
-    acquired = tmp_path / "acquired"
-    lock_process = original_popen(
-        [
-            sys.executable,
-            "-c",
-            """
+    thread = Thread(target=commit, daemon=True)
+    lock_process = None
+    thread.start()
+    try:
+        assert restore_started.wait(5), "Commit did not start metadata restore"
+        acquired = tmp_path / "acquired"
+        lock_process = original_popen(
+            [sys.executable, "-c", """
 import sys
 from pathlib import Path
 from bottles.fvs.repo import FVSRepo
 
 repo = object.__new__(FVSRepo)
 repo._repo_path = sys.argv[1]
-print("ready", flush=True)
+from fcntl import LOCK_EX, LOCK_NB, LOCK_UN, flock
+with open(Path(sys.argv[1]) / ".fvs2/.bottles.lock", "a+") as probe:
+    try:
+        flock(probe, LOCK_EX | LOCK_NB)
+    except BlockingIOError:
+        print("blocked", flush=True)
+    else:
+        print("unlocked during restore", flush=True)
+        flock(probe, LOCK_UN)
 with repo._commit_lock():
     Path(sys.argv[2]).touch()
-""",
-            str(tmp_path),
-            str(acquired),
-        ],
-        stdout=subprocess.PIPE,
-        text=True,
-    )
-    assert lock_process.stdout.readline() == "ready\n"
-    time.sleep(0.2)
-    assert not acquired.exists()
-
-    allow_restore.set()
-    commit_thread.join(1)
-    assert not commit_thread.is_alive()
-    assert errors == []
-    assert lock_process.wait(1) == 0
-    assert acquired.exists()
-
-
-def run_cancelled_commit(repo, cancel_event, errors):
-    try:
-        repo.commit("snapshot", cancel_event=cancel_event)
-    except CancelledError:
-        return
-    errors.append("commit did not cancel")
+""", str(tmp_path), str(acquired)],
+            stdout=subprocess.PIPE, text=True,
+        )
+        with selectors.DefaultSelector() as selector:
+            selector.register(lock_process.stdout, selectors.EVENT_READ)
+            assert selector.select(5), "Lock contender did not start"
+            assert lock_process.stdout.readline() == "blocked\n"
+        assert not acquired.exists()
+        allow_restore.set()
+        assert result.result(timeout=5) is None
+        assert lock_process.wait(timeout=5) == 0
+        assert acquired.exists()
+    finally:
+        allow_restore.set()
+        thread.join(5)
+        if lock_process is not None:
+            if lock_process.poll() is None:
+                lock_process.kill()
+            lock_process.wait(timeout=5)
+            lock_process.stdout.close()
+        assert not thread.is_alive(), "Cancelled commit leaked its worker"
 
 
 def test_commit_updates_task_while_process_is_running(tmp_path, monkeypatch):

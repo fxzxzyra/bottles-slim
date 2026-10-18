@@ -19,3 +19,38 @@ for variable in ("BOTTLES_TEST_RESOURCE", "BOTTLES_TEST_DATA_RESOURCE"):
     Gio.resources_register(Gio.Resource.load(filename))
 
 Adw.init()
+
+
+@pytest.fixture(autouse=True)
+def fail_on_gtk_callback_exception(monkeypatch):
+    """PyGObject reports callback exceptions to excepthook instead of raising."""
+    import sys
+    import traceback
+
+    from bottles.backend.globals import Paths
+
+    Path(Paths.state).mkdir(parents=True, exist_ok=True)
+    errors = []
+    monkeypatch.setattr(
+        sys, "excepthook",
+        lambda kind, value, tb: errors.append("".join(traceback.format_exception(kind, value, tb))),
+    )
+    yield
+    assert not errors, "Unhandled GTK callback exception:\n" + "\n".join(errors)
+
+
+@pytest.fixture
+def iterate_until():
+    """Dispatch real GLib sources; bound waits instead of guessing a sleep."""
+    import time
+    from gi.repository import GLib
+
+    def iterate(predicate, timeout=5):
+        context = GLib.MainContext.default()
+        deadline = time.monotonic() + timeout
+        while not predicate():
+            assert time.monotonic() < deadline, "GLib condition did not become true"
+            context.iteration(False)
+            time.sleep(0.001)
+
+    return iterate

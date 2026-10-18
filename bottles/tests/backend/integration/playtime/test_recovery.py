@@ -5,10 +5,9 @@ import time
 from freezegun import freeze_time
 
 from bottles.backend.managers.manager import Manager
-from bottles.backend.managers.playtime import ProcessSessionTracker
 
 
-def test_recovery_smoke(manager):
+def test_recovery_smoke(manager, tracker_factory):
     tracker = manager.playtime_tracker
     assert tracker is not None
 
@@ -25,8 +24,8 @@ def test_recovery_smoke(manager):
         tracker.shutdown()
 
         # New tracker instance simulates app restart and recovers open sessions
-        new_tracker = ProcessSessionTracker(
-            db_path=tracker.db_path, heartbeat_interval=5, enabled=True
+        new_tracker = tracker_factory(
+            db_path=tracker.db_path, heartbeat_interval=3600, enabled=True
         )
         new_tracker.recover_open_sessions()
 
@@ -44,7 +43,7 @@ def test_recovery_smoke(manager):
     assert cur.fetchone()[0] == 1
 
 
-def test_recovery_different_bottles(manager):
+def test_recovery_different_bottles(manager, tracker_factory):
     tracker = manager.playtime_tracker
     assert tracker is not None
 
@@ -65,8 +64,8 @@ def test_recovery_different_bottles(manager):
         )
 
         tracker.shutdown()
-        new_tracker = ProcessSessionTracker(
-            db_path=tracker.db_path, heartbeat_interval=5, enabled=True
+        new_tracker = tracker_factory(
+            db_path=tracker.db_path, heartbeat_interval=3600, enabled=True
         )
         new_tracker.recover_open_sessions()
 
@@ -85,7 +84,7 @@ def test_recovery_different_bottles(manager):
     assert cur.fetchone()[0] == 1
 
 
-def test_recovery_same_bottle_different_programs(manager):
+def test_recovery_same_bottle_different_programs(manager, tracker_factory):
     tracker = manager.playtime_tracker
     assert tracker is not None
 
@@ -106,8 +105,8 @@ def test_recovery_same_bottle_different_programs(manager):
         )
 
         tracker.shutdown()
-        new_tracker = ProcessSessionTracker(
-            db_path=tracker.db_path, heartbeat_interval=5, enabled=True
+        new_tracker = tracker_factory(
+            db_path=tracker.db_path, heartbeat_interval=3600, enabled=True
         )
         new_tracker.recover_open_sessions()
 
@@ -158,3 +157,24 @@ def test_cli_manager_init_does_not_recover_live_sessions(temp_xdg_home, test_set
         Manager._instances.pop(Manager, None)
 
 
+def test_recovery_uses_last_heartbeat_not_restart_time(manager, tracker_factory):
+    tracker = manager.playtime_tracker
+    with freeze_time("2025-01-01 12:00:00") as clock:
+        sid = tracker.start_session(
+            bottle_id="b1", bottle_name="Office", bottle_path="/bottle",
+            program_name="Editor", program_path="C:/Office/editor.exe",
+        )
+        clock.tick(11)
+        tracker._flush_heartbeats()
+        clock.tick(19)
+        tracker.shutdown()
+        recovered = tracker_factory(db_path=tracker.db_path, heartbeat_interval=3600)
+        recovered.recover_open_sessions()
+        recovered.recover_open_sessions()
+    with sqlite3.connect(recovered.db_path) as connection:
+        assert connection.execute(
+            "SELECT status, duration_seconds FROM sessions WHERE id=?", (sid,),
+        ).fetchone() == ("forced", 11)
+        assert connection.execute(
+            "SELECT total_seconds, sessions_count FROM playtime_totals",
+        ).fetchall() == [(11, 1)]

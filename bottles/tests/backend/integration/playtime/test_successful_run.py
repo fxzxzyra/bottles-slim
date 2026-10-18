@@ -25,7 +25,7 @@ def test_successful_run_finalizes_and_updates_totals(manager):
     cur.execute("SELECT status, duration_seconds FROM sessions WHERE id=?", (sid,))
     status, duration = cur.fetchone()
     assert status == "success"
-    assert duration >= 60
+    assert duration == 60
 
     cur.execute(
         "SELECT total_seconds, sessions_count FROM playtime_totals WHERE bottle_id=?",
@@ -33,7 +33,7 @@ def test_successful_run_finalizes_and_updates_totals(manager):
     )
     total_seconds, sessions_count = cur.fetchone()
     assert sessions_count == 1
-    assert total_seconds >= 60
+    assert total_seconds == 60
 
 
 def test_success_multiple_apps_two_same_bottle_one_other(manager):
@@ -94,20 +94,20 @@ def test_success_multiple_apps_two_same_bottle_one_other(manager):
         ("b1", "Game1"),
     )
     tsec, scount = cur.fetchone()
-    assert scount == 1 and tsec >= 30
+    assert scount == 1 and tsec == 30
 
     cur.execute(
         "SELECT total_seconds, sessions_count FROM playtime_totals WHERE bottle_id=? AND program_name=?",
         ("b1", "Game2"),
     )
     tsec, scount = cur.fetchone()
-    assert scount == 1 and tsec >= 45
+    assert scount == 1 and tsec == 45
 
     cur.execute(
         "SELECT total_seconds, sessions_count FROM playtime_totals WHERE bottle_id=? AND program_name=?",
         ("b2", "Game1"),
     )
     tsec, scount = cur.fetchone()
-    assert scount == 1 and tsec >= 60
+    assert scount == 1 and tsec == 60
 
 

@@ -1,101 +1,106 @@
-"""Unit tests for playtime frontend service."""
+"""Boundary formatting and real SQLite/cache integration for displayed playtime."""
 
-import tempfile
-from datetime import datetime, timedelta
+from datetime import datetime
+from types import SimpleNamespace
+
+import pytest
+from freezegun import freeze_time
 
 from bottles.backend.managers.playtime import ProcessSessionTracker
-from bottles.frontend.utils.playtime import PlaytimeService
+from bottles.frontend.utils import playtime as module
+from bottles.frontend.utils.playtime import PlaytimeRecord, PlaytimeService
 
 
-class MockManager:
-    """Mock manager for testing."""
-
-    def __init__(self, tracker):
-        self.playtime_tracker = tracker
-
-
-def test_format_playtime():
-    """Test playtime formatting rules."""
-    assert PlaytimeService.format_playtime(30) == "<1m"
-    assert PlaytimeService.format_playtime(60) == "1m"
-    assert PlaytimeService.format_playtime(150) == "2m"
-    assert PlaytimeService.format_playtime(3599) == "59m"
-    assert PlaytimeService.format_playtime(3600) == "1h 00m"
-    assert PlaytimeService.format_playtime(3660) == "1h 01m"
-    assert PlaytimeService.format_playtime(7325) == "2h 02m"
-    assert PlaytimeService.format_playtime(86400) == "1d 00h"
-    assert PlaytimeService.format_playtime(90000) == "1d 01h"
-    assert PlaytimeService.format_playtime(180000) == "2d 02h"
+@pytest.fixture(autouse=True)
+def untranslated_messages(monkeypatch):
+    # Translation is an external boundary; date/duration/escaping remain real.
+    monkeypatch.setattr(module, "_", lambda message: message)
 
 
-def test_format_last_played():
-    """Test last played date formatting with i18n support."""
-    now = datetime.now()
-
-    # These now return translated strings, but we can still test the logic
-    result_none = PlaytimeService.format_last_played(None)
-    assert "never" in result_none.lower() or result_none == "Never"
-    
-    result_today = PlaytimeService.format_last_played(now)
-    assert "today" in result_today.lower() or result_today == "Today"
-    
-    result_yesterday = PlaytimeService.format_last_played(now - timedelta(days=1))
-    assert "yesterday" in result_yesterday.lower() or result_yesterday == "Yesterday"
-    
-    result_2days = PlaytimeService.format_last_played(now - timedelta(days=2))
-    assert "2" in result_2days and ("day" in result_2days.lower() or result_2days == "2 days ago")
-    
-    result_6days = PlaytimeService.format_last_played(now - timedelta(days=6))
-    assert "6" in result_6days and ("day" in result_6days.lower() or result_6days == "6 days ago")
-
-    # Old dates now use locale-aware format (%x)
-    old_date = now - timedelta(days=10)
-    result_old = PlaytimeService.format_last_played(old_date)
-    # Just verify it returns a non-empty string (format depends on locale)
-    assert len(result_old) > 0
+@pytest.mark.parametrize("seconds, expected", [
+    (0, "<1m"), (30, "<1m"), (59, "<1m"), (60, "1m"),
+    (150, "2m"), (3599, "59m"), (3600, "1h 00m"),
+    (3660, "1h 01m"), (7325, "2h 02m"),
+    (86400, "1d 00h"), (90000, "1d 01h"), (180000, "2d 02h"),
+])
+def test_format_playtime(seconds, expected):
+    assert PlaytimeService.format_playtime(seconds) == expected
 
 
-def test_format_subtitle_with_data():
-    """Test subtitle formatting with valid data and i18n."""
-    from bottles.frontend.utils.playtime import PlaytimeRecord
+@pytest.mark.parametrize("played, expected", [
+    (None, "Never"),
+    (datetime(2025, 2, 10, 0, 0), "Today"),
+    (datetime(2025, 2, 9, 23, 59), "Yesterday"),
+    (datetime(2025, 2, 8, 0, 0), "2 days ago"),
+    (datetime(2025, 2, 4, 0, 0), "6 days ago"),
+    (datetime(2025, 2, 3, 0, 0), datetime(2025, 2, 3).strftime("%x")),
+])
+def test_format_last_played_at_calendar_boundaries(played, expected):
+    with freeze_time("2025-02-10 00:01:00"):
+        assert PlaytimeService.format_last_played(played) == expected
 
+
+@pytest.mark.parametrize("seconds, count, expected", [
+    (7325, 3, "Last Played: Today – Playtime: 2h 02m"),
+    (30, 1, "Last Played: Today – Playtime: &lt;1m"),
+    (0, 0, "Never Played"),
+])
+def test_subtitle_includes_date_and_duration_and_escapes_markup(seconds, count, expected):
+    service = PlaytimeService(SimpleNamespace(playtime_tracker=None))
     record = PlaytimeRecord(
-        bottle_id="b1",
-        program_id="p1",
-        program_name="Game",
-        program_path="/path",
-        total_seconds=7325,
-        sessions_count=3,
-        last_played=datetime.now(),
+        bottle_id="b1", program_id="p1", program_name="Editor", program_path="/path",
+        total_seconds=seconds, sessions_count=count, last_played=datetime(2025, 2, 10),
     )
-
-    service = PlaytimeService(MockManager(None))
-    subtitle = service.format_subtitle(record)
-    # Verify it contains the key elements (i18n strings may vary)
-    assert "2h 02m" in subtitle  # Playtime format is not translated
-    # Just verify the subtitle has content
-    assert len(subtitle) > 10
+    with freeze_time("2025-02-10 00:01:00"):
+        assert service.format_subtitle(record) == expected
+    assert service.format_subtitle(None) == "Never Played"
 
 
-def test_format_subtitle_never_played():
-    """Test subtitle formatting with no data and i18n."""
-    service = PlaytimeService(MockManager(None))
-    result = service.format_subtitle(None)
-    # i18n string may vary, but should contain "never" and "played"
-    assert "never" in result.lower() or "played" in result.lower()
+def test_translated_date_is_escaped_before_subtitle_interpolation(monkeypatch):
+    monkeypatch.setattr(module, "_", lambda text: "<Today & now>" if text == "Today" else text)
+    service = PlaytimeService(SimpleNamespace(playtime_tracker=None))
+    record = PlaytimeRecord(
+        bottle_id="b1", program_id="p1", program_name="Editor", program_path="/path",
+        total_seconds=30, sessions_count=1, last_played=datetime(2025, 2, 10),
+    )
+    with freeze_time("2025-02-10 00:01:00"):
+        assert service.format_subtitle(record) == (
+            "Last Played: &lt;Today &amp; now&gt; – Playtime: &lt;1m"
+        )
 
 
-def test_service_disabled_returns_none():
-    """Test that disabled service returns None."""
-    with tempfile.TemporaryDirectory() as tmp:
-        import os
+def test_service_reads_persisted_totals_and_refreshes_only_invalidated_program(tmp_path):
+    tracker = ProcessSessionTracker(db_path=str(tmp_path / "metrics.sqlite"), heartbeat_interval=3600)
+    service = PlaytimeService(SimpleNamespace(playtime_tracker=tracker))
 
-        db_path = os.path.join(tmp, "test.db")
-        tracker = ProcessSessionTracker(db_path=db_path, enabled=False)
-        manager = MockManager(tracker)
-        service = PlaytimeService(manager)
+    def finish(program, seconds):
+        sid = tracker.start_session(
+            bottle_id="b1", bottle_name="Office", bottle_path="/bottle",
+            program_name=program, program_path=f"C:/Office/{program}.exe",
+        )
+        clock.tick(seconds)
+        tracker.mark_exit(sid, status="success")
 
-        assert not service.is_enabled()
-        result = service.get_program_playtime("b1", "/bottle", "Game", "/path/game.exe")
-        assert result is None
+    def record(program):
+        return service.get_program_playtime("b1", "/bottle", program, f"C:/Office/{program}.exe")
+
+    try:
+        with freeze_time("2025-01-01 12:00:00") as clock:
+            finish("editor", 10)
+            finish("viewer", 5)
+            editor = record("editor")
+            viewer = record("viewer")
+            assert (editor.total_seconds, editor.sessions_count) == (10, 1)
+            assert (viewer.total_seconds, viewer.sessions_count) == (5, 1)
+            finish("editor", 7)
+            assert record("editor").total_seconds == 10  # Live cache before invalidation.
+            service.invalidate_program("b1", "/bottle", "C:/Office/editor.exe")
+            refreshed = record("editor")
+            assert (refreshed.total_seconds, refreshed.sessions_count) == (17, 2)
+            assert record("viewer") is viewer  # Unrelated cached record is preserved.
+            total = service.get_bottle_playtime("b1")
+            assert (total.total_seconds, total.sessions_count) == (22, 3)
+            tracker.disable_tracking()
+            assert service.get_program_playtime("b1", "/bottle", "editor", "C:/Office/editor.exe") is None
+    finally:
         tracker.shutdown()

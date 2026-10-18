@@ -1,75 +1,47 @@
-import os
+"""Exercise executor -> real signals -> real manager -> persisted SQLite totals."""
+
 import sqlite3
-import tempfile
 
-from bottles.backend.managers.manager import Manager
-from bottles.backend.managers.playtime import ProcessSessionTracker
+import pytest
+from freezegun import freeze_time
+
 from bottles.backend.models.config import BottleConfig
-from bottles.backend.wine.executor import WineExecutor
-from bottles.backend.wine.winepath import WinePath
 from bottles.backend.models.result import Result
+from bottles.backend.wine.executor import WineExecutor
 
 
-class _Settings:
-    def get_boolean(self, key: str) -> bool:
-        return True if key == "playtime-enabled" else False
+@pytest.mark.parametrize("outcome", ["success", "failure", "exception"])
+def test_executor_persists_launch_outcome(manager, tmp_path, mocker, outcome):
+    config = BottleConfig(Name="b1", Path=str(tmp_path / "prefix"), Custom_Path=True)
+    executor = WineExecutor(config=config, exec_path="C:/Office/editor.exe")
+    # Conversion is real and must not turn a forward-slash Windows path into
+    # an empty working directory. Only the actual Wine launch is substituted.
+    assert executor.cwd == str(tmp_path / "prefix/dosdevices/c:/Office")
 
-    def get_int(self, key: str) -> int:
-        return 5 if key == "playtime-heartbeat-interval" else 0
+    with freeze_time("2025-01-01 12:00:00") as clock:
+        def launch(_executor):
+            clock.tick(37)
+            if outcome == "exception":
+                raise OSError("Wine launch failed")
+            return Result(outcome == "success", data={"output": b"ok"})
 
-
-def _new_manager(tmpdir: str) -> Manager:
-    os.environ["XDG_DATA_HOME"] = tmpdir
-    m = Manager(g_settings=_Settings(), check_connection=False, is_cli=True)
-    base_dir = os.path.join(tmpdir, "bottles")
-    os.makedirs(base_dir, exist_ok=True)
-    db_path = os.path.join(base_dir, "process_metrics.sqlite")
-    m.playtime_tracker = ProcessSessionTracker(db_path=db_path, heartbeat_interval=5, enabled=True)
-    try:
-        m._launch_to_session.clear()
-    except Exception:
-        pass
-    return m
-
-
-def _config(name: str) -> BottleConfig:
-    c = BottleConfig()
-    c.Name = name
-    c.Path = name
-    return c
-
-
-def test_wine_executor_emits_and_updates_totals(mocker):
-    with tempfile.TemporaryDirectory() as tmp:
-        m = _new_manager(tmp)
-
-        # Stub the launch paths to avoid running wine; make them return success Result
-        _stub_result = Result(True, data={"output": b"ok"})
-        mocker.patch.object(WineExecutor, "_WineExecutor__launch_with_bridge", return_value=_stub_result)
-        mocker.patch.object(WineExecutor, "_WineExecutor__launch_batch", return_value=_stub_result)
-        mocker.patch.object(WineExecutor, "_WineExecutor__launch_with_starter", return_value=_stub_result)
-        mocker.patch.object(WineExecutor, "_WineExecutor__launch_dll", return_value=_stub_result)
-
-        # Stub WinePath conversions to avoid system calls / missing libs
-        # Match the public conversion signatures, including native path selection.
-        mocker.patch.object(WinePath, "to_unix", side_effect=lambda path, native=False, sandbox_override=None: path)
-        mocker.patch.object(WinePath, "to_windows", side_effect=lambda path: path)
-
-        execu = WineExecutor(
-            config=_config("b1"),
-            exec_path="C:/Game/game.exe",
+        boundary = mocker.patch.object(
+            WineExecutor, "_WineExecutor__launch_with_bridge",
+            autospec=True, side_effect=launch,
         )
-        res = execu.run()
-        assert res.status is True
+        if outcome == "exception":
+            with pytest.raises(OSError, match="Wine launch failed"):
+                executor.run()
+        else:
+            assert executor.run().ok is (outcome == "success")
+        boundary.assert_called_once_with(executor)
 
-        con = sqlite3.connect(m.playtime_tracker.db_path)
-        cur = con.cursor()
-        cur.execute("SELECT COUNT(*) FROM sessions WHERE bottle_id=?", ("b1",))
-        assert cur.fetchone()[0] == 1
-        cur.execute(
-            "SELECT sessions_count FROM playtime_totals WHERE bottle_id=?",
-            ("b1",),
-        )
-        assert cur.fetchone()[0] == 1
-        m.playtime_tracker.shutdown()
-
+    expected_status = "success" if outcome == "success" else "unknown"
+    with sqlite3.connect(manager.playtime_tracker.db_path) as connection:
+        assert connection.execute(
+            "SELECT bottle_id, program_path, status, duration_seconds FROM sessions"
+        ).fetchall() == [("b1", r"C:\Office\editor.exe", expected_status, 37)]
+        assert connection.execute(
+            "SELECT bottle_id, total_seconds, sessions_count FROM playtime_totals"
+        ).fetchall() == [("b1", 37, 1)]
+    assert manager._launch_to_session == {}

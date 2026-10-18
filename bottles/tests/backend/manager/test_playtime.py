@@ -3,6 +3,8 @@ import sqlite3
 import tempfile
 import time
 
+from freezegun import freeze_time
+
 from bottles.backend.managers.playtime import ProcessSessionTracker
 
 
@@ -24,41 +26,37 @@ def test_schema_created_and_wal():
         assert "playtime_totals" in tables
         cur.execute("PRAGMA journal_mode")
         mode = cur.fetchone()[0].lower()
-        assert mode in ("wal", "wal2") or mode == "wal"  # wal expected
+        assert mode == "wal"
         tracker.shutdown()
 
 
-def test_start_and_heartbeat_and_exit_updates_totals():
-    with tempfile.TemporaryDirectory() as tmp:
-        tracker = _new_tracker(tmp)
-        sid = tracker.start_session(
-            bottle_id="b1",
-            bottle_name="Bottle",
-            bottle_path="/bottle",
-            program_name="Game",
-            program_path="C:/Game/game.exe",
-        )
-        assert sid > 0
-
-        time.sleep(1.0)  # simulate some playtime
-        tracker._flush_heartbeats()  # update last_seen deterministically
-        tracker.mark_exit(sid, status="success")
-
-        conn = sqlite3.connect(tracker.db_path)
-        cur = conn.cursor()
-        cur.execute("SELECT status, duration_seconds FROM sessions WHERE id=?", (sid,))
-        status, duration = cur.fetchone()
-        assert status == "success"
-        assert duration >= 1
-
-        cur.execute(
-            "SELECT total_seconds, sessions_count FROM playtime_totals WHERE bottle_id=?",
-            ("b1",),
-        )
-        row = cur.fetchone()
-        assert row is not None
-        assert row[0] >= 1
-        assert row[1] == 1
+def test_start_and_heartbeat_and_exit_updates_totals(tmp_path):
+    tracker = _new_tracker(str(tmp_path), heartbeat_interval=3600)
+    try:
+        with freeze_time("2025-01-01 00:00:00") as clock:
+            base = int(time.time())
+            sid = tracker.start_session(
+                bottle_id="b1", bottle_name="Bottle", bottle_path="/bottle",
+                program_name="Editor", program_path="C:/App/editor.exe",
+            )
+            clock.tick(62)
+            tracker._flush_heartbeats()
+            with sqlite3.connect(tracker.db_path) as connection:
+                assert connection.execute(
+                    "SELECT status, last_seen FROM sessions WHERE id=?", (sid,),
+                ).fetchone() == ("running", base + 62)
+                assert connection.execute("SELECT * FROM playtime_totals").fetchall() == []
+            clock.tick(13)
+            tracker.mark_exit(sid, status="success")
+            tracker.mark_exit(sid, status="success")
+        with sqlite3.connect(tracker.db_path) as connection:
+            assert connection.execute(
+                "SELECT status, duration_seconds FROM sessions WHERE id=?", (sid,),
+            ).fetchone() == ("success", 75)
+            assert connection.execute(
+                "SELECT total_seconds, sessions_count FROM playtime_totals WHERE bottle_id='b1'",
+            ).fetchall() == [(75, 1)]
+    finally:
         tracker.shutdown()
 
 

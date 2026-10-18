@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 GROUPS = {
     "backend": "bottles/tests/backend",
     "frontend": "bottles/tests/frontend",
+    "fvs": "bottles/tests/fvs",
     "downstream": "tests",
 }
 
@@ -98,6 +99,9 @@ def worker(group: str, build: Path) -> int:
     logs.mkdir(exist_ok=True)
     return pytest.main([
         str(ROOT / GROUPS[group]), "--import-mode=importlib", "-ra",
+        "--strict-config", "--strict-markers",
+        "-W", "error::pytest.PytestUnhandledThreadExceptionWarning",
+        "-W", "error::pytest.PytestUnraisableExceptionWarning",
         "--junitxml", str(logs / f"pytest-{group}.xml"),
     ])
 

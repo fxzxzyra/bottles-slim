@@ -12,7 +12,7 @@ if get_option('tests')
   endif
   find_program('xvfb-run', required: true)
   find_program('dbus-run-session', required: true)
-  foreach group : ['backend', 'frontend', 'downstream']
+  foreach group : ['backend', 'frontend', 'fvs', 'downstream']
     test(
       'Python ' + group,
       python,
