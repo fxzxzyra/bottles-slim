@@ -466,7 +466,7 @@ class EagleManager:
             with open(asar_path, 'rb') as f:
                 data = f.read(16)
                 if len(data) < 16:
-                    return [], None
+                    raise ValueError("Truncated ASAR header")
                 
                 header_json_len = struct.unpack('<I', data[12:16])[0]
                 
@@ -516,6 +516,7 @@ class EagleManager:
 
         except Exception as e:
             logging.error(f"[Eagle] ASAR extraction failed: {e}")
+            self._cleanup_extraction(extract_dir)
             return [], None
 
     def _extract_installer(self, installer_path: str, installer_type: str) -> tuple:
