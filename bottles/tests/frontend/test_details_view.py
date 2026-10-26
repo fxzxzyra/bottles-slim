@@ -4,7 +4,9 @@ from types import SimpleNamespace
 
 from gi.repository import Adw, Gtk
 
+from bottles.backend.models.config import BottleConfig
 from bottles.frontend.views.details import DetailsView
+from bottles.frontend.views.eagle import EagleView
 
 
 def test_hidden_navigation_page_unloads_the_stack_after_leaving(iterate_until):
@@ -94,3 +96,27 @@ def test_built_details_template_navigates_and_discards_stale_population(monkeypa
         assert view.stack_bottle.get_first_child() is None
     finally:
         parent.destroy()
+
+
+def test_eagle_follows_the_selected_bottle():
+    eagle = EagleView(SimpleNamespace(), BottleConfig())
+    previous_manager = eagle.manager
+    unused = SimpleNamespace(set_config=lambda **kwargs: None, update=lambda **kwargs: None)
+    view = SimpleNamespace(
+        view_bottle=unused,
+        view_preferences=unused,
+        view_taskmanager=unused,
+        view_installers=unused,
+        view_registry_rules=unused,
+        view_versioning=unused,
+        view_eagle=eagle,
+    )
+    for config in (
+        BottleConfig(Name="First", Runner="soda-11.0-34"),
+        BottleConfig(Name="Second", Environment="Application", Runner="system-wine"),
+    ):
+        DetailsView.set_config(view, config, rebuild_pages=False)
+        assert eagle.config is config
+        assert eagle.manager.config is config
+        assert eagle.manager is not previous_manager
+        previous_manager = eagle.manager
