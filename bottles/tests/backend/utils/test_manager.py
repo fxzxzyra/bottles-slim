@@ -74,17 +74,11 @@ class DynamicLauncherPortal:
         (None, ["bottles-cli"]),
         (
             "com.usebottles.bottles",
-            [
-                "flatpak",
-                "run",
-                "--command=bottles-cli",
-                "--file-forwarding",
-                "com.usebottles.bottles",
-            ],
+            ["bottles-cli"],
         ),
     ],
 )
-def test_desktop_entry_uses_host_launch_command(
+def test_desktop_entry_passes_sandbox_command_to_portal(
     tmp_path, monkeypatch, flatpak_id, expected_prefix
 ):
     portal = DynamicLauncherPortal()
@@ -113,7 +107,7 @@ def test_desktop_entry_uses_host_launch_command(
         for line in portal.desktop_entry.splitlines()
         if line.strip().startswith("Exec=")
     )
-    field_arguments = ["@@u", "%u", "@@"] if flatpak_id else ["%u"]
+    field_arguments = ["%u"]
     assert shlex.split(exec_line) == expected_prefix + [
         "run",
         "--program-id",
@@ -122,6 +116,25 @@ def test_desktop_entry_uses_host_launch_command(
         "2" * 32,
         "--",
     ] + field_arguments
+
+
+def test_umu_portal_shortcut_does_not_include_flatpak_wrapper(tmp_path, monkeypatch):
+    portal = DynamicLauncherPortal()
+    icon = tmp_path / "icon.svg"
+    icon.write_text("<svg xmlns='http://www.w3.org/2000/svg'/>")
+    monkeypatch.setenv("FLATPAK_ID", "com.usebottles.bottles")
+    monkeypatch.setattr(manager, "portal", portal)
+    monkeypatch.setattr(manager.SignalManager, "send", lambda *_args: None)
+
+    ManagerUtils.create_desktop_entry(
+        BottleConfig(Name="Gaming"),
+        {"name": "UMU Game", "umu_game": "game-id"},
+        custom_icon=str(icon),
+    )
+
+    assert 'Exec=bottles-cli umu run --game "game-id"' in portal.desktop_entry
+    assert "flatpak run" not in portal.desktop_entry
+    assert "--command=" not in portal.desktop_entry
 
 
 class PortalProxyStub:
@@ -802,9 +815,8 @@ def test_create_desktop_entry_installs_associations_through_portal(
     assert installed["token"] == "test-token"
     assert installed["desktop_id"] == ManagerUtils.get_desktop_entry_id(config, program)
     assert (
-        "Exec=flatpak run --command=bottles-cli --file-forwarding "
-        '"com.usebottles.bottles.Devel" run --program-id "program-id" '
-        f'-b "{config.Id}" -- @@ %f @@'
+        'Exec=bottles-cli run --program-id "program-id" '
+        f'-b "{config.Id}" -- %f'
         in installed["content"]
     )
     assert "MimeType=text/plain;" in installed["content"]
