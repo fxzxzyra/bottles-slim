@@ -14,7 +14,17 @@ from bottles.frontend.views.list import (  # noqa: E402
 
 def _config(path, environment="Gaming"):
     from bottles.backend.models.config import BottleConfig
-    return BottleConfig(Path=path, Environment=environment)
+    return BottleConfig(Name=path, Path=path, Environment=environment)
+
+
+def test_default_bottle_order_uses_display_names_without_case():
+    alpha = _config("old-z-folder")
+    alpha.Name = "alpha"
+    beta = _config("old-a-folder")
+    beta.Name = "Beta"
+    assert _ordered_bottles([beta, alpha], []) == [alpha, beta]
+    alpha.Name = "Zulu"
+    assert _ordered_bottles([alpha, beta], []) == [beta, alpha]
 
 
 def test_ordered_bottles_keeps_new_bottles_at_the_end():

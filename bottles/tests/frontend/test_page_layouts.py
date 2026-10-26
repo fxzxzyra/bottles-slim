@@ -67,7 +67,7 @@ def test_empty_drop_is_rejected(details_pages):
     assert view.on_drop(view.target, SimpleNamespace(get_files=lambda: []), 0, 0) is False
 
 
-@pytest.mark.parametrize("filename, accepted", [("Program.EXE", True), ("Setup.MSI", True), ("Program.exe.bak", False)])
+@pytest.mark.parametrize("filename, accepted", [("Program.EXE", True), ("Setup.MSI", True), ("Setup.mSi", True), ("Program.exe.bak", False)])
 def test_drop_checks_the_actual_extension(details_pages, monkeypatch, filename, accepted):
     view = details_pages[0]
     launches, messages = [], []
