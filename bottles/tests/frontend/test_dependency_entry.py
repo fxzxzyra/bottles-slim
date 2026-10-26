@@ -10,6 +10,9 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("GtkSource", "5")
 
 
+from gi.repository import GLib, Gtk
+
+from bottles.backend.models.result import Result
 from bottles.backend.models.config import BottleConfig
 from bottles.frontend.widgets.dependency import DependencyEntry
 
@@ -32,7 +35,7 @@ def _make_window(online, cache_calls):
                 is_dependency_cached=is_dependency_cached
             ),
         ),
-        page_details=SimpleNamespace(queue=None),
+        page_details=SimpleNamespace(queue=None, config=None),
     )
 
 
@@ -137,3 +140,59 @@ def test_cache_lookup_is_skipped_without_installed_dependencies():
     )
 
     assert cache_calls == []
+
+
+def test_dependency_report_button_opens_dependency_tracker(monkeypatch):
+    opened = []
+    monkeypatch.setattr("webbrowser.open", opened.append)
+    entry = DependencyEntry(
+        window=_make_window(online=True, cache_calls=[]),
+        config=BottleConfig(Name="Bottle"),
+        dependency=("d3dx9", MANIFEST),
+    )
+
+    entry.btn_report.emit("clicked")
+
+    assert len(opened) == 1
+    assert opened[0].startswith("https://github.com/bottlesdevs/dependencies/issues")
+    assert "d3dx9" in opened[0]
+
+
+@pytest.mark.parametrize("success", (True, False))
+@pytest.mark.parametrize("switch_bottle", (True, False))
+def test_dependency_completion_refreshes_prerequisites(success, switch_bottle):
+    window = _make_window(online=True, cache_calls=[])
+    config = BottleConfig(Name="Bottle")
+    config.Parameters.versioning_automatic = False
+    refreshed = []
+    window.show_toast = lambda *_args: None
+    window.page_details.queue = SimpleNamespace(end_task=lambda: None)
+    window.page_details.config = BottleConfig(Name="Other") if switch_bottle else config
+
+    def update(config):
+        prerequisite = DependencyEntry(
+            window=window, config=config, dependency=("arial32", MANIFEST)
+        )
+        refreshed.append(prerequisite)
+
+    window.page_details.view_dependencies = SimpleNamespace(update=update)
+    entry = DependencyEntry(
+        window=window, config=config, dependency=("dotnet40", MANIFEST)
+    )
+    parent = Gtk.ListBox()
+    parent.append(entry)
+    if switch_bottle:
+        parent.remove(entry)
+    config.Installed_Dependencies.append("arial32")
+
+    entry.set_install_status(Result(success, data={}))
+    context = GLib.MainContext.default()
+    while context.pending():
+        context.iteration(False)
+
+    if switch_bottle:
+        assert refreshed == []
+    else:
+        assert len(refreshed) == 1
+        assert not refreshed[0].btn_install.get_visible()
+        assert refreshed[0].btn_reinstall.get_visible()

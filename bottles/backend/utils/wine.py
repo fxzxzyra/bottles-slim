@@ -39,6 +39,20 @@ def _rename_noreplace(directory_fd: int, source: str, destination: str) -> None:
 
 class WineUtils:
     @staticmethod
+    def supports_win32_prefix(runner_path: str) -> bool:
+        libraries = ("lib", "lib32", "lib64", "lib/i386-linux-gnu", "lib/x86_64-linux-gnu")
+        has_64bit = False
+        for library in libraries:
+            wine = os.path.join(runner_path, library, "wine")
+            if os.path.isfile(os.path.join(wine, "i386-unix", "ntdll.so")):
+                return True
+            if any(os.path.isfile(os.path.join(wine, arch, "ntdll.so"))
+                   for arch in ("x86_64-unix", "aarch64-unix")):
+                has_64bit = True
+        # Without Unix module metadata, let Wine validate prefix creation.
+        return not has_64bit
+
+    @staticmethod
     def ensure_user_profile_alias(
         prefix_path: str, username: Optional[str] = None
     ) -> bool:

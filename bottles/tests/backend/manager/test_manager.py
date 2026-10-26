@@ -430,3 +430,25 @@ def test_get_programs_can_refresh_cached_results(monkeypatch):
     other = BottleConfig(Name=config.Name)
     assert Manager.get_programs(manager, other) == []
     assert Manager.get_programs(manager, config, force_update=True) == []
+
+
+def test_wow64_runner_rejects_win32_before_changing_selected_directory(tmp_path, local_runner):
+    from pathlib import Path
+    from bottles.backend.managers.storage import BottleIndex
+
+    module = Path(local_runner.root) / "lib/wine/x86_64-unix/ntdll.so"
+    module.parent.mkdir(parents=True)
+    module.touch()
+    target = tmp_path / "selected"
+    target.mkdir()
+    messages = []
+    manager = object.__new__(Manager)
+    result = manager.create_bottle(
+        name="Work", environment="application", runner=local_runner.identifier,
+        arch="win32", path=str(target), fn_logger=messages.append,
+    )
+    assert not result.ok
+    assert "32-bit prefix" in result.message
+    assert result.message in messages
+    assert target.is_dir() and list(target.iterdir()) == []
+    assert BottleIndex().entries() == {}

@@ -675,3 +675,25 @@ def test_conflicting_real_profiles_do_not_block_bottle_creation(tmp_path):
     assert WineUtils.ensure_user_profile_alias(str(prefix), "mirko") is True
     assert not (users / "mirko").is_symlink()
     assert not (users / "steamuser").is_symlink()
+
+
+@pytest.mark.parametrize("library", ("lib", "lib64", "lib/x86_64-linux-gnu"))
+def test_distinguishes_wow64_only_from_dual_unix_runner(tmp_path, library):
+    wine = tmp_path / library / "wine"
+    unix64 = wine / "x86_64-unix/ntdll.so"
+    unix64.parent.mkdir(parents=True)
+    unix64.write_bytes(b"64-bit Unix fixture")
+    pe32 = wine / "i386-windows/ntdll.dll"
+    pe32.parent.mkdir()
+    pe32.write_bytes(b"32-bit PE support does not imply win32 prefix support")
+
+    assert not WineUtils.supports_win32_prefix(str(tmp_path))
+
+    unix32 = tmp_path / "lib/wine/i386-unix/ntdll.so"
+    unix32.parent.mkdir(parents=True, exist_ok=True)
+    unix32.write_bytes(b"32-bit Unix fixture")
+    assert WineUtils.supports_win32_prefix(str(tmp_path))
+
+
+def test_unknown_runner_layout_is_not_rejected(tmp_path):
+    assert WineUtils.supports_win32_prefix(str(tmp_path))

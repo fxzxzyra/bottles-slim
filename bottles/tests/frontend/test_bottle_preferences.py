@@ -206,3 +206,20 @@ def test_vkbasalt_editor_is_optional(monkeypatch, layer, helper):
     view.btn_manage_vkbasalt.set_sensitive.assert_called_once_with(layer and helper)
     if layer and not helper:
         view.btn_manage_vkbasalt.set_tooltip_text.assert_called_once()
+
+
+@pytest.mark.parametrize("nvidia", (True, False))
+@pytest.mark.parametrize("enabled", (True, False))
+def test_nvapi_remains_manageable_after_gpu_change(monkeypatch, nvidia, enabled):
+    from bottles.frontend.views import bottle_preferences
+    from bottles.frontend.views.bottle_preferences import PreferencesView
+
+    config = BottleConfig()
+    config.Parameters.dxvk_nvapi = enabled
+    view = SimpleNamespace(config=config, row_nvapi=Mock(), combo_nvapi=Mock())
+    monkeypatch.setattr(bottle_preferences.GPUUtils, "is_gpu", lambda *_args: nvidia)
+
+    PreferencesView._PreferencesView__update_nvapi_visibility(view)
+
+    view.row_nvapi.set_visible.assert_called_once_with(nvidia or enabled)
+    view.combo_nvapi.set_visible.assert_called_once_with(nvidia or enabled)

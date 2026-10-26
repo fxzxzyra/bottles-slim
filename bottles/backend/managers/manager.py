@@ -1422,6 +1422,13 @@ class Manager(metaclass=Singleton):
             log_update(message)
             return Result(False, message=message)
 
+        if arch == "win32" and not WineUtils.supports_win32_prefix(
+            ManagerUtils.get_runner_path(runner)
+        ):
+            message = _("This runner cannot create a 32-bit prefix. Select a 64-bit container.")
+            log_update(message)
+            return Result(False, message=message)
+
         if configuration is not None:
             env = {
                 "Parameters": {}, "Installed_Dependencies": configuration.Installed_Dependencies,
@@ -1713,6 +1720,9 @@ class Manager(metaclass=Singleton):
         if custom_environment:
             wineboot.kill()
 
+        if self.settings.get_boolean("disable-home-drive"):
+            Drives(config).remove_drive("Z")
+
         if env:
             while wineserver.is_alive():
                 cancel_result = check_cancel()
@@ -1796,7 +1806,9 @@ class Manager(metaclass=Singleton):
                             _("Failed to install dependency: %s")
                             % _dep.get("Description", "n/a")
                         )
-                        return Result(False)
+                        if res.message:
+                            log_update(res.message)
+                        return res
                     template_updated = True
 
         if d7vk_requested:
