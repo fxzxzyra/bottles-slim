@@ -21,7 +21,7 @@ def untranslated_messages(monkeypatch):
     (0, "<1m"), (30, "<1m"), (59, "<1m"), (60, "1m"),
     (150, "2m"), (3599, "59m"), (3600, "1h 00m"),
     (3660, "1h 01m"), (7325, "2h 02m"),
-    (86400, "1d 00h"), (90000, "1d 01h"), (180000, "2d 02h"),
+    (86400, "24h 00m"), (90000, "25h 00m"), (180000, "50h 00m"), (86461, "24h 01m"), (180125, "50h 02m"),
 ])
 def test_format_playtime(seconds, expected):
     assert PlaytimeService.format_playtime(seconds) == expected
