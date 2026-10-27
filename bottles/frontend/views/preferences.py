@@ -298,6 +298,11 @@ class PreferencesDialog(Adw.PreferencesDialog):
                 _("Disabled. Executables will run without being checked for threats.")
             )
 
+    def refresh_component_usage(self):
+        for entry in self.__registry:
+            if isinstance(entry, ComponentEntry):
+                entry.refresh_usage()
+
     def ui_update(self):
         # Show locally installed runners/DLLs right away so the pages never get
         # stuck on the loading spinner when the online catalog is slow or

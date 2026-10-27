@@ -66,6 +66,7 @@ class ComponentEntry(Adw.ActionRow):
         self._cancel_event: Optional[Event] = None
         self._cancelled_during_download = False
         self._pre_download_visibility: Optional[Dict[str, bool]] = None
+        self._uninstalling = False
 
         # populate widgets
         self.set_title(self.name)
@@ -160,13 +161,15 @@ class ComponentEntry(Adw.ActionRow):
     def uninstall(self, widget):
         @GtkUtils.run_in_main_loop
         def update(result, error=False):
-            if result.ok:
+            self._uninstalling = False
+            if not error and result is not None and result.ok:
                 return self.set_uninstalled()
 
             return self.set_err(result.data.get("message"), retry=False)
 
         self.btn_err.set_visible(False)
         self.btn_remove.set_visible(False)
+        self._uninstalling = True
 
         RunAsync(
             task_func=self.component_manager.uninstall,
@@ -244,8 +247,18 @@ class ComponentEntry(Adw.ActionRow):
         self.btn_browse.set_visible(True)
         self.btn_cancel.set_visible(False)
         self._set_spinner_active(False)
-        if not self.manager.component_manager.is_in_use(self.component_type, self.name):
-            self.btn_remove.set_visible(True)
+        self.refresh_usage()
+
+    def refresh_usage(self):
+        if (
+            not self.btn_browse.get_visible()
+            or self._download_task
+            or self._uninstalling
+        ):
+            return
+        self.btn_remove.set_visible(
+            not self.component_manager.is_in_use(self.component_type, self.name)
+        )
 
     def set_uninstalled(self):
         self.btn_browse.set_visible(False)

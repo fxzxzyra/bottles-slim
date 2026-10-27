@@ -408,6 +408,7 @@ class BottlesWindow(Adw.ApplicationWindow):
         if getattr(self, "_preferences_dialog", None) is None:
             self._preferences_dialog = PreferencesDialog(self)
         preferences_dialog = self._preferences_dialog
+        preferences_dialog.refresh_component_usage()
         if page is not None:
             preferences_dialog.set_visible_page_name(page)
         preferences_dialog.present(self)

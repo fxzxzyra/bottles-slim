@@ -19,7 +19,11 @@ class PreferencesDialogStub:
         self.window = window
         self.page_name = None
         self.presented_with = None
+        self.usage_refreshes = 0
         self.instances.append(self)
+
+    def refresh_component_usage(self):
+        self.usage_refreshes += 1
 
     def set_visible_page_name(self, page):
         self.page_name = page
@@ -38,6 +42,7 @@ def test_preferences_dialog_is_reused(monkeypatch):
 
     assert len(PreferencesDialogStub.instances) == 1
     assert window._preferences_dialog.presented_with is window
+    assert window._preferences_dialog.usage_refreshes == 2
 
 
 @pytest.mark.parametrize(
