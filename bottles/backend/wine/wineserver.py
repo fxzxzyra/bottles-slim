@@ -1,6 +1,5 @@
 import os
 import subprocess
-import time
 
 from bottles.backend.logger import Logger
 from bottles.backend.utils.manager import ManagerUtils
@@ -37,12 +36,13 @@ class WineServer(WineProgram):
             )
         except OSError:
             return False
-        time.sleep(0.5)
-        alive = res.poll() is None
-        if alive:
+        try:
+            res.wait(timeout=0.5)
+        except subprocess.TimeoutExpired:
             res.kill()
-        res.wait()
-        return alive
+            res.wait()
+            return True
+        return False
 
     def wait(self):
         bottle = ManagerUtils.get_bottle_path(self.config)
