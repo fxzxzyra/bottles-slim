@@ -283,3 +283,27 @@ def test_nvapi_remains_manageable_after_gpu_change(monkeypatch, nvidia, enabled)
 
     view.row_nvapi.set_visible.assert_called_once_with(nvidia or enabled)
     view.combo_nvapi.set_visible.assert_called_once_with(nvidia or enabled)
+
+
+@pytest.mark.parametrize("success", [False, True])
+def test_bottle_notes_are_kept_when_saving_fails(success):
+    from gi.repository import Gtk
+    from bottles.backend.models.result import Result
+    from bottles.frontend.views.bottle_preferences import PreferencesView
+
+    config = BottleConfig(Name="Test")
+    text = Gtk.TextView()
+    notes = "Installation notes\nDo not discard this text."
+    text.get_buffer().set_text(notes)
+    button = Gtk.Button()
+    manager = SimpleNamespace(update_config=Mock(return_value=Result(success, {"config": config})))
+    view = SimpleNamespace(config=config, text_notes=text, btn_save_notes=button, manager=manager, window=SimpleNamespace(show_toast=Mock()))
+
+    PreferencesView._PreferencesView__save_notes(view, button)
+
+    manager.update_config.assert_called_once_with(config, key="Notes", value=notes)
+    assert button.get_sensitive() is not success
+    buffer = text.get_buffer()
+    assert buffer.get_text(buffer.get_start_iter(), buffer.get_end_iter(), True) == notes
+    assert view.window.show_toast.called is not success
+

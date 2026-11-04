@@ -131,6 +131,7 @@ class BottleParams(DictCompatMixIn):
 class BottleConfig(DictCompatMixIn):
     Id: str = field(default_factory=lambda: uuid.uuid4().hex)
     Name: str = ""
+    Notes: str = ""
     Arch: str = "win64"  # Enum, Use bottles.backend.models.enum.Arch
     Windows: str = "win10"
     Runner: str = ""  # stable local runner identifier
