@@ -44,28 +44,35 @@ class WineServer(WineProgram):
             return True
         return False
 
-    def wait(self):
-        bottle = ManagerUtils.get_bottle_path(self.config)
-        if not os.path.isdir(bottle):
-            return
-        try:
-            subprocess.Popen(
-                [self._server(), "-w"], cwd=bottle, env=self._server_environment(),
-            ).wait()
-        except OSError as error:
-            logging.warning(f"Cannot wait for the bottle's wineserver: {error}")
+    def _run(self, args):
+        return subprocess.Popen(
+            [self._server(), *args], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+            cwd=ManagerUtils.get_bottle_path(self.config), env=self._server_environment(),
+        )
 
-    def kill(self, signal: int = -1):
-        args = "-k"
-        if signal != -1:
-            args += str(signal)
-
+    def _wait(self, args, timeout=None):
+        process = self._run(args)
         try:
-            subprocess.run(
-                [self._server(), args], env=self._server_environment(), check=False,
-            )
-        except OSError as error:
-            logging.warning(f"Cannot signal the bottle's wineserver: {error}")
+            return process.wait() if timeout is None else process.wait(timeout=timeout)
+        except subprocess.TimeoutExpired:
+            process.kill()
+            process.wait()
+            raise
+
+    def wait(self, timeout=None):
+        return self._wait(["-w"], timeout)
+
+    def kill(self, signal: int = -1, timeout=None):
+        args = "-k" if signal == -1 else f"-k{signal}"
+        self.returncode = self._wait([args], timeout)
+
+    def stop(self, timeout=30):
+        if self.config.Parameters.sandbox:
+            from bottles.backend.managers.sandbox import SandboxManager
+            SandboxManager.terminate_prefix(ManagerUtils.get_bottle_path(self.config), timeout=timeout)
+            return True
+        self.kill(timeout=timeout)
+        return self.returncode == 0 and self.wait(timeout=timeout) == 0
 
     def force_kill(self):
         bottle = ManagerUtils.get_bottle_path(self.config)
