@@ -1612,7 +1612,14 @@ class Manager(metaclass=Singleton):
 
         # execute wineboot on the bottle path
         log_update(_("The Wine config is being updated…"))
-        wineboot.init()
+        initialized = wineboot.init()
+        if not initialized.ok:
+            message = _("Failed to initialize the Wine prefix.")
+            if initialized.message:
+                message = f"{message} {initialized.message}"
+            logging.error(message, jn=True)
+            log_update(message)
+            return Result(False, data={"config": config}, message=message)
         cancel_result = check_cancel()
         if cancel_result is not None:
             return cancel_result

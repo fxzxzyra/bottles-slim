@@ -26,6 +26,7 @@ def test_config_import_restores_runtime_settings(monkeypatch, tmp_path):
 
         def init(self):
             wineboot_inits.append(True)
+            return Result(True)
 
         def update(self):
             pass
