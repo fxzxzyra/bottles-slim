@@ -1725,3 +1725,19 @@ def test_wineboot_preserves_the_session_display(monkeypatch, status):
     assert captured["DISPLAY"] == ":17"
     assert captured["WAYLAND_DISPLAY"] == "wayland-fixture"
 
+
+
+@pytest.mark.parametrize("runner_binary", ["/usr/bin/wine", "/runners/Wine with spaces/bin/wine64"])
+def test_launch_scripts_receive_selected_wine_binary(monkeypatch, runner_binary):
+    import shlex
+    monkeypatch.setenv("WINE", "/incorrect/host/wine")
+    command = WineCommand.__new__(WineCommand)
+    command.config = _make_config()
+    command.runner = shlex.quote(runner_binary)
+    command.runner_runtime = ""
+    command.steam_runtime_root = None
+    command.minimal = True
+    command.arguments = ""
+    command.gamescope_activated = False
+    command.terminal = False
+    assert command.get_env()["WINE"] == runner_binary
