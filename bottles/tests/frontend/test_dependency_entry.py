@@ -72,12 +72,16 @@ def test_dependency_row_activates_batch_selection():
     assert entry.check_select.get_active()
 
 
-def test_installed_dependency_actions_use_recorded_uninstaller():
+@pytest.mark.parametrize("uninstaller", [
+    "Microsoft .NET Framework 4 Extended",
+    ["Microsoft .NET Framework 4 Extended", "Microsoft .NET Framework 4 Client Profile"],
+])
+def test_installed_dependency_actions_use_recorded_uninstaller(uninstaller):
     window = _make_window(online=True, cache_calls=[])
     config = BottleConfig(
         Name="Bottle",
         Installed_Dependencies=["dotnet40"],
-        Uninstallers={"dotnet40": "Microsoft .NET Framework 4 Extended"},
+        Uninstallers={"dotnet40": uninstaller},
     )
 
     entry = DependencyEntry(
