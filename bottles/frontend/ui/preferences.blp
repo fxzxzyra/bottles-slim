@@ -46,6 +46,16 @@ template $PreferencesDialog: Adw.PreferencesDialog {
         };
       }
 
+      Adw.ComboRow combo_library_order {
+        title: _("Library Order");
+        model: StringList {
+          strings [
+            _("Program Name"),
+            _("Container Name"),
+          ]
+        };
+      }
+
       Adw.ActionRow {
         title: _("Show Update Date");
         subtitle: _("Whether to show the update date in the container list.");

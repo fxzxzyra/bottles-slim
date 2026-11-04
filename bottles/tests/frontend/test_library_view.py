@@ -106,3 +106,13 @@ def test_unavailable_bottle_does_not_delete_its_library_entry(monkeypatch):
             "id": "writer", "name": "Writer", "bottle": {"name": "Office"},
         })
     assert removed == []
+
+
+def test_library_order_by_container_then_program_name():
+    entries = {
+        "second": {"name": "Alpha", "bottle": {"name": "Work"}},
+        "third": {"name": "Zulu", "bottle": {"name": "Games"}},
+        "first": {"name": "Bravo", "bottle": {"name": "games"}},
+    }
+    assert [key for key, _ in _ordered_library_entries(entries, True)] == ["first", "third", "second"]
+    assert [key for key, _ in _ordered_library_entries(entries)] == ["second", "first", "third"]

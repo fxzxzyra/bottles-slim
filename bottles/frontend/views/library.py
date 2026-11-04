@@ -17,18 +17,22 @@
 
 from gettext import gettext as _
 
-from gi.repository import Adw, GObject, Gtk
+from gi.repository import Adw, Gio, GObject, Gtk
 
 from bottles.backend.managers.library import LibraryManager
+from bottles.frontend.params import APP_ID
 from bottles.frontend.utils.gtk import GtkUtils
 from bottles.frontend.widgets.library import LibraryEntry, LibraryEntryInitializationError
 
 
-def _ordered_library_entries(entries):
-    return sorted(
-        entries.items(),
-        key=lambda item: str(item[1].get("name") or "").casefold(),
-    )
+def _ordered_library_entries(entries, by_container=False):
+    def order(item):
+        entry = item[1]
+        name = str(entry.get("name") or "").casefold()
+        if by_container:
+            return str(entry.get("bottle", {}).get("name") or "").casefold(), name
+        return name
+    return sorted(entries.items(), key=order)
 
 
 @Gtk.Template(resource_path="/com/usebottles/bottles/library.ui")
@@ -47,6 +51,8 @@ class LibraryView(Adw.Bin):
     def __init__(self, window, **kwargs):
         super().__init__(**kwargs)
         self.window = window
+        self.settings = Gio.Settings.new(APP_ID)
+        self.settings.connect("changed::library-sort-order", lambda *_args: self.update())
         self.css = b""
         self.update()
 
@@ -58,7 +64,7 @@ class LibraryView(Adw.Bin):
             self.main_flow.remove(self.main_flow.get_first_child())
 
         entry_count = 0
-        for u, e in _ordered_library_entries(entries):
+        for u, e in _ordered_library_entries(entries, self.settings.get_uint("library-sort-order") == 1):
             try:
                 entry = LibraryEntry(self, u, e)
             except LibraryEntryInitializationError:
