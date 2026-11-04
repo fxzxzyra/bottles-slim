@@ -29,6 +29,7 @@ from bottles.backend.wine.executor import WineExecutor
 from bottles.backend.wine.wineboot import WineBoot
 from bottles.backend.wine.winedbg import WineDbg
 from bottles.frontend.utils.gtk import GtkUtils
+from bottles.frontend.utils.program import guard_program_launch
 from bottles.frontend.utils.sandbox_guard import guard_sandbox_launch
 
 logging = Logger()
@@ -278,8 +279,11 @@ class LibraryEntry(Gtk.Box):
             )
             self.__reset_buttons()
 
-        guard_sandbox_launch(
-            self.window, self.config, self.program.get("path"), proceed
+        guard_program_launch(
+            self.window, self.config, self.program,
+            lambda: guard_sandbox_launch(
+                self.window, self.config, self.program.get("path"), proceed
+            ),
         )
 
 
