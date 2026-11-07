@@ -245,6 +245,7 @@ class WineCommand:
         sandbox_override: Optional[str] = None,
         forced_dll_overrides: Optional[str] = None,
         capture_exit_code: bool = False,
+        capture_stderr: bool = False,
     ):
         _environment = environment.copy()
         self.config = self._get_config(config)
@@ -286,6 +287,7 @@ class WineCommand:
             environment=_environment,
         )
         self.env = self.get_env(_environment)
+        self.capture_stderr = capture_stderr and communicate
 
     def _prepare_exit_code_capture(
         self, command: str, arguments: str
@@ -1100,6 +1102,7 @@ raise SystemExit(status if status >= 0 else 128 - status)
                 proc = subprocess.Popen(
                     self.command,
                     stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE if self.capture_stderr else None,
                     shell=True,
                     env=self.env,
                     cwd=self.cwd,
@@ -1114,7 +1117,9 @@ raise SystemExit(status if status >= 0 else 128 - status)
             return Result(True)
 
         try:
-            stdout_data, _ = proc.communicate()
+            stdout_data, stderr_data = proc.communicate()
+            if self.capture_stderr:
+                stdout_data = b"\n".join(data for data in (stdout_data, stderr_data) if data)
         finally:
             self._clear_exit_code_capture()
 
