@@ -417,7 +417,7 @@ class WineExecutor:
     def run(self) -> Result:
         # Emit ProgramStarted (best-effort)
         launch_id = f"{self.config.Name}:{int(time.time() * 1000)}:{os.getpid()}"
-        bottle_id = self.config.Name
+        bottle_id = self.config.identifier
         bottle_name = self.config.Name
         bottle_path = ManagerUtils.get_bottle_path(self.config)
         program_name = (

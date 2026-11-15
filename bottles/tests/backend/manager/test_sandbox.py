@@ -308,3 +308,25 @@ def test_wine_command_rejects_invalid_hidraw_sandbox_permissions(monkeypatch, tm
     assert sandbox.share_input is False
     assert sandbox.share_usb is False
     assert sandbox.share_hidraw is False
+
+
+def test_launcher_creates_private_files_without_changing_parent_umask(monkeypatch, tmp_path):
+    import os
+    import shlex
+    manager = SandboxManager()
+    monkeypatch.setattr(manager, "get_cmd", lambda command: command)
+    directory = tmp_path / "child-directory"
+    payload = tmp_path / "child-file"
+    command = f"mkdir {shlex.quote(str(directory))}; touch {shlex.quote(str(payload))}"
+    original = os.umask(0o022)
+    try:
+        process = manager.run(command)
+        process.communicate(timeout=5)
+        assert process.returncode == 0
+        assert directory.stat().st_mode & 0o777 == 0o700
+        assert payload.stat().st_mode & 0o777 == 0o600
+        parent_file = tmp_path / "parent-file"
+        parent_file.touch()
+        assert parent_file.stat().st_mode & 0o777 == 0o644
+    finally:
+        os.umask(original)

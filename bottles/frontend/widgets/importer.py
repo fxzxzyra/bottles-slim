@@ -15,9 +15,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import os
 from gettext import gettext as _
 
-from gi.repository import Adw, Gtk
+from gi.repository import Adw, GLib, Gtk
+from bottles.frontend.utils.flatpak import resolve_bottles_directory
 
 from bottles.backend.utils.manager import ManagerUtils
 from bottles.backend.utils.threading import RunAsync
@@ -63,7 +65,7 @@ class ImporterEntry(Adw.ActionRow):
     def import_wineprefix(self, widget):
         @GtkUtils.run_in_main_loop
         def set_imported(result, error=False):
-            self.btn_import.set_visible(result.ok)
+            self.btn_import.set_visible(not result.ok)
             self.img_lock.set_visible(result.ok)
 
             if result.ok:
@@ -71,12 +73,24 @@ class ImporterEntry(Adw.ActionRow):
                     _('"{0}" imported').format(self.prefix.get("Name"))
                 )
 
+            else:
+                self.window.show_toast(str(error) if error else result.message or _("Import failed"))
             self.set_sensitive(True)
 
-        self.set_sensitive(False)
+        if os.path.isfile(os.path.join(self.prefix["Path"], "bottle.yml")):
+            self.set_sensitive(False)
+            RunAsync(self.import_manager.import_bottle, callback=set_imported, path=self.prefix["Path"])
+            return
 
-        RunAsync(
-            self.import_manager.import_wineprefix,
-            callback=set_imported,
-            wineprefix=self.prefix,
-        )
+        def selected(dialog, result):
+            try:
+                folder = dialog.select_folder_finish(result)
+            except GLib.Error:
+                return
+            destination = resolve_bottles_directory(self.window, folder.get_path())
+            if destination:
+                self.set_sensitive(False)
+                RunAsync(self.import_manager.import_wineprefix, callback=set_imported,
+                         wineprefix=self.prefix, destination=destination)
+        dialog = Gtk.FileDialog(title=_("Select an Empty Bottle Directory"), modal=True)
+        dialog.select_folder(self.window, None, selected)

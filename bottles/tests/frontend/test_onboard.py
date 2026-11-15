@@ -1,6 +1,8 @@
 from importlib import import_module
 from importlib.util import module_from_spec, spec_from_file_location
-from multiprocessing import get_context
+import json
+import subprocess
+import sys
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -50,7 +52,7 @@ class FakeCarousel:
         pass
 
 
-def probe_failed_setup(queue, raises_error):
+def probe_failed_setup(raises_error):
     import gi
 
     from bottles.backend.models.result import Result
@@ -121,24 +123,16 @@ def probe_failed_setup(queue, raises_error):
         "progress_visible": dialog.progressbar.visible,
         "status_visible": dialog.label_status.visible,
     }
-    queue.put((failed, retrying))
+    return failed, retrying
 
 
 @pytest.mark.parametrize("raises_error", (False, True))
 def test_failed_setup_can_retry_or_skip_setup(raises_error):
-    context = get_context("spawn")
-    queue = context.Queue()
-    process = context.Process(target=probe_failed_setup, args=(queue, raises_error))
-    process.start()
-    process.join(10)
-
-    if process.is_alive():
-        process.terminate()
-        process.join()
-        pytest.fail("Onboarding state probe timed out")
-
-    assert process.exitcode == 0
-    failed, retrying = queue.get(timeout=1)
+    result = subprocess.run(
+        [sys.executable, str(Path(__file__).resolve()), str(int(raises_error))],
+        capture_output=True, text=True, timeout=10, check=True,
+    )
+    failed, retrying = json.loads(result.stdout)
 
     assert failed == {
         "can_close": True,
@@ -159,3 +153,7 @@ def test_failed_setup_can_retry_or_skip_setup(raises_error):
         "progress_visible": True,
         "status_visible": False,
     }
+
+
+if __name__ == "__main__":
+    print(json.dumps(probe_failed_setup(bool(int(sys.argv[1])))))

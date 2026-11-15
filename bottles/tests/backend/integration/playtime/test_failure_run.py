@@ -6,7 +6,7 @@ from freezegun import freeze_time
 
 
 def test_failure_run_marks_unknown_and_updates_totals(manager):
-    tracker = manager.playtime_tracker
+    tracker = manager.get_playtime_tracker("b1")
     assert tracker is not None
 
     with freeze_time("2025-01-01 02:00:00"):
@@ -35,7 +35,7 @@ def test_failure_run_marks_unknown_and_updates_totals(manager):
 
 
 def test_multiple_failures_different_bottles(manager):
-    tracker = manager.playtime_tracker
+    tracker = manager.get_playtime_tracker("b1")
     assert tracker is not None
 
     with freeze_time("2025-01-01 03:00:00"):
@@ -71,7 +71,7 @@ def test_multiple_failures_different_bottles(manager):
 
 
 def test_multiple_failures_same_bottle_different_programs(manager):
-    tracker = manager.playtime_tracker
+    tracker = manager.get_playtime_tracker("b1")
     assert tracker is not None
 
     with freeze_time("2025-01-01 04:00:00"):

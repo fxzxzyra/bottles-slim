@@ -46,12 +46,9 @@ class TemplateManager:
         _uuid = str(uuid.uuid4())
         logging.info(f"Creating new template: {_uuid}")
         bottle = ManagerUtils.get_bottle_path(config)
-        template_config = config.copy()
-
-        delattr(template_config, "Name")
-        delattr(template_config, "Path")
-        delattr(template_config, "Creation_Date")
-        delattr(template_config, "Update_Date")
+        template_config = config.to_dict()
+        for key in ("Name", "Creation_Date", "Update_Date"):
+            template_config.pop(key)
 
         ignored = ["dosdevices", "states", ".fvs", "*.yml", ".*", "*.tmp"]
 

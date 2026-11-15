@@ -64,7 +64,7 @@ def test_create_bottle_applies_home_drive_after_wineboot(
     manager.nvapi_available = ["nvapi-1.0"]
     manager.latencyflex_available = ["latencyflex-1.0"]
 
-    monkeypatch.setattr(manager_module.Paths, "bottles", str(tmp_path))
+    (tmp_path / "Selected").mkdir()
     monkeypatch.setattr(manager_module.FileUtils, "chattr_f", lambda _path: None)
     monkeypatch.setattr(
         manager_module.FileUtils,
@@ -87,6 +87,7 @@ def test_create_bottle_applies_home_drive_after_wineboot(
     result = Manager.create_bottle(
         manager,
         name="Default Drives",
+        path=str(tmp_path / "Selected"),
         environment="custom",
         runner="soda-11.0",
         dxvk="dxvk-2.7",
@@ -95,7 +96,7 @@ def test_create_bottle_applies_home_drive_after_wineboot(
         latencyflex="latencyflex-1.0",
     )
 
-    home_drive = tmp_path / "Default-Drives" / "dosdevices" / "z:"
+    home_drive = tmp_path / "Selected" / "dosdevices" / "z:"
     assert result.ok
     assert os.path.lexists(home_drive) is expose_home_drive
 

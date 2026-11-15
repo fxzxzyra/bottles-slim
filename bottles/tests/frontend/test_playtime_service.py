@@ -46,7 +46,7 @@ def test_format_last_played_at_calendar_boundaries(played, expected):
     (0, 0, "Never Played"),
 ])
 def test_subtitle_includes_date_and_duration_and_escapes_markup(seconds, count, expected):
-    service = PlaytimeService(SimpleNamespace(playtime_tracker=None))
+    service = PlaytimeService(SimpleNamespace(settings=SimpleNamespace(get_boolean=lambda _: False)))
     record = PlaytimeRecord(
         bottle_id="b1", program_id="p1", program_name="Editor", program_path="/path",
         total_seconds=seconds, sessions_count=count, last_played=datetime(2025, 2, 10),
@@ -58,7 +58,7 @@ def test_subtitle_includes_date_and_duration_and_escapes_markup(seconds, count, 
 
 def test_translated_date_is_escaped_before_subtitle_interpolation(monkeypatch):
     monkeypatch.setattr(module, "_", lambda text: "<Today & now>" if text == "Today" else text)
-    service = PlaytimeService(SimpleNamespace(playtime_tracker=None))
+    service = PlaytimeService(SimpleNamespace(settings=SimpleNamespace(get_boolean=lambda _: False)))
     record = PlaytimeRecord(
         bottle_id="b1", program_id="p1", program_name="Editor", program_path="/path",
         total_seconds=30, sessions_count=1, last_played=datetime(2025, 2, 10),
@@ -71,7 +71,7 @@ def test_translated_date_is_escaped_before_subtitle_interpolation(monkeypatch):
 
 def test_service_reads_persisted_totals_and_refreshes_only_invalidated_program(tmp_path):
     tracker = ProcessSessionTracker(db_path=str(tmp_path / "metrics.sqlite"), heartbeat_interval=3600)
-    service = PlaytimeService(SimpleNamespace(playtime_tracker=tracker))
+    service = PlaytimeService(SimpleNamespace(settings=SimpleNamespace(get_boolean=lambda _: tracker.enabled), get_playtime_tracker=lambda _: tracker))
 
     def finish(program, seconds):
         sid = tracker.start_session(

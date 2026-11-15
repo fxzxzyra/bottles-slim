@@ -255,7 +255,7 @@ class PlaytimeGraphDialog(Adw.Window):
             # Since we already have program_id, get totals directly from backend
             totals_data = None
             try:
-                totals_data = self.parent.window.manager.playtime_tracker.get_totals(
+                totals_data = self.parent.window.manager.get_playtime_tracker(self.bottle_id).get_totals(
                     self.bottle_id, self.program_id
                 )
             except Exception as e:

@@ -94,10 +94,9 @@ class ManagerUtils:
         if config.Environment == "Steam":
             return os.path.join(Paths.steam, config.CompatData)
 
-        if config.Custom_Path:
-            return config.Path
-
-        return os.path.join(Paths.bottles, config.Path)
+        if not os.path.isabs(config.Path):
+            raise ValueError("The bottle has no absolute directory.")
+        return config.Path
 
     @staticmethod
     def resolve_portal_path(path: str) -> str:
@@ -226,8 +225,10 @@ class ManagerUtils:
         return f"{Paths.latencyflex}/{latencyflex}"
 
     @staticmethod
-    def get_temp_path(dest: str) -> str:
-        return f"{Paths.temp}/{dest}"
+    def get_temp_path(dest: str, config: BottleConfig) -> str:
+        directory = os.path.join(ManagerUtils.get_bottle_path(config), "cache", "temp")
+        os.makedirs(directory, mode=0o700, exist_ok=True)
+        return os.path.join(directory, dest)
 
     @staticmethod
     def get_template_path(template: str) -> str:

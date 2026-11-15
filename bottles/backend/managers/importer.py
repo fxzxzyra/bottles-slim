@@ -16,15 +16,16 @@
 #
 
 import os
+import sqlite3
 import shutil
-import subprocess
 from datetime import datetime
 from glob import glob
 
-from bottles.backend.globals import Paths, TrdyPaths
+from bottles.backend.globals import TrdyPaths
 from bottles.backend.logger import Logger
 from bottles.backend.models.config import BottleConfig
 from bottles.backend.models.result import Result
+from bottles.backend.managers.storage import BottleIndex, bottle_directory, bottle_operation, copy_bottle_contents
 
 logging = Logger()
 
@@ -44,7 +45,6 @@ class ImportManager:
         results += [
             (path, "PlayOnLinux") for path in glob(f"{TrdyPaths.playonlinux}/*/")
         ]
-        results += [(path, "Bottles v1") for path in glob(f"{TrdyPaths.bottlesv1}/*/")]
 
         for selected_path in selected_paths or []:
             selected_path = os.path.normpath(selected_path)
@@ -87,60 +87,40 @@ class ImportManager:
 
         return Result(status=True, data={"wineprefixes": importer_wineprefixes})
 
-    def import_wineprefix(self, wineprefix: dict) -> Result:
-        """Import wineprefix from external manager and convert in a bottle"""
-        logging.info(f"Importing wineprefix {wineprefix['Name']} as bottle…")
-
-        # prepare bottle path for the wine prefix
-        bottle_path = f"Imported_{wineprefix.get('Name')}"
-        bottle_complete_path = os.path.join(Paths.bottles, bottle_path)
-
+    def import_bottle(self, path: str) -> Result:
+        """Register a current-format bottle in place without running Wine."""
         try:
-            os.makedirs(bottle_complete_path, exist_ok=False)
-        except (FileExistsError, OSError):
-            logging.error(f"Error creating bottle directory for {wineprefix['Name']}")
-            return Result(False)
+            path = bottle_directory(path)
+            with bottle_operation(path):
+                config = BottleIndex().register(path)
+            self.manager.update_bottles(silent=True)
+            return Result(True, data={"config": config})
+        except (OSError, ValueError, RuntimeError, sqlite3.IntegrityError) as error:
+            return Result(False, message=str(error))
 
-        # copy wineprefix files in the new bottle
+    def import_wineprefix(self, wineprefix: dict, destination: str) -> Result:
+        """Copy a foreign prefix to an explicitly selected empty directory."""
         try:
-            subprocess.run(
-                [
-                    "cp",
-                    "-a",
-                    os.path.join(wineprefix["Path"], "."),
-                    bottle_complete_path,
-                ],
-                check=True,
-            )
-        except (OSError, subprocess.CalledProcessError) as error:
-            logging.error(f"Error copying wine prefix {wineprefix['Name']}: {error}")
-            shutil.rmtree(bottle_complete_path, ignore_errors=True)
-            return Result(False)
-
-        # create bottle config
-        new_config = BottleConfig()
-        new_config.Name = wineprefix["Name"]
-        new_config.Runner = self.manager.get_default_runner()
-        new_config.Path = bottle_path
-        new_config.Environment = "Custom"
-        new_config.Creation_Date = str(datetime.now())
-        new_config.Update_Date = str(datetime.now())
-
-        # save config
-        saved = new_config.dump(os.path.join(bottle_complete_path, "bottle.yml"))
-        if not saved.status:
-            shutil.rmtree(bottle_complete_path, ignore_errors=True)
-            return Result(False)
-
-        # mark the source as imported when it is writable
-        try:
-            with open(os.path.join(wineprefix["Path"], "bottle.lock"), "a"):
-                pass
-        except OSError as error:
-            logging.warning(f"Could not mark the source prefix as imported: {error}")
-
-        # update bottles view
-        self.manager.update_bottles(silent=True)
-
-        logging.info(f"Wine prefix {wineprefix['Name']} imported as bottle.", jn=True)
-        return Result(True)
+            source = wineprefix["Path"]
+            if os.path.isfile(os.path.join(source, "bottle.yml")):
+                raise ValueError("This is an existing Bottles bottle; import it in place.")
+            if not os.path.isdir(os.path.join(source, "drive_c")):
+                raise ValueError("The source is not a Wine prefix.")
+            destination = bottle_directory(destination, empty=True)
+            with bottle_operation(destination):
+                bottle_directory(destination, empty=True)
+                os.chmod(destination, 0o700)
+                copy_bottle_contents(wineprefix["Path"], destination)
+                new_config = BottleConfig(
+                    Name=wineprefix["Name"], Path=destination,
+                    Runner=self.manager.get_default_runner(), Environment="Custom",
+                    Creation_Date=str(datetime.now()), Update_Date=str(datetime.now()),
+                )
+                saved = new_config.dump(os.path.join(destination, "bottle.yml"))
+                if not saved.ok:
+                    return saved
+                BottleIndex().register(destination)
+            self.manager.update_bottles(silent=True)
+            return Result(True)
+        except (OSError, ValueError, RuntimeError, sqlite3.IntegrityError, shutil.Error) as error:
+            return Result(False, message=str(error))

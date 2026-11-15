@@ -75,13 +75,14 @@ class RegistryRuleManager:
             if not rule.keys.strip():
                 continue
             logging.info(f"Applying registry rule '{name}' for {config.Name}")
-            reg_file = ManagerUtils.get_temp_path(f"{uuid.uuid4()}.reg")
+            reg_file = ManagerUtils.get_temp_path(f"{uuid.uuid4()}.reg", config)
             keys = rule.keys.lstrip()
             has_header = keys.upper().startswith("REGEDIT4") or keys.lower().startswith(
                 "windows registry editor version"
             )
 
-            with open(reg_file, "w") as bundle_file:
+            fd = os.open(reg_file, os.O_CREAT | os.O_WRONLY | os.O_TRUNC, 0o600)
+            with os.fdopen(fd, "w") as bundle_file:
                 if not has_header:
                     bundle_file.write("REGEDIT4\n\n")
                 bundle_file.write(keys.rstrip())

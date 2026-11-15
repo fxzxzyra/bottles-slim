@@ -20,7 +20,6 @@ def graphics_manager(monkeypatch, tmp_path):
     config = BottleConfig(
         Name="graphics",
         Path=str(tmp_path),
-        Custom_Path=True,
         DXVK="dxvk-old",
         VKD3D="vkd3d-old",
     )

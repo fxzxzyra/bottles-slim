@@ -13,7 +13,7 @@ def test_device_drive_shows_eject_action(tmp_path):
     dosdevices.mkdir()
     (dosdevices / "d:").symlink_to(tmp_path)
     (dosdevices / "d::").symlink_to("/dev/sr0")
-    config = BottleConfig(Path=str(tmp_path), Custom_Path=str(tmp_path))
+    config = BottleConfig(Path=str(tmp_path))
     parent = SimpleNamespace(
         config=config,
         window=SimpleNamespace(manager=Mock()),

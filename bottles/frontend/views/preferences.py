@@ -29,7 +29,6 @@ from bottles.backend.utils.threading import RunAsync
 from bottles.backend.utils.manager import ManagerUtils
 from bottles.backend.utils.runners import RunnerRegistry, system_runner_guidance
 from bottles.frontend.utils.common import format_runner_name
-from bottles.frontend.utils.flatpak import resolve_bottles_directory
 from bottles.frontend.utils.gtk import FONT_SCALE_VALUES
 from bottles.frontend.utils.localization import (
     UI_LANGUAGES,
@@ -77,10 +76,7 @@ class PreferencesDialog(Adw.PreferencesDialog):
     btn_refresh_runners = Gtk.Template.Child()
     list_dlls = Gtk.Template.Child()
     action_prerelease = Gtk.Template.Child()
-    btn_bottles_path = Gtk.Template.Child()
     action_steam_proton = Gtk.Template.Child()
-    btn_bottles_path_reset = Gtk.Template.Child()
-    label_bottles_path = Gtk.Template.Child()
     btn_steam_proton_doc = Gtk.Template.Child()
     entry_personal_components = Gtk.Template.Child()
     entry_personal_dependencies = Gtk.Template.Child()
@@ -116,13 +112,6 @@ class PreferencesDialog(Adw.PreferencesDialog):
         self.__ui_language_values = [code for code, _name in UI_LANGUAGES]
         self.__updating_ui_language = False
         self.__updating_font_scale = False
-
-        self.current_bottles_path = self.data.get(UserDataKeys.CustomBottlesPath)
-        if self.current_bottles_path:
-            self.label_bottles_path.set_label(
-                os.path.basename(self.current_bottles_path)
-            )
-            self.btn_bottles_path_reset.set_visible(True)
 
         self.__personal_repo_rows = {
             "components": self.entry_personal_components,
@@ -288,8 +277,6 @@ class PreferencesDialog(Adw.PreferencesDialog):
         )
         self.btn_add_runner.connect("clicked", self.__choose_user_runner)
         self.btn_refresh_runners.connect("clicked", self.__refresh_runners)
-        self.btn_bottles_path.connect("clicked", self.__choose_bottles_path)
-        self.btn_bottles_path_reset.connect("clicked", self.__reset_bottles_path)
         self.btn_steam_proton_doc.connect("clicked", self.__open_steam_proton_doc)
         self.btn_cache_clear_all.connect("clicked", self.__confirm_clear_all_caches)
         self.btn_cache_clear_temp.connect("clicked", self.__confirm_clear_temp_cache)
@@ -371,30 +358,6 @@ class PreferencesDialog(Adw.PreferencesDialog):
             "https://docs.usebottles.com/flatpak/cant-enable-steam-proton-manager"
         )
 
-    def __choose_bottles_path(self, widget):
-        def set_path(_dialog, response):
-            if response != Gtk.ResponseType.ACCEPT:
-                return
-
-            path = resolve_bottles_directory(self.window, dialog.get_file().get_path())
-            if path is None:
-                return
-
-            self.data.set(UserDataKeys.CustomBottlesPath, path)
-            self.label_bottles_path.set_label(os.path.basename(path))
-            self.btn_bottles_path_reset.set_visible(True)
-            self.prompt_restart()
-
-        dialog = Gtk.FileChooserNative.new(
-            title=_("Select Bottles Path"),
-            action=Gtk.FileChooserAction.SELECT_FOLDER,
-            parent=self.window,
-        )
-
-        dialog.set_modal(True)
-        dialog.connect("response", set_path)
-        dialog.show()
-
     def handle_restart(self, widget, response_id):
         if response_id == "restart":
             environment = get_ui_language_environment(
@@ -404,32 +367,21 @@ class PreferencesDialog(Adw.PreferencesDialog):
             self.window.proper_close()
         widget.destroy()
 
-    def prompt_restart(self, force=False):
-        needs_restart = force or (
-            self.current_bottles_path != self.data.get(UserDataKeys.CustomBottlesPath)
+    def prompt_restart(self):
+        dialog = Adw.MessageDialog.new(
+            self.window,
+            _("Relaunch Bottles?"),
+            _(
+                "Bottles needs to be relaunched to use the updated repositories.\n\nBe sure to close every program launched from Bottles before relaunching Bottles, as not doing so can cause data loss, corruption and programs to malfunction."
+            ),
         )
-
-        if needs_restart:
-            dialog = Adw.MessageDialog.new(
-                self.window,
-                _("Relaunch Bottles?"),
-                _(
-                    "Bottles will need to be relaunched to use this directory.\n\nBe sure to close every program launched from Bottles before relaunching Bottles, as not doing so can cause data loss, corruption and programs to malfunction."
-                ),
-            )
-            dialog.add_response("dismiss", _("_Cancel"))
-            dialog.add_response("restart", _("_Relaunch"))
-            dialog.set_response_appearance(
-                "restart", Adw.ResponseAppearance.DESTRUCTIVE
-            )
-            dialog.connect("response", self.handle_restart)
-            dialog.present()
-
-    def __reset_bottles_path(self, widget):
-        self.data.remove(UserDataKeys.CustomBottlesPath)
-        self.btn_bottles_path_reset.set_visible(False)
-        self.label_bottles_path.set_label(_("(Default)"))
-        self.prompt_restart()
+        dialog.add_response("dismiss", _("_Cancel"))
+        dialog.add_response("restart", _("_Relaunch"))
+        dialog.set_response_appearance(
+            "restart", Adw.ResponseAppearance.DESTRUCTIVE
+        )
+        dialog.connect("response", self.handle_restart)
+        dialog.present()
 
     def __on_personal_repo_changed(self, row, repo_name):
         if row.get_text() == self.__personal_repo_values.get(repo_name, ""):
@@ -445,7 +397,7 @@ class PreferencesDialog(Adw.PreferencesDialog):
         self.__personal_repo_values[repo_name] = new_value
         self.__persist_personal_repositories()
         row.set_show_apply_button(False)
-        self.prompt_restart(force=True)
+        self.prompt_restart()
 
     def __persist_personal_repositories(self):
         stored_values = {

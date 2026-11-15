@@ -85,7 +85,7 @@ class Paths:
     # The package configures this from prefix/datadir: /app/share for Flatpak,
     # or the selected native prefix. No host-specific fallback directories.
     system_runners = (SYSTEM_RUNNERS_DIR,) if os.path.isabs(SYSTEM_RUNNERS_DIR) else ()
-    bottles = f"{base}/bottles"
+    bottle_index = f"{base}/bottles.sqlite"
     steam = f"{base}/steam"
     d7vk = f"{base}/d7vk"
     dxvk = f"{base}/dxvk"
@@ -94,7 +94,6 @@ class Paths:
     latencyflex = f"{base}/latencyflex"
     templates = f"{cache}/templates"
     library = f"{base}/library.yml"
-    process_metrics = f"{state}/process_metrics.sqlite"
 
     @staticmethod
     def is_vkbasalt_available():
@@ -139,21 +138,7 @@ class TrdyPaths:
     wine = f"{Path.home()}/.wine"
     lutris = f"{Path.home()}/Games"
     playonlinux = f"{Path.home()}/.PlayOnLinux/wineprefix"
-    bottlesv1 = f"{Path.home()}/.Bottles"
 
-
-# Create only application-owned base directories. Wine prefixes stay under data.
-for directory in (Paths.base, Paths.config, Paths.cache, Paths.state):
-    os.makedirs(directory, mode=0o700, exist_ok=True)
-
-
-try:
-    os.getcwd()
-except OSError:
-    try:
-        os.chdir(Paths.base)
-    except OSError:
-        pass
 
 def check_flatpak_extension(cmd: str, path: str):
     if "FLATPAK_ID" in os.environ:

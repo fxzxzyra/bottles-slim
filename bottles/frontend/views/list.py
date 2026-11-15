@@ -120,9 +120,6 @@ class BottlesBottleRow(Adw.ActionRow):
 
     def run_executable(self, *_args):
         """Display file dialog for executable"""
-        if not Xdp.Portal.running_under_sandbox():
-            return
-
         def set_path(_dialog, response):
             if response != Gtk.ResponseType.ACCEPT:
                 return
@@ -263,6 +260,19 @@ class BottleView(Adw.Bin):
             else:
                 self.group_steam.set_visible(True)
                 self.group_bottles.set_title(_("Your Bottles"))
+
+        for path, error in self.window.manager.unavailable_bottles.items():
+            row = Adw.ActionRow(title=path, subtitle=error)
+            remove = Gtk.Button(label=_("Remove from List"), valign=Gtk.Align.CENTER)
+            def forget(_button, path=path):
+                from bottles.backend.managers.storage import BottleIndex
+                BottleIndex().forget(path)
+                self.window.manager.check_bottles(silent=True)
+                self.update_bottles_list()
+            remove.connect("clicked", forget)
+            row.add_suffix(remove)
+            self.list_bottles.append(row)
+            self.__bottles[path] = row
 
         self.__update_empty_state(self.entry_search.get_text())
         self.__update_reorder_states(configs)

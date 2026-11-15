@@ -6,7 +6,7 @@ from freezegun import freeze_time
 
 
 def test_successful_run_finalizes_and_updates_totals(manager):
-    tracker = manager.playtime_tracker
+    tracker = manager.get_playtime_tracker("b1")
     assert tracker is not None
 
     with freeze_time("2025-01-01 00:00:00"):
@@ -38,7 +38,7 @@ def test_successful_run_finalizes_and_updates_totals(manager):
 
 def test_success_multiple_apps_two_same_bottle_one_other(manager):
     """Simulate overlapping runs: start a second and third app before prior ones ended."""
-    tracker = manager.playtime_tracker
+    tracker = manager.get_playtime_tracker("b1")
     assert tracker is not None
 
     with freeze_time("2025-01-01 10:00:00") as ft:

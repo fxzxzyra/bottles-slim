@@ -49,8 +49,9 @@ def isolated_playtime_state(tmp_path, monkeypatch):
     yield
     instance = Singleton._instances.get(Manager)
     if instance is not None:
-        instance.playtime_tracker.shutdown()
-        assert not instance.playtime_tracker._heartbeat_thread.is_alive()
+        for tracker in instance._playtime_trackers.values():
+            tracker.shutdown()
+            assert not tracker._heartbeat_thread.is_alive()
 
 
 @pytest.fixture
@@ -71,11 +72,20 @@ def test_settings_stub():
 
 
 @pytest.fixture
-def manager(test_settings_stub):
+def manager(test_settings_stub, tmp_path):
     # Keep the real constructor, tracker creation and signal subscriptions.
     # The long heartbeat interval removes wall-clock races in frozen-time tests;
     # dedicated heartbeat tests exercise flushing separately.
-    return Manager(g_settings=test_settings_stub, check_connection=False, is_cli=True)
+    from bottles.backend.models.config import BottleConfig
+    from bottles.backend.managers.storage import BottleIndex
+    root = tmp_path / "prefix"
+    root.mkdir(mode=0o700)
+    (root / "drive_c").mkdir()
+    assert BottleConfig(Id="b1", Name="b1").dump(str(root / "bottle.yml")).ok
+    BottleIndex().register(str(root))
+    manager = Manager(g_settings=test_settings_stub, check_connection=False, is_cli=True)
+    manager.check_bottles()
+    return manager
 
 
 @pytest.fixture

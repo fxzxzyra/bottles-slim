@@ -126,8 +126,6 @@ def test_config_import_restores_runtime_settings(monkeypatch, tmp_path):
     )
 
     (tmp_path / "Imported").mkdir()
-    monkeypatch.setattr(manager_module.Paths, "bottles", str(tmp_path))
-    monkeypatch.setattr(manager_module.random, "randint", lambda *_args: 123)
     monkeypatch.setattr(manager_module.FileUtils, "chattr_f", lambda _path: None)
     monkeypatch.setattr(
         manager_module.FileUtils, "wait_for_files", lambda *_args, **_kwargs: True
@@ -151,12 +149,12 @@ def test_config_import_restores_runtime_settings(monkeypatch, tmp_path):
     monkeypatch.setattr(manager_module, "Reg", Reg)
     monkeypatch.setattr(manager_module, "RegKeys", RegKeys)
 
-    result = Manager.create_bottle_from_config(manager, source)
+    result = Manager.create_bottle_from_config(manager, source, str(tmp_path / "Imported"))
 
-    restored = BottleConfig.load(str(tmp_path / "Imported__123" / "bottle.yml")).data
+    restored = BottleConfig.load(str(tmp_path / "Imported" / "bottle.yml")).data
     assert result is True
-    assert restored.Name == "Imported__123"
-    assert restored.Path == "Imported__123"
+    assert restored.Name == "Imported"
+    assert restored.Path == str(tmp_path / "Imported")
     assert restored.Runner == "soda-11.0"
     assert restored.Windows == "win7"
     assert restored.Language == "ja_JP"

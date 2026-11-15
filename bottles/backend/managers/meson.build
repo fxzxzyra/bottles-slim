@@ -8,6 +8,7 @@ bottles_sources = [
   'manager.py',
   'versioning.py',
   'data.py',
+  'storage.py',
   'runtime.py',
   'importer.py',
   'conf.py',

@@ -123,7 +123,7 @@ def worker(group: str, build: Path) -> int:
     logs = build / "meson-logs"
     logs.mkdir(exist_ok=True)
     return pytest.main([
-        str(ROOT / GROUPS[group]), "--import-mode=importlib", "-ra",
+        str(ROOT / GROUPS[group]), "--rootdir", str(ROOT), "--import-mode=importlib", "-ra",
         "--strict-config", "--strict-markers",
         "-W", "error::pytest.PytestUnhandledThreadExceptionWarning",
         "-W", "error::pytest.PytestUnraisableExceptionWarning",

@@ -21,6 +21,7 @@
 import argparse
 import os
 import signal
+import sqlite3
 import subprocess
 import sys
 import uuid
@@ -45,6 +46,7 @@ from gi.repository import Gio
 from bottles.backend.globals import Paths
 from bottles.backend.health import HealthChecker
 from bottles.backend.managers.manager import Manager
+from bottles.backend.managers.storage import BottleIndex
 from bottles.backend.managers.registry_rule import RegistryRuleManager
 from bottles.backend.models.config import BottleConfig
 from bottles.backend.models.registry_rule import RegistryRule
@@ -93,7 +95,7 @@ class CLI:
             "info", help="Show information about Bottles"
         )
         info_parser.add_argument(
-            "type", choices=["bottles-path", "health-check"], help="Type of information"
+            "type", choices=["health-check"], help="Type of information"
         )
 
         list_parser = subparsers.add_parser("list", help="List entities")
@@ -230,8 +232,14 @@ class CLI:
             help="Change LatencyFleX (e.g. '--latencyflex latencyflex-v0.1.0')",
         )
 
+        import_parser = subparsers.add_parser("import", help="Register an existing bottle in place")
+        import_parser.add_argument("--path", required=True, help="Existing bottle directory")
+        forget_parser = subparsers.add_parser("forget", help="Remove a registered path without deleting files")
+        forget_parser.add_argument("--path", required=True, help="Registered bottle directory")
+
         new_parser = subparsers.add_parser("new", help="Create a new bottle")
         new_parser.add_argument("--bottle-name", help="Bottle name", required=True)
+        new_parser.add_argument("--path", help="Existing empty bottle directory", required=True)
         new_parser.add_argument(
             "--environment",
             help="Environment to apply (gaming|application|custom)",
@@ -303,6 +311,16 @@ class CLI:
     def __process_args(self):
         self.args = self.parser.parse_args()
 
+        if self.args.command == "import":
+            try:
+                BottleIndex().register(self.args.path)
+            except (OSError, ValueError, sqlite3.IntegrityError) as error:
+                self.parser.exit(1, str(error) + "\n")
+            return
+        if self.args.command == "forget":
+            BottleIndex().forget(os.path.realpath(self.args.path))
+            return
+
         # INFO parser
         if self.args.command == "info":
             self.show_info()
@@ -368,11 +386,7 @@ class CLI:
     # region INFO
     def show_info(self):
         _type = self.args.type
-        if _type == "bottles-path":
-            res = Paths.bottles
-            sys.stdout.write(res)
-            exit(0)
-        elif _type == "health-check":
+        if _type == "health-check":
             hc = HealthChecker()
             if self.args.json:
                 sys.stdout.write(json.dumps(hc.get_results()) + "\n")
@@ -389,20 +403,19 @@ class CLI:
 
         if c_filter and c_filter.startswith("environment:"):
             environment = c_filter.split(":")[1].lower()
-            bottles = [
-                name
-                for name, bottle in bottles.items()
+            bottles = {
+                name: bottle for name, bottle in bottles.items()
                 if bottle.Environment.lower() == environment
-            ]
+            }
 
         if self.args.json:
-            sys.stdout.write(json.dumps(bottles))
+            sys.stdout.write(json.dumps({name: dict(config.to_dict(), Path=config.Path) for name, config in bottles.items()}))
             exit(0)
 
         if len(bottles) > 0:
             sys.stdout.write(f"Found {len(bottles)} bottles:\n")
-            for b in bottles:
-                sys.stdout.write(f"- {b}\n")
+            for name, config in bottles.items():
+                sys.stdout.write(f"- {name}: {config.Path}\n")
 
     def list_components(self, c_filter=None):
         mng = Manager(g_settings=self.settings, is_cli=True)
@@ -799,10 +812,10 @@ class CLI:
             Events.InstallersOrganizing,
         ):
             EventManager.wait(event)
-        mng.checks(install_latest=True, first_run=False)
 
         result = mng.create_bottle(
             name=_name,
+            path=self.args.path,
             environment=_environment,
             runner=_runner,
             d7vk=_d7vk,

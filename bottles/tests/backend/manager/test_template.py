@@ -1,6 +1,7 @@
 import pytest
 import shutil
 from threading import Event
+from types import SimpleNamespace
 
 from bottles.backend.managers import manager as manager_module
 from bottles.backend.managers import template as template_module
@@ -16,8 +17,7 @@ def test_unpack_missing_template_returns_false(monkeypatch, tmp_path):
     templates.mkdir()
     (bottles / "Test" / "drive_c").mkdir(parents=True)
     monkeypatch.setattr(template_module.Paths, "templates", str(templates))
-    monkeypatch.setattr(template_module.Paths, "bottles", str(bottles))
-    config = BottleConfig(Name="Test", Path="Test", Custom_Path=False)
+    config = BottleConfig(Name="Test", Path=str(bottles / "Test"))
 
     result = TemplateManager.unpack_template({"uuid": "missing"}, config)
 
@@ -32,8 +32,7 @@ def test_unpack_template_returns_true(monkeypatch, tmp_path):
     (source / "system.ini").write_text("template")
     (bottles / "Test" / "drive_c").mkdir(parents=True)
     monkeypatch.setattr(template_module.Paths, "templates", str(templates))
-    monkeypatch.setattr(template_module.Paths, "bottles", str(bottles))
-    config = BottleConfig(Name="Test", Path="Test", Custom_Path=False)
+    config = BottleConfig(Name="Test", Path=str(bottles / "Test"))
 
     result = TemplateManager.unpack_template({"uuid": "template-id"}, config)
 
@@ -52,13 +51,12 @@ def test_unpack_partial_template_returns_false(monkeypatch, tmp_path):
     templates.mkdir()
     (bottles / "Test" / "drive_c").mkdir(parents=True)
     monkeypatch.setattr(template_module.Paths, "templates", str(templates))
-    monkeypatch.setattr(template_module.Paths, "bottles", str(bottles))
     monkeypatch.setattr(
         template_module.shutil,
         "copytree",
         fail_copy,
     )
-    config = BottleConfig(Name="Test", Path="Test", Custom_Path=False)
+    config = BottleConfig(Name="Test", Path=str(bottles / "Test"))
 
     result = TemplateManager.unpack_template({"uuid": "partial"}, config)
 
@@ -95,7 +93,7 @@ def test_create_bottle_recovers_from_failed_template(monkeypatch, tmp_path):
         (tmp_path / "Fresh" / "partial-template-file").write_text("partial")
         return False
 
-    monkeypatch.setattr(manager_module.Paths, "bottles", str(tmp_path))
+    (tmp_path / "Fresh").mkdir()
     monkeypatch.setattr(manager_module.FileUtils, "chattr_f", lambda _path: None)
     monkeypatch.setattr(
         manager_module.TemplateManager,
@@ -110,11 +108,12 @@ def test_create_bottle_recovers_from_failed_template(monkeypatch, tmp_path):
     monkeypatch.setattr(manager_module, "Reg", lambda _config: object())
     monkeypatch.setattr(manager_module, "RegKeys", lambda _config: object())
     monkeypatch.setattr(manager_module, "WineBoot", WineBoot)
-    monkeypatch.setattr(manager_module, "WineServer", lambda _config: object())
+    monkeypatch.setattr(manager_module, "WineServer", lambda _config: SimpleNamespace(force_kill=lambda: None))
 
     result = Manager.create_bottle(
         manager,
         name="Fresh",
+        path=str(tmp_path / "Fresh"),
         environment="custom",
         runner="soda-11.0",
         dxvk="dxvk-2.7",
@@ -128,7 +127,7 @@ def test_create_bottle_recovers_from_failed_template(monkeypatch, tmp_path):
     assert captured["config"].Installed_Dependencies == []
     assert captured["config"].Uninstallers == {}
     assert not (tmp_path / "Fresh" / "partial-template-file").exists()
-    assert (tmp_path / "Fresh" / "drive_c").is_dir()
+    assert list((tmp_path / "Fresh").iterdir()) == []
 
 
 def test_validate_template_does_not_follow_symlinks(monkeypatch, tmp_path):

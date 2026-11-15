@@ -50,7 +50,6 @@ def test_uninstall_restores_matching_builtin_without_backup(
     target.write_bytes(b"native-component")
     config = BottleConfig(
         Path=str(prefix),
-        Custom_Path=True,
         Arch=bottle_arch,
         Environment="Steam" if steam else "",
         RunnerPath=str(runner),
@@ -94,7 +93,7 @@ def test_native_backup_takes_priority_over_runner_builtin(
     target.parent.mkdir(parents=True)
     target.write_bytes(b"dxvk")
     target.with_name("dxgi.dll.bck").write_bytes(backup_bytes)
-    config = BottleConfig(Path=str(prefix), Custom_Path=True, Arch="win64")
+    config = BottleConfig(Path=str(prefix), Arch="win64")
     monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: Result(True))
     monkeypatch.setattr(
         ManagerUtils, "get_runner_path", lambda *_args: pytest.fail("backup must win")
@@ -138,7 +137,7 @@ def test_wine_backup_uses_current_runner(
     target.write_bytes(b"native-component")
     backup = target.with_name(name + ".bck")
     backup.write_bytes(previous)
-    config = BottleConfig(Path=str(prefix), Custom_Path=True, Arch=bottle_arch)
+    config = BottleConfig(Path=str(prefix), Arch=bottle_arch)
     monkeypatch.setattr(ManagerUtils, "get_runner_path", lambda *_args: str(runner))
     monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: Result(True))
     manager = component("old")
@@ -165,7 +164,7 @@ def test_restore_error_preserves_native_dll_and_reports_failure(
     backup = target.with_name("dxgi.dll.bck")
     if wine_backup:
         backup.write_bytes(b"MZ" + bytes(62) + b"Wine builtin DLL\0previous runner")
-    config = BottleConfig(Path=str(prefix), Custom_Path=True, Arch="win64")
+    config = BottleConfig(Path=str(prefix), Arch="win64")
     monkeypatch.setattr(ManagerUtils, "get_runner_path", lambda *_args: str(runner))
     monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: Result(True))
     monkeypatch.setattr(
@@ -201,7 +200,6 @@ def test_system_runner_restores_multilib_builtin(
     (prefix / "drive_c/windows/syswow64").mkdir()
     config = BottleConfig(
         Path=str(prefix),
-        Custom_Path=True,
         Runner="system-wine",
         Arch="win32" if arch == "i386" else "win64",
     )

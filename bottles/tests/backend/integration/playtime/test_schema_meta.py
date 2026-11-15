@@ -8,10 +8,9 @@ from bottles.backend.globals import Paths
 
 
 def test_schema_meta_smoke(manager):
-    assert manager.playtime_tracker.db_path == Paths.process_metrics
-    assert Path(manager.playtime_tracker.db_path).parent == Path(Paths.state)
+    assert Path(manager.get_playtime_tracker("b1").db_path).parent == Path(manager.local_bottles["b1"].Path)
     assert not (Path(Paths.base) / "process_metrics.sqlite").exists()
-    con = sqlite3.connect(manager.playtime_tracker.db_path)
+    con = sqlite3.connect(manager.get_playtime_tracker("b1").db_path)
     cur = con.cursor()
     cur.execute("SELECT name FROM sqlite_master WHERE type='index'")
     indices = {r[0] for r in cur.fetchall()}

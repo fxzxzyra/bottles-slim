@@ -97,7 +97,6 @@ class BottlesWindow(Adw.ApplicationWindow):
         self.arg_bottle = arg_bottle
         self._showing_onboard = False
         self._pending_crash_log = None
-        self._show_custom_path_warning = False
         self._winebridge_prompt_attempts = 0
         self.app = kwargs.get("application")
         self.set_icon_name(APP_ID)
@@ -338,13 +337,6 @@ class BottlesWindow(Adw.ApplicationWindow):
             self.lock_ui(False)
             self.headerbar.remove_css_class("flat")
 
-            user_defined_bottles_path = self.manager.data_mgr.get(
-                UserDataKeys.CustomBottlesPath
-            )
-            self._show_custom_path_warning = bool(
-                user_defined_bottles_path
-                and Paths.bottles != user_defined_bottles_path
-            )
             if not self._showing_onboard:
                 GLib.idle_add(self.__continue_startup_dialogs)
 
@@ -447,27 +439,10 @@ class BottlesWindow(Adw.ApplicationWindow):
             dialog.present()
             return
 
-        if self._show_custom_path_warning:
-            self._show_custom_path_warning = False
-            dialog = Adw.MessageDialog.new(
-                self,
-                _("Custom Bottles Path not Found"),
-                _(
-                    "Falling back to default path. No bottles from the given path will be listed."
-                ),
-            )
-            dialog.add_response("cancel", _("_Dismiss"))
-            dialog.connect("response", self.__custom_path_response)
-            dialog.present()
-            return
-
         self.__maybe_show_eagle_intel_dialog()
 
     def __crash_report_closed(self, _dialog):
         GLib.idle_add(self.__continue_startup_dialogs)
-
-    def __custom_path_response(self, _dialog, _response):
-        GLib.idle_add(self.__maybe_show_eagle_intel_dialog)
 
     def __maybe_show_eagle_intel_dialog(self):
         if not self._show_eagle_intel_announcement:

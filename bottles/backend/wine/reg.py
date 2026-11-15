@@ -114,11 +114,12 @@ class Reg(WineProgram):
         config = self.config
         logging.info(f"Importing bundle to {config.Name} registry")
         winedbg = WineDbg(config)
-        reg_file = ManagerUtils.get_temp_path(f"{uuid.uuid4()}.reg")
+        reg_file = ManagerUtils.get_temp_path(f"{uuid.uuid4()}.reg", config)
 
         try:
             # prepare reg file
-            with open(reg_file, "w") as f:
+            fd = os.open(reg_file, os.O_CREAT | os.O_WRONLY | os.O_TRUNC, 0o600)
+            with os.fdopen(fd, "w") as f:
                 f.write("REGEDIT4\n\n")
 
                 for key in bundle:

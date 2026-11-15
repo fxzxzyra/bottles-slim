@@ -528,7 +528,7 @@ class SteamManager:
         for _, conf in prefixes.items():
             _bottle = os.path.join(Paths.steam, conf.CompatData)
 
-            os.makedirs(_bottle, exist_ok=True)
+            os.makedirs(_bottle, mode=0o700, exist_ok=True)
 
             conf.dump(os.path.join(_bottle, "bottle.yml"))
 

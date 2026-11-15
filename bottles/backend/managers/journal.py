@@ -16,6 +16,7 @@
 #
 
 import contextlib
+import logging
 import os
 import shutil
 import uuid
@@ -48,8 +49,10 @@ class JournalManager:
     @staticmethod
     def __get_journal() -> dict:
         """Return the journal as a dictionary."""
+        os.makedirs(os.path.dirname(JournalManager.path), mode=0o700, exist_ok=True)
         if not os.path.exists(JournalManager.path):
-            with open(JournalManager.path, "w") as f:
+            fd = os.open(JournalManager.path, os.O_CREAT | os.O_WRONLY, 0o600)
+            with os.fdopen(fd, "w") as f:
                 yaml.dump({}, f)
 
         with open(JournalManager.path, "r") as f:
@@ -192,6 +195,13 @@ class JournalManager:
     @staticmethod
     def write(severity: JournalSeverity, message: str):
         """Write an event to the journal."""
+        try:
+            JournalManager.__write(severity, message)
+        except OSError as error:
+            logging.getLogger(__name__).warning("Could not write journal: %s", error)
+
+    @staticmethod
+    def __write(severity, message):
         journal = JournalManager.__get_journal()
         event_id = str(uuid.uuid4())
         now = datetime.now()

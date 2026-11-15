@@ -134,7 +134,7 @@ def test_proton_use_hdr_can_disable_configured_gamescope_hdr(monkeypatch):
 
 
 def test_launch_arguments_enable_gamescope_hdr(monkeypatch, tmp_path):
-    config = BottleConfig()
+    config = BottleConfig(Path=str(tmp_path))
     config.Parameters.gamescope = True
     config.Parameters.gamescope_fullscreen = False
     command = WineCommand.__new__(WineCommand)
@@ -172,7 +172,7 @@ def test_flatpak_gamescope_exports_its_extension_libraries(monkeypatch):
 
 
 def test_gamescope_launcher_cleans_its_process_group(monkeypatch, tmp_path):
-    config = BottleConfig()
+    config = BottleConfig(Path=str(tmp_path))
     config.Parameters.gamescope = True
     config.Parameters.gamescope_fullscreen = False
     command = WineCommand.__new__(WineCommand)

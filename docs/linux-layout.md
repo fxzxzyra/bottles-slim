@@ -5,17 +5,34 @@
 
 | 文件类别 | 默认路径 |
 | --- | --- |
-| 非 GSettings 的偏好、可信程序、自定义容器路径 | `~/.config/bottles/data.yml` |
+| 非 GSettings 的偏好、可信程序、用户组件来源 | `~/.config/bottles/data.yml` |
 | GSettings | 交给原生 GSettings 后端；常见为 `~/.config/dconf/user`，不复制进 data.yml |
-| 日志、崩溃报告、运行历史数据库 | `~/.local/state/bottles/{journal.yml,crash.log,process_metrics.sqlite}` |
+| 应用日志、崩溃报告 | `~/.local/state/bottles/{journal.yml,crash.log}` |
 | 下载包、仓库清单缓存和可重新生成的模板 | `~/.cache/bottles/{temp,templates}` |
-| Wine prefixes、用户 runner/运行库/图形组件、用户 library 与 Eagle 数据库 | `~/.local/share/bottles/` |
+| 瓶子路径索引、用户 runner/运行库/图形组件与 Eagle 数据库 | `~/.local/share/bottles/` |
 | 桌面入口和图标 | 标准 XDG data 下的 `applications/` 与 `icons/` |
 
 尊重 `XDG_CONFIG_HOME`、`XDG_DATA_HOME`、`XDG_CACHE_HOME`、`XDG_STATE_HOME`。
 Flatpak 内沿用其提供的 XDG 环境，保留 Wine 路径兼容处理；用户自定义容器位置不被重排。
 容器内部的 `bottle.yml`、Windows 目录、注册表、程序及着色器缓存属于 Wine 环境，不搬进应用配置目录。
-Gamescope 的启动脚本目前与其它临时缓存共用 `Paths.temp`；已有沙箱显式只读暴露此路径，拆分后仍跟随该属性，无新增 socket 或会话文件需要创建 runtime 目录。
+瓶子没有默认存放目录。创建时必须选择已有的空目录，该目录直接作为根目录，不追加名称、不创建占位目录。
+目标必须属于当前用户；创建时将空根目录设为 0700，不提权、不更改父目录或所有权。导入要求根目录已经私有且可读写，不自动修改权限。
+瓶子配置、程序库、运行统计与瓶子缓存分别存放在根目录的 `bottle.yml`、`library.yml`、`process_metrics.sqlite` 与 `cache/`；Gamescope 和注册表临时脚本位于 `cache/temp/`。
+配置使用独立标识，不保存瓶子的绝对位置或本次启动参数；改名保持标识，移动目录后可重新导入。外部程序路径仍由用户负责保持有效。
+`${XDG_DATA_HOME}/bottles/bottles.sqlite` 只登记当前用户选择的路径与显示名称。读取索引不创建数据库；磁盘不可用时保留登记并显示错误。
+复制会获得新标识并从空的运行统计开始；备份恢复保留原标识。
+“从列表移除”只删除登记；“删除文件”会停止瓶子并删除它的目录。瓶子之间不共享 prefix 或个人数据。
+
+现有 Bottles 瓶子通过选择目录原地导入，不复制文件、不运行 Wine、不修改配置。第三方 Wine prefix 的转换、配置重建、完整备份恢复与复制均须另选空目标目录。
+
+```sh
+bottles-cli new --bottle-name Office --environment application --path /opt/username/Wine
+bottles-cli import --path /opt/username/Wine
+bottles-cli forget --path /opt/username/Wine
+```
+
+Flatpak 需要获得所选宿主目录的实际访问权限；文档 portal 的临时路径不能作为持久瓶子路径。权限不足时报告错误，不退回另一个目录。
+
 系统安装遵守 Meson 的 `prefix/datadir/localedir` 与所选 Python 解释器的安装规则：
 
 | 类别 | 安装位置 |
@@ -38,7 +55,7 @@ Flatpak 内系统 runner 为 `/app/share/bottles/runners/<名称>`；只扫描�
 新增文件应审查其配置、数据、状态或缓存属性。Meson 的安装测试核对实际安装边界；XDG 行为由回归测试覆盖。
 原生构建不以 `/.flatpak-info` 为前提；构建测试及前端资源加载方法统一见 [development.md](development.md)。
 
-应用直接使用当前 XDG 布局，不扫描、导入或迁移旧布局的数据。旧文件保持原样；配置、缓存和状态只在各自当前目录创建。修改 XDG 环境相当于选用另一套用户目录。
+应用直接使用当前配置格式，不自动迁移旧布局或配置。磁盘上的旧文件保持原样；配置、缓存和状态只在各自当前目录创建。修改 XDG 环境相当于选用另一套用户目录。
 
 Vulkan 通过 `ctypes` 加载系统 `libvulkan.so.1`，调用
 [`vkCreateInstance`](https://docs.vulkan.org/refpages/latest/refpages/vkCreateInstance.html) 与

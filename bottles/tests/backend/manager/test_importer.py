@@ -14,7 +14,6 @@ def _disable_default_locations(monkeypatch, tmp_path):
         "playonlinux",
         str(tmp_path / "missing-playonlinux"),
     )
-    monkeypatch.setattr(TrdyPaths, "bottlesv1", str(tmp_path / "missing-bottles"))
 
 
 def test_search_wineprefixes_accepts_selected_root_or_prefix(tmp_path, monkeypatch):
@@ -37,64 +36,35 @@ def test_search_wineprefixes_accepts_selected_root_or_prefix(tmp_path, monkeypat
     ]
 
 
-def test_import_wineprefix_copies_spaces_hidden_files_and_symlinks(
-    tmp_path, monkeypatch
-):
+def test_foreign_prefix_copy_uses_exact_selected_target(tmp_path, monkeypatch):
+    from bottles.backend.managers.storage import BottleIndex
     source = tmp_path / "Prefix With Spaces"
     source.joinpath("drive_c").mkdir(parents=True)
     source.joinpath(".registry").write_text("hidden")
     source.joinpath("dosdevices").mkdir()
     source.joinpath("dosdevices", "c:").symlink_to("../drive_c")
-    destination = tmp_path / "bottles"
+    destination = tmp_path / "selected"
     destination.mkdir()
-    monkeypatch.setattr(Paths, "bottles", str(destination))
-
-    manager = SimpleNamespace(
-        get_default_runner=lambda: "soda-9.0-1",
-        update_bottles=lambda **_kwargs: None,
-    )
+    manager = SimpleNamespace(get_default_runner=lambda: "system-wine", update_bottles=lambda **kw: None)
     result = ImportManager(manager).import_wineprefix(
-        {
-            "Name": source.name,
-            "Manager": "Manual",
-            "Path": str(source),
-            "Lock": False,
-        }
+        {"Name": "Office", "Path": str(source)}, str(destination),
     )
-
-    imported = destination / f"Imported_{source.name}"
-    assert result.status
-    assert imported.joinpath(".registry").read_text() == "hidden"
-    assert imported.joinpath("dosdevices", "c:").is_symlink()
-    assert imported.joinpath("dosdevices", "c:").readlink() == Path("../drive_c")
-    assert imported.joinpath("bottle.yml").is_file()
-    assert not imported.joinpath("bottle.lock").exists()
-    assert source.joinpath("bottle.lock").is_file()
-
-
-def test_import_wineprefix_rolls_back_when_config_cannot_be_saved(
-    tmp_path, monkeypatch
-):
-    source = tmp_path / "Broken Prefix"
-    source.joinpath("drive_c").mkdir(parents=True)
-    destination = tmp_path / "bottles"
-    destination.mkdir()
-    monkeypatch.setattr(Paths, "bottles", str(destination))
-    monkeypatch.setattr(
-        "bottles.backend.managers.importer.BottleConfig.dump",
-        lambda *_args, **_kwargs: Result(False),
-    )
-    manager = SimpleNamespace(get_default_runner=lambda: "soda-9.0-1")
-
-    result = ImportManager(manager).import_wineprefix(
-        {
-            "Name": source.name,
-            "Manager": "Manual",
-            "Path": str(source),
-            "Lock": False,
-        }
-    )
-
-    assert not result.status
-    assert not destination.joinpath(f"Imported_{source.name}").exists()
+    assert result.ok
+    assert destination.joinpath(".registry").read_text() == "hidden"
+    assert destination.joinpath("dosdevices", "c:").readlink() == Path("../drive_c")
+    assert source.joinpath(".registry").read_text() == "hidden"
     assert not source.joinpath("bottle.lock").exists()
+    assert not source.joinpath("bottle.yml").exists()
+    assert BottleIndex().entries() == {str(destination): "Office"}
+
+
+def test_foreign_prefix_cannot_overwrite_a_nonempty_target(tmp_path):
+    source = tmp_path / "source"
+    (source / "drive_c").mkdir(parents=True)
+    destination = tmp_path / "selected"
+    destination.mkdir()
+    (destination / "keep").write_text("existing")
+    importer = ImportManager(SimpleNamespace())
+    result = importer.import_wineprefix({"Name": "Office", "Path": str(source)}, str(destination))
+    assert not result.ok
+    assert (destination / "keep").read_text() == "existing"

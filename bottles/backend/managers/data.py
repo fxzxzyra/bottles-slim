@@ -27,7 +27,6 @@ logging = Logger()
 
 
 class UserDataKeys:
-    CustomBottlesPath = "custom_bottles_path"
     EagleIntelAnnouncementSeen = "eagle_intel_announcement_seen"
     PersonalRepositories = "personal_repositories"
     UserRunners = "user_runners"
@@ -45,6 +44,8 @@ class DataManager:
     __p_data = Paths.user_settings
 
     def __init__(self):
+        for directory in (Paths.base, Paths.config, Paths.cache, Paths.state):
+            os.makedirs(directory, mode=0o700, exist_ok=True)
         self.__get_data()
 
     def __get_data(self):
@@ -66,7 +67,8 @@ class DataManager:
 
     def __create_data_file(self):
         os.makedirs(Paths.config, mode=0o700, exist_ok=True)
-        with open(self.__p_data, "w") as s:
+        fd = os.open(self.__p_data, os.O_CREAT | os.O_WRONLY | os.O_TRUNC, 0o600)
+        with os.fdopen(fd, "w") as s:
             yaml.dump(Samples.data, s)
         self.__get_data()
 

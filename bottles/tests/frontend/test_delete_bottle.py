@@ -58,7 +58,7 @@ def harness(monkeypatch):
 
     view = SimpleNamespace(
         config=BottleConfig(Name="Bottle"),
-        manager=SimpleNamespace(delete_bottle=lambda **_kwargs: None),
+        manager=SimpleNamespace(delete_bottle=lambda **_kwargs: None, forget_bottle=lambda **_kwargs: None),
         window=SimpleNamespace(
             page_list=SimpleNamespace(
                 disable_bottle=lambda _config: events.append("navigate"),
@@ -100,3 +100,15 @@ def test_delete_refreshes_list_from_async_callback(harness):
     callbacks[0](True, None)
 
     assert events[-1] == "refresh"
+
+
+def test_forget_uses_the_registration_operation(harness, monkeypatch):
+    view, dialog, events, callbacks = harness
+    calls = []
+    view.manager.forget_bottle = lambda **kw: calls.append("forget")
+    def run(operation, **kwargs):
+        operation(config=kwargs["config"])
+    monkeypatch.setattr(bottle_details, "RunAsync", run)
+    BottleView._BottleView__confirm_delete(view, None)
+    dialog.response(dialog, "forget")
+    assert calls == ["forget"]

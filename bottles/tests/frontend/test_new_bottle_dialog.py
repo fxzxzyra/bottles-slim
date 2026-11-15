@@ -16,7 +16,6 @@ def _make_dialog(runners, dxvks, selected=0):
         set_can_close=lambda _value: None,
         stack_create=SimpleNamespace(set_visible_child_name=lambda _name: None),
         _cancel_requested=None,
-        _cleanup_config=None,
         _BottlesNewBottleDialog__reset_creation_steps=lambda: None,
         _BottlesNewBottleDialog__clear_creation_task=lambda: None,
         btn_cancel_creating=SimpleNamespace(
@@ -34,7 +33,8 @@ def _make_dialog(runners, dxvks, selected=0):
             create_bottle=lambda **_kwargs: None,
         ),
         arch={"win64": "64-bit"},
-        custom_path="",
+        custom_path="/selected/empty",
+        _BottlesNewBottleDialog__check_validity=lambda: (False, False),
         selected_environment="gaming",
         env_recipe_path=None,
         runner=None,
@@ -86,3 +86,26 @@ def test_create_bottle_tolerates_missing_components(
 
     assert captured["runner"] == expected_runner
     assert captured["dxvk"] == expected_dxvk
+
+
+def test_create_bottle_requires_directory(captured):
+    dialog = _make_dialog(["system-wine"], [])
+    dialog.custom_path = ""
+    BottlesNewBottleDialog.create_bottle(dialog)
+    assert captured == {}
+
+
+def test_missing_directory_disables_create_without_marking_a_valid_name_as_invalid():
+    state = {}
+    view = SimpleNamespace(
+        custom_path="",
+        _BottlesNewBottleDialog__check_validity=lambda: (False, False),
+        btn_create=SimpleNamespace(set_sensitive=lambda value: state.update(enabled=value)),
+        menu_duplicate=SimpleNamespace(set_visible=lambda value: state.update(duplicate=value)),
+        entry_name=SimpleNamespace(
+            add_css_class=lambda _: state.update(error=True),
+            remove_css_class=lambda _: state.update(error=False),
+        ),
+    )
+    BottlesNewBottleDialog._BottlesNewBottleDialog__check_entry_name(view)
+    assert state == {"enabled": False, "duplicate": False, "error": False}

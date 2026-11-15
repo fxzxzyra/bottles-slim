@@ -149,31 +149,3 @@ def test_new_bottle_picker_keeps_state_when_direct_access_is_missing(monkeypatch
     new_bottle_dialog.BottlesNewBottleDialog._BottlesNewBottleDialog__choose_path(view)
 
     assert view.custom_path == "unchanged"
-
-
-def test_preferences_picker_keeps_state_when_direct_access_is_missing(monkeypatch):
-    response = 1
-    dialog = FileChooserNativeStub(response)
-    monkeypatch.setattr(
-        preferences,
-        "Gtk",
-        SimpleNamespace(
-            FileChooserNative=SimpleNamespace(new=lambda **_kwargs: dialog),
-            FileChooserAction=SimpleNamespace(SELECT_FOLDER=0),
-            ResponseType=SimpleNamespace(ACCEPT=response),
-        ),
-    )
-    monkeypatch.setattr(
-        preferences,
-        "resolve_bottles_directory",
-        lambda _parent, _path: None,
-    )
-    data_calls = []
-    view = SimpleNamespace(
-        window=object(),
-        data=SimpleNamespace(set=lambda *args: data_calls.append(args)),
-    )
-
-    preferences.PreferencesDialog._PreferencesDialog__choose_bottles_path(view, None)
-
-    assert data_calls == []

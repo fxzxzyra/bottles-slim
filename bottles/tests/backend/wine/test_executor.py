@@ -41,11 +41,11 @@ def _gamescope_command(config, runner):
 def _make_config(
     name: str = "TestBottle", path: str = "TestBottlePath"
 ) -> BottleConfig:
-    return BottleConfig(Name=name, Path=path, Custom_Path="", Environment="Custom")
+    return BottleConfig(Name=name, Path=os.path.abspath(path), Environment="Custom")
 
 
 def test_gamescope_mangohud_payload_exits_with_the_game(monkeypatch, tmp_path):
-    config = BottleConfig()
+    config = BottleConfig(Path=str(tmp_path))
     config.Parameters.gamescope = True
     config.Parameters.gamescope_fullscreen = False
     config.Parameters.mangohud = True
@@ -1542,7 +1542,7 @@ def test_dedicated_sandbox_shares_forwarded_document_read_write(monkeypatch, tmp
 
 
 def test_gamescope_reaper_stops_orphaned_descendant(monkeypatch, tmp_path):
-    config = BottleConfig()
+    config = BottleConfig(Path=str(tmp_path))
     config.Parameters.gamescope = True
     config.Parameters.gamescope_fullscreen = False
     child_pid = tmp_path / "child.pid"

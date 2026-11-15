@@ -231,6 +231,7 @@ class SandboxManager:
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             start_new_session=True,
+            umask=0o077,
         )
         prefix = (self.envs or {}).get("WINEPREFIX")
         if prefix:

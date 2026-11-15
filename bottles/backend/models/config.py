@@ -1,46 +1,14 @@
 import contextlib
-import inspect
 import logging
 import os
 import tempfile
-from dataclasses import asdict, dataclass, field, is_dataclass, replace
+import uuid
+from dataclasses import asdict, dataclass, field, replace
 from io import IOBase
 from typing import IO, Container, Dict, ItemsView, List, Optional
 
 from bottles.backend.models.result import Result
 from bottles.backend.utils import yaml
-
-_LEGACY_DEFAULT_INHERITED_ENVIRONMENT = [
-    "DBUS_SESSION_BUS_ADDRESS",
-    "DISPLAY",
-    "HOME",
-    "LANG",
-    "LC_ALL",
-    "LC_CTYPE",
-    "LC_MESSAGES",
-    "MANGOHUD_CONFIG",
-    "PATH",
-    "PULSE_SERVER",
-    "TERM",
-    "TZ",
-    "USER",
-    "WAYLAND_DISPLAY",
-    "XAUTHORITY",
-    "XDG_RUNTIME_DIR",
-]
-_LEGACY_DEFAULT_INHERITED_ENVIRONMENTS = [
-    [
-        name
-        for name in _LEGACY_DEFAULT_INHERITED_ENVIRONMENT
-        if name != "MANGOHUD_CONFIG"
-    ],
-    _LEGACY_DEFAULT_INHERITED_ENVIRONMENT,
-]
-_LEGACY_DEFAULT_INHERITED_ENVIRONMENTS += [
-    [*environment, *extra]
-    for environment in tuple(_LEGACY_DEFAULT_INHERITED_ENVIRONMENTS)
-    for extra in (["XMODIFIERS"], ["XMODIFIERS", "XCURSOR_SIZE"])
-]
 
 # class name prefix "Bottle" is a workaround for:
 # https://github.com/python/cpython/issues/90104
@@ -161,6 +129,7 @@ class BottleParams(DictCompatMixIn):
 
 @dataclass
 class BottleConfig(DictCompatMixIn):
+    Id: str = field(default_factory=lambda: uuid.uuid4().hex)
     Name: str = ""
     Arch: str = "win64"  # Enum, Use bottles.backend.models.enum.Arch
     Windows: str = "win10"
@@ -172,7 +141,6 @@ class BottleConfig(DictCompatMixIn):
     VKD3D: str = ""
     LatencyFleX: str = ""
     Path: str = ""
-    Custom_Path: str = ""
     Environment: str = ""  # Enum: "Steam", "Custom"
     Creation_Date: str = ""
     Update_Date: str = ""
@@ -198,6 +166,16 @@ class BottleConfig(DictCompatMixIn):
     CompatData: str = ""
     data: dict = field(default_factory=dict)  # possible keys: "config", ...
     RunnerPath: str = ""
+
+    @property
+    def identifier(self) -> str:
+        return self.CompatData if self.Environment == "Steam" else self.Id
+
+    def to_dict(self) -> dict:
+        data = asdict(self)
+        for key in ("Path", "session_arguments", "run_in_terminal", "RunnerPath"):
+            data.pop(key)
+        return data
 
     def dump(self, file: str | IO, mode="w", encoding=None, indent=4) -> Result:
         """
@@ -258,10 +236,14 @@ class BottleConfig(DictCompatMixIn):
                     "Config data should be dict type, but it was %s" % type(data)
                 )
 
+            if not isinstance(data.get("Id"), str) or not data["Id"]:
+                raise ValueError("Bottle configuration has no Id.")
             filled = cls._fill_with(data)
             if not filled.status:
                 raise ValueError("Invalid Config data (%s)" % filled.message)
 
+            if not isinstance(file, IOBase):
+                filled.data.Path = os.path.dirname(os.path.abspath(file))
             return Result(True, data=filled.data)
         except Exception as e:
             logging.exception(e)
@@ -272,7 +254,6 @@ class BottleConfig(DictCompatMixIn):
         """fill with dict"""
         try:
             data = data.copy()
-            data = cls._fix(data)
 
             params = BottleParams(**data.pop("Parameters", {}))
             sandbox_param = BottleSandboxParams(**data.pop("Sandbox", {}))
@@ -284,87 +265,6 @@ class BottleConfig(DictCompatMixIn):
         except Exception as e:
             logging.exception(e)
             return Result(False, message=repr(e))
-
-    @classmethod
-    def _fix(cls, data: dict) -> dict:
-        """fix config data and return"""
-        data = data.copy()
-
-        # ensure Parameters field
-        if "Parameters" not in data:
-            data["Parameters"] = {}
-        if "Sandbox" not in data:
-            data["Sandbox"] = {}
-
-        inherited_environment = data.get("Inherited_Environment_Variables")
-        if (
-            data.get("Limit_System_Environment")
-            and inherited_environment in _LEGACY_DEFAULT_INHERITED_ENVIRONMENTS
-        ):
-            missing_defaults = [
-                name
-                for name in ("XMODIFIERS", "XDG_CONFIG_HOME")
-                if name not in inherited_environment
-            ]
-            if missing_defaults:
-                logging.warning(
-                    "Adding inherited environment defaults: %s",
-                    ", ".join(missing_defaults),
-                )
-                data["Inherited_Environment_Variables"] = [
-                    *inherited_environment,
-                    *missing_defaults,
-                ]
-
-        # migrate old fsr_level key to fsr_sharpening_strength
-        # TODO: remove after some time
-        if "fsr_level" in data["Parameters"]:
-            logging.warning(
-                "Migrating config key 'fsr_level' to 'fsr_sharpening_strength'"
-            )
-            data["Parameters"]["fsr_sharpening_strength"] = data["Parameters"].pop(
-                "fsr_level"
-            )
-
-        data["Parameters"].pop("show_component_updates", None)
-
-        # migrate typo fields
-        if "DXVK_NVAPI" in data:
-            logging.warning("Migrating config key 'DXVK_NVAPI' to 'NVAPI'")
-            data["NVAPI"] = data.pop("DXVK_NVAPI")
-        if "LatencyFlex" in data:
-            logging.warning("Migrating config key 'LatencyFlex' to 'LatencyFleX'")
-            data["LatencyFleX"] = data.pop("LatencyFlex")
-
-        # cleanup unexpected fields
-        data = cls._filter(data)
-
-        return data
-
-    @classmethod
-    def _filter(cls, data: dict, clazz: object = None) -> dict:
-        """filter unexpected dict fields recursively for dataclasses and return"""
-        if not isinstance(data, dict):
-            return {}
-        if not clazz:
-            clazz = cls
-
-        new_data = {}
-        expected_fields = inspect.signature(clazz).parameters
-
-        for k, v in data.items():
-            if k in expected_fields:
-                field_type = expected_fields[k].annotation
-                if is_dataclass(field_type):
-                    v = cls._filter(v, field_type)
-                new_data[k] = v
-            else:
-                logging.warning(
-                    "Skipping unexpected config '%s' in %s" % (k, clazz.__name__)
-                )
-
-        return new_data
-
 
 # Register custom YAML serializer for BottleConfig
 yaml.register_serializer(BottleConfig)

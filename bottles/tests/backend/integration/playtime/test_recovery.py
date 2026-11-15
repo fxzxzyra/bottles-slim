@@ -2,13 +2,14 @@
 
 import sqlite3
 import time
+import pytest
 from freezegun import freeze_time
 
 from bottles.backend.managers.manager import Manager
 
 
 def test_recovery_smoke(manager, tracker_factory):
-    tracker = manager.playtime_tracker
+    tracker = manager.get_playtime_tracker("b1")
     assert tracker is not None
 
     with freeze_time("2025-01-01 05:00:00"):
@@ -44,7 +45,7 @@ def test_recovery_smoke(manager, tracker_factory):
 
 
 def test_recovery_different_bottles(manager, tracker_factory):
-    tracker = manager.playtime_tracker
+    tracker = manager.get_playtime_tracker("b1")
     assert tracker is not None
 
     with freeze_time("2025-01-01 06:00:00"):
@@ -85,7 +86,7 @@ def test_recovery_different_bottles(manager, tracker_factory):
 
 
 def test_recovery_same_bottle_different_programs(manager, tracker_factory):
-    tracker = manager.playtime_tracker
+    tracker = manager.get_playtime_tracker("b1")
     assert tracker is not None
 
     with freeze_time("2025-01-01 07:00:00"):
@@ -120,45 +121,26 @@ def test_recovery_same_bottle_different_programs(manager, tracker_factory):
     assert cur.fetchone()[0] == 2
 
 
-def test_cli_manager_init_does_not_recover_live_sessions(temp_xdg_home, test_settings_stub):
+def test_cli_manager_init_does_not_recover_live_sessions(manager, test_settings_stub):
+    tracker = manager.get_playtime_tracker("b1")
+    sid = tracker.start_session(
+        bottle_id="b1", bottle_name="b1", bottle_path=manager.local_bottles["b1"].Path,
+        program_name="Editor", program_path="C:/Office/editor.exe",
+    )
     Manager._instances.pop(Manager, None)
-    manager = None
-    other_manager = None
-
+    other = Manager(g_settings=test_settings_stub, check_connection=False, is_cli=True)
     try:
-        manager = Manager(g_settings=test_settings_stub, check_connection=False, is_cli=True)
-        tracker = manager.playtime_tracker
-        assert tracker is not None
-
-        sid = tracker.start_session(
-            bottle_id="b1",
-            bottle_name="Bottle",
-            bottle_path="/bottle",
-            program_name="Game",
-            program_path="C:/Game/game.exe",
-        )
-
-        Manager._instances.pop(Manager, None)
-        other_manager = Manager(
-            g_settings=test_settings_stub,
-            check_connection=False,
-            is_cli=True,
-        )
-
-        con = sqlite3.connect(other_manager.playtime_tracker.db_path)
-        cur = con.cursor()
-        cur.execute("SELECT status FROM sessions WHERE id=?", (sid,))
-        assert cur.fetchone()[0] == "running"
+        assert other._playtime_trackers == {}
+        with sqlite3.connect(tracker.db_path) as connection:
+            assert connection.execute("SELECT status FROM sessions WHERE id=?", (sid,)).fetchone() == ("running",)
     finally:
-        if manager and getattr(manager, "playtime_tracker", None):
-            manager.playtime_tracker.shutdown()
-        if other_manager and getattr(other_manager, "playtime_tracker", None):
-            other_manager.playtime_tracker.shutdown()
+        tracker.shutdown()
+        other.shutdown()
         Manager._instances.pop(Manager, None)
 
 
 def test_recovery_uses_last_heartbeat_not_restart_time(manager, tracker_factory):
-    tracker = manager.playtime_tracker
+    tracker = manager.get_playtime_tracker("b1")
     with freeze_time("2025-01-01 12:00:00") as clock:
         sid = tracker.start_session(
             bottle_id="b1", bottle_name="Office", bottle_path="/bottle",
@@ -178,3 +160,21 @@ def test_recovery_uses_last_heartbeat_not_restart_time(manager, tracker_factory)
         assert connection.execute(
             "SELECT total_seconds, sessions_count FROM playtime_totals",
         ).fetchall() == [(11, 1)]
+
+
+@pytest.mark.parametrize("alive, expected", [(True, "running"), (False, "forced")])
+def test_gui_recovers_only_stopped_bottle_sessions(manager, monkeypatch, alive, expected):
+    from bottles.backend.managers import manager as module
+    from types import SimpleNamespace
+    tracker = manager.get_playtime_tracker("b1")
+    sid = tracker.start_session(
+        bottle_id="b1", bottle_name="b1", bottle_path=manager.local_bottles["b1"].Path,
+        program_name="Editor", program_path="C:/Editor.exe",
+    )
+    tracker.shutdown()
+    manager._playtime_trackers.clear()
+    manager.is_cli = False
+    monkeypatch.setattr(module, "WineServer", lambda _config: SimpleNamespace(is_alive=lambda: alive))
+    reopened = manager.get_playtime_tracker("b1")
+    with sqlite3.connect(reopened.db_path) as connection:
+        assert connection.execute("SELECT status FROM sessions WHERE id=?", (sid,)).fetchone() == (expected,)

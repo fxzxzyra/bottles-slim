@@ -1,6 +1,6 @@
 """Core Manager tests"""
 
-import contextlib
+from pathlib import Path
 
 import pytest
 
@@ -15,16 +15,16 @@ from bottles.backend.utils.gsettings_stub import GSettingsStub
 @pytest.fixture(autouse=True)
 def reset_manager_singleton():
     existing = Manager._instances.pop(Manager, None)
-    if existing and getattr(existing, "playtime_tracker", None):
-        with contextlib.suppress(Exception):
-            existing.playtime_tracker.shutdown()
+    if existing:
+        for tracker in existing._playtime_trackers.values():
+            tracker.shutdown()
 
     yield
 
     existing = Manager._instances.pop(Manager, None)
-    if existing and getattr(existing, "playtime_tracker", None):
-        with contextlib.suppress(Exception):
-            existing.playtime_tracker.shutdown()
+    if existing:
+        for tracker in existing._playtime_trackers.values():
+            tracker.shutdown()
 
 
 def test_manager_is_singleton():
@@ -48,13 +48,17 @@ def test_delete_sandboxed_bottle_does_not_restart_wine(
     bottle_path.mkdir(parents=True)
     config = BottleConfig(
         Name="Sandboxed",
-        Path="Sandboxed",
+        Path=str(bottle_path),
         Runner="soda-11.0-5",
         Environment="Gaming",
     )
     config.Parameters.sandbox = True
 
-    monkeypatch.setattr(manager_module.Paths, "bottles", str(bottles_path))
+    bottle_path.chmod(0o700)
+    (bottle_path / "drive_c").mkdir()
+    assert config.dump(str(bottle_path / "bottle.yml")).ok
+    from bottles.backend.managers.storage import BottleIndex
+    BottleIndex().register(str(bottle_path))
     monkeypatch.setattr(
         manager_module.Paths, "applications", str(tmp_path / "applications")
     )
@@ -67,6 +71,7 @@ def test_delete_sandboxed_bottle_does_not_restart_wine(
     signal_send = mocker.patch.object(manager_module.SignalManager, "send")
     manager = object.__new__(Manager)
     manager.check_bottles = mocker.Mock()
+    manager._playtime_trackers = {}
 
     assert manager.delete_bottle(config) is True
     assert not bottle_path.exists()
@@ -121,91 +126,12 @@ def test_manager_forced_offline_setting_skips_connection_check(mocker):
     checks.assert_called_once()
 
 
-def test_manager_rejects_file_as_custom_bottles_path(monkeypatch, tmp_path):
-    custom_path = tmp_path / "custom-path"
-    custom_path.write_text("")
-    default_path = tmp_path / "bottles"
-
-    for name in (
-        "user_runners",
-        "runtimes",
-        "winebridge",
-        "d7vk",
-        "dxvk",
-        "vkd3d",
-        "nvapi",
-        "templates",
-        "temp",
-        "latencyflex",
-    ):
-        monkeypatch.setattr(manager_module.Paths, name, str(tmp_path / name))
-    monkeypatch.setattr(manager_module.Paths, "bottles", str(default_path))
-    monkeypatch.setattr(
-        DataManager,
-        "get",
-        lambda _self, key, default=None: (
-            str(custom_path) if key == UserDataKeys.CustomBottlesPath else default
-        ),
-    )
-
+def test_startup_does_not_create_a_prefix(tmp_path):
+    from bottles.backend.globals import Paths
     manager = Manager(check_connection=False, is_cli=True)
     manager.check_app_dirs()
-
-    assert manager_module.Paths.bottles == str(default_path)
-    assert default_path.is_dir()
-
-
-@pytest.mark.parametrize(
-    ("environment", "runners", "expected"),
-    [
-        ("Gaming", ["soda-11.0-1", "system-wine"], "system-wine"),
-        ("Gaming", ["soda-11.0-1"], "system-wine"),
-        (
-            "Gaming",
-            ["soda-11.0-1", "sys-wine-11.0", "sys-wine-current"],
-            "system-wine",
-        ),
-        ("Steam", ["soda-11.0-1", "sys-wine-11.0"], "sys-wine-10.20"),
-    ],
-)
-def test_check_bottles_updates_versioned_system_runner(
-    mocker, monkeypatch, tmp_path, environment, runners, expected
-):
-    bottles_path = tmp_path / "bottles"
-    bottle_path = bottles_path / "Test"
-    bottle_path.mkdir(parents=True)
-    config_path = bottle_path / "bottle.yml"
-    BottleConfig(
-        Name="Test",
-        Path="Test",
-        Runner="sys-wine-10.20",
-        Environment=environment,
-        session_arguments="--from-desktop",
-        run_in_terminal=True,
-    ).dump(str(config_path))
-
-    manager = object.__new__(Manager)
-    manager.runners_available = runners
-    manager.settings = GSettingsStub()
-    manager.is_cli = True
-    manager.steam_manager = mocker.Mock(is_steam_supported=False)
-    wineboot = mocker.patch.object(manager_module, "WineBoot")
-    wineserver = mocker.patch.object(manager_module, "WineServer")
-    apply_rules = mocker.patch.object(manager_module.RegistryRuleManager, "apply_rules")
-    monkeypatch.setattr(manager_module.Paths, "bottles", str(bottles_path))
-
-    manager.check_bottles(silent=True)
-
-    assert manager.local_bottles["Test"].Runner == expected
-    assert manager.local_bottles["Test"].session_arguments == ""
-    assert manager.local_bottles["Test"].run_in_terminal is False
-    persisted = BottleConfig.load(str(config_path)).data
-    assert persisted.Runner == expected
-    assert persisted.session_arguments == "--from-desktop"
-    assert persisted.run_in_terminal is True
-    wineboot.assert_not_called()
-    wineserver.assert_not_called()
-    apply_rules.assert_not_called()
+    assert not (Path(Paths.base) / "bottles").exists()
+    assert manager._playtime_trackers == {}
 
 
 def test_get_programs_preserves_per_program_runtime_options(monkeypatch):
@@ -367,7 +293,7 @@ def test_get_programs_deduplicates_renamed_epic_game(
     assert [program["name"] for program in programs] == expected_names
 
 
-def test_missing_runner_stops_creation_before_component_download(mocker):
+def test_missing_runner_stops_creation_before_component_download(mocker, tmp_path):
     from bottles.backend.utils.runners import RunnerRegistry
 
     manager = object.__new__(Manager)
@@ -375,7 +301,7 @@ def test_missing_runner_stops_creation_before_component_download(mocker):
     manager.check_dxvk = mocker.Mock()
     mocker.patch.object(RunnerRegistry, "entries", {})
 
-    result = manager.create_bottle(name="Test", environment="application")
+    result = manager.create_bottle(name="Test", environment="application", path=str(tmp_path))
 
     assert not result.ok
     assert "Runner is unavailable" in result.message

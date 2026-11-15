@@ -16,9 +16,11 @@
 #
 
 import filecmp
+from copy import deepcopy
 import os
 import shutil
 import uuid
+import tempfile
 from pathlib import Path
 
 import gi
@@ -27,6 +29,7 @@ from bottles.backend.globals import Paths
 from bottles.backend.logger import Logger
 from bottles.backend.managers.steamgriddb import SteamGridDBManager
 from bottles.backend.models.config import BottleConfig
+from bottles.backend.managers.storage import BottleIndex, bottle_directory
 from bottles.backend.utils import yaml
 from bottles.backend.utils.manager import ManagerUtils
 
@@ -55,23 +58,29 @@ class LibraryManager:
         """
         Loads data from the library.yml file.
         """
-        if not os.path.exists(self.library_path):
-            logging.warning("Library file not found, creating new one")
-            self.__library = {}
-            self.save_library()
-        else:
-            with open(self.library_path, "r") as library_file:
-                self.__library = yaml.load(library_file)
-
-        if self.__library is None:
-            self.__library = {}
-
-        _tmp = self.__library.copy()
-        for k, v in _tmp.items():
-            if "id" not in v:
-                del self.__library[k]
-
-        self.save_library(silent=silent)
+        self.__library = {}
+        self._bottle_libraries = {}
+        self._stored = {}
+        sources = {self.library_path: None}
+        for path, name in BottleIndex().entries().items():
+            try:
+                bottle_directory(path)
+            except OSError:
+                continue
+            sources[os.path.join(path, "library.yml")] = (path, name)
+        for file, bottle in sources.items():
+            entries = {}
+            if os.path.isfile(file):
+                with open(file) as stream:
+                    entries = yaml.load(stream)
+                if not isinstance(entries, dict):
+                    raise ValueError("Invalid library: " + file)
+            self._stored[file] = deepcopy(entries)
+            if bottle:
+                path, name = bottle
+                self._bottle_libraries[path] = file
+                entries = {key: dict(value, bottle={"name": name, "path": path}) for key, value in entries.items()}
+            self.__library.update(entries)
 
     def add_to_library(self, data: dict, config: BottleConfig):
         """
@@ -98,6 +107,10 @@ class LibraryManager:
             except Exception as e:
                 logging.warning(f"Could not fetch thumbnail: {e}")
 
+        if config.Environment != "Steam":
+            path = ManagerUtils.get_bottle_path(config)
+            data["bottle"] = {"name": config.Name, "path": path}
+            self._bottle_libraries[path] = os.path.join(path, "library.yml")
         self.__library[_uuid] = data
         self.save_library()
         return _uuid
@@ -241,11 +254,31 @@ class LibraryManager:
         """
         Saves the library.yml file.
         """
-        with open(self.library_path, "w") as library_file:
-            yaml.dump(self.__library, library_file)
-
-        if not silent:
-            logging.info("Library saved")
+        files = {file: {} for file in self._bottle_libraries.values()}
+        files[self.library_path] = {}
+        for key, entry in self.__library.items():
+            entry = dict(entry)
+            path = entry.get("bottle", {}).get("path")
+            file = self._bottle_libraries.get(path, self.library_path)
+            if file != self.library_path:
+                entry.pop("bottle")
+            files[file][key] = entry
+        for file, entries in files.items():
+            if entries == self._stored.get(file, {}):
+                continue
+            if file == self.library_path:
+                os.makedirs(os.path.dirname(file), mode=0o700, exist_ok=True)
+            else:
+                bottle_directory(os.path.dirname(file))
+            fd, temporary = tempfile.mkstemp(dir=os.path.dirname(file), prefix=".library-")
+            try:
+                with os.fdopen(fd, "w") as stream:
+                    yaml.dump(entries, stream)
+                os.replace(temporary, file)
+            finally:
+                if os.path.exists(temporary):
+                    os.unlink(temporary)
+            self._stored[file] = deepcopy(entries)
 
     def get_library(self):
         """

@@ -922,13 +922,12 @@ class WineCommand:
                     command = f"mangohud {command}"
 
             if gamescope_available and self.gamescope_activated:
-                # Write the script into Bottles' temp dir (shared with the
-                # dedicated sandbox) instead of the system /tmp, otherwise
-                # Gamescope running inside the sandbox cannot see it.
-                os.makedirs(Paths.temp, exist_ok=True)
-                gamescope_run = tempfile.NamedTemporaryFile(
-                    mode="w", suffix=".sh", dir=Paths.temp
-                ).name
+                # Keep launch scripts in their bottle, also visible in its sandbox.
+                temp_dir = os.path.dirname(ManagerUtils.get_temp_path("gamescope", self.config))
+                gamescope_file = tempfile.NamedTemporaryFile(
+                    mode="w", suffix=".sh", dir=temp_dir, delete=False,
+                )
+                gamescope_run = gamescope_file.name
 
                 # Create the sh script where Gamescope will execute it
                 file = ["#!/usr/bin/env sh\n"]
@@ -944,12 +943,12 @@ class WineCommand:
                     )
                 else:
                     file.append(f'{command} "$@"')
-                with open(gamescope_run, "w") as f:
+                with gamescope_file as f:
                     f.write("".join(file))
 
                 # Adopt and reap orphaned descendants after the payload exits.
                 with tempfile.NamedTemporaryFile(
-                    mode="w", suffix=".py", dir=Paths.temp, delete=False
+                    mode="w", suffix=".py", dir=temp_dir, delete=False
                 ) as reaper_file:
                     reaper_file.write("""#!/usr/bin/env python3
 import ctypes
@@ -1146,7 +1145,7 @@ raise SystemExit(status if status >= 0 else 128 - status)
         # the runner root and that runtime, otherwise the runtime's own bwrap
         # cannot find its entry point inside the dedicated sandbox. Symlinks are
         # resolved so the real target gets shared, not just the link.
-        share_paths_ro = [Paths.user_runners, Paths.temp]
+        share_paths_ro = [Paths.user_runners]
 
         runner_root = (
             self.config.RunnerPath
@@ -1268,6 +1267,7 @@ raise SystemExit(status if status >= 0 else 128 - status)
                     env=self.env,
                     cwd=self.cwd,
                     start_new_session=True,
+                    umask=0o077,
                 )
             except FileNotFoundError:
                 self._clear_exit_code_capture()

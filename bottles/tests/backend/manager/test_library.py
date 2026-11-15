@@ -21,7 +21,11 @@ def _write_cover(path: Path) -> None:
 def library_manager(monkeypatch, tmp_path):
     library_path = tmp_path / "library.yml"
     bottle_path = tmp_path / "bottle"
-    bottle_path.mkdir()
+    bottle_path.mkdir(mode=0o700)
+    (bottle_path / "drive_c").mkdir()
+    assert BottleConfig(Name="Games").dump(str(bottle_path / "bottle.yml")).ok
+    from bottles.backend.managers.storage import BottleIndex
+    BottleIndex().register(str(bottle_path))
 
     monkeypatch.setattr(LibraryManager, "library_path", str(library_path))
     monkeypatch.setattr(

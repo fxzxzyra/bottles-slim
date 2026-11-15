@@ -18,9 +18,13 @@
 import os
 import re
 import shutil
+import sqlite3
 import tarfile
 import tempfile
+import uuid
 from concurrent.futures import CancelledError
+from contextlib import closing
+from pathlib import Path
 from datetime import datetime
 from gettext import gettext as _
 from threading import Event, Lock
@@ -31,6 +35,7 @@ import pathvalidate
 from bottles.backend.globals import Paths
 from bottles.backend.logger import Logger
 from bottles.backend.managers.manager import Manager
+from bottles.backend.managers.storage import BottleIndex, bottle_directory, bottle_operation, copy_bottle_contents
 from bottles.backend.models.config import BottleConfig
 from bottles.backend.models.result import Result
 from bottles.backend.state import Task, TaskManager
@@ -72,6 +77,10 @@ class _BackupTarFile(tarfile.TarFile):
         if arcname is None:
             arcname = name
 
+        metrics = os.path.join(self._source_path, "process_metrics.sqlite")
+        if os.path.abspath(name) in (metrics + "-wal", metrics + "-shm"):
+            return None
+
         try:
             tarinfo = self.gettarinfo(name, arcname)
         except FileNotFoundError as error:
@@ -83,6 +92,19 @@ class _BackupTarFile(tarfile.TarFile):
             tarinfo = filter(tarinfo)
             if tarinfo is None:
                 return None
+
+        if tarinfo.isreg() and os.path.abspath(name) == metrics:
+            # SQLite's backup API includes committed WAL pages in one consistent file.
+            with tempfile.TemporaryDirectory(dir=os.path.dirname(self.name)) as directory:
+                snapshot = os.path.join(directory, "metrics.sqlite")
+                source_uri = Path(name).resolve().as_uri() + "?mode=ro"
+                with closing(sqlite3.connect(source_uri, uri=True)) as source:
+                    with closing(sqlite3.connect(snapshot)) as destination:
+                        source.backup(destination)
+                tarinfo.size = os.path.getsize(snapshot)
+                with open(snapshot, "rb") as stream:
+                    self.addfile(tarinfo, stream)
+            return None
 
         if tarinfo.isreg():
             try:
@@ -570,7 +592,7 @@ class BackupManager:
         except CancelledError:
             logging.info("Backup cancelled.")
             return False
-        except (OSError, tarfile.TarError, ValueError) as e:
+        except (OSError, tarfile.TarError, ValueError, sqlite3.Error) as e:
             logging.error(f"Error creating backup: {e}")
             return False
         finally:
@@ -582,7 +604,7 @@ class BackupManager:
 
     @staticmethod
     def _safe_extract_tarfile(
-        tar_path: str, extract_path: str, task: Optional[Task] = None
+        tar_path: str, extract_path: str, task: Optional[Task] = None, *, strip_root: bool = False
     ) -> bool:
         """
         Safely extract a tar.gz file to avoid directory traversal
@@ -592,13 +614,24 @@ class BackupManager:
             with tarfile.open(tar_path, "r:gz") as tar:
                 members = tar.getmembers()
 
+                if strip_root:
+                    roots = {member.name.split("/", 1)[0] for member in members}
+                    if len(roots) != 1:
+                        raise ValueError("Expected one bottle directory in the archive.")
+                    root = roots.pop()
+                    members = [member for member in members if member.name != root]
+                    for member in members:
+                        member.name = member.name[len(root) + 1:]
+                        if member.islnk():
+                            member.linkname = member.linkname[len(root) + 1:]
+
                 # Validate all members first
                 for member in members:
                     member_path = os.path.abspath(
                         os.path.join(extract_path, member.name)
                     )
-                    if not member_path.startswith(os.path.abspath(extract_path)):
-                        raise Exception("Detected path traversal attempt in tar file")
+                    if os.path.commonpath((member_path, os.path.abspath(extract_path))) != os.path.abspath(extract_path):
+                        raise ValueError("Detected path traversal attempt in tar file")
 
                 if task:
                     # Calculate total size for progress
@@ -607,7 +640,7 @@ class BackupManager:
                     last_percent = -1
 
                     for member in members:
-                        tar.extract(member, path=extract_path)
+                        tar.extract(member, path=extract_path, filter="data")
                         if member.isfile():
                             extracted_size += member.size
                             percent = (
@@ -620,10 +653,10 @@ class BackupManager:
                                 task.subtitle = f"{percent}%"
                     task.subtitle = "100%"
                 else:
-                    tar.extractall(path=extract_path)
+                    tar.extractall(path=extract_path, members=members, filter="data")
 
             return True
-        except (tarfile.TarError, Exception) as e:
+        except (tarfile.TarError, OSError, ValueError) as e:
             logging.error(f"Error extracting backup: {e}")
             return False
 
@@ -681,129 +714,57 @@ class BackupManager:
         return tarinfo
 
     @staticmethod
-    def import_backup(scope: str, path: str) -> Result:
-        """
-        Imports a backup from the specified path.
-        Use the scope parameter to specify the backup type: config, full.
-        Config will make a new bottle reproducing the configuration, full will
-        import the full bottle from a tar.gz file.
-        """
+    def import_backup(scope: str, path: str, destination: str) -> Result:
         if not BackupManager._validate_path(path):
-            return Result(status=False)
-
-        logging.info(f"Importing backup from: {path}")
-
+            return Result(False, message="Backup file not found.")
         if scope == "config":
-            return BackupManager._import_config_backup(path)
-        else:
-            return BackupManager._import_full_backup(path)
-
-    @staticmethod
-    def _import_config_backup(path: str) -> Result:
-        task_id = TaskManager.add(Task(title=_("Importing config backup")))
-        config_load = BottleConfig.load(path)
-        manager = Manager()
-        if (
-            config_load.status
-            and config_load.data
-            and manager.create_bottle_from_config(config_load.data)
-        ):
-            TaskManager.remove(task_id)
-            logging.info("Config backup imported successfully.")
-            return Result(status=True)
-        else:
-            TaskManager.remove(task_id)
-            logging.error("Failed to import config backup.")
-            return Result(status=False)
-
-    @staticmethod
-    def _import_full_backup(path: str) -> Result:
+            loaded = BottleConfig.load(path)
+            if not loaded.ok:
+                return loaded
+            ok = Manager().create_bottle_from_config(loaded.data, destination)
+            return Result(ok, message="" if ok else "Could not create the bottle from this configuration.")
+        if scope != "full":
+            return Result(False, message="Unknown backup type.")
         task = Task(title=_("Importing full backup"))
         task_id = TaskManager.add(task)
-        if BackupManager._safe_extract_tarfile(path, Paths.bottles, task=task):
-            Manager().update_bottles()
-            TaskManager.remove(task_id)
-            logging.info("Full backup imported successfully.")
-            return Result(status=True)
-        else:
-            TaskManager.remove(task_id)
-            logging.error("Failed to import full backup.")
-            return Result(status=False)
-
-    @staticmethod
-    def duplicate_bottle(config: BottleConfig, name: str) -> Result:
-        """
-        Duplicates the bottle with the specified new name.
-        """
-        logging.info(f"Duplicating bottle: {config.Name} as {name}")
-
-        if not name.strip():
-            return Result(status=False, message=_("Bottle name cannot be empty."))
-
-        sanitized_name = pathvalidate.sanitize_filename(
-            name.replace(" ", "-"), platform="universal"
-        )
-        if not sanitized_name:
-            return Result(status=False, message=_("Bottle name is not valid."))
-
-        source_path = ManagerUtils.get_bottle_path(config)
-        destination_path = os.path.join(Paths.bottles, sanitized_name)
-
-        duplicate_name = name
-        suffix = 1
-        while os.path.lexists(destination_path):
-            duplicate_name = f"{name}__{suffix}"
-            destination_path = os.path.join(
-                Paths.bottles, f"{sanitized_name}__{suffix}"
-            )
-            suffix += 1
-
-        return BackupManager._duplicate_bottle_directory(
-            config, source_path, destination_path, duplicate_name
-        )
-
-    @staticmethod
-    def _duplicate_bottle_directory(
-        config: BottleConfig, source_path: str, destination_path: str, new_name: str
-    ) -> Result:
-        destination_created = False
-        duplicate_succeeded = False
         try:
-            os.makedirs(destination_path)
-            destination_created = True
-            for item in [
-                "drive_c",
-                "system.reg",
-                "user.reg",
-                "userdef.reg",
-                "bottle.yml",
-            ]:
-                source_item = os.path.join(source_path, item)
-                destination_item = os.path.join(destination_path, item)
-                if os.path.isdir(source_item):
-                    shutil.copytree(
-                        source_item,
-                        destination_item,
-                        symlinks=True,
-                    )
-                elif os.path.isfile(source_item):
-                    shutil.copy(source_item, destination_item)
-
-            # Update the bottle configuration
-            config_path = os.path.join(destination_path, "bottle.yml")
-            with open(config_path) as config_file:
-                config_data = yaml.load(config_file)
-            config_data["Name"] = new_name
-            config_data["Path"] = destination_path
-            with open(config_path, "w") as config_file:
-                yaml.dump(config_data, config_file, indent=4)
-
-            logging.info(f"Bottle duplicated successfully as {new_name}.")
-            duplicate_succeeded = True
-            return Result(status=True)
-        except (OSError, shutil.Error) as e:
-            logging.error(f"Error duplicating bottle: {e}")
-            return Result(status=False, message=str(e))
+            destination = bottle_directory(destination, empty=True)
+            with bottle_operation(destination):
+                bottle_directory(destination, empty=True)
+                os.chmod(destination, 0o700)
+                if not BackupManager._safe_extract_tarfile(path, destination, task=task, strip_root=True):
+                    return Result(False, message="Could not extract the backup. Check the selected directory for partial files.")
+                BottleIndex().register(destination)
+            Manager().update_bottles(silent=True)
+            return Result(True)
+        except (OSError, ValueError, RuntimeError, sqlite3.IntegrityError) as error:
+            return Result(False, message=str(error))
         finally:
-            if destination_created and not duplicate_succeeded:
-                shutil.rmtree(destination_path, ignore_errors=True)
+            TaskManager.remove(task_id)
+
+    @staticmethod
+    def duplicate_bottle(config: BottleConfig, name: str, destination: str) -> Result:
+        if not name.strip():
+            return Result(False, message=_("Bottle name cannot be empty."))
+        try:
+            source = bottle_directory(ManagerUtils.get_bottle_path(config))
+            destination = bottle_directory(destination, empty=True)
+            if name in BottleIndex().entries().values():
+                raise ValueError("A bottle with this name is already registered.")
+            with bottle_operation(source), bottle_operation(destination):
+                bottle_directory(destination, empty=True)
+                os.chmod(destination, 0o700)
+                copy_bottle_contents(source, destination, exclude=(
+                    "process_metrics.sqlite", "process_metrics.sqlite-wal", "process_metrics.sqlite-shm",
+                ))
+                duplicate = config.copy()
+                duplicate.Id = uuid.uuid4().hex
+                duplicate.Name = name
+                duplicate.Path = destination
+                saved = duplicate.dump(os.path.join(destination, "bottle.yml"))
+                if not saved.ok:
+                    return saved
+                BottleIndex().register(destination)
+            return Result(True, data={"config": duplicate})
+        except (OSError, ValueError, RuntimeError, shutil.Error, sqlite3.IntegrityError) as error:
+            return Result(False, message=str(error))

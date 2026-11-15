@@ -223,7 +223,7 @@ class ProgramEntry(Adw.ActionRow):
 
             # Fetch playtime data
             record = service.get_program_playtime(
-                bottle_id=self.config.Name,
+                bottle_id=self.config.identifier,
                 bottle_path=bottle_path,
                 program_name=self.program.get("name", "Unknown"),
                 program_path=program_path,
@@ -257,13 +257,13 @@ class ProgramEntry(Adw.ActionRow):
 
         program_path = self.program.get("path", "")
         bottle_path = ManagerUtils.get_bottle_path(self.config)
-        program_id = _compute_program_id(self.config.Name, bottle_path, program_path)
+        program_id = _compute_program_id(self.config.identifier, bottle_path, program_path)
 
         dialog = PlaytimeGraphDialog(
             self,
             program_name=self.program.get("name", "Unknown"),
             program_id=program_id,
-            bottle_id=self.config.Name,
+            bottle_id=self.config.identifier,
         )
         dialog.present()
 
@@ -948,7 +948,7 @@ class ProgramEntry(Adw.ActionRow):
 
         try:
             # Use bottle name as bottle_id, matching what backend uses
-            bottle_id = self.config.Name
+            bottle_id = self.config.identifier
             bottle_path = self.config.Path
 
             record = playtime_service.get_program_playtime(

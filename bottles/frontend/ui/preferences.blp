@@ -249,38 +249,7 @@ template $PreferencesDialog: Adw.PreferencesDialog {
         };
       }
 
-      Adw.ActionRow {
-        title: _("Bottles Directory");
-        subtitle: _("Directory that contains the data of your Bottles.");
-        activatable-widget: btn_bottles_path;
 
-        Button btn_bottles_path_reset {
-          tooltip-text: _("Reset to Default");
-          valign: center;
-          visible: false;
-          icon-name: "edit-undo-symbolic";
-
-          styles [
-            "flat",
-          ]
-        }
-
-        Button btn_bottles_path {
-          valign: center;
-
-          Box {
-            spacing: 6;
-
-            Image {
-              icon-name: "document-open-symbolic";
-            }
-
-            Label label_bottles_path {
-              label: _("(Default)");
-            }
-          }
-        }
-      }
     }
 
     Adw.PreferencesGroup {

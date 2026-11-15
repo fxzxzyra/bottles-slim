@@ -17,40 +17,6 @@ def _reload(config):
 
 
 @pytest.mark.parametrize(
-    "excluded_defaults",
-    [
-        ["XDG_CONFIG_HOME"],
-        ["XCURSOR_SIZE", "XDG_CONFIG_HOME"],
-        ["XCURSOR_SIZE", "XDG_CONFIG_HOME", "XMODIFIERS"],
-        [
-            "MANGOHUD_CONFIG",
-            "XCURSOR_SIZE",
-            "XDG_CONFIG_HOME",
-            "XMODIFIERS",
-        ],
-    ],
-)
-def test_load_migrates_default_inherited_environment(monkeypatch, excluded_defaults):
-    legacy_defaults = [
-        name
-        for name in Samples.default_inherited_environment
-        if name not in excluded_defaults
-    ]
-    config = BottleConfig(
-        Limit_System_Environment=True,
-        Inherited_Environment_Variables=legacy_defaults,
-    )
-    monkeypatch.setenv("XMODIFIERS", "@im=fcitx")
-    monkeypatch.setenv("XDG_CONFIG_HOME", "/var/config")
-
-    loaded = _reload(config)
-    env = WineEnv(allowed_keys=loaded.Inherited_Environment_Variables)
-
-    assert env.get()["envs"]["XMODIFIERS"] == "@im=fcitx"
-    assert env.get()["envs"]["XDG_CONFIG_HOME"] == "/var/config"
-
-
-@pytest.mark.parametrize(
     "limit_environment,inherited",
     [
         (False, []),
@@ -69,10 +35,30 @@ def test_load_preserves_custom_inherited_environment(limit_environment, inherite
     assert loaded.Inherited_Environment_Variables == inherited
 
 
-def test_load_discards_legacy_component_update_preference():
-    result = BottleConfig._fill_with(
-        {"Parameters": {"show_component_updates": False}}
-    )
+def test_load_rejects_unknown_parameters():
+    result = BottleConfig._fill_with({"Parameters": {"unknown_parameter": False}})
+    assert not result.ok
+    assert "unknown_parameter" in result.message
 
-    assert result.ok
-    assert "show_component_updates" not in result.data.Parameters
+
+def test_bottle_configuration_moves_with_its_directory(tmp_path):
+    import os
+    from bottles.backend.utils import yaml
+    old = tmp_path / "old"
+    old.mkdir()
+    config = BottleConfig(Name="Editor", Path=str(old), session_arguments="secret", run_in_terminal=True)
+    assert config.dump(str(old / "bottle.yml")).ok
+    saved = yaml.load((old / "bottle.yml").read_text())
+    assert "Path" not in saved
+    assert "session_arguments" not in saved
+    assert "run_in_terminal" not in saved
+    assert (old / "bottle.yml").stat().st_mode & 0o777 == 0o600
+    new = tmp_path / "moved"
+    os.rename(old, new)
+    loaded = BottleConfig.load(str(new / "bottle.yml"))
+    assert loaded.ok
+    assert loaded.data.Path == str(new)
+    assert loaded.data.Name == "Editor"
+    assert loaded.data.Id == config.Id
+    assert loaded.data.session_arguments == ""
+    assert loaded.data.run_in_terminal is False

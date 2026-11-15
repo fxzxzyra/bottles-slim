@@ -1,5 +1,6 @@
 import os
 import shutil
+import sqlite3
 import tarfile
 from concurrent.futures import CancelledError
 from pathlib import Path
@@ -122,125 +123,53 @@ def test_full_backup_keeps_existing_filter_behavior(tmp_path):
         assert not any("dosdevices" in name for name in names)
 
 
-def test_duplicate_bottle_preserves_hidden_files(tmp_path):
+def test_duplicate_keeps_bottle_data_in_exact_destination(tmp_path):
+    from bottles.backend.managers.storage import BottleIndex
     source = tmp_path / "source"
-    destination = tmp_path / "destination"
-    drive_c = source / "drive_c"
-    hidden_directory = drive_c / ".hidden-directory"
-    hidden_directory.mkdir(parents=True)
-    (drive_c / ".hidden-file").write_bytes(b"hidden")
-    (hidden_directory / "payload.dat").write_bytes(b"payload")
-    with (source / "bottle.yml").open("w") as config_file:
-        yaml.dump({"Name": "Source", "Path": "Source"}, config_file)
-
-    result = BackupManager._duplicate_bottle_directory(
-        BottleConfig(Name="Source", Path="Source"),
-        str(source),
-        str(destination),
-        "Destination",
-    )
-
-    assert result.status
-    assert (destination / "drive_c/.hidden-file").read_bytes() == b"hidden"
-    assert (
-        destination / "drive_c/.hidden-directory/payload.dat"
-    ).read_bytes() == b"payload"
+    source.mkdir(mode=0o700)
+    (source / "drive_c").mkdir()
+    (source / "drive_c/.hidden").write_text("payload")
+    (source / "history").write_text("history")
+    config = BottleConfig(Name="Source", Path=str(source))
+    assert config.dump(str(source / "bottle.yml")).ok
+    target = tmp_path / "Chosen Directory"
+    target.mkdir()
+    result = BackupManager.duplicate_bottle(config, "Copy", str(target))
+    assert result.ok
+    assert (target / "drive_c/.hidden").read_text() == "payload"
+    assert (target / "history").read_text() == "history"
+    loaded = BottleConfig.load(str(target / "bottle.yml")).data
+    assert loaded.Name == "Copy"
+    assert loaded.Id != config.Id
+    assert loaded.Path == str(target)
+    assert BottleIndex().entries() == {str(target): "Copy"}
+    assert target.stat().st_mode & 0o777 == 0o700
+    assert not (target / "Copy").exists()
 
 
-def test_duplicate_bottle_replaces_spaces_in_destination_path(tmp_path, monkeypatch):
-    monkeypatch.setattr(Paths, "bottles", str(tmp_path))
-    source = tmp_path / "Source"
-    (source / "drive_c").mkdir(parents=True)
-    with (source / "bottle.yml").open("w") as config_file:
-        yaml.dump({"Name": "Source", "Path": "Source"}, config_file)
-
-    result = BackupManager.duplicate_bottle(
-        BottleConfig(Name="Source", Path="Source"), "Destination Bottle"
-    )
-
-    assert result.status
-    assert (tmp_path / "Destination-Bottle").is_dir()
-    assert not (tmp_path / "Destination Bottle").exists()
-    with (tmp_path / "Destination-Bottle/bottle.yml").open() as config_file:
-        duplicate_config = yaml.load(config_file)
-    assert duplicate_config["Name"] == "Destination Bottle"
-
-
-def test_duplicate_bottle_appends_next_available_suffix(tmp_path, monkeypatch):
-    monkeypatch.setattr(Paths, "bottles", str(tmp_path))
-    source = tmp_path / "Source"
-    (source / "drive_c").mkdir(parents=True)
-    with (source / "bottle.yml").open("w") as config_file:
-        yaml.dump({"Name": "Source", "Path": "Source"}, config_file)
-
-    for destination_name in ("Destination-Bottle", "Destination-Bottle__1"):
-        destination = tmp_path / destination_name
-        destination.mkdir()
-        (destination / "marker").write_text("existing")
-
-    result = BackupManager.duplicate_bottle(
-        BottleConfig(Name="Source", Path="Source"), "Destination Bottle"
-    )
-
-    assert result.status
-    assert (tmp_path / "Destination-Bottle/marker").read_text() == "existing"
-    assert (tmp_path / "Destination-Bottle__1/marker").read_text() == "existing"
-    with (tmp_path / "Destination-Bottle__2/bottle.yml").open() as config_file:
-        duplicate_config = yaml.load(config_file)
-    assert duplicate_config["Name"] == "Destination Bottle__2"
-
-
-def test_duplicate_bottle_rejects_empty_name(tmp_path, monkeypatch):
-    monkeypatch.setattr(Paths, "bottles", str(tmp_path))
-
-    result = BackupManager.duplicate_bottle(
-        BottleConfig(Name="Source", Path="Source"), "   "
-    )
-
-    assert not result.status
-    assert not list(tmp_path.iterdir())
-
-
-def test_duplicate_bottle_does_not_overwrite_existing_destination(tmp_path):
+def test_duplicate_never_overwrites_an_existing_directory(tmp_path):
     source = tmp_path / "source"
-    destination = tmp_path / "destination"
+    source.mkdir(mode=0o700)
+    target = tmp_path / "selected"
+    target.mkdir()
+    (target / "keep").write_text("existing")
+    result = BackupManager.duplicate_bottle(BottleConfig(Name="Source", Path=str(source)), "Copy", str(target))
+    assert not result.ok
+    assert (target / "keep").read_text() == "existing"
+    assert not (tmp_path / "selected__1").exists()
+
+
+def test_backup_extracts_into_the_selected_root(tmp_path):
+    source = tmp_path / "Original Name"
     (source / "drive_c").mkdir(parents=True)
-    destination.mkdir()
-    marker = destination / "marker"
-    marker.write_text("existing")
-
-    result = BackupManager._duplicate_bottle_directory(
-        BottleConfig(Name="Source", Path="Source"),
-        str(source),
-        str(destination),
-        "Destination",
-    )
-
-    assert not result.status
-    assert marker.read_text() == "existing"
-
-
-def test_duplicate_bottle_removes_partial_destination_after_failure(
-    tmp_path, monkeypatch
-):
-    source = tmp_path / "source"
-    destination = tmp_path / "destination"
-    (source / "drive_c").mkdir(parents=True)
-
-    def fail_copytree(*_args, **_kwargs):
-        raise shutil.Error("copy failed")
-
-    monkeypatch.setattr(shutil, "copytree", fail_copytree)
-
-    result = BackupManager._duplicate_bottle_directory(
-        BottleConfig(Name="Source", Path="Source"),
-        str(source),
-        str(destination),
-        "Destination",
-    )
-
-    assert not result.status
-    assert not destination.exists()
+    (source / "drive_c/app.exe").write_bytes(b"exe")
+    archive = tmp_path / "backup.tar.gz"
+    assert BackupManager._create_tarfile(str(source), str(archive))
+    target = tmp_path / "selected"
+    target.mkdir()
+    assert BackupManager._safe_extract_tarfile(str(archive), str(target), strip_root=True)
+    assert (target / "drive_c/app.exe").read_bytes() == b"exe"
+    assert not (target / source.name).exists()
 
 
 def test_full_backup_is_atomic_when_cancelled_during_file_copy(tmp_path, monkeypatch):
@@ -807,3 +736,28 @@ def test_program_backup_roots_separate_programs_with_the_same_name(tmp_path):
 
     assert first == str(destination / "Bottle" / "Game-first-id")
     assert second == str(destination / "Bottle" / "Game-second-id")
+
+
+def test_full_backup_snapshots_committed_wal_data_without_sidecar_files(tmp_path):
+    source = tmp_path / "bottle"
+    source.mkdir()
+    metrics = source / "process_metrics.sqlite"
+    connection = sqlite3.connect(metrics)
+    try:
+        connection.execute("PRAGMA journal_mode=WAL")
+        connection.execute("CREATE TABLE history(seconds INTEGER)")
+        connection.execute("INSERT INTO history VALUES (37)")
+        connection.commit()
+        assert Path(str(metrics) + "-wal").exists()
+        archive = tmp_path / "backup.tar.gz"
+        assert BackupManager._create_tarfile(str(source), str(archive))
+        target = tmp_path / "restored"
+        target.mkdir()
+        assert BackupManager._safe_extract_tarfile(str(archive), str(target), strip_root=True)
+        with sqlite3.connect(target / "process_metrics.sqlite") as restored:
+            assert restored.execute("SELECT seconds FROM history").fetchall() == [(37,)]
+        with tarfile.open(archive) as backup:
+            assert "bottle/process_metrics.sqlite-wal" not in backup.getnames()
+            assert "bottle/process_metrics.sqlite-shm" not in backup.getnames()
+    finally:
+        connection.close()

@@ -856,17 +856,19 @@ class BottleView(Adw.PreferencesPage):
         def handle_response(_widget, response_id):
             _widget.destroy()
 
-            if response_id != "ok":
+            if response_id not in ("ok", "forget"):
                 return
 
             def _on_deleted(_result=False, _error=False):
                 # refresh on the main loop so the list (and its empty state
                 # when the last bottle is gone) repaints correctly
+                if not _result or _error:
+                    self.window.show_toast(str(_error) if _error else _("Could not remove the bottle."))
                 self.window.page_list.update_bottles_list()
 
             def _delete_bottle():
                 RunAsync(
-                    self.manager.delete_bottle,
+                    self.manager.delete_bottle if response_id == "ok" else self.manager.forget_bottle,
                     callback=_on_deleted,
                     config=self.config,
                 )
@@ -883,11 +885,12 @@ class BottleView(Adw.PreferencesPage):
                 )
             ),
             _(
-                "This will permanently delete all programs and settings associated with it."
+                "Remove this bottle from your list, or permanently delete its directory and all files."
             ),
         )
         dialog.add_response("cancel", _("_Cancel"))
-        dialog.add_response("ok", _("_Delete"))
+        dialog.add_response("forget", _("_Remove from List"))
+        dialog.add_response("ok", _("_Delete Files"))
         dialog.set_response_appearance("ok", Adw.ResponseAppearance.DESTRUCTIVE)
         dialog.connect("response", handle_response)
         dialog.present()

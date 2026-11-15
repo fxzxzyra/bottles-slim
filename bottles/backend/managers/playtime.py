@@ -14,7 +14,6 @@ import time
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, TypedDict
 
-from bottles.backend.globals import Paths
 from bottles.backend.logger import Logger
 
 
@@ -125,11 +124,11 @@ class ProcessSessionTracker:
     def __init__(
         self,
         *,
-        db_path: Optional[str] = None,
+        db_path: str,
         heartbeat_interval: int = 60,
         enabled: bool = True,
     ) -> None:
-        self.db_path = db_path or Paths.process_metrics
+        self.db_path = db_path
         self.heartbeat_interval = max(1, int(heartbeat_interval))
         self.enabled = bool(enabled)
         self._closed = False
@@ -154,7 +153,9 @@ class ProcessSessionTracker:
             pass
 
     def _connect(self) -> sqlite3.Connection:
-        os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
+        os.makedirs(os.path.dirname(self.db_path), mode=0o700, exist_ok=True)
+        fd = os.open(self.db_path, os.O_CREAT | os.O_WRONLY, 0o600)
+        os.close(fd)
         conn = sqlite3.connect(self.db_path, check_same_thread=False)
         conn.execute("PRAGMA journal_mode=WAL;")
         conn.execute("PRAGMA synchronous=NORMAL;")
@@ -420,6 +421,12 @@ class ProcessSessionTracker:
             status = "unknown"
         logging.debug(f"Playtime failure: id={session_id} status={status}")
         self.mark_exit(session_id, status=status)
+
+    def has_open_sessions(self) -> bool:
+        with self._lock:
+            return self._conn.execute(
+                "SELECT 1 FROM sessions WHERE status='running' LIMIT 1"
+            ).fetchone() is not None
 
     def recover_open_sessions(self) -> None:
         if not self.enabled:

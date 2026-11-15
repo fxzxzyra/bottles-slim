@@ -58,6 +58,7 @@ def _new_cli():
     instance.settings = object()
     instance.args = SimpleNamespace(
         bottle_name="Test",
+        path="/selected/empty",
         environment="application",
         custom_environment=None,
         arch="win64",
@@ -89,7 +90,7 @@ def _edit_cli(params):
     return instance
 
 
-def test_new_bottle_waits_for_catalogs_before_installing(monkeypatch):
+def test_new_bottle_loads_catalogs_and_delegates_component_selection(monkeypatch):
     manager = FakeManager()
     waits = []
     monkeypatch.setattr(cli, "Manager", lambda **_kwargs: manager)
@@ -106,11 +107,9 @@ def test_new_bottle_waits_for_catalogs_before_installing(monkeypatch):
         Events.DependenciesOrganizing,
         Events.InstallersOrganizing,
     ]
-    assert manager.calls[1] == (
-        "checks",
-        {"install_latest": True, "first_run": False},
-    )
-    assert manager.calls[2][0] == "create_bottle"
+    assert len(manager.calls) == 2
+    assert manager.calls[1][0] == "create_bottle"
+    assert manager.calls[1][1]["path"] == "/selected/empty"
 
 
 def test_new_bottle_reports_creation_failure(monkeypatch, capsys):

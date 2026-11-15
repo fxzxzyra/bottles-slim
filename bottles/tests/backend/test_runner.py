@@ -48,7 +48,6 @@ def test_runner_update_unlinks_only_new_user_profile(monkeypatch, tmp_path, runn
     config = BottleConfig(
         Name="Test",
         Path=str(prefix),
-        Custom_Path=True,
         Environment="Custom",
         Runner="soda-9.0",
     )

@@ -9,7 +9,7 @@ def test_device_backed_drive_is_ejectable(tmp_path):
     dosdevices.mkdir()
     (dosdevices / "d:").symlink_to(tmp_path)
     (dosdevices / "d::").symlink_to("/dev/sr0")
-    config = BottleConfig(Path=str(tmp_path), Custom_Path=str(tmp_path))
+    config = BottleConfig(Path=str(tmp_path))
     drives = Drives(config)
 
     assert drives.is_ejectable("D") is True
@@ -26,7 +26,6 @@ def test_set_drive_path_replaces_broken_symlink(tmp_path):
     config = BottleConfig(
         Name="Test",
         Path=str(bottle_path),
-        Custom_Path=True,
     )
 
     Drives(config).set_drive_path("H", "/home/test/Games")

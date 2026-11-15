@@ -22,6 +22,7 @@ from gi.repository import Adw, GLib, Gtk
 from bottles.backend.managers.backup import BackupManager
 from bottles.backend.utils.threading import RunAsync
 from bottles.frontend.utils.gtk import GtkUtils
+from bottles.frontend.utils.flatpak import resolve_bottles_directory
 
 
 @Gtk.Template(resource_path="/com/usebottles/bottles/dialog-duplicate.ui")
@@ -74,19 +75,22 @@ class DuplicateDialog(Adw.Window):
         and create a new duplicate of the bottle. It also change the
         stack_switcher page when the process is finished.
         """
-        self.stack_switcher.set_visible_child_name("page_duplicating")
-        self.btn_duplicate.set_visible(False)
-        self.btn_cancel.set_label("Close")
-
-        self.pulse_id = GLib.timeout_add(500, self.pulse)
-        name = self.entry_name.get_text()
-
-        RunAsync(
-            task_func=BackupManager.duplicate_bottle,
-            callback=self.finish,
-            config=self.config,
-            name=name,
-        )
+        def selected(dialog, result):
+            try:
+                folder = dialog.select_folder_finish(result)
+            except GLib.Error:
+                return
+            destination = resolve_bottles_directory(self.parent.window, folder.get_path())
+            if not destination:
+                return
+            self.stack_switcher.set_visible_child_name("page_duplicating")
+            self.btn_duplicate.set_visible(False)
+            self.btn_cancel.set_label(_("Close"))
+            self.pulse_id = GLib.timeout_add(500, self.pulse)
+            RunAsync(BackupManager.duplicate_bottle, callback=self.finish,
+                     config=self.config, name=self.entry_name.get_text(), destination=destination)
+        dialog = Gtk.FileDialog(title=_("Select an Empty Bottle Directory"), modal=True)
+        dialog.select_folder(self, None, selected)
 
     @GtkUtils.run_in_main_loop
     def finish(self, result, error=None):

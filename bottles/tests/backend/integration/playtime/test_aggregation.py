@@ -6,7 +6,7 @@ from freezegun import freeze_time
 
 
 def test_same_program_aggregates_into_one_row(manager):
-    tracker = manager.playtime_tracker
+    tracker = manager.get_playtime_tracker("b1")
     assert tracker is not None
 
     with freeze_time("2025-01-01 00:00:00") as ft:
@@ -47,7 +47,7 @@ def test_same_program_aggregates_into_one_row(manager):
 
 
 def test_different_programs_separate_rows(manager):
-    tracker = manager.playtime_tracker
+    tracker = manager.get_playtime_tracker("b1")
     assert tracker is not None
 
     with freeze_time("2025-01-01 01:00:00"):

@@ -15,6 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import os
 from gettext import gettext as _
 
 from gi.repository import Adw, GLib, Gtk
@@ -24,6 +25,7 @@ from bottles.backend.state import SignalManager, Signals, TaskManager
 from bottles.backend.utils.threading import RunAsync
 from bottles.frontend.utils.filters import add_all_filters, add_yaml_filters
 from bottles.frontend.utils.gtk import GtkUtils
+from bottles.frontend.utils.flatpak import resolve_bottles_directory
 from bottles.frontend.widgets.importer import ImporterEntry
 
 
@@ -38,6 +40,7 @@ class ImporterView(Adw.Bin):
     btn_import_config = Gtk.Template.Child()
     btn_import_full = Gtk.Template.Child()
     btn_back = Gtk.Template.Child()
+    btn_import_existing = Gtk.Template.Child()
     group_prefixes = Gtk.Template.Child()
     status_page = Gtk.Template.Child()
     box_import_progress = Gtk.Template.Child()
@@ -56,6 +59,7 @@ class ImporterView(Adw.Bin):
 
         # connect signals
         self.btn_back.connect("clicked", self.go_back)
+        self.btn_import_existing.connect("clicked", self.__import_existing)
         self.btn_find_prefixes.connect("clicked", self.__find_prefixes)
         self.btn_select_prefixes.connect("clicked", self.__select_prefixes)
         self.btn_import_full.connect("clicked", self.__import_full_bck)
@@ -66,6 +70,31 @@ class ImporterView(Adw.Bin):
         SignalManager.connect(Signals.TaskAdded, self._on_task_added)
         SignalManager.connect(Signals.TaskRemoved, self._on_task_removed)
         SignalManager.connect(Signals.TaskUpdated, self._on_task_updated)
+
+    def __import_existing(self, *_args):
+        def selected(dialog, result):
+            try:
+                folder = dialog.select_folder_finish(result)
+            except GLib.Error:
+                return
+            path = resolve_bottles_directory(self.window, folder.get_path())
+            if path:
+                RunAsync(self.import_manager.import_bottle, callback=self.__finish, path=path)
+        dialog = Gtk.FileDialog(title=_("Select an Existing Bottle"), modal=True)
+        dialog.select_folder(self.window, None, selected)
+
+    def __restore_backup(self, scope, source):
+        def selected(dialog, result):
+            try:
+                folder = dialog.select_folder_finish(result)
+            except GLib.Error:
+                return
+            destination = resolve_bottles_directory(self.window, folder.get_path())
+            if destination:
+                RunAsync(BackupManager.import_backup, callback=self.__finish,
+                         scope=scope, path=source, destination=destination)
+        dialog = Gtk.FileDialog(title=_("Select an Empty Bottle Directory"), modal=True)
+        dialog.select_folder(self.window, None, selected)
 
     def __find_prefixes(self, widget):
         """
@@ -117,17 +146,21 @@ class ImporterView(Adw.Bin):
         except GLib.Error:
             return
         if folder and folder.get_path():
-            self.__search_prefixes(
-                self.btn_select_prefixes,
-                [folder.get_path()],
-            )
+            path = resolve_bottles_directory(self.window, folder.get_path())
+            if not path:
+                return
+            if os.path.isfile(os.path.join(path, "bottle.yml")):
+                RunAsync(self.import_manager.import_bottle, callback=self.__finish, path=path)
+            else:
+                self.__search_prefixes(self.btn_select_prefixes, [path])
 
     @GtkUtils.run_in_main_loop
     def __finish(self, result, error=False):
         if result.ok:
-            self.window.show_toast(_("Backup imported successfully"))
+            self.window.show_toast(_("Bottle imported successfully"))
+            self.window.page_list.update_bottles_list()
         else:
-            self.window.show_toast(_("Import failed"))
+            self.window.show_toast(str(error) if error else result.message or _("Import failed"))
 
     def __import_full_bck(self, *_args):
         """
@@ -141,13 +174,7 @@ class ImporterView(Adw.Bin):
             if response != Gtk.ResponseType.ACCEPT:
                 return
 
-            self.window.show_toast(_("Importing backup…"))
-            RunAsync(
-                task_func=BackupManager.import_backup,
-                callback=self.__finish,
-                scope="full",
-                path=dialog.get_file().get_path(),
-            )
+            self.__restore_backup("full", dialog.get_file().get_path())
 
         dialog = Gtk.FileChooserNative.new(
             title=_("Select a Backup Archive"),
@@ -181,13 +208,7 @@ class ImporterView(Adw.Bin):
             if response != Gtk.ResponseType.ACCEPT:
                 return
 
-            self.window.show_toast(_("Importing backup…"))
-            RunAsync(
-                task_func=BackupManager.import_backup,
-                callback=self.__finish,
-                scope="config",
-                path=dialog.get_file().get_path(),
-            )
+            self.__restore_backup("config", dialog.get_file().get_path())
 
         dialog = Gtk.FileChooserNative.new(
             title=_("Select a Configuration File"),

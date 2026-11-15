@@ -17,21 +17,18 @@
 
 import fnmatch
 import os
-import random
 import re
 import shutil
+import sqlite3
 import subprocess
 import time
-import uuid
 import uuid
 from copy import deepcopy
 from datetime import datetime
 from gettext import gettext as _
 from glob import glob
-from threading import Event
+from threading import Event, RLock
 from typing import Any, Callable, ClassVar, Dict, List, Optional, Tuple
-
-import pathvalidate
 
 from bottles.backend.dlls.d7vk import D7VKComponent
 from bottles.backend.dlls.dxvk import DXVKComponent
@@ -42,6 +39,7 @@ from bottles.backend.globals import Paths
 from bottles.backend.logger import Logger
 from bottles.backend.managers.component import ComponentManager
 from bottles.backend.managers.data import DataManager, UserDataKeys
+from bottles.backend.managers.storage import BottleIndex, bottle_directory, bottle_operation
 from bottles.backend.managers.dependency import DependencyManager
 from bottles.backend.managers.epicgamesstore import EpicGamesStoreManager
 from bottles.backend.managers.importer import ImportManager
@@ -55,10 +53,6 @@ from bottles.backend.managers.template import TemplateManager
 from bottles.backend.managers.ubisoftconnect import UbisoftConnectManager
 from bottles.backend.managers.versioning import VersioningManager
 from bottles.backend.models.config import BottleConfig
-from bottles.backend.models.process import (
-    ProcessFinishedPayload,
-    ProcessStartedPayload,
-)
 from bottles.backend.models.result import Result
 from bottles.backend.models.samples import Samples
 from bottles.backend.state import (
@@ -155,27 +149,6 @@ class Manager(metaclass=Singleton):
         if check_connection and not self.utils_conn.force_offline:
             _offline = not self.utils_conn.check_connection()
 
-        # validating user-defined Paths.bottles
-        if user_bottles_path := self.data_mgr.get(UserDataKeys.CustomBottlesPath):
-            is_portal_path = (
-                "/run/user/" in user_bottles_path and "/doc/" in user_bottles_path
-            )
-            if is_portal_path:
-                # Portal-backed paths are not reliable enough for bottle storage.
-                logging.error(
-                    f"Custom bottles path {user_bottles_path} uses the document "
-                    f"portal! Falling back to default path."
-                )
-            elif os.path.isdir(user_bottles_path) and os.access(
-                user_bottles_path, os.W_OK
-            ):
-                Paths.bottles = user_bottles_path
-            else:
-                logging.error(
-                    f"Custom bottles path {user_bottles_path} is not a writable "
-                    f"directory! Falling back to default path."
-                )
-
         # sub-managers
         self.repository_manager = RepositoryManager(get_index=not _offline)
         if self.repository_manager.aborted_connections > 0:
@@ -194,7 +167,9 @@ class Manager(metaclass=Singleton):
         times["SteamManager"] = time.time()
 
         # Initialize playtime tracker
-        self._initialize_playtime_tracker()
+        self._playtime_trackers = {}
+        self._playtime_lock = RLock()
+        self._launch_to_session = {}
         times["PlaytimeTracker"] = time.time()
 
         # React to runtime changes in playtime preference when available
@@ -354,42 +329,32 @@ class Manager(metaclass=Singleton):
         return rv
 
     def __del__(self):
-        # best-effort shutdown of playtime tracker
-        try:
-            if hasattr(self, "playtime_tracker") and self.playtime_tracker:
-                self.playtime_tracker.shutdown()
-        except Exception:
-            pass
+        for tracker in getattr(self, "_playtime_trackers", {}).values():
+            tracker.shutdown()
 
-    def _initialize_playtime_tracker(self) -> None:
-        playtime_enabled = self.settings.get_boolean("playtime-enabled")
-        playtime_interval = self.settings.get_int("playtime-heartbeat-interval")
-        tracker = ProcessSessionTracker(
-            enabled=playtime_enabled,
-            heartbeat_interval=playtime_interval if playtime_interval > 0 else 60,
-        )
-        if not self.is_cli:
-            tracker.recover_open_sessions()
-        self.playtime_tracker = tracker
+    def get_playtime_tracker(self, bottle_id: str) -> ProcessSessionTracker:
+        config = next(config for config in self.local_bottles.values() if config.identifier == bottle_id)
+        path = bottle_directory(ManagerUtils.get_bottle_path(config))
+        with self._playtime_lock:
+            if path not in self._playtime_trackers:
+                tracker = ProcessSessionTracker(
+                    db_path=os.path.join(path, "process_metrics.sqlite"),
+                    enabled=self.settings.get_boolean("playtime-enabled"),
+                    heartbeat_interval=self.settings.get_int("playtime-heartbeat-interval") or 60,
+                )
+                if not self.is_cli and tracker.has_open_sessions() and not WineServer(config).is_alive():
+                    tracker.recover_open_sessions()
+                self._playtime_trackers[path] = tracker
+            return self._playtime_trackers[path]
 
     def _on_playtime_enabled_changed(self, _settings, _key) -> None:
-        enabled = self.settings.get_boolean("playtime-enabled")
-        if not enabled:
-            if (
-                getattr(self, "playtime_tracker", None)
-                and self.playtime_tracker.enabled
-            ):
-                self._launch_to_session.clear()
-                self.playtime_tracker.disable_tracking()
-            return
-
-        if getattr(self, "playtime_tracker", None) and self.playtime_tracker.enabled:
-            return
-
-        self._initialize_playtime_tracker()
+        for tracker in self._playtime_trackers.values():
+            tracker.shutdown()
+        self._playtime_trackers.clear()
+        self._launch_to_session = {key: (config, None) for key, (config, _sid) in self._launch_to_session.items()}
 
     # Playtime signal handlers
-    _launch_to_session: Dict[str, int] = {}
+    _launch_to_session: Dict[str, tuple[BottleConfig, Optional[int]]] = {}
 
     # Public Playtime API (wrap tracker with Result)
     def playtime_start(
@@ -402,7 +367,7 @@ class Manager(metaclass=Singleton):
         program_path: str,
     ) -> Result[int]:
         try:
-            sid = self.playtime_tracker.start_session(
+            sid = self.get_playtime_tracker(bottle_id).start_session(
                 bottle_id=bottle_id,
                 bottle_name=bottle_name,
                 bottle_path=bottle_path,
@@ -418,81 +383,53 @@ class Manager(metaclass=Singleton):
         self,
         session_id: int,
         *,
+        bottle_id: str,
         status: str = "success",
         ended_at: Optional[int] = None,
     ) -> Result[None]:
         try:
             if status == "success":
-                self.playtime_tracker.mark_exit(
+                self.get_playtime_tracker(bottle_id).mark_exit(
                     session_id, status="success", ended_at=ended_at
                 )
             else:
-                self.playtime_tracker.mark_failure(session_id, status=status)
+                self.get_playtime_tracker(bottle_id).mark_failure(session_id, status=status)
             return Result(True)
         except Exception as e:
             logging.exception(e)
             return Result(False, message=str(e))
 
     def _on_program_started(self, data: Optional[Result] = None) -> None:
-        try:
-            if not data or not data.data:
-                return
-            payload: ProcessStartedPayload = data.data  # type: ignore
-            logging.debug(
-                f"Playtime signal: started launch_id={payload.launch_id} bottle={payload.bottle_name} program={payload.program_name}"
-            )
-            res = self.playtime_start(
+        if not data or not data.data:
+            return
+        payload = data.data
+        config = next(config for config in self.local_bottles.values() if config.identifier == payload.bottle_id)
+        RegistryRuleManager.apply_rules(config, trigger="start_program")
+        sid = None
+        if self.settings.get_boolean("playtime-enabled"):
+            result = self.playtime_start(
                 bottle_id=payload.bottle_id,
                 bottle_name=payload.bottle_name,
                 bottle_path=payload.bottle_path,
                 program_name=payload.program_name,
                 program_path=payload.program_path,
             )
-            if not res.ok:
-                return
-            sid = int(res.data or -1)
-            self._launch_to_session[payload.launch_id] = sid
-
-            config = self._get_payload_config(payload)
-            if config:
-                RegistryRuleManager.apply_rules(config, trigger="start_program")
-        except Exception:
-            pass
+            if result.ok:
+                sid = result.data
+        self._launch_to_session[payload.launch_id] = (config, sid)
 
     def _on_program_finished(self, data: Optional[Result] = None) -> None:
-        try:
-            if not data or not data.data:
-                return
-            payload: ProcessFinishedPayload = data.data  # type: ignore
-            sid = self._launch_to_session.pop(payload.launch_id, -1)
-            if sid and sid > 0:
-                status = payload.status
-                ended_at = int(payload.ended_at or time.time())
-                logging.debug(
-                    f"Playtime signal: finished launch_id={payload.launch_id} status={status} sid={sid}"
-                )
-                self.playtime_finish(sid, status=status, ended_at=ended_at)
-
-            config = self._get_payload_config(payload)
-            if config:
-                RegistryRuleManager.apply_rules(config, trigger="stop_program")
-        except Exception:
-            pass
-
-    def _get_payload_config(self, payload) -> Optional[BottleConfig]:
-        config = self.local_bottles.get(payload.bottle_name)
-        if isinstance(config, BottleConfig):
-            return config
-
-        try:
-            config_path = os.path.join(payload.bottle_path, "bottle.yml")
-        except Exception:
-            return None
-
-        loaded = BottleConfig.load(config_path)
-        if loaded.status:
-            return loaded.data
-        return None
+        if not data or not data.data:
+            return
+        payload = data.data
+        session = self._launch_to_session.pop(payload.launch_id, None)
+        if session is None:
+            return
+        config, sid = session
+        if sid is not None:
+            self.playtime_finish(sid, bottle_id=config.identifier, status=payload.status,
+                                 ended_at=int(payload.ended_at or time.time()))
+        RegistryRuleManager.apply_rules(config, trigger="stop_program")
 
     def __clear_temp(self, force: bool = False):
         """Clears the temp directory if user setting allows it. Use the force
@@ -608,10 +545,6 @@ class Manager(metaclass=Singleton):
         if not os.path.isdir(Paths.winebridge):
             logging.info("WineBridge path doesn't exist, creating now.")
             os.makedirs(Paths.winebridge, exist_ok=True)
-
-        if not os.path.isdir(Paths.bottles):
-            logging.info("Bottles path doesn't exist, creating now.")
-            os.makedirs(Paths.bottles, exist_ok=True)
 
         if (
             self.settings.get_boolean("steam-proton-support")
@@ -1243,192 +1176,32 @@ class Manager(metaclass=Singleton):
         Check for local bottles and update the local_bottles list.
         Will also mark the broken ones if the configuration file is missing
         """
-        bottles = os.listdir(Paths.bottles)
-
-        # Empty local bottles
         self.local_bottles = {}
         self._programs_cache = {}
-
-        # custom-path bottles whose location is currently unreachable (e.g. an
-        # unmounted drive), so the user can be told instead of them silently
-        # vanishing from the list
-        unavailable = []
-
-        def process_bottle(bottle):
-            _name = bottle
-            _bottle = str(os.path.join(Paths.bottles, bottle))
-            _placeholder = os.path.join(_bottle, "placeholder.yml")
-            _config = os.path.join(_bottle, "bottle.yml")
-            _placeholder_target = None
-
-            if os.path.exists(_placeholder):
-                with open(_placeholder, "r") as f:
-                    try:
-                        placeholder_yaml = yaml.load(f)
-                        if placeholder_yaml.get("Path"):
-                            _placeholder_target = placeholder_yaml.get("Path")
-                            _config = os.path.join(_placeholder_target, "bottle.yml")
-                        else:
-                            raise ValueError("Missing Path in placeholder.yml")
-                    except (yaml.YAMLError, ValueError):
-                        return
-
-            config_load = BottleConfig.load(_config)
-
-            if not config_load.status:
-                if _placeholder_target:
-                    # the bottle lives on a custom path that is not reachable now
-                    unavailable.append(_name)
-                return
-
-            config = config_load.data
-            session_arguments = config.session_arguments
-            run_in_terminal = config.run_in_terminal
-
-            # Clear Run Executable parameters on new session start
-            if config.session_arguments:
-                config.session_arguments = ""
-
-            if config.run_in_terminal:
-                config.run_in_terminal = False
-
-            # Check if the path in the bottle config corresponds to the folder name
-            # if not, change the config to reflect the folder name
-            # if the folder name is "illegal" across all platforms, rename the folder
-
-            # "universal" platform works for all filesystem/OSes
-            sane_name = pathvalidate.sanitize_filepath(_name, platform="universal")
-            if config.Custom_Path is False:  # There shouldn't be problems with this
-                if config.Path != _name or sane_name != _name:
-                    logging.warning(
-                        'Illegal bottle folder or mismatch between config "Path" and folder name'
-                    )
-                    if sane_name != _name:
-                        # This hopefully doesn't happen, but it's managed
-                        logging.warning(f"Broken path in bottle {_name}, fixing...")
-                        shutil.move(
-                            _bottle, str(os.path.join(Paths.bottles, sane_name))
-                        )
-                        # Restart the process bottle function. Normally, can't be recursive!
-                        process_bottle(sane_name)
-                        return
-
-                    config.Path = sane_name
-                    self.update_config(config=config, key="Path", value=sane_name)
-
-            sample = BottleConfig()
-            miss_keys = sample.keys() - config.keys()
-            for key in miss_keys:
-                logging.warning(f"Key {key} is missing for bottle {_name}, updating…")
-                self.update_config(config=config, key=key, value=sample[key])
-
-            miss_params_keys = sample.Parameters.keys() - config.Parameters.keys()
-
-            for key in miss_params_keys:
-                """
-                For each missing key in the bottle configuration, set
-                it to the default value.
-                """
-                logging.warning(
-                    f"Parameters key {key} is missing for bottle {_name}, updating…"
-                )
-                self.update_config(
-                    config=config,
-                    key=key,
-                    value=sample.Parameters[key],
-                    scope="Parameters",
-                )
-
-            if config.Environment != "Steam" and config.Runner.startswith("sys-"):
-                config.Runner = SYSTEM_WINE
-                persisted_config = config.copy()
-                persisted_config.session_arguments = session_arguments
-                persisted_config.run_in_terminal = run_in_terminal
-                persisted_config.dump(_config)
-
-            if not self.reconcile_d7vk(config):
-                logging.warning(f"Could not reconcile D7VK for bottle {_name}.")
-            self.local_bottles[config.Name] = config
-
+        self.unavailable_bottles = {}
+        for path, name in BottleIndex().entries().items():
             try:
-                real_path = ManagerUtils.get_bottle_path(config)
-                for p in [
-                    os.path.join(real_path, "cache", "dxvk_shader"),
-                    os.path.join(real_path, "cache", "gl_shader"),
-                    os.path.join(real_path, "cache", "mesa_shader"),
-                    os.path.join(real_path, "cache", "vkd3d_shader"),
-                ]:
-                    if not os.path.exists(p):
-                        os.makedirs(p, exist_ok=True)
-
-                for c in os.listdir(real_path):
-                    c = str(c)
-                    if c.endswith(".dxvk-cache"):
-                        # NOTE: the following code tries to create the caching directories
-                        #       if one or more already exist, it will fail silently as there
-                        #       is no need to create them again.
-                        try:
-                            shutil.move(
-                                os.path.join(real_path, c),
-                                os.path.join(real_path, "cache", "dxvk_shader"),
-                            )
-                        except (shutil.Error, OSError):
-                            pass
-                    elif "vkd3d-proton.cache" in c:
-                        try:
-                            shutil.move(
-                                os.path.join(real_path, c),
-                                os.path.join(real_path, "cache", "vkd3d_shader"),
-                            )
-                        except (shutil.Error, OSError):
-                            pass
-                    elif c == "GLCache":
-                        try:
-                            shutil.move(
-                                os.path.join(real_path, c),
-                                os.path.join(real_path, "cache", "gl_shader"),
-                            )
-                        except (shutil.Error, OSError):
-                            pass
-            except (OSError, PermissionError) as e:
-                logging.warning(
-                    f"Could not perform maintenance for bottle {_name}: {e}"
-                )
-
-            if config.Parameters.dxvk_nvapi:
-                NVAPIComponent.check_bottle_nvngx(real_path, config)
-
-        for b in sorted(bottles):
-            """
-            For each bottle add the path name to the `local_bottles` variable
-            and append the config.
-            """
-            process_bottle(b)
-
-        if len(self.local_bottles) > 0 and not silent:
-            logging.info(
-                "Bottles found:\n - {0}".format("\n - ".join(self.local_bottles))
-            )
-
-        if unavailable and not silent and not self.is_cli:
-            logging.warning(
-                "Unavailable bottles (offline location):\n - {0}".format(
-                    "\n - ".join(unavailable)
-                )
-            )
+                bottle_directory(path)
+                loaded = BottleConfig.load(os.path.join(path, "bottle.yml"))
+                if not loaded.ok:
+                    raise ValueError(loaded.message)
+                config = loaded.data
+                if config.Name in self.local_bottles:
+                    raise ValueError("Duplicate bottle name: " + config.Name)
+                self.local_bottles[config.Name] = config
+            except (OSError, ValueError) as error:
+                self.unavailable_bottles[path] = str(error)
+                logging.warning(f"Bottle {name} at {path} is unavailable: {error}")
+        if self.unavailable_bottles and not silent and not self.is_cli:
             SignalManager.send(
                 Signals.GNotification,
-                Result(
-                    True,
-                    Notification(
-                        title="Bottles",
-                        text=_(
-                            "Some bottles are unavailable because their location is "
-                            "offline: {0}"
-                        ).format(", ".join(unavailable)),
-                        image="drive-harddisk-symbolic",
+                Result(True, Notification(
+                    title="Bottles",
+                    text=_("Some registered bottles are unavailable:") + "\n" + "\n".join(
+                        f"{path}: {error}" for path, error in self.unavailable_bottles.items()
                     ),
-                ),
+                    image="drive-harddisk-symbolic",
+                )),
             )
 
         if (
@@ -1492,6 +1265,9 @@ class Manager(metaclass=Singleton):
         if not result.status:
             return Result(False, data={"config": config}, message=result.message)
 
+        if key == "Name" and not scope and config.Environment != "Steam":
+            BottleIndex().rename(bottle_path, config.Name)
+
         config.Update_Date = str(datetime.now())
 
         if scope == "External_Programs":
@@ -1530,35 +1306,15 @@ class Manager(metaclass=Singleton):
 
         return Result(True)
 
-    def create_bottle_from_config(self, config: BottleConfig) -> bool:
+    def create_bottle_from_config(self, config: BottleConfig, path: str) -> bool:
         """Create a bottle from a config object."""
         logging.info(f"Creating new {config.Name} bottle from config…")
 
         config = deepcopy(config)
-        sample = BottleConfig()
-        for key in sample.keys():
-            if key not in config.keys():
-                config[key] = sample[key]
-
-        if config.Runner.startswith("sys-"):
-            config.Runner = SYSTEM_WINE
-        elif not config.Runner:
-            config.Runner = self.get_default_runner()
-
-        if config.DXVK not in self.dxvk_available:
-            config.DXVK = self.dxvk_available[0] if self.dxvk_available else ""
-
-        if config.D7VK not in self.d7vk_available:
-            config.D7VK = self.d7vk_available[0] if self.d7vk_available else ""
-
-        if config.VKD3D not in self.vkd3d_available:
-            config.VKD3D = self.vkd3d_available[0] if self.vkd3d_available else ""
-
-        if config.NVAPI not in self.nvapi_available:
-            config.NVAPI = self.nvapi_available[0] if self.nvapi_available else ""
-
+        config.Id = uuid.uuid4().hex
         result = self.create_bottle(
             name=config.Name,
+            path=path,
             environment=config.Environment or "Custom",
             runner=config.Runner,
             d7vk=config.D7VK if config.Parameters.d7vk else False,
@@ -1583,7 +1339,7 @@ class Manager(metaclass=Singleton):
         self,
         name,
         environment: str,
-        path: str = "",
+        path: str,
         runner: str = False,
         d7vk: bool = False,
         dxvk: bool = False,
@@ -1603,6 +1359,41 @@ class Manager(metaclass=Singleton):
         TODO: will be replaced by the BottleBuilder class.
         """
 
+        try:
+            path = bottle_directory(path, empty=True)
+            if name in self.local_bottles or name in BottleIndex().entries().values():
+                raise ValueError("A bottle with this name is already registered.")
+            if not name.strip():
+                raise ValueError("Bottle name cannot be empty.")
+        except (OSError, ValueError) as error:
+            return Result(False, message=str(error))
+        try:
+            with bottle_operation(path):
+                bottle_directory(path, empty=True)
+                result = self._create_bottle(
+                    name, environment, path, runner, d7vk, dxvk, vkd3d, nvapi,
+                    latencyflex, versioning, sandbox, fn_logger, arch,
+                    custom_environment, cancel_event, configuration,
+                )
+                if not result.ok:
+                    if os.path.isdir(os.path.join(path, "drive_c")):
+                        cleanup = BottleConfig(Path=path, Runner=runner or self.get_default_runner())
+                        cleanup.Parameters.sandbox = sandbox
+                        WineServer(cleanup).force_kill()
+                    for item in os.scandir(path):
+                        if item.is_dir(follow_symlinks=False):
+                            shutil.rmtree(item.path)
+                        else:
+                            os.unlink(item.path)
+                return result
+        except (OSError, ValueError, RuntimeError, sqlite3.IntegrityError, yaml.YAMLError) as error:
+            return Result(False, message=str(error))
+
+    def _create_bottle(
+        self, name, environment, path, runner, d7vk, dxvk, vkd3d, nvapi,
+        latencyflex, versioning, sandbox, fn_logger, arch,
+        custom_environment, cancel_event, configuration,
+    ) -> Result[dict]:
         d7vk_requested = bool(d7vk)
 
         def log_update(message):
@@ -1614,7 +1405,6 @@ class Manager(metaclass=Singleton):
         cleanup_config = BottleConfig()
         cleanup_config.Name = name
         cleanup_config.Environment = environment.capitalize()
-        cleanup_config.Custom_Path = bool(path)
 
         def is_cancelled() -> bool:
             return cancel_event is not None and cancel_event.is_set()
@@ -1629,12 +1419,16 @@ class Manager(metaclass=Singleton):
                 )
                 cancellation_announced = True
 
-            return Result(False, data={"config": cleanup_config})
+            return Result(False, data={"config": cleanup_config}, message="cancelled")
 
         def check_cancel(message: Optional[str] = None) -> Optional[Result[dict]]:
             if not is_cancelled():
                 return None
             return abort_build(message)
+
+        cancel_result = check_cancel()
+        if cancel_result is not None:
+            return cancel_result
 
         runner = runner or self.get_default_runner()
         try:
@@ -1644,55 +1438,38 @@ class Manager(metaclass=Singleton):
             log_update(message)
             return Result(False, message=message)
 
-        # check for essential components
-        check_attempts = 0
+        if configuration is not None:
+            env = {
+                "Parameters": {}, "Installed_Dependencies": configuration.Installed_Dependencies,
+            }
+            parameters = configuration.Parameters
+        elif custom_environment:
+            with open(custom_environment, encoding="utf-8") as stream:
+                env = yaml.load(stream)
+            if not isinstance(env, dict) or not isinstance(env.get("Parameters", {}), dict):
+                raise ValueError("Invalid environment recipe.")
+            parameters = env.get("Parameters", {})
+        else:
+            if environment.lower() not in ("custom", "application", "gaming"):
+                raise ValueError("Unknown bottle environment: " + environment)
+            env = Samples.environments.get(environment.lower())
+            parameters = env.get("Parameters", {}) if env else {}
 
-        def components_check():
-            nonlocal check_attempts
-
-            if check_attempts > 2:
-                logging.error("Fail to install components, tried 3 times.", jn=True)
-                log_update(_("Fail to install components, tried 3 times."))
-                return False
-
-            # DXVK and VKD3D are required by the existing creation flow. NVAPI and
-            # LatencyFleX are optional (useless without an NVIDIA GPU / not
-            # always wanted) so a missing or 404 optional component must not
-            # abort bottle creation; they are still attempted below.
-            if 0 in [
-                len(self.dxvk_available),
-                len(self.vkd3d_available),
-            ]:
-                logging.error("Missing essential components. Installing…")
-                log_update(_("Missing essential components. Installing…"))
-                if len(self.dxvk_available) == 0:
-                    self.check_dxvk()
-                if len(self.vkd3d_available) == 0:
-                    self.check_vkd3d()
-                self.organize_components()
-                check_attempts += 1
-                return components_check()
-
-            needs_install = False
-            if len(self.nvapi_available) == 0:
-                self.check_nvapi()
-                needs_install = True
-            if len(self.latencyflex_available) == 0:
-                self.check_latencyflex()
-                needs_install = True
-            if d7vk and d7vk not in self.d7vk_available:
-                result = self.component_manager.install("d7vk", d7vk)
-                if not result.ok:
-                    return False
-                needs_install = True
-
-            if needs_install:
-                self.organize_components()
-
-            return True
-
-        if not components_check():
-            return Result(False)
+        requested = {
+            "d7vk": bool(d7vk_requested or parameters.get("d7vk")),
+            "dxvk": bool(parameters.get("dxvk")),
+            "vkd3d": bool(parameters.get("vkd3d")),
+            "nvapi": bool(parameters.get("dxvk_nvapi")),
+            "latencyflex": bool(parameters.get("latencyflex")),
+        }
+        for component, needed in requested.items():
+            if needed and not getattr(self, component + "_available"):
+                if not getattr(self, "check_" + component)(True):
+                    return Result(False, message=f"Required component is unavailable: {component}")
+        if d7vk and isinstance(d7vk, str) and d7vk not in self.d7vk_available:
+            installed = self.component_manager.install("d7vk", d7vk)
+            if not installed.ok:
+                return installed
 
         cancel_result = check_cancel()
         if cancel_result is not None:
@@ -1727,49 +1504,12 @@ class Manager(metaclass=Singleton):
             )
         latencyflex_name = latencyflex
 
-        # define bottle parameters
         bottle_name = name
-        bottle_name_path = bottle_name.replace(" ", "-")
-        bottle_name_path = pathvalidate.sanitize_filename(
-            bottle_name_path, platform="universal"
-        )
-
-        # get bottle path
-        uses_default_path = not path or os.path.realpath(path) == os.path.realpath(
-            Paths.bottles
-        )
-        if uses_default_path:
-            # if no path is specified, use the name as path
-            bottle_custom_path = False
-            bottle_complete_path = os.path.join(Paths.bottles, bottle_name_path)
-            cleanup_config.Path = bottle_name_path
-        else:
-            bottle_custom_path = True
-            bottle_complete_path = os.path.join(path, bottle_name_path)
-            cleanup_config.Path = bottle_complete_path
-
-        cleanup_config.Custom_Path = bottle_custom_path
-
+        bottle_complete_path = path
+        cleanup_config.Path = path
         cancel_result = check_cancel()
         if cancel_result is not None:
             return cancel_result
-
-        # if another bottle with same path exists, append a random number
-        if os.path.exists(bottle_complete_path):
-            """
-            if bottle path already exists, create a new one
-            using the name and a random number.
-            """
-            rnd = random.randint(100, 200)
-            bottle_name = f"{bottle_name}__{rnd}"
-            bottle_name_path = f"{bottle_name_path}__{rnd}"
-            bottle_complete_path = f"{bottle_complete_path}__{rnd}"
-            cleanup_config.Name = bottle_name
-
-            if bottle_custom_path:
-                cleanup_config.Path = bottle_complete_path
-            else:
-                cleanup_config.Path = bottle_name_path
 
         # define registers that should be awaited
         reg_files = [
@@ -1788,12 +1528,13 @@ class Manager(metaclass=Singleton):
 
         # create the bottle directory
         try:
-            os.makedirs(bottle_complete_path)
+            bottle_directory(bottle_complete_path, empty=True)
+            os.chmod(bottle_complete_path, 0o700)
             # Pre-create drive_c directory and set the case-fold flag
             bottle_drive_c = os.path.join(bottle_complete_path, "drive_c")
-            os.makedirs(bottle_drive_c)
+            os.makedirs(bottle_drive_c, mode=0o700)
             FileUtils.chattr_f(bottle_drive_c)
-        except:
+        except OSError:
             logging.error(
                 f"Failed to create bottle directory: {bottle_complete_path}", jn=True
             )
@@ -1803,25 +1544,6 @@ class Manager(metaclass=Singleton):
         cancel_result = check_cancel()
         if cancel_result is not None:
             return cancel_result
-
-        if bottle_custom_path:
-            placeholder_dir = os.path.join(Paths.bottles, bottle_name_path)
-            try:
-                os.makedirs(placeholder_dir)
-                with open(os.path.join(placeholder_dir, "placeholder.yml"), "w") as f:
-                    placeholder = {"Path": bottle_complete_path}
-                    f.write(yaml.dump(placeholder))
-            except:
-                logging.error(
-                    f"Failed to create placeholder directory/file at: {placeholder_dir}",
-                    jn=True,
-                )
-                log_update(_("Failed to create placeholder directory/file."))
-                return Result(False)
-
-            cancel_result = check_cancel()
-            if cancel_result is not None:
-                return cancel_result
 
         # generate bottle configuration
         logging.info("Generating bottle configuration…")
@@ -1837,10 +1559,7 @@ class Manager(metaclass=Singleton):
         config.VKD3D = vkd3d_name
         config.NVAPI = nvapi_name
         config.LatencyFleX = latencyflex_name
-        config.Path = bottle_name_path
-        if path:
-            config.Path = bottle_complete_path
-        config.Custom_Path = bottle_custom_path
+        config.Path = bottle_complete_path
         config.Environment = environment.capitalize()
         config.Creation_Date = str(datetime.now())
         config.Update_Date = str(datetime.now())
@@ -1862,7 +1581,7 @@ class Manager(metaclass=Singleton):
         # get template
         template = (
             None
-            if configuration is not None
+            if configuration is not None or custom_environment
             else TemplateManager.get_env_template(environment)
         )
         template_updated = False
@@ -1876,8 +1595,8 @@ class Manager(metaclass=Singleton):
             else:
                 template = None
                 try:
-                    shutil.rmtree(bottle_complete_path)
-                    os.makedirs(bottle_drive_c)
+                    shutil.rmtree(bottle_drive_c)
+                    os.makedirs(bottle_drive_c, mode=0o700)
                     FileUtils.chattr_f(bottle_drive_c)
                 except OSError:
                     logging.error(
@@ -1904,6 +1623,9 @@ class Manager(metaclass=Singleton):
         # execute wineboot on the bottle path
         log_update(_("The Wine config is being updated…"))
         wineboot.init()
+        cancel_result = check_cancel()
+        if cancel_result is not None:
+            return cancel_result
         if not FileUtils.wait_for_files(prefix_files, timeout=5):
             logging.error("Wine prefix initialization failed.", jn=True)
             message = _("Failed to initialize the Wine prefix.")
@@ -1919,17 +1641,6 @@ class Manager(metaclass=Singleton):
             logging.error("Could not sandbox the bottle user directory.", jn=True)
             message = _("Failed to sandbox the bottle user directory.")
             log_update(message)
-            created_paths = [bottle_complete_path]
-            if bottle_custom_path:
-                created_paths.append(os.path.join(Paths.bottles, bottle_name_path))
-            for created_path in created_paths:
-                try:
-                    shutil.rmtree(created_path)
-                except OSError:
-                    logging.error(
-                        f"Failed to remove unsafe bottle directory: {created_path}",
-                        jn=True,
-                    )
             return Result(False, data={"config": config}, message=message)
 
         cancel_result = check_cancel()
@@ -2017,35 +1728,10 @@ class Manager(metaclass=Singleton):
         # apply environment configuration
         logging.info(f"Applying environment: [{environment}]…")
         log_update(_("Applying environment: {0}…").format(environment))
-        env = None
-
         cancel_result = check_cancel()
         if cancel_result is not None:
             return cancel_result
-
-        if configuration is not None:
-            env = {
-                "Parameters": {},
-                "Installed_Dependencies": config.Installed_Dependencies,
-            }
-        elif environment.lower() not in ["custom"]:
-            env = Samples.environments[environment.lower()]
-        elif custom_environment:
-            try:
-                with open(custom_environment, "r", encoding="utf-8") as f:
-                    env = yaml.load(f.read())
-                    logging.warning("Using a custom environment recipe…")
-                    log_update(_("(!) Using a custom environment recipe…"))
-            except (
-                FileNotFoundError,
-                PermissionError,
-                UnicodeError,
-                yaml.YAMLError,
-            ):
-                logging.error("Recipe not not found or not valid…")
-                log_update(_("(!) Recipe not not found or not valid…"))
-                return Result(False)
-
+        if custom_environment:
             wineboot.kill()
 
         if env:
@@ -2159,7 +1845,9 @@ class Manager(metaclass=Singleton):
         if cancel_result is not None:
             return cancel_result
 
-        config.dump(f"{bottle_complete_path}/bottle.yml")
+        saved = config.dump(f"{bottle_complete_path}/bottle.yml")
+        if not saved.ok:
+            return saved
 
         if versioning:
             # create first state if versioning enabled
@@ -2193,11 +1881,12 @@ class Manager(metaclass=Singleton):
             Drives(config).remove_drive("Z")
 
         # caching template
-        if configuration is None and (not template or template_updated):
+        if configuration is None and not custom_environment and (not template or template_updated):
             logging.info("Caching template…")
             log_update(_("Caching template…"))
             TemplateManager.new(environment, config)
 
+        BottleIndex().register(bottle_complete_path)
         return Result(status=True, data={"config": config})
 
     def get_default_runner(self) -> str:
@@ -2559,6 +2248,26 @@ class Manager(metaclass=Singleton):
         Perform wineserver shutdown and delete the bottle.
         TODO: will be replaced by the BottlesManager class.
         """
+        try:
+            path = bottle_directory(ManagerUtils.get_bottle_path(config))
+            if path not in BottleIndex().entries():
+                raise ValueError("Only a registered bottle can be deleted.")
+            with bottle_operation(path):
+                return self._delete_bottle(config, path)
+        except (OSError, ValueError, RuntimeError, sqlite3.IntegrityError, yaml.YAMLError) as error:
+            logging.error(str(error))
+            return False
+
+    def forget_bottle(self, config: BottleConfig) -> bool:
+        path = ManagerUtils.get_bottle_path(config)
+        tracker = self._playtime_trackers.pop(path, None)
+        if tracker:
+            tracker.shutdown()
+        BottleIndex().forget(path)
+        self.check_bottles(silent=True)
+        return True
+
+    def _delete_bottle(self, config: BottleConfig, path: str) -> bool:
         logging.info("Stopping bottle…")
         wineserver = WineServer(config)
 
@@ -2586,17 +2295,11 @@ class Manager(metaclass=Singleton):
             if entry.get("bottle").get("name") == config.Name:
                 library_manager.remove_from_library(_uuid)
 
-        if config.Custom_Path:
-            logging.info("Removing placeholder…")
-            placeholder_path = os.path.join(
-                Paths.bottles, os.path.basename(config.Path)
-            )
-            if not FileUtils.remove_path(placeholder_path):
-                logging.debug(f"Failed to remove placeholder at {placeholder_path}")
-
-        logging.info("Removing the bottle…")
-        path = ManagerUtils.get_bottle_path(config)
-        subprocess.run(["rm", "-rf", path], stdout=subprocess.DEVNULL)
+        tracker = self._playtime_trackers.pop(path, None)
+        if tracker:
+            tracker.shutdown()
+        shutil.rmtree(path)
+        BottleIndex().forget(path)
 
         # The UI invokes delete_bottle in a worker thread. Refresh only the
         # backend state here; its RunAsync callback rebuilds the GTK list on
@@ -2616,13 +2319,13 @@ class Manager(metaclass=Singleton):
         logging.info(f"Trying to repair the bottle: [{config.Name}]…")
 
         wineboot = WineBoot(config)
-        bottle_path = f"{Paths.bottles}/{config.Name}"
+        bottle_path = ManagerUtils.get_bottle_path(config)
 
         # create new config with path as name and Custom environment
         new_config = BottleConfig()
         new_config.Name = config.Name
         new_config.Runner = self.get_default_runner()
-        new_config.Path = config.Name
+        new_config.Path = bottle_path
         new_config.Environment = "Custom"
         new_config.Creation_Date = str(datetime.now())
         new_config.Update_Date = str(datetime.now())
@@ -2752,13 +2455,13 @@ class Manager(metaclass=Singleton):
         """Cleanup only truly orphaned or stuck bottles."""
         logging.info("Starting shutdown cleanup …")
 
+        known_prefixes = {ManagerUtils.get_bottle_path(config) for config in self.local_bottles.values()}
         active_bottle_ids = []
-        if hasattr(self, "playtime_tracker"):
-            with self.playtime_tracker._lock:
-                active_bottle_ids = [
-                    s.bottle_id for s in self.playtime_tracker._tracked.values()
-                ]
-            self.playtime_tracker.shutdown()
+        for tracker in self._playtime_trackers.values():
+            with tracker._lock:
+                active_bottle_ids.extend(session.bottle_id for session in tracker._tracked.values())
+            tracker.shutdown()
+        self._playtime_trackers.clear()
 
         protected_prefixes = set()
         for b_id in active_bottle_ids:
@@ -2778,6 +2481,8 @@ class Manager(metaclass=Singleton):
                 for var in env.split("\x00"):
                     if var.startswith("WINEPREFIX="):
                         prefix = var.split("=", 1)[1]
+                        if prefix not in known_prefixes:
+                            continue
                         if prefix not in prefix_to_procs:
                             prefix_to_procs[prefix] = []
                         prefix_to_procs[prefix].append(proc)

@@ -11,7 +11,7 @@ def test_uniqueness_retry_smoke(manager):
     First session finalizes, second begins at the same timestamp. Unique(bottle_id, program_id, started_at)
     would collide, but start_session should bump started_at to avoid IntegrityError.
     """
-    tracker = manager.playtime_tracker
+    tracker = manager.get_playtime_tracker("b1")
     assert tracker is not None
 
     with freeze_time("2025-01-02 00:00:00"):

@@ -170,7 +170,7 @@ def test_manage_entry_uses_detected_state():
     assert calls == ["remove"]
 
 
-def test_program_widget_switches_desktop_entry_action(monkeypatch):
+def test_program_widget_switches_desktop_entry_action(monkeypatch, tmp_path):
     toasts = []
 
     class LibraryManager:
@@ -207,7 +207,7 @@ def test_program_widget_switches_desktop_entry_action(monkeypatch):
     )
     entry = ProgramEntry(
         window,
-        BottleConfig(Name="Games", Path="Games"),
+        BottleConfig(Name="Games", Path=str(tmp_path)),
         {
             "name": "Test Program",
             "id": "test-program",

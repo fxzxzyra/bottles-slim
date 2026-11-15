@@ -12,7 +12,7 @@ from bottles.backend.wine.executor import WineExecutor
 
 @pytest.mark.parametrize("outcome", ["success", "failure", "exception"])
 def test_executor_persists_launch_outcome(manager, tmp_path, mocker, outcome):
-    config = BottleConfig(Name="b1", Path=str(tmp_path / "prefix"), Custom_Path=True)
+    config = manager.local_bottles["b1"]
     executor = WineExecutor(config=config, exec_path="C:/Office/editor.exe")
     # Conversion is real and must not turn a forward-slash Windows path into
     # an empty working directory. Only the actual Wine launch is substituted.
@@ -37,7 +37,7 @@ def test_executor_persists_launch_outcome(manager, tmp_path, mocker, outcome):
         boundary.assert_called_once_with(executor)
 
     expected_status = "success" if outcome == "success" else "unknown"
-    with sqlite3.connect(manager.playtime_tracker.db_path) as connection:
+    with sqlite3.connect(manager.get_playtime_tracker("b1").db_path) as connection:
         assert connection.execute(
             "SELECT bottle_id, program_path, status, duration_seconds FROM sessions"
         ).fetchall() == [("b1", r"C:\Office\editor.exe", expected_status, 37)]
