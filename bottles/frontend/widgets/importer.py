@@ -50,8 +50,11 @@ class ImporterEntry(Adw.ActionRow):
         self.set_title(prefix.get("Name"))
         self.label_manager.set_text(prefix.get("Manager"))
 
-        if prefix.get("Lock"):
-            self.img_lock.set_visible(True)
+        registered = bool(prefix.get("Lock"))
+        self.img_lock.set_visible(registered)
+        self.btn_import.set_visible(not registered)
+        existing = os.path.isfile(os.path.join(prefix["Path"], "bottle.yml"))
+        self.btn_import.set_label(_("Register") if existing else _("Copy…"))
 
         self.label_manager.add_css_class("tag-%s" % prefix.get("Manager").lower())
 
@@ -65,16 +68,17 @@ class ImporterEntry(Adw.ActionRow):
     def import_wineprefix(self, widget):
         @GtkUtils.run_in_main_loop
         def set_imported(result, error=False):
-            self.btn_import.set_visible(not result.ok)
-            self.img_lock.set_visible(result.ok)
+            success = not error and result is not None and result.ok
+            self.btn_import.set_visible(not success)
+            self.img_lock.set_visible(success)
 
-            if result.ok:
+            if success:
                 self.window.show_toast(
                     _('"{0}" imported').format(self.prefix.get("Name"))
                 )
 
             else:
-                self.window.show_toast(str(error) if error else result.message or _("Import failed"))
+                self.window.show_toast(str(error) if error else (result.message if result else "") or _("Import failed"))
             self.set_sensitive(True)
 
         if os.path.isfile(os.path.join(self.prefix["Path"], "bottle.yml")):

@@ -19,7 +19,6 @@ def _write_cover(path: Path) -> None:
 
 @pytest.fixture
 def library_manager(monkeypatch, tmp_path):
-    library_path = tmp_path / "library.yml"
     bottle_path = tmp_path / "bottle"
     bottle_path.mkdir(mode=0o700)
     (bottle_path / "drive_c").mkdir()
@@ -27,7 +26,6 @@ def library_manager(monkeypatch, tmp_path):
     from bottles.backend.managers.storage import BottleIndex
     BottleIndex().register(str(bottle_path))
 
-    monkeypatch.setattr(LibraryManager, "library_path", str(library_path))
     monkeypatch.setattr(
         ManagerUtils,
         "get_bottle_path",
@@ -268,11 +266,15 @@ def test_import_thumbnail_reuses_identical_cover(tmp_path, library_manager):
 
 
 def test_add_to_library_returns_persisted_entry_id(library_manager):
-    manager, _bottle_path = library_manager
+    manager, bottle_path = library_manager
     data = _entry()
     data["thumbnail"] = "grid:existing.png"
+    original = dict(data)
 
     entry_uuid = manager.add_to_library(data, BottleConfig(Name="Games", Path="Games"))
 
     assert isinstance(entry_uuid, str)
-    assert LibraryManager().get_library()[entry_uuid] == data
+    assert LibraryManager().get_library()[entry_uuid] == dict(
+        data, bottle={"name": "Games", "path": str(bottle_path)}
+    )
+    assert data == original

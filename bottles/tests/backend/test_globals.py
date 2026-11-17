@@ -25,9 +25,8 @@ def test_wine_compatible_base_keeps_safe_path(tmp_path, monkeypatch):
 
 
 def test_wine_compatible_base_uses_flatpak_data_mount(tmp_path, monkeypatch):
-    base = tmp_path / "user." / "data" / "bottles"
-    data_home = base.parent
-    data_home.mkdir(parents=True)
+    base = tmp_path / "user." / "data"
+    base.mkdir(parents=True)
     original_isdir = Path.is_dir
     monkeypatch.setenv("FLATPAK_ID", "com.usebottles.bottles")
     monkeypatch.setattr(
@@ -36,10 +35,10 @@ def test_wine_compatible_base_uses_flatpak_data_mount(tmp_path, monkeypatch):
     )
     monkeypatch.setattr(
         "bottles.backend.globals.os.path.samefile",
-        lambda first, second: first == str(data_home) and second == "/var/data",
+        lambda first, second: first == str(base) and second == "/var/data",
     )
 
-    assert _get_wine_compatible_base(str(base)) == "/var/data/bottles"
+    assert _get_wine_compatible_base(str(base)) == "/var/data"
 
 
 def test_windows_unsafe_component_detects_trailing_space():

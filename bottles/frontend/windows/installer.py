@@ -142,7 +142,7 @@ class InstallerDialog(Adw.Window):
             "deps": _("Installing Windows dependencies…"),
             "params": _("Configuring the bottle…"),
             "steps": _("Processing installer steps…"),
-            "exe": _("Installing the {}…".format(installer[1].get("Name"))),
+            "exe": _("Installing the {}…").format(installer[1].get("Name")),
             "checks": _("Performing final checks…"),
         }
 

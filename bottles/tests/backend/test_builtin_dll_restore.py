@@ -10,9 +10,8 @@ from bottles.backend.models.result import Result
 from bottles.backend.utils.manager import ManagerUtils
 
 
-@pytest.mark.parametrize("steam", [False, True])
 @pytest.mark.parametrize("component", [DXVKComponent, VKD3DComponent])
-@pytest.mark.parametrize("layout", ["lib", "lib64", "files/lib", "dist/lib64"])
+@pytest.mark.parametrize("layout", ["lib", "lib64"])
 @pytest.mark.parametrize(
     "bottle_arch, windows_arch, system",
     [
@@ -22,14 +21,10 @@ from bottles.backend.utils.manager import ManagerUtils
     ],
 )
 def test_uninstall_restores_matching_builtin_without_backup(
-    monkeypatch, tmp_path, component, layout, bottle_arch, windows_arch, system, steam
+    monkeypatch, tmp_path, component, layout, bottle_arch, windows_arch, system
 ):
     runner = tmp_path / "runner"
     runner.mkdir()
-    if "/" in layout:
-        (runner / "toolmanifest.vdf").write_text(
-            '"manifest"\n{\n    "compatmanager_layer_name" "proton"\n}\n'
-        )
     name = next(iter(component.dlls.values()))[0]
     builtin = runner / layout / "wine" / f"{windows_arch}-windows" / name
     builtin.parent.mkdir(parents=True)
@@ -51,9 +46,7 @@ def test_uninstall_restores_matching_builtin_without_backup(
     config = BottleConfig(
         Path=str(prefix),
         Arch=bottle_arch,
-        Environment="Steam" if steam else "",
         RunnerPath=str(runner),
-        CompatData=str(prefix) if steam else "",
     )
     monkeypatch.setattr(ManagerUtils, "get_runner_path", lambda _runner: str(runner))
     monkeypatch.setattr(

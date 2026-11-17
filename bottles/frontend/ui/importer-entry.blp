@@ -17,6 +17,7 @@ Popover pop_actions {
 }
 
 template $ImporterEntry: Adw.ActionRow {
+  use-markup: false;
   /* Translators: A Wine prefix is a separate environment (C:\ drive) for the Wine program */
   title: _("Wine prefix name");
 
@@ -35,7 +36,7 @@ template $ImporterEntry: Adw.ActionRow {
 
     Image img_lock {
       visible: false;
-      tooltip-text: _("This Wine prefix was already imported in Bottles.");
+      tooltip-text: _("This Wine prefix is already registered in Bottles");
       valign: center;
       icon-name: "channel-secure-symbolic";
 
@@ -48,9 +49,7 @@ template $ImporterEntry: Adw.ActionRow {
     Button btn_import {
       valign: center;
 
-      Image {
-        icon-name: "document-save-symbolic";
-      }
+      label: _("Import…");
 
       styles [
         "flat",

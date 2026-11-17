@@ -31,8 +31,7 @@ from bottles.frontend.utils.sandbox_guard import guard_sandbox_launch
 
 
 def _bottle_order_id(config: BottleConfig) -> str:
-    group = "steam" if config.Environment == "Steam" else "bottle"
-    return f"{group}:{config.Path}"
+    return f"bottle:{config.Path}"
 
 
 def _ordered_bottles(configs, configured_order):
@@ -106,7 +105,7 @@ class BottlesBottleRow(Adw.ActionRow):
         self.wrap_box.append(Gtk.Label.new(self.config.Environment))
 
         # Set tooltip text
-        self.button_run.set_tooltip_text(_(f"Run executable in “{self.config.Name}”"))
+        self.button_run.set_tooltip_text(_("Run Executable in “{0}”").format(self.config.Name))
 
     def __reorder(self, _button, position):
         self.reorder_callback(self, position)
@@ -174,9 +173,7 @@ class BottleView(Adw.Bin):
 
     # region Widgets
     list_bottles = Gtk.Template.Child()
-    list_steam = Gtk.Template.Child()
     group_bottles = Gtk.Template.Child()
-    group_steam = Gtk.Template.Child()
     pref_page = Gtk.Template.Child()
     bottle_status = Gtk.Template.Child()
     btn_create = Gtk.Template.Child()
@@ -215,7 +212,6 @@ class BottleView(Adw.Bin):
         """
         terms = widget.get_text()
         self.list_bottles.set_filter_func(self.__filter_bottles, terms)
-        self.list_steam.set_filter_func(self.__filter_bottles, terms)
         self.__update_empty_state(terms)
 
     @staticmethod
@@ -237,9 +233,6 @@ class BottleView(Adw.Bin):
         while self.list_bottles.get_first_child():
             self.list_bottles.remove(self.list_bottles.get_first_child())
 
-        while self.list_steam.get_first_child():
-            self.list_steam.remove(self.list_steam.get_first_child())
-
         local_bottles = self.window.manager.local_bottles
 
         configured_order = self.window.settings.get_strv("bottle-order")
@@ -249,20 +242,10 @@ class BottleView(Adw.Bin):
             _entry = BottlesBottleRow(self.window, config, self.__reorder_bottle)
             self.__bottles[config.Path] = _entry
 
-            if config.Environment != "Steam":
-                self.list_bottles.append(_entry)
-            else:
-                self.list_steam.append(_entry)
-
-            if self.list_steam.get_first_child() is None:
-                self.group_steam.set_visible(False)
-                self.group_bottles.set_title("")
-            else:
-                self.group_steam.set_visible(True)
-                self.group_bottles.set_title(_("Your Bottles"))
+            self.list_bottles.append(_entry)
 
         for path, error in self.window.manager.unavailable_bottles.items():
-            row = Adw.ActionRow(title=path, subtitle=error)
+            row = Adw.ActionRow(use_markup=False, title=path, subtitle=error)
             remove = Gtk.Button(label=_("Remove from List"), valign=Gtk.Align.CENTER)
             def forget(_button, path=path):
                 from bottles.backend.managers.storage import BottleIndex
@@ -285,11 +268,7 @@ class BottleView(Adw.Bin):
         configs = _ordered_bottles(
             list(self.window.manager.local_bottles.values()), configured_order
         )
-        group = [
-            config
-            for config in configs
-            if (config.Environment == "Steam") == (row.config.Environment == "Steam")
-        ]
+        group = configs
         index = group.index(row.config)
         destinations = {
             "top": 0,
@@ -311,18 +290,12 @@ class BottleView(Adw.Bin):
         self.update_bottles_list(refresh_updates=False)
 
     def __update_reorder_states(self, configs):
-        for steam_group in (False, True):
-            group = [
-                config
-                for config in configs
-                if (config.Environment == "Steam") == steam_group
-            ]
-            for index, config in enumerate(group):
-                self.__bottles[config.Path].set_reorder_state(
-                    can_move_up=index > 0,
-                    can_move_down=index < len(group) - 1,
-                    visible=len(group) > 1,
-                )
+        for index, config in enumerate(configs):
+            self.__bottles[config.Path].set_reorder_state(
+                can_move_up=index > 0,
+                can_move_down=index < len(configs) - 1,
+                visible=len(configs) > 1,
+            )
 
     def update_component_updates_banner(self) -> None:
         self.__update_banner_state(self.window.manager.local_bottles)

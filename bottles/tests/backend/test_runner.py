@@ -52,12 +52,6 @@ def test_runner_update_unlinks_only_new_user_profile(monkeypatch, tmp_path, runn
         Runner="soda-9.0",
     )
     monkeypatch.setattr(runner_module, "WineBoot", WineBoot)
-    monkeypatch.setattr(
-        runner_module.RuntimeManager, "get_runtimes", lambda _runtime: []
-    )
-    monkeypatch.setattr(
-        runner_module.SteamUtils, "is_proton", lambda _runner_path: False
-    )
 
     result = Runner.runner_update(config, Manager(), "system-wine")
 

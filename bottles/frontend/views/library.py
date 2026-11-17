@@ -15,14 +15,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import contextlib
 from gettext import gettext as _
 
 from gi.repository import Adw, GObject, Gtk
 
 from bottles.backend.managers.library import LibraryManager
 from bottles.frontend.utils.gtk import GtkUtils
-from bottles.frontend.widgets.library import LibraryAddEntry, LibraryEntry
+from bottles.frontend.widgets.library import LibraryEntry, LibraryEntryInitializationError
 
 
 def _ordered_library_entries(entries):
@@ -37,6 +36,8 @@ class LibraryView(Adw.Bin):
     __gtype_name__ = "LibraryView"
 
     # region Widgets
+    library_stack = Gtk.Template.Child()
+    btn_browse_bottles = Gtk.Template.Child()
     scroll_window = Gtk.Template.Child()
     main_flow = Gtk.Template.Child()
     style_provider = Gtk.CssProvider()
@@ -47,6 +48,7 @@ class LibraryView(Adw.Bin):
     def __init__(self, window, **kwargs):
         super().__init__(**kwargs)
         self.window = window
+        self.btn_browse_bottles.connect("clicked", self.show_bottle_programs)
         self.css = b""
         self.update()
 
@@ -59,20 +61,18 @@ class LibraryView(Adw.Bin):
 
         entry_count = 0
         for u, e in _ordered_library_entries(entries):
-            with contextlib.suppress(Exception):
+            try:
                 entry = LibraryEntry(self, u, e)
-                self.main_flow.append(entry)
-                entry_count += 1
+            except LibraryEntryInitializationError:
+                continue
+            self.main_flow.append(entry)
+            entry_count += 1
 
-        if entry_count == 0:
-            self.main_flow.append(LibraryAddEntry(self))
+        self.library_stack.set_visible_child_name("programs" if entry_count else "empty")
         self.items_per_line = max(entry_count, 1)
 
     def show_bottle_programs(self, *_args):
         self.window.show_list_view()
-        self.window.show_toast(
-            _("Open a Bottle and choose Add to Library from one of its programs.")
-        )
 
     def remove_entry(self, entry):
         previous_items_per_line = self.items_per_line

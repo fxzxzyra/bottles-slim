@@ -9,17 +9,17 @@
 | GSettings | 交给原生 GSettings 后端；常见为 `~/.config/dconf/user`，不复制进 data.yml |
 | 应用日志、崩溃报告 | `~/.local/state/bottles/{journal.yml,crash.log}` |
 | 下载包、仓库清单缓存和可重新生成的模板 | `~/.cache/bottles/{temp,templates}` |
-| 瓶子路径索引、用户 runner/运行库/图形组件与 Eagle 数据库 | `~/.local/share/bottles/` |
+| 瓶子路径索引、共享运行库/图形组件与 Eagle 数据库 | `~/.local/share/bottles/` |
 | 桌面入口和图标 | 标准 XDG data 下的 `applications/` 与 `icons/` |
 
 尊重 `XDG_CONFIG_HOME`、`XDG_DATA_HOME`、`XDG_CACHE_HOME`、`XDG_STATE_HOME`。
-Flatpak 内沿用其提供的 XDG 环境，保留 Wine 路径兼容处理；用户自定义容器位置不被重排。
+Flatpak 的 XDG 目录已经按应用隔离，直接使用各自根目录，不再追加 `bottles/`：例如宿主的 `~/.var/app/com.usebottles.bottles/data/bottles.sqlite` 与 `config/data.yml`。原生安装保留表中的 `bottles/` 应用命名空间。Wine 访问含尾随点或空格的宿主路径时，使用等价的 `/var/data` 挂载路径；用户选择的瓶子目录不被重排。
 容器内部的 `bottle.yml`、Windows 目录、注册表、程序及着色器缓存属于 Wine 环境，不搬进应用配置目录。
 瓶子没有默认存放目录。创建时必须选择已有的空目录，该目录直接作为根目录，不追加名称、不创建占位目录。
 目标必须属于当前用户；创建时将空根目录设为 0700，不提权、不更改父目录或所有权。导入要求根目录已经私有且可读写，不自动修改权限。
 瓶子配置、程序库、运行统计与瓶子缓存分别存放在根目录的 `bottle.yml`、`library.yml`、`process_metrics.sqlite` 与 `cache/`；Gamescope 和注册表临时脚本位于 `cache/temp/`。
 配置使用独立标识，不保存瓶子的绝对位置或本次启动参数；改名保持标识，移动目录后可重新导入。外部程序路径仍由用户负责保持有效。
-`${XDG_DATA_HOME}/bottles/bottles.sqlite` 只登记当前用户选择的路径与显示名称。读取索引不创建数据库；磁盘不可用时保留登记并显示错误。
+应用数据根目录中的 `bottles.sqlite` 只登记当前用户选择的路径与显示名称。读取索引不创建数据库；磁盘不可用时保留登记并显示错误。
 复制会获得新标识并从空的运行统计开始；备份恢复保留原标识。
 “从列表移除”只删除登记；“删除文件”会停止瓶子并删除它的目录。瓶子之间不共享 prefix 或个人数据。
 
@@ -41,7 +41,7 @@ Flatpak 需要获得所选宿主目录的实际访问权限；文档 portal 的�
 | GUI/CLI 启动器 | `${bindir}/bottles`、`${bindir}/bottles-cli` |
 | GResource、Eagle 只读数据库与规则 | `${datadir}/bottles/resources/` |
 | 系统 runner | `${datadir}/bottles/runners/<名称>/`；由构建时的 prefix/datadir 确定，不附加其它前缀的目录 |
-| 用户 runner | `${XDG_DATA_HOME}/bottles/runners/<名称>/`，另可登记外部目录 |
+| 用户 runner | 用户在设置的 Runners 页就地登记名称与目录；不设默认存放位置，不复制、不更新、不删除 runner 文件 |
 
 `site-packages` / `dist-packages` 的实际路径由解释器和打包者确定，不拼接 Python 版本或固定 `/usr/lib`。发行版可用 Meson 的 `-Dpython.purelibdir=...` 选择其规则；没有把 Bottles 作为稳定公共 Python API 的承诺。
 静态资源不是 Python 模块，不把资源目录加入 `sys.path`。启动器只加入构建时确定的 Python 安装目录，资源路径与模块路径分别配置。
@@ -65,3 +65,9 @@ Vulkan 通过 `ctypes` 加载系统 `libvulkan.so.1`，调用
 
 该探测覆盖当前 Python 进程 ABI 的 Vulkan 1.0 实例与设备枚举。软件 Vulkan 设备同样是有效实现；它不证明 32 位驱动、WSI 呈现、特定 DXVK 所需扩展或游戏性能。
 原诊断入口返回原生探测摘要；不再输出 `vulkaninfo` 的完整硬件报告。结果按进程缓存，驱动环境改变后重启应用。
+
+用户 runner 只读取显式登记项，不扫描应用数据目录。登记保存独立标识、名称和绝对路径；修改名称或位置保持标识，已配置瓶子无需重选。失效登记保留可编辑；瓶子仍在使用时不允许取消登记。系统 runner 与当前环境 PATH Wine 继续自动发现，并优先于用户登记项。
+
+程序库只汇总各已登记瓶子内的 `library.yml`，不再读取或写入应用数据根目录下的全局 `library.yml`。同一程序 ID 可存在于不同瓶子，去重只在所属瓶子内进行。
+
+HIDRAW 设备偏好通过通用 Wine 的 `HKLM\System\CurrentControlSet\Services\winebus\EnableHidraw` 多字符串值设置，不依赖 runner 名称或 Proton 环境变量。它是 Wine 的设备偏好，并非按设备隔离的权限边界；Flatpak 独立沙箱的 HIDRAW 访问需要更广的设备权限。注册表导入使用瓶子内的私有临时文件，结束后清理。

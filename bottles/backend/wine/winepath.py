@@ -38,9 +38,7 @@ class WinePath(WineProgram):
     ):
         if native:
             bottle_path = os.path.realpath(
-                self.config.Path
-                if self.config.Environment == "Steam"
-                else ManagerUtils.get_bottle_path(self.config)
+                ManagerUtils.get_bottle_path(self.config)
             )
             path = path.replace("\\", "/")
             path = path.replace(
@@ -69,9 +67,7 @@ class WinePath(WineProgram):
             if self.is_windows(path):
                 return self.__clean_path(path)
             bottle_path = os.path.realpath(
-                self.config.Path
-                if self.config.Environment == "Steam"
-                else ManagerUtils.get_bottle_path(self.config)
+                ManagerUtils.get_bottle_path(self.config)
             )
             path = os.path.realpath(path)
             if "/drive_" in path:

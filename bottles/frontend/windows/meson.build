@@ -22,7 +22,6 @@ bottles_sources = [
   'generic_cli.py',
   'journal.py',
   'bottlepicker.py',
-  'protonalert.py',
   'bulkupdate.py',
   'sandbox.py',
   'installer.py',

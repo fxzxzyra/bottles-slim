@@ -25,7 +25,6 @@ from pathlib import Path
 
 import gi
 
-from bottles.backend.globals import Paths
 from bottles.backend.logger import Logger
 from bottles.backend.managers.steamgriddb import SteamGridDBManager
 from bottles.backend.models.config import BottleConfig
@@ -45,10 +44,9 @@ LOCAL_COVER_EXTENSIONS = (".png", ".jpg", ".jpeg", ".webp")
 class LibraryManager:
     """
     The LibraryManager class is used to store and retrieve data
-    from the user library.yml file.
+    from each registered bottle's library.yml file.
     """
 
-    library_path: str = Paths.library
     __library: dict = {}
 
     def __init__(self):
@@ -61,14 +59,12 @@ class LibraryManager:
         self.__library = {}
         self._bottle_libraries = {}
         self._stored = {}
-        sources = {self.library_path: None}
         for path, name in BottleIndex().entries().items():
             try:
                 bottle_directory(path)
             except OSError:
                 continue
-            sources[os.path.join(path, "library.yml")] = (path, name)
-        for file, bottle in sources.items():
+            file = os.path.join(path, "library.yml")
             entries = {}
             if os.path.isfile(file):
                 with open(file) as stream:
@@ -76,16 +72,18 @@ class LibraryManager:
                 if not isinstance(entries, dict):
                     raise ValueError("Invalid library: " + file)
             self._stored[file] = deepcopy(entries)
-            if bottle:
-                path, name = bottle
-                self._bottle_libraries[path] = file
-                entries = {key: dict(value, bottle={"name": name, "path": path}) for key, value in entries.items()}
-            self.__library.update(entries)
+            self._bottle_libraries[path] = file
+            self.__library.update({
+                key: dict(value, bottle={"name": name, "path": path})
+                for key, value in entries.items()
+            })
 
     def add_to_library(self, data: dict, config: BottleConfig):
         """
         Adds a new entry to the library.yml file.
         """
+        path = ManagerUtils.get_bottle_path(config)
+        data = dict(data, bottle={"name": config.Name, "path": path})
         if self.__already_in_library(data):
             logging.warning(f"Entry already in library, nothing to add: {data}")
             return
@@ -107,10 +105,7 @@ class LibraryManager:
             except Exception as e:
                 logging.warning(f"Could not fetch thumbnail: {e}")
 
-        if config.Environment != "Steam":
-            path = ManagerUtils.get_bottle_path(config)
-            data["bottle"] = {"name": config.Name, "path": path}
-            self._bottle_libraries[path] = os.path.join(path, "library.yml")
+        self._bottle_libraries[path] = os.path.join(path, "library.yml")
         self.__library[_uuid] = data
         self.save_library()
         return _uuid
@@ -224,7 +219,7 @@ class LibraryManager:
         Checks if the entry UUID is already in the library.yml file.
         """
         for k, v in self.__library.items():
-            if v["id"] == data["id"]:
+            if (v["id"], v["bottle"]["path"]) == (data["id"], data["bottle"]["path"]):
                 return True
 
         return False
@@ -255,21 +250,16 @@ class LibraryManager:
         Saves the library.yml file.
         """
         files = {file: {} for file in self._bottle_libraries.values()}
-        files[self.library_path] = {}
         for key, entry in self.__library.items():
             entry = dict(entry)
             path = entry.get("bottle", {}).get("path")
-            file = self._bottle_libraries.get(path, self.library_path)
-            if file != self.library_path:
-                entry.pop("bottle")
+            file = self._bottle_libraries[path]
+            entry.pop("bottle")
             files[file][key] = entry
         for file, entries in files.items():
             if entries == self._stored.get(file, {}):
                 continue
-            if file == self.library_path:
-                os.makedirs(os.path.dirname(file), mode=0o700, exist_ok=True)
-            else:
-                bottle_directory(os.path.dirname(file))
+            bottle_directory(os.path.dirname(file))
             fd, temporary = tempfile.mkstemp(dir=os.path.dirname(file), prefix=".library-")
             try:
                 with os.fdopen(fd, "w") as stream:

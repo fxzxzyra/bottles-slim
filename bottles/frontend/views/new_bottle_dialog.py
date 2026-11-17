@@ -71,6 +71,7 @@ class BottlesNewBottleDialog(Adw.Dialog):
     scrolled_steps = Gtk.Template.Child()
     btn_cancel_creating = Gtk.Template.Child()
     combo_runner = Gtk.Template.Child()
+    btn_manage_runners = Gtk.Template.Child()
     combo_arch = Gtk.Template.Child()
     str_list_arch = Gtk.Template.Child()
     str_list_runner = Gtk.Template.Child()
@@ -118,6 +119,8 @@ class BottlesNewBottleDialog(Adw.Dialog):
         self.btn_choose_env_reset.connect("clicked", self.__reset_env_recipe)
         self.btn_choose_path.connect("clicked", self.__choose_path)
         self.btn_choose_path_reset.connect("clicked", self.__reset_path)
+        self.btn_manage_runners.connect("clicked", self.__manage_runners)
+        self.combo_runner.connect("notify::selected", self.__check_entry_name)
         self.entry_name.connect("changed", self.__check_entry_name)
         self.entry_name.connect("entry-activated", self.__entry_activated)
         self.environment_list_box.connect(
@@ -128,15 +131,38 @@ class BottlesNewBottleDialog(Adw.Dialog):
         # Populate widgets
         self.label_choose_env.set_label(self.default_string)
         self.label_choose_path.set_label(_("Select an empty directory"))
-        self._runner_ids = list(self.manager.runners_available)
-        self.str_list_runner.splice(
-            0, 0, [format_runner_name(r) for r in self._runner_ids]
-        )
+        self._runner_ids = []
+        self.__refresh_runners()
         self.str_list_arch.splice(0, 0, list(self.arch.values()))
 
         self.selected_environment = (
             self.environment_list_box.get_first_child().environment
         )
+
+    def __refresh_runners(self) -> None:
+        selected = self.combo_runner.get_selected()
+        previous = self._runner_ids[selected] if selected < len(self._runner_ids) else None
+        self._runner_ids = list(self.manager.runners_available)
+        self.str_list_runner.splice(
+            0, self.str_list_runner.get_n_items(),
+            [format_runner_name(r) for r in self._runner_ids],
+        )
+        if previous in self._runner_ids:
+            self.combo_runner.set_selected(self._runner_ids.index(previous))
+        self.combo_runner.set_subtitle(
+            _("Choose the Wine installation used by this bottle") if self._runner_ids
+            else _("Register a runner in Preferences before creating a bottle")
+        )
+        self.__check_entry_name()
+
+    def __manage_runners(self, *_args: Any) -> None:
+        dialog = self.window.show_runners_preferences_view()
+
+        def closed(_dialog):
+            dialog.disconnect(handler)
+            self.__refresh_runners()
+
+        handler = dialog.connect("closed", closed)
 
     def __check_validity(self, *_args: Any) -> tuple[bool, bool]:
         is_empty = not self.entry_name.get_text().strip()
@@ -146,7 +172,8 @@ class BottlesNewBottleDialog(Adw.Dialog):
     def __check_entry_name(self, *_args: Any) -> None:
         is_empty, is_duplicate = self.__check_validity()
         is_invalid = is_empty or is_duplicate
-        self.btn_create.set_sensitive(not is_invalid and bool(self.custom_path))
+        runner_selected = self.combo_runner.get_selected() < len(self._runner_ids)
+        self.btn_create.set_sensitive(not is_invalid and bool(self.custom_path) and runner_selected)
         self.menu_duplicate.set_visible(is_duplicate)
 
         if is_invalid:
@@ -155,8 +182,7 @@ class BottlesNewBottleDialog(Adw.Dialog):
             self.entry_name.remove_css_class("error")
 
     def __entry_activated(self, *_args: Any) -> None:
-        if self.custom_path and not any(self.__check_validity()):
-            self.create_bottle()
+        self.create_bottle()
 
     def __remove_notifications(self, *_args: Any) -> None:
         self.app.withdraw_notification("bottle-created-completed")
@@ -227,6 +253,10 @@ class BottlesNewBottleDialog(Adw.Dialog):
         """Starts creating the bottle."""
         if not self.custom_path or any(self.__check_validity()):
             return
+        runner_index = self.combo_runner.get_selected()
+        if runner_index >= len(self._runner_ids):
+            return
+        self.runner = self._runner_ids[runner_index]
         # set widgets states
         self.set_can_close(False)
         self.stack_create.set_visible_child_name("page_creating")
@@ -234,13 +264,6 @@ class BottlesNewBottleDialog(Adw.Dialog):
         self.__reset_creation_steps()
         self.btn_cancel_creating.set_sensitive(True)
         self.btn_cancel_creating.set_label(_("_Cancel Creation"))
-
-        runner_index = self.combo_runner.get_selected()
-        self.runner = (
-            self._runner_ids[runner_index]
-            if runner_index < len(self._runner_ids)
-            else False
-        )
 
         self.__clear_creation_task()
 

@@ -17,7 +17,6 @@
 
 import contextlib
 import os
-import re
 from gettext import gettext as _
 
 from gi.repository import Adw, Gdk, Gtk
@@ -41,7 +40,6 @@ from bottles.backend.runner import Runner
 from bottles.backend.utils.display import DisplayUtils
 from bottles.backend.utils.gpu import GPUUtils, GPUVendors
 from bottles.backend.utils.manager import ManagerUtils
-from bottles.backend.utils.runners import RunnerRegistry
 from bottles.backend.utils.threading import RunAsync
 from bottles.backend.utils.vulkan import VulkanUtils
 from bottles.backend.wine.regkeys import RegKeys
@@ -54,7 +52,6 @@ from bottles.frontend.windows.envvars import EnvironmentVariablesDialog
 from bottles.frontend.windows.gamescope import GamescopeDialog
 from bottles.frontend.windows.lsfgvk import LsfgVkDialog
 from bottles.frontend.windows.mangohud import MangoHudDialog
-from bottles.frontend.windows.protonalert import ProtonAlertDialog
 from bottles.frontend.windows.sandbox import SandboxDialog
 from bottles.frontend.windows.vkbasalt import VkBasaltDialog, vkbasalt_config_available
 from bottles.frontend.windows.vmtouch import VmtouchDialog
@@ -656,7 +653,7 @@ class PreferencesView(Adw.PreferencesPage):
         self.entry_name.set_text(config.Name)
 
         self.row_cwd.set_subtitle(
-            _('Directory that contains the data of "{}".'.format(config.Name))
+            _('Directory that contains the data of "{}".').format(config.Name)
         )
 
         self.combo_language.set_selected(
@@ -771,7 +768,6 @@ class PreferencesView(Adw.PreferencesPage):
         self.combo_language.handler_unblock_by_func(self.__set_language)
         self.spin_frame_rate_limit.handler_unblock_by_func(self.__set_frame_rate_limit)
 
-        self.__set_steam_rules()
 
     def __show_display_settings(self, widget):
         new_window = DisplayDialog(
@@ -947,64 +943,15 @@ class PreferencesView(Adw.PreferencesPage):
             return
         runner = self._runner_ids[index]
 
-        def run_task(status=True):
-            if not status:
-                update(Result(True))
-                self.combo_runner.handler_block_by_func(self.__set_runner)
-                self.combo_runner.handler_unblock_by_func(self.__set_runner)
-                return
-
-            self.queue.add_task()
-            RunAsync(
-                Runner.runner_update,
-                callback=update,
-                config=self.config,
-                manager=self.manager,
-                runner=runner,
-            )
-
-        def apply_runner():
-            set_widgets_status(False)
-            if re.search("^(GE-)?Proton", RunnerRegistry.name(runner)):
-                dialog = ProtonAlertDialog(self.window, run_task)
-                dialog.show()
-            else:
-                run_task()
-
-        if self.config.Parameters.hidraw_devices and "soda" not in RunnerRegistry.name(runner).lower():
-            dialog = Adw.MessageDialog.new(
-                self.window,
-                _("HIDRAW support is not guaranteed"),
-                _(
-                    "Selective HIDRAW access is tested with Soda. The new "
-                    "runner may ignore it or behave differently. Continue anyway?"
-                ),
-            )
-            dialog.add_response("cancel", _("_Cancel"))
-            dialog.add_response("continue", _("_Continue"))
-            dialog.set_response_appearance(
-                "continue", Adw.ResponseAppearance.SUGGESTED
-            )
-            dialog.set_default_response("cancel")
-            dialog.set_close_response("cancel")
-
-            def on_response(_dialog, response):
-                if response == "continue":
-                    apply_runner()
-                    return
-
-                self.combo_runner.handler_block_by_func(self.__set_runner)
-                if self.config.Runner in self._runner_ids:
-                    self.combo_runner.set_selected(
-                        self._runner_ids.index(self.config.Runner)
-                    )
-                self.combo_runner.handler_unblock_by_func(self.__set_runner)
-
-            dialog.connect("response", on_response)
-            dialog.present()
-            return
-
-        apply_runner()
+        set_widgets_status(False)
+        self.queue.add_task()
+        RunAsync(
+            Runner.runner_update,
+            callback=update,
+            config=self.config,
+            manager=self.manager,
+            runner=runner,
+        )
 
     def __dll_component_task_func(self, *args, **kwargs):
         # Remove old version
@@ -1243,16 +1190,3 @@ class PreferencesView(Adw.PreferencesPage):
             self.spinner_latencyflex.stop()
             self.spinner_latencyflex.set_visible(False)
             self.queue.end_task()
-
-    def __set_steam_rules(self):
-        """Set the Steam Environment specific rules"""
-        status = self.config.Environment != "Steam"
-
-        for w in [
-            self.row_discrete,
-            self.combo_dxvk,
-            self.row_sandbox,
-            self.group_details,
-        ]:
-            w.set_visible(status)
-            w.set_sensitive(status)

@@ -55,7 +55,6 @@ class PreferencesDialog(Adw.PreferencesDialog):
     switch_home_drive = Gtk.Template.Child()
     switch_temp = Gtk.Template.Child()
     switch_release_candidate = Gtk.Template.Child()
-    switch_steam = Gtk.Template.Child()
     switch_auto_close = Gtk.Template.Child()
     switch_update_date = Gtk.Template.Child()
     switch_playtime_tracking = Gtk.Template.Child()
@@ -76,8 +75,6 @@ class PreferencesDialog(Adw.PreferencesDialog):
     btn_refresh_runners = Gtk.Template.Child()
     list_dlls = Gtk.Template.Child()
     action_prerelease = Gtk.Template.Child()
-    action_steam_proton = Gtk.Template.Child()
-    btn_steam_proton_doc = Gtk.Template.Child()
     entry_personal_components = Gtk.Template.Child()
     entry_personal_dependencies = Gtk.Template.Child()
     entry_personal_installers = Gtk.Template.Child()
@@ -194,12 +191,6 @@ class PreferencesDialog(Adw.PreferencesDialog):
             Gio.SettingsBindFlags.DEFAULT,
         )
         self.settings.bind(
-            "steam-proton-support",
-            self.switch_steam,
-            "active",
-            Gio.SettingsBindFlags.DEFAULT,
-        )
-        self.settings.bind(
             "auto-close-bottles",
             self.switch_auto_close,
             "active",
@@ -231,7 +222,7 @@ class PreferencesDialog(Adw.PreferencesDialog):
         )
 
         for index, (_code, name) in enumerate(UI_LANGUAGES):
-            self.str_list_ui_languages.append(_(name) if index == 0 else name)
+            self.str_list_ui_languages.append(_("System Default") if index == 0 else name)
         self.__sync_ui_language_selection()
         self.combo_ui_language.connect(
             "notify::selected", self.__on_ui_language_selected
@@ -277,19 +268,11 @@ class PreferencesDialog(Adw.PreferencesDialog):
         )
         self.btn_add_runner.connect("clicked", self.__choose_user_runner)
         self.btn_refresh_runners.connect("clicked", self.__refresh_runners)
-        self.btn_steam_proton_doc.connect("clicked", self.__open_steam_proton_doc)
         self.btn_cache_clear_all.connect("clicked", self.__confirm_clear_all_caches)
         self.btn_cache_clear_temp.connect("clicked", self.__confirm_clear_temp_cache)
         self.btn_cache_clear_templates.connect(
             "clicked", self.__confirm_clear_templates_cache
         )
-
-        if not self.manager.steam_manager.is_steam_supported:
-            self.switch_steam.set_sensitive(False)
-            self.action_steam_proton.set_tooltip_text(
-                _("Steam was not found or Bottles does not have enough permissions.")
-            )
-            self.btn_steam_proton_doc.set_visible(True)
 
         if not self.style_manager.get_system_supports_color_schemes():
             self.row_theme.set_visible(True)
@@ -353,10 +336,6 @@ class PreferencesDialog(Adw.PreferencesDialog):
     def __on_eagle_limit_changed(self, spin_row, _pspec):
         self.settings.set_int("eagle-scan-limit", int(spin_row.get_value()))
 
-    def __open_steam_proton_doc(self, widget):
-        webbrowser.open(
-            "https://docs.usebottles.com/flatpak/cant-enable-steam-proton-manager"
-        )
 
     def handle_restart(self, widget, response_id):
         if response_id == "restart":
@@ -569,30 +548,66 @@ class PreferencesDialog(Adw.PreferencesDialog):
         RunAsync(self.manager.check_runners, callback=completed)
 
     def __choose_user_runner(self, *_args):
-        def selected(dialog, response):
-            if response != Gtk.ResponseType.ACCEPT:
+        self.__runner_registration()
+
+    def __edit_user_runner(self, _button, identifier):
+        self.__runner_registration(identifier)
+
+    def __runner_registration(self, identifier=None):
+        registrations = self.manager.data_mgr.get(UserDataKeys.UserRunners) or {}
+        registration = registrations[identifier] if identifier else {}
+        dialog = Adw.AlertDialog(heading=_("Edit Runner") if identifier else _("Register Runner"))
+        group = Adw.PreferencesGroup()
+        name = Adw.EntryRow(title=_("Name"), use_markup=False, text=registration.get("name", ""))
+        directory = Adw.EntryRow(title=_("Directory"), use_markup=False, text=registration.get("path", ""))
+        choose = Gtk.Button(icon_name="folder-open-symbolic", valign=Gtk.Align.CENTER)
+        choose.set_tooltip_text(_("Select Runner Directory"))
+        directory.add_suffix(choose)
+        group.add(name)
+        group.add(directory)
+        dialog.set_extra_child(group)
+        dialog.add_response("cancel", _("Cancel"))
+        dialog.add_response("save", _("Save"))
+        dialog.set_response_appearance("save", Adw.ResponseAppearance.SUGGESTED)
+        dialog.set_default_response("save")
+        dialog.set_close_response("cancel")
+
+        def changed(*_args):
+            dialog.set_response_enabled("save", bool(name.get_text().strip() and directory.get_text().strip()))
+
+        def select_directory(*_args):
+            def selected(chooser, result):
+                try:
+                    chosen = chooser.select_folder_finish(result)
+                except GLib.Error:
+                    return
+                path = ManagerUtils.resolve_portal_path(chosen.get_path())
+                if not path or ("/run/user/" in path and "/doc/" in path):
+                    self.add_toast(Adw.Toast.new(_("Grant Bottles direct access to the runner directory, then select it again.")))
+                    return
+                directory.set_text(path)
+                if not name.get_text().strip():
+                    name.set_text(os.path.basename(os.path.normpath(path)))
+            chooser = Gtk.FileDialog(title=_("Select Runner Directory"), modal=True)
+            chooser.select_folder(self.get_root(), None, selected)
+
+        def save(_dialog, response):
+            if response != "save":
                 return
-            chosen = dialog.get_file()
-            path = ManagerUtils.resolve_portal_path(chosen.get_path()) if chosen else None
-            if not path or ("/run/user/" in path and "/doc/" in path):
-                self.add_toast(Adw.Toast.new(_(
-                    "Grant Bottles direct access to the runner directory, "
-                    "then select it again."
-                )))
-                return
-            result = self.manager.add_user_runner(path)
+            result = self.manager.register_user_runner(
+                name.get_text(), directory.get_text().strip(), identifier,
+            )
             if result.ok:
                 self.populate_runners_list()
             else:
                 self.add_toast(Adw.Toast.new(result.message))
 
-        dialog = Gtk.FileChooserNative.new(
-            title=_("Add Local Runner"), action=Gtk.FileChooserAction.SELECT_FOLDER,
-            parent=self,
-        )
-        dialog.set_modal(True)
-        dialog.connect("response", selected)
-        dialog.show()
+        name.connect("notify::text", changed)
+        directory.connect("notify::text", changed)
+        choose.connect("clicked", select_directory)
+        dialog.connect("response", save)
+        changed()
+        dialog.present(self)
 
     def __forget_user_runner(self, _button, identifier):
         result = self.manager.remove_user_runner(identifier)
@@ -608,8 +623,12 @@ class PreferencesDialog(Adw.PreferencesDialog):
         registrations = self.manager.data_mgr.get(UserDataKeys.UserRunners) or {}
         for identifier, info in RunnerRegistry.entries.items():
             group = self.system_runners if info.source == "system" else self.user_runners
-            row = Adw.ActionRow(title=format_runner_name(identifier), subtitle=info.root)
+            row = Adw.ActionRow(title=format_runner_name(identifier), subtitle=info.root, use_markup=False)
             if identifier in registrations:
+                edit = Gtk.Button(icon_name="document-edit-symbolic", valign=Gtk.Align.CENTER)
+                edit.set_tooltip_text(_("Edit Runner Registration"))
+                edit.connect("clicked", self.__edit_user_runner, identifier)
+                row.add_suffix(edit)
                 button = Gtk.Button(icon_name="list-remove-symbolic", valign=Gtk.Align.CENTER)
                 button.set_tooltip_text(_("Remove from list (keep files)"))
                 button.connect("clicked", self.__forget_user_runner, identifier)
@@ -617,9 +636,13 @@ class PreferencesDialog(Adw.PreferencesDialog):
             group.add(row)
             self.__runner_rows.append((group, row))
         # Keep broken explicit imports visible so they can be removed/re-added.
-        for identifier, path in registrations.items():
+        for identifier, registration in registrations.items():
             if identifier not in RunnerRegistry.entries:
-                row = Adw.ActionRow(title=_("Unavailable runner"), subtitle=path)
+                row = Adw.ActionRow(title=registration["name"], subtitle=_("Unavailable: {0}").format(registration["path"]), use_markup=False)
+                edit = Gtk.Button(icon_name="document-edit-symbolic", valign=Gtk.Align.CENTER)
+                edit.set_tooltip_text(_("Edit Runner Registration"))
+                edit.connect("clicked", self.__edit_user_runner, identifier)
+                row.add_suffix(edit)
                 button = Gtk.Button(icon_name="list-remove-symbolic", valign=Gtk.Align.CENTER)
                 button.connect("clicked", self.__forget_user_runner, identifier)
                 row.add_suffix(button)

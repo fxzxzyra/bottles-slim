@@ -38,22 +38,20 @@ def _has_windows_unsafe_component(path: str) -> bool:
     )
 
 
+def _application_home(path: str) -> str:
+    return path if "FLATPAK_ID" in os.environ else os.path.join(path, "bottles")
+
+
 def _get_wine_compatible_base(path: str) -> str:
     path = os.path.abspath(path)
-    if not _has_windows_unsafe_component(path):
-        return path
-
-    flatpak_data = "/var/data"
-    try:
-        data_home = os.path.dirname(path)
-        if (
-            "FLATPAK_ID" in os.environ
-            and os.path.isdir(flatpak_data)
-            and os.path.samefile(data_home, flatpak_data)
-        ):
-            return os.path.join(flatpak_data, os.path.relpath(path, data_home))
-    except OSError:
-        pass
+    if (
+        "FLATPAK_ID" in os.environ
+        and _has_windows_unsafe_component(path)
+        and os.path.isdir("/var/data")
+        and os.path.exists(path)
+        and os.path.samefile(path, "/var/data")
+    ):
+        return "/var/data"
     return path
 
 
@@ -67,10 +65,10 @@ class Paths:
     icons_user = f"{xdg_data_home}/icons"
 
     # Local paths
-    base = _get_wine_compatible_base(f"{xdg_data_home}/bottles")
-    config = f"{xdg_config_home}/bottles"
-    cache = f"{xdg_cache_home}/bottles"
-    state = f"{xdg_state_home}/bottles"
+    base = _get_wine_compatible_base(_application_home(xdg_data_home))
+    config = _application_home(xdg_config_home)
+    cache = _application_home(xdg_cache_home)
+    state = _application_home(xdg_state_home)
     user_settings = f"{config}/data.yml"
     journal = f"{state}/journal.yml"
     crash_log = f"{state}/crash.log"
@@ -81,19 +79,16 @@ class Paths:
     temp = f"{cache}/temp"
     runtimes = f"{base}/runtimes"
     winebridge = f"{base}/winebridge"
-    user_runners = f"{base}/runners"
     # The package configures this from prefix/datadir: /app/share for Flatpak,
     # or the selected native prefix. No host-specific fallback directories.
     system_runners = (SYSTEM_RUNNERS_DIR,) if os.path.isabs(SYSTEM_RUNNERS_DIR) else ()
     bottle_index = f"{base}/bottles.sqlite"
-    steam = f"{base}/steam"
     d7vk = f"{base}/d7vk"
     dxvk = f"{base}/dxvk"
     vkd3d = f"{base}/vkd3d"
     nvapi = f"{base}/nvapi"
     latencyflex = f"{base}/latencyflex"
     templates = f"{cache}/templates"
-    library = f"{base}/library.yml"
 
     @staticmethod
     def is_vkbasalt_available():

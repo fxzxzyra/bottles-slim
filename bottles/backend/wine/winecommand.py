@@ -1,14 +1,12 @@
 import os
 import re
 import shlex
-import shutil
 import stat
 import subprocess
 import tempfile
 from typing import Iterable, Optional
 
 from bottles.backend.globals import (
-    Paths,
     gamemode_available,
     gamescope_available,
     lsfg_vk_version,
@@ -110,18 +108,8 @@ class WineEnv:
         return _is_enabled_value(self.__env.get(key))
 
 
-def _proton_option_enabled(get_value, option: str) -> bool:
-    for key in (f"PROTON_USE_{option}", f"PROTON_ENABLE_{option}"):
-        value = get_value(key)
-        if value is not None:
-            return _is_enabled_value(value)
-    return False
-
-
-def _wayland_requested(env: "WineEnv", params) -> bool:
-    return getattr(params, "wayland", False) or _proton_option_enabled(
-        env.get_value, "WAYLAND"
-    )
+def _wayland_requested(params) -> bool:
+    return bool(params.wayland)
 
 
 def _wayland_available(env: "WineEnv") -> bool:
@@ -130,40 +118,14 @@ def _wayland_available(env: "WineEnv") -> bool:
     )
 
 
-def apply_wayland_preferences(
-    env: "WineEnv", params, xlocale_dir: Optional[str] = None
-) -> None:
-    proton_wayland_enabled = _proton_option_enabled(env.get_value, "WAYLAND")
-    if not _wayland_requested(env, params):
-        return
-    if DisplayUtils.display_server_type() != "wayland":
+def apply_wayland_preferences(env: "WineEnv", params) -> None:
+    if not _wayland_requested(params) or DisplayUtils.display_server_type() != "wayland":
         return
     wayland_display = os.environ.get("WAYLAND_DISPLAY")
     if not env.has("WAYLAND_DISPLAY") and wayland_display:
         env.add("WAYLAND_DISPLAY", wayland_display, override=True)
-    if env.has("WAYLAND_DISPLAY") or wayland_display:
+    if env.has("WAYLAND_DISPLAY"):
         env.add("WINE_USE_EGL", "1", override=True)
-        if proton_wayland_enabled:
-            if env.has("PROTON_WAYLAND_MONITOR"):
-                env.add(
-                    "WAYLANDDRV_PRIMARY_MONITOR",
-                    env.get_value("PROTON_WAYLAND_MONITOR"),
-                    override=True,
-                )
-            env.concat(
-                "WINEDLLOVERRIDES",
-                ["winex11.drv=d", "winewayland.drv=b"],
-                sep=";",
-            )
-            env.add("WINE_DISABLE_FULLSCREEN_HACK", "1", override=True)
-            env.add("WINE_MOVE_HACK", "1")
-            env.add("PROTON_USE_XALIA", "0", override=True)
-            env.add("PROTON_NO_STEAMINPUT", "1", override=True)
-            env.remove("SteamVirtualGamepadInfo")
-            env.remove("SDL_GAMECONTROLLER_IGNORE_DEVICES")
-            env.remove("SDL_GAMECONTROLLER_ALLOW_STEAM_VIRTUAL_GAMEPAD")
-            if xlocale_dir:
-                env.add("XLOCALEDIR", xlocale_dir)
         env.remove("DISPLAY")
 
 
@@ -171,14 +133,12 @@ def apply_hdr_preferences(env: "WineEnv", params, gamescope_activated: bool) -> 
     if gamescope_activated:
         env.remove("ENABLE_HDR_WSI")
 
-    hdr_enabled = getattr(params, "hdr", False) or _proton_option_enabled(
-        env.get_value, "HDR"
-    )
+    hdr_enabled = params.hdr
     if not hdr_enabled:
         return
 
     if not gamescope_activated and not (
-        _wayland_requested(env, params) and _wayland_available(env)
+        _wayland_requested(params) and _wayland_available(env)
     ):
         return
 
@@ -259,39 +219,6 @@ def apply_frame_rate_limit(env: "WineEnv", params) -> None:
     env.add("VKD3D_FRAME_RATE", str(limit), override=True)
 
 
-def apply_hidraw_preferences(env: "WineEnv", params) -> None:
-    selected = []
-    for value in getattr(params, "hidraw_devices", []):
-        identifier = normalize_hidraw_id(value)
-        if identifier and identifier not in selected:
-            selected.append(identifier)
-
-    if selected:
-        env.add("PROTON_ENABLE_HIDRAW", ",".join(selected), override=True)
-
-
-def _needs_steam_virtual_gamepad_workaround(runner_name: Optional[str]) -> bool:
-    """Return True if the runner should force SteamVirtualGamepadInfo."""
-
-    if not runner_name:
-        return False
-
-    normalized = runner_name.lower()
-    if not any(
-        prefix in normalized for prefix in ("ge-proton", "proton-ge", "wine-ge", "soda")
-    ):
-        return False
-
-    match = re.search(r"(\d+)", normalized)
-    if not match:
-        return False
-
-    try:
-        major = int(match.group(1))
-    except ValueError:
-        return False
-
-    return major <= 8
 
 
 class WineCommand:
@@ -335,7 +262,7 @@ class WineCommand:
             )
         self.arguments = arguments
         self.cwd = self._get_cwd(cwd)
-        self.runner, self.runner_runtime = self._get_runner_info()
+        self.runner = self._get_runner()
         self.terminal = terminal
         self.communicate = communicate
         self.colors = colors
@@ -425,10 +352,7 @@ class WineCommand:
     def _get_cwd(self, cwd) -> str:
         config = self.config
 
-        if config.Environment == "Steam":
-            bottle = config.Path
-        else:
-            bottle = ManagerUtils.get_bottle_path(config)
+        bottle = ManagerUtils.get_bottle_path(config)
 
         if not cwd:
             """
@@ -472,18 +396,6 @@ class WineCommand:
 
         bottle = ManagerUtils.get_bottle_path(config)
         runner_path = ManagerUtils.get_runner_path(config.Runner)
-        proton_path = ""
-
-        if config.Environment == "Steam":
-            bottle = config.Path
-            runner_path = config.RunnerPath
-
-        if SteamUtils.is_proton(runner_path):
-            proton_path = runner_path
-            SteamUtils.sync_proton_vkd3d(runner_path, bottle, arch)
-            SteamUtils.sync_proton_fonts(runner_path, bottle)
-            runner_path = SteamUtils.get_dist_directory(runner_path)
-
         # Clean some env variables which can cause trouble
         # ref: <https://github.com/bottlesdevs/Bottles/issues/2127>
         # env.remove("XDG_DATA_HOME")
@@ -494,11 +406,6 @@ class WineCommand:
         ld = []
 
         # Bottle environment variables
-        if _needs_steam_virtual_gamepad_workaround(RunnerRegistry.name(config.Runner)) and not env.has(
-            "SteamVirtualGamepadInfo"
-        ):
-            env.add("SteamVirtualGamepadInfo", "", override=True)
-
         if config.Environment_Variables:
             for key, value in config.Environment_Variables.items():
                 if not isinstance(key, str) or not isinstance(value, str):
@@ -596,7 +503,7 @@ class WineCommand:
         if get_host_architecture() == "aarch64":
             runner_libs[2:2] = ["lib/wine/aarch64-unix", "lib64/wine/aarch64-unix"]
 
-        if config.Environment == "Steam" or config.Runner != SYSTEM_WINE:
+        if config.Runner != SYSTEM_WINE:
             for lib in runner_libs:
                 _path = os.path.join(runner_path, lib)
                 if os.path.exists(_path):
@@ -634,7 +541,6 @@ class WineCommand:
             )
 
         apply_frame_rate_limit(env, params)
-        apply_hidraw_preferences(env, params)
 
         # LatencyFleX environment variables
         if params.latencyflex and not return_steam_env:
@@ -752,22 +658,15 @@ class WineCommand:
             env.remove("WINEDLLOVERRIDES")
 
         if not return_steam_env:
-            if config.Environment != "Steam":
-                info = RunnerRegistry.entries.get(config.Runner)
-                if info:
-                    env.add("WINESERVER", info.wineserver, override=True)
-                    env.add("WINELOADER", info.wine_for_arch(config.Arch), override=True)
+            info = RunnerRegistry.require(config.Runner)
+            env.add("WINESERVER", info.wineserver, override=True)
+            env.add("WINELOADER", info.wine_for_arch(config.Arch), override=True)
             # Wine prefix
             env.add("WINEPREFIX", bottle, override=True)
             # Wine arch
             env.add("WINEARCH", arch)
 
-        xlocale_dir = None
-        if runner_path:
-            candidate = os.path.join(runner_path, "share/X11/locale")
-            if os.path.isdir(candidate):
-                xlocale_dir = candidate
-        apply_wayland_preferences(env, params, xlocale_dir)
+        apply_wayland_preferences(env, params)
         apply_hdr_preferences(
             env,
             params,
@@ -775,23 +674,6 @@ class WineCommand:
         )
 
         resolved_env = env.get()["envs"]
-        if proton_path and not clean_env and not self.minimal:
-            proton_sandbox = None
-            if params.sandbox:
-                proton_sandbox = SandboxManager(
-                    chdir=bottle,
-                    clear_env=True,
-                    share_paths_ro=[proton_path],
-                    share_paths_rw=[bottle],
-                    share_net=config.Sandbox.share_net,
-                    share_display=False,
-                    share_sound=False,
-                    share_gpu=False,
-                )
-            SteamUtils.prepare_proton_fsr4(
-                proton_path, bottle, resolved_env, proton_sandbox
-            )
-
         return resolved_env
 
     @staticmethod
@@ -809,25 +691,15 @@ class WineCommand:
                 )
                 env.add("WINEFSYNC", "1")
 
-    def _get_runner_info(self) -> tuple[Optional[str], str]:
+    def _get_runner(self) -> Optional[str]:
         config = self.config
-        runner_runtime = ""
-        if config.Environment == "Steam":
-            root = config.RunnerPath
-            runner_runtime = SteamUtils.get_associated_runtime(root)
-            runner = os.path.join(SteamUtils.get_dist_directory(root), "bin/wine")
-            if config.Arch == "win64" and os.path.isfile(f"{runner}64"):
-                runner = f"{runner}64"
-        else:
-            try:
-                info = RunnerRegistry.require(config.Runner)
-            except FileNotFoundError as error:
-                logging.error(str(error))
-                return None, ""
-            runner = info.wine_for_arch(config.Arch)
-            if SteamUtils.is_proton(info.root):
-                runner_runtime = SteamUtils.get_associated_runtime(info.root)
-        return shlex.quote(runner), runner_runtime
+        try:
+            info = RunnerRegistry.require(config.Runner)
+        except FileNotFoundError as error:
+            logging.error(str(error))
+            return None
+        runner = info.wine_for_arch(config.Arch)
+        return shlex.quote(runner)
 
     def get_cmd(
         self,
@@ -868,45 +740,17 @@ class WineCommand:
             command = f"{runner} {command}"
 
         if params.use_steam_runtime:
-            _rs = RuntimeManager.get_runtimes("steam")
-            _picked = {}
-
-            if _rs:
-                if "steamrt4" in _rs.keys() and "steamrt4" in self.runner_runtime:
-                    """
-                    Steam Linux Runtime 4 (steamrt4) is the default runtime used by Proton version >= 11.0
-                    """
-                    _picked = _rs["steamrt4"]
-                elif "sniper" in _rs.keys() and "sniper" in self.runner_runtime:
-                    """
-                    Sniper is the default runtime used by Proton version >= 8.0 and < 11.0
-                    """
-                    _picked = _rs["sniper"]
-                elif "soldier" in _rs.keys() and "soldier" in self.runner_runtime:
-                    """
-                    Sniper is the default runtime used by Proton version >= 5.13 and < 8.0
-                    """
-                    _picked = _rs["soldier"]
-                elif "scout" in _rs.keys():
-                    """
-                    For Wine runners, we cannot make assumption about which runtime would suits
-                    them the best, as it would depend on their build environment.
-                    Sniper/Soldier are not backward-compatible, defaulting to Scout should maximize compatibility.
-                    """
-                    _picked = _rs["scout"]
+            runtimes = RuntimeManager.get_runtimes("steam")
+            if runtimes:
+                # Runtime discovery orders installed runtimes from newest to oldest.
+                picked = next(iter(runtimes.values()))
+                logging.info(f"Using Steam runtime {picked['name']}")
+                entry_point = os.path.realpath(picked["entry_point"])
+                self.steam_runtime_root = os.path.dirname(entry_point)
+                separator = "" if picked["name"] == "scout" else "-- "
+                command = f"{shlex.quote(entry_point)} {separator}{command}"
             else:
                 logging.warning("Steam runtime was requested but not found")
-
-            if _picked:
-                logging.info(f"Using Steam runtime {_picked['name']}")
-                entry_point = os.path.realpath(_picked["entry_point"])
-                self.steam_runtime_root = os.path.dirname(entry_point)
-                separator = "-- " if _picked["name"] != "scout" else ""
-                command = f"{entry_point} {separator}{command}"
-            else:
-                logging.warning(
-                    "Steam runtime was requested and found but there are no valid combinations"
-                )
 
         if not self.minimal:
             if gamemode_available and params.gamemode:
@@ -1008,7 +852,7 @@ raise SystemExit(status if status >= 0 else 128 - status)
 
                 # Update command
                 command = (
-                    f"{self._get_gamescope_cmd(return_steam_cmd, environment)} -- "
+                    f"{self._get_gamescope_cmd(return_steam_cmd)} -- "
                     f"{shlex.quote(gamescope_reaper)} {shlex.quote(gamescope_run)}"
                 )
                 logging.info(f"Running Gamescope command: '{command}'")
@@ -1048,7 +892,6 @@ raise SystemExit(status if status >= 0 else 128 - status)
     def _get_gamescope_cmd(
         self,
         return_steam_cmd: bool = False,
-        environment: Optional[dict] = None,
     ) -> str:
         config = self.config
         params = config.Parameters
@@ -1065,11 +908,7 @@ raise SystemExit(status if status >= 0 else 128 - status)
                 ]
             if return_steam_cmd:
                 gamescope_cmd = ["gamescope"]
-            effective_environment = config.Environment_Variables.copy()
-            effective_environment.update(environment or {})
-            hdr_enabled = params.hdr or _proton_option_enabled(
-                effective_environment.get, "HDR"
-            )
+            hdr_enabled = params.hdr
             if (
                 hdr_enabled
                 and "--hdr-enabled" not in params.gamescope_custom_options.split()
@@ -1140,18 +979,10 @@ raise SystemExit(status if status >= 0 else 128 - status)
         )
 
     def _get_sandbox_manager(self) -> SandboxManager:
-        # Steam/Proton runners live outside Paths.user_runners (in the Steam data
-        # directory) and rely on their associated Steam Linux Runtime. Expose
-        # the runner root and that runtime, otherwise the runtime's own bwrap
-        # cannot find its entry point inside the dedicated sandbox. Symlinks are
-        # resolved so the real target gets shared, not just the link.
-        share_paths_ro = [Paths.user_runners]
+        # Imported and packaged Wine runners may live outside the user directory.
+        share_paths_ro = []
 
-        runner_root = (
-            self.config.RunnerPath
-            if self.config.Environment == "Steam" and self.config.RunnerPath
-            else ManagerUtils.get_runner_path(self.config.Runner)
-        )
+        runner_root = ManagerUtils.get_runner_path(self.config.Runner)
         for extra in (runner_root, self.steam_runtime_root):
             if extra and not (extra == runner_root and self.config.Runner == SYSTEM_WINE):
                 share_paths_ro.append(os.path.realpath(extra))

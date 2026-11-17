@@ -107,7 +107,15 @@ template $BottlesNewBottleDialog: Adw.Dialog {
 
             Adw.ComboRow combo_runner {
               title: _("Runner");
-              subtitle: _("Provider and version of the compatibility layer");
+              subtitle: _("Choose the Wine installation used by this bottle");
+
+              [suffix]
+              Button btn_manage_runners {
+                tooltip-text: _("Manage Runners…");
+                icon-name: "preferences-system-symbolic";
+                valign: center;
+                styles [ "flat", ]
+              }
 
               model: StringList str_list_runner {};
             }

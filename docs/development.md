@@ -77,7 +77,13 @@ meson compile -C build com.usebottles.bottles-pot
 meson compile -C build com.usebottles.bottles-update-po
 ```
 
-Review generated changes before committing. Do not replace catalogs with unrelated upstream versions.
+Remove obsolete entries after merging (for each actual `.po` file, excluding symlink aliases):
+
+```sh
+msgattrib --no-obsolete --output-file=po/<language>.po po/<language>.po
+```
+
+Review generated changes before committing. New or changed interface messages need usable translations in every supported language; empty or fuzzy entries are unfinished. Keep only messages used by the current sources, preserve valid translations and check contexts, plurals and format placeholders. Do not replace catalogs with unrelated upstream versions.
 
 ## Version metadata
 

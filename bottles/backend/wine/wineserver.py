@@ -6,7 +6,6 @@ from bottles.backend.logger import Logger
 from bottles.backend.utils.manager import ManagerUtils
 from bottles.backend.utils.proc import ProcUtils
 from bottles.backend.utils.runners import RunnerRegistry
-from bottles.backend.utils.steam import SteamUtils
 from bottles.backend.wine.wineprogram import WineProgram
 
 logging = Logger()
@@ -17,9 +16,6 @@ class WineServer(WineProgram):
     command = "wineserver"
 
     def _server(self) -> str:
-        if self.config.Environment == "Steam":
-            root = SteamUtils.get_dist_directory(self.config.RunnerPath)
-            return os.path.join(root, "bin", "wineserver")
         return RunnerRegistry.require(self.config.Runner).wineserver
 
     def _server_environment(self) -> dict:

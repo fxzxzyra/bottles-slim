@@ -591,15 +591,6 @@ class EagleIntel:
                 )
                 continue
 
-            if kind == "custom_proton" and value.startswith("GE-Proton"):
-                ge_proton_note = _(
-                    "Community favors GE-Proton builds; Soda or Caffe is "
-                    "the closest Bottles runner (x{evidence})"
-                ).format(evidence=evidence)
-                if not any("GE-Proton" in note for note in notes):
-                    notes.append(ge_proton_note)
-                continue
-
             if kind != "note_verb":
                 continue
 

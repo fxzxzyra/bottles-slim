@@ -26,7 +26,6 @@ class RenameDialog(Adw.Window):
     entry_name = Gtk.Template.Child()
     btn_cancel = Gtk.Template.Child()
     btn_save = Gtk.Template.Child()
-    ev_controller = Gtk.EventControllerKey.new()
 
     # endregion
 
@@ -42,15 +41,19 @@ class RenameDialog(Adw.Window):
 
         # set widget defaults
         self.entry_name.set_text(name)
-        self.entry_name.add_controller(self.ev_controller)
+        self.original_name = name
 
         # connect signals
-        self.ev_controller.connect("key-released", self.on_change)
+        self.entry_name.connect("changed", self.on_change)
+        self.entry_name.connect("entry-activated", self.__on_save)
+        self.on_change()
         self.btn_cancel.connect("clicked", self.__close_window)
         self.btn_save.connect("clicked", self.__on_save)
 
     def __on_save(self, *_args):
-        text = self.entry_name.get_text()
+        text = self.entry_name.get_text().strip()
+        if not text or text == self.original_name:
+            return
         self.on_save(new_name=text)
         self.destroy()
 
@@ -58,4 +61,5 @@ class RenameDialog(Adw.Window):
         self.destroy()
 
     def on_change(self, *_args):
-        self.btn_save.set_sensitive(len(self.entry_name.get_text()) > 0)
+        text = self.entry_name.get_text().strip()
+        self.btn_save.set_sensitive(bool(text) and text != self.original_name)

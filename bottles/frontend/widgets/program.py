@@ -54,7 +54,6 @@ class ProgramEntry(Adw.ActionRow):
     btn_stop = Gtk.Template.Child()
     btn_launch_options = Gtk.Template.Child()
     btn_playtime_stats = Gtk.Template.Child()
-    btn_launch_steam = Gtk.Template.Child()
     btn_uninstall = Gtk.Template.Child()
     btn_remove = Gtk.Template.Child()
     btn_hide = Gtk.Template.Child()
@@ -65,14 +64,13 @@ class ProgramEntry(Adw.ActionRow):
     btn_add_entry = Gtk.Template.Child()
     btn_file_associations = Gtk.Template.Child()
     btn_add_library = Gtk.Template.Child()
-    btn_add_steam_library = Gtk.Template.Child()
     btn_launch_terminal = Gtk.Template.Child()
     pop_actions = Gtk.Template.Child()
 
     # endregion
 
     def __init__(
-        self, window, config, program, is_steam=False, check_boot=True, **kwargs
+        self, window, config, program, check_boot=True, **kwargs
     ):
         super().__init__(**kwargs)
 
@@ -82,7 +80,6 @@ class ProgramEntry(Adw.ActionRow):
         self.manager = window.manager
         self.config = config
         self.program = program
-        self.is_steam = is_steam
         self.__desktop_entry_exists = False
         self.__desktop_entry_query_pending = False
         self.__library_entry_uuid = None
@@ -91,17 +88,7 @@ class ProgramEntry(Adw.ActionRow):
 
         self.set_title(GLib.markup_escape_text(self.program["name"]))
 
-        if is_steam:
-            self.set_subtitle("Steam")
-            for w in [self.btn_run, self.btn_stop, self.btn_menu]:
-                w.set_visible(False)
-                w.set_sensitive(False)
-            self.btn_launch_steam.set_visible(True)
-            self.btn_launch_steam.set_sensitive(True)
-            self.btn_add_steam_library.set_visible(True)
-            self.set_activatable_widget(self.btn_launch_steam)
-        else:
-            self.executable = program.get("executable", "")
+        self.executable = program.get("executable", "")
 
         if program.get("removed"):
             self.add_css_class("removed")
@@ -121,7 +108,6 @@ class ProgramEntry(Adw.ActionRow):
             if entry.get("id") == program.get("id"):
                 self.__library_entry_uuid = _uuid
                 self.__set_library_state(True)
-                self.btn_add_steam_library.set_visible(False)
                 program_icon = entry.get("icon") or program_icon
 
         self.img_program = Gtk.Image()
@@ -132,7 +118,6 @@ class ProgramEntry(Adw.ActionRow):
         program_path = self.program.get("path")
         if (
             program_icon == "com.usebottles.bottles-program"
-            and not is_steam
             and program_name
             and program_path
             and not any(separator in program_name for separator in ("/", "\\"))
@@ -171,7 +156,6 @@ class ProgramEntry(Adw.ActionRow):
 
         """Signal connections"""
         self.btn_run.connect("clicked", self.run_executable)
-        self.btn_launch_steam.connect("clicked", self.run_steam)
         self.btn_launch_terminal.connect("clicked", self.run_executable, True)
         self.btn_stop.connect("clicked", self.stop_process)
         self.btn_launch_options.connect("clicked", self.show_launch_options_view)
@@ -184,19 +168,17 @@ class ProgramEntry(Adw.ActionRow):
         self.btn_add_entry.connect("clicked", self.manage_entry)
         self.btn_file_associations.connect("clicked", self.show_file_associations)
         self.btn_add_library.connect("clicked", self.manage_library)
-        self.btn_add_steam_library.connect("clicked", self.add_to_library)
         self.btn_add_steam.connect("clicked", self.add_to_steam)
         self.btn_remove.connect("clicked", self.remove_program)
         self.pop_actions.connect(
             "notify::visible", self.__refresh_desktop_entry_state
         )
 
-        if not program.get("removed") and not is_steam and check_boot:
+        if not program.get("removed") and check_boot:
             self.__is_alive()
 
         # Update subtitle with playtime info
-        if not is_steam:
-            self.__update_subtitle()
+        self.__update_subtitle()
 
     def __program_icon_ready(self, icon, error):
         if error is None and isinstance(icon, str) and os.path.isfile(icon):
@@ -483,12 +465,6 @@ class ProgramEntry(Adw.ActionRow):
         dialog.connect("response", on_response)
         dialog.present()
 
-    def run_steam(self, _widget):
-        self.manager.steam_manager.launch_app(self.config.CompatData)
-        self.window.show_toast(
-            _('Launching "{0}" with Steam…').format(self.program["name"])
-        )
-        self.pop_actions.popdown()  # workaround #1640
 
     def stop_process(self, widget):
         self.window.show_toast(_('Stopping "{0}"…').format(self.program["name"]))
@@ -705,8 +681,7 @@ class ProgramEntry(Adw.ActionRow):
 
     def __refresh_desktop_entry_state(self, popover, _property=None):
         if (
-            self.is_steam
-            or self.__desktop_entry_query_pending
+            self.__desktop_entry_query_pending
             or not popover.get_visible()
         ):
             return
@@ -841,11 +816,9 @@ class ProgramEntry(Adw.ActionRow):
         def update(entry_uuid, error=False):
             if error or entry_uuid is None:
                 self.btn_add_library.set_sensitive(True)
-                self.btn_add_steam_library.set_sensitive(True)
                 return
             self.__library_entry_uuid = entry_uuid
             self.__set_library_state(True)
-            self.btn_add_steam_library.set_visible(False)
             self.window.update_library()
             self.window.show_toast(
                 _('"{0}" added to your library').format(self.program["name"])
@@ -859,29 +832,24 @@ class ProgramEntry(Adw.ActionRow):
                 "id": str(self.program["id"]),
             }
 
-            if self.is_steam:
-                data["bottle"]["name"] = self.config.CompatData
-                data["steam"] = True
-            else:
-                self.save_program()
-                icon_job = getattr(self, "_ProgramEntry__program_icon_job", None)
-                if icon_job is not None:
-                    icon_job.join()
-                icon = self.program.get("icon")
-                icon_path = getattr(self, "_ProgramEntry__program_icon_path", None)
-                if not (isinstance(icon, str) and os.path.isfile(icon)):
-                    if icon_path and os.path.isfile(icon_path):
-                        icon = icon_path
-                    else:
-                        icon = ManagerUtils.extract_icon(
-                            self.config, self.program["name"], self.program["path"]
-                        )
-                data["icon"] = icon
+            self.save_program()
+            icon_job = getattr(self, "_ProgramEntry__program_icon_job", None)
+            if icon_job is not None:
+                icon_job.join()
+            icon = self.program.get("icon")
+            icon_path = getattr(self, "_ProgramEntry__program_icon_path", None)
+            if not (isinstance(icon, str) and os.path.isfile(icon)):
+                if icon_path and os.path.isfile(icon_path):
+                    icon = icon_path
+                else:
+                    icon = ManagerUtils.extract_icon(
+                        self.config, self.program["name"], self.program["path"]
+                    )
+            data["icon"] = icon
 
             return library_manager.add_to_library(data, self.config)
 
         self.btn_add_library.set_sensitive(False)
-        self.btn_add_steam_library.set_sensitive(False)
         RunAsync(add_to_library, update)
 
     def manage_library(self, widget):

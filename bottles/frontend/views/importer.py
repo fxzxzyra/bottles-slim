@@ -15,7 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
 from gettext import gettext as _
 
 from gi.repository import Adw, GLib, Gtk
@@ -43,6 +42,7 @@ class ImporterView(Adw.Bin):
     btn_import_existing = Gtk.Template.Child()
     group_prefixes = Gtk.Template.Child()
     status_page = Gtk.Template.Child()
+    stack_prefixes = Gtk.Template.Child()
     box_import_progress = Gtk.Template.Child()
     spinner_import = Gtk.Template.Child()
     label_import_progress = Gtk.Template.Child()
@@ -106,27 +106,30 @@ class ImporterView(Adw.Bin):
     def __search_prefixes(self, widget, selected_paths=None):
         @GtkUtils.run_in_main_loop
         def update(result, error=False):
-            widget.set_sensitive(True)
-            if not error and result.ok:
-                wineprefixes = result.data.get("wineprefixes")
-                if len(wineprefixes) == 0:
-                    if selected_paths:
-                        self.window.show_toast(
-                            _("No Wine prefixes found in the selected folder")
-                        )
-                    return
+            self.btn_find_prefixes.set_sensitive(True)
+            self.btn_select_prefixes.set_sensitive(True)
+            if error or result is None or not result.ok:
+                message = str(error) if error else result.message if result else ""
+                self.status_page.set_title(_("Could Not Find Wine Prefixes"))
+                self.status_page.set_description(message or _("Choose another directory or try the search again."))
+                self.stack_prefixes.set_visible_child_name("empty")
+                self.window.show_toast(message or _("Could not search for Wine prefixes"))
+                return
 
-                self.status_page.set_visible(False)
-                self.group_prefixes.set_visible(True)
+            prefixes = result.data["wineprefixes"]
+            while self.list_prefixes.get_first_child():
+                self.list_prefixes.remove(self.list_prefixes.get_first_child())
+            for prefix in prefixes:
+                self.list_prefixes.append(ImporterEntry(self, prefix))
+            self.status_page.set_title(_("No Wine Prefixes Found"))
+            self.status_page.set_description(_("Choose another directory or search known locations."))
+            self.stack_prefixes.set_visible_child_name("prefixes" if prefixes else "empty")
+            if not prefixes and selected_paths:
+                self.window.show_toast(_("No Wine prefixes found in the selected folder"))
 
-                while self.list_prefixes.get_first_child():
-                    _w = self.list_prefixes.get_first_child()
-                    self.list_prefixes.remove(_w)
-
-                for prefix in result.data.get("wineprefixes"):
-                    self.list_prefixes.append(ImporterEntry(self, prefix))
-
-        widget.set_sensitive(False)
+        self.btn_find_prefixes.set_sensitive(False)
+        self.btn_select_prefixes.set_sensitive(False)
+        self.stack_prefixes.set_visible_child_name("searching")
 
         RunAsync(
             self.import_manager.search_wineprefixes,
@@ -149,18 +152,15 @@ class ImporterView(Adw.Bin):
             path = resolve_bottles_directory(self.window, folder.get_path())
             if not path:
                 return
-            if os.path.isfile(os.path.join(path, "bottle.yml")):
-                RunAsync(self.import_manager.import_bottle, callback=self.__finish, path=path)
-            else:
-                self.__search_prefixes(self.btn_select_prefixes, [path])
+            self.__search_prefixes(self.btn_select_prefixes, [path])
 
     @GtkUtils.run_in_main_loop
     def __finish(self, result, error=False):
-        if result.ok:
+        if not error and result is not None and result.ok:
             self.window.show_toast(_("Bottle imported successfully"))
             self.window.page_list.update_bottles_list()
         else:
-            self.window.show_toast(str(error) if error else result.message or _("Import failed"))
+            self.window.show_toast(str(error) if error else (result.message if result else "") or _("Import failed"))
 
     def __import_full_bck(self, *_args):
         """
@@ -261,7 +261,7 @@ class ImporterView(Adw.Bin):
 
     def _show_import_progress(self):
         """Show the import progress indicator."""
-        self.label_import_progress.set_text("")
+        self.label_import_progress.set_text(_("Restoring Backup…"))
         self.box_import_progress.set_visible(True)
         self.spinner_import.start()
 

@@ -757,6 +757,17 @@ class BackupManager:
                 copy_bottle_contents(source, destination, exclude=(
                     "process_metrics.sqlite", "process_metrics.sqlite-wal", "process_metrics.sqlite-shm",
                 ))
+                library_path = os.path.join(destination, "library.yml")
+                if os.path.isfile(library_path):
+                    with open(library_path) as stream:
+                        entries = yaml.load(stream)
+                    if not isinstance(entries, dict):
+                        raise ValueError("Invalid library: " + library_path)
+                    # Copies are independent entries in the aggregated program library.
+                    entries = {str(uuid.uuid4()): entry for entry in entries.values()}
+                    with open(library_path, "w") as stream:
+                        yaml.dump(entries, stream)
+                    os.chmod(library_path, 0o600)
                 duplicate = config.copy()
                 duplicate.Id = uuid.uuid4().hex
                 duplicate.Name = name

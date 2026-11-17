@@ -2,27 +2,40 @@ using Gtk 4.0;
 using Adw 1;
 
 template $LibraryView: Adw.Bin {
-  Box {
-    orientation: vertical;
-
-    ScrolledWindow scroll_window {
-      hexpand: true;
-      vexpand: true;
-
-      FlowBox main_flow {
-        max-children-per-line: bind template.items_per_line;
-        row-spacing: 5;
-        column-spacing: 5;
-        halign: center;
-        valign: start;
-        margin-top: 5;
-        margin-start: 5;
-        margin-bottom: 5;
-        margin-end: 5;
-        homogeneous: true;
-        selection-mode: none;
-        activate-on-single-click: false;
-      }
+  Stack library_stack {
+    StackPage {
+      name: "empty";
+      child: Adw.StatusPage {
+        icon-name: "library-symbolic";
+        title: _("No Programs in Library");
+        description: _("Open a bottle and choose Add to Library from a program's menu.");
+        child: Button btn_browse_bottles {
+          label: _("Browse Bottles");
+          halign: center;
+          styles [ "suggested-action", "pill", ]
+        };
+      };
+    }
+    StackPage {
+      name: "programs";
+      child: ScrolledWindow scroll_window {
+        hexpand: true;
+        vexpand: true;
+        FlowBox main_flow {
+          max-children-per-line: bind template.items_per_line;
+          row-spacing: 12;
+          column-spacing: 12;
+          halign: center;
+          valign: start;
+          margin-top: 12;
+          margin-start: 12;
+          margin-bottom: 12;
+          margin-end: 12;
+          homogeneous: true;
+          selection-mode: none;
+          activate-on-single-click: false;
+        }
+      };
     }
   }
 }

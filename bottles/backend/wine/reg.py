@@ -1,16 +1,12 @@
-import codecs
 import contextlib
 import dataclasses
 import os
+import shlex
 import uuid
-from datetime import datetime
-from itertools import groupby
-from typing import List, Dict, Optional
+from typing import List, Optional
 
-from bottles.backend.globals import Paths
 from bottles.backend.logger import Logger
 from bottles.backend.models.result import Result
-from bottles.backend.utils.generic import random_string
 from bottles.backend.utils.manager import ManagerUtils
 from bottles.backend.wine.winedbg import WineDbg
 from bottles.backend.wine.wineprogram import WineProgram
@@ -30,51 +26,15 @@ class Reg(WineProgram):
     program = "Wine Registry CLI"
     command = "reg"
 
-    def bulk_add(self, regs: List[RegItem]):
-        """Import multiple registries at once, with v5.00 reg file"""
-        config = self.config
-        logging.info(f"Importing {len(regs)} Key(s) to {config.Name} registry")
-        winedbg = WineDbg(config)
-
-        mapping: Dict[str, List[RegItem]] = {
-            k: list(v) for k, v in groupby(regs, lambda x: x.key)
-        }
-        reg_file_header = "Windows Registry Editor Version 5.00\n\n"
-        reg_key_header = "[%s]\n"
-        reg_item_fmt = '"%s"="%s:%s"\n'
-        reg_item_def_fmt = '"%s"="%s"\n'  # default is REG_SZ(string)
-
-        file_content = reg_file_header
-        for key, items in mapping.items():
-            file_content += reg_key_header % key
-            for item in items:
-                if item.value_type:
-                    file_content += reg_item_fmt % (
-                        item.value,
-                        item.value_type,
-                        item.data,
-                    )
-                else:
-                    file_content += reg_item_def_fmt % (item.value, item.data)
-            file_content += "\n"
-
-        tmp_reg_filepath = os.path.join(
-            Paths.temp, f"bulk_{int(datetime.now().timestamp())}_{random_string(8)}.reg"
-        )
-        with open(tmp_reg_filepath, "wb") as f:
-            f.write(codecs.BOM_UTF16_LE)
-            f.write(file_content.encode("utf-16le"))
-
-        # avoid conflicts when executing async
-        winedbg.wait_for_process("reg.exe")
-
-        res = self.launch(
-            ("import", tmp_reg_filepath),
-            communicate=True,
-            minimal=True,
-            action_name="bulk_add",
-        )
-        logging.info(res.data)
+    def bulk_add(self, regs: List[RegItem]) -> Result:
+        """Use the same Unicode serializer and per-bottle temporary file as bundles."""
+        bundle = {}
+        for item in regs:
+            value = {"value": item.value, "data": item.data}
+            if item.value_type:
+                value["key_type"] = item.value_type
+            bundle.setdefault(item.key, []).append(value)
+        return self.import_bundle(bundle)
 
     def add(self, key: str, value: str, data: str, value_type: Optional[str] = None):
         config = self.config
@@ -119,8 +79,8 @@ class Reg(WineProgram):
         try:
             # prepare reg file
             fd = os.open(reg_file, os.O_CREAT | os.O_WRONLY | os.O_TRUNC, 0o600)
-            with os.fdopen(fd, "w") as f:
-                f.write("REGEDIT4\n\n")
+            with os.fdopen(fd, "w", encoding="utf-16") as f:
+                f.write("Windows Registry Editor Version 5.00\n\n")
 
                 for key in bundle:
                     f.write(f"[{key}]\n")
@@ -137,7 +97,7 @@ class Reg(WineProgram):
 
                     f.write("\n")
 
-            args = f"import {reg_file}"
+            args = "import " + shlex.quote(reg_file)
 
             # avoid conflicts when executing async
             winedbg.wait_for_process("reg.exe")

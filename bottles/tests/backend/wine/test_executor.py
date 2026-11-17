@@ -21,7 +21,6 @@ from bottles.backend.wine.winecommand import (
     WineCommand,
     WineEnv,
     apply_frame_rate_limit,
-    apply_hidraw_preferences,
     apply_hdr_preferences,
     apply_wayland_preferences,
 )
@@ -31,7 +30,6 @@ def _gamescope_command(config, runner):
     command = WineCommand.__new__(WineCommand)
     command.config = config
     command.runner = str(runner)
-    command.runner_runtime = ""
     command.minimal = False
     command.gamescope_activated = True
     command.arguments = ""
@@ -73,7 +71,6 @@ def test_gamescope_mangohud_payload_exits_with_the_game(monkeypatch, tmp_path):
     monkeypatch.setattr(winecommand, "gamemode_available", False)
     monkeypatch.setattr(winecommand, "mangohud_available", "mangohud")
     monkeypatch.setattr(winecommand, "obs_vkc_available", False)
-    monkeypatch.setattr(winecommand.Paths, "temp", str(tmp_path))
 
     gamescope_command = command.get_cmd("app.exe")
     arguments = shlex.split(gamescope_command)
@@ -935,26 +932,8 @@ def test_frame_rate_limit_preserves_manual_environment_when_disabled():
     assert resolved["VKD3D_FRAME_RATE"] == "90"
 
 
-def test_hidraw_preferences_enable_only_selected_devices():
-    env = WineEnv(clean=True)
-    params = BottleParams(
-        hidraw_devices=["0x044f/0xb10a", "1", "0x231D/0x0200"]
-    )
-
-    apply_hidraw_preferences(env, params)
-
-    assert env.get()["envs"]["PROTON_ENABLE_HIDRAW"] == (
-        "0x044F/0xB10A,0x231D/0x0200"
-    )
 
 
-def test_hidraw_preferences_preserve_manual_environment_when_unset():
-    env = WineEnv(clean=True)
-    env.add("PROTON_ENABLE_HIDRAW", "0x3344/0x0001")
-
-    apply_hidraw_preferences(env, BottleParams())
-
-    assert env.get()["envs"]["PROTON_ENABLE_HIDRAW"] == "0x3344/0x0001"
 
 
 def test_hdr_preferences_enable_dxvk_without_automatic_wayland_layer(monkeypatch):
@@ -1054,67 +1033,12 @@ def test_hdr_preferences_preserve_manual_environment_when_disabled():
     assert resolved["ENABLE_HDR_WSI"] == "1"
 
 
-def test_proton_hdr_and_wayland_options_are_translated(monkeypatch):
-    monkeypatch.setattr(
-        "bottles.backend.wine.winecommand.DisplayUtils.display_server_type",
-        lambda: "wayland",
-    )
-    env = WineEnv(clean=True)
-    env.add("DISPLAY", ":1")
-    env.add("WAYLAND_DISPLAY", "wayland-0")
-    env.add("PROTON_ENABLE_HDR", "1")
-    env.add("PROTON_ENABLE_WAYLAND", "1")
-    env.add("PROTON_WAYLAND_MONITOR", "DP-1")
-    env.add("WINEDLLOVERRIDES", "version=n")
-    env.add("SteamVirtualGamepadInfo", "device")
-    env.add("SDL_GAMECONTROLLER_IGNORE_DEVICES", "device")
-    env.add("SDL_GAMECONTROLLER_ALLOW_STEAM_VIRTUAL_GAMEPAD", "1")
-    params = BottleParams()
-
-    apply_wayland_preferences(env, params, "/runner/share/X11/locale")
-    apply_hdr_preferences(env, params, gamescope_activated=False)
-
-    resolved = env.get()["envs"]
-    assert "DISPLAY" not in resolved
-    assert resolved["DXVK_HDR"] == "1"
-    assert "ENABLE_HDR_WSI" not in resolved
-    assert resolved["WINEDLLOVERRIDES"] == ("version=n;winex11.drv=d;winewayland.drv=b")
-    assert resolved["WINE_USE_EGL"] == "1"
-    assert resolved["WINE_DISABLE_FULLSCREEN_HACK"] == "1"
-    assert resolved["WINE_MOVE_HACK"] == "1"
-    assert resolved["PROTON_USE_XALIA"] == "0"
-    assert resolved["PROTON_NO_STEAMINPUT"] == "1"
-    assert resolved["WAYLANDDRV_PRIMARY_MONITOR"] == "DP-1"
-    assert resolved["XLOCALEDIR"] == "/runner/share/X11/locale"
-    assert "SteamVirtualGamepadInfo" not in resolved
-    assert "SDL_GAMECONTROLLER_IGNORE_DEVICES" not in resolved
-    assert "SDL_GAMECONTROLLER_ALLOW_STEAM_VIRTUAL_GAMEPAD" not in resolved
 
 
-def test_disabled_proton_options_are_not_translated(monkeypatch):
-    monkeypatch.setattr(
-        "bottles.backend.wine.winecommand.DisplayUtils.display_server_type",
-        lambda: "wayland",
-    )
-    env = WineEnv(clean=True)
-    env.add("DISPLAY", ":1")
-    env.add("WAYLAND_DISPLAY", "wayland-0")
-    env.add("PROTON_ENABLE_HDR", "1")
-    env.add("PROTON_USE_HDR", "0")
-    env.add("PROTON_ENABLE_WAYLAND", "1")
-    env.add("PROTON_USE_WAYLAND", "0")
-    params = BottleParams()
-
-    apply_wayland_preferences(env, params)
-    apply_hdr_preferences(env, params, gamescope_activated=False)
-
-    resolved = env.get()["envs"]
-    assert resolved["DISPLAY"] == ":1"
-    assert "DXVK_HDR" not in resolved
-    assert "ENABLE_HDR_WSI" not in resolved
 
 
-def test_winecommand_filters_host_environment(monkeypatch, tmp_path):
+def test_winecommand_filters_host_environment(monkeypatch, tmp_path, runner_factory):
+    runner_factory("test")
     bottle_path = tmp_path / "TestBottle"
     bottle_path.mkdir()
     runner_path = tmp_path / "runner"
@@ -1153,9 +1077,6 @@ def test_winecommand_filters_host_environment(monkeypatch, tmp_path):
         lambda _runner: str(runner_path),
     )
     monkeypatch.setattr(
-        "bottles.backend.wine.winecommand.SteamUtils.is_proton", lambda *_: False
-    )
-    monkeypatch.setattr(
         "bottles.backend.wine.winecommand.DisplayUtils.check_nvidia_device",
         lambda: None,
     )
@@ -1187,7 +1108,6 @@ def test_winecommand_filters_host_environment(monkeypatch, tmp_path):
     winecmd.minimal = True
     winecmd.arguments = ""
     winecmd.runner = "/usr/bin/wine"
-    winecmd.runner_runtime = ""
     winecmd.gamescope_activated = False
     winecmd.terminal = False
 
@@ -1197,112 +1117,6 @@ def test_winecommand_filters_host_environment(monkeypatch, tmp_path):
     assert "SHOULD_NOT_PASS" not in env
 
 
-def test_winecommand_syncs_proton_vkd3d(monkeypatch, tmp_path):
-    bottle_path = tmp_path / "TestBottle"
-    bottle_path.mkdir()
-    proton_path = tmp_path / "GE-Proton"
-    dist_path = proton_path / "files"
-    for sub in [
-        "share/default_pfx/drive_c/windows/system32",
-        "share/default_pfx/drive_c/windows/syswow64",
-    ]:
-        (dist_path / sub).mkdir(parents=True, exist_ok=True)
-    for dll in ["libvkd3d-1.dll", "libvkd3d-shader-1.dll"]:
-        (dist_path / "share/default_pfx/drive_c/windows/system32" / dll).write_bytes(
-            b"win64"
-        )
-        (dist_path / "share/default_pfx/drive_c/windows/syswow64" / dll).write_bytes(
-            b"win32"
-        )
-    stale_dll = bottle_path / "drive_c/windows/system32/libvkd3d-1.dll"
-    stale_dll.parent.mkdir(parents=True)
-    stale_dll.write_bytes(b"stale")
-
-    config = BottleConfig(Name="Test", Path=str(bottle_path), Runner="GE-Proton")
-    config.Parameters = BottleParams()
-    config.Parameters.use_runtime = False
-    config.Parameters.use_eac_runtime = False
-    config.Parameters.use_be_runtime = False
-    monkeypatch.setattr(
-        "bottles.backend.wine.winecommand.ManagerUtils.get_bottle_path",
-        lambda _config: str(bottle_path),
-    )
-    monkeypatch.setattr(
-        "bottles.backend.wine.winecommand.ManagerUtils.get_runner_path",
-        lambda _runner: str(proton_path),
-    )
-    monkeypatch.setattr(
-        "bottles.backend.wine.winecommand.SteamUtils.is_proton", lambda *_: True
-    )
-    monkeypatch.setattr(
-        "bottles.backend.wine.winecommand.SteamUtils.get_dist_directory",
-        lambda _runner: str(dist_path),
-    )
-    prepared = {}
-
-    def _prepare_fsr4(path, prefix, env, sandbox):
-        prepared.update({"path": path, "prefix": prefix, "sandbox": sandbox})
-        env["FSR4_UPGRADE"] = "1"
-        return True
-
-    monkeypatch.setattr(
-        "bottles.backend.wine.winecommand.SteamUtils.prepare_proton_fsr4",
-        _prepare_fsr4,
-    )
-    monkeypatch.setattr(
-        "bottles.backend.wine.winecommand.DisplayUtils.check_nvidia_device",
-        lambda: None,
-    )
-
-    def _fake_gpu(self):
-        return {
-            "prime": {"discrete": None, "integrated": None},
-            "vendors": {},
-        }
-
-    monkeypatch.setattr(
-        "bottles.backend.wine.winecommand.GPUUtils.get_gpu",
-        _fake_gpu,
-    )
-
-    winecmd = WineCommand.__new__(WineCommand)
-    winecmd.config = config
-    winecmd.minimal = True
-    winecmd.runner = str(dist_path / "bin/wine")
-    winecmd.runner_runtime = "sniper"
-    winecmd.gamescope_activated = False
-    winecmd.terminal = False
-
-    winecmd.get_env(return_clean_env=True)
-
-    for dll in ["libvkd3d-1.dll", "libvkd3d-shader-1.dll"]:
-        assert (bottle_path / "drive_c/windows/system32" / dll).read_bytes() == b"win64"
-        assert (bottle_path / "drive_c/windows/syswow64" / dll).read_bytes() == b"win32"
-    assert prepared == {}
-
-    config.Environment_Variables = {"PROTON_FSR4_UPGRADE": "1"}
-    winecmd.minimal = False
-    env = winecmd.get_env()
-
-    assert prepared == {
-        "path": str(proton_path),
-        "prefix": str(bottle_path),
-        "sandbox": None,
-    }
-    assert env["FSR4_UPGRADE"] == "1"
-
-    prepared.clear()
-    config.Parameters.sandbox = True
-    env = winecmd.get_env()
-
-    sandbox = prepared.pop("sandbox")
-    assert prepared == {"path": str(proton_path), "prefix": str(bottle_path)}
-    assert sandbox.chdir == str(bottle_path)
-    assert sandbox.clear_env is True
-    assert sandbox.share_paths_ro == [str(proton_path)]
-    assert sandbox.share_paths_rw == [str(bottle_path)]
-    assert sandbox.share_net is False
-    assert env["FSR4_UPGRADE"] == "1"
 
 
 def test_wayland_sandbox_clears_parent_display(monkeypatch, tmp_path):
@@ -1325,7 +1139,6 @@ def test_wayland_sandbox_clears_parent_display(monkeypatch, tmp_path):
     winecmd.config = config
     winecmd.env = {"WAYLAND_DISPLAY": "wayland-0"}
     winecmd.cwd = str(bottle_path)
-    winecmd.runner_runtime = ""
     winecmd.steam_runtime_root = None
 
     command = winecmd._get_sandbox_manager().get_cmd("wine")
@@ -1352,7 +1165,7 @@ def test_dedicated_sandbox_uses_selected_runtime_path(
 ):
     bottle_path = tmp_path / "TestBottle"
     bottle_path.mkdir()
-    runner_path = tmp_path / "ge-proton"
+    runner_path = tmp_path / "wine-runner"
     runner_path.mkdir()
     runtime_path = tmp_path / "SteamLinuxRuntime_sniper"
     if runtime_symlink:
@@ -1367,7 +1180,7 @@ def test_dedicated_sandbox_uses_selected_runtime_path(
     config = BottleConfig(
         Name="Test",
         Path=str(bottle_path),
-        Runner="ge-proton",
+        Runner="wine-runner",
         Environment="Custom",
     )
     config.Parameters.use_steam_runtime = use_steam_runtime
@@ -1398,8 +1211,7 @@ def test_dedicated_sandbox_uses_selected_runtime_path(
     winecmd.config = config
     winecmd.minimal = True
     winecmd.arguments = ""
-    winecmd.runner = str(runner_path / "files/bin/wine")
-    winecmd.runner_runtime = "sniper"
+    winecmd.runner = str(runner_path / "bin/wine")
     winecmd.gamescope_activated = False
     winecmd.cwd = str(bottle_path)
     winecmd.env = {}
@@ -1429,7 +1241,7 @@ def test_host_wrappers_run_outside_steam_runtime(
     runtime_path.mkdir()
     entry_point = runtime_path / "_v2-entry-point"
     entry_point.touch()
-    config = BottleConfig(Name="Test", Runner="ge-proton")
+    config = BottleConfig(Name="Test", Runner="wine-runner")
     config.Parameters.use_steam_runtime = True
     setattr(config.Parameters, parameter, True)
 
@@ -1449,8 +1261,7 @@ def test_host_wrappers_run_outside_steam_runtime(
     winecmd.config = config
     winecmd.minimal = False
     winecmd.arguments = ""
-    winecmd.runner = "/runner/files/bin/wine"
-    winecmd.runner_runtime = "sniper"
+    winecmd.runner = "/runner/bin/wine"
     winecmd.gamescope_activated = False
 
     command = winecmd.get_cmd("game.exe")
@@ -1462,7 +1273,9 @@ def test_host_wrappers_run_outside_steam_runtime(
 @pytest.mark.parametrize(
     ("runtime", "entry_point", "separator"),
     (
+        ("steamrt4", "_v2-entry-point", " -- "),
         ("sniper", "_v2-entry-point", " -- "),
+        ("soldier", "_v2-entry-point", " -- "),
         ("scout", "run.sh", " "),
     ),
 )
@@ -1489,7 +1302,6 @@ def test_steam_runtime_uses_supported_command_separator(
     winecmd.minimal = True
     winecmd.arguments = ""
     winecmd.runner = "/runner/bin/wine"
-    winecmd.runner_runtime = runtime
     winecmd.gamescope_activated = False
 
     command = winecmd.get_cmd("game.exe")
@@ -1530,7 +1342,6 @@ def test_dedicated_sandbox_shares_forwarded_document_read_write(monkeypatch, tmp
         shlex.quote(command_document),
     )
     winecmd.cwd = str(bottle_path)
-    winecmd.runner_runtime = ""
     winecmd.steam_runtime_root = None
     winecmd.env = {}
 
@@ -1558,7 +1369,6 @@ def test_gamescope_reaper_stops_orphaned_descendant(monkeypatch, tmp_path):
     monkeypatch.setattr(winecommand, "gamemode_available", False)
     monkeypatch.setattr(winecommand, "mangohud_available", False)
     monkeypatch.setattr(winecommand, "obs_vkc_available", False)
-    monkeypatch.setattr(winecommand.Paths, "temp", str(tmp_path))
     arguments = shlex.split(command.get_cmd("app.exe"))
     launcher = arguments[arguments.index("--") + 1:]
     try:
@@ -1601,3 +1411,70 @@ def test_default_working_directory_uses_executable_parent(mocker, path, parent):
     else:
         convert.assert_not_called()
         assert actual == parent
+
+
+@pytest.mark.parametrize("alias", ["USE", "ENABLE"])
+def test_proton_variables_do_not_enable_native_wine_preferences(monkeypatch, alias):
+    monkeypatch.setattr("bottles.backend.wine.winecommand.DisplayUtils.display_server_type", lambda: "wayland")
+    env = WineEnv(clean=True)
+    env.add("DISPLAY", ":1")
+    env.add("WAYLAND_DISPLAY", "wayland-0")
+    env.add(f"PROTON_{alias}_HDR", "1")
+    env.add(f"PROTON_{alias}_WAYLAND", "1")
+    apply_wayland_preferences(env, BottleParams())
+    apply_hdr_preferences(env, BottleParams(), gamescope_activated=False)
+    result = env.get()["envs"]
+    assert result["DISPLAY"] == ":1"
+    assert "DXVK_HDR" not in result
+    assert "WINE_USE_EGL" not in result
+    assert "WINEDLLOVERRIDES" not in result
+
+
+def test_hidraw_setup_failure_stops_launch(monkeypatch, tmp_path):
+    from bottles.backend.wine import executor as module
+    config = BottleConfig(Name="Office", Path=str(tmp_path))
+    config.Parameters.hidraw_devices = ["0x044F/0xB10A"]
+    failure = Result(False, message="Registry import failed")
+    calls = []
+    monkeypatch.setattr(module, "configure_hidraw", lambda cfg, ids: calls.append((cfg, ids)) or failure)
+    executor = WineExecutor.__new__(WineExecutor)
+    executor.config = config
+    executor._raw_exec_path = executor.exec_path = "C:/writer.exe"
+    assert executor.run() is failure
+    assert calls == [(config, ["0x044F/0xB10A"])]
+
+
+def test_plain_wine_uses_newest_discovered_steam_runtime_with_spaces(monkeypatch, tmp_path):
+    from bottles.backend.managers import steam as steam_module
+
+    steam_path = tmp_path / "Steam Library"
+    entries = (
+        "steamapps/common/SteamLinuxRuntime_4/_v2-entry-point",
+        "steamapps/common/SteamLinuxRuntime_sniper/_v2-entry-point",
+        "steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point",
+        "ubuntu12_32/steam-runtime/run.sh",
+    )
+    for relative in entries:
+        path = steam_path / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.touch()
+    monkeypatch.setattr(steam_module, "SteamManager", lambda check_only: SimpleNamespace(
+        is_steam_supported=True, steam_path=str(steam_path),
+    ))
+    # Exercise discovery as well as command construction, not a hand-picked result.
+    runtimes = winecommand.RuntimeManager._RuntimeManager__get_steam_runtime()
+    assert list(runtimes) == ["steamrt4", "sniper", "soldier", "scout"]
+    monkeypatch.setattr(winecommand.RuntimeManager, "get_runtimes", lambda _category: runtimes)
+
+    command = WineCommand.__new__(WineCommand)
+    command.config = BottleConfig(Runner="ordinary-wine")
+    command.config.Parameters.use_steam_runtime = True
+    command.runner = "/runner/bin/wine"
+    command.arguments = ""
+    command.minimal = True
+    command.gamescope_activated = False
+    expected_entry = steam_path / entries[0]
+    assert shlex.split(command.get_cmd("application.exe")) == [
+        str(expected_entry), "--", "/runner/bin/wine", "application.exe",
+    ]
+    assert command.steam_runtime_root == str(expected_entry.parent)

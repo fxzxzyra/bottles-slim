@@ -52,22 +52,11 @@ template $LibraryEntry: Box {
       ]
     }
 
-    [overlay]
-    Button btn_launch_steam {
-      visible: false;
-      hexpand: true;
-      vexpand: true;
-      tooltip-text: _("Launch with Steam");
 
-      styles [
-        "flat",
-        "library-entry-launch",
-      ]
-    }
 
     [overlay]
     Revealer revealer_details {
-      reveal-child: false;
+      reveal-child: true;
       transition-type: crossfade;
       valign: end;
 

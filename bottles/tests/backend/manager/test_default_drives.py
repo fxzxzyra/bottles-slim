@@ -10,6 +10,8 @@ from bottles.backend.managers.manager import Manager
 def test_create_bottle_applies_home_drive_after_wineboot(
     monkeypatch, tmp_path, expose_home_drive
 ):
+    applied_windows_versions = []
+
     class Settings:
         @staticmethod
         def get_boolean(key):
@@ -42,6 +44,9 @@ def test_create_bottle_applies_home_drive_after_wineboot(
     class RegKeys:
         def __init__(self, _config):
             pass
+
+        def lg_set_windows(self, version):
+            applied_windows_versions.append(version)
 
         def apply_cmd_settings(self):
             pass
@@ -98,6 +103,7 @@ def test_create_bottle_applies_home_drive_after_wineboot(
 
     home_drive = tmp_path / "Selected" / "dosdevices" / "z:"
     assert result.ok
+    assert applied_windows_versions == [result.data["config"].Windows]
     assert os.path.lexists(home_drive) is expose_home_drive
 
 

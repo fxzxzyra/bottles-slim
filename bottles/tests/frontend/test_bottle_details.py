@@ -59,7 +59,6 @@ def test_runner_label_uses_registered_source_and_version(
         btn_versioning_badge=widget,
         label_state=widget,
         _BottleView__update_by_env=lambda: None,
-        _BottleView__set_steam_rules=lambda: None,
         update_programs=lambda: None,
         populate_updates=lambda: None,
     )
@@ -109,7 +108,6 @@ def test_missing_runner_dialog_waits_for_versioning_upgrade(monkeypatch):
         btn_versioning_badge=widget,
         label_state=widget,
         _BottleView__update_by_env=lambda: None,
-        _BottleView__set_steam_rules=lambda: None,
         _BottleView__upgrade_versioning=show_upgrade,
         _BottleView__alert_missing_runner=lambda: events.append("missing-runner"),
         update_programs=lambda: None,

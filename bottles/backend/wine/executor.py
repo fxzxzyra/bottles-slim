@@ -19,6 +19,7 @@ from bottles.backend.models.process import (
 from bottles.backend.models.result import Result
 from bottles.backend.state import SignalManager, Signals
 from bottles.backend.utils.manager import ManagerUtils
+from bottles.backend.utils.hidraw import configure_hidraw
 from bottles.backend.wine.cmd import CMD
 from bottles.backend.wine.explorer import Explorer
 from bottles.backend.wine.msiexec import MsiExec
@@ -424,6 +425,11 @@ class WineExecutor:
             os.path.basename(self._raw_exec_path) if self._raw_exec_path else "unknown"
         )
         program_path = self._raw_exec_path or self.exec_path
+
+        if self.config.Parameters.hidraw_devices:
+            result = configure_hidraw(self.config, self.config.Parameters.hidraw_devices)
+            if not result.ok:
+                return result
         
         try:
             fonts_dir = os.path.join(ManagerUtils.get_bottle_path(self.config), "drive_c", "windows", "Fonts")

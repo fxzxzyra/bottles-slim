@@ -244,7 +244,6 @@ def test_wine_command_passes_input_permission(monkeypatch, tmp_path):
     command.config.Sandbox.share_input = True
     command.env = {}
     command.cwd = str(tmp_path)
-    command.runner_runtime = None
     command.steam_runtime_root = None
 
     monkeypatch.setattr(ManagerUtils, "get_bottle_path", lambda _config: str(tmp_path))
@@ -261,7 +260,6 @@ def test_wine_command_passes_usb_permission(monkeypatch, tmp_path):
     command.config.Sandbox.share_usb = True
     command.env = {}
     command.cwd = str(tmp_path)
-    command.runner_runtime = None
     command.steam_runtime_root = None
 
     monkeypatch.setattr(ManagerUtils, "get_bottle_path", lambda _config: str(tmp_path))
@@ -278,7 +276,6 @@ def test_wine_command_coordinates_hidraw_sandbox_permissions(monkeypatch, tmp_pa
     command.config.Parameters.hidraw_devices = ["0x044F/0xB10A"]
     command.env = {}
     command.cwd = str(tmp_path)
-    command.runner_runtime = None
     command.steam_runtime_root = None
 
     monkeypatch.setattr(ManagerUtils, "get_bottle_path", lambda _config: str(tmp_path))
@@ -297,7 +294,6 @@ def test_wine_command_rejects_invalid_hidraw_sandbox_permissions(monkeypatch, tm
     command.config.Parameters.hidraw_devices = ["1"]
     command.env = {}
     command.cwd = str(tmp_path)
-    command.runner_runtime = None
     command.steam_runtime_root = None
 
     monkeypatch.setattr(ManagerUtils, "get_bottle_path", lambda _config: str(tmp_path))

@@ -299,7 +299,7 @@ class BottlesWindow(Adw.ApplicationWindow):
             self.page_library = LibraryView(self)
 
             self.details_page.set_child(self.page_details)
-            self.importer_page = Adw.NavigationPage.new(self.page_importer, _("Import"))
+            self.importer_page = Adw.NavigationPage.new(self.page_importer, _("Import Bottles"))
             self.importer_page.set_tag("importer")
             self.main_navigation.add(self.details_page)
             self.main_navigation.add(self.importer_page)
@@ -407,17 +407,17 @@ class BottlesWindow(Adw.ApplicationWindow):
         if self.main_navigation.get_visible_page() is not self.importer_page:
             self.main_navigation.push_by_tag("importer")
 
-    def show_prefs_view(self, widget=False, view=0):
+    def show_prefs_view(self, widget=False, page=None):
         if getattr(self, "_preferences_dialog", None) is None:
             self._preferences_dialog = PreferencesDialog(self)
         preferences_dialog = self._preferences_dialog
+        if page is not None:
+            preferences_dialog.set_visible_page_name(page)
         preferences_dialog.present(self)
-
-    def show_download_preferences_view(self, widget=False):
-        self.show_prefs_view(widget, view=1)
+        return preferences_dialog
 
     def show_runners_preferences_view(self, widget=False):
-        self.show_prefs_view(widget, view=2)
+        return self.show_prefs_view(widget, page="runners")
 
     def check_crash_log(self):
         log_path = Paths.crash_log

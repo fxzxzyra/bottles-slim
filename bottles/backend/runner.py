@@ -18,12 +18,10 @@
 from typing import TYPE_CHECKING
 
 from bottles.backend.logger import Logger
-from bottles.backend.managers.runtime import RuntimeManager
 from bottles.backend.models.config import BottleConfig
 from bottles.backend.models.result import Result
 from bottles.backend.utils.manager import ManagerUtils
 from bottles.backend.utils.runners import RunnerRegistry
-from bottles.backend.utils.steam import SteamUtils
 from bottles.backend.utils.wine import WineUtils
 from bottles.backend.wine.wineboot import WineBoot
 
@@ -35,7 +33,7 @@ logging = Logger()
 
 class Runner:
     """
-    This class handle everything related to the runner (e.g. Wine, Proton).
+    This class handle everything related to the runner (Wine).
     It should not contain any manager logic (e.g. catalogs, checks, etc.) or
     any bottle related stuff (e.g. config handling, etc.), also DXVK, VKD3D,
     NVAPI handling should not performed from here.
@@ -88,27 +86,5 @@ class Runner:
             manager.install_dll_component(config, "nvapi", overrides_only=True)
         if config.Parameters.vkd3d:
             manager.install_dll_component(config, "vkd3d", overrides_only=True)
-
-        """
-        enable Steam runtime if using Proton.
-
-        NOTE: Official Proton runners need to be launched with the Steam Runtime to works
-        properly, since it relies on a lot of libraries that should not be present on
-        the host system. There are some exceptions, like the Soda and Wine-GE runners,
-        which are built to work without the Steam Runtime.
-        """
-        if SteamUtils.is_proton(
-            ManagerUtils.get_runner_path(runner)
-        ) and RuntimeManager.get_runtimes("steam"):
-            up_config = manager.update_config(
-                up_config, "use_steam_runtime", True, "Parameters"
-            ).data["config"]
-        else:
-            # not a Proton runner: make sure the Steam Runtime is not left
-            # enabled from a previously selected Proton runner, which would
-            # otherwise break launches with non-Proton runners
-            up_config = manager.update_config(
-                up_config, "use_steam_runtime", False, "Parameters"
-            ).data["config"]
 
         return Result(status=True, data={"config": up_config})

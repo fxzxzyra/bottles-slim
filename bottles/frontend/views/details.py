@@ -177,9 +177,6 @@ class DetailsView(Adw.Bin):
             },
         }
 
-        if self.config.Environment == "Steam":
-            del self.__pages["versioning"]
-
         def ui_update():
             if generation != self._page_generation:
                 return

@@ -64,8 +64,6 @@ class ManagerUtils:
 
         if path_type == "bottle":
             bottle_path = ManagerUtils.get_bottle_path(config)
-            if config.Environment == "Steam":
-                bottle_path = config.Path
             path = f"{bottle_path}/drive_c"
         elif component != "":
             if path_type == "d7vk":
@@ -91,9 +89,6 @@ class ManagerUtils:
 
     @staticmethod
     def get_bottle_path(config: BottleConfig) -> str:
-        if config.Environment == "Steam":
-            return os.path.join(Paths.steam, config.CompatData)
-
         if not os.path.isabs(config.Path):
             raise ValueError("The bottle has no absolute directory.")
         return config.Path
@@ -201,8 +196,7 @@ class ManagerUtils:
 
     @staticmethod
     def get_runner_path(runner: str) -> str:
-        info = RunnerRegistry.entries.get(runner)
-        return info.root if info else f"{Paths.user_runners}/{runner}"
+        return RunnerRegistry.require(runner).root
 
     @staticmethod
     def get_dxvk_path(dxvk: str) -> str:

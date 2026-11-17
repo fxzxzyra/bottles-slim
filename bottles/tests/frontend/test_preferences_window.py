@@ -60,3 +60,14 @@ def test_offline_banner_respects_forced_offline_mode(force_offline, online, reve
     BottlesWindow.network_changed_handler.__wrapped__(window, Result(online))
 
     banner.set_revealed.assert_called_once_with(revealed)
+
+
+def test_runner_entry_targets_named_preferences_page(monkeypatch):
+    PreferencesDialogStub.instances = []
+    monkeypatch.setattr(window_module, "PreferencesDialog", PreferencesDialogStub)
+    window = SimpleNamespace(_preferences_dialog=None)
+    window.show_prefs_view = lambda *args, **kwargs: BottlesWindow.show_prefs_view(window, *args, **kwargs)
+    dialog = BottlesWindow.show_runners_preferences_view(window)
+    assert dialog is window._preferences_dialog
+    assert dialog.page_name == "runners"
+    assert dialog.presented_with is window

@@ -269,7 +269,7 @@ class VersioningManager:
                 message=_("State {0} restored successfully!").format(state_id),
             )
             task_id = TaskManager.add(
-                Task(title=_("Restoring state {} …".format(state_id)))
+                Task(title=_("Restoring state {} …").format(state_id))
             )
             try:
                 repo.restore_state(state_id, ignore=patterns, task_id=task_id)

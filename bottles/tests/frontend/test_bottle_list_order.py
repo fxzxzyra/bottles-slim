@@ -29,11 +29,10 @@ def test_ordered_bottles_keeps_new_bottles_at_the_end():
     assert [config.Path for config in ordered] == ["Beta", "Alpha", "Gamma"]
 
 
-def test_replace_group_order_keeps_unavailable_and_other_group_entries():
+def test_replace_group_order_keeps_unavailable_entries():
     configured = [
         "bottle:Alpha",
         "bottle:Unavailable",
-        "steam:/steam/one",
         "bottle:Beta",
     ]
 
@@ -46,7 +45,6 @@ def test_replace_group_order_keeps_unavailable_and_other_group_entries():
     assert result == [
         "bottle:Gamma",
         "bottle:Unavailable",
-        "steam:/steam/one",
         "bottle:Beta",
         "bottle:Alpha",
     ]
@@ -69,13 +67,13 @@ def test_bottle_row_refreshes_programs_after_executable_finishes():
     assert calls == [(config, {"force_update": True})]
 
 
-def test_reorder_bottle_updates_only_its_group():
+def test_reorder_bottle_orders_applications_and_games_together():
     alpha = _config("Alpha")
     beta = _config("Beta")
-    steam = _config("/steam/one", "Steam")
+    application = _config("Office", "Application")
     configured = [
         _bottle_order_id(alpha),
-        _bottle_order_id(steam),
+        _bottle_order_id(application),
         _bottle_order_id(beta),
     ]
     saved = []
@@ -91,7 +89,7 @@ def test_reorder_bottle_updates_only_its_group():
                 local_bottles={
                     "Alpha": alpha,
                     "Beta": beta,
-                    "Steam": steam,
+                    "Office": application,
                 }
             ),
         ),
@@ -102,8 +100,8 @@ def test_reorder_bottle_updates_only_its_group():
 
     assert saved == [
         _bottle_order_id(beta),
-        _bottle_order_id(steam),
         _bottle_order_id(alpha),
+        _bottle_order_id(application),
     ]
     assert refreshes == [{"refresh_updates": False}]
 
@@ -155,7 +153,6 @@ def test_search_updates_filters_and_empty_state():
         _BottleView__filter_bottles=filter_bottles,
         _BottleView__update_empty_state=empty_states.append,
         list_bottles=bottle_list,
-        list_steam=bottle_list,
     )
 
     BottleView._BottleView__search_bottles(
@@ -163,7 +160,6 @@ def test_search_updates_filters_and_empty_state():
     )
 
     assert filters == [
-        (filter_bottles, "missing"),
         (filter_bottles, "missing"),
     ]
     assert empty_states == ["missing"]

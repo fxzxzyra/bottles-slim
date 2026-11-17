@@ -62,7 +62,7 @@ template $SandboxDialog: Adw.Window {
 
       Adw.PreferencesGroup group_hidraw {
         title: _("Flight Controllers (HIDRAW)");
-        description: _("Use raw HID access only for the selected vendor and product IDs.");
+        description: _("Prefer raw HID for the selected devices in Wine. Changes may require restarting the bottle. In a dedicated Flatpak sandbox, HIDRAW requires access to all host-permitted devices; this selection does not restrict device permissions.");
       }
     }
   }

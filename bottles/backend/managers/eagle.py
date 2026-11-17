@@ -1081,7 +1081,7 @@ class EagleManager:
             if "WPF" in frames:
                 messages.append({
                     "name": "WPF Optimization",
-                    "description": "Use a runner with 'ChildWindow' patches (e.g. Soda, Wine-GE-Custom, Proton-GE).",
+                    "description": "WPF applications may require the matching .NET runtime. Check the application log for initialization errors.",
                     "severity": "info",
                     "context": ["Detected WPF (Windows Presentation Foundation)"]
                 })

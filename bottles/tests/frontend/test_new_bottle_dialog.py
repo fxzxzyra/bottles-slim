@@ -72,12 +72,10 @@ def captured(monkeypatch):
     ("runners", "dxvks", "selected", "expected_runner", "expected_dxvk"),
     (
         (["soda-11.0-4"], ["dxvk-2.7"], 0, "soda-11.0-4", "dxvk-2.7"),
-        ([], [], INVALID_LIST_POSITION, False, False),
         (["soda-11.0-4"], [], 0, "soda-11.0-4", False),
-        ([], ["dxvk-2.7"], INVALID_LIST_POSITION, False, "dxvk-2.7"),
     ),
 )
-def test_create_bottle_tolerates_missing_components(
+def test_create_bottle_uses_selected_runner_with_optional_dxvk(
     captured, runners, dxvks, selected, expected_runner, expected_dxvk
 ):
     dialog = _make_dialog(runners, dxvks, selected)
@@ -99,6 +97,8 @@ def test_missing_directory_disables_create_without_marking_a_valid_name_as_inval
     state = {}
     view = SimpleNamespace(
         custom_path="",
+        _runner_ids=["system-wine"],
+        combo_runner=SimpleNamespace(get_selected=lambda: 0),
         _BottlesNewBottleDialog__check_validity=lambda: (False, False),
         btn_create=SimpleNamespace(set_sensitive=lambda value: state.update(enabled=value)),
         menu_duplicate=SimpleNamespace(set_visible=lambda value: state.update(duplicate=value)),
@@ -109,3 +109,49 @@ def test_missing_directory_disables_create_without_marking_a_valid_name_as_inval
     )
     BottlesNewBottleDialog._BottlesNewBottleDialog__check_entry_name(view)
     assert state == {"enabled": False, "duplicate": False, "error": False}
+
+
+@pytest.mark.parametrize("runners, selected", [([], INVALID_LIST_POSITION), (["system-wine"], INVALID_LIST_POSITION)])
+def test_create_without_a_selected_runner_never_enters_progress(captured, runners, selected):
+    dialog = _make_dialog(runners, [], selected)
+    def unexpected(*_args):
+        raise AssertionError("Missing runner must not enter the creation page")
+    dialog.stack_create.set_visible_child_name = unexpected
+    dialog.set_can_close = unexpected
+    BottlesNewBottleDialog.create_bottle(dialog)
+    assert captured == {}
+    assert dialog._creation_task is None
+
+
+def test_create_is_disabled_without_a_runner_but_the_name_remains_valid():
+    state = {}
+    view = SimpleNamespace(
+        custom_path="/selected/empty", _runner_ids=[],
+        combo_runner=SimpleNamespace(get_selected=lambda: INVALID_LIST_POSITION),
+        _BottlesNewBottleDialog__check_validity=lambda: (False, False),
+        btn_create=SimpleNamespace(set_sensitive=lambda value: state.update(enabled=value)),
+        menu_duplicate=SimpleNamespace(set_visible=lambda value: state.update(duplicate=value)),
+        entry_name=SimpleNamespace(
+            add_css_class=lambda _: state.update(error=True),
+            remove_css_class=lambda _: state.update(error=False),
+        ),
+    )
+    BottlesNewBottleDialog._BottlesNewBottleDialog__check_entry_name(view)
+    assert state == {"enabled": False, "duplicate": False, "error": False}
+
+
+def test_runner_refresh_preserves_selection_and_includes_new_registration():
+    from gi.repository import Adw, Gtk
+
+    model = Gtk.StringList.new(["First", "Second"])
+    combo = Adw.ComboRow(model=model, selected=1)
+    checks = []
+    dialog = SimpleNamespace(
+        combo_runner=combo, str_list_runner=model, _runner_ids=["system-wine", "custom-wine"],
+        manager=SimpleNamespace(runners_available=["new-system-wine", "system-wine", "custom-wine", "new-custom-wine"]),
+        _BottlesNewBottleDialog__check_entry_name=lambda: checks.append(True),
+    )
+    BottlesNewBottleDialog._BottlesNewBottleDialog__refresh_runners(dialog)
+    assert dialog._runner_ids[combo.get_selected()] == "custom-wine"
+    assert model.get_n_items() == 4
+    assert checks == [True]

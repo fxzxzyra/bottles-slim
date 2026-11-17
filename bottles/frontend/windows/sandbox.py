@@ -20,8 +20,8 @@ from gettext import gettext as _
 from gi.repository import Adw, Gtk
 
 from bottles.backend.managers.sandbox import SandboxManager
-from bottles.backend.utils.runners import RunnerRegistry
-from bottles.backend.utils.hidraw import list_hidraw_devices, normalize_hidraw_id
+from bottles.backend.utils.hidraw import configure_hidraw, list_hidraw_devices, normalize_hidraw_id
+from bottles.backend.utils.threading import RunAsync
 
 
 @Gtk.Template(resource_path="/com/usebottles/bottles/dialog-sandbox.ui")
@@ -48,7 +48,6 @@ class SandboxDialog(Adw.Window):
         self.manager = window.manager
         self.config = config
         self.__updating_device_rows = False
-        self.__hidraw_runner_confirmed = False
         self.__update(config)
 
         # connect signals
@@ -64,62 +63,35 @@ class SandboxDialog(Adw.Window):
             config=self.config, key=flag, value=state, scope="Sandbox"
         ).data["config"]
 
-    def __apply_hidraw_device(self, row, identifier):
-        selected = {
-            normalized
-            for value in self.config.Parameters.hidraw_devices
-            if (normalized := normalize_hidraw_id(value))
+    def __set_hidraw_device(self, row, _pspec, identifier):
+        previous = {
+            identifier for value in self.config.Parameters.hidraw_devices
+            if (identifier := normalize_hidraw_id(value))
         }
+        selected = previous.copy()
         if row.get_active():
             selected.add(identifier)
         else:
             selected.discard(identifier)
+        self.group_hidraw.set_sensitive(False)
 
-        self.config = self.manager.update_config(
-            config=self.config,
-            key="hidraw_devices",
-            value=sorted(selected),
-            scope="Parameters",
-        ).data["config"]
-        self.__update_device_permissions()
+        def completed(result, error=False):
+            if not error and result is not None and result.ok:
+                result = self.manager.update_config(
+                    config=self.config, key="hidraw_devices", value=sorted(selected), scope="Parameters",
+                )
+            if not error and result is not None and result.ok:
+                self.config = result.data["config"]
+                self.__update_device_permissions()
+            else:
+                row.handler_block_by_func(self.__set_hidraw_device)
+                row.set_active(identifier in previous)
+                row.handler_unblock_by_func(self.__set_hidraw_device)
+                message = str(error) if error else (result.message if result else "")
+                self.window.show_toast(message or _("Could not update Wine HIDRAW preferences"))
+            self.group_hidraw.set_sensitive(True)
 
-    def __set_hidraw_device(self, row, _pspec, identifier):
-        if (
-            not row.get_active()
-            or "soda" in RunnerRegistry.name(self.config.Runner).lower()
-            or self.__hidraw_runner_confirmed
-        ):
-            self.__apply_hidraw_device(row, identifier)
-            return
-
-        dialog = Adw.MessageDialog.new(
-            self,
-            _("Runner compatibility is unknown"),
-            _(
-                "This feature is tested with Soda. The selected runner may "
-                "ignore it or behave differently. Continue anyway?"
-            ),
-        )
-        dialog.add_response("cancel", _("_Cancel"))
-        dialog.add_response("continue", _("_Continue"))
-        dialog.set_response_appearance(
-            "continue", Adw.ResponseAppearance.SUGGESTED
-        )
-        dialog.set_default_response("cancel")
-        dialog.set_close_response("cancel")
-
-        def on_response(_dialog, response):
-            if response == "continue":
-                self.__hidraw_runner_confirmed = True
-                self.__apply_hidraw_device(row, identifier)
-                return
-
-            row.handler_block_by_func(self.__set_hidraw_device)
-            row.set_active(False)
-            row.handler_unblock_by_func(self.__set_hidraw_device)
-
-        dialog.connect("response", on_response)
-        dialog.present()
+        RunAsync(configure_hidraw, callback=completed, config=self.config, identifiers=sorted(selected))
 
     def __populate_hidraw_devices(self):
         devices = {device.identifier: device for device in list_hidraw_devices()}
@@ -152,6 +124,7 @@ class SandboxDialog(Adw.Window):
         for identifier in identifiers:
             device = devices.get(identifier)
             row = Adw.SwitchRow(
+                use_markup=False,
                 title=device.name if device else identifier,
                 subtitle=identifier if device else _("Not currently connected"),
                 active=identifier in selected,

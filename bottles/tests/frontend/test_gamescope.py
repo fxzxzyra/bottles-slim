@@ -108,39 +108,40 @@ def test_hdr_gamescope_command_enables_hdr(monkeypatch):
     assert WineCommand._get_gamescope_cmd(command) == "gamescope --hdr-enabled"
 
 
-def test_proton_hdr_option_enables_gamescope_hdr(monkeypatch):
+def test_proton_hdr_variable_does_not_enable_gamescope_hdr(monkeypatch):
     config = BottleConfig()
-    config.Parameters.gamescope_fullscreen = False
-    command = SimpleNamespace(config=config, gamescope_activated=True)
-    monkeypatch.setattr(winecommand, "gamescope_available", "gamescope")
-
-    assert (
-        WineCommand._get_gamescope_cmd(command, environment={"PROTON_ENABLE_HDR": "1"})
-        == "gamescope --hdr-enabled"
-    )
-
-
-def test_proton_use_hdr_can_disable_configured_gamescope_hdr(monkeypatch):
-    config = BottleConfig()
-    config.Parameters.gamescope_fullscreen = False
     config.Environment_Variables["PROTON_ENABLE_HDR"] = "1"
+    config.Parameters.gamescope_fullscreen = False
     command = SimpleNamespace(config=config, gamescope_activated=True)
     monkeypatch.setattr(winecommand, "gamescope_available", "gamescope")
 
     assert (
-        WineCommand._get_gamescope_cmd(command, environment={"PROTON_USE_HDR": "0"})
+        WineCommand._get_gamescope_cmd(command)
         == "gamescope"
     )
 
 
-def test_launch_arguments_enable_gamescope_hdr(monkeypatch, tmp_path):
+def test_proton_variable_cannot_disable_configured_gamescope_hdr(monkeypatch):
+    config = BottleConfig()
+    config.Parameters.hdr = True
+    config.Parameters.gamescope_fullscreen = False
+    config.Environment_Variables["PROTON_USE_HDR"] = "0"
+    command = SimpleNamespace(config=config, gamescope_activated=True)
+    monkeypatch.setattr(winecommand, "gamescope_available", "gamescope")
+
+    assert (
+        WineCommand._get_gamescope_cmd(command)
+        == "gamescope --hdr-enabled"
+    )
+
+
+def test_launch_argument_environment_does_not_override_hdr_preference(monkeypatch, tmp_path):
     config = BottleConfig(Path=str(tmp_path))
     config.Parameters.gamescope = True
     config.Parameters.gamescope_fullscreen = False
     command = WineCommand.__new__(WineCommand)
     command.config = config
     command.runner = "/usr/bin/wine"
-    command.runner_runtime = ""
     command.minimal = False
     command.gamescope_activated = True
     command.arguments = "PROTON_ENABLE_HDR=1 %command%"
@@ -149,11 +150,10 @@ def test_launch_arguments_enable_gamescope_hdr(monkeypatch, tmp_path):
     monkeypatch.setattr(winecommand, "gamemode_available", False)
     monkeypatch.setattr(winecommand, "mangohud_available", False)
     monkeypatch.setattr(winecommand, "obs_vkc_available", False)
-    monkeypatch.setattr(winecommand.Paths, "temp", str(tmp_path))
 
     result = command.get_cmd("app.exe", environment=environment)
 
-    assert result.startswith("gamescope --hdr-enabled -- ")
+    assert result.startswith("gamescope -- ")
     assert environment["PROTON_ENABLE_HDR"] == "1"
 
 
@@ -178,7 +178,6 @@ def test_gamescope_launcher_cleans_its_process_group(monkeypatch, tmp_path):
     command = WineCommand.__new__(WineCommand)
     command.config = config
     command.runner = "/usr/bin/wine"
-    command.runner_runtime = ""
     command.minimal = False
     command.gamescope_activated = True
     command.arguments = ""
@@ -186,7 +185,6 @@ def test_gamescope_launcher_cleans_its_process_group(monkeypatch, tmp_path):
     monkeypatch.setattr(winecommand, "gamemode_available", False)
     monkeypatch.setattr(winecommand, "mangohud_available", False)
     monkeypatch.setattr(winecommand, "obs_vkc_available", False)
-    monkeypatch.setattr(winecommand.Paths, "temp", str(tmp_path))
 
     result = command.get_cmd("app.exe")
 

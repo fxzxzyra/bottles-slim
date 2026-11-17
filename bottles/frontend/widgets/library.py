@@ -40,17 +40,6 @@ class LibraryEntryInitializationError(Exception):
     pass
 
 
-@Gtk.Template(resource_path="/com/usebottles/bottles/library-add-entry.ui")
-class LibraryAddEntry(Gtk.Box):
-    __gtype_name__ = "LibraryAddEntry"
-
-    btn_bottle = Gtk.Template.Child()
-
-    def __init__(self, library, **kwargs):
-        super().__init__(**kwargs)
-        self.btn_bottle.connect("clicked", library.show_bottle_programs)
-
-
 @Gtk.Template(resource_path="/com/usebottles/bottles/library-entry.ui")
 class LibraryEntry(Gtk.Box):
     __gtype_name__ = "LibraryEntry"
@@ -58,7 +47,6 @@ class LibraryEntry(Gtk.Box):
     # region Widgets
     btn_run = Gtk.Template.Child()
     btn_stop = Gtk.Template.Child()
-    btn_launch_steam = Gtk.Template.Child()
     btn_cover = Gtk.Template.Child()
     btn_remove = Gtk.Template.Child()
     label_name = Gtk.Template.Child()
@@ -78,7 +66,6 @@ class LibraryEntry(Gtk.Box):
         self.name = entry["name"]
         self.uuid = uuid
         self.entry = entry
-        self.is_steam = entry.get("steam", False)
         try:
             self.config = self.__get_config()
 
@@ -102,20 +89,13 @@ class LibraryEntry(Gtk.Box):
             self.__handle_initialization_failure(str(error))
             raise
 
-        if len(entry["name"]) >= 15:
-            name = entry["name"][:13] + "…"
-        else:
-            name = entry["name"]
-
-        self.label_name.set_text(name)
+        self.label_name.set_text(self.name)
+        self.label_name.set_tooltip_text(self.name)
         self.label_bottle.set_text(
-            "Steam" if self.is_steam else entry["bottle"]["name"]
+            entry["bottle"]["name"]
         )
         self.label_no_cover.set_label(self.name)
 
-        if self.is_steam:
-            self.btn_run.set_visible(False)
-            self.btn_launch_steam.set_visible(True)
 
         if entry.get("thumbnail"):
             path = ThumbnailManager.get_path(self.config, entry["thumbnail"])
@@ -135,12 +115,7 @@ class LibraryEntry(Gtk.Box):
             else:
                 self.__set_cover(path)
 
-        motion_ctrl = Gtk.EventControllerMotion.new()
-        motion_ctrl.connect("enter", self.__on_motion_enter)
-        motion_ctrl.connect("leave", self.__on_motion_leave)
-        self.overlay.add_controller(motion_ctrl)
         self.btn_run.connect("clicked", self.run_executable)
-        self.btn_launch_steam.connect("clicked", self.run_steam)
         self.btn_cover.connect("clicked", self.__choose_cover)
         self.btn_stop.connect("clicked", self.stop_process)
         self.btn_remove.connect("clicked", self.__remove_entry)
@@ -181,8 +156,6 @@ class LibraryEntry(Gtk.Box):
         return None
 
     def __get_program(self):
-        if self.entry.get("steam"):
-            return self.entry
 
         programs = self.manager.get_programs(self.config)
         programs = [
@@ -312,8 +285,6 @@ class LibraryEntry(Gtk.Box):
             self.window, self.config, self.program.get("path"), proceed
         )
 
-    def run_steam(self, widget):
-        self.manager.steam_manager.launch_app(self.config.CompatData)
 
     def stop_process(self, widget):
         self.window.show_toast(_('Stopping "{0}"…').format(self.program["name"]))
@@ -322,19 +293,13 @@ class LibraryEntry(Gtk.Box):
         def complete(_result=None, error=False):
             self.__reset_buttons(True)
             if error:
-                self.window.show_toast(_("The game could not be stopped."))
+                self.window.show_toast(_("The program could not be stopped."))
 
         RunAsync(
             WineBoot(self.config).kill,
             callback=complete,
             force_if_stalled=True,
         )
-
-    def __on_motion_enter(self, *args):
-        self.revealer_details.set_reveal_child(True)
-
-    def __on_motion_leave(self, *args):
-        self.revealer_details.set_reveal_child(False)
 
     # hide() and show() are essentialy workarounds to avoid keeping
     # the empty space of the hidden entry in the GtkFlowBox

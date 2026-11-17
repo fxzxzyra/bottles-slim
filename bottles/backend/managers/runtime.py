@@ -129,6 +129,7 @@ class RuntimeManager:
         if not steam_manager.is_steam_supported:
             return available_runtimes
 
+        # Discovery order also defines the preferred runtime for ordinary Wine.
         lookup = {
             "steamrt4": {
                 "name": "steamrt4",

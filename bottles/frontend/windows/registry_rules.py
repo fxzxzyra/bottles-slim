@@ -55,7 +55,7 @@ class RegistryRuleEntry(Adw.ActionRow):
         if self.rule.description:
             details.append(self.rule.description)
         if self.rule.triggers:
-            details.append(_("Triggers: {}".format(", ".join(self.rule.triggers))))
+            details.append(_("Triggers: {}").format(", ".join(self.rule.triggers)))
         if self.rule.run_once:
             details.append(_("Run once"))
 

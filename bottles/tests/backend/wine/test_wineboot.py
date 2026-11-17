@@ -57,7 +57,8 @@ def test_wineboot_disables_unmanaged_mono(monkeypatch):
     )
 
 
-def test_forced_dll_overrides_take_precedence(monkeypatch, tmp_path):
+def test_forced_dll_overrides_take_precedence(monkeypatch, tmp_path, runner_factory):
+    runner_factory("sys-wine")
     config = BottleConfig(
         Path=str(tmp_path),
         Runner="sys-wine",
@@ -70,9 +71,6 @@ def test_forced_dll_overrides_take_precedence(monkeypatch, tmp_path):
     monkeypatch.setattr(
         "bottles.backend.wine.winecommand.ManagerUtils.get_runner_path",
         lambda _runner: "sys-wine",
-    )
-    monkeypatch.setattr(
-        "bottles.backend.wine.winecommand.SteamUtils.is_proton", lambda *_: False
     )
     monkeypatch.setattr(
         "bottles.backend.wine.winecommand.DisplayUtils.check_nvidia_device",
@@ -92,7 +90,6 @@ def test_forced_dll_overrides_take_precedence(monkeypatch, tmp_path):
     winecmd.minimal = True
     winecmd.arguments = ""
     winecmd.runner = "/usr/bin/wine"
-    winecmd.runner_runtime = ""
     winecmd.gamescope_activated = False
     winecmd.terminal = False
     winecmd.forced_dll_overrides = "mscoree=d"

@@ -761,3 +761,47 @@ def test_full_backup_snapshots_committed_wal_data_without_sidecar_files(tmp_path
             assert "bottle/process_metrics.sqlite-shm" not in backup.getnames()
     finally:
         connection.close()
+
+
+def test_duplicate_library_entries_are_independent_and_survive_separate_edits(tmp_path):
+    from bottles.backend.managers.library import LibraryManager
+    from bottles.backend.managers.storage import BottleIndex
+
+    source = tmp_path / "Source"
+    source.mkdir(mode=0o700)
+    (source / "drive_c").mkdir()
+    (source / "grids").mkdir()
+    (source / "grids/cover.png").write_bytes(b"cover")
+    config = BottleConfig(Name="Source", Path=str(source))
+    assert config.dump(str(source / "bottle.yml")).ok
+    entry = {"name": "Writer", "id": "writer", "thumbnail": "grid:cover.png"}
+    original = {"original-entry-id": entry}
+    (source / "library.yml").write_text(yaml.dump(original))
+    BottleIndex().register(str(source))
+    target = tmp_path / "Copy"
+    target.mkdir()
+
+    result = BackupManager.duplicate_bottle(config, "Copy", str(target))
+
+    assert result.ok
+    copied = yaml.load((target / "library.yml").read_text())
+    assert len(copied) == 1
+    copied_id = next(iter(copied))
+    assert copied_id not in original
+    assert copied[copied_id] == entry
+    assert (target / "library.yml").stat().st_mode & 0o777 == 0o600
+    assert yaml.load((source / "library.yml").read_text()) == original
+    assert (target / "grids/cover.png").read_bytes() == b"cover"
+
+    manager = LibraryManager()
+    assert set(manager.get_library()) == {"original-entry-id", copied_id}
+    manager.remove_from_library(copied_id, result.data["config"])
+    assert yaml.load((source / "library.yml").read_text()) == original
+    assert yaml.load((target / "library.yml").read_text()) == {}
+    assert (source / "grids/cover.png").read_bytes() == b"cover"
+
+    manager = LibraryManager()
+    manager.remove_from_library("original-entry-id", config)
+    assert manager.get_library() == {}
+    assert yaml.load((source / "library.yml").read_text()) == {}
+    assert yaml.load((target / "library.yml").read_text()) == {}

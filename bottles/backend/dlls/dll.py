@@ -26,7 +26,6 @@ from bottles.backend.logger import Logger
 from bottles.backend.models.config import BottleConfig
 from bottles.backend.models.enum import Arch
 from bottles.backend.utils.manager import ManagerUtils
-from bottles.backend.utils.steam import SteamUtils
 from bottles.backend.wine.reg import Reg
 
 logging = Logger()
@@ -191,13 +190,7 @@ class DLLComponent:
         return ""
 
     def __get_builtin_path(self, config: BottleConfig, system: str, dll: str):
-        runner = (
-            config.RunnerPath
-            if config.Environment == "Steam"
-            else ManagerUtils.get_runner_path(config.Runner)
-        )
-        if SteamUtils.is_proton(runner):
-            runner = SteamUtils.get_dist_directory(runner)
+        runner = ManagerUtils.get_runner_path(config.Runner)
 
         arch = "i386" if system == "syswow64" or config.Arch == Arch.WIN32 else "x86_64"
         for directory in (

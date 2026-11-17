@@ -51,3 +51,27 @@ def list_hidraw_devices(
             )
 
     return sorted(devices.values(), key=lambda device: device.name.casefold())
+
+
+def hidraw_registry_bundle(identifiers):
+    """Wine winebus reads a UTF-16 REG_MULTI_SZ of VVVV:PPPP identifiers."""
+    devices = []
+    for value in identifiers:
+        normalized = normalize_hidraw_id(value)
+        if normalized is None:
+            raise ValueError(f"Invalid HIDRAW device identifier: {value}")
+        vendor, product = normalized.split("/")
+        identifier = f"{vendor[2:]}:{product[2:]}"
+        if identifier not in devices:
+            devices.append(identifier)
+    data = ("\0".join(devices) + "\0\0").encode("utf-16le")
+    return {r"HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\winebus": [
+        {"value": "EnableHidraw", "key_type": "hex(7)", "data": ",".join(f"{value:02x}" for value in data)},
+    ]}
+
+
+def configure_hidraw(config, identifiers):
+    # Import lazily: Reg depends on WineCommand, which also uses device helpers.
+    from bottles.backend.wine.reg import Reg
+
+    return Reg(config).import_bundle(hidraw_registry_bundle(identifiers))

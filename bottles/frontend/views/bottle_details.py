@@ -54,9 +54,8 @@ from bottles.fvs.repo import FVSRepo
 
 
 @Gtk.Template(resource_path="/com/usebottles/bottles/details-bottle.ui")
-class BottleView(Adw.PreferencesPage):
+class BottleView(Adw.Bin):
     __gtype_name__ = "DetailsBottle"
-    __registry = []
 
     # region Widgets
     label_runner = Gtk.Template.Child()
@@ -111,9 +110,6 @@ class BottleView(Adw.PreferencesPage):
     btn_snapshots_settings = Gtk.Template.Child()
     # endregion
 
-    content = Gdk.ContentFormats.new_for_gtype(Gdk.FileList)
-    target = Gtk.DropTarget(formats=content, actions=Gdk.DragAction.COPY)
-
     style_provider = Gtk.CssProvider()
 
     def __init__(self, details, config, **kwargs):
@@ -126,6 +122,7 @@ class BottleView(Adw.PreferencesPage):
         self.details = details
         self.config = config
         self.show_hidden = False
+        self.__registry = []
         self.__update_rows = []
 
         # Initialize playtime service
@@ -142,6 +139,7 @@ class BottleView(Adw.PreferencesPage):
         SignalManager.connect(Signals.TaskRemoved, self._on_task_removed)
         SignalManager.connect(Signals.TaskUpdated, self._on_task_updated)
 
+        self.target = Gtk.DropTarget.new(Gdk.FileList, Gdk.DragAction.COPY)
         self.target.connect("drop", self.on_drop)
         self.add_controller(self.target)
         self.target.connect("enter", self.on_enter)
@@ -232,12 +230,11 @@ class BottleView(Adw.PreferencesPage):
     def on_drop(self, drop_target, value: Gdk.FileList, x, y, user_data=None):
         self.drop_overlay.set_visible(False)
         files: List[Gio.File] = value.get_files()
+        if not files:
+            return False
         args = ""
         file = files[0]
-        if (
-            ".exe" in file.get_basename().split("/")[-1]
-            or ".msi" in file.get_basename().split("/")[-1]
-        ):
+        if os.path.splitext(file.get_basename())[1].lower() in (".exe", ".msi"):
             def callback(a, b):
                 self.update_programs(force_update=True)
 
@@ -254,6 +251,7 @@ class BottleView(Adw.PreferencesPage):
             guard_sandbox_launch(
                 self.window, self.config, file.get_path(), proceed
             )
+            return True
 
         else:
             self.window.show_toast(
@@ -261,6 +259,7 @@ class BottleView(Adw.PreferencesPage):
                     file.get_basename().split("/")[-1]
                 )
             )
+            return False
 
     def on_enter(self, drop_target, x, y):
         self.drop_overlay.set_visible(True)
@@ -276,7 +275,7 @@ class BottleView(Adw.PreferencesPage):
         # set update_date
         update_date = datetime.strptime(self.config.Update_Date, "%Y-%m-%d %H:%M:%S.%f")
         update_date = update_date.strftime("%b %d %Y %H:%M:%S")
-        self.label_name.set_tooltip_text(_("Updated: %s" % update_date))
+        self.label_name.set_tooltip_text(_("Updated: %s") % update_date)
 
         # set arch
         self.label_arch.set_text((self.config.Arch or "n/a").capitalize())
@@ -286,7 +285,11 @@ class BottleView(Adw.PreferencesPage):
         self.label_runner.set_text(format_runner_name(self.config.Runner))
 
         # set environment
-        self.label_environment.set_text(_(self.config.Environment))
+        self.label_environment.set_text({
+            "Application": _("Application"),
+            "Gaming": _("Gaming"),
+            "Custom": _("Custom"),
+        }[self.config.Environment])
 
         # set versioning badge
         has_old_versioning = self.config.Versioning
@@ -302,12 +305,7 @@ class BottleView(Adw.PreferencesPage):
             self.label_state.set_text("…")
             self.__update_fvs2_badge(bottle_path)
 
-        self.__set_steam_rules()
-
-        missing_runner = (
-            config.Runner not in self.manager.runners_available
-            and not self.config.Environment == "Steam"
-        )
+        missing_runner = config.Runner not in self.manager.runners_available
 
         # check for old versioning system enabled
         if self.manager.versioning_manager.needs_migration(config):
@@ -389,7 +387,7 @@ class BottleView(Adw.PreferencesPage):
             GLib.idle_add(self.empty_list)
 
         def new_program(
-            _program, check_boot=None, is_steam=False, wineserver_status=False
+            _program, check_boot=None, wineserver_status=False
         ):
             if check_boot is None:
                 check_boot = wineserver_status
@@ -398,19 +396,16 @@ class BottleView(Adw.PreferencesPage):
                 self.window,
                 self.config,
                 _program,
-                is_steam=is_steam,
                 check_boot=check_boot,
             )
 
-            # Update playtime subtitle if not Steam program
-            if not is_steam:
-                program_widget.update_playtime(self.playtime_service)
+            program_widget.update_playtime(self.playtime_service)
 
             self.add_program(program_widget)
 
         if force_add:
             wineserver_status = WineServer(self.config).is_alive()
-            new_program(force_add, None, False, wineserver_status)
+            new_program(force_add, None, wineserver_status)
             return
 
         def process_programs():
@@ -421,28 +416,15 @@ class BottleView(Adw.PreferencesPage):
             programs = sorted(programs, key=lambda p: p.get("name", "").lower())
             handled = 0
 
-            if self.config.Environment == "Steam":
-                GLib.idle_add(
-                    new_program,
-                    {
-                        "name": self.config.Name,
-                        "id": f"steam:{self.config.CompatData}",
-                        "steam": True,
-                    },
-                    None,
-                    True,
-                )
-                handled += 1
-
             for program in programs:
                 if program.get("removed"):
                     if self.show_hidden:
                         GLib.idle_add(
-                            new_program, program, None, False, wineserver_status
+                            new_program, program, None, wineserver_status
                         )
                         handled += 1
                     continue
-                GLib.idle_add(new_program, program, None, False, wineserver_status)
+                GLib.idle_add(new_program, program, None, wineserver_status)
                 handled += 1
 
             self.row_no_programs.set_visible(handled == 0)
@@ -879,11 +861,7 @@ class BottleView(Adw.PreferencesPage):
 
         dialog = Adw.MessageDialog.new(
             self.window,
-            _(
-                'Are you sure you want to permanently delete "{}"?'.format(
-                    self.config["Name"]
-                )
-            ),
+            _('Are you sure you want to permanently delete "{}"?').format(self.config.Name),
             _(
                 "Remove this bottle from your list, or permanently delete its directory and all files."
             ),
@@ -996,10 +974,3 @@ class BottleView(Adw.PreferencesPage):
         elif status in (1, 2):
             graceful_status = {1: 11, 2: 12}[status]
             RunAsync(wineboot.send_status, callback=reset, status=graceful_status)
-
-    def __set_steam_rules(self):
-        status = False if self.config.Environment == "Steam" else True
-
-        for w in [self.btn_delete, self.btn_backup_full, self.btn_duplicate]:
-            w.set_visible(status)
-            w.set_sensitive(status)

@@ -73,7 +73,6 @@ from bottles.backend.utils.manager import ManagerUtils
 from bottles.backend.utils.runners import (
     RunnerRegistry,
     SYSTEM_WINE,
-    SYSTEM_RUNNER_PREFIX,
     system_runner_guidance,
 )
 from bottles.backend.utils.singleton import Singleton
@@ -534,10 +533,6 @@ class Manager(metaclass=Singleton):
         Checks for the existence of the bottles' directories, and creates them
         if they don't exist.
         """
-        if not os.path.isdir(Paths.user_runners):
-            logging.info("Runners path doesn't exist, creating now.")
-            os.makedirs(Paths.user_runners, exist_ok=True)
-
         if not os.path.isdir(Paths.runtimes):
             logging.info("Runtimes path doesn't exist, creating now.")
             os.makedirs(Paths.runtimes, exist_ok=True)
@@ -545,14 +540,6 @@ class Manager(metaclass=Singleton):
         if not os.path.isdir(Paths.winebridge):
             logging.info("WineBridge path doesn't exist, creating now.")
             os.makedirs(Paths.winebridge, exist_ok=True)
-
-        if (
-            self.settings.get_boolean("steam-proton-support")
-            and self.steam_manager.is_steam_supported
-        ):
-            if not os.path.isdir(Paths.steam):
-                logging.info("Steam path doesn't exist, creating now.")
-                os.makedirs(Paths.steam, exist_ok=True)
 
         if not os.path.isdir(Paths.dxvk):
             logging.info("Dxvk path doesn't exist, creating now.")
@@ -667,46 +654,48 @@ class Manager(metaclass=Singleton):
         if system:
             entries[system.identifier] = system
 
-        candidates = {
-            os.path.basename(os.path.normpath(path)): path
-            for path in sorted(glob(f"{Paths.user_runners}/*/"))
-        }
-        # Previously downloaded runners remain usable local user runners.
-        for name, path in self.steam_manager.list_compatibility_tools().items():
-            candidates.setdefault(name, path)
-        candidates.update(self.data_mgr.get(UserDataKeys.UserRunners) or {})
-        for identifier, path in candidates.items():
-            if (
-                identifier == SYSTEM_WINE
-                or identifier.startswith("sys-")
-                or identifier.startswith(SYSTEM_RUNNER_PREFIX)
-            ):
-                logging.warning(f"Reserved runner identifier: {identifier}")
-                continue
+        registrations = self.data_mgr.get(UserDataKeys.UserRunners) or {}
+        for identifier, registration in registrations.items():
             try:
-                entries[identifier] = RunnerRegistry.inspect(identifier, path)
+                entries[identifier] = RunnerRegistry.inspect(
+                    identifier, registration["path"], name=registration["name"],
+                )
             except (OSError, ValueError) as error:
-                logging.warning(f"Ignoring unavailable user runner {identifier}: {error}")
+                logging.warning(f"Unavailable registered runner {registration['name']}: {error}")
 
         RunnerRegistry.entries = entries
         self.runners_available = list(entries)
         return bool(entries)
 
-    def add_user_runner(self, path: str) -> Result:
-        """Register a local directory without copying or modifying its files."""
+    def register_user_runner(self, name: str, path: str, identifier: str | None = None) -> Result:
+        """Register or edit a named Wine installation in place; never change its files."""
+        name = name.strip()
+        if not name:
+            return Result(False, message=_("Enter a runner name."))
+        if not os.path.isabs(path):
+            return Result(False, message=_("Select an absolute runner directory."))
+        if "/run/user/" in path and "/doc/" in path:
+            return Result(False, message=_("Select a permanent runner directory, not a document portal path."))
         path = os.path.realpath(path)
-        if any(
-            os.path.realpath(info.root) == path
-            for info in RunnerRegistry.entries.values()
-        ):
-            return Result(False, message=_("This runner is already available."))
-        identifier = f"user-{uuid.uuid4().hex}"
+        registrations = dict(self.data_mgr.get(UserDataKeys.UserRunners) or {})
+        if identifier is not None and identifier not in registrations:
+            return Result(False, message=_("This runner registration no longer exists."))
+        for key, registration in registrations.items():
+            if key == identifier:
+                continue
+            if registration["name"].casefold() == name.casefold():
+                return Result(False, message=_("A runner with this name is already registered."))
+            if os.path.realpath(registration["path"]) == path:
+                return Result(False, message=_("This runner is already registered."))
+        if any(info.source == "system" and os.path.realpath(info.root) == path
+               for info in RunnerRegistry.entries.values()):
+            return Result(False, message=_("This runner is already provided by the system."))
+        identifier = identifier or f"user-{uuid.uuid4().hex}"
         try:
-            RunnerRegistry.inspect(identifier, path)
+            RunnerRegistry.inspect(identifier, path, name=name)
         except (OSError, ValueError) as error:
             return Result(False, message=str(error))
-        registrations = dict(self.data_mgr.get(UserDataKeys.UserRunners) or {})
-        registrations[identifier] = path
+        registrations[identifier] = {"name": name, "path": path}
         self.data_mgr.set(UserDataKeys.UserRunners, registrations)
         self.check_runners()
         return Result(True, data={"runner": identifier})
@@ -1204,14 +1193,6 @@ class Manager(metaclass=Singleton):
                 )),
             )
 
-        if (
-            self.settings.get_boolean("steam-proton-support")
-            and self.steam_manager.is_steam_supported
-            and not self.is_cli
-        ):
-            self.steam_manager.update_bottles()
-            self.local_bottles.update(self.steam_manager.list_prefixes())
-
     # Update parameters in bottle config
     def update_config(
         self,
@@ -1265,7 +1246,7 @@ class Manager(metaclass=Singleton):
         if not result.status:
             return Result(False, data={"config": config}, message=result.message)
 
-        if key == "Name" and not scope and config.Environment != "Steam":
+        if key == "Name" and not scope:
             BottleIndex().rename(bottle_path, config.Name)
 
         config.Update_Date = str(datetime.now())
@@ -1273,8 +1254,6 @@ class Manager(metaclass=Singleton):
         if scope == "External_Programs":
             self._programs_cache.pop(config.Name, None)
 
-        if config.Environment == "Steam":
-            self.steam_manager.update_bottle(config)
 
         component_keys = {
             "Runner",
@@ -1662,15 +1641,11 @@ class Manager(metaclass=Singleton):
 
             logging.info("Setting Windows version…")
             log_update(_("Setting Windows version…"))
-            if config.Windows != "win10" or (
-                "soda" not in RunnerRegistry.name(runner_name).lower()
-                and "caffe" not in RunnerRegistry.name(runner_name).lower()
-            ):
-                try:
-                    rk.lg_set_windows(config.Windows)
-                except ValueError as e:
-                    logging.warning(str(e))
-                wineboot.update()
+            try:
+                rk.lg_set_windows(config.Windows)
+            except ValueError as e:
+                logging.warning(str(e))
+            wineboot.update()
 
             FileUtils.wait_for_files(reg_files)
 
@@ -1914,9 +1889,6 @@ class Manager(metaclass=Singleton):
         if not self.settings.get_boolean("show-component-updates"):
             return updates
 
-        if config.Environment == "Steam":
-            return updates
-
         component_meta = {
             "d7vk": {
                 "title": _("D7VK"),
@@ -2155,8 +2127,6 @@ class Manager(metaclass=Singleton):
         config.Update_Date = candidate.Update_Date
         if config.Name in self.local_bottles:
             self.local_bottles[config.Name] = config
-        if config.Environment == "Steam":
-            self.steam_manager.update_bottle(config)
         RegistryRuleManager.apply_rules(config, trigger="components")
         return Result(True, data={"config": config})
 
@@ -2207,8 +2177,6 @@ class Manager(metaclass=Singleton):
         config.Update_Date = candidate.Update_Date
         if candidate.Name in self.local_bottles:
             self.local_bottles[candidate.Name] = config
-        if config.Environment == "Steam":
-            self.steam_manager.update_bottle(config)
         RegistryRuleManager.apply_rules(config, trigger="components")
         return Result(True, data={"config": config})
 
@@ -2364,8 +2332,8 @@ class Manager(metaclass=Singleton):
                 return Result(
                     status=False,
                     message=_(
-                        f"{component.upper()} requires Vulkan, which is not available on this system."
-                    ),
+                        "{0} requires Vulkan, which is not available on this system."
+                    ).format(component.upper()),
                 )
 
         if component == "d7vk":

@@ -50,9 +50,9 @@ def test_native_windows_conversion_is_idempotent():
     assert result == path
 
 
-def test_native_steam_conversion_uses_prefix_path(tmp_path):
+def test_native_conversion_uses_selected_prefix_path(tmp_path):
     prefix = tmp_path / "steamapps" / "compatdata" / "123" / "pfx"
-    config = BottleConfig(Environment="Steam", Path=str(prefix), CompatData="123")
+    config = BottleConfig(Path=str(prefix))
     winepath = WinePath(config)
 
     result = winepath.to_unix(r"C:\Program Files\Example", native=True)

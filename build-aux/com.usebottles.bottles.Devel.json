@@ -2,7 +2,7 @@
   "id": "com.usebottles.bottles.Devel",
   "sdk": "org.gnome.Sdk",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "50",
+  "runtime-version": "51",
   "command": "bottles",
   "finish-args": [
     "--allow=devel",
@@ -28,14 +28,6 @@
     "org.freedesktop.Sdk.Extension.golang"
   ],
   "add-extensions": {
-    "com.valvesoftware.Steam.CompatibilityTool": {
-      "subdirectories": true,
-      "directory": "share/steam/compatibilitytools.d",
-      "version": "stable",
-      "versions": "stable;beta;test",
-      "no-autodownload": true,
-      "autodelete": false
-    },
     "com.usebottles.bottles.runners": {
       "directory": "share/bottles/runners",
       "version": "stable",
@@ -66,7 +58,6 @@
   ],
   "cleanup-commands": [
     "mkdir -p /app/utils",
-    "mkdir -p /app/share/steam/compatibilitytools.d",
     "mkdir -p /app/share/bottles/runners"
   ],
   "modules": [
@@ -156,7 +147,7 @@
         }
       ],
       "build-commands": [
-        "make -j $FLATPAK_BUILDER_N_JOBS -f makefile.gcc",
+        "make -j \"${FLATPAK_BUILDER_N_JOBS}\" -f makefile.gcc CXX_WARN_FLAGS=-Wno-error=array-bounds",
         "install -Dm755 ./_o/7zz -t /app/bin",
         "ln -s /app/bin/7zz /app/bin/7za",
         "ln -s /app/bin/7zz /app/bin/7z"
@@ -198,6 +189,9 @@
             "tag-pattern": "^([\\d.]+-[\\d]+)$"
           }
         }
+      ],
+      "cleanup": [
+        "/bin/*-config"
       ]
     },
     {

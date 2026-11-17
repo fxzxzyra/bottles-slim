@@ -141,7 +141,7 @@ class BottleConfig(DictCompatMixIn):
     VKD3D: str = ""
     LatencyFleX: str = ""
     Path: str = ""
-    Environment: str = ""  # Enum: "Steam", "Custom"
+    Environment: str = ""
     Creation_Date: str = ""
     Update_Date: str = ""
     Versioning: bool = False
@@ -163,13 +163,12 @@ class BottleConfig(DictCompatMixIn):
     Winebridge: bool = False
 
     # Section - Not Existed in Sample Config but used in code
-    CompatData: str = ""
     data: dict = field(default_factory=dict)  # possible keys: "config", ...
     RunnerPath: str = ""
 
     @property
     def identifier(self) -> str:
-        return self.CompatData if self.Environment == "Steam" else self.Id
+        return self.Id
 
     def to_dict(self) -> dict:
         data = asdict(self)

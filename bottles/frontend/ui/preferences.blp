@@ -8,6 +8,7 @@ template $PreferencesDialog: Adw.PreferencesDialog {
   Adw.PreferencesPage {
     icon-name: "preferences-system-symbolic";
     title: _("General");
+    name: "general";
 
     Adw.PreferencesGroup {
       title: _("Appearance");
@@ -137,27 +138,6 @@ template $PreferencesDialog: Adw.PreferencesDialog {
     Adw.PreferencesGroup {
       title: _("Integrations");
 
-      Adw.ActionRow action_steam_proton {
-        title: _("Steam Proton Prefixes");
-        subtitle: _("List and manage Steam Proton prefixes.");
-        activatable-widget: switch_steam;
-
-        Button btn_steam_proton_doc {
-          tooltip-text: _("Read Documentation");
-          valign: center;
-          visible: false;
-          icon-name: "help-browser-symbolic";
-
-          styles [
-            "flat",
-          ]
-        }
-
-        Switch switch_steam {
-          valign: center;
-        }
-      }
-
       Adw.ActionRow {
         title: _("List Steam Apps in Programs List");
         subtitle: _("Requires Steam for Windows installed in the bottle.");
@@ -279,6 +259,7 @@ template $PreferencesDialog: Adw.PreferencesDialog {
   Adw.PreferencesPage {
     icon-name: "system-run-symbolic";
     title: _("Runners");
+    name: "runners";
 
     Adw.PreferencesGroup system_runners {
       title: _("System Runners");
@@ -294,12 +275,12 @@ template $PreferencesDialog: Adw.PreferencesDialog {
 
     Adw.PreferencesGroup user_runners {
       title: _("User Runners");
-      description: _("Local runners for applications that need a particular Wine version. Manage their files outside Bottles.");
+      description: _("Register a name and an existing Wine directory. Bottles does not copy, update, or delete its files.");
 
       [header-suffix]
       Button btn_add_runner {
         icon-name: "list-add-symbolic";
-        tooltip-text: _("Add Local Runner");
+        tooltip-text: _("Register Runner");
         valign: center;
       }
     }
@@ -308,6 +289,7 @@ template $PreferencesDialog: Adw.PreferencesDialog {
   Adw.PreferencesPage {
     icon-name: "folder-open-symbolic";
     title: _("Cache");
+    name: "cache";
 
     Adw.PreferencesGroup {
       Stack cache_stack {
@@ -437,6 +419,7 @@ template $PreferencesDialog: Adw.PreferencesDialog {
   Adw.PreferencesPage {
     icon-name: "applications-games-symbolic";
     title: _("DLL Components");
+    name: "components";
 
     Adw.PreferencesGroup {
       Stack dlls_stack {

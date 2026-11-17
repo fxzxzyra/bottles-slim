@@ -7,7 +7,6 @@ from dataclasses import dataclass, replace
 from pathlib import Path
 
 from bottles.backend.logger import Logger
-from bottles.backend.utils.steam import SteamUtils
 
 SYSTEM_WINE = "system-wine"
 SYSTEM_RUNNER_PREFIX = "system:"
@@ -40,18 +39,17 @@ class RunnerRegistry:
         return info.name if info else identifier
 
     @staticmethod
-    def inspect(identifier: str, root: str, source: str = "user") -> RunnerInfo:
+    def inspect(identifier: str, root: str, source: str = "user", *, name: str | None = None) -> RunnerInfo:
         root = os.path.abspath(root)
-        distribution = (
-            SteamUtils.get_dist_directory(root) if SteamUtils.is_proton(root) else root
-        )
-        wine = os.path.join(distribution, "bin", "wine")
-        server = os.path.join(distribution, "bin", "wineserver")
+        if os.path.isfile(os.path.join(root, "proton")) or os.path.isfile(os.path.join(root, "toolmanifest.vdf")):
+            raise ValueError("Proton compatibility tools are not supported; select a Wine runner.")
+        wine = os.path.join(root, "bin", "wine")
+        server = os.path.join(root, "bin", "wineserver")
         for executable in (wine, server):
             if not os.path.isfile(executable) or not os.access(executable, os.X_OK):
                 raise ValueError(f"Missing executable: {executable}")
         return RunnerInfo(
-            identifier, source, os.path.basename(root), root, wine, server
+            identifier, source, name or os.path.basename(root), root, wine, server
         )
 
     @staticmethod
