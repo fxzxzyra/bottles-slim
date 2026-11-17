@@ -28,7 +28,8 @@ Flatpak 的 XDG 目录已经按应用隔离，直接使用各自根目录，不�
 ```sh
 bottles-cli new --bottle-name Office --environment application --path /opt/username/Wine
 bottles-cli import --path /opt/username/Wine
-bottles-cli forget --path /opt/username/Wine
+bottles-cli list bottles
+bottles-cli forget --bottle <UUID>
 ```
 
 Flatpak 需要获得所选宿主目录的实际访问权限；文档 portal 的临时路径不能作为持久瓶子路径。权限不足时报告错误，不退回另一个目录。
@@ -71,3 +72,12 @@ Vulkan 通过 `ctypes` 加载系统 `libvulkan.so.1`，调用
 程序库只汇总各已登记瓶子内的 `library.yml`，不再读取或写入应用数据根目录下的全局 `library.yml`。同一程序 ID 可存在于不同瓶子，去重只在所属瓶子内进行。
 
 HIDRAW 设备偏好通过通用 Wine 的 `HKLM\System\CurrentControlSet\Services\winebus\EnableHidraw` 多字符串值设置，不依赖 runner 名称或 Proton 环境变量。它是 Wine 的设备偏好，并非按设备隔离的权限边界；Flatpak 独立沙箱的 HIDRAW 访问需要更广的设备权限。注册表导入使用瓶子内的私有临时文件，结束后清理。
+
+
+## 瓶子身份
+
+`bottle.yml` 中的 `Id` 是瓶子的稳定 UUID。名称用于显示和名称校验，路径用于访问文件；内部实例、运行记录、缓存和列表排序均按 UUID 区分。改名、移动并重新登记后 UUID 不变；复制瓶子生成新的瓶子 UUID，保留程序与程序库条目 ID。
+
+程序库汇总以 `(瓶子 UUID, 条目 ID)` 为键，各瓶子的 `library.yml` 仍只保存自身条目 ID。封面引用和删除检查仅在所属瓶子内进行。桌面入口及 Steam 快捷方式以瓶子 UUID 与程序 ID 确定身份，名称变化不再生成另一个入口。
+
+CLI 的 `--bottle` 参数使用 UUID；通过 `bottles-cli list bottles` 查看名称、UUID 和位置。`import --path` 接收待登记目录，`forget --bottle` 以 UUID 取消登记，包括暂时不可用的目录。旧名称参数、路径排序键及旧快捷方式不提供兼容或迁移。

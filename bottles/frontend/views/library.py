@@ -98,7 +98,7 @@ class LibraryView(Adw.Bin):
 
     def __delete_entry(self, entry):
         library_manager = LibraryManager()
-        library_manager.remove_from_library(entry.uuid, entry.config)
+        library_manager.remove_from_library(entry.library_key, entry.config)
         self.update()
 
     def go_back(self, widget=False):

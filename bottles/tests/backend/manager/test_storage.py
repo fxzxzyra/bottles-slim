@@ -69,13 +69,14 @@ def test_foreign_owner_is_rejected(bottle, monkeypatch):
 
 
 def test_register_is_in_place_and_forget_preserves_contents(bottle):
+    bottle_id = BottleConfig.load(str(bottle / "bottle.yml")).data.Id
     before = {p.relative_to(bottle): p.read_bytes() for p in bottle.rglob("*") if p.is_file()}
     index = BottleIndex()
     config = index.register(str(bottle))
     assert config.Path == str(bottle)
     assert index.entries() == {str(bottle): "Office"}
     assert Path(Paths.bottle_index).stat().st_mode & 0o777 == 0o600
-    index.forget(str(bottle))
+    index.forget(bottle_id)
     assert index.entries() == {}
     after = {p.relative_to(bottle): p.read_bytes() for p in bottle.rglob("*") if p.is_file()}
     assert after == before
@@ -115,6 +116,7 @@ def test_import_does_not_run_wine_or_rewrite_the_bottle(bottle):
 
 
 def test_discovery_keeps_offline_registration_and_does_not_repair_configs(bottle, tmp_path):
+    bottle_id = BottleConfig.load(str(bottle / "bottle.yml")).data.Id
     index = BottleIndex()
     index.register(str(bottle))
     moved = tmp_path / "moved"
@@ -124,13 +126,13 @@ def test_discovery_keeps_offline_registration_and_does_not_repair_configs(bottle
     manager.settings = SimpleNamespace(get_boolean=lambda _key: False)
     manager.check_bottles()
     assert manager.local_bottles == {}
-    assert str(bottle) in manager.unavailable_bottles
+    assert bottle_id in manager.unavailable_bottles
     assert index.entries() == {str(bottle): "Office"}
-    index.forget(str(bottle))
+    index.forget(bottle_id)
     index.register(str(moved))
     before = (moved / "bottle.yml").stat().st_mtime_ns
     manager.check_bottles()
-    assert manager.local_bottles["Office"].Path == str(moved)
+    assert manager.local_bottles[BottleConfig.load(str(moved / "bottle.yml")).data.Id].Path == str(moved)
     assert (moved / "bottle.yml").stat().st_mtime_ns == before
     assert sorted(p.name for p in moved.iterdir()) == ["bottle.yml", "drive_c"]
 
@@ -174,12 +176,12 @@ def test_runtime_history_is_per_bottle_and_is_opened_lazily(bottle, tmp_path):
     manager.check_bottles()
     assert not (bottle / "process_metrics.sqlite").exists()
     assert not (second / "process_metrics.sqlite").exists()
-    first = manager.get_playtime_tracker(manager.local_bottles["Office"].identifier)
-    other = manager.get_playtime_tracker(manager.local_bottles["Viewer"].identifier)
+    first = manager.get_playtime_tracker(BottleConfig.load(str(bottle / "bottle.yml")).data.Id)
+    other = manager.get_playtime_tracker(BottleConfig.load(str(second / "bottle.yml")).data.Id)
     try:
         assert first.db_path == str(bottle / "process_metrics.sqlite")
         assert other.db_path == str(second / "process_metrics.sqlite")
-        assert first is manager.get_playtime_tracker(manager.local_bottles["Office"].identifier)
+        assert first is manager.get_playtime_tracker(BottleConfig.load(str(bottle / "bottle.yml")).data.Id)
         assert first is not other
         assert Path(first.db_path).stat().st_mode & 0o777 == 0o600
     finally:
@@ -199,16 +201,18 @@ def test_failed_import_reports_error_without_refreshing_or_registering(bottle):
 
 
 def test_forgetting_an_unavailable_bottle_does_not_need_its_directory(bottle, tmp_path):
+    bottle_id = BottleConfig.load(str(bottle / "bottle.yml")).data.Id
     index = BottleIndex()
     index.register(str(bottle))
     moved = tmp_path / "unmounted-copy"
     bottle.rename(moved)
-    index.forget(str(bottle))
+    index.forget(bottle_id)
     assert index.entries() == {}
     assert (moved / "bottle.yml").is_file()
 
 
 def test_library_records_move_with_the_bottle(bottle, tmp_path, monkeypatch):
+    bottle_id = BottleConfig.load(str(bottle / "bottle.yml")).data.Id
     from bottles.backend.managers.library import LibraryManager
     from bottles.backend.managers.steamgriddb import SteamGridDBManager
     index = BottleIndex()
@@ -218,14 +222,14 @@ def test_library_records_move_with_the_bottle(bottle, tmp_path, monkeypatch):
     key = library.add_to_library({"name": "Editor", "id": "editor"}, config)
     from bottles.backend.utils import yaml
     saved = yaml.load((bottle / "library.yml").read_text())
-    assert saved[key]["name"] == "Editor"
-    assert "bottle" not in saved[key]
+    assert saved[key[1]]["name"] == "Editor"
+    assert "bottle" not in saved[key[1]]
     moved = tmp_path / "moved"
     bottle.rename(moved)
-    index.forget(str(bottle))
+    index.forget(bottle_id)
     index.register(str(moved))
     loaded = LibraryManager().get_library()[key]
-    assert loaded["bottle"] == {"name": "Office", "path": str(moved)}
+    assert loaded["bottle"] == {"id": config.Id, "name": "Office", "path": str(moved)}
     assert loaded["id"] == "editor"
 
 
@@ -236,7 +240,7 @@ def test_identity_survives_name_change_and_cannot_be_registered_twice(bottle, tm
     original = config.identifier
     config.Name = "Renamed"
     assert config.dump(str(bottle / "bottle.yml")).ok
-    index.rename(str(bottle), config.Name)
+    index.rename(config.Id, config.Name)
     assert BottleConfig.load(str(bottle / "bottle.yml")).data.identifier == original
     copy = tmp_path / "manual-copy"
     shutil.copytree(bottle, copy)
@@ -254,3 +258,51 @@ def test_copy_rejects_a_destination_inside_the_source(bottle):
     with pytest.raises(ValueError, match="outside"):
         copy_bottle_contents(str(bottle), str(destination))
     assert list(destination.iterdir()) == []
+
+
+def test_registered_uuid_is_not_silently_replaced_by_a_changed_config(bottle):
+    config = BottleIndex().register(str(bottle))
+    replacement = BottleConfig(Name=config.Name)
+    assert replacement.dump(str(bottle / "bottle.yml")).ok
+    manager = object.__new__(Manager)
+    manager.is_cli = True
+    manager.check_bottles()
+    assert manager.local_bottles == {}
+    assert config.Id in manager.unavailable_bottles
+    assert replacement.Id not in manager.local_bottles
+    assert BottleIndex().records() == [(config.Id, str(bottle), config.Name)]
+
+
+def test_tracker_follows_uuid_to_its_new_location(bottle, tmp_path):
+    import threading
+    from bottles.backend.utils.gsettings_stub import GSettingsStub
+    index = BottleIndex()
+    config = index.register(str(bottle))
+    manager = object.__new__(Manager)
+    manager.settings = GSettingsStub()
+    manager.is_cli = True
+    manager._playtime_trackers = {}
+    manager._playtime_lock = threading.RLock()
+    manager.check_bottles()
+    first = manager.get_playtime_tracker(config.Id)
+    first.shutdown()
+    moved = tmp_path / "moved"
+    bottle.rename(moved)
+    index.forget(config.Id)
+    index.register(str(moved))
+    manager.check_bottles()
+    second = manager.get_playtime_tracker(config.Id)
+    try:
+        assert second is not first
+        assert second.db_path == str(moved / "process_metrics.sqlite")
+        assert set(manager._playtime_trackers) == {config.Id}
+    finally:
+        second.shutdown()
+
+
+def test_index_uses_uuid_as_primary_key(bottle):
+    config = BottleIndex().register(str(bottle))
+    with sqlite3.connect(Paths.bottle_index) as connection:
+        primary = [row[1] for row in connection.execute("PRAGMA table_info(bottles)") if row[5]]
+    assert primary == ["id"]
+    assert BottleIndex().records() == [(config.Id, str(bottle), config.Name)]

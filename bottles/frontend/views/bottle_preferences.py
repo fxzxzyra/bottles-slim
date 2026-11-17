@@ -461,7 +461,7 @@ class PreferencesView(Adw.PreferencesPage):
 
     def __check_entry_name(self, *_args):
         if self.entry_name.get_text() != self.config.Name:
-            is_duplicate = self.entry_name.get_text() in self.manager.local_bottles
+            is_duplicate = any(config.Name == self.entry_name.get_text() for config in self.manager.local_bottles.values())
             if is_duplicate:
                 self.window.show_toast(_("This bottle name is already in use."))
                 self.__valid_name = False

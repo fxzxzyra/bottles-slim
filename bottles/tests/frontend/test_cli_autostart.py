@@ -43,15 +43,15 @@ def test_parser_accepts_autostart_and_program_id(monkeypatch):
 
 def test_autostart_launches_each_enabled_program_by_id(monkeypatch):
     FakeManager.configs = {
-        "Services": SimpleNamespace(
-            Name="Services",
+        "services-id": SimpleNamespace(
+            Id="services-id", Name="Services",
             External_Programs={
                 "first": {"id": "first", "autostart": True},
                 "disabled": {"id": "disabled", "autostart": False},
             },
         ),
-        "Tools": SimpleNamespace(
-            Name="Tools",
+        "tools-id": SimpleNamespace(
+            Id="tools-id", Name="Tools",
             External_Programs={
                 "second": {"id": "second", "autostart": True},
             },
@@ -75,14 +75,14 @@ def test_autostart_launches_each_enabled_program_by_id(monkeypatch):
                 "bottles-cli",
                 "run",
                 "-b",
-                "Services",
+                "services-id",
                 "--program-id",
                 "first",
             ],
             {"start_new_session": True},
         ),
         (
-            ["bottles-cli", "run", "-b", "Tools", "--program-id", "second"],
+            ["bottles-cli", "run", "-b", "tools-id", "--program-id", "second"],
             {"start_new_session": True},
         ),
     ]
@@ -90,7 +90,7 @@ def test_autostart_launches_each_enabled_program_by_id(monkeypatch):
 
 def test_run_program_selects_exact_program_id(monkeypatch):
     config = BottleConfig(Name="Services")
-    FakeManager.configs = {"Services": config}
+    FakeManager.configs = {config.Id: config}
     launches = []
     monkeypatch.setattr(cli_module, "Manager", FakeManager)
     monkeypatch.setattr(
@@ -102,7 +102,7 @@ def test_run_program_selects_exact_program_id(monkeypatch):
     command = object.__new__(cli_module.CLI)
     command.settings = object()
     command.args = SimpleNamespace(
-        bottle="Services",
+        bottle=config.Id,
         program=None,
         program_id="second",
         executable=None,

@@ -103,9 +103,14 @@ class Task:
         hidden: bool = False,
         cancellable: bool = False,
         cancel_event: Optional[PyEvent] = None,
+        *,
+        kind: str = "",
+        bottle_id: Optional[str] = None,
     ):
         self._task_id = None
         self.title = title
+        self.kind = kind
+        self.bottle_id = bottle_id
         self.subtitle = subtitle
         self.hidden = hidden
         self.cancellable = cancellable or cancel_event is not None

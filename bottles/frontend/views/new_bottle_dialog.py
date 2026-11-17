@@ -166,7 +166,7 @@ class BottlesNewBottleDialog(Adw.Dialog):
 
     def __check_validity(self, *_args: Any) -> tuple[bool, bool]:
         is_empty = not self.entry_name.get_text().strip()
-        is_duplicate = self.entry_name.get_text() in self.manager.local_bottles
+        is_duplicate = any(config.Name == self.entry_name.get_text() for config in self.manager.local_bottles.values())
         return (is_empty, is_duplicate)
 
     def __check_entry_name(self, *_args: Any) -> None:
@@ -410,7 +410,7 @@ class BottlesNewBottleDialog(Adw.Dialog):
         # then update the user bottles' list.
         self.manager.check_bottles()
         self.window.page_list.update_bottles_list()
-        self.window.page_list.show_page(self.new_bottle_config.Name)
+        self.window.page_list.show_page(self.new_bottle_config.Id)
 
     def __reset_env_recipe(self, *_args: Any) -> None:
         self.btn_choose_env_reset.set_visible(False)

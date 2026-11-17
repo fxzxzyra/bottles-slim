@@ -66,7 +66,7 @@ def test_delete_sandboxed_bottle_does_not_restart_wine(
     wineserver = mocker.patch.object(manager_module, "WineServer").return_value
     library = mocker.patch.object(manager_module, "LibraryManager").return_value
     library.get_library.return_value = {
-        "game": {"bottle": {"name": "Sandboxed"}},
+        (config.Id, "game"): {"bottle": {"id": config.Id, "name": "Sandboxed"}},
     }
     signal_send = mocker.patch.object(manager_module.SignalManager, "send")
     manager = object.__new__(Manager)
@@ -78,7 +78,7 @@ def test_delete_sandboxed_bottle_does_not_restart_wine(
     wineboot.assert_not_called()
     wineserver.force_kill.assert_called_once_with()
     wineserver.wait.assert_not_called()
-    library.remove_from_library.assert_called_once_with("game")
+    library.remove_from_library.assert_called_once_with((config.Id, "game"))
     manager.check_bottles.assert_called_once_with(silent=True)
     signal_send.assert_not_called()
 
@@ -411,9 +411,9 @@ def test_get_programs_can_refresh_cached_results(monkeypatch):
 
     cached = [{"name": "Cached program"}]
     manager = object.__new__(Manager)
-    manager._programs_cache = {"Test": cached}
-    manager.settings = Settings()
     config = BottleConfig(Name="Test")
+    manager._programs_cache = {config.Id: cached}
+    manager.settings = Settings()
 
     monkeypatch.setattr(manager_module, "glob", lambda *_args, **_kwargs: [])
     monkeypatch.setattr(manager_module, "WinePath", lambda _config: WindowsPath())
@@ -425,4 +425,8 @@ def test_get_programs_can_refresh_cached_results(monkeypatch):
     )
 
     assert Manager.get_programs(manager, config) is cached
+    config.Name = "Renamed"
+    assert Manager.get_programs(manager, config) is cached
+    other = BottleConfig(Name=config.Name)
+    assert Manager.get_programs(manager, other) == []
     assert Manager.get_programs(manager, config, force_update=True) == []

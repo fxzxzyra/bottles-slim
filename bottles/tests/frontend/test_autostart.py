@@ -87,11 +87,11 @@ def test_first_autostart_program_requests_portal_before_save(monkeypatch):
     dialog = SimpleNamespace(
         btn_save=FakeButton(),
         program=current,
-        config=SimpleNamespace(Name="Services"),
+        config=SimpleNamespace(Id="services-id", Name="Services"),
         manager=SimpleNamespace(
             local_bottles={
-                "Services": SimpleNamespace(
-                    Name="Services",
+                "services-id": SimpleNamespace(
+                    Id="services-id", Name="Services",
                     External_Programs={"service": current},
                 )
             }
@@ -122,11 +122,11 @@ def test_additional_autostart_program_does_not_request_portal(monkeypatch):
     dialog = SimpleNamespace(
         btn_save=FakeButton(),
         program=current,
-        config=SimpleNamespace(Name="Services"),
+        config=SimpleNamespace(Id="services-id", Name="Services"),
         manager=SimpleNamespace(
             local_bottles={
-                "Services": SimpleNamespace(
-                    Name="Services",
+                "services-id": SimpleNamespace(
+                    Id="services-id", Name="Services",
                     External_Programs={"service": current, "tray": other},
                 )
             }
@@ -154,11 +154,11 @@ def test_last_autostart_program_disables_portal_before_save(monkeypatch):
     dialog = SimpleNamespace(
         btn_save=FakeButton(),
         program=current,
-        config=SimpleNamespace(Name="Services"),
+        config=SimpleNamespace(Id="services-id", Name="Services"),
         manager=SimpleNamespace(
             local_bottles={
-                "Services": SimpleNamespace(
-                    Name="Services",
+                "services-id": SimpleNamespace(
+                    Id="services-id", Name="Services",
                     External_Programs={"service": current},
                 )
             }

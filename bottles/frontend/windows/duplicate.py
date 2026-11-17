@@ -61,7 +61,7 @@ class DuplicateDialog(Adw.Window):
 
     def __check_entry_name(self, *_args):
         name = self.entry_name.get_text()
-        is_invalid = not name.strip() or name in self.parent.manager.local_bottles
+        is_invalid = not name.strip() or any(config.Name == name for config in self.parent.manager.local_bottles.values())
         if is_invalid:
             self.entry_name.add_css_class("error")
             self.btn_duplicate.set_sensitive(False)

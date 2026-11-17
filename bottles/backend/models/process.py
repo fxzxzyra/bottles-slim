@@ -14,6 +14,7 @@ class ProcessStartedPayload:
 
 @dataclass(frozen=True)
 class ProcessFinishedPayload:
+    bottle_id: str
     launch_id: str
     status: Literal["success", "unknown"]
     ended_at: int  # epoch seconds

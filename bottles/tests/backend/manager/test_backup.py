@@ -289,7 +289,7 @@ def test_full_backup_rejects_destination_inside_source(tmp_path, through_symlink
 
 
 def test_export_backup_reports_cancellation_and_removes_task(tmp_path, monkeypatch):
-    config = SimpleNamespace(Name="Test")
+    config = SimpleNamespace(Id="1" * 32, Name="Test")
 
     monkeypatch.setattr(
         "bottles.backend.managers.backup.ManagerUtils.get_bottle_path",
@@ -345,6 +345,8 @@ def test_program_backup_copies_selected_paths_and_writes_manifest(
     ).read_bytes() == b"save-data"
     with (backup / "backup.yml").open() as manifest_file:
         manifest = yaml.load(manifest_file)
+    assert manifest["bottle_id"] == config.Id
+    assert manifest["program_id"] == program["id"]
     assert manifest["bottle"] == "Test Bottle"
     assert manifest["program"] == "Test Game"
     assert manifest["paths"] == [
@@ -479,6 +481,7 @@ def test_program_backup_rejects_source_through_external_symlink(tmp_path, monkey
     destination.mkdir()
     config = BottleConfig(Name="Bottle", Path="Bottle")
     program = {
+        "id": "test-program",
         "name": "Game",
         "automatic_backup": {
             "enabled": True,
@@ -513,6 +516,7 @@ def test_program_backup_collapses_nested_paths(tmp_path, monkeypatch, paths):
     destination.mkdir()
     config = BottleConfig(Name="Bottle", Path="Bottle")
     program = {
+        "id": "test-program",
         "name": "Game",
         "automatic_backup": {
             "enabled": True,
@@ -574,6 +578,7 @@ def test_program_backup_rejects_sources_outside_bottle(tmp_path, monkeypatch):
     destination.mkdir()
     config = BottleConfig(Name="Bottle", Path="Bottle")
     program = {
+        "id": "test-program",
         "name": "Game",
         "automatic_backup": {
             "enabled": True,
@@ -631,6 +636,7 @@ def test_program_backup_rejects_destination_inside_bottle_for_file_source(
     destination.mkdir()
     config = BottleConfig(Name="Bottle", Path="Bottle")
     program = {
+        "id": "test-program",
         "name": "Game",
         "automatic_backup": {
             "enabled": True,
@@ -661,6 +667,7 @@ def test_program_backup_rejects_destination_symlinked_into_bottle(
     save.write_bytes(b"save-data")
     config = BottleConfig(Name="Bottle", Path="Bottle")
     program = {
+        "id": "test-program",
         "name": "Game",
         "automatic_backup": {
             "enabled": True,
@@ -686,9 +693,10 @@ def test_program_backup_rejects_symlinked_program_root(tmp_path, monkeypatch):
     save.write_bytes(b"save-data")
     destination = tmp_path / "backups"
     destination.mkdir()
-    (destination / "Bottle").symlink_to(bottle, target_is_directory=True)
     config = BottleConfig(Name="Bottle", Path="Bottle")
+    (destination / config.Id).symlink_to(bottle, target_is_directory=True)
     program = {
+        "id": "test-program",
         "name": "Game",
         "automatic_backup": {
             "enabled": True,
@@ -711,13 +719,16 @@ def test_program_backup_names_cannot_escape_destination(tmp_path):
     destination = tmp_path / "backups"
     config = BottleConfig(Name="..", Path="Bottle")
     program = {
+        "id": "../program",
         "name": ".",
         "automatic_backup": {"destination": str(destination)},
     }
 
     root = BackupManager.get_program_backup_root(config, program)
 
-    assert root == str(destination / "Bottle" / "Program")
+    assert Path(root).parent == destination / config.Id
+    assert len(Path(root).name) == 64
+    assert ".." not in Path(root).name
 
 
 def test_program_backup_roots_separate_programs_with_the_same_name(tmp_path):
@@ -734,8 +745,16 @@ def test_program_backup_roots_separate_programs_with_the_same_name(tmp_path):
         {"id": "second-id", "name": "Game", "automatic_backup": settings},
     )
 
-    assert first == str(destination / "Bottle" / "Game-first-id")
-    assert second == str(destination / "Bottle" / "Game-second-id")
+    assert first != second
+    assert Path(first).parent == Path(second).parent == destination / config.Id
+    config.Name = "Renamed"
+    assert BackupManager.get_program_backup_root(config, {
+        "id": "first-id", "name": "Renamed game", "automatic_backup": settings,
+    }) == first
+    other = BottleConfig(Name=config.Name)
+    assert BackupManager.get_program_backup_root(other, {
+        "id": "first-id", "name": "Renamed game", "automatic_backup": settings,
+    }) != first
 
 
 def test_full_backup_snapshots_committed_wal_data_without_sidecar_files(tmp_path):
@@ -777,6 +796,7 @@ def test_duplicate_library_entries_are_independent_and_survive_separate_edits(tm
     entry = {"name": "Writer", "id": "writer", "thumbnail": "grid:cover.png"}
     original = {"original-entry-id": entry}
     (source / "library.yml").write_text(yaml.dump(original))
+    (source / "library.yml").chmod(0o600)
     BottleIndex().register(str(source))
     target = tmp_path / "Copy"
     target.mkdir()
@@ -787,21 +807,25 @@ def test_duplicate_library_entries_are_independent_and_survive_separate_edits(tm
     copied = yaml.load((target / "library.yml").read_text())
     assert len(copied) == 1
     copied_id = next(iter(copied))
-    assert copied_id not in original
+    assert copied == original
+    assert result.data["config"].Id != config.Id
     assert copied[copied_id] == entry
     assert (target / "library.yml").stat().st_mode & 0o777 == 0o600
     assert yaml.load((source / "library.yml").read_text()) == original
     assert (target / "grids/cover.png").read_bytes() == b"cover"
 
     manager = LibraryManager()
-    assert set(manager.get_library()) == {"original-entry-id", copied_id}
-    manager.remove_from_library(copied_id, result.data["config"])
+    original_key = (config.Id, "original-entry-id")
+    copied_key = (result.data["config"].Id, copied_id)
+    assert set(manager.get_library()) == {original_key, copied_key}
+    manager.remove_from_library(copied_key, result.data["config"])
     assert yaml.load((source / "library.yml").read_text()) == original
     assert yaml.load((target / "library.yml").read_text()) == {}
+    assert not (target / "grids/cover.png").exists()
     assert (source / "grids/cover.png").read_bytes() == b"cover"
 
     manager = LibraryManager()
-    manager.remove_from_library("original-entry-id", config)
+    manager.remove_from_library(original_key, config)
     assert manager.get_library() == {}
     assert yaml.load((source / "library.yml").read_text()) == {}
     assert yaml.load((target / "library.yml").read_text()) == {}

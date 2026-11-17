@@ -303,7 +303,7 @@ class LaunchOptionsDialog(Adw.Window):
 
         current_id = self.program.get("id")
         other_autostart = any(
-            config.Name != self.config.Name or program.get("id") != current_id
+            config.Id != self.config.Id or program.get("id") != current_id
             for config, program in ManagerUtils.get_autostart_programs(
                 self.manager.local_bottles.values()
             )

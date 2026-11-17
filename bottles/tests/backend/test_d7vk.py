@@ -499,7 +499,7 @@ def test_set_d7vk_persists_one_candidate_config(monkeypatch, tmp_path):
     config = BottleConfig(
         Name="Test", Path=str(bottle_path), Arch="win64"
     )
-    manager.local_bottles = {config.Name: config}
+    manager.local_bottles = {config.Id: config}
 
     result = Manager.set_d7vk(manager, config, True, "d7vk-v2.0")
 
@@ -507,7 +507,7 @@ def test_set_d7vk_persists_one_candidate_config(monkeypatch, tmp_path):
     assert len(dumped) == 1
     assert dumped[0]["D7VK"] == "d7vk-v2.0"
     assert dumped[0]["Parameters"]["d7vk"] is True
-    assert result.data["config"] is manager.local_bottles[config.Name]
+    assert result.data["config"] is manager.local_bottles[config.Id]
     assert result.data["config"] is config
     assert config.D7VK == "d7vk-v2.0"
     assert config.Parameters.d7vk is True

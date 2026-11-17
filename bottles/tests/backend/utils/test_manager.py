@@ -98,8 +98,9 @@ def test_desktop_entry_uses_host_launch_command(
     monkeypatch.setattr(manager.SignalManager, "send", lambda *_args: None)
 
     ManagerUtils.create_desktop_entry(
-        BottleConfig(Name="Hero's bottle"),
+        BottleConfig(Id="2" * 32, Name="Hero's bottle"),
         {
+            "id": "Alice's program id",
             "name": "Alice's Game",
             "executable": "game.exe",
             "path": "/bottle/game.exe",
@@ -115,10 +116,10 @@ def test_desktop_entry_uses_host_launch_command(
     field_arguments = ["@@u", "%u", "@@"] if flatpak_id else ["%u"]
     assert shlex.split(exec_line) == expected_prefix + [
         "run",
-        "-p",
-        "Alice's Game",
+        "--program-id",
+        "Alice's program id",
         "-b",
-        "Hero's bottle",
+        "2" * 32,
         "--",
     ] + field_arguments
 
@@ -271,25 +272,20 @@ def test_portal_document_path_rejects_non_regular_file(monkeypatch):
     assert ManagerUtils.is_portal_document_path(path) is False
 
 
-def test_desktop_entry_id_matches_dynamic_launcher_format(monkeypatch):
+def test_desktop_entry_identity_is_stable_across_rename_and_move(monkeypatch):
     monkeypatch.setattr(manager, "APP_ID", "com.usebottles.bottles")
-    config = BottleConfig(Name="Issue4557Test")
-    program = {"name": "Issue4557Dummy"}
-
-    assert (
-        ManagerUtils.get_desktop_entry_id(config, program)
-        == "com.usebottles.bottles.App_1e37a76b8f4de7c4a872eedb8dcb800172bb98c6.desktop"
-    )
-
-
-def test_desktop_entry_filename_sanitizes_bottle_and_program_names():
-    config = BottleConfig(Name="Test Bottle!")
-    program = {"name": "Game Name!.exe"}
-
-    assert (
-        ManagerUtils.get_desktop_entry_filename(config, program)
-        == "bottles-TestBottle-GameNameexe.desktop"
-    )
+    config = BottleConfig(Name="Office", Path="/original")
+    program = {"id": "editor-id", "name": "Editor"}
+    original = ManagerUtils.get_desktop_entry_id(config, program)
+    config.Name, config.Path = "Renamed", "/moved"
+    program["name"] = "Renamed Editor"
+    assert ManagerUtils.get_desktop_entry_id(config, program) == original
+    assert ManagerUtils.get_desktop_entry_filename(config, program) == original
+    assert original.startswith("com.usebottles.bottles.App_")
+    assert original.endswith(".desktop")
+    clone = BottleConfig(Name=config.Name, Path=config.Path)
+    assert ManagerUtils.get_desktop_entry_id(clone, program) != original
+    assert ManagerUtils.get_desktop_entry_id(config, {**program, "id": "other"}) != original
 
 
 def test_png_image_validation(tmp_path):
@@ -345,8 +341,9 @@ def request_desktop_entry(monkeypatch, tmp_path, portal):
 
     monkeypatch.setattr(manager, "portal", portal)
     ManagerUtils.create_desktop_entry(
-        BottleConfig(Name="Test Bottle"),
+        BottleConfig(Id="1" * 32, Name="Test Bottle"),
         {
+            "id": "program-id",
             "name": "Test Program",
             "executable": "test.exe",
             "path": "/test.exe",
@@ -382,7 +379,9 @@ def test_desktop_entry_reports_manual_fallback_paths(monkeypatch, tmp_path):
 
     results = request_desktop_entry(monkeypatch, tmp_path, portal)
 
-    expected = applications / "bottles-TestBottle-TestProgram.desktop"
+    expected = applications / ManagerUtils.get_desktop_entry_filename(
+        BottleConfig(Id="1" * 32, Name="Test Bottle"), {"id": "program-id"},
+    )
     assert expected.is_file()
     assert results[0].status is True
     assert results[0].data == {"method": "manual", "paths": [str(expected)]}
@@ -508,6 +507,7 @@ def test_resolve_file_associations_accepts_known_uncertain_mime_type():
 def test_desktop_entry_uses_local_file_field_code_for_associations():
     config = BottleConfig(Name="Documents")
     program = {
+        "id": "program-id",
         "name": "Document Editor",
         "executable": "editor.exe",
         "file_extensions": [".txt", ".pdf"],
@@ -516,7 +516,7 @@ def test_desktop_entry_uses_local_file_field_code_for_associations():
     exec_cmd = ManagerUtils.get_desktop_entry_exec(config, program)
     content = ManagerUtils.build_desktop_entry(config, program, exec_cmd)
 
-    assert exec_cmd == ('bottles-cli run -p "Document Editor" -b "Documents" -- %f')
+    assert exec_cmd == f'bottles-cli run --program-id "program-id" -b "{config.Id}" -- %f'
     assert "MimeType=text/plain;application/pdf;" in content
 
 
@@ -529,7 +529,7 @@ def test_program_steam_app_id_is_empty_without_configured_value():
 
 def test_program_steam_app_id_preserves_custom_value():
     config = BottleConfig(Name="Games")
-    program = {"environment": {"SteamAppId": "123456"}}
+    program = {"id": "program-id", "environment": {"SteamAppId": "123456"}}
 
     assert ManagerUtils.get_program_steam_app_id(config, program) == "123456"
 
@@ -548,7 +548,7 @@ def test_program_steam_app_id_prefers_program_environment():
         Name="Games",
         Environment_Variables={"SteamAppId": "654321"},
     )
-    program = {"environment": {"SteamAppId": "123456"}}
+    program = {"id": "program-id", "environment": {"SteamAppId": "123456"}}
 
     assert ManagerUtils.get_program_steam_app_id(config, program) == "123456"
 
@@ -598,6 +598,7 @@ def test_desktop_entry_keeps_executable_window_class_for_proton():
 def test_desktop_entry_keeps_executable_window_class_for_wine():
     config = BottleConfig(Name="Applications", Runner="sys-wine")
     program = {
+        "id": "program-id",
         "name": "Editor",
         "executable": "Editor.exe",
     }
@@ -613,43 +614,27 @@ def test_desktop_entry_keeps_executable_window_class_for_wine():
 
 def test_desktop_entry_keeps_uri_field_code_without_associations():
     config = BottleConfig(Name="Games")
-    program = {"name": "Game", "executable": "game.exe"}
+    program = {"id": "program-id", "name": "Game", "executable": "game.exe"}
 
     exec_cmd = ManagerUtils.get_desktop_entry_exec(config, program)
     content = ManagerUtils.build_desktop_entry(config, program, exec_cmd)
 
-    assert exec_cmd == 'bottles-cli run -p "Game" -b "Games" -- %u'
+    assert exec_cmd == f'bottles-cli run --program-id "program-id" -b "{config.Id}" -- %u'
     assert "MimeType=" not in content
 
 
 def test_desktop_entry_exec_escapes_reserved_characters():
     config = BottleConfig(Name='Bottle $ "One"')
-    program = {
-        "name": "Editor % Docs",
-        "executable": "editor.exe",
-        "file_extensions": [".txt"],
-    }
-
+    program = {"id": 'Editor $ "One" % Docs', "name": "Editor", "file_extensions": [".txt"]}
     exec_cmd = ManagerUtils.get_desktop_entry_exec(config, program)
-    assert exec_cmd == (
-        'bottles-cli run -p "Editor %% Docs" -b "Bottle \\$ \\"One\\"" -- %f'
-    )
-
     content = ManagerUtils.build_desktop_entry(config, program, exec_cmd)
     desktop_entry = GLib.KeyFile()
     desktop_entry.load_from_data(content, len(content), GLib.KeyFileFlags.NONE)
     parsed_exec = desktop_entry.get_string("Desktop Entry", "Exec")
-
     assert parsed_exec == exec_cmd
     assert GLib.shell_parse_argv(parsed_exec)[1] == [
-        "bottles-cli",
-        "run",
-        "-p",
-        "Editor %% Docs",
-        "-b",
-        'Bottle $ "One"',
-        "--",
-        "%f",
+        "bottles-cli", "run", "--program-id", 'Editor $ "One" %% Docs',
+        "-b", config.Id, "--", "%f",
     ]
 
 
@@ -659,7 +644,7 @@ def test_desktop_entry_exec_escapes_reserved_characters():
 )
 def test_desktop_entry_exec_round_trips_reserved_characters(value):
     config = BottleConfig(Name=value)
-    program = {"name": "Editor", "executable": "editor.exe"}
+    program = {"id": value, "name": "Editor", "executable": "editor.exe"}
     exec_cmd = ManagerUtils.get_desktop_entry_exec(config, program)
     content = ManagerUtils.build_desktop_entry(config, program, exec_cmd)
     desktop_entry = GLib.KeyFile()
@@ -667,12 +652,13 @@ def test_desktop_entry_exec_round_trips_reserved_characters(value):
     parsed_exec = desktop_entry.get_string("Desktop Entry", "Exec")
 
     assert parsed_exec == exec_cmd
-    assert GLib.shell_parse_argv(parsed_exec)[1][5] == value
+    assert GLib.shell_parse_argv(parsed_exec)[1][3] == value
 
 
 def test_desktop_entry_rejects_control_characters():
     config = BottleConfig(Name="Documents")
     program = {
+        "id": "program-id",
         "name": "Editor\nExec=/bin/false",
         "executable": "editor.exe",
     }
@@ -689,6 +675,7 @@ def test_desktop_entry_exec_uses_flatpak_file_forwarding_for_host(monkeypatch):
     monkeypatch.setenv("FLATPAK_ID", "com.usebottles.bottles.Devel")
     config = BottleConfig(Name="Documents")
     program = {
+        "id": "program-id",
         "name": "Document Editor",
         "executable": "editor.exe",
         "file_extensions": [".txt"],
@@ -696,14 +683,14 @@ def test_desktop_entry_exec_uses_flatpak_file_forwarding_for_host(monkeypatch):
 
     assert ManagerUtils.get_desktop_entry_exec(config, program, for_host=True) == (
         "flatpak run --command=bottles-cli --file-forwarding "
-        '"com.usebottles.bottles.Devel" run -p "Document Editor" '
-        '-b "Documents" -- @@ %f @@'
+        '"com.usebottles.bottles.Devel" run --program-id "program-id" '
+        f'-b "{config.Id}" -- @@ %f @@'
     )
 
 
 def test_has_desktop_entry_detects_dynamic_launcher(monkeypatch):
     config = BottleConfig(Name="Documents")
-    program = {"name": "Document Editor", "executable": "editor.exe"}
+    program = {"id": "program-id", "name": "Document Editor", "executable": "editor.exe"}
     desktop_entry_id = ManagerUtils.get_desktop_entry_id(config, program)
 
     class Portal:
@@ -730,7 +717,7 @@ def test_has_desktop_entry_preserves_unknown_portal_state(monkeypatch):
     assert (
         ManagerUtils.has_desktop_entry(
             BottleConfig(Name="Unknown"),
-            {"name": "Editor", "executable": "editor.exe"},
+            {"id": "program-id", "name": "Editor", "executable": "editor.exe"},
         )
         is None
     )
@@ -799,6 +786,7 @@ def test_create_desktop_entry_installs_associations_through_portal(
     )
     config = BottleConfig(Name="Documents")
     program = {
+        "id": "program-id",
         "name": "Document Editor",
         "executable": "editor.exe",
         "file_extensions": [".txt"],
@@ -815,8 +803,8 @@ def test_create_desktop_entry_installs_associations_through_portal(
     assert installed["desktop_id"] == ManagerUtils.get_desktop_entry_id(config, program)
     assert (
         "Exec=flatpak run --command=bottles-cli --file-forwarding "
-        '"com.usebottles.bottles.Devel" run -p "Document Editor" '
-        '-b "Documents" -- @@ %f @@'
+        '"com.usebottles.bottles.Devel" run --program-id "program-id" '
+        f'-b "{config.Id}" -- @@ %f @@'
         in installed["content"]
     )
     assert "MimeType=text/plain;" in installed["content"]
@@ -851,7 +839,7 @@ def test_create_desktop_entry_does_not_fallback_when_portal_is_cancelled(
 
     ManagerUtils.create_desktop_entry(
         BottleConfig(Name="Cancelled"),
-        {"name": "Editor", "executable": "editor.exe", "file_extensions": [".txt"]},
+        {"id": "program-id", "name": "Editor", "executable": "editor.exe", "file_extensions": [".txt"]},
         custom_icon=str(icon),
         on_created=lambda: callbacks.append("created"),
         on_failed=lambda: callbacks.append("failed"),
@@ -877,7 +865,7 @@ def test_create_desktop_entry_uses_manual_fallback_for_new_launcher(
             raise GLib.Error("portal unavailable")
 
     config = BottleConfig(Name="Fallback")
-    program = {"name": "Editor", "executable": "editor.exe"}
+    program = {"id": "program-id", "name": "Editor", "executable": "editor.exe"}
     icon = tmp_path / "icon.svg"
     icon.write_text('<svg xmlns="http://www.w3.org/2000/svg"/>')
     monkeypatch.setattr(manager, "portal", Portal())
@@ -922,7 +910,7 @@ def test_create_desktop_entry_removes_manual_fallback_after_portal_install(
             return None
 
     config = BottleConfig(Name="Transition")
-    program = {"name": "Editor", "executable": "editor.exe"}
+    program = {"id": "program-id", "name": "Editor", "executable": "editor.exe"}
     icon = tmp_path / "icon.svg"
     icon.write_text('<svg xmlns="http://www.w3.org/2000/svg"/>')
     applications = tmp_path / ".local/share/applications"
@@ -977,7 +965,7 @@ def test_create_desktop_entry_does_not_duplicate_existing_portal_on_error(
 
     ManagerUtils.create_desktop_entry(
         BottleConfig(Name="Existing"),
-        {"name": "Editor", "executable": "editor.exe"},
+        {"id": "program-id", "name": "Editor", "executable": "editor.exe"},
         custom_icon=str(icon),
         on_created=lambda: callbacks.append("created"),
         on_failed=lambda: callbacks.append("failed"),
@@ -989,7 +977,7 @@ def test_create_desktop_entry_does_not_duplicate_existing_portal_on_error(
 
 def test_unknown_portal_state_removes_manual_launcher(monkeypatch, tmp_path):
     config = BottleConfig(Name="Unknown")
-    program = {"name": "Editor", "executable": "editor.exe"}
+    program = {"id": "program-id", "name": "Editor", "executable": "editor.exe"}
     applications = tmp_path / ".local/share/applications"
     applications.mkdir(parents=True)
     manual_entry = applications / ManagerUtils.get_desktop_entry_filename(
@@ -1014,5 +1002,5 @@ def test_unknown_portal_state_without_manual_launcher_fails(monkeypatch, tmp_pat
 
     assert ManagerUtils.remove_desktop_entry(
         BottleConfig(Name="Unknown"),
-        {"name": "Editor", "executable": "editor.exe"},
+        {"id": "program-id", "name": "Editor", "executable": "editor.exe"},
     ) is False

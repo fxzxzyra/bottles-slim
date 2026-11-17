@@ -111,7 +111,7 @@ class Bottles(Adw.Application):
             --version, -v: Prints the version of the application.
             --executable, -e: The path of the executable to be launched.
             --lnk, -l: The path of the shortcut to be launched.
-            --bottle, -b: The name of the bottle to be used.
+            --bottle, -b: The UUID of the bottle to be used.
             --arguments, -a: The arguments to be passed to the executable.
             --help, -h: Prints the help.
         """
@@ -144,7 +144,7 @@ class Bottles(Adw.Application):
             ord("b"),
             GLib.OptionFlags.NONE,
             GLib.OptionArg.STRING,
-            _("Bottle name"),
+            _("Bottle UUID"),
             None,
         )
         self.add_main_option(

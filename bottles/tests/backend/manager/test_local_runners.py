@@ -220,7 +220,7 @@ def test_named_registration_can_be_edited_without_changing_bottle_identifier(man
     result = manager.register_user_runner("Office Wine", first.root)
     identifier = result.data["runner"]
     config = BottleConfig(Runner=identifier)
-    manager.local_bottles = {"Office": config}
+    manager.local_bottles = {config.Id: config}
     assert manager.register_user_runner("New Office Wine", second.root, identifier).ok
     info = RunnerRegistry.require(identifier)
     assert info.name == "New Office Wine"

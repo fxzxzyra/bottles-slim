@@ -212,3 +212,23 @@ def test_populate_updates_hides_empty_group():
     BottleView.populate_updates(view)
 
     assert visibility == [False]
+
+
+def test_backup_progress_matches_uuid_and_kind_instead_of_title(monkeypatch):
+    from bottles.backend.state import Task, TaskManager, SignalManager
+    from bottles.backend.models.result import Result
+    from bottles.frontend.views.bottle_details import BottleView
+    config = BottleConfig(Name="Renamed")
+    visible = []
+    page = SimpleNamespace(config=config, _show_backup_progress=lambda: visible.append(True))
+    monkeypatch.setattr(TaskManager, "_TASKS", {})
+    monkeypatch.setattr(SignalManager, "_SIGNALS", {})
+    monkeypatch.setattr("bottles.frontend.views.bottle_details.GLib.idle_add", lambda callback: callback())
+    other = Task(title='Backup Renamed', kind="backup", bottle_id="other")
+    own = Task(title='An old translated title', kind="backup", bottle_id=config.Id)
+    other_id, own_id = TaskManager.add(other), TaskManager.add(own)
+    BottleView._on_task_added(page, Result(True, other_id))
+    assert visible == []
+    BottleView._on_task_added(page, Result(True, own_id))
+    assert visible == [True]
+    assert page._backup_task_id == own_id

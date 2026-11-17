@@ -234,7 +234,7 @@ class ImporterView(Adw.Bin):
             return
 
         # Check if this is an import task
-        if task.title == _("Importing full backup"):
+        if task.kind == "import":
             self._import_task_id = task_id
             GLib.idle_add(self._show_import_progress)
 

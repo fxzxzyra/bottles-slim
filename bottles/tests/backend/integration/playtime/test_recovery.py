@@ -7,15 +7,17 @@ from freezegun import freeze_time
 
 from bottles.backend.managers.manager import Manager
 
+BOTTLE_ID = "1" * 32
+
 
 def test_recovery_smoke(manager, tracker_factory):
-    tracker = manager.get_playtime_tracker("b1")
+    tracker = manager.get_playtime_tracker(BOTTLE_ID)
     assert tracker is not None
 
     with freeze_time("2025-01-01 05:00:00"):
         base = int(time.time())
         sid = tracker.start_session(
-            bottle_id="b1",
+            bottle_id=BOTTLE_ID,
             bottle_name="Bottle",
             bottle_path="/bottle",
             program_name="Game",
@@ -39,18 +41,18 @@ def test_recovery_smoke(manager, tracker_factory):
 
     cur.execute(
         "SELECT sessions_count FROM playtime_totals WHERE bottle_id=?",
-        ("b1",),
+        (BOTTLE_ID,),
     )
     assert cur.fetchone()[0] == 1
 
 
 def test_recovery_different_bottles(manager, tracker_factory):
-    tracker = manager.get_playtime_tracker("b1")
+    tracker = manager.get_playtime_tracker(BOTTLE_ID)
     assert tracker is not None
 
     with freeze_time("2025-01-01 06:00:00"):
         sid1 = tracker.start_session(
-            bottle_id="b1",
+            bottle_id=BOTTLE_ID,
             bottle_name="Bottle1",
             bottle_path="/b1",
             program_name="Game",
@@ -79,26 +81,26 @@ def test_recovery_different_bottles(manager, tracker_factory):
     cur.execute("SELECT COUNT(*) FROM playtime_totals")
     assert cur.fetchone()[0] == 2
     # Each bottle has sessions_count=1
-    cur.execute("SELECT sessions_count FROM playtime_totals WHERE bottle_id=?", ("b1",))
+    cur.execute("SELECT sessions_count FROM playtime_totals WHERE bottle_id=?", (BOTTLE_ID,))
     assert cur.fetchone()[0] == 1
     cur.execute("SELECT sessions_count FROM playtime_totals WHERE bottle_id=?", ("b2",))
     assert cur.fetchone()[0] == 1
 
 
 def test_recovery_same_bottle_different_programs(manager, tracker_factory):
-    tracker = manager.get_playtime_tracker("b1")
+    tracker = manager.get_playtime_tracker(BOTTLE_ID)
     assert tracker is not None
 
     with freeze_time("2025-01-01 07:00:00"):
         sid1 = tracker.start_session(
-            bottle_id="b1",
+            bottle_id=BOTTLE_ID,
             bottle_name="Bottle",
             bottle_path="/bottle",
             program_name="Game1",
             program_path="C:/Game1/game1.exe",
         )
         sid2 = tracker.start_session(
-            bottle_id="b1",
+            bottle_id=BOTTLE_ID,
             bottle_name="Bottle",
             bottle_path="/bottle",
             program_name="Game2",
@@ -114,17 +116,17 @@ def test_recovery_same_bottle_different_programs(manager, tracker_factory):
     con = sqlite3.connect(new_tracker.db_path)
     cur = con.cursor()
     # Two forced sessions in same bottle
-    cur.execute("SELECT COUNT(*) FROM sessions WHERE status='forced' AND bottle_id=?", ("b1",))
+    cur.execute("SELECT COUNT(*) FROM sessions WHERE status='forced' AND bottle_id=?", (BOTTLE_ID,))
     assert cur.fetchone()[0] == 2
     # Two totals rows for the bottle
-    cur.execute("SELECT COUNT(*) FROM playtime_totals WHERE bottle_id=?", ("b1",))
+    cur.execute("SELECT COUNT(*) FROM playtime_totals WHERE bottle_id=?", (BOTTLE_ID,))
     assert cur.fetchone()[0] == 2
 
 
 def test_cli_manager_init_does_not_recover_live_sessions(manager, test_settings_stub):
-    tracker = manager.get_playtime_tracker("b1")
+    tracker = manager.get_playtime_tracker(BOTTLE_ID)
     sid = tracker.start_session(
-        bottle_id="b1", bottle_name="b1", bottle_path=manager.local_bottles["b1"].Path,
+        bottle_id=BOTTLE_ID, bottle_name="b1", bottle_path=manager.local_bottles[BOTTLE_ID].Path,
         program_name="Editor", program_path="C:/Office/editor.exe",
     )
     Manager._instances.pop(Manager, None)
@@ -140,10 +142,10 @@ def test_cli_manager_init_does_not_recover_live_sessions(manager, test_settings_
 
 
 def test_recovery_uses_last_heartbeat_not_restart_time(manager, tracker_factory):
-    tracker = manager.get_playtime_tracker("b1")
+    tracker = manager.get_playtime_tracker(BOTTLE_ID)
     with freeze_time("2025-01-01 12:00:00") as clock:
         sid = tracker.start_session(
-            bottle_id="b1", bottle_name="Office", bottle_path="/bottle",
+            bottle_id=BOTTLE_ID, bottle_name="Office", bottle_path="/bottle",
             program_name="Editor", program_path="C:/Office/editor.exe",
         )
         clock.tick(11)
@@ -166,15 +168,15 @@ def test_recovery_uses_last_heartbeat_not_restart_time(manager, tracker_factory)
 def test_gui_recovers_only_stopped_bottle_sessions(manager, monkeypatch, alive, expected):
     from bottles.backend.managers import manager as module
     from types import SimpleNamespace
-    tracker = manager.get_playtime_tracker("b1")
+    tracker = manager.get_playtime_tracker(BOTTLE_ID)
     sid = tracker.start_session(
-        bottle_id="b1", bottle_name="b1", bottle_path=manager.local_bottles["b1"].Path,
+        bottle_id=BOTTLE_ID, bottle_name="b1", bottle_path=manager.local_bottles[BOTTLE_ID].Path,
         program_name="Editor", program_path="C:/Editor.exe",
     )
     tracker.shutdown()
     manager._playtime_trackers.clear()
     manager.is_cli = False
     monkeypatch.setattr(module, "WineServer", lambda _config: SimpleNamespace(is_alive=lambda: alive))
-    reopened = manager.get_playtime_tracker("b1")
+    reopened = manager.get_playtime_tracker(BOTTLE_ID)
     with sqlite3.connect(reopened.db_path) as connection:
         assert connection.execute("SELECT status FROM sessions WHERE id=?", (sid,)).fetchone() == (expected,)

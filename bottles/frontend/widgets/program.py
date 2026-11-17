@@ -82,7 +82,7 @@ class ProgramEntry(Adw.ActionRow):
         self.program = program
         self.__desktop_entry_exists = False
         self.__desktop_entry_query_pending = False
-        self.__library_entry_uuid = None
+        self.__library_entry_key = None
         self.__program_icon_job = None
         self.__program_icon_path = None
 
@@ -104,9 +104,9 @@ class ProgramEntry(Adw.ActionRow):
 
         program_icon = self.program.get("icon", "com.usebottles.bottles-program")
         library_manager = LibraryManager()
-        for _uuid, entry in library_manager.get_library().items():
-            if entry.get("id") == program.get("id"):
-                self.__library_entry_uuid = _uuid
+        for key, entry in library_manager.get_library().items():
+            if key[0] == self.config.Id and entry.get("id") == program.get("id"):
+                self.__library_entry_key = key
                 self.__set_library_state(True)
                 program_icon = entry.get("icon") or program_icon
 
@@ -561,9 +561,9 @@ class ProgramEntry(Adw.ActionRow):
                 library_manager = LibraryManager()
                 entries = library_manager.get_library()
 
-                for uuid, entry in entries.items():
-                    if entry.get("id") == self.program["id"]:
-                        entries[uuid]["name"] = new_name
+                for key, entry in entries.items():
+                    if key[0] == self.config.Id and entry.get("id") == self.program["id"]:
+                        entries[key]["name"] = new_name
                         break
 
                 library_manager.save_library()
@@ -595,17 +595,10 @@ class ProgramEntry(Adw.ActionRow):
                 apply_rename()
                 return
 
-            def desktop_entry_created():
-                if not ManagerUtils.remove_desktop_entry(self.config, old_program):
-                    ManagerUtils.remove_desktop_entry(self.config, new_program)
-                    desktop_entry_failed()
-                    return
-                apply_rename()
-
             ManagerUtils.create_desktop_entry(
                 config=self.config,
                 program=new_program,
-                on_created=desktop_entry_created,
+                on_created=apply_rename,
                 on_failed=desktop_entry_failed,
                 on_cancelled=desktop_entry_failed,
             )
@@ -813,11 +806,11 @@ class ProgramEntry(Adw.ActionRow):
         dialog.present()
 
     def add_to_library(self, _widget):
-        def update(entry_uuid, error=False):
-            if error or entry_uuid is None:
+        def update(entry_key, error=False):
+            if error or entry_key is None:
                 self.btn_add_library.set_sensitive(True)
                 return
-            self.__library_entry_uuid = entry_uuid
+            self.__library_entry_key = entry_key
             self.__set_library_state(True)
             self.window.update_library()
             self.window.show_toast(
@@ -853,21 +846,21 @@ class ProgramEntry(Adw.ActionRow):
         RunAsync(add_to_library, update)
 
     def manage_library(self, widget):
-        if self.__library_entry_uuid is not None:
+        if self.__library_entry_key is not None:
             self.remove_from_library(widget)
             return
         self.add_to_library(widget)
 
     def remove_from_library(self, _widget):
-        entry_uuid = self.__library_entry_uuid
-        if entry_uuid is None:
+        entry_key = self.__library_entry_key
+        if entry_key is None:
             return
 
         def update(_result, error=False):
             if error:
                 self.btn_add_library.set_sensitive(True)
                 return
-            self.__library_entry_uuid = None
+            self.__library_entry_key = None
             self.__set_library_state(False)
             self.window.update_library()
             self.window.show_toast(
@@ -876,7 +869,7 @@ class ProgramEntry(Adw.ActionRow):
 
         self.btn_add_library.set_sensitive(False)
         RunAsync(
-            lambda: LibraryManager().remove_from_library(entry_uuid, self.config),
+            lambda: LibraryManager().remove_from_library(entry_key, self.config),
             update,
         )
 
@@ -896,6 +889,7 @@ class ProgramEntry(Adw.ActionRow):
         RunAsync(
             steam_manager.add_shortcut,
             update,
+            program_id=str(self.program["id"]),
             program_name=self.program["name"],
             program_path=self.program["path"],
         )
@@ -915,7 +909,6 @@ class ProgramEntry(Adw.ActionRow):
             return
 
         try:
-            # Use bottle name as bottle_id, matching what backend uses
             bottle_id = self.config.identifier
             bottle_path = self.config.Path
 

@@ -100,9 +100,9 @@ class WineBoot(WineProgram):
             for pid in os.listdir("/proc"):
                 if pid.isdigit():
                     try:
-                        with open(f"/proc/{pid}/environ", "r") as env_file:
+                        with open(f"/proc/{pid}/environ", "rb") as env_file:
                             env_vars = env_file.read()
-                            if f"BOTTLE={self.config.Path}" in env_vars:
+                            if f"BOTTLE_ID={self.config.Id}".encode() in env_vars.split(b"\0"):
                                 os.kill(int(pid), signal.SIGTERM)
                                 logging.info(f"Killed process with PID {pid}.")
                     except (FileNotFoundError, ProcessLookupError):

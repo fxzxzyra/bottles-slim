@@ -26,7 +26,7 @@ def launch(monkeypatch, tmp_path):
     executed = []
     toasts = []
     navigation = []
-    manager = SimpleNamespace(_programs_cache={config.Name: object()})
+    manager = SimpleNamespace(_programs_cache={config.Id: object()})
     manager.update_config = lambda **kwargs: Manager.update_config(manager, **kwargs)
     view = SimpleNamespace(
         config=config, manager=manager,
@@ -110,7 +110,7 @@ def test_eagle_saves_and_passes_selected_program_options(launch):
     assert launch.executed[0]["winebridge"] is False
     assert launch.config.Parameters.gamemode is True
     assert launch.config.Parameters.sync == "wine"
-    assert launch.config.Name not in launch.manager._programs_cache
+    assert launch.config.Id not in launch.manager._programs_cache
     assert launch.saved[0]["force_add"] == program
     assert len(launch.toasts) == len(launch.navigation) == 1
 
@@ -135,7 +135,7 @@ def test_eagle_does_not_launch_after_failed_save(launch, monkeypatch):
     assert launch.saved == []
     assert launch.navigation == []
     assert launch.config.External_Programs == {}
-    assert launch.config.Name in launch.manager._programs_cache
+    assert launch.config.Id in launch.manager._programs_cache
     assert launch.toasts == ["Could not save the program: Fixture write failed"]
 
 

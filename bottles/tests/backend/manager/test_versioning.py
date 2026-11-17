@@ -274,3 +274,27 @@ def test_list_states_handles_bottle_removed_during_recovery(
     assert len(attempts) == 2
     assert not result.status
     assert result.data["states"] == {}
+
+
+def test_restoring_a_copied_snapshot_keeps_current_bottle_uuid_and_name(monkeypatch, tmp_path):
+    from bottles.backend.managers import versioning as module
+    from bottles.backend.models.config import BottleConfig
+    config = BottleConfig(Name="Copy", Path=str(tmp_path))
+    assert config.dump(str(tmp_path / "bottle.yml")).ok
+    original = BottleConfig(Name="Original", Windows="win7")
+
+    class Repo:
+        def __init__(self, **_kwargs):
+            pass
+        def restore_state(self, _state, **_kwargs):
+            assert original.dump(str(tmp_path / "bottle.yml")).ok
+
+    monkeypatch.setattr(module, "FVSRepo", Repo)
+    manager = module.VersioningManager(object())
+    monkeypatch.setattr(manager, "needs_migration", lambda _config: False)
+    result = manager.set_state(config, "snapshot")
+    assert result.ok
+    restored = BottleConfig.load(str(tmp_path / "bottle.yml")).data
+    assert restored.Id == config.Id != original.Id
+    assert restored.Name == "Copy"
+    assert restored.Windows == "win7"

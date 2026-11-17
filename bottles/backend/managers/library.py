@@ -38,6 +38,8 @@ from gi.repository import GdkPixbuf
 
 logging = Logger()
 
+LibraryKey = tuple[str, str]
+
 LOCAL_COVER_EXTENSIONS = (".png", ".jpg", ".jpeg", ".webp")
 
 
@@ -47,7 +49,7 @@ class LibraryManager:
     from each registered bottle's library.yml file.
     """
 
-    __library: dict = {}
+    __library: dict[LibraryKey, dict]
 
     def __init__(self):
         self.load_library(silent=True)
@@ -59,7 +61,7 @@ class LibraryManager:
         self.__library = {}
         self._bottle_libraries = {}
         self._stored = {}
-        for path, name in BottleIndex().entries().items():
+        for bottle_id, path, name in BottleIndex().records():
             try:
                 bottle_directory(path)
             except OSError:
@@ -72,9 +74,9 @@ class LibraryManager:
                 if not isinstance(entries, dict):
                     raise ValueError("Invalid library: " + file)
             self._stored[file] = deepcopy(entries)
-            self._bottle_libraries[path] = file
+            self._bottle_libraries[bottle_id] = file
             self.__library.update({
-                key: dict(value, bottle={"name": name, "path": path})
+                (bottle_id, key): dict(value, bottle={"id": bottle_id, "name": name, "path": path})
                 for key, value in entries.items()
             })
 
@@ -83,13 +85,13 @@ class LibraryManager:
         Adds a new entry to the library.yml file.
         """
         path = ManagerUtils.get_bottle_path(config)
-        data = dict(data, bottle={"name": config.Name, "path": path})
+        data = dict(data, bottle={"id": config.Id, "name": config.Name, "path": path})
         if self.__already_in_library(data):
             logging.warning(f"Entry already in library, nothing to add: {data}")
             return
 
-        _uuid = str(uuid.uuid4())
-        logging.info(f"Adding new entry to library: {_uuid}")
+        key = (config.Id, str(uuid.uuid4()))
+        logging.info(f"Adding new entry to library: {key}")
 
         if not data.get("thumbnail"):
             for cover in self.__get_local_covers(data, config):
@@ -105,10 +107,10 @@ class LibraryManager:
             except Exception as e:
                 logging.warning(f"Could not fetch thumbnail: {e}")
 
-        self._bottle_libraries[path] = os.path.join(path, "library.yml")
-        self.__library[_uuid] = data
+        self._bottle_libraries[config.Id] = os.path.join(path, "library.yml")
+        self.__library[key] = data
         self.save_library()
-        return _uuid
+        return key
 
     @staticmethod
     def __get_local_covers(data: dict, config: BottleConfig):
@@ -161,10 +163,12 @@ class LibraryManager:
 
         return f"grid:{filename}"
 
-    def set_thumbnail(self, _uuid: str, source_path, config: BottleConfig):
-        entry = self.__library.get(_uuid)
+    def set_thumbnail(self, key: LibraryKey, source_path, config: BottleConfig):
+        if config is not None and key[0] != config.Id:
+            raise ValueError("Library entry belongs to a different bottle.")
+        entry = self.__library.get(key)
         if entry is None:
-            logging.warning(f"Entry not found in library, can't set thumbnail: {_uuid}")
+            logging.warning(f"Entry not found in library, can't set thumbnail: {key}")
             return False
 
         thumbnail = self.import_thumbnail(source_path, config)
@@ -176,8 +180,8 @@ class LibraryManager:
         self.save_library()
 
         thumbnail_is_shared = any(
-            uuid != _uuid and item.get("thumbnail") == old_thumbnail
-            for uuid, item in self.__library.items()
+            other_key != key and other_key[0] == key[0] and item.get("thumbnail") == old_thumbnail
+            for other_key, item in self.__library.items()
         )
         if (
             old_thumbnail
@@ -197,20 +201,22 @@ class LibraryManager:
 
         return True
 
-    def download_thumbnail(self, _uuid: str, config: BottleConfig):
-        if not self.__library.get(_uuid):
+    def download_thumbnail(self, key: LibraryKey, config: BottleConfig):
+        if config is not None and key[0] != config.Id:
+            raise ValueError("Library entry belongs to a different bottle.")
+        if not self.__library.get(key):
             logging.warning(
-                f"Entry not found in library, can't download thumbnail: {_uuid}"
+                f"Entry not found in library, can't download thumbnail: {key}"
             )
             return False
 
-        data = self.__library.get(_uuid)
+        data = self.__library.get(key)
         value = SteamGridDBManager.get_game_grid(data["name"], config)
 
         if not value:
             return False
 
-        self.__library[_uuid]["thumbnail"] = value
+        self.__library[key]["thumbnail"] = value
         self.save_library()
         return True
 
@@ -219,21 +225,23 @@ class LibraryManager:
         Checks if the entry UUID is already in the library.yml file.
         """
         for k, v in self.__library.items():
-            if (v["id"], v["bottle"]["path"]) == (data["id"], data["bottle"]["path"]):
+            if (v["id"], v["bottle"]["id"]) == (data["id"], data["bottle"]["id"]):
                 return True
 
         return False
 
-    def remove_from_library(self, _uuid: str, config: BottleConfig = None):
+    def remove_from_library(self, key: LibraryKey, config: BottleConfig = None):
         """Remove an entry and its unshared managed cover, when its bottle is known."""
-        entry = self.__library.get(_uuid)
+        if config is not None and key[0] != config.Id:
+            raise ValueError("Library entry belongs to a different bottle.")
+        entry = self.__library.get(key)
         if entry:
             thumbnail = entry.get("thumbnail")
             shared = any(
-                key != _uuid and item.get("thumbnail") == thumbnail
-                for key, item in self.__library.items()
+                other_key != key and other_key[0] == key[0] and item.get("thumbnail") == thumbnail
+                for other_key, item in self.__library.items()
             )
-            del self.__library[_uuid]
+            del self.__library[key]
             self.save_library()
             if config is not None and thumbnail and not shared and thumbnail.startswith("grid:"):
                 filename = thumbnail.removeprefix("grid:")
@@ -243,7 +251,7 @@ class LibraryManager:
                     except FileNotFoundError:
                         pass
             return
-        logging.warning(f"Entry not found in library, nothing to remove: {_uuid}")
+        logging.warning(f"Entry not found in library, nothing to remove: {key}")
 
     def save_library(self, silent=False):
         """
@@ -252,10 +260,9 @@ class LibraryManager:
         files = {file: {} for file in self._bottle_libraries.values()}
         for key, entry in self.__library.items():
             entry = dict(entry)
-            path = entry.get("bottle", {}).get("path")
-            file = self._bottle_libraries[path]
+            file = self._bottle_libraries[key[0]]
             entry.pop("bottle")
-            files[file][key] = entry
+            files[file][key[1]] = entry
         for file, entries in files.items():
             if entries == self._stored.get(file, {}):
                 continue
@@ -270,7 +277,7 @@ class LibraryManager:
                     os.unlink(temporary)
             self._stored[file] = deepcopy(entries)
 
-    def get_library(self):
+    def get_library(self) -> dict[LibraryKey, dict]:
         """
         Returns the library.yml file.
         """

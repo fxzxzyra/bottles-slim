@@ -76,7 +76,7 @@ def _edit_cli(params):
     instance = object.__new__(cli.CLI)
     instance.settings = object()
     instance.args = SimpleNamespace(
-        bottle="Test",
+        bottle="1" * 32,
         params=params,
         env_var=None,
         win=None,
@@ -141,7 +141,7 @@ def test_edit_renderer_applies_registry_before_config(monkeypatch):
     config = SimpleNamespace()
     calls = []
     manager = SimpleNamespace(
-        local_bottles={"Test": config},
+        local_bottles={"1" * 32: config},
         check_bottles=lambda: None,
         update_config=lambda bottle, key, value, scope: calls.append(
             ("config", bottle, key, value, scope)
@@ -168,7 +168,7 @@ def test_edit_invalid_renderer_keeps_config(monkeypatch, capsys):
     config = SimpleNamespace()
     updates = []
     manager = SimpleNamespace(
-        local_bottles={"Test": config},
+        local_bottles={"1" * 32: config},
         check_bottles=lambda: None,
         update_config=lambda *args, **kwargs: updates.append((args, kwargs)),
     )

@@ -98,3 +98,23 @@ def test_forced_dll_overrides_take_precedence(monkeypatch, tmp_path, runner_fact
 
     assert env["WINEDLLOVERRIDES"].split(";")[-1] == "mscoree=d"
     assert config.DLL_Overrides == {"mscoree": "n,b"}
+
+
+def test_native_stop_matches_exact_bottle_uuid(monkeypatch):
+    import io
+    import signal
+    from bottles.backend.wine import wineboot as module
+    config = BottleConfig(Name="Office", Path="/prefix")
+    boot = object.__new__(WineBoot)
+    boot.config = config
+    environments = {
+        "/proc/10/environ": b"BOTTLE=/prefix\0BOTTLE_ID=" + config.Id.encode() + b"\0",
+        "/proc/11/environ": b"BOTTLE=/prefix\0BOTTLE_ID=" + config.Id.encode() + b"extra\0",
+        "/proc/12/environ": b"BOTTLE=/prefix\0BOTTLE_ID=other\0",
+    }
+    monkeypatch.setattr(module.os, "listdir", lambda _path: ["10", "11", "12"])
+    monkeypatch.setattr("builtins.open", lambda path, mode: io.BytesIO(environments[path]))
+    killed = []
+    monkeypatch.setattr(module.os, "kill", lambda pid, sig: killed.append((pid, sig)))
+    boot.nv_stop_all_processes()
+    assert killed == [(10, signal.SIGTERM)]

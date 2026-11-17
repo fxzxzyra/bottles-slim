@@ -27,7 +27,7 @@ class EntryStub:
     (
         ("", {}, False),
         ("   ", {}, False),
-        ("Existing", {"Existing": object()}, False),
+        ("Existing", {"1" * 32: SimpleNamespace(Name="Existing")}, False),
         ("New Bottle", {}, True),
     ),
 )

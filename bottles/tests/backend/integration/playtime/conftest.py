@@ -13,6 +13,8 @@ from bottles.backend.state import SignalManager
 from bottles.backend.utils.singleton import Singleton
 from bottles.backend.utils.runners import RunnerRegistry
 
+BOTTLE_ID = "1" * 32
+
 
 @pytest.fixture(autouse=True)
 def isolated_playtime_state(tmp_path, monkeypatch):
@@ -81,7 +83,7 @@ def manager(test_settings_stub, tmp_path):
     root = tmp_path / "prefix"
     root.mkdir(mode=0o700)
     (root / "drive_c").mkdir()
-    assert BottleConfig(Id="b1", Name="b1").dump(str(root / "bottle.yml")).ok
+    assert BottleConfig(Id=BOTTLE_ID, Name="b1").dump(str(root / "bottle.yml")).ok
     BottleIndex().register(str(root))
     manager = Manager(g_settings=test_settings_stub, check_connection=False, is_cli=True)
     manager.check_bottles()

@@ -58,13 +58,13 @@ class LibraryEntry(Gtk.Box):
 
     # endregion
 
-    def __init__(self, library, uuid, entry, *args, **kwargs):
+    def __init__(self, library, key, entry, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.library = library
         self.window = library.window
         self.manager = library.window.manager
         self.name = entry["name"]
-        self.uuid = uuid
+        self.library_key = key
         self.entry = entry
         try:
             self.config = self.__get_config()
@@ -72,7 +72,7 @@ class LibraryEntry(Gtk.Box):
             if self.config is None:
                 raise LibraryEntryInitializationError(
                     _(
-                        'The bottle for "{0}" is no longer available. Removing it from the library.'
+                        'The bottle for "{0}" is unavailable.'
                     ).format(self.name)
                 )
 
@@ -124,7 +124,7 @@ class LibraryEntry(Gtk.Box):
         # Apply against fresh state on the UI thread: a slow download must not
         # resurrect a removed entry or overwrite a cover selected meanwhile.
         library_manager = LibraryManager()
-        current = library_manager.get_library().get(self.uuid)
+        current = library_manager.get_library().get(self.library_key)
         if current is None or current.get("thumbnail") != expected_thumbnail:
             return
         path = ThumbnailManager.get_path(self.config, thumbnail)
@@ -147,12 +147,9 @@ class LibraryEntry(Gtk.Box):
 
     def __get_config(self):
         bottles = self.manager.local_bottles
-        bottle_name = self.entry["bottle"]["name"]
+        if self.library_key[0] in bottles:
+            return bottles[self.library_key[0]]
 
-        if bottle_name in bottles:
-            return bottles[bottle_name]
-
-        self.__remove_from_library()
         return None
 
     def __get_program(self):
@@ -170,7 +167,7 @@ class LibraryEntry(Gtk.Box):
 
     def __remove_from_library(self):
         library_manager = LibraryManager()
-        library_manager.remove_from_library(self.uuid, getattr(self, "config", None))
+        library_manager.remove_from_library(self.library_key, getattr(self, "config", None))
 
     def __handle_initialization_failure(self, message: str):
         logging.warning(message, jn=False)
@@ -238,7 +235,7 @@ class LibraryEntry(Gtk.Box):
                 return
 
             library_manager = LibraryManager()
-            if not library_manager.set_thumbnail(self.uuid, path, self.config):
+            if not library_manager.set_thumbnail(self.library_key, path, self.config):
                 self.window.show_toast(_("The cover image could not be saved."))
                 return
 

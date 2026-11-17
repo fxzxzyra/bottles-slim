@@ -387,6 +387,7 @@ class WineCommand:
 
         # Bottle Path as environment variable
         env.add("BOTTLE", config.Path)
+        env.add("BOTTLE_ID", config.Id)
 
         if None in [arch, params]:
             return env.get()["envs"]
@@ -673,6 +674,8 @@ class WineCommand:
             bool(not self.minimal and gamescope_available and self.gamescope_activated),
         )
 
+        env.add("BOTTLE", config.Path, override=True)
+        env.add("BOTTLE_ID", config.Id, override=True)
         resolved_env = env.get()["envs"]
         return resolved_env
 

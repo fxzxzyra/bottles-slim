@@ -3,6 +3,8 @@
 import os
 import sqlite3
 
+BOTTLE_ID = "1" * 32
+
 
 
 def test_disabled_tracking_smoke(temp_xdg_home, tracker_factory):
@@ -16,9 +18,9 @@ def test_disabled_tracking_smoke(temp_xdg_home, tracker_factory):
 
     # Attempt to start a session → should be no-op
     sid = tracker.start_session(
-        bottle_id="b1",
+        bottle_id=BOTTLE_ID,
         bottle_name="Bottle",
-        bottle_path=os.path.join(temp_xdg_home, "bottles", "b1"),
+        bottle_path=os.path.join(temp_xdg_home, "bottles", BOTTLE_ID),
         program_name="Game",
         program_path="C:/Game/game.exe",
     )

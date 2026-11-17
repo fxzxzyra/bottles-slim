@@ -4,16 +4,18 @@ import sqlite3
 import time
 from freezegun import freeze_time
 
+BOTTLE_ID = "1" * 32
+
 
 def test_same_program_aggregates_into_one_row(manager):
-    tracker = manager.get_playtime_tracker("b1")
+    tracker = manager.get_playtime_tracker(BOTTLE_ID)
     assert tracker is not None
 
     with freeze_time("2025-01-01 00:00:00") as ft:
         base = int(time.time())
         # First session, 60s
         sid1 = tracker.start_session(
-            bottle_id="b1",
+            bottle_id=BOTTLE_ID,
             bottle_name="Bottle",
             bottle_path="/bottle",
             program_name="Game",
@@ -25,7 +27,7 @@ def test_same_program_aggregates_into_one_row(manager):
         ft.tick(120)
         base2 = int(time.time())
         sid2 = tracker.start_session(
-            bottle_id="b1",
+            bottle_id=BOTTLE_ID,
             bottle_name="Bottle",
             bottle_path="/bottle",
             program_name="Game Renamed",
@@ -35,11 +37,11 @@ def test_same_program_aggregates_into_one_row(manager):
 
     con = sqlite3.connect(tracker.db_path)
     cur = con.cursor()
-    cur.execute("SELECT COUNT(*) FROM playtime_totals WHERE bottle_id=?", ("b1",))
+    cur.execute("SELECT COUNT(*) FROM playtime_totals WHERE bottle_id=?", (BOTTLE_ID,))
     assert cur.fetchone()[0] == 1
     cur.execute(
         "SELECT total_seconds, sessions_count FROM playtime_totals WHERE bottle_id=?",
-        ("b1",),
+        (BOTTLE_ID,),
     )
     total_seconds, sessions_count = cur.fetchone()
     assert sessions_count == 2
@@ -47,13 +49,13 @@ def test_same_program_aggregates_into_one_row(manager):
 
 
 def test_different_programs_separate_rows(manager):
-    tracker = manager.get_playtime_tracker("b1")
+    tracker = manager.get_playtime_tracker(BOTTLE_ID)
     assert tracker is not None
 
     with freeze_time("2025-01-01 01:00:00"):
         base = int(time.time())
         sid1 = tracker.start_session(
-            bottle_id="b1",
+            bottle_id=BOTTLE_ID,
             bottle_name="Bottle",
             bottle_path="/bottle",
             program_name="Game1",
@@ -62,7 +64,7 @@ def test_different_programs_separate_rows(manager):
         tracker.mark_exit(sid1, status="success", ended_at=base + 30)
 
         sid2 = tracker.start_session(
-            bottle_id="b1",
+            bottle_id=BOTTLE_ID,
             bottle_name="Bottle",
             bottle_path="/bottle",
             program_name="Game2",
@@ -72,12 +74,12 @@ def test_different_programs_separate_rows(manager):
 
     con = sqlite3.connect(tracker.db_path)
     cur = con.cursor()
-    cur.execute("SELECT COUNT(*) FROM playtime_totals WHERE bottle_id=?", ("b1",))
+    cur.execute("SELECT COUNT(*) FROM playtime_totals WHERE bottle_id=?", (BOTTLE_ID,))
     assert cur.fetchone()[0] == 2
 
 
     cur.execute(
         "SELECT program_name, total_seconds, sessions_count FROM playtime_totals "
-        "WHERE bottle_id=? ORDER BY program_name", ("b1",),
+        "WHERE bottle_id=? ORDER BY program_name", (BOTTLE_ID,),
     )
     assert cur.fetchall() == [("Game1", 30, 1), ("Game2", 60, 1)]

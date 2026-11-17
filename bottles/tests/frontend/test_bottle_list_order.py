@@ -13,7 +13,8 @@ from bottles.frontend.views.list import (  # noqa: E402
 
 
 def _config(path, environment="Gaming"):
-    return SimpleNamespace(Path=path, Environment=environment)
+    from bottles.backend.models.config import BottleConfig
+    return BottleConfig(Path=path, Environment=environment)
 
 
 def test_ordered_bottles_keeps_new_bottles_at_the_end():
@@ -163,3 +164,15 @@ def test_search_updates_filters_and_empty_state():
         (filter_bottles, "missing"),
     ]
     assert empty_states == ["missing"]
+
+
+def test_bottle_order_is_stable_after_rename_and_move_and_distinct_for_copies():
+    from bottles.backend.models.config import BottleConfig
+    original = BottleConfig(Name="Office", Path="/original")
+    other = BottleConfig(Name="Other", Path="/other")
+    order = [_bottle_order_id(original), _bottle_order_id(other)]
+    original.Name, original.Path = "Renamed", "/moved"
+    clone = BottleConfig(Name=original.Name, Path=original.Path)
+    assert _bottle_order_id(original) == order[0] == original.Id
+    assert _bottle_order_id(clone) != order[0]
+    assert _ordered_bottles([clone, other, original], order) == [original, other, clone]

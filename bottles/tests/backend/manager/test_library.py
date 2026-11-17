@@ -8,6 +8,8 @@ from bottles.backend.managers.library import LibraryManager
 from bottles.backend.models.config import BottleConfig
 from bottles.backend.utils.manager import ManagerUtils
 
+BOTTLE_ID = "1" * 32
+
 PNG_DATA = base64.b64decode(
     "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Y9Zwe0AAAAASUVORK5CYII="
 )
@@ -22,7 +24,7 @@ def library_manager(monkeypatch, tmp_path):
     bottle_path = tmp_path / "bottle"
     bottle_path.mkdir(mode=0o700)
     (bottle_path / "drive_c").mkdir()
-    assert BottleConfig(Name="Games").dump(str(bottle_path / "bottle.yml")).ok
+    assert BottleConfig(Id=BOTTLE_ID, Name="Games").dump(str(bottle_path / "bottle.yml")).ok
     from bottles.backend.managers.storage import BottleIndex
     BottleIndex().register(str(bottle_path))
 
@@ -37,6 +39,7 @@ def library_manager(monkeypatch, tmp_path):
 
 def _config(program_folder: Path) -> BottleConfig:
     return BottleConfig(
+        Id=BOTTLE_ID,
         Name="Games",
         Path="Games",
         External_Programs={
@@ -271,10 +274,11 @@ def test_add_to_library_returns_persisted_entry_id(library_manager):
     data["thumbnail"] = "grid:existing.png"
     original = dict(data)
 
-    entry_uuid = manager.add_to_library(data, BottleConfig(Name="Games", Path="Games"))
+    entry_uuid = manager.add_to_library(data, BottleConfig(Id=BOTTLE_ID, Name="Games", Path="Games"))
 
-    assert isinstance(entry_uuid, str)
+    assert entry_uuid[0] == BOTTLE_ID
+    assert isinstance(entry_uuid[1], str)
     assert LibraryManager().get_library()[entry_uuid] == dict(
-        data, bottle={"name": "Games", "path": str(bottle_path)}
+        data, bottle={"id": BOTTLE_ID, "name": "Games", "path": str(bottle_path)}
     )
     assert data == original

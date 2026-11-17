@@ -187,6 +187,7 @@ class BottleConfig(DictCompatMixIn):
         :param indent: file indent width, default is 4
         """
         try:
+            self.Id = uuid.UUID(self.Id).hex
             if isinstance(file, IOBase):
                 yaml.dump(self.to_dict(), file, indent=indent, encoding=encoding)
             else:
@@ -237,6 +238,7 @@ class BottleConfig(DictCompatMixIn):
 
             if not isinstance(data.get("Id"), str) or not data["Id"]:
                 raise ValueError("Bottle configuration has no Id.")
+            data["Id"] = uuid.UUID(data["Id"]).hex
             filled = cls._fill_with(data)
             if not filled.status:
                 raise ValueError("Invalid Config data (%s)" % filled.message)

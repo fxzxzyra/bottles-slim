@@ -594,10 +594,10 @@ class ManagerUtils:
             forwarding_marker = "@@" if field_code == "%f" else "@@u"
             field_argument = f"{forwarding_marker} {field_code} @@"
 
-        return "{} run -p {} -b {} -- {}".format(
+        return "{} run --program-id {} -b {} -- {}".format(
             command,
-            ManagerUtils.quote_desktop_entry_exec_arg(program.get("name", "")),
-            ManagerUtils.quote_desktop_entry_exec_arg(config.get("Name", "")),
+            ManagerUtils.quote_desktop_entry_exec_arg(program["id"]),
+            ManagerUtils.quote_desktop_entry_exec_arg(config["Id"]),
             field_argument,
         )
 
@@ -708,7 +708,7 @@ class ManagerUtils:
 
     @staticmethod
     def get_desktop_entry_id(config, program: dict):
-        launcher_id = f"{config.get('Name')}.{program.get('name')}"
+        launcher_id = f"{config['Id']}:{program['id']}"
         return "{}.App_{}.desktop".format(
             APP_ID,
             GLib.compute_checksum_for_string(
@@ -720,13 +720,7 @@ class ManagerUtils:
 
     @staticmethod
     def get_desktop_entry_filename(config, program: dict):
-        safe_name = "".join(
-            [c for c in program.get("name") if c.isalnum() or c in ("-", "_")]
-        )
-        safe_bottle = "".join(
-            [c for c in config.get("Name") if c.isalnum() or c in ("-", "_")]
-        )
-        return f"bottles-{safe_bottle}-{safe_name}.desktop"
+        return ManagerUtils.get_desktop_entry_id(config, program)
 
     @staticmethod
     def is_missing_portal_entry_error(error: GLib.Error) -> bool:

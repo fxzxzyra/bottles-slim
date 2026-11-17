@@ -9,10 +9,12 @@ from bottles.backend.models.config import BottleConfig
 from bottles.backend.models.result import Result
 from bottles.backend.wine.executor import WineExecutor
 
+BOTTLE_ID = "1" * 32
+
 
 @pytest.mark.parametrize("outcome", ["success", "failure", "exception"])
 def test_executor_persists_launch_outcome(manager, tmp_path, mocker, outcome):
-    config = manager.local_bottles["b1"]
+    config = manager.local_bottles[BOTTLE_ID]
     executor = WineExecutor(config=config, exec_path="C:/Office/editor.exe")
     # Conversion is real and must not turn a forward-slash Windows path into
     # an empty working directory. Only the actual Wine launch is substituted.
@@ -37,11 +39,11 @@ def test_executor_persists_launch_outcome(manager, tmp_path, mocker, outcome):
         boundary.assert_called_once_with(executor)
 
     expected_status = "success" if outcome == "success" else "unknown"
-    with sqlite3.connect(manager.get_playtime_tracker("b1").db_path) as connection:
+    with sqlite3.connect(manager.get_playtime_tracker(BOTTLE_ID).db_path) as connection:
         assert connection.execute(
             "SELECT bottle_id, program_path, status, duration_seconds FROM sessions"
-        ).fetchall() == [("b1", r"C:\Office\editor.exe", expected_status, 37)]
+        ).fetchall() == [(BOTTLE_ID, r"C:\Office\editor.exe", expected_status, 37)]
         assert connection.execute(
             "SELECT bottle_id, total_seconds, sessions_count FROM playtime_totals"
-        ).fetchall() == [("b1", 37, 1)]
+        ).fetchall() == [(BOTTLE_ID, 37, 1)]
     assert manager._launch_to_session == {}

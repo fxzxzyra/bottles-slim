@@ -38,7 +38,7 @@ def test_steam_path_skips_directory_without_steam_data(tmp_path, monkeypatch):
     )
 
     manager = SteamManager(BottleConfig(Name="Test"))
-    result = manager.add_shortcut("Game", "/bottle/game.exe")
+    result = manager.add_shortcut("game-id", "Game", "/bottle/game.exe")
 
     assert manager.steam_path == str(steam_root)
     assert manager.steamapps_path == str(steam_root / "steamapps")
@@ -98,7 +98,7 @@ def test_steam_shortcut_quotes_apostrophes(
         lambda _config, _name, _path: "icon",
     )
 
-    result = manager.add_shortcut("Alice's Game", "/bottle/game.exe")
+    result = manager.add_shortcut("game-id", "Alice's Game", "/bottle/game.exe")
 
     with open(config_dir / "shortcuts.vdf", "rb") as shortcuts_file:
         shortcut = vdf.binary_loads(shortcuts_file.read())["shortcuts"]["0"]
@@ -107,9 +107,9 @@ def test_steam_shortcut_quotes_apostrophes(
     assert shortcut["Exe"] == expected_exe
     assert shlex.split(shortcut["LaunchOptions"]) == expected_prefix + [
         "-b",
-        "Hero's bottle",
-        "-p",
-        "Alice's Game",
+        manager.config.Id,
+        "--program-id",
+        "game-id",
     ]
 
 
@@ -210,3 +210,33 @@ def test_malformed_shortcuts_file_is_ignored(tmp_path):
     manager.userdata_path = str(tmp_path / "userdata")
 
     assert manager.list_shortcuts() == {}
+
+
+def test_shortcut_identity_survives_rename_and_separates_bottles(tmp_path, monkeypatch):
+    directory = tmp_path / "123/config"
+    directory.mkdir(parents=True)
+    manager = object.__new__(SteamManager)
+    manager.config = BottleConfig(Name="Office", Path="/original")
+    manager.userdata_path = str(tmp_path)
+    monkeypatch.delenv("FLATPAK_ID", raising=False)
+    monkeypatch.setattr(steam_module.ManagerUtils, "extract_icon", lambda *_args: "icon")
+
+    def shortcuts():
+        return list(vdf.binary_loads((directory / "shortcuts.vdf").read_bytes())["shortcuts"].values())
+
+    assert manager.add_shortcut("editor-id", "Editor", "/editor.exe").ok
+    initial = shortcuts()[0]
+    manager.config.Name, manager.config.Path = "Renamed", "/moved"
+    assert manager.add_shortcut("editor-id", "Renamed Editor", "/editor.exe").ok
+    updated = shortcuts()
+    assert len(updated) == 1
+    assert updated[0]["appid"] == initial["appid"]
+    assert updated[0]["AppName"] == "Renamed Editor"
+    assert updated[0]["StartDir"] != "/original"
+    original_id = manager.config.Id
+    manager.config = BottleConfig(Name=manager.config.Name, Path=manager.config.Path)
+    assert manager.add_shortcut("editor-id", "Renamed Editor", "/editor.exe").ok
+    entries = shortcuts()
+    assert len(entries) == 2
+    assert entries[0]["appid"] != entries[1]["appid"]
+    assert {shlex.split(entry["LaunchOptions"])[2] for entry in entries} == {original_id, manager.config.Id}

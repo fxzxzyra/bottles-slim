@@ -469,9 +469,8 @@ class BottleView(Adw.Bin):
         if not data or not isinstance(data, Result) or not data.data:
             return
 
-        # Note: We refresh all programs regardless of which one finished
-        # because the payload doesn't include bottle_id and we want to
-        # keep all displays up to date
+        if data.data.bottle_id != self.config.Id:
+            return
 
         # Cancel any pending refresh
         if self._playtime_refresh_timeout_id is not None:
@@ -505,8 +504,7 @@ class BottleView(Adw.Bin):
             return
 
         # Check if this is a backup task for our bottle
-        backup_title = _("Backup {0}").format(self.config.Name)
-        if task.title == backup_title:
+        if task.kind == "backup" and task.bottle_id == self.config.Id:
             self._backup_task_id = task_id
             GLib.idle_add(self._show_backup_progress)
 
@@ -750,11 +748,11 @@ class BottleView(Adw.Bin):
         """
         if backup_type == "config":
             title = _("Select the location where to save the backup config")
-            hint = f"backup_{self.config.Path}.yml"
+            hint = f"backup_{self.config.Name}.yml"
             accept_label = _("Export")
         else:
             title = _("Select the location where to save the backup archive")
-            hint = f"backup_{self.config.Path}.tar.gz"
+            hint = f"backup_{self.config.Name}.tar.gz"
             accept_label = _("Backup")
 
         @GtkUtils.run_in_main_loop

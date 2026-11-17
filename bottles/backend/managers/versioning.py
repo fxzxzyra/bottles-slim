@@ -255,6 +255,20 @@ class VersioningManager:
 
         return states
 
+    @staticmethod
+    def __restore_identity(config: BottleConfig):
+        """Snapshots restore runtime settings, not the identity of a copied bottle."""
+        path = os.path.join(ManagerUtils.get_bottle_path(config), "bottle.yml")
+        loaded = BottleConfig.load(path)
+        if not loaded.ok:
+            raise ValueError(loaded.message)
+        restored = loaded.data
+        restored.Id = config.Id
+        restored.Name = config.Name
+        saved = restored.dump(path)
+        if not saved.ok:
+            raise ValueError(saved.message)
+
     def set_state(
         self, config: BottleConfig, state_id: str | int, after: callable = None
     ) -> Result:
@@ -273,6 +287,7 @@ class VersioningManager:
             )
             try:
                 repo.restore_state(state_id, ignore=patterns, task_id=task_id)
+                self.__restore_identity(config)
             except FVSStateNotFound:
                 logging.error(f"State {state_id} not found.")
                 res = Result(status=False, message=_("State not found"))
@@ -282,7 +297,10 @@ class VersioningManager:
                     status=False,
                     message=_("State {} is already the active state").format(state_id),
                 )
-            TaskManager.remove(task_id)
+            except (OSError, ValueError) as error:
+                res = Result(False, message=str(error))
+            finally:
+                TaskManager.remove(task_id)
             return res
 
         bottle_path = ManagerUtils.get_bottle_path(config)
@@ -463,6 +481,7 @@ class VersioningManager:
 
             if repo.active_state_id:
                 repo.restore_state(repo.active_state_id, ignore=patterns)
+                self.__restore_identity(config)
 
             return Result(status=True)
         except Exception as e:

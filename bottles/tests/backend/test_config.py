@@ -62,3 +62,13 @@ def test_bottle_configuration_moves_with_its_directory(tmp_path):
     assert loaded.data.Id == config.Id
     assert loaded.data.session_arguments == ""
     assert loaded.data.run_in_terminal is False
+
+
+@pytest.mark.parametrize("identifier", ["../outside", "/tmp/outside", "not-a-uuid"])
+def test_invalid_uuid_is_rejected_on_load_and_before_overwriting_config(identifier):
+    from bottles.backend.utils import yaml
+    original = StringIO(yaml.dump({"Id": identifier, "Name": "Office"}))
+    assert not BottleConfig.load(original).ok
+    target = StringIO()
+    assert not BottleConfig(Id=identifier).dump(target).ok
+    assert target.getvalue() == ""

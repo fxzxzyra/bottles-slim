@@ -75,12 +75,16 @@ class BottleIndex:
             os.close(fd)
         with closing(sqlite3.connect(path)) as db, db:
             if write:
-                db.execute("CREATE TABLE IF NOT EXISTS bottles (path TEXT PRIMARY KEY, name TEXT UNIQUE NOT NULL, id TEXT UNIQUE NOT NULL)")
+                db.execute("CREATE TABLE IF NOT EXISTS bottles (id TEXT PRIMARY KEY NOT NULL, path TEXT UNIQUE NOT NULL, name TEXT UNIQUE NOT NULL)")
             yield db
 
-    def entries(self) -> dict[str, str]:
+    def records(self) -> list[tuple[str, str, str]]:
+        """Return registered (UUID, path, display name), including unavailable bottles."""
         with self._database() as db:
-            return dict(db.execute("SELECT path, name FROM bottles ORDER BY name")) if db else {}
+            return list(db.execute("SELECT id, path, name FROM bottles ORDER BY name")) if db else []
+
+    def entries(self) -> dict[str, str]:
+        return {path: name for _identifier, path, name in self.records()}
 
     def register(self, path: str) -> BottleConfig:
         path = bottle_directory(path)
@@ -96,10 +100,10 @@ class BottleIndex:
             db.execute("INSERT INTO bottles(path, name, id) VALUES (?, ?, ?)", (path, config.Name, config.Id))
         return config
 
-    def forget(self, path: str):
+    def forget(self, identifier: str):
         with self._database(write=True) as db:
-            db.execute("DELETE FROM bottles WHERE path=?", (path,))
+            db.execute("DELETE FROM bottles WHERE id=?", (identifier,))
 
-    def rename(self, path: str, name: str):
+    def rename(self, identifier: str, name: str):
         with self._database(write=True) as db:
-            db.execute("UPDATE bottles SET name=? WHERE path=?", (name, path))
+            db.execute("UPDATE bottles SET name=? WHERE id=?", (name, identifier))

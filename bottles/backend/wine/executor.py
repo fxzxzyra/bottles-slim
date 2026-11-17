@@ -36,6 +36,8 @@ class WineExecutor:
     _PROGRAM_ENVIRONMENT_DENYLIST: ClassVar[set[str]] = {
         "WINEARCH",
         "WINEPREFIX",
+        "BOTTLE",
+        "BOTTLE_ID",
     }
     _PROGRAM_BOOLEAN_OVERRIDES: ClassVar[set[str]] = {
         "discrete_gpu",
@@ -417,7 +419,7 @@ class WineExecutor:
 
     def run(self) -> Result:
         # Emit ProgramStarted (best-effort)
-        launch_id = f"{self.config.Name}:{int(time.time() * 1000)}:{os.getpid()}"
+        launch_id = f"{self.config.Id}:{uuid.uuid4().hex}"
         bottle_id = self.config.identifier
         bottle_name = self.config.Name
         bottle_path = ManagerUtils.get_bottle_path(self.config)
@@ -489,6 +491,7 @@ class WineExecutor:
                     Result(
                         True,
                         ProcessFinishedPayload(
+                            bottle_id=bottle_id,
                             launch_id=launch_id,
                             status="unknown",
                             ended_at=int(time.time()),
@@ -506,6 +509,7 @@ class WineExecutor:
                 Result(
                     True,
                     ProcessFinishedPayload(
+                        bottle_id=bottle_id,
                         launch_id=launch_id,
                         status="success" if res.status else "unknown",
                         ended_at=int(time.time()),

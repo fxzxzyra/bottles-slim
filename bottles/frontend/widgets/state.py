@@ -152,5 +152,5 @@ class StateEntry(Adw.ActionRow):
         bottle_config_path = os.path.join(ManagerUtils.get_bottle_path(self.config), "bottle.yml")
         config_load = BottleConfig.load(bottle_config_path)
         if config_load.status:
-            self.manager.local_bottles[self.config.Name] = config_load.data
+            self.manager.local_bottles[self.config.Id] = config_load.data
             self.window.page_details.set_config(config_load.data)

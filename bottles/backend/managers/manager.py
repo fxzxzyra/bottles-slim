@@ -332,19 +332,24 @@ class Manager(metaclass=Singleton):
             tracker.shutdown()
 
     def get_playtime_tracker(self, bottle_id: str) -> ProcessSessionTracker:
-        config = next(config for config in self.local_bottles.values() if config.identifier == bottle_id)
+        config = self.local_bottles[bottle_id]
         path = bottle_directory(ManagerUtils.get_bottle_path(config))
         with self._playtime_lock:
-            if path not in self._playtime_trackers:
+            db_path = os.path.join(path, "process_metrics.sqlite")
+            existing = self._playtime_trackers.get(config.Id)
+            if existing is not None and existing.db_path != db_path:
+                existing.shutdown()
+                del self._playtime_trackers[config.Id]
+            if config.Id not in self._playtime_trackers:
                 tracker = ProcessSessionTracker(
-                    db_path=os.path.join(path, "process_metrics.sqlite"),
+                    db_path=db_path,
                     enabled=self.settings.get_boolean("playtime-enabled"),
                     heartbeat_interval=self.settings.get_int("playtime-heartbeat-interval") or 60,
                 )
                 if not self.is_cli and tracker.has_open_sessions() and not WineServer(config).is_alive():
                     tracker.recover_open_sessions()
-                self._playtime_trackers[path] = tracker
-            return self._playtime_trackers[path]
+                self._playtime_trackers[config.Id] = tracker
+            return self._playtime_trackers[config.Id]
 
     def _on_playtime_enabled_changed(self, _settings, _key) -> None:
         for tracker in self._playtime_trackers.values():
@@ -402,7 +407,7 @@ class Manager(metaclass=Singleton):
         if not data or not data.data:
             return
         payload = data.data
-        config = next(config for config in self.local_bottles.values() if config.identifier == payload.bottle_id)
+        config = self.local_bottles[payload.bottle_id]
         RegistryRuleManager.apply_rules(config, trigger="start_program")
         sid = None
         if self.settings.get_boolean("playtime-enabled"):
@@ -993,7 +998,7 @@ class Manager(metaclass=Singleton):
         if config is None:
             return []
 
-        cache_key = config.Name
+        cache_key = config.Id
         if not force_update and cache_key in self._programs_cache:
             return self._programs_cache[cache_key]
 
@@ -1168,18 +1173,18 @@ class Manager(metaclass=Singleton):
         self.local_bottles = {}
         self._programs_cache = {}
         self.unavailable_bottles = {}
-        for path, name in BottleIndex().entries().items():
+        for bottle_id, path, name in BottleIndex().records():
             try:
                 bottle_directory(path)
                 loaded = BottleConfig.load(os.path.join(path, "bottle.yml"))
                 if not loaded.ok:
                     raise ValueError(loaded.message)
                 config = loaded.data
-                if config.Name in self.local_bottles:
-                    raise ValueError("Duplicate bottle name: " + config.Name)
-                self.local_bottles[config.Name] = config
+                if config.Id != bottle_id:
+                    raise ValueError("The bottle UUID differs from its registration.")
+                self.local_bottles[config.Id] = config
             except (OSError, ValueError) as error:
-                self.unavailable_bottles[path] = str(error)
+                self.unavailable_bottles[bottle_id] = (path, str(error))
                 logging.warning(f"Bottle {name} at {path} is unavailable: {error}")
         if self.unavailable_bottles and not silent and not self.is_cli:
             SignalManager.send(
@@ -1187,7 +1192,7 @@ class Manager(metaclass=Singleton):
                 Result(True, Notification(
                     title="Bottles",
                     text=_("Some registered bottles are unavailable:") + "\n" + "\n".join(
-                        f"{path}: {error}" for path, error in self.unavailable_bottles.items()
+                        f"{path}: {error}" for path, error in self.unavailable_bottles.values()
                     ),
                     image="drive-harddisk-symbolic",
                 )),
@@ -1247,12 +1252,12 @@ class Manager(metaclass=Singleton):
             return Result(False, data={"config": config}, message=result.message)
 
         if key == "Name" and not scope:
-            BottleIndex().rename(bottle_path, config.Name)
+            BottleIndex().rename(config.Id, config.Name)
 
         config.Update_Date = str(datetime.now())
 
         if scope == "External_Programs":
-            self._programs_cache.pop(config.Name, None)
+            self._programs_cache.pop(config.Id, None)
 
 
         component_keys = {
@@ -1340,7 +1345,7 @@ class Manager(metaclass=Singleton):
 
         try:
             path = bottle_directory(path, empty=True)
-            if name in self.local_bottles or name in BottleIndex().entries().values():
+            if name in BottleIndex().entries().values():
                 raise ValueError("A bottle with this name is already registered.")
             if not name.strip():
                 raise ValueError("Bottle name cannot be empty.")
@@ -2125,8 +2130,8 @@ class Manager(metaclass=Singleton):
         config.Parameters.dxvk = candidate.Parameters.dxvk
         config.Parameters.vkd3d = candidate.Parameters.vkd3d
         config.Update_Date = candidate.Update_Date
-        if config.Name in self.local_bottles:
-            self.local_bottles[config.Name] = config
+        if config.Id in self.local_bottles:
+            self.local_bottles[config.Id] = config
         RegistryRuleManager.apply_rules(config, trigger="components")
         return Result(True, data={"config": config})
 
@@ -2175,8 +2180,8 @@ class Manager(metaclass=Singleton):
         config.D7VK = candidate.D7VK
         config.Parameters.d7vk = candidate.Parameters.d7vk
         config.Update_Date = candidate.Update_Date
-        if candidate.Name in self.local_bottles:
-            self.local_bottles[candidate.Name] = config
+        if candidate.Id in self.local_bottles:
+            self.local_bottles[candidate.Id] = config
         RegistryRuleManager.apply_rules(config, trigger="components")
         return Result(True, data={"config": config})
 
@@ -2218,7 +2223,8 @@ class Manager(metaclass=Singleton):
         """
         try:
             path = bottle_directory(ManagerUtils.get_bottle_path(config))
-            if path not in BottleIndex().entries():
+            if not any(identifier == config.Id and registered == path
+                       for identifier, registered, _name in BottleIndex().records()):
                 raise ValueError("Only a registered bottle can be deleted.")
             with bottle_operation(path):
                 return self._delete_bottle(config, path)
@@ -2228,10 +2234,10 @@ class Manager(metaclass=Singleton):
 
     def forget_bottle(self, config: BottleConfig) -> bool:
         path = ManagerUtils.get_bottle_path(config)
-        tracker = self._playtime_trackers.pop(path, None)
+        tracker = self._playtime_trackers.pop(config.Id, None)
         if tracker:
             tracker.shutdown()
-        BottleIndex().forget(path)
+        BottleIndex().forget(config.Id)
         self.check_bottles(silent=True)
         return True
 
@@ -2253,21 +2259,18 @@ class Manager(metaclass=Singleton):
         for program in config.External_Programs.values():
             ManagerUtils.remove_desktop_entry(config, program)
 
-        for inst in glob(f"{Paths.applications}/{config.Name}--*"):
-            os.remove(inst)
-
         logging.info("Removing library entries associated with this bottle…")
         library_manager = LibraryManager()
         entries = library_manager.get_library().copy()
         for _uuid, entry in entries.items():
-            if entry.get("bottle").get("name") == config.Name:
+            if _uuid[0] == config.Id:
                 library_manager.remove_from_library(_uuid)
 
-        tracker = self._playtime_trackers.pop(path, None)
+        tracker = self._playtime_trackers.pop(config.Id, None)
         if tracker:
             tracker.shutdown()
         shutil.rmtree(path)
-        BottleIndex().forget(path)
+        BottleIndex().forget(config.Id)
 
         # The UI invokes delete_bottle in a worker thread. Refresh only the
         # backend state here; its RunAsync callback rebuilds the GTK list on
@@ -2290,7 +2293,7 @@ class Manager(metaclass=Singleton):
         bottle_path = ManagerUtils.get_bottle_path(config)
 
         # create new config with path as name and Custom environment
-        new_config = BottleConfig()
+        new_config = BottleConfig(Id=config.Id)
         new_config.Name = config.Name
         new_config.Runner = self.get_default_runner()
         new_config.Path = bottle_path

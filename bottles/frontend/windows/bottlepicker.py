@@ -27,7 +27,7 @@ from bottles.frontend.params import APP_ID
 class BottleEntry(Adw.ActionRow):
     def __init__(self, config: BottleConfig):
         super().__init__()
-        self.bottle = config.Name
+        self.bottle = config.Id
         self.set_title(config.Name)
 
 
@@ -75,9 +75,9 @@ class BottlePickerDialog(Adw.ApplicationWindow):
                     "bottles-cli",
                     "run",
                     "-b",
-                    f'"{row.bottle}"',
+                    row.bottle,
                     "-e",
-                    f'"{self.arg_exe}"',
+                    self.arg_exe,
                 ]
             )
 

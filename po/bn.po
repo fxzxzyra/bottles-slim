@@ -20,12 +20,12 @@ msgid "\"{0}\" added"
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:892
+#: bottles/frontend/widgets/program.py:885
 msgid "\"{0}\" added to your Steam library"
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:824
+#: bottles/frontend/widgets/program.py:817
 msgid "\"{0}\" added to your library"
 msgstr ""
 
@@ -70,7 +70,7 @@ msgid "\"{0}\" removed from the library."
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:874
+#: bottles/frontend/widgets/program.py:867
 msgid "\"{0}\" removed from your library"
 msgstr ""
 
@@ -152,7 +152,7 @@ msgstr ""
 msgid "A program is running"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:687
+#: bottles/backend/managers/manager.py:692
 msgid "A runner with this name is already registered."
 msgstr "A+ এই নামে ইতিমধ্যেই নিবন্ধিত।"
 
@@ -186,7 +186,7 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: bottles/frontend/ui/program-entry.blp:57 bottles/frontend/widgets/program.py:697
+#: bottles/frontend/ui/program-entry.blp:57 bottles/frontend/widgets/program.py:690
 msgid "Add Desktop Entry"
 msgstr ""
 
@@ -215,7 +215,7 @@ msgstr ""
 msgid "Add launch argument {argument} (community evidence x{evidence})"
 msgstr ""
 
-#: bottles/frontend/ui/program-entry.blp:53 bottles/frontend/widgets/program.py:884
+#: bottles/frontend/ui/program-entry.blp:53 bottles/frontend/widgets/program.py:877
 msgid "Add to Library"
 msgstr ""
 
@@ -296,7 +296,7 @@ msgstr ""
 msgid "An installation error occurred. Restart Bottles to read the Crash Report or run it via terminal to read the output."
 msgstr "একটি ইনস্টলেশন ত্রুটি ঘটেছে. ক্র্যাশ রিপোর্ট পড়তে Bottles রিস্টার্ট করুন বা আউটপুট পড়ার জন্য টার্মিনালের মাধ্যমে চালান।"
 
-#: bottles/frontend/views/bottle_details.py:732
+#: bottles/frontend/views/bottle_details.py:730
 msgid "Analyse"
 msgstr ""
 
@@ -353,7 +353,7 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1654
+#: bottles/backend/managers/manager.py:1659
 msgid "Apply CMD default settings…"
 msgstr "সিএমডি ডিফল্ট সেটিংস প্রয়োগ করুন…"
 
@@ -374,7 +374,7 @@ msgid "Applying Windows version…"
 msgstr ""
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:1705
+#: bottles/backend/managers/manager.py:1710
 msgid "Applying environment: {0}…"
 msgstr "{0} পরিবেশ তৈরি করা হচ্ছে…"
 
@@ -382,12 +382,12 @@ msgstr "{0} পরিবেশ তৈরি করা হচ্ছে…"
 msgid "Architecture"
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:966
+#: bottles/frontend/views/bottle_details.py:964
 msgid "Are you sure you want to force stop all processes?"
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:864
+#: bottles/frontend/views/bottle_details.py:862
 msgid "Are you sure you want to permanently delete \"{}\"?"
 msgstr "আপনি কি \"{}\" স্থায়ীভাবে মুছে ফেলার বিষয়ে নিশ্চিত?"
 
@@ -404,7 +404,7 @@ msgid "Audio Engine"
 msgstr ""
 
 #, python-format
-#: bottles/backend/managers/versioning.py:455
+#: bottles/backend/managers/versioning.py:473
 msgid "Auto-save before switching to %s"
 msgstr ""
 
@@ -430,12 +430,12 @@ msgid "Average: 0h 0m"
 msgstr ""
 
 #, python-brace-format
-#: bottles/backend/managers/backup.py:429
+#: bottles/backend/managers/backup.py:414
 msgid "Backing up {0}"
 msgstr ""
 
 #, fuzzy
-#: bottles/frontend/views/bottle_details.py:758
+#: bottles/frontend/views/bottle_details.py:756
 msgid "Backup"
 msgstr "ব্যাকআপ {0}"
 
@@ -448,17 +448,17 @@ msgid "Backup and restore"
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:764
+#: bottles/frontend/views/bottle_details.py:762
 msgid "Backup cancelled for \"{0}\""
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:769
+#: bottles/frontend/views/bottle_details.py:767
 msgid "Backup created for \"{0}\""
 msgstr ""
 
 #, fuzzy, python-brace-format
-#: bottles/frontend/views/bottle_details.py:773
+#: bottles/frontend/views/bottle_details.py:771
 msgid "Backup failed for \"{0}\""
 msgstr "ব্যাকআপ {0}"
 
@@ -467,7 +467,7 @@ msgid "Backup in progress…"
 msgstr ""
 
 #, python-brace-format
-#: bottles/backend/managers/backup.py:679 bottles/frontend/views/bottle_details.py:508
+#: bottles/backend/managers/backup.py:666
 msgid "Backup {0}"
 msgstr "ব্যাকআপ {0}"
 
@@ -479,7 +479,7 @@ msgstr "ব্যাকআপ"
 msgid "Backups to Keep"
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:696
+#: bottles/frontend/views/bottle_details.py:694
 msgid "Be Aware of Sandbox"
 msgstr ""
 
@@ -518,6 +518,10 @@ msgstr ""
 msgid "Bottle Settings Page"
 msgstr ""
 
+#: bottles/frontend/main.py:147
+msgid "Bottle UUID"
+msgstr "বোতল UUID"
+
 #: bottles/frontend/views/new_bottle_dialog.py:378
 msgid "Bottle creation failed."
 msgstr ""
@@ -526,11 +530,11 @@ msgstr ""
 msgid "Bottle imported successfully"
 msgstr ""
 
-#: bottles/frontend/main.py:147 bottles/frontend/ui/library-entry.blp:96
+#: bottles/frontend/ui/library-entry.blp:96
 msgid "Bottle name"
 msgstr "বোতলের নাম"
 
-#: bottles/backend/managers/backup.py:748
+#: bottles/backend/managers/backup.py:735
 msgid "Bottle name cannot be empty."
 msgstr ""
 
@@ -569,7 +573,7 @@ msgstr ""
 msgid "Bottles has a whole new Versioning System that is not backwards compatible.\n\nTo continue using versioning we need to re-initialize the bottle repository. This will not delete data from your bottle but will delete all existing snapshots and create a new one.\n\nIf you need to go back to a previous snapshot before continuing, close this window and restore the snapshot, then reopen the bottle to show this window again.\n\nThe old system will be discontinued in one of the next releases."
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:697
+#: bottles/frontend/views/bottle_details.py:695
 msgid "Bottles is running in a sandbox, a restricted permission environment needed to keep you safe. If the program won't run, consider moving inside the bottle (3 dots icon on the top), then launch from there."
 msgstr ""
 
@@ -609,11 +613,11 @@ msgstr ""
 msgid "Branch Name"
 msgstr ""
 
-#: bottles/backend/managers/versioning.py:428
+#: bottles/backend/managers/versioning.py:446
 msgid "Branch created successfully"
 msgstr ""
 
-#: bottles/backend/managers/versioning.py:440
+#: bottles/backend/managers/versioning.py:458
 msgid "Branch deleted successfully"
 msgstr ""
 
@@ -655,7 +659,7 @@ msgstr ""
 msgid "Builtin, then Native"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:915
+#: bottles/backend/utils/manager.py:909
 msgid "Bulgarian"
 msgstr ""
 
@@ -689,15 +693,15 @@ msgstr ""
 msgid "Cached prefix for the %s environment, created on %s"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1861
+#: bottles/backend/managers/manager.py:1866
 msgid "Caching template…"
 msgstr "ক্যাশিং টেমপ্লেট…"
 
-#: bottles/backend/managers/backup.py:546 bottles/backend/managers/versioning.py:122
+#: bottles/backend/managers/backup.py:533 bottles/backend/managers/versioning.py:122
 msgid "Calculating..."
 msgstr ""
 
-#: bottles/backend/state.py:150 bottles/frontend/widgets/component.py:149 bottles/frontend/widgets/component.py:209
+#: bottles/backend/state.py:155 bottles/frontend/widgets/component.py:149 bottles/frontend/widgets/component.py:209
 msgid "Calculating…"
 msgstr ""
 
@@ -717,7 +721,7 @@ msgstr ""
 msgid "Cancel task"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1397
+#: bottles/backend/managers/manager.py:1402
 msgid "Cancellation requested. Stopping after the current step…"
 msgstr ""
 
@@ -729,7 +733,7 @@ msgstr ""
 msgid "Cancelling now will stop the setup once the current step finishes and remove any files created so far."
 msgstr ""
 
-#: bottles/backend/state.py:161
+#: bottles/backend/state.py:166
 msgid "Cancelling..."
 msgstr ""
 
@@ -793,11 +797,11 @@ msgstr ""
 msgid "Check your connection or try again later."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:940
+#: bottles/backend/utils/manager.py:934
 msgid "Chinese (Simplified)"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:942
+#: bottles/backend/utils/manager.py:936
 msgid "Chinese (Traditional)"
 msgstr ""
 
@@ -1043,7 +1047,7 @@ msgstr ""
 msgid "Configure bottle settings."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1667
+#: bottles/backend/managers/manager.py:1672
 msgid "Configuring audio driver…"
 msgstr ""
 
@@ -1087,7 +1091,7 @@ msgstr ""
 msgid "Copies the file into a temporary folder inside the bottle. Files stored next to it are not included, so it may not work fully."
 msgstr ""
 
-#: bottles/frontend/utils/flatpak.py:94 bottles/frontend/views/bottle_preferences.py:420 bottles/frontend/widgets/program.py:718
+#: bottles/frontend/utils/flatpak.py:94 bottles/frontend/views/bottle_preferences.py:420 bottles/frontend/widgets/program.py:711
 msgid "Copy command"
 msgstr ""
 
@@ -1138,7 +1142,7 @@ msgid "Could not copy the file into the bottle."
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:631
+#: bottles/frontend/widgets/program.py:624
 msgid "Could not create a Desktop Entry for \"{0}\""
 msgstr ""
 
@@ -1151,12 +1155,12 @@ msgstr ""
 msgid "Could not load the installer. Please try again."
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:848
+#: bottles/frontend/views/bottle_details.py:846
 msgid "Could not remove the bottle."
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:528 bottles/frontend/widgets/program.py:664
+#: bottles/frontend/widgets/program.py:528 bottles/frontend/widgets/program.py:657
 msgid "Could not remove the desktop entry for \"{0}\""
 msgstr ""
 
@@ -1178,7 +1182,7 @@ msgid "Could not update Wine HIDRAW preferences"
 msgstr "Wine HIDRAW পছন্দগুলি আপডেট করা যায়নি"
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:795
+#: bottles/frontend/widgets/program.py:788
 msgid "Could not update file associations for \"{0}\""
 msgstr ""
 
@@ -1187,7 +1191,7 @@ msgstr ""
 msgid "Could not update the desktop entry for \"{0}\""
 msgstr ""
 
-#: bottles/frontend/widgets/library.py:246
+#: bottles/frontend/widgets/library.py:243
 msgid "Cover image updated."
 msgstr ""
 
@@ -1259,7 +1263,7 @@ msgstr ""
 msgid "Creating snapshot…"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1834
+#: bottles/backend/managers/manager.py:1839
 msgid "Creating versioning state 0…"
 msgstr "ভার্সনিং স্টেট 0 তৈরি করা হচ্ছে…"
 
@@ -1276,7 +1280,7 @@ msgstr ""
 msgid "Critical"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:925
+#: bottles/backend/utils/manager.py:919
 msgid "Croatian"
 msgstr ""
 
@@ -1285,7 +1289,7 @@ msgid "Crypto and Hashing"
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:571
+#: bottles/frontend/views/bottle_details.py:569
 msgid "Current: {current} · Latest: {latest}"
 msgstr ""
 
@@ -1314,7 +1318,7 @@ msgstr ""
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:916
+#: bottles/backend/utils/manager.py:910
 msgid "Czech"
 msgstr ""
 
@@ -1322,7 +1326,7 @@ msgstr ""
 msgid "D"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1894 bottles/frontend/ui/details-preferences.blp:29
+#: bottles/backend/managers/manager.py:1899 bottles/frontend/ui/details-preferences.blp:29
 msgid "D7VK"
 msgstr ""
 
@@ -1346,7 +1350,7 @@ msgstr ""
 msgid "DLS sharpness increases the sharpness of a frame. Higher values make the frame sharper."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1900 bottles/frontend/ui/details-preferences.blp:42
+#: bottles/backend/managers/manager.py:1905 bottles/frontend/ui/details-preferences.blp:42
 msgid "DXVK"
 msgstr ""
 
@@ -1363,7 +1367,7 @@ msgstr ""
 msgid "Daily Average: {}"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:917
+#: bottles/backend/utils/manager.py:911
 msgid "Danish"
 msgstr ""
 
@@ -1508,21 +1512,21 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: bottles/frontend/widgets/program.py:754
+#: bottles/frontend/widgets/program.py:747
 msgid "Desktop Entry Could Not Be Created"
 msgstr ""
 
-#: bottles/frontend/widgets/program.py:740
+#: bottles/frontend/widgets/program.py:733
 msgid "Desktop Entry Created Manually"
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:638
+#: bottles/frontend/widgets/program.py:631
 msgid "Desktop Entry created for \"{0}\""
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:672
+#: bottles/frontend/widgets/program.py:665
 msgid "Desktop Entry removed for \"{0}\""
 msgstr ""
 
@@ -1669,7 +1673,7 @@ msgstr "ডুপ্লিকেট bottle"
 msgid "Duplicating…"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:930
+#: bottles/backend/utils/manager.py:924
 msgid "Dutch"
 msgstr ""
 
@@ -1782,7 +1786,7 @@ msgstr ""
 msgid "Enable {0} for this bottle first"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1661
+#: bottles/backend/managers/manager.py:1666
 msgid "Enabling font smoothing…"
 msgstr ""
 
@@ -1790,7 +1794,7 @@ msgstr ""
 msgid "Engines and Frameworks"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:920
+#: bottles/backend/utils/manager.py:914
 msgid "English"
 msgstr ""
 
@@ -1798,7 +1802,7 @@ msgstr ""
 msgid "Enter a name for the duplicate of the Bottle."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:674
+#: bottles/backend/managers/manager.py:679
 msgid "Enter a runner name."
 msgstr "একটি রানার নাম লিখুন।"
 
@@ -1840,7 +1844,7 @@ msgstr ""
 msgid "Errors"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:922
+#: bottles/backend/utils/manager.py:916
 msgid "Estonian"
 msgstr ""
 
@@ -1888,7 +1892,7 @@ msgstr "পরীক্ষা"
 msgid "Explorer"
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:754
+#: bottles/frontend/views/bottle_details.py:752
 msgid "Export"
 msgstr ""
 
@@ -1939,7 +1943,7 @@ msgstr ""
 msgid "FXAA subpixel quality decreases aliasing at the subpixel level. Higher values make the frame softer."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1520 bottles/backend/managers/manager.py:1585
+#: bottles/backend/managers/manager.py:1525 bottles/backend/managers/manager.py:1590
 msgid "Failed to create bottle directory."
 msgstr "বোতল ডিরেক্টরি তৈরি করতে ব্যর্থ হয়েছে।"
 
@@ -1947,39 +1951,39 @@ msgstr "বোতল ডিরেক্টরি তৈরি করতে ব�
 msgid "Failed to create snapshot: No space left on device."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1610
+#: bottles/backend/managers/manager.py:1615
 msgid "Failed to initialize the Wine prefix."
 msgstr ""
 
 #, python-format
-#: bottles/backend/managers/manager.py:1787 bottles/backend/managers/manager.py:1792
+#: bottles/backend/managers/manager.py:1792 bottles/backend/managers/manager.py:1797
 msgid "Failed to install dependency: %s"
 msgstr ""
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2414
+#: bottles/backend/managers/manager.py:2417
 msgid "Failed to install {0}."
 msgstr ""
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2414
+#: bottles/backend/managers/manager.py:2417
 msgid "Failed to remove {0}."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:2097
+#: bottles/backend/managers/manager.py:2102
 msgid "Failed to restore graphics components."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1621
+#: bottles/backend/managers/manager.py:1626
 msgid "Failed to sandbox the bottle user directory."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:2187
+#: bottles/backend/managers/manager.py:2192
 msgid "Failed to save and roll back the D7VK configuration."
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:620
+#: bottles/frontend/views/bottle_details.py:618
 msgid "Failed to update {component}"
 msgstr ""
 
@@ -2014,7 +2018,7 @@ msgid "File Extensions"
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:788
+#: bottles/frontend/widgets/program.py:781
 msgid "File associations updated for \"{0}\""
 msgstr ""
 
@@ -2034,7 +2038,7 @@ msgstr ""
 msgid "Finalizing installation..."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1839
+#: bottles/backend/managers/manager.py:1844
 msgid "Finalizing…"
 msgstr "চূড়ান্ত করা হচ্ছে…"
 
@@ -2050,7 +2054,7 @@ msgstr "একটি ডিরেক্টরিতে Wine উপসর্গ �
 msgid "Find Wine environments from other applications, then choose one to copy into a new bottle."
 msgstr "অন্যান্য অ্যাপ্লিকেশন থেকে Wine পরিবেশ খুঁজুন, তারপর একটি নতুন বোতলে অনুলিপি করতে বেছে নিন।"
 
-#: bottles/backend/utils/manager.py:923
+#: bottles/backend/utils/manager.py:917
 msgid "Finnish"
 msgstr ""
 
@@ -2087,7 +2091,7 @@ msgstr "সমস্ত প্রসেসেস কিল করুন"
 msgid "Force Stop all Processes (Native method)"
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:970
+#: bottles/frontend/views/bottle_details.py:968
 msgid "Force _Stop"
 msgstr ""
 
@@ -2123,7 +2127,7 @@ msgstr ""
 msgid "Frame Rate Limit When Unfocused"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:924
+#: bottles/backend/utils/manager.py:918
 msgid "French"
 msgstr ""
 
@@ -2176,11 +2180,11 @@ msgstr ""
 msgid "Generate additional frames with lsfg-vk. Only works with 64-bit Vulkan applications."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1529
+#: bottles/backend/managers/manager.py:1534
 msgid "Generating bottle configuration…"
 msgstr "বোতল কনফিগারেশন তৈরি করা হচ্ছে…"
 
-#: bottles/backend/utils/manager.py:918
+#: bottles/backend/utils/manager.py:912
 msgid "German"
 msgstr ""
 
@@ -2200,7 +2204,7 @@ msgstr ""
 msgid "Graphics API"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:919
+#: bottles/backend/utils/manager.py:913
 msgid "Greek"
 msgstr ""
 
@@ -2247,7 +2251,7 @@ msgstr ""
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:926
+#: bottles/backend/utils/manager.py:920
 msgid "Hungarian"
 msgstr ""
 
@@ -2255,7 +2259,7 @@ msgstr ""
 msgid "I still want to report."
 msgstr ""
 
-#: bottles/frontend/widgets/library.py:250
+#: bottles/frontend/widgets/library.py:247
 msgid "Images"
 msgstr ""
 
@@ -2283,7 +2287,7 @@ msgstr ""
 msgid "Import hash match"
 msgstr ""
 
-#: bottles/backend/managers/backup.py:728 bottles/frontend/views/importer.py:237
+#: bottles/backend/managers/backup.py:715
 msgid "Importing full backup"
 msgstr ""
 
@@ -2416,19 +2420,19 @@ msgstr ""
 msgid "Installing \"{0}\"..."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1812
+#: bottles/backend/managers/manager.py:1817
 msgid "Installing D7VK..."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1767
+#: bottles/backend/managers/manager.py:1772
 msgid "Installing DXVK-NVAPI…"
 msgstr "DXVK-NVAPI ইনস্টল করা হচ্ছে…"
 
-#: bottles/backend/managers/manager.py:1736
+#: bottles/backend/managers/manager.py:1741
 msgid "Installing DXVK…"
 msgstr "DXVK ইনস্টল করা হচ্ছে…"
 
-#: bottles/backend/managers/manager.py:1751
+#: bottles/backend/managers/manager.py:1756
 msgid "Installing VKD3D…"
 msgstr "VKD3D ইনস্টল করা হচ্ছে…"
 
@@ -2438,7 +2442,7 @@ msgid "Installing Windows dependencies…"
 msgstr "ডিপেন্ডেন্সিস নির্বাচন করুন"
 
 #, python-format
-#: bottles/backend/managers/manager.py:1781
+#: bottles/backend/managers/manager.py:1786
 msgid "Installing dependency: %s …"
 msgstr "ডিপেন্ডেন্সি ইনস্টল করা হচ্ছে: %s …"
 
@@ -2493,7 +2497,7 @@ msgstr "ওয়াইন কনফিগারেশন"
 msgid "Invalid URI (syntax: bottles:run/<bottle>/<program>)"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:2057
+#: bottles/backend/managers/manager.py:2062
 msgid "Invalid graphics component."
 msgstr ""
 
@@ -2501,7 +2505,7 @@ msgstr ""
 msgid "Issues that may prevent this program from running."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:927
+#: bottles/backend/utils/manager.py:921
 msgid "Italian"
 msgstr ""
 
@@ -2513,7 +2517,7 @@ msgstr ""
 msgid "J"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:941
+#: bottles/backend/utils/manager.py:935
 msgid "Japanese"
 msgstr ""
 
@@ -2539,7 +2543,7 @@ msgstr ""
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:943
+#: bottles/backend/utils/manager.py:937
 msgid "Korean"
 msgstr ""
 
@@ -2556,11 +2560,11 @@ msgstr ""
 msgid "Last Played: %s – Playtime: %s"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1918 bottles/frontend/ui/details-preferences.blp:81
+#: bottles/backend/managers/manager.py:1923 bottles/frontend/ui/details-preferences.blp:81
 msgid "LatencyFleX"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:929
+#: bottles/backend/utils/manager.py:923
 msgid "Latvian"
 msgstr ""
 
@@ -2598,7 +2602,7 @@ msgid "Launch with Terminal"
 msgstr "টার্মিনাল দিয়ে লঞ্চ করুন"
 
 #, fuzzy, python-brace-format
-#: bottles/frontend/views/bottle_details.py:661 bottles/frontend/widgets/library.py:273 bottles/frontend/widgets/program.py:349
+#: bottles/frontend/views/bottle_details.py:659 bottles/frontend/widgets/library.py:270 bottles/frontend/widgets/program.py:349
 msgid "Launching \"{0}\"…"
 msgstr "টার্মিনাল দিয়ে লঞ্চ করুন"
 
@@ -2665,7 +2669,7 @@ msgstr ""
 msgid "List Ubisoft Games in Programs List"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:928
+#: bottles/backend/utils/manager.py:922
 msgid "Lithuanian"
 msgstr ""
 
@@ -2820,7 +2824,7 @@ msgstr ""
 msgid "Miscellaneous"
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:887
+#: bottles/frontend/views/bottle_details.py:885
 msgid "Missing Runner"
 msgstr ""
 
@@ -2878,7 +2882,7 @@ msgstr ""
 msgid "NTSync"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1912
+#: bottles/backend/managers/manager.py:1917
 msgid "NVAPI"
 msgstr ""
 
@@ -2955,7 +2959,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:2151 bottles/backend/managers/manager.py:2348
+#: bottles/backend/managers/manager.py:2156 bottles/backend/managers/manager.py:2351
 msgid "No D7VK version available."
 msgstr ""
 
@@ -2963,7 +2967,7 @@ msgstr ""
 msgid "No DLL selected"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:2079 bottles/backend/managers/manager.py:2357
+#: bottles/backend/managers/manager.py:2084 bottles/backend/managers/manager.py:2360
 msgid "No DXVK version available."
 msgstr ""
 
@@ -2980,11 +2984,11 @@ msgstr ""
 msgid "No Installers Found"
 msgstr "আনইনস্টলার"
 
-#: bottles/backend/managers/manager.py:2387
+#: bottles/backend/managers/manager.py:2390
 msgid "No LatencyFleX version available."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:2375
+#: bottles/backend/managers/manager.py:2378
 msgid "No NVAPI version available."
 msgstr ""
 
@@ -3005,7 +3009,7 @@ msgstr "আনইনস্টলার"
 msgid "No Thumbnail"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:2366
+#: bottles/backend/managers/manager.py:2369
 msgid "No VKD3D version available."
 msgstr ""
 
@@ -3038,7 +3042,7 @@ msgstr "দ্রুত environment variables যোগ করুন"
 msgid "No files or folders selected"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:2066
+#: bottles/backend/managers/manager.py:2071
 msgid "No graphics component version available."
 msgstr ""
 
@@ -3046,7 +3050,7 @@ msgstr ""
 msgid "No overrides found."
 msgstr ""
 
-#: bottles/backend/managers/backup.py:201
+#: bottles/backend/managers/backup.py:200
 msgid "No path specified"
 msgstr "কোনও পাথ নির্দিষ্ট করা হয়নি"
 
@@ -3062,7 +3066,7 @@ msgstr ""
 msgid "No variables selected"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:931
+#: bottles/backend/utils/manager.py:925
 msgid "Norwegian"
 msgstr ""
 
@@ -3079,7 +3083,7 @@ msgstr ""
 msgid "Not enough disk space to create a snapshot! Requires at least {0} of free space."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1969
+#: bottles/backend/managers/manager.py:1974
 msgid "Not installed"
 msgstr ""
 
@@ -3185,7 +3189,7 @@ msgstr ""
 msgid "Optimized for productivity software"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1679
+#: bottles/backend/managers/manager.py:1684
 msgid "Optimizing environment…"
 msgstr "পরিবেশ অপ্টিমাইজ করা হচ্ছে…"
 
@@ -3282,11 +3286,11 @@ msgstr ""
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:932
+#: bottles/backend/utils/manager.py:926
 msgid "Polish"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:933
+#: bottles/backend/utils/manager.py:927
 msgid "Portuguese"
 msgstr ""
 
@@ -3593,7 +3597,7 @@ msgstr "রিলিজ ক্যান্ডিডেট"
 msgid "Remove"
 msgstr ""
 
-#: bottles/frontend/widgets/program.py:697
+#: bottles/frontend/widgets/program.py:690
 msgid "Remove Desktop Entry"
 msgstr ""
 
@@ -3609,7 +3613,7 @@ msgstr ""
 msgid "Remove every cached prefix template. Bottles will rebuild them when a new bottle is created, which may take longer."
 msgstr ""
 
-#: bottles/frontend/ui/library-entry.blp:121 bottles/frontend/widgets/program.py:884
+#: bottles/frontend/ui/library-entry.blp:121 bottles/frontend/widgets/program.py:877
 msgid "Remove from Library"
 msgstr ""
 
@@ -3621,7 +3625,7 @@ msgstr ""
 msgid "Remove from list (keep files)"
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:865
+#: bottles/frontend/views/bottle_details.py:863
 msgid "Remove this bottle from your list, or permanently delete its directory and all files."
 msgstr ""
 
@@ -3725,7 +3729,7 @@ msgid "Restoring Backup…"
 msgstr "ব্যাকআপ পুনরুদ্ধার করা হচ্ছে…"
 
 #, python-brace-format
-#: bottles/backend/managers/versioning.py:272
+#: bottles/backend/managers/versioning.py:286
 msgid "Restoring state {} …"
 msgstr "অবস্থা {} পুনরুদ্ধার করা হচ্ছে…"
 
@@ -3750,7 +3754,7 @@ msgstr ""
 msgid "Review for {0}"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:934
+#: bottles/backend/utils/manager.py:928
 msgid "Romanian"
 msgstr ""
 
@@ -3762,7 +3766,7 @@ msgstr ""
 msgid "Rule name"
 msgstr ""
 
-#: bottles/frontend/ui/dialog-run-args.blp:33 bottles/frontend/utils/sandbox_guard.py:176 bottles/frontend/views/bottle_details.py:680 bottles/frontend/views/list.py:145
+#: bottles/frontend/ui/dialog-run-args.blp:33 bottles/frontend/utils/sandbox_guard.py:176 bottles/frontend/views/bottle_details.py:678 bottles/frontend/views/list.py:145
 msgid "Run"
 msgstr ""
 
@@ -3860,7 +3864,7 @@ msgstr ""
 msgid "Runtimes and Libraries"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:935
+#: bottles/backend/utils/manager.py:929
 msgid "Russian"
 msgstr ""
 
@@ -3975,7 +3979,7 @@ msgstr "bottle ডিলিট করুন"
 msgid "Select Configuration"
 msgstr ""
 
-#: bottles/frontend/widgets/library.py:257
+#: bottles/frontend/widgets/library.py:254
 msgid "Select Cover Image"
 msgstr ""
 
@@ -3989,11 +3993,11 @@ msgid "Select Drive Path"
 msgstr "bottle ডিলিট করুন"
 
 #, fuzzy
-#: bottles/frontend/views/bottle_details.py:355 bottles/frontend/views/bottle_details.py:677 bottles/frontend/views/list.py:142
+#: bottles/frontend/views/bottle_details.py:355 bottles/frontend/views/bottle_details.py:675 bottles/frontend/views/list.py:142
 msgid "Select Executable"
 msgstr "bottle ডিলিট করুন"
 
-#: bottles/frontend/views/bottle_details.py:729
+#: bottles/frontend/views/bottle_details.py:727
 msgid "Select Executable for Eagle Analysis"
 msgstr ""
 
@@ -4043,7 +4047,7 @@ msgstr ""
 msgid "Select a backup folder and at least one file or folder."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:678
+#: bottles/backend/managers/manager.py:683
 msgid "Select a permanent runner directory, not a document portal path."
 msgstr "একটি স্থায়ী রানার ডিরেক্টরি নির্বাচন করুন, একটি নথি পোর্টাল পথ নয়।"
 
@@ -4055,7 +4059,7 @@ msgstr ""
 msgid "Select an Existing Bottle"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:676
+#: bottles/backend/managers/manager.py:681
 msgid "Select an absolute runner directory."
 msgstr "একটি পরম রানার ডিরেক্টরি নির্বাচন করুন।"
 
@@ -4071,11 +4075,11 @@ msgstr ""
 msgid "Select files and folders within the bottle, not the bottle itself."
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:756
+#: bottles/frontend/views/bottle_details.py:754
 msgid "Select the location where to save the backup archive"
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:752
+#: bottles/frontend/views/bottle_details.py:750
 msgid "Select the location where to save the backup config"
 msgstr ""
 
@@ -4112,7 +4116,7 @@ msgstr ""
 msgid "Set {name}={value} (community evidence x{evidence})"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1643
+#: bottles/backend/managers/manager.py:1648
 msgid "Setting Windows version…"
 msgstr "উইন্ডোজ সংস্করণ সেট করা হচ্ছে…"
 
@@ -4259,11 +4263,11 @@ msgstr ""
 msgid "Skip Setup"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:936
+#: bottles/backend/utils/manager.py:930
 msgid "Slovak"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:937
+#: bottles/backend/utils/manager.py:931
 msgid "Slovenian"
 msgstr ""
 
@@ -4291,7 +4295,7 @@ msgstr ""
 msgid "Software"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1189
+#: bottles/backend/managers/manager.py:1194
 msgid "Some registered bottles are unavailable:"
 msgstr ""
 
@@ -4304,7 +4308,7 @@ msgstr ""
 msgid "Source: {0}"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:921
+#: bottles/backend/utils/manager.py:915
 msgid "Spanish"
 msgstr ""
 
@@ -4345,17 +4349,17 @@ msgstr ""
 msgid "Startup view"
 msgstr "স্টার্টআপ ভিউ"
 
-#: bottles/backend/managers/versioning.py:278
+#: bottles/backend/managers/versioning.py:293
 msgid "State not found"
 msgstr "অবস্থা পাওয়া যায়নি"
 
 #, python-brace-format
-#: bottles/backend/managers/versioning.py:269
+#: bottles/backend/managers/versioning.py:283
 msgid "State {0} restored successfully!"
 msgstr "{0} অবস্থা সফলভাবে পুনরুদ্ধার করা গিয়েছে!"
 
 #, python-brace-format
-#: bottles/backend/managers/versioning.py:283
+#: bottles/backend/managers/versioning.py:298
 msgid "State {} is already the active state"
 msgstr "{} অবস্থাই বর্তমানের সচল অবস্থা"
 
@@ -4397,7 +4401,7 @@ msgid "Stop program"
 msgstr ""
 
 #, fuzzy, python-brace-format
-#: bottles/frontend/widgets/library.py:290 bottles/frontend/widgets/program.py:470
+#: bottles/frontend/widgets/library.py:287 bottles/frontend/widgets/program.py:470
 msgid "Stopping \"{0}\"…"
 msgstr "টার্মিনাল দিয়ে লঞ্চ করুন"
 
@@ -4425,7 +4429,7 @@ msgstr ""
 msgid "Supported Executables"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:938
+#: bottles/backend/utils/manager.py:932
 msgid "Swedish"
 msgstr ""
 
@@ -4445,7 +4449,7 @@ msgstr ""
 msgid "Synchronization"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:914 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:908 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr ""
 
@@ -4503,7 +4507,7 @@ msgstr "টেম্প ক্লিনিং"
 msgid "Temp files"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1568
+#: bottles/backend/managers/manager.py:1573
 msgid "Template found, applying…"
 msgstr "টেমপ্লেট পাওয়া গেছে, প্রয়োগ করা হচ্ছে…"
 
@@ -4516,7 +4520,7 @@ msgid "Text Size"
 msgstr ""
 
 #. execute wineboot on the bottle path
-#: bottles/backend/managers/manager.py:1603
+#: bottles/backend/managers/manager.py:1608
 msgid "The Wine config is being updated…"
 msgstr "ওয়াইন কনফিগারেশন আপডেট করা হচ্ছে…"
 
@@ -4526,30 +4530,30 @@ msgstr ""
 
 #, python-brace-format
 #: bottles/frontend/widgets/library.py:74
-msgid "The bottle for \"{0}\" is no longer available. Removing it from the library."
-msgstr ""
+msgid "The bottle for \"{0}\" is unavailable."
+msgstr "\"{0}\" এর বোতলটি অনুপলব্ধ৷"
 
-#: bottles/frontend/widgets/library.py:231
+#: bottles/frontend/widgets/library.py:228
 msgid "The cover image could not be opened."
 msgstr ""
 
-#: bottles/frontend/widgets/library.py:242
+#: bottles/frontend/widgets/library.py:239
 msgid "The cover image could not be saved."
 msgstr ""
 
-#: bottles/frontend/widgets/program.py:762
+#: bottles/frontend/widgets/program.py:755
 msgid "The desktop portal and the manual fallback both failed. Check that your desktop entry folders are writable and try again."
 msgstr ""
 
-#: bottles/frontend/widgets/program.py:756
+#: bottles/frontend/widgets/program.py:749
 msgid "The desktop portal and the manual fallback both failed. Close Bottles, run the command below, reopen Bottles and try again."
 msgstr ""
 
-#: bottles/frontend/widgets/program.py:748
+#: bottles/frontend/widgets/program.py:741
 msgid "The desktop portal was unavailable, so Bottles used its manual fallback. If the entry does not appear, check the permissions of your desktop entry folders and try again."
 msgstr ""
 
-#: bottles/frontend/widgets/program.py:742
+#: bottles/frontend/widgets/program.py:735
 msgid "The desktop portal was unavailable, so Bottles used its manual fallback. If the entry does not appear, close Bottles, run the command below, reopen Bottles and try again."
 msgstr ""
 
@@ -4571,7 +4575,7 @@ msgstr ""
 msgid "The program \"{0}\" is no longer available. Removing it from the library."
 msgstr ""
 
-#: bottles/frontend/widgets/library.py:296
+#: bottles/frontend/widgets/library.py:293
 msgid "The program could not be stopped."
 msgstr "প্রোগ্রামটি বন্ধ করা যায়নি।"
 
@@ -4579,7 +4583,7 @@ msgstr "প্রোগ্রামটি বন্ধ করা যায়ন
 msgid "The repository is unreachable or no installer is compatible with this bottle."
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:888
+#: bottles/frontend/views/bottle_details.py:886
 msgid "The runner requested by this bottle is missing. Restore it using your package manager, add its local directory in Preferences, or explicitly choose another runner for this bottle."
 msgstr ""
 
@@ -4587,7 +4591,7 @@ msgstr ""
 msgid "The selected DLL is no longer available."
 msgstr ""
 
-#: bottles/frontend/widgets/library.py:237
+#: bottles/frontend/widgets/library.py:234
 msgid "The selected file is not a valid image."
 msgstr ""
 
@@ -4596,7 +4600,7 @@ msgid "The selected file is unavailable."
 msgstr ""
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2402
+#: bottles/backend/managers/manager.py:2405
 msgid "The selected {0} installation is incomplete."
 msgstr ""
 
@@ -4649,7 +4653,7 @@ msgstr ""
 msgid "This bottle name is already in use."
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:967
+#: bottles/frontend/views/bottle_details.py:965
 msgid "This can cause data loss, corruption, and programs to malfunction."
 msgstr ""
 
@@ -4713,23 +4717,23 @@ msgstr ""
 msgid "This resource is missing."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:692
+#: bottles/backend/managers/manager.py:697
 msgid "This runner is already provided by the system."
 msgstr "এই @টি ইতিমধ্যেই সিস্টেম দ্বারা সরবরাহ করা হয়েছে।"
 
-#: bottles/backend/managers/manager.py:689
+#: bottles/backend/managers/manager.py:694
 msgid "This runner is already registered."
 msgstr "এই @ ইতিমধ্যেই নিবন্ধিত।"
 
-#: bottles/backend/managers/manager.py:709
+#: bottles/backend/managers/manager.py:714
 msgid "This runner is managed outside Bottles."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:706
+#: bottles/backend/managers/manager.py:711
 msgid "This runner is used by a bottle."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:682
+#: bottles/backend/managers/manager.py:687
 msgid "This runner registration no longer exists."
 msgstr "এই \"রেজিস্ট্রেশন\" আর বিদ্যমান নেই।"
 
@@ -4838,7 +4842,7 @@ msgstr ""
 msgid "Try a different search."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:939
+#: bottles/backend/utils/manager.py:933
 msgid "Turkish"
 msgstr ""
 
@@ -4884,7 +4888,7 @@ msgstr ""
 msgid "Unpacking archive…"
 msgstr ""
 
-#: bottles/frontend/ui/dialog-winebridge-update.blp:32 bottles/frontend/views/bottle_details.py:582
+#: bottles/frontend/ui/dialog-winebridge-update.blp:32 bottles/frontend/views/bottle_details.py:580
 msgid "Update"
 msgstr ""
 
@@ -4914,7 +4918,7 @@ msgid "Updated {0} components."
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:606
+#: bottles/frontend/views/bottle_details.py:604
 msgid "Updated {component} to {version}"
 msgstr ""
 
@@ -5036,7 +5040,7 @@ msgstr ""
 msgid "Uses the resolution of the video game as a reference in pixels."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1906 bottles/frontend/ui/details-preferences.blp:55
+#: bottles/backend/managers/manager.py:1911 bottles/frontend/ui/details-preferences.blp:55
 msgid "VKD3D"
 msgstr ""
 
@@ -5166,7 +5170,7 @@ msgstr ""
 msgid "Wine audio driver"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1613
+#: bottles/backend/managers/manager.py:1618
 msgid "Wine config updated!"
 msgstr "ওয়াইন কনফিগ আপডেট করা হয়েছে!"
 
@@ -5175,7 +5179,7 @@ msgstr "ওয়াইন কনফিগ আপডেট করা হয়�
 msgid "Wine prefix name"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1968
+#: bottles/backend/managers/manager.py:1973
 msgid "WineBridge"
 msgstr ""
 
@@ -5271,7 +5275,7 @@ msgstr ""
 msgid "_Application"
 msgstr ""
 
-#: bottles/frontend/ui/bulk-update-dialog.blp:22 bottles/frontend/ui/dialog-crash-report.blp:19 bottles/frontend/ui/dialog-display.blp:25 bottles/frontend/ui/dialog-duplicate.blp:21 bottles/frontend/ui/dialog-file-associations.blp:17 bottles/frontend/ui/dialog-gamescope.blp:24 bottles/frontend/ui/dialog-launch-options.blp:17 bottles/frontend/ui/dialog-lsfg-vk.blp:25 bottles/frontend/ui/dialog-mangohud.blp:25 bottles/frontend/ui/dialog-program-backups.blp:16 bottles/frontend/ui/dialog-upgrade-versioning.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:27 bottles/frontend/ui/dialog-vmtouch.blp:24 bottles/frontend/ui/dialog-winebridge-update.blp:19 bottles/frontend/ui/new-bottle-dialog.blp:23 bottles/frontend/views/bottle_details.py:869 bottles/frontend/views/bottle_details.py:969 bottles/frontend/views/preferences.py:357 bottles/frontend/views/preferences.py:817 bottles/frontend/widgets/state.py:127
+#: bottles/frontend/ui/bulk-update-dialog.blp:22 bottles/frontend/ui/dialog-crash-report.blp:19 bottles/frontend/ui/dialog-display.blp:25 bottles/frontend/ui/dialog-duplicate.blp:21 bottles/frontend/ui/dialog-file-associations.blp:17 bottles/frontend/ui/dialog-gamescope.blp:24 bottles/frontend/ui/dialog-launch-options.blp:17 bottles/frontend/ui/dialog-lsfg-vk.blp:25 bottles/frontend/ui/dialog-mangohud.blp:25 bottles/frontend/ui/dialog-program-backups.blp:16 bottles/frontend/ui/dialog-upgrade-versioning.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:27 bottles/frontend/ui/dialog-vmtouch.blp:24 bottles/frontend/ui/dialog-winebridge-update.blp:19 bottles/frontend/ui/new-bottle-dialog.blp:23 bottles/frontend/views/bottle_details.py:867 bottles/frontend/views/bottle_details.py:967 bottles/frontend/views/preferences.py:357 bottles/frontend/views/preferences.py:817 bottles/frontend/widgets/state.py:127
 msgid "_Cancel"
 msgstr ""
 
@@ -5279,7 +5283,7 @@ msgstr ""
 msgid "_Cancel Creation"
 msgstr ""
 
-#: bottles/frontend/ui/dialog-dependency-install.blp:80 bottles/frontend/ui/dialog-winebridge-update.blp:25 bottles/frontend/ui/new-bottle-dialog.blp:279 bottles/frontend/widgets/program.py:732
+#: bottles/frontend/ui/dialog-dependency-install.blp:80 bottles/frontend/ui/dialog-winebridge-update.blp:25 bottles/frontend/ui/new-bottle-dialog.blp:279 bottles/frontend/widgets/program.py:725
 msgid "_Close"
 msgstr ""
 
@@ -5291,7 +5295,7 @@ msgstr ""
 msgid "_Delete All"
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:871
+#: bottles/frontend/views/bottle_details.py:869
 msgid "_Delete Files"
 msgstr ""
 
@@ -5299,7 +5303,7 @@ msgstr ""
 msgid "_Delete and Cancel"
 msgstr ""
 
-#: bottles/frontend/utils/flatpak.py:114 bottles/frontend/views/bottle_details.py:894 bottles/frontend/views/bottle_details.py:701
+#: bottles/frontend/utils/flatpak.py:114 bottles/frontend/views/bottle_details.py:892 bottles/frontend/views/bottle_details.py:699
 msgid "_Dismiss"
 msgstr ""
 
@@ -5315,7 +5319,7 @@ msgstr ""
 msgid "_Relaunch"
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:870
+#: bottles/frontend/views/bottle_details.py:868
 msgid "_Remove from List"
 msgstr ""
 
@@ -5489,7 +5493,7 @@ msgid "{0} positive / {1} negative reports"
 msgstr ""
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2334
+#: bottles/backend/managers/manager.py:2337
 msgid "{0} requires Vulkan, which is not available on this system."
 msgstr "{0}-এর Vulkan প্রয়োজন, যা এই সিস্টেমে উপলব্ধ নয়।"
 

@@ -31,7 +31,7 @@ from bottles.frontend.utils.sandbox_guard import guard_sandbox_launch
 
 
 def _bottle_order_id(config: BottleConfig) -> str:
-    return f"bottle:{config.Path}"
+    return config.Id
 
 
 def _ordered_bottles(configs, configured_order):
@@ -240,22 +240,22 @@ class BottleView(Adw.Bin):
 
         for config in configs:
             _entry = BottlesBottleRow(self.window, config, self.__reorder_bottle)
-            self.__bottles[config.Path] = _entry
+            self.__bottles[config.Id] = _entry
 
             self.list_bottles.append(_entry)
 
-        for path, error in self.window.manager.unavailable_bottles.items():
+        for bottle_id, (path, error) in self.window.manager.unavailable_bottles.items():
             row = Adw.ActionRow(use_markup=False, title=path, subtitle=error)
             remove = Gtk.Button(label=_("Remove from List"), valign=Gtk.Align.CENTER)
-            def forget(_button, path=path):
+            def forget(_button, bottle_id=bottle_id):
                 from bottles.backend.managers.storage import BottleIndex
-                BottleIndex().forget(path)
+                BottleIndex().forget(bottle_id)
                 self.window.manager.check_bottles(silent=True)
                 self.update_bottles_list()
             remove.connect("clicked", forget)
             row.add_suffix(remove)
             self.list_bottles.append(row)
-            self.__bottles[path] = row
+            self.__bottles[bottle_id] = row
 
         self.__update_empty_state(self.entry_search.get_text())
         self.__update_reorder_states(configs)
@@ -291,7 +291,7 @@ class BottleView(Adw.Bin):
 
     def __update_reorder_states(self, configs):
         for index, config in enumerate(configs):
-            self.__bottles[config.Path].set_reorder_state(
+            self.__bottles[config.Id].set_reorder_state(
                 can_move_up=index > 0,
                 can_move_down=index < len(configs) - 1,
                 visible=len(configs) > 1,
@@ -345,4 +345,4 @@ class BottleView(Adw.Bin):
             self.window.show_details_view(config=config)
 
     def disable_bottle(self, config):
-        self.__bottles[config.Path].disable()
+        self.__bottles[config.Id].disable()

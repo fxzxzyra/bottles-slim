@@ -4,15 +4,17 @@ import sqlite3
 import time
 from freezegun import freeze_time
 
+BOTTLE_ID = "1" * 32
+
 
 def test_successful_run_finalizes_and_updates_totals(manager):
-    tracker = manager.get_playtime_tracker("b1")
+    tracker = manager.get_playtime_tracker(BOTTLE_ID)
     assert tracker is not None
 
     with freeze_time("2025-01-01 00:00:00"):
         base = int(time.time())
         sid = tracker.start_session(
-            bottle_id="b1",
+            bottle_id=BOTTLE_ID,
             bottle_name="Bottle",
             bottle_path="/bottle",
             program_name="Game",
@@ -29,7 +31,7 @@ def test_successful_run_finalizes_and_updates_totals(manager):
 
     cur.execute(
         "SELECT total_seconds, sessions_count FROM playtime_totals WHERE bottle_id=?",
-        ("b1",),
+        (BOTTLE_ID,),
     )
     total_seconds, sessions_count = cur.fetchone()
     assert sessions_count == 1
@@ -38,14 +40,14 @@ def test_successful_run_finalizes_and_updates_totals(manager):
 
 def test_success_multiple_apps_two_same_bottle_one_other(manager):
     """Simulate overlapping runs: start a second and third app before prior ones ended."""
-    tracker = manager.get_playtime_tracker("b1")
+    tracker = manager.get_playtime_tracker(BOTTLE_ID)
     assert tracker is not None
 
     with freeze_time("2025-01-01 10:00:00") as ft:
         t0 = int(time.time())
         # Start b1/Game1 at t0 (will run 30s)
         sid1 = tracker.start_session(
-            bottle_id="b1",
+            bottle_id=BOTTLE_ID,
             bottle_name="Bottle1",
             bottle_path="/b1",
             program_name="Game1",
@@ -56,7 +58,7 @@ def test_success_multiple_apps_two_same_bottle_one_other(manager):
         ft.tick(5)
         t1 = int(time.time())
         sid2 = tracker.start_session(
-            bottle_id="b1",
+            bottle_id=BOTTLE_ID,
             bottle_name="Bottle1",
             bottle_path="/b1",
             program_name="Game2",
@@ -83,7 +85,7 @@ def test_success_multiple_apps_two_same_bottle_one_other(manager):
     cur = con.cursor()
 
     # Totals rows: 2 for b1 (Game1, Game2), 1 for b2 (Game1)
-    cur.execute("SELECT COUNT(*) FROM playtime_totals WHERE bottle_id=?", ("b1",))
+    cur.execute("SELECT COUNT(*) FROM playtime_totals WHERE bottle_id=?", (BOTTLE_ID,))
     assert cur.fetchone()[0] == 2
     cur.execute("SELECT COUNT(*) FROM playtime_totals WHERE bottle_id=?", ("b2",))
     assert cur.fetchone()[0] == 1
@@ -91,14 +93,14 @@ def test_success_multiple_apps_two_same_bottle_one_other(manager):
     # Check durations/sessions_count
     cur.execute(
         "SELECT total_seconds, sessions_count FROM playtime_totals WHERE bottle_id=? AND program_name=?",
-        ("b1", "Game1"),
+        (BOTTLE_ID, "Game1"),
     )
     tsec, scount = cur.fetchone()
     assert scount == 1 and tsec == 30
 
     cur.execute(
         "SELECT total_seconds, sessions_count FROM playtime_totals WHERE bottle_id=? AND program_name=?",
-        ("b1", "Game2"),
+        (BOTTLE_ID, "Game2"),
     )
     tsec, scount = cur.fetchone()
     assert scount == 1 and tsec == 45

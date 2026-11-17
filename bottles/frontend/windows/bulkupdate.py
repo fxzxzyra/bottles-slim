@@ -71,7 +71,7 @@ class BottlesBulkUpdateDialog(Adw.Dialog):
             updates = self.manager.get_component_updates(config)
             if not updates:
                 continue
-            self.__bottle_updates[config.Path] = {
+            self.__bottle_updates[config.Id] = {
                 "config": config,
                 "updates": updates,
             }

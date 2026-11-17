@@ -480,28 +480,30 @@ class SteamManager:
             logging.warning(_fail_msg)
 
 
-    def add_shortcut(self, program_name: str, program_path: str):
+    def add_shortcut(self, program_id: str, program_name: str, program_path: str):
         logging.info(f"Adding shortcut for {program_name}")
         if "FLATPAK_ID" in os.environ:
             cmd = "flatpak"
-            args = f"run --command=bottles-cli {os.environ['FLATPAK_ID']} run -b {{0}} -p {{1}}"
+            args = f"run --command=bottles-cli {os.environ['FLATPAK_ID']} run -b {{0}} --program-id {{1}}"
         else:
             cmd = "bottles-cli"
-            args = "run -b {0} -p {1}"
+            args = "run -b {0} --program-id {1}"
 
         if self.userdata_path is None:
             logging.warning("Userdata path is not set")
             return Result(False)
 
         confs = glob(os.path.join(self.userdata_path, "*/config/"))
+        appid = zlib.crc32(f"{self.config.Id}:{program_id}".encode()) | 0x80000000
         shortcut = {
+            "appid": appid - 2**32,
             "AppName": program_name,
             "Exe": cmd,
-            "StartDir": ManagerUtils.get_bottle_path(self.config),
+            "StartDir": str(Path.home()),
             "icon": ManagerUtils.extract_icon(self.config, program_name, program_path),
             "ShortcutPath": "",
             "LaunchOptions": args.format(
-                shlex.quote(self.config.Name), shlex.quote(program_name)
+                shlex.quote(self.config.Id), shlex.quote(str(program_id))
             ),
             "IsHidden": 0,
             "AllowDesktopConfig": 1,
@@ -525,7 +527,8 @@ class SteamManager:
                     except:
                         continue
 
-            _all = list(_existing.values()) + [shortcut]
+            _all = [entry for entry in _existing.values()
+                    if self._get_shortcut_appid(entry) != appid] + [shortcut]
             _shortcuts = {"shortcuts": {str(i): s for i, s in enumerate(_all)}}
 
             with open(os.path.join(c, "shortcuts.vdf"), "wb") as f:

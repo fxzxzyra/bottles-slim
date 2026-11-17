@@ -32,11 +32,11 @@ def test_delete_entry_refreshes_library(monkeypatch):
     )
     monkeypatch.setattr(library_module, "LibraryManager", lambda: manager)
     view = SimpleNamespace(update=lambda: updates.append(True))
-    entry = SimpleNamespace(uuid="entry-id", config="config")
+    entry = SimpleNamespace(library_key=("bottle-id", "entry-id"), config="config")
 
     LibraryView._LibraryView__delete_entry(view, entry)
 
-    assert removed == [("entry-id", "config")]
+    assert removed == [(("bottle-id", "entry-id"), "config")]
     assert updates == [True]
 
 
@@ -73,9 +73,9 @@ def test_card_keeps_its_full_name_and_actions_visible():
     name = "Office & <Work> with a long program name"
     config = BottleConfig(Name="Work")
     program = {"id": "office", "name": name}
-    manager = SimpleNamespace(local_bottles={"Work": config}, get_programs=lambda _config: [program])
+    manager = SimpleNamespace(local_bottles={config.Id: config}, get_programs=lambda _config: [program])
     library = SimpleNamespace(window=SimpleNamespace(manager=manager))
-    card = LibraryEntry(library, "entry-id", {"id": "office", "name": name, "bottle": {"name": "Work"}})
+    card = LibraryEntry(library, (config.Id, "entry-id"), {"id": "office", "name": name, "bottle": {"name": "Work"}})
     assert card.label_name.get_text() == name
     assert card.label_name.get_tooltip_text() == name
     assert card.revealer_details.get_reveal_child()
@@ -93,3 +93,18 @@ def test_library_does_not_disguise_unexpected_card_errors_as_an_empty_library(mo
     monkeypatch.setattr(library_module, "LibraryEntry", broken_card)
     with pytest.raises(RuntimeError, match="Broken card template"):
         LibraryView(SimpleNamespace())
+
+
+def test_unavailable_bottle_does_not_delete_its_library_entry(monkeypatch):
+    import pytest
+    from bottles.frontend.widgets import library as cards
+    removed = []
+    monkeypatch.setattr(cards, "LibraryManager", lambda: SimpleNamespace(
+        remove_from_library=lambda *_args: removed.append(True),
+    ))
+    window = SimpleNamespace(manager=SimpleNamespace(local_bottles={}), show_toast=lambda _message: None)
+    with pytest.raises(cards.LibraryEntryInitializationError):
+        cards.LibraryEntry(SimpleNamespace(window=window), ("unavailable-id", "entry"), {
+            "id": "writer", "name": "Writer", "bottle": {"name": "Office"},
+        })
+    assert removed == []

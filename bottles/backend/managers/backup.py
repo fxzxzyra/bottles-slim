@@ -16,6 +16,7 @@
 #
 
 import os
+import hashlib
 import re
 import shutil
 import sqlite3
@@ -29,8 +30,6 @@ from datetime import datetime
 from gettext import gettext as _
 from threading import Event, Lock
 from typing import Callable, ClassVar, Optional
-
-import pathvalidate
 
 from bottles.backend.globals import Paths
 from bottles.backend.logger import Logger
@@ -256,25 +255,11 @@ class BackupManager:
             return resolved
         return None
 
-    @staticmethod
-    def _safe_program_backup_name(value: str, fallback: str) -> str:
-        name = pathvalidate.sanitize_filename(
-            value if isinstance(value, str) else "", platform="universal"
-        ).strip()
-        if name in (".", ".."):
-            return fallback
-        return name or fallback
-
     @classmethod
     def get_program_backup_root(cls, config: BottleConfig, program: dict) -> str:
-        settings = program.get("automatic_backup") or {}
-        destination = settings.get("destination", "")
-        bottle_name = cls._safe_program_backup_name(config.Name, "Bottle")
-        program_name = cls._safe_program_backup_name(program.get("name", ""), "Program")
-        program_id = cls._safe_program_backup_name(program.get("id", ""), "")
-        if program_id:
-            program_name = f"{program_name}-{program_id}"
-        return os.path.join(destination, bottle_name, program_name)
+        destination = (program.get("automatic_backup") or {}).get("destination", "")
+        program_key = hashlib.sha256(str(program["id"]).encode()).hexdigest()
+        return os.path.join(destination, config.Id, program_key)
 
     @staticmethod
     def is_program_backup_destination_valid(
@@ -426,7 +411,7 @@ class BackupManager:
 
         lock = cls._get_program_backup_lock(os.path.realpath(root))
         staging = None
-        task = Task(title=_("Backing up {0}").format(program.get("name", "Program")))
+        task = Task(title=_("Backing up {0}").format(program.get("name", "Program")), kind="program-backup", bottle_id=config.Id)
         task_id = TaskManager.add(task)
         try:
             with lock:
@@ -446,7 +431,9 @@ class BackupManager:
                 timestamp = cls._program_backup_timestamp()
                 manifest = {
                     "created": timestamp,
+                    "bottle_id": config.Id,
                     "bottle": config.Name,
+                    "program_id": program["id"],
                     "program": program.get("name", ""),
                     "paths": manifest_paths,
                 }
@@ -676,7 +663,7 @@ class BackupManager:
         if scope == "config":
             backup_created = config.dump(path).status
         else:
-            task = Task(title=_("Backup {0}").format(config.Name), cancellable=True)
+            task = Task(title=_("Backup {0}").format(config.Name), cancellable=True, kind="backup", bottle_id=config.Id)
             task_id = TaskManager.add(task)
             bottle_path = ManagerUtils.get_bottle_path(config)
             backup_cancelled = False
@@ -725,7 +712,7 @@ class BackupManager:
             return Result(ok, message="" if ok else "Could not create the bottle from this configuration.")
         if scope != "full":
             return Result(False, message="Unknown backup type.")
-        task = Task(title=_("Importing full backup"))
+        task = Task(title=_("Importing full backup"), kind="import")
         task_id = TaskManager.add(task)
         try:
             destination = bottle_directory(destination, empty=True)
@@ -757,17 +744,6 @@ class BackupManager:
                 copy_bottle_contents(source, destination, exclude=(
                     "process_metrics.sqlite", "process_metrics.sqlite-wal", "process_metrics.sqlite-shm",
                 ))
-                library_path = os.path.join(destination, "library.yml")
-                if os.path.isfile(library_path):
-                    with open(library_path) as stream:
-                        entries = yaml.load(stream)
-                    if not isinstance(entries, dict):
-                        raise ValueError("Invalid library: " + library_path)
-                    # Copies are independent entries in the aggregated program library.
-                    entries = {str(uuid.uuid4()): entry for entry in entries.values()}
-                    with open(library_path, "w") as stream:
-                        yaml.dump(entries, stream)
-                    os.chmod(library_path, 0o600)
                 duplicate = config.copy()
                 duplicate.Id = uuid.uuid4().hex
                 duplicate.Name = name

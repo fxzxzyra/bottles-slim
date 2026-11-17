@@ -32,13 +32,14 @@ def test_toast_blocks_dismiss_before_running_undo_action():
 
 def test_program_rename_preserves_user_cover_and_does_not_fetch_remote(monkeypatch):
     saved = []
-    entries = {"library-id": {"id": "program-id", "name": "Old", "thumbnail": "grid:personal.png"}}
+    config = BottleConfig(Name="Test")
+    key = (config.Id, "library-id")
+    entries = {key: {"id": "program-id", "name": "Old", "thumbnail": "grid:personal.png"}}
     library = SimpleNamespace(
         get_library=lambda: entries,
-        save_library=lambda: saved.append(dict(entries["library-id"])),
+        save_library=lambda: saved.append(dict(entries[key])),
         download_thumbnail=Mock(side_effect=AssertionError("rename must preserve the cover")),
     )
-    config = BottleConfig(Name="Test")
     view = SimpleNamespace(
         program={"id": "program-id", "name": "Old"},
         config=config,
@@ -84,11 +85,11 @@ def test_slow_cover_download_cannot_overwrite_new_selection(monkeypatch):
     from bottles.frontend.widgets.library import LibraryEntry
 
     manager = SimpleNamespace(
-        get_library=lambda: {"entry": {"thumbnail": "grid:new-selection.png"}},
+        get_library=lambda: {("bottle-id", "entry"): {"thumbnail": "grid:new-selection.png"}},
         save_library=Mock(),
     )
     monkeypatch.setattr(library_module, "LibraryManager", lambda: manager)
-    entry = SimpleNamespace(uuid="entry", _LibraryEntry__set_cover=Mock())
+    entry = SimpleNamespace(library_key=("bottle-id", "entry"), _LibraryEntry__set_cover=Mock())
     LibraryEntry._LibraryEntry__apply_downloaded_cover(
         entry, "grid:downloaded.png", "grid:old-missing.png"
     )

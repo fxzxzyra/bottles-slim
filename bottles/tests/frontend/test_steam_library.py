@@ -5,6 +5,8 @@ import pytest
 
 
 from bottles.backend.models.config import BottleConfig
+
+BOTTLE_ID = "1" * 32
 from bottles.backend.models.result import Result
 from bottles.frontend.views import bottle_details
 from bottles.frontend.views.bottle_details import BottleView
@@ -207,7 +209,7 @@ def test_program_widget_switches_desktop_entry_action(monkeypatch, tmp_path):
     )
     entry = ProgramEntry(
         window,
-        BottleConfig(Name="Games", Path=str(tmp_path)),
+        BottleConfig(Id=BOTTLE_ID, Name="Games", Path=str(tmp_path)),
         {
             "name": "Test Program",
             "id": "test-program",
@@ -315,7 +317,7 @@ def test_regular_program_library_entry_is_unchanged(monkeypatch):
     def run_async(task, callback):
         callback(task(), False)
 
-    config = BottleConfig(Name="Games", Path="Games")
+    config = BottleConfig(Id=BOTTLE_ID, Name="Games", Path="Games")
     entry = SimpleNamespace(
         window=SimpleNamespace(
             update_library=lambda: captured.setdefault("updated", True),
@@ -378,7 +380,7 @@ def test_library_waits_for_program_icon_extraction(monkeypatch, tmp_path):
             update_library=lambda: None,
             show_toast=lambda _message: None,
         ),
-        config=BottleConfig(Name="Games", Path="Games"),
+        config=BottleConfig(Id=BOTTLE_ID, Name="Games", Path="Games"),
         program={
             "name": "Example Game",
             "id": "program-id",
@@ -417,7 +419,7 @@ def test_program_library_action_removes_entry(monkeypatch):
     def run_async(task, callback):
         callback(task(), False)
 
-    config = BottleConfig(Name="Games", Path="Games")
+    config = BottleConfig(Id=BOTTLE_ID, Name="Games", Path="Games")
     button = Button()
     entry = SimpleNamespace(
         window=SimpleNamespace(
@@ -427,7 +429,7 @@ def test_program_library_action_removes_entry(monkeypatch):
         config=config,
         program={"name": "Example Game"},
         btn_add_library=button,
-        _ProgramEntry__library_entry_uuid="entry-id",
+        _ProgramEntry__library_entry_key=(config.Id, "entry-id"),
         _ProgramEntry__set_library_state=lambda exists: (
             ProgramEntry._ProgramEntry__set_library_state(entry, exists)
         ),
@@ -442,11 +444,11 @@ def test_program_library_action_removes_entry(monkeypatch):
 
     ProgramEntry.manage_library(entry, None)
 
-    assert captured["uuid"] == "entry-id"
+    assert captured["uuid"] == (config.Id, "entry-id")
     assert captured["config"] is config
     assert captured["updated"] is True
     assert captured["toast"] == '"Example Game" removed from your library'
-    assert entry._ProgramEntry__library_entry_uuid is None
+    assert entry._ProgramEntry__library_entry_key is None
     assert button.text == "Add to Library"
     assert button.sensitive is True
 
@@ -459,7 +461,7 @@ def test_failed_library_add_restores_buttons_without_success_toast(monkeypatch, 
             show_toast=lambda _message: pytest.fail("failed add must not report success"),
         ),
         btn_add_library=Button(),
-        _ProgramEntry__library_entry_uuid=None,
+        _ProgramEntry__library_entry_key=None,
     )
 
     def run_async(_task, callback):
@@ -470,19 +472,20 @@ def test_failed_library_add_restores_buttons_without_success_toast(monkeypatch, 
 
     ProgramEntry.add_to_library(entry, None)
 
-    assert entry._ProgramEntry__library_entry_uuid is None
+    assert entry._ProgramEntry__library_entry_key is None
     assert entry.btn_add_library.sensitive is True
     assert entry.btn_add_library.visible is True
 
 
 def test_failed_library_removal_preserves_entry_and_restores_button(monkeypatch):
+    config = BottleConfig(Name="Games")
     entry = SimpleNamespace(
         window=SimpleNamespace(
             update_library=lambda: pytest.fail("failed removal must not refresh the library"),
             show_toast=lambda _message: pytest.fail("failed removal must not report success"),
         ),
         btn_add_library=Button(),
-        _ProgramEntry__library_entry_uuid="entry-id",
+        _ProgramEntry__library_entry_key=(config.Id, "entry-id"),
     )
     ProgramEntry._ProgramEntry__set_library_state(entry, True)
 
@@ -494,14 +497,14 @@ def test_failed_library_removal_preserves_entry_and_restores_button(monkeypatch)
 
     ProgramEntry.remove_from_library(entry, None)
 
-    assert entry._ProgramEntry__library_entry_uuid == "entry-id"
+    assert entry._ProgramEntry__library_entry_key == (config.Id, "entry-id")
     assert entry.btn_add_library.text == "Remove from Library"
     assert entry.btn_add_library.sensitive is True
 
 
 def test_uninstall_program_refreshes_cached_programs(monkeypatch):
     calls = []
-    config = BottleConfig(Name="Games", Path="Games")
+    config = BottleConfig(Id=BOTTLE_ID, Name="Games", Path="Games")
     entry = SimpleNamespace(
         config=config,
         program={"name": "Example Game"},
@@ -544,10 +547,13 @@ def test_program_widget_uses_library_icon(monkeypatch, tmp_path):
         @staticmethod
         def get_library():
             return {
-                "entry-id": {
+                (BOTTLE_ID, "entry-id"): {
                     "id": "program-id",
                     "icon": str(icon_path),
-                }
+                },
+                ("other-bottle-id", "entry-id"): {
+                    "id": "program-id", "icon": "foreign-icon-symbolic",
+                },
             }
 
     monkeypatch.setattr(program_module, "LibraryManager", LibraryManager)
@@ -560,7 +566,7 @@ def test_program_widget_uses_library_icon(monkeypatch, tmp_path):
 
     entry = ProgramEntry(
         window,
-        BottleConfig(Name="Games", Path="Games"),
+        BottleConfig(Id=BOTTLE_ID, Name="Games", Path="Games"),
         {
             "name": "Example Game",
             "id": "program-id",
@@ -598,7 +604,7 @@ def test_program_widget_extracts_its_own_icon(monkeypatch, tmp_path):
     def run_async(task_func, callback, **kwargs):
         callback(task_func(**kwargs), None)
 
-    config = BottleConfig(Name="Games", Path="Games")
+    config = BottleConfig(Id=BOTTLE_ID, Name="Games", Path="Games")
     monkeypatch.setattr(program_module, "LibraryManager", LibraryManager)
     monkeypatch.setattr(program_module, "RunAsync", run_async)
     monkeypatch.setattr(program_module.ManagerUtils, "extract_icon", extract_icon)
@@ -671,7 +677,7 @@ def test_regular_program_add_to_steam_uses_shortcut_backend(monkeypatch):
     config = BottleConfig(Name="Office", Path="/opt/user/Office")
     calls, messages = [], []
     entry = SimpleNamespace(
-        config=config, program={"name": "Writer", "path": "C:/Writer/writer.exe"},
+        config=config, program={"id": "writer", "name": "Writer", "path": "C:/Writer/writer.exe"},
         window=SimpleNamespace(show_toast=messages.append),
     )
     class ShortcutManager:
@@ -684,5 +690,5 @@ def test_regular_program_add_to_steam_uses_shortcut_backend(monkeypatch):
     monkeypatch.setattr(program_module, "RunAsync",
                         lambda task, callback, **kwargs: callback(task(**kwargs), None))
     ProgramEntry.add_to_steam(entry, None)
-    assert calls == [{"program_name": "Writer", "program_path": "C:/Writer/writer.exe"}]
+    assert calls == [{"program_id": "writer", "program_name": "Writer", "program_path": "C:/Writer/writer.exe"}]
     assert messages == ['"Writer" added to your Steam library']

@@ -34,7 +34,7 @@ def test_library_refresh_preserves_prefix_and_cover_files(registered_bottle):
     assert cover.read_bytes() == b"cover"
     assert (path / "bottle.yml").is_file()
     assert yaml.load((path / "library.yml").read_text()) == data
-    assert manager.get_library()["entry"]["bottle"] == {"name": config.Name, "path": str(path)}
+    assert manager.get_library()[(config.Id, "entry")]["bottle"] == {"id": config.Id, "name": config.Name, "path": str(path)}
 
 
 def test_bottle_library_roundtrips_and_deduplicates(registered_bottle, monkeypatch):
@@ -49,8 +49,8 @@ def test_bottle_library_roundtrips_and_deduplicates(registered_bottle, monkeypat
     assert len(second.get_library()) == 1
     assert second.get_library()[identifier]["id"] == "writer"
     stored = yaml.load((path / "library.yml").read_text())
-    assert stored[identifier]["id"] == "writer"
-    assert "bottle" not in stored[identifier]
+    assert stored[identifier[1]]["id"] == "writer"
+    assert "bottle" not in stored[identifier[1]]
     assert (path / "library.yml").stat().st_mode & 0o777 == 0o600
 
 
@@ -84,5 +84,30 @@ def test_same_program_id_in_two_bottles_is_not_a_duplicate(registered_bottle, tm
     assert first_id and second_id and first_id != second_id
     entries = LibraryManager().get_library()
     assert {entry["bottle"]["path"] for entry in entries.values()} == {str(first_path), str(second_path)}
-    assert set(yaml.load((first_path / "library.yml").read_text())) == {first_id}
-    assert set(yaml.load((second_path / "library.yml").read_text())) == {second_id}
+    assert set(yaml.load((first_path / "library.yml").read_text())) == {first_id[1]}
+    assert set(yaml.load((second_path / "library.yml").read_text())) == {second_id[1]}
+
+
+def test_other_bottle_cannot_modify_entry_or_its_cover(registered_bottle, monkeypatch):
+    config, path = registered_bottle
+    (path / "grids").mkdir()
+    cover = path / "grids/cover.png"
+    cover.write_bytes(b"original cover")
+    (path / "library.yml").write_text(yaml.dump({
+        "entry": {"name": "Writer", "id": "writer", "thumbnail": "grid:cover.png"},
+    }))
+    manager = LibraryManager()
+    key = (config.Id, "entry")
+    wrong = BottleConfig(Name=config.Name, Path=str(path))
+    imported = []
+    monkeypatch.setattr(manager, "import_thumbnail", lambda *_args: imported.append(True))
+    with pytest.raises(ValueError, match="different bottle"):
+        manager.set_thumbnail(key, "another.png", wrong)
+    with pytest.raises(ValueError, match="different bottle"):
+        manager.download_thumbnail(key, wrong)
+    with pytest.raises(ValueError, match="different bottle"):
+        manager.remove_from_library(key, wrong)
+    assert imported == []
+    assert manager.get_library()[key]["thumbnail"] == "grid:cover.png"
+    assert cover.read_bytes() == b"original cover"
+    assert "entry" in yaml.load((path / "library.yml").read_text())

@@ -110,11 +110,11 @@ class CLI:
 
         programs_parser = subparsers.add_parser("programs", help="List programs")
         programs_parser.add_argument(
-            "-b", "--bottle", help="Bottle name", required=True
+            "-b", "--bottle", help="Bottle UUID", required=True
         )
 
         add_parser = subparsers.add_parser("add", help="Add program")
-        add_parser.add_argument("-b", "--bottle", help="Bottle name", required=True)
+        add_parser.add_argument("-b", "--bottle", help="Bottle UUID", required=True)
         add_parser.add_argument("-n", "--name", help="Program name", required=True)
         add_parser.add_argument("-p", "--path", help="Program path", required=True)
         add_parser.add_argument("-l", "--launch-options", help="Program launch options")
@@ -147,13 +147,13 @@ class CLI:
             ],
             help="Tool to launch",
         )
-        tools_parser.add_argument("-b", "--bottle", help="Bottle name", required=True)
+        tools_parser.add_argument("-b", "--bottle", help="Bottle UUID", required=True)
 
         reg_parser = subparsers.add_parser("reg", help="Manage registry")
         reg_parser.add_argument(
             "action", choices=["add", "edit", "del"], help="Action to perform"
         )
-        reg_parser.add_argument("-b", "--bottle", help="Bottle name", required=True)
+        reg_parser.add_argument("-b", "--bottle", help="Bottle UUID", required=True)
         reg_parser.add_argument("-k", "--key", help="Registry key", required=True)
         reg_parser.add_argument("-v", "--value", help="Registry value", required=True)
         reg_parser.add_argument("-d", "--data", help="Data to be set")
@@ -173,7 +173,7 @@ class CLI:
             help="Action to perform",
         )
         reg_rules_parser.add_argument(
-            "-b", "--bottle", help="Bottle name", required=False
+            "-b", "--bottle", help="Bottle UUID", required=False
         )
         reg_rules_parser.add_argument("--name", help="Rule name")
         reg_rules_parser.add_argument(
@@ -201,7 +201,7 @@ class CLI:
         )
 
         edit_parser = subparsers.add_parser("edit", help="Edit a bottle configuration")
-        edit_parser.add_argument("-b", "--bottle", help="Bottle name", required=True)
+        edit_parser.add_argument("-b", "--bottle", help="Bottle UUID", required=True)
         edit_parser.add_argument(
             "--params", help="Set parameters (e.g. '-p dxvk:true')"
         )
@@ -235,10 +235,10 @@ class CLI:
         import_parser = subparsers.add_parser("import", help="Register an existing bottle in place")
         import_parser.add_argument("--path", required=True, help="Existing bottle directory")
         forget_parser = subparsers.add_parser("forget", help="Remove a registered path without deleting files")
-        forget_parser.add_argument("--path", required=True, help="Registered bottle directory")
+        forget_parser.add_argument("-b", "--bottle", required=True, help="Bottle UUID")
 
         new_parser = subparsers.add_parser("new", help="Create a new bottle")
-        new_parser.add_argument("--bottle-name", help="Bottle name", required=True)
+        new_parser.add_argument("--bottle-name", help="Bottle UUID", required=True)
         new_parser.add_argument("--path", help="Existing empty bottle directory", required=True)
         new_parser.add_argument(
             "--environment",
@@ -259,7 +259,7 @@ class CLI:
         )
 
         run_parser = subparsers.add_parser("run", help="Run a program")
-        run_parser.add_argument("-b", "--bottle", help="Bottle name", required=True)
+        run_parser.add_argument("-b", "--bottle", help="Bottle UUID", required=True)
         run_parser.add_argument("-e", "--executable", help="Path to the executable")
         run_parser.add_argument("-p", "--program", help="Program to run")
         run_parser.add_argument("--program-id", help="Stored program identifier")
@@ -283,7 +283,7 @@ class CLI:
         stop_parser = subparsers.add_parser(
             "stop", help="Stop all processes running in a bottle"
         )
-        stop_parser.add_argument("-b", "--bottle", help="Bottle name", required=True)
+        stop_parser.add_argument("-b", "--bottle", help="Bottle UUID", required=True)
 
         standalone_parser = subparsers.add_parser(
             "standalone",
@@ -291,13 +291,13 @@ class CLI:
             "without passing trough Bottles",
         )
         standalone_parser.add_argument(
-            "-b", "--bottle", help="Bottle name", required=True
+            "-b", "--bottle", help="Bottle UUID", required=True
         )
 
         shell_parser = subparsers.add_parser(
             "shell", help="Launch commands in a Wine shell"
         )
-        shell_parser.add_argument("-b", "--bottle", help="Bottle name", required=True)
+        shell_parser.add_argument("-b", "--bottle", help="Bottle UUID", required=True)
         shell_parser.add_argument(
             "-i", "--input", help="Command to execute", required=True
         )
@@ -318,7 +318,7 @@ class CLI:
                 self.parser.exit(1, str(error) + "\n")
             return
         if self.args.command == "forget":
-            BottleIndex().forget(os.path.realpath(self.args.path))
+            BottleIndex().forget(self.args.bottle)
             return
 
         # INFO parser
@@ -415,7 +415,7 @@ class CLI:
         if len(bottles) > 0:
             sys.stdout.write(f"Found {len(bottles)} bottles:\n")
             for name, config in bottles.items():
-                sys.stdout.write(f"- {name}: {config.Path}\n")
+                sys.stdout.write(f"- {config.Name} [{config.Id}]: {config.Path}\n")
 
     def list_components(self, c_filter=None):
         mng = Manager(g_settings=self.settings, is_cli=True)
@@ -845,7 +845,7 @@ class CLI:
                     "bottles-cli",
                     "run",
                     "-b",
-                    config.Name,
+                    config.Id,
                     "--program-id",
                     str(program["id"]),
                 ],
