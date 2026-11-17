@@ -111,3 +111,20 @@ def test_show_uri_keeps_native_handler_outside_sandbox(monkeypatch):
     assert gtk_calls[0][1] == uri
     assert not PortalStub.directory_calls
     assert not PortalStub.uri_calls
+
+
+@pytest.mark.parametrize("registered", [False, True])
+def test_executable_picker_needs_a_registered_container(monkeypatch, mocker, registered):
+    from types import SimpleNamespace
+    from bottles.backend.managers.storage import BottleIndex
+    from bottles.frontend.windows import bottlepicker
+    monkeypatch.setattr(BottleIndex, "records", lambda _self: [("id", "/prefix", "Work")] if registered else [])
+    picker = mocker.patch.object(bottlepicker, "BottlePickerDialog")
+    app = SimpleNamespace(do_activate=mocker.Mock())
+    assert main.Bottles._Bottles__show_bottle_picker(app, "/setup.exe") == 0
+    if registered:
+        picker.assert_called_once_with(application=app, arg_exe="/setup.exe")
+        app.do_activate.assert_not_called()
+    else:
+        app.do_activate.assert_called_once_with()
+        picker.assert_not_called()

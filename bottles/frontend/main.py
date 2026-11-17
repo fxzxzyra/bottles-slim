@@ -187,16 +187,22 @@ class Bottles(Adw.Application):
                 return 0
 
             try:
-                from bottles.frontend.windows.bottlepicker import BottlePickerDialog
-
-                dialog = BottlePickerDialog(application=self, arg_exe=self.arg_exe)
-                dialog.present()
-                return 0
+                return self.__show_bottle_picker(self.arg_exe)
             except Exception as e:
                 logging.error(_("Error while processing executable: {0}").format(e))
                 return False
 
         self.do_activate()
+        return 0
+
+    def __show_bottle_picker(self, executable):
+        from bottles.backend.managers.storage import BottleIndex
+        if not BottleIndex().records():
+            self.do_activate()
+            return 0
+        from bottles.frontend.windows.bottlepicker import BottlePickerDialog
+        dialog = BottlePickerDialog(application=self, arg_exe=executable)
+        dialog.present()
         return 0
 
     def __process_uri(self, uri):
@@ -220,11 +226,7 @@ class Bottles(Adw.Application):
             return 0
 
         try:
-            from bottles.frontend.windows.bottlepicker import BottlePickerDialog
-
-            dialog = BottlePickerDialog(application=self, arg_exe=uri)
-            dialog.present()
-            return 0
+            return self.__show_bottle_picker(uri)
         except Exception as e:
             logging.error(
                 _("Error while processing URI: {0}").format(e),
