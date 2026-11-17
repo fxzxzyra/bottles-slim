@@ -17,6 +17,7 @@
 
 import fnmatch
 import os
+import shlex
 import re
 import shutil
 import sqlite3
@@ -65,7 +66,7 @@ from bottles.backend.state import (
 from bottles.backend.utils import yaml
 from bottles.backend.utils.connection import ConnectionUtils
 from bottles.backend.utils.file import FileUtils
-from bottles.backend.utils.generic import sort_by_version
+from bottles.backend.utils.generic import is_ntsync_available, sort_by_version
 from bottles.backend.utils.gpu import GPUUtils, GPUVendors
 from bottles.backend.utils.gsettings_stub import GSettingsStub
 from bottles.backend.utils.lnk import LnkUtils
@@ -1450,7 +1451,11 @@ class Manager(metaclass=Singleton):
         else:
             if environment.lower() not in ("custom", "application", "gaming"):
                 raise ValueError("Unknown bottle environment: " + environment)
-            env = Samples.environments.get(environment.lower())
+            env = deepcopy(Samples.environments.get(environment.lower()))
+            if env and env.get("Parameters", {}).get("sync") == "ntsync":
+                info = RunnerRegistry.require(runner)
+                if not is_ntsync_available(shlex.quote(info.wine_for_arch(arch))):
+                    env["Parameters"]["sync"] = "fsync"
             parameters = env.get("Parameters", {}) if env else {}
 
         requested = {
