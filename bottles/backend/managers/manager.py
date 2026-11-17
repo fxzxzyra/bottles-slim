@@ -1613,8 +1613,10 @@ class Manager(metaclass=Singleton):
             return cancel_result
 
         if not WineUtils.ensure_user_profile_alias(bottle_complete_path):
-            logging.error("Failed to prepare the bottle user profile.")
-            return Result(False, message="Failed to prepare the bottle user profile.")
+            message = _("Failed to prepare the container user profile.")
+            logging.error(message, jn=True)
+            log_update(message)
+            return Result(False, data={"config": config}, message=message)
 
         # initialize wineprefix
         reg = Reg(config)

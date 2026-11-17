@@ -3,6 +3,7 @@
 from types import SimpleNamespace
 
 import gi
+import pytest
 
 gi.require_version("Adw", "1")
 gi.require_version("Xdp", "1.0")
@@ -117,6 +118,7 @@ def test_show_uri_keeps_native_handler_outside_sandbox(monkeypatch):
 def test_executable_picker_needs_a_registered_container(monkeypatch, mocker, registered):
     from types import SimpleNamespace
     from bottles.backend.managers.storage import BottleIndex
+    from bottles.frontend import main
     from bottles.frontend.windows import bottlepicker
     monkeypatch.setattr(BottleIndex, "records", lambda _self: [("id", "/prefix", "Work")] if registered else [])
     picker = mocker.patch.object(bottlepicker, "BottlePickerDialog")

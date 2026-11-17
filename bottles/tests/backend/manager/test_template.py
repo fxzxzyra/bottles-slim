@@ -6,6 +6,7 @@ from types import SimpleNamespace
 from bottles.backend.managers import manager as manager_module
 from bottles.backend.managers import template as template_module
 from bottles.backend.managers.manager import Manager
+from bottles.backend.models.result import Result
 from bottles.backend.managers.template import TemplateManager
 from bottles.backend.models.config import BottleConfig
 from bottles.backend.utils import yaml
@@ -73,6 +74,8 @@ def test_create_bottle_recovers_from_failed_template(monkeypatch, tmp_path):
 
         def init(self):
             cancel_event.set()
+
+            return Result(True)
 
     manager = object.__new__(Manager)
     manager.runners_available = ["soda-11.0"]
