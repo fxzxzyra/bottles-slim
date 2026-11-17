@@ -307,3 +307,18 @@ def test_bottle_notes_are_kept_when_saving_fails(success):
     assert buffer.get_text(buffer.get_start_iter(), buffer.get_end_iter(), True) == notes
     assert view.window.show_toast.called is not success
 
+
+
+@pytest.mark.parametrize("sync,compiled,visible", [("esync", False, True), ("esync", True, False), ("wine", False, False)])
+def test_esync_warning_follows_selected_runner(monkeypatch, runner_factory, sync, compiled, visible):
+    import shlex
+    from bottles.frontend.views import bottle_preferences as module
+    info = runner_factory()
+    indicator = Mock()
+    config = BottleConfig(Runner=info.identifier)
+    view = SimpleNamespace(config=config, _esync_warning=indicator)
+    probe = Mock(return_value=not compiled)
+    monkeypatch.setattr(module, "is_esync_missing", probe)
+    module.PreferencesView._PreferencesView__update_esync_warning(view, sync)
+    probe.assert_called_once_with(shlex.quote(info.wine_for_arch(config.Arch)))
+    indicator.set_visible.assert_called_once_with(visible)

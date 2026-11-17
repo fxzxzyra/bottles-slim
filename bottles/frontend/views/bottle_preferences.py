@@ -17,6 +17,7 @@
 
 import contextlib
 import os
+import shlex
 from gettext import gettext as _
 
 from gi.repository import Adw, Gdk, Gtk
@@ -38,6 +39,8 @@ from bottles.backend.models.enum import Arch
 from bottles.backend.models.result import Result
 from bottles.backend.runner import Runner
 from bottles.backend.utils.display import DisplayUtils
+from bottles.backend.utils.generic import is_esync_missing
+from bottles.backend.utils.runners import RunnerRegistry
 from bottles.backend.utils.gpu import GPUUtils, GPUVendors
 from bottles.backend.utils.manager import ManagerUtils
 from bottles.backend.utils.threading import RunAsync
@@ -453,6 +456,7 @@ class PreferencesView(Adw.PreferencesPage):
         )
 
         row.add_suffix(menu_button)
+        return menu_button
 
     def __copy_command_to_clipboard(self, _widget, command: str):
         display = Gdk.Display.get_default()
@@ -785,6 +789,7 @@ class PreferencesView(Adw.PreferencesPage):
         self.combo_windows.handler_unblock_by_func(self.__set_windows)
         self.combo_language.handler_unblock_by_func(self.__set_language)
         self.spin_frame_rate_limit.handler_unblock_by_func(self.__set_frame_rate_limit)
+        self.__update_esync_warning(parameters.sync)
 
 
     def __show_display_settings(self, widget):
@@ -865,6 +870,8 @@ class PreferencesView(Adw.PreferencesPage):
         if sync == self.config.Parameters.sync:
             return
 
+        self.__update_esync_warning(sync)
+
         self.queue.add_task()
         self.combo_sync.set_sensitive(False)
         RunAsync(
@@ -876,6 +883,16 @@ class PreferencesView(Adw.PreferencesPage):
         )
         self.combo_sync.set_sensitive(True)
         self.queue.end_task()
+
+    def __update_esync_warning(self, sync):
+        if not hasattr(self, "_esync_warning"):
+            self._esync_warning = self.__add_unavailable_indicator(
+                self.combo_sync, None,
+                _("This runner has no Esync, so it will use its default."),
+            )
+        info = RunnerRegistry.entries.get(self.config.Runner)
+        missing = info is not None and is_esync_missing(shlex.quote(info.wine_for_arch(self.config.Arch)))
+        self._esync_warning.set_visible(sync == "esync" and missing)
 
     def __set_frame_rate_limit(self, spin_row, _pspec):
         value = int(spin_row.get_value())
@@ -943,6 +960,7 @@ class PreferencesView(Adw.PreferencesPage):
 
                 if "config" in result.data:
                     self.config = result.data["config"]
+                self.__update_esync_warning(self.config.Parameters.sync)
                 if self.config.Parameters.use_steam_runtime:
                     self.switch_steam_runtime.handler_block_by_func(
                         self.__toggle_feature_cb

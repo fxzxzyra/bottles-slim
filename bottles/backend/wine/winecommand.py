@@ -24,6 +24,7 @@ from bottles.backend.utils.generic import (
     detect_encoding,
     get_host_architecture,
     is_ntsync_available,
+    is_esync_missing,
 )
 from bottles.backend.utils.gpu import GPUUtils
 from bottles.backend.utils.hidraw import normalize_hidraw_id
@@ -687,6 +688,8 @@ class WineCommand:
     @staticmethod
     def _apply_sync_environment(env: WineEnv, sync: str, runner: str) -> None:
         if sync == "esync":
+            if is_esync_missing(runner):
+                logging.warning("Esync requested but unavailable in this runner; using its default.")
             env.add("WINEESYNC", "1")
         elif sync == "fsync":
             env.add("WINEFSYNC", "1")
