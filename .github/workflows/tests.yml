@@ -16,9 +16,14 @@ jobs:
       image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-51
       options: --privileged
     steps:
-      - uses: actions/checkout@v7
+      - name: Checkout
+        uses: actions/checkout@v7
         with:
           persist-credentials: false
+      - name: Configure Flathub
+        run: >-
+          flatpak remote-add --user --if-not-exists
+          flathub https://dl.flathub.org/repo/flathub.flatpakrepo
       - name: Build development manifest and run Meson tests
         run: >-
           flatpak-builder --user --install-deps-from=flathub
