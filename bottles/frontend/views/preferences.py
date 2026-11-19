@@ -699,7 +699,7 @@ class PreferencesDialog(Adw.PreferencesDialog):
             empty_row.set_title(_("No templates cached yet."))
             empty_row.set_subtitle(
                 _(
-                    "Templates are created after you make the first bottle for each environment."
+                    "Templates are created after you make the first container for each environment."
                 )
             )
             empty_row.set_activatable(False)
@@ -787,7 +787,7 @@ class PreferencesDialog(Adw.PreferencesDialog):
         self.__confirm_cache_action(
             title=_("Delete all prefix templates?"),
             description=_(
-                "Removing all prefix templates will slow down the next bottle creation while Bottles rebuilds them."
+                "Removing all prefix templates will slow down the next container creation while Bottles rebuilds them."
             ),
             action=self.manager.clear_templates_cache,
             button=widget,
@@ -798,7 +798,7 @@ class PreferencesDialog(Adw.PreferencesDialog):
         env_label = self.__format_env_label(template.get("env", ""))
         title = _("Delete the %s template?") % env_label
         description = _(
-            "The next bottle for this environment will take longer to create because Bottles must rebuild the template."
+            "The next container for this environment will take longer to create because Bottles must rebuild the template."
         )
 
         self.__confirm_cache_action(

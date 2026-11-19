@@ -4,7 +4,7 @@ using Adw 1;
 template $BottlesNewBottleDialog: Adw.Dialog {
   content-width: 500;
   content-height: 500;
-  title: _("Create New Bottle");
+  title: _("Create New Container");
   focus-widget: entry_name;
 
   child: Stack stack_create {
@@ -37,7 +37,7 @@ template $BottlesNewBottleDialog: Adw.Dialog {
         }
 
         content: Adw.PreferencesPage {
-          title: _("Create New Bottle");
+          title: _("Create New Container");
 
           Adw.PreferencesGroup {
             Adw.EntryRow entry_name {
@@ -107,15 +107,7 @@ template $BottlesNewBottleDialog: Adw.Dialog {
 
             Adw.ComboRow combo_runner {
               title: _("Runner");
-              subtitle: _("Choose the Wine installation used by this bottle");
-
-              [suffix]
-              Button btn_manage_runners {
-                tooltip-text: _("Manage Runners…");
-                icon-name: "preferences-system-symbolic";
-                valign: center;
-                styles [ "flat", ]
-              }
+              subtitle: _("Choose the Wine installation used by this container");
 
               model: StringList str_list_runner {};
             }
@@ -126,8 +118,8 @@ template $BottlesNewBottleDialog: Adw.Dialog {
             }
 
             Adw.ActionRow {
-              title: _("Bottle Directory");
-              subtitle: _("Select an empty directory owned by you. This directory will contain the bottle.");
+              title: _("Container Directory");
+              subtitle: _("Select an empty directory");
               activatable-widget: btn_choose_path;
 
               Button btn_choose_path_reset {
@@ -151,7 +143,10 @@ template $BottlesNewBottleDialog: Adw.Dialog {
                     icon-name: "document-open-symbolic";
                   }
 
-                  Label label_choose_path {}
+                  Label label_choose_path {
+                    max-width-chars: 24;
+                    ellipsize: middle;
+                  }
                 };
               }
             }
@@ -182,7 +177,10 @@ template $BottlesNewBottleDialog: Adw.Dialog {
                     icon-name: "document-open-symbolic";
                   }
 
-                  Label label_choose_env {}
+                  Label label_choose_env {
+                    max-width-chars: 24;
+                    ellipsize: middle;
+                  }
                 };
               }
             }
@@ -195,70 +193,69 @@ template $BottlesNewBottleDialog: Adw.Dialog {
       name: "page_creating";
 
       child: WindowHandle {
-        child: ScrolledWindow {
-          child: Adw.Clamp {
-            maximum-size: 475;
+        child: Adw.Clamp {
+          maximum-size: 475;
 
-            child: Box {
+          child: Box {
+            orientation: vertical;
+            margin-top: 24;
+            margin-bottom: 24;
+            margin-start: 24;
+            margin-end: 24;
+            spacing: 18;
+
+            Box {
               orientation: vertical;
-              margin-top: 36;
-              margin-bottom: 36;
-              spacing: 30;
 
-              Box {
-                orientation: vertical;
-                margin-top: 36;
-
-                Label {
-                  label: _("Creating Bottle…");
-
-                  styles [
-                    "title",
-                    "title-1",
-                  ]
-                }
-
-                Label {
-                  label: _("This could take a while.");
-
-                  styles [
-                    "body",
-                    "description",
-                  ]
-                }
-              }
-
-              ScrolledWindow scrolled_steps {
-                vexpand: true;
-                hexpand: true;
-                margin-start: 12;
-                margin-end: 12;
-                overflow: hidden;
-
-                child: ListBox steps_list {
-                  selection-mode: none;
-
-                  styles [
-                    "boxed-list",
-                  ]
-                };
+              Label {
+                label: _("Creating Container…");
 
                 styles [
-                  "card",
+                  "title",
+                  "title-1",
                 ]
               }
 
-              Button btn_cancel_creating {
-                halign: center;
-                label: _("_Cancel Creation");
-                use-underline: true;
+              Label {
+                label: _("This could take a while.");
 
                 styles [
-                  "destructive-action",
-                  "pill",
+                  "body",
+                  "description",
                 ]
               }
-            };
+            }
+
+            ScrolledWindow scrolled_steps {
+              vexpand: true;
+              hexpand: true;
+              margin-start: 12;
+              margin-end: 12;
+              overflow: hidden;
+
+              child: ListBox steps_list {
+                selection-mode: none;
+
+                styles [
+                  "boxed-list",
+                ]
+              };
+
+              styles [
+                "card",
+              ]
+            }
+
+            Button btn_cancel_creating {
+              halign: center;
+              label: _("_Cancel Creation");
+              use-underline: true;
+
+              styles [
+                "destructive-action",
+                "pill",
+              ]
+            }
           };
         };
       };

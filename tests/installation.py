@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Meson integration test of the actual staged Python/resource installation."""
 
+import configparser
 import json
 import os
 from pathlib import Path
@@ -31,6 +32,18 @@ def main():
                 raise RuntimeError(f"Missing installed resource: {name}")
         if list(staged_resources.parent.rglob("*.py")):
             raise RuntimeError("Python modules were installed as shared application data")
+        desktops = [Path(destination) for destination in installed.values()
+                    if destination.endswith(".desktop")]
+        if len(desktops) != 1:
+            raise RuntimeError("The installed application desktop entry is missing or ambiguous")
+        desktop = configparser.ConfigParser(interpolation=None)
+        desktop.read(stage / desktops[0].relative_to("/"))
+        entry = desktop["Desktop Entry"]
+        name = entry["Name"]
+        if name not in ("Bottles", "Bottles (Development)"):
+            raise RuntimeError("The application name was translated or replaced")
+        if any(value != name for key, value in entry.items() if key.startswith("name[")):
+            raise RuntimeError("A localized desktop name replaces the Bottles brand")
         environment = dict(os.environ, PYTHONPATH=str(staged_package))
         subprocess.run([
             sys.executable, "-c",

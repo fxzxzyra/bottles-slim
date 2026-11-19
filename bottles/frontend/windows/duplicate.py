@@ -26,7 +26,7 @@ from bottles.frontend.utils.flatpak import resolve_bottles_directory
 
 
 @Gtk.Template(resource_path="/com/usebottles/bottles/dialog-duplicate.ui")
-class DuplicateDialog(Adw.Window):
+class DuplicateDialog(Adw.Dialog):
     __gtype_name__ = "DuplicateDialog"
 
     # region Widgets
@@ -34,34 +34,27 @@ class DuplicateDialog(Adw.Window):
     btn_cancel = Gtk.Template.Child()
     btn_duplicate = Gtk.Template.Child()
     stack_switcher = Gtk.Template.Child()
-    progressbar = Gtk.Template.Child()
+    spinner = Gtk.Template.Child()
     page_failed = Gtk.Template.Child()
 
     # endregion
 
     def __init__(self, parent, **kwargs):
         super().__init__(**kwargs)
-        self.set_transient_for(parent.window)
 
         # common variables and references
         self.parent = parent
         self.config = parent.config
-        self.pulse_id = None
 
         self.entry_name.connect("changed", self.__check_entry_name)
 
         # connect signals
         self.btn_duplicate.connect("clicked", self.__duplicate_bottle)
-        self.connect("destroy", self.__on_destroy)
-
-    def __on_destroy(self, widget):
-        if self.pulse_id:
-            GLib.source_remove(self.pulse_id)
-            self.pulse_id = None
+        self.btn_cancel.connect("clicked", lambda _button: self.close())
 
     def __check_entry_name(self, *_args):
-        name = self.entry_name.get_text()
-        is_invalid = not name.strip() or any(config.Name == name for config in self.parent.manager.local_bottles.values())
+        name = self.entry_name.get_text().strip()
+        is_invalid = not name or any(config.Name == name for config in self.parent.manager.local_bottles.values())
         if is_invalid:
             self.entry_name.add_css_class("error")
             self.btn_duplicate.set_sensitive(False)
@@ -70,11 +63,7 @@ class DuplicateDialog(Adw.Window):
             self.btn_duplicate.set_sensitive(True)
 
     def __duplicate_bottle(self, widget):
-        """
-        This function take the new bottle name from the entry
-        and create a new duplicate of the bottle. It also change the
-        stack_switcher page when the process is finished.
-        """
+        """Choose the destination and keep the dialog open until copying finishes."""
         def selected(dialog, result):
             try:
                 folder = dialog.select_folder_finish(result)
@@ -85,31 +74,29 @@ class DuplicateDialog(Adw.Window):
                 return
             self.stack_switcher.set_visible_child_name("page_duplicating")
             self.btn_duplicate.set_visible(False)
+            self.set_can_close(False)
+            self.btn_cancel.set_sensitive(False)
             self.btn_cancel.set_label(_("Close"))
-            self.pulse_id = GLib.timeout_add(500, self.pulse)
+            self.spinner.start()
             RunAsync(BackupManager.duplicate_bottle, callback=self.finish,
-                     config=self.config, name=self.entry_name.get_text(), destination=destination)
-        dialog = Gtk.FileDialog(title=_("Select an Empty Bottle Directory"), modal=True)
-        dialog.select_folder(self, None, selected)
+                     config=self.config, name=self.entry_name.get_text().strip(), destination=destination)
+        dialog = Gtk.FileDialog(title=_("Select an Empty Container Directory"), modal=True)
+        dialog.select_folder(self.parent.window, None, selected)
 
     @GtkUtils.run_in_main_loop
     def finish(self, result, error=None):
-        if self.pulse_id:
-            GLib.source_remove(self.pulse_id)
-            self.pulse_id = None
+        self.spinner.stop()
+        self.set_can_close(True)
+        self.btn_cancel.set_sensitive(True)
+        self.btn_cancel.set_label(_("Close"))
 
         if error or result is None or not result.status:
             message = str(error) if error else result.message if result else ""
             self.page_failed.set_description(
-                message or _("The bottle could not be duplicated.")
+                message or _("The container could not be duplicated.")
             )
             self.stack_switcher.set_visible_child_name("page_failed")
             return
 
         self.parent.manager.update_bottles()
         self.stack_switcher.set_visible_child_name("page_duplicated")
-
-    def pulse(self):
-        # This function update the progress bar every half second.
-        self.progressbar.pulse()
-        return True

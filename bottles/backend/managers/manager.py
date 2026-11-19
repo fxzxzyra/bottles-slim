@@ -288,7 +288,7 @@ class Manager(metaclass=Singleton):
                     _("Organizing installers…"),
                     self.organize_installers,
                 ),
-                ("check_bottles", _("Loading bottles…"), self.check_bottles),
+                ("check_bottles", _("Loading containers…"), self.check_bottles),
             ]
         )
 
@@ -708,7 +708,7 @@ class Manager(metaclass=Singleton):
     def remove_user_runner(self, identifier: str) -> Result:
         """Forget an explicit import; never delete the user's runner directory."""
         if any(config.Runner == identifier for config in self.local_bottles.values()):
-            return Result(False, message=_("This runner is used by a bottle."))
+            return Result(False, message=_("This runner is used by a container."))
         registrations = dict(self.data_mgr.get(UserDataKeys.UserRunners) or {})
         if identifier not in registrations:
             return Result(False, message=_("This runner is managed outside Bottles."))
@@ -1191,7 +1191,7 @@ class Manager(metaclass=Singleton):
                 Signals.GNotification,
                 Result(True, Notification(
                     title="Bottles",
-                    text=_("Some registered bottles are unavailable:") + "\n" + "\n".join(
+                    text=_("Some registered containers are unavailable:") + "\n" + "\n".join(
                         f"{path}: {error}" for path, error in self.unavailable_bottles.values()
                     ),
                     image="drive-harddisk-symbolic",
@@ -1513,16 +1513,15 @@ class Manager(metaclass=Singleton):
         # create the bottle directory
         try:
             bottle_directory(bottle_complete_path, empty=True)
-            os.chmod(bottle_complete_path, 0o700)
             # Pre-create drive_c directory and set the case-fold flag
             bottle_drive_c = os.path.join(bottle_complete_path, "drive_c")
-            os.makedirs(bottle_drive_c, mode=0o700)
+            os.makedirs(bottle_drive_c)
             FileUtils.chattr_f(bottle_drive_c)
         except OSError:
             logging.error(
                 f"Failed to create bottle directory: {bottle_complete_path}", jn=True
             )
-            log_update(_("Failed to create bottle directory."))
+            log_update(_("Failed to create container directory."))
             return Result(False)
 
         cancel_result = check_cancel()
@@ -1531,7 +1530,7 @@ class Manager(metaclass=Singleton):
 
         # generate bottle configuration
         logging.info("Generating bottle configuration…")
-        log_update(_("Generating bottle configuration…"))
+        log_update(_("Generating container configuration…"))
         config = (
             deepcopy(configuration) if configuration is not None else BottleConfig()
         )
@@ -1580,14 +1579,14 @@ class Manager(metaclass=Singleton):
                 template = None
                 try:
                     shutil.rmtree(bottle_drive_c)
-                    os.makedirs(bottle_drive_c, mode=0o700)
+                    os.makedirs(bottle_drive_c)
                     FileUtils.chattr_f(bottle_drive_c)
                 except OSError:
                     logging.error(
                         f"Failed to restore bottle directory: {bottle_complete_path}",
                         jn=True,
                     )
-                    log_update(_("Failed to create bottle directory."))
+                    log_update(_("Failed to create container directory."))
                     return Result(False)
 
         cancel_result = check_cancel()
@@ -1623,7 +1622,7 @@ class Manager(metaclass=Singleton):
 
         if not WineUtils.unlink_user_profile_links(bottle_complete_path):
             logging.error("Could not sandbox the bottle user directory.", jn=True)
-            message = _("Failed to sandbox the bottle user directory.")
+            message = _("Failed to sandbox the container user directory.")
             log_update(message)
             return Result(False, data={"config": config}, message=message)
 

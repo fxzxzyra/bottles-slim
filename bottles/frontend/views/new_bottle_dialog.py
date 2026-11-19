@@ -71,7 +71,6 @@ class BottlesNewBottleDialog(Adw.Dialog):
     scrolled_steps = Gtk.Template.Child()
     btn_cancel_creating = Gtk.Template.Child()
     combo_runner = Gtk.Template.Child()
-    btn_manage_runners = Gtk.Template.Child()
     combo_arch = Gtk.Template.Child()
     str_list_arch = Gtk.Template.Child()
     str_list_runner = Gtk.Template.Child()
@@ -83,15 +82,13 @@ class BottlesNewBottleDialog(Adw.Dialog):
 
     # endregion
 
-    def __init__(self, **kwargs: Any) -> None:
+    def __init__(self, window, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.combo_runner.set_list_factory(
             GtkUtils.create_full_width_string_list_factory()
         )
         # common variables and references
-        self.window = GtkUtils.get_parent_window()
-        if not self.window:
-            return
+        self.window = window
 
         self.app = self.window.get_application()
         self.manager = self.window.manager
@@ -111,6 +108,7 @@ class BottlesNewBottleDialog(Adw.Dialog):
 
         # connect signals
         self.window.connect("notify::is-active", self.__remove_notifications)
+        self.connect("closed", self.__on_closed)
         self.btn_cancel.connect("clicked", self.__close_dialog)
         self.btn_close.connect("clicked", self.__close_dialog)
         self.btn_create.connect("clicked", self.create_bottle)
@@ -119,7 +117,6 @@ class BottlesNewBottleDialog(Adw.Dialog):
         self.btn_choose_env_reset.connect("clicked", self.__reset_env_recipe)
         self.btn_choose_path.connect("clicked", self.__choose_path)
         self.btn_choose_path_reset.connect("clicked", self.__reset_path)
-        self.btn_manage_runners.connect("clicked", self.__manage_runners)
         self.combo_runner.connect("notify::selected", self.__check_entry_name)
         self.entry_name.connect("changed", self.__check_entry_name)
         self.entry_name.connect("entry-activated", self.__entry_activated)
@@ -150,23 +147,15 @@ class BottlesNewBottleDialog(Adw.Dialog):
         if previous in self._runner_ids:
             self.combo_runner.set_selected(self._runner_ids.index(previous))
         self.combo_runner.set_subtitle(
-            _("Choose the Wine installation used by this bottle") if self._runner_ids
-            else _("Register a runner in Preferences before creating a bottle")
+            _("Choose the Wine installation used by this container") if self._runner_ids
+            else _("Register a runner in Preferences before creating a container")
         )
         self.__check_entry_name()
 
-    def __manage_runners(self, *_args: Any) -> None:
-        dialog = self.window.show_runners_preferences_view()
-
-        def closed(_dialog):
-            dialog.disconnect(handler)
-            self.__refresh_runners()
-
-        handler = dialog.connect("closed", closed)
-
     def __check_validity(self, *_args: Any) -> tuple[bool, bool]:
-        is_empty = not self.entry_name.get_text().strip()
-        is_duplicate = any(config.Name == self.entry_name.get_text() for config in self.manager.local_bottles.values())
+        name = self.entry_name.get_text().strip()
+        is_empty = not name
+        is_duplicate = any(config.Name == name for config in self.manager.local_bottles.values())
         return (is_empty, is_duplicate)
 
     def __check_entry_name(self, *_args: Any) -> None:
@@ -176,7 +165,7 @@ class BottlesNewBottleDialog(Adw.Dialog):
         self.btn_create.set_sensitive(not is_invalid and bool(self.custom_path) and runner_selected)
         self.menu_duplicate.set_visible(is_duplicate)
 
-        if is_invalid:
+        if is_duplicate or (is_empty and self.entry_name.get_text()):
             self.entry_name.add_css_class("error")
         else:
             self.entry_name.remove_css_class("error")
@@ -267,7 +256,7 @@ class BottlesNewBottleDialog(Adw.Dialog):
 
         self.__clear_creation_task()
 
-        task_title = _("Creating “{0}”").format(self.entry_name.get_text())
+        task_title = _("Creating “{0}”").format(self.entry_name.get_text().strip())
         self._creation_task = Task(title=task_title)
         TaskManager.add(self._creation_task)
 
@@ -275,7 +264,7 @@ class BottlesNewBottleDialog(Adw.Dialog):
         self._creation_job = RunAsync(
             task_func=self.manager.create_bottle,
             callback=self.finish,
-            name=self.entry_name.get_text(),
+            name=self.entry_name.get_text().strip(),
             path=self.custom_path,
             environment=self.selected_environment,
             runner=self.runner,
@@ -373,27 +362,26 @@ class BottlesNewBottleDialog(Adw.Dialog):
 
         # Show error if bottle unsuccessfully builds
         if not result or not result.status or error:
-            title = _("Unable to Create Bottle")
+            title = _("Unable to Create Container")
             notification.set_title(title)
-            message = str(error) if error else ((result.message if result else "") or _("Bottle creation failed."))
+            message = str(error) if error else ((result.message if result else "") or _("Container creation failed."))
             notification.set_body(message)
             self.status_page_status.set_description(message)
             self.status_page_status.set_title(title)
-            self.btn_close.add_css_class("destructive-action")
             send_notification(notification)
 
             # Display error logs in the result page
             self.__mark_last_step_completed()
-            self.scrolled_steps.unparent()
+            self.steps_list.get_parent().set_child(None)
             box = self.status_page_status.get_child()
-            box.prepend(self.scrolled_steps)
+            box.prepend(self.steps_list)
 
             return
 
         # Show success
-        title = _("Bottle Created")
+        title = _("Container Created")
         description = _("“{0}” was created successfully.").format(
-            self.entry_name.get_text()
+            self.entry_name.get_text().strip()
         )
 
         notification.set_title(title)
@@ -450,7 +438,7 @@ class BottlesNewBottleDialog(Adw.Dialog):
 
         dialog = Adw.MessageDialog.new(
             self.window,
-            _("Cancel Bottle Creation?"),
+            _("Cancel Container Creation?"),
             _(
                 "Cancelling now will stop the setup once the current step finishes and remove any files created so far."
             ),
@@ -487,8 +475,10 @@ class BottlesNewBottleDialog(Adw.Dialog):
             )
         )
 
-    def __finalize_close(self) -> None:
+    def __on_closed(self, _dialog) -> None:
         self.window.disconnect_by_func(self.__remove_notifications)
+
+    def __finalize_close(self) -> None:
         self.close()
 
     def __clear_creation_task(self) -> None:

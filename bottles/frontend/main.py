@@ -15,11 +15,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import gettext
-import locale
+from gettext import gettext as _
 import sys
 import webbrowser
-from os import path
 
 import gi
 
@@ -45,41 +43,6 @@ from bottles.frontend.utils.gtk import FontScaleManager
 from bottles.frontend.windows.window import BottlesWindow
 
 logging = Logger()
-
-# region Translations
-"""
-This code snippet searches for and uploads translations to different
-directories, depending on your production or development environment.
-The function _() can be used to create and retrieve translations.
-"""
-share_dir = path.join(sys.prefix, "share")
-base_dir = "."
-
-if getattr(sys, "frozen", False):
-    base_dir = path.dirname(sys.executable)
-    share_dir = path.join(base_dir, "share")
-elif sys.argv[0]:
-    exec_dir = path.dirname(path.realpath(sys.argv[0]))
-    base_dir = path.dirname(exec_dir)
-    share_dir = path.join(base_dir, "share")
-
-    if not path.exists(share_dir):
-        share_dir = base_dir
-
-locale_dir = path.join(share_dir, "locale")
-
-if not path.exists(locale_dir):  # development
-    locale_dir = path.join(base_dir, "build", "mo")
-
-locale.bindtextdomain("com.usebottles.bottles", locale_dir)
-locale.textdomain("com.usebottles.bottles")
-gettext.bindtextdomain("com.usebottles.bottles", locale_dir)
-gettext.textdomain("com.usebottles.bottles")
-_ = gettext.gettext
-
-
-# endregion
-
 
 class Bottles(Adw.Application):
     arg_exe = None
@@ -144,7 +107,7 @@ class Bottles(Adw.Application):
             ord("b"),
             GLib.OptionFlags.NONE,
             GLib.OptionArg.STRING,
-            _("Bottle UUID"),
+            _("Container UUID"),
             None,
         )
         self.add_main_option(

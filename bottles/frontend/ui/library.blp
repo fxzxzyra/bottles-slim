@@ -8,12 +8,7 @@ template $LibraryView: Adw.Bin {
       child: Adw.StatusPage {
         icon-name: "library-symbolic";
         title: _("No Programs in Library");
-        description: _("Open a bottle and choose Add to Library from a program's menu.");
-        child: Button btn_browse_bottles {
-          label: _("Browse Bottles");
-          halign: center;
-          styles [ "suggested-action", "pill", ]
-        };
+        description: _("Open a container and choose Add to Library from a program's menu.");
       };
     }
     StackPage {

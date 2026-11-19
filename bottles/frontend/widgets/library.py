@@ -72,7 +72,7 @@ class LibraryEntry(Gtk.Box):
             if self.config is None:
                 raise LibraryEntryInitializationError(
                     _(
-                        'The bottle for "{0}" is unavailable.'
+                        "The container for \"{0}\" is unavailable."
                     ).format(self.name)
                 )
 

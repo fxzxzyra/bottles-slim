@@ -67,7 +67,7 @@ def test_runner_entry_targets_named_preferences_page(monkeypatch):
     monkeypatch.setattr(window_module, "PreferencesDialog", PreferencesDialogStub)
     window = SimpleNamespace(_preferences_dialog=None)
     window.show_prefs_view = lambda *args, **kwargs: BottlesWindow.show_prefs_view(window, *args, **kwargs)
-    dialog = BottlesWindow.show_runners_preferences_view(window)
+    dialog = BottlesWindow.show_prefs_view(window, page="runners")
     assert dialog is window._preferences_dialog
     assert dialog.page_name == "runners"
     assert dialog.presented_with is window

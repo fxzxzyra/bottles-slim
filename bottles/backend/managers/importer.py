@@ -109,7 +109,6 @@ class ImportManager:
             destination = bottle_directory(destination, empty=True)
             with bottle_operation(destination):
                 bottle_directory(destination, empty=True)
-                os.chmod(destination, 0o700)
                 copy_bottle_contents(wineprefix["Path"], destination)
                 new_config = BottleConfig(
                     Name=wineprefix["Name"], Path=destination,

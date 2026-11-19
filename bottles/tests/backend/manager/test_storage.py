@@ -48,14 +48,28 @@ def test_nonempty_directory_is_not_reused_or_renamed(tmp_path):
     assert list(tmp_path.iterdir()) == [root]
 
 
-def test_import_requires_a_private_root_without_changing_permissions(bottle):
-    bottle.chmod(0o755)
-    with pytest.raises(PermissionError, match="private"):
-        bottle_directory(str(bottle))
-    assert bottle.stat().st_mode & 0o777 == 0o755
+@pytest.mark.parametrize("mode", [0o700, 0o750, 0o755])
+def test_import_preserves_the_selected_directory_permissions(bottle, mode):
+    bottle.chmod(mode)
+    assert bottle_directory(str(bottle)) == str(bottle)
+    assert BottleIndex().register(str(bottle)).Path == str(bottle)
+    assert bottle.stat().st_mode & 0o777 == mode
 
 
-def test_foreign_owner_is_rejected(bottle, monkeypatch):
+def test_import_accepts_a_prefix_inside_a_private_parent(tmp_path):
+    parent = tmp_path / "private"
+    parent.mkdir(mode=0o700)
+    root = parent / "Wine"
+    root.mkdir()
+    root.chmod(0o777)
+    (root / "drive_c").mkdir()
+    assert BottleConfig(Name="Office").dump(str(root / "bottle.yml")).ok
+    assert BottleIndex().register(str(root)).Path == str(root)
+    assert root.stat().st_mode & 0o777 == 0o777
+    assert parent.stat().st_mode & 0o777 == 0o700
+
+
+def test_accessible_directory_does_not_require_matching_ownership(bottle, monkeypatch):
     from bottles.backend.managers import storage
     original = storage.os.stat
     def foreign_owner(path, *args, **kwargs):
@@ -64,8 +78,7 @@ def test_foreign_owner_is_rejected(bottle, monkeypatch):
             return SimpleNamespace(st_mode=info.st_mode, st_uid=os.getuid() + 1)
         return info
     monkeypatch.setattr(storage.os, "stat", foreign_owner)
-    with pytest.raises(PermissionError, match="belong"):
-        bottle_directory(str(bottle))
+    assert bottle_directory(str(bottle)) == str(bottle)
 
 
 def test_register_is_in_place_and_forget_preserves_contents(bottle):
@@ -306,3 +319,11 @@ def test_index_uses_uuid_as_primary_key(bottle):
         primary = [row[1] for row in connection.execute("PRAGMA table_info(bottles)") if row[5]]
     assert primary == ["id"]
     assert BottleIndex().records() == [(config.Id, str(bottle), config.Name)]
+
+
+def test_directory_without_required_access_is_rejected(bottle, monkeypatch):
+    from bottles.backend.managers import storage
+    monkeypatch.setattr(storage.os, "access", lambda *_args: False)
+    with pytest.raises(PermissionError, match="readable and writable"):
+        bottle_directory(str(bottle))
+    assert BottleIndex().entries() == {}

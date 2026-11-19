@@ -41,7 +41,7 @@ from bottles.backend.wine.wineboot import WineBoot
 from bottles.backend.wine.winecfg import WineCfg
 from bottles.backend.wine.winedbg import WineDbg
 from bottles.backend.wine.wineserver import WineServer
-from bottles.frontend.utils.common import format_runner_name, open_doc_url
+from bottles.frontend.utils.common import format_environment_name, format_runner_name, open_doc_url
 from bottles.frontend.utils.filters import add_all_filters, add_executable_filters
 from bottles.frontend.utils.gtk import GtkUtils
 from bottles.frontend.utils.playtime import PlaytimeService
@@ -96,8 +96,7 @@ class BottleView(Adw.Bin):
     btn_delete = Gtk.Template.Child()
     btn_flatpak_doc = Gtk.Template.Child()
     label_name = Gtk.Template.Child()
-    dot_versioning = Gtk.Template.Child()
-    btn_versioning_badge = Gtk.Template.Child()
+    versioning_badge = Gtk.Template.Child()
     group_programs = Gtk.Template.Child()
     group_updates = Gtk.Template.Child()
     actions = Gtk.Template.Child()
@@ -154,7 +153,6 @@ class BottleView(Adw.Bin):
         self.row_dependencies.connect("activated", self.__change_page, "dependencies")
         self.row_snapshots.connect("activated", self.__change_page, "versioning")
         self.btn_snapshots_settings.connect("clicked", self.__show_versioning_settings)
-        self.btn_versioning_badge.connect("clicked", self.__change_page, "versioning")
         self.row_taskmanager.connect("activated", self.__change_page, "taskmanager")
         self.row_winecfg.connect("activated", self.run_winecfg)
         self.row_debug.connect("activated", self.run_debug)
@@ -285,19 +283,14 @@ class BottleView(Adw.Bin):
         self.label_runner.set_text(format_runner_name(self.config.Runner))
 
         # set environment
-        self.label_environment.set_text({
-            "Application": _("Application"),
-            "Gaming": _("Gaming"),
-            "Custom": _("Custom"),
-        }[self.config.Environment])
+        self.label_environment.set_text(format_environment_name(self.config.Environment))
 
         # set versioning badge
         has_old_versioning = self.config.Versioning
         bottle_path = ManagerUtils.get_bottle_path(config)
         has_fvs2 = os.path.exists(os.path.join(bottle_path, ".fvs2"))
         show_badge = has_old_versioning or has_fvs2
-        self.dot_versioning.set_visible(show_badge)
-        self.btn_versioning_badge.set_visible(show_badge)
+        self.versioning_badge.set_visible(show_badge)
 
         if has_old_versioning:
             self.label_state.set_text(str(self.config.State))
@@ -693,7 +686,7 @@ class BottleView(Adw.Bin):
                     self.window,
                     _("Be Aware of Sandbox"),
                     _(
-                        "Bottles is running in a sandbox, a restricted permission environment needed to keep you safe. If the program won't run, consider moving inside the bottle (3 dots icon on the top), then launch from there."
+                        "Bottles is running in a sandbox, a restricted permission environment needed to keep you safe. If the program won't run, consider moving inside the container (3 dots icon on the top), then launch from there."
                     ),
                 )
                 dialog.add_response("dismiss", _("_Dismiss"))
@@ -809,7 +802,7 @@ class BottleView(Adw.Bin):
         choose the new bottle name and perform duplication.
         """
         new_window = DuplicateDialog(self)
-        new_window.present()
+        new_window.present(self.window)
 
     def __upgrade_versioning(self, on_close=None):
         """
@@ -843,7 +836,7 @@ class BottleView(Adw.Bin):
                 # refresh on the main loop so the list (and its empty state
                 # when the last bottle is gone) repaints correctly
                 if not _result or _error:
-                    self.window.show_toast(str(_error) if _error else _("Could not remove the bottle."))
+                    self.window.show_toast(str(_error) if _error else _("Could not remove the container."))
                 self.window.page_list.update_bottles_list()
 
             def _delete_bottle():
@@ -861,7 +854,7 @@ class BottleView(Adw.Bin):
             self.window,
             _('Are you sure you want to permanently delete "{}"?').format(self.config.Name),
             _(
-                "Remove this bottle from your list, or permanently delete its directory and all files."
+                "Remove this container from your list, or permanently delete its directory and all files."
             ),
         )
         dialog.add_response("cancel", _("_Cancel"))
@@ -884,9 +877,7 @@ class BottleView(Adw.Bin):
             self.window,
             _("Missing Runner"),
             _(
-                "The runner requested by this bottle is missing. Restore it using your "
-                "package manager, add its local directory in Preferences, or explicitly "
-                "choose another runner for this bottle."
+                "The runner requested by this container is missing. Restore it using your package manager, add its local directory in Preferences, or explicitly choose another runner for this container."
             ),
         )
         dialog.add_response("ok", _("_Dismiss"))

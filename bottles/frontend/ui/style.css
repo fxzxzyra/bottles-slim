@@ -1,15 +1,15 @@
 /* Fix and improvements for Adwaita theme (plus custom widgets) */
 
 .custom_warning {
-  background-color: #f2edde;
-  border: 1px solid #ebdecc;
-  color: #a98e42;
+  background-color: alpha(@warning_bg_color, .15);
+  border: 1px solid alpha(@warning_color, .3);
+  color: @warning_color;
   padding: 15px;
   border-radius: 7px;
 }
 
 .current-state {
-  background-color: rgba(136, 84, 171, 0.1);
+  background-color: alpha(@accent_bg_color, .12);
 }
 
 .description {
@@ -43,33 +43,13 @@
   padding: 5px 10px;
 }
 
-.tag-versioning {
-  background-color: #c994eb;
-  color: #000;
-}
-
-.tag-lutris {
-  background-color: #FC9A29;
-  color: #000;
-}
-
-.tag-playonlinux {
-  background-color: #c91c6a;
-  color: #000;
-}
-
-.tag-bottlesv1 {
-  background-color: #c91c6a;
-  color: #000;
-}
-
 /* terminal style */
 .terminal {
   font-family: monospace;
   padding: 7px 10px;
-  background-color: #4A4A4A;
-  color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: @view_bg_color;
+  color: @view_fg_color;
+  border: 1px solid alpha(currentColor, .15);
 }
 
 .borderless,
@@ -111,17 +91,17 @@ entry.heading_1 {
 /* Grades */
 .grade-Platinum {
   background-color: #c9c9c9;
-  color: #6b6b6b;
+  color: #4a4a4a;
 }
 
 .grade-Gold {
   background-color: #f2edde;
-  color: #8d7637;
+  color: #6e5923;
 }
 
 .grade-Silver {
   background-color: #e8e8e8;
-  color: #6b6b6b;
+  color: #4a4a4a;
 }
 
 .grade-Bronze {
@@ -190,7 +170,7 @@ entry.heading_1 {
 }
 
 .dragndrop_overlay {
-  background: rgba(41, 65, 94, 0.2);
+  background: alpha(@accent_bg_color, .2);
 }
 
 progressbar.installer {

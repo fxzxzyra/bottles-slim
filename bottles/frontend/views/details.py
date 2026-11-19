@@ -271,7 +271,7 @@ class DetailsView(Adw.Bin):
         self.window.details_page.set_can_pop(True)
         self.section_page.set_can_pop(True)
         self.btn_back.set_sensitive(True)
-        self.btn_back.set_tooltip_text(_("Return to your bottles."))
+        self.btn_back.set_tooltip_text(_("Return to your containers."))
 
     def update_runner_label(self, runner: str):
         self.view_bottle.label_runner.set_text(format_runner_name(runner))

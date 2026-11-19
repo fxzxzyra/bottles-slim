@@ -10,10 +10,9 @@ template $BottlesWindow: Adw.ApplicationWindow {
       Adw.NavigationPage home_page {
         title: "Bottles";
         tag: "home";
-        child: Box {
-          orientation: vertical;
-
-          HeaderBar headerbar {
+        child: Adw.ToolbarView {
+          [top]
+          Adw.HeaderBar headerbar {
             title-widget: Stack header_title {
               StackPage {
                 name: "switcher";
@@ -31,11 +30,10 @@ template $BottlesWindow: Adw.ApplicationWindow {
             };
 
             Button btn_add {
-              tooltip-text: _("Create New Bottle");
-              icon-name: "list-add-symbolic";
+              visible: false;
+              tooltip-text: _("Create New Container");
+              label: _("Create");
             }
-
-            Box box_actions {}
 
             styles [
               "titlebar",
@@ -55,28 +53,20 @@ template $BottlesWindow: Adw.ApplicationWindow {
               icon-name: "system-search-symbolic";
               visible: false;
             }
-
-
-            [end]
-            Button btn_noconnection {
-              visible: false;
-              tooltip-text: _("You don\'t seem connected to the internet. Without it you will not be able to download essential components. Click this icon when you have reestablished the connection.");
-              icon-name: "network-error-symbolic";
-            }
           }
 
+          [top]
           Adw.Banner banner_offline {
             title: _("You are offline. Some components and dependencies cannot be downloaded.");
             button-label: _("Try Again");
             revealed: false;
           }
 
-          SearchBar searchbar {}
-
-          Adw.ViewStack stack_main {
+          content: Adw.ViewStack stack_main {
             vexpand: true;
-          }
+          };
 
+          [bottom]
           Adw.ViewSwitcherBar view_switcher_bar {
             stack: stack_main;
             reveal: false;
@@ -90,12 +80,12 @@ template $BottlesWindow: Adw.ApplicationWindow {
 menu primary_menu {
   section {
     item {
-      label: _("Import Bottles…");
+      label: _("Import Containers…");
       action: "app.import";
     }
 
     item {
-      label: _("Journal");
+      label: _("Log");
       action: "app.journal";
     }
   }

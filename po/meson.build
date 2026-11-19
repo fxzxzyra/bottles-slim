@@ -8,6 +8,11 @@ fs = import('fs')
 language_list = fs.read('LINGUAS').strip().split('\n')
 language_list += ['zh_CN', 'zh_HK', 'zh_SG', 'zh_TW']
 
+translation_sources = files('LINGUAS')
+foreach language : language_list
+	translation_sources += files(language + '.po')
+endforeach
+
 i18n.gettext(
 	'com.usebottles.bottles',
 	install_dir: localedir,

@@ -45,11 +45,13 @@ def test_foreign_prefix_copy_uses_exact_selected_target(tmp_path, monkeypatch):
     source.joinpath("dosdevices", "c:").symlink_to("../drive_c")
     destination = tmp_path / "selected"
     destination.mkdir()
+    destination.chmod(0o750)
     manager = SimpleNamespace(get_default_runner=lambda: "system-wine", update_bottles=lambda **kw: None)
     result = ImportManager(manager).import_wineprefix(
         {"Name": "Office", "Path": str(source)}, str(destination),
     )
     assert result.ok
+    assert destination.stat().st_mode & 0o777 == 0o750
     assert destination.joinpath(".registry").read_text() == "hidden"
     assert destination.joinpath("dosdevices", "c:").readlink() == Path("../drive_c")
     assert source.joinpath(".registry").read_text() == "hidden"

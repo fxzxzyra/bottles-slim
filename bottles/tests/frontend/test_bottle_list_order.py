@@ -109,38 +109,29 @@ def test_reorder_bottle_orders_applications_and_games_together():
 
 @pytest.mark.parametrize(
     ("titles", "terms", "expected"),
-    [
-        ([], "", (False, True, False)),
-        (["Alpha"], "alpha", (True, False, False)),
-        (["Alpha"], "missing", (False, False, True)),
-    ],
+    [([], "", "empty"), (["Alpha"], "alpha", "list"),
+     (["Alpha"], "missing", "no-results")],
 )
-def test_bottle_list_empty_state(titles, terms, expected):
-    visible = {}
-
-    def widget(name):
-        return SimpleNamespace(
-            set_visible=lambda value: visible.__setitem__(name, value)
-        )
-
-    view = SimpleNamespace(
-        _BottleView__bottles={
-            title: SimpleNamespace(get_title=lambda title=title: title)
-            for title in titles
-        },
-        _BottleView__filter_bottles=BottleView._BottleView__filter_bottles,
-        pref_page=widget("list"),
-        bottle_status=widget("empty"),
-        no_bottles_found=widget("no-results"),
-    )
-
-    BottleView._BottleView__update_empty_state(view, terms)
-
-    assert (
-        visible["list"],
-        visible["empty"],
-        visible["no-results"],
-    ) == expected
+def test_bottle_list_empty_state(titles, terms, expected, monkeypatch):
+    from bottles.backend.state import SignalManager
+    monkeypatch.setattr(SignalManager, "_SIGNALS", {})
+    monkeypatch.setattr(BottleView, "update_bottles_list", lambda self: None)
+    view = BottleView(SimpleNamespace(show_add_view=lambda *_: None))
+    view._BottleView__bottles = {}
+    from gi.repository import Adw, Gtk
+    for title in titles:
+        row = Adw.ActionRow(title=title)
+        view.list_bottles.append(row)
+        view._BottleView__bottles[title] = row
+    view.entry_search.set_text(terms)
+    view._BottleView__update_empty_state(terms)
+    assert view.content_stack.get_visible_child_name() == expected
+    shown = view.content_stack.get_visible_child()
+    assert shown is {"list": view.pref_page, "empty": view.bottle_status,
+                     "no-results": view.no_bottles_found}[expected]
+    # Each state owns its scrolling; no outer scroller wraps a scrolling page.
+    assert isinstance(view.get_child(), Gtk.Box)
+    assert shown.get_parent() is view.content_stack
 
 
 def test_search_updates_filters_and_empty_state():
@@ -176,3 +167,13 @@ def test_bottle_order_is_stable_after_rename_and_move_and_distinct_for_copies():
     assert _bottle_order_id(original) == order[0] == original.Id
     assert _bottle_order_id(clone) != order[0]
     assert _ordered_bottles([clone, other, original], order) == [original, other, clone]
+
+
+@pytest.mark.parametrize("environment", ["Application", "Gaming", "Custom"])
+def test_bottle_row_displays_the_translated_environment(environment, monkeypatch, widget_texts):
+    from bottles.frontend.utils import common
+    monkeypatch.setattr(common, "_", lambda text: "Translated " + text)
+    window = SimpleNamespace(manager=object(), settings=SimpleNamespace(get_boolean=lambda _: False))
+    row = BottlesBottleRow(window, _config("/opt/Wine", environment=environment))
+    assert "Translated " + environment in widget_texts(row.wrap_box)
+    assert row.config.Environment == environment

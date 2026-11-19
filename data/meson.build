@@ -4,15 +4,18 @@ conf.set('BASE_ID', BASE_ID)
 conf.set('APP_NAME', APP_NAME)
 conf.set('DEVELOPER_ID', DEVELOPER_ID)
 
-desktop = i18n.merge_file(
+desktop = custom_target('desktop-translations',
   input: configure_file(
     input:  BASE_ID + '.desktop.in.in',
     output:  BASE_ID + '.desktop.in',
     configuration: conf
   ),
   output: APP_ID + '.desktop',
-  type: 'desktop',
-  po_dir: '../po',
+  command: [
+    find_program('msgfmt'), '--desktop', '--template=@INPUT@',
+    '-d', meson.project_source_root() / 'po', '-o', '@OUTPUT@',
+  ],
+  depend_files: translation_sources,
   install: true,
   install_dir: join_paths(get_option('datadir'), 'applications')
 )
@@ -24,14 +27,10 @@ if desktop_utils.found()
   )
 endif
 
-appstream_file = i18n.merge_file(
-  input: configure_file(
-    input: BASE_ID + '.' + 'metainfo.xml.in.in',
-    output: BASE_ID + '.' + 'metainfo.xml.in',
-    configuration: conf
-  ),
-  output: APP_ID + '.' + 'metainfo.xml',
-  po_dir: '../po',
+appstream_file = configure_file(
+  input: BASE_ID + '.metainfo.xml.in',
+  output: APP_ID + '.metainfo.xml',
+  configuration: conf,
   install: true,
   install_dir: get_option('datadir') / 'metainfo'
 )
@@ -45,7 +44,7 @@ data_resources = gnome.compile_resources('data',
   gresource_bundle: true,
   install: true,
   install_dir: pkgdatadir,
-  dependencies: [appstream_file]
+  dependencies: [appstream_file],
 )
 
 install_data(

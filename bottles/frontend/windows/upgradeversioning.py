@@ -16,6 +16,7 @@
 #
 
 import time
+from gettext import gettext as _
 
 from gi.repository import Adw, GLib, Gtk
 from bottles.backend.utils.threading import RunAsync
@@ -62,7 +63,7 @@ class UpgradeVersioningDialog(Adw.Window):
         self.stack_switcher.set_visible_child_name("page_upgrading")
         self.btn_upgrade.set_visible(False)
         self.btn_cancel.set_visible(False)
-        self.btn_cancel.set_label("Close")
+        self.btn_cancel.set_label(_("Close"))
 
         self.pulse_id = GLib.timeout_add(500, self.pulse)
         RunAsync(

@@ -1,4 +1,4 @@
-"""Explicit, private bottle directories and the current user's path index."""
+"""Explicit bottle directories and the current user's path index."""
 
 import fcntl
 import os
@@ -18,16 +18,12 @@ def bottle_directory(path: str, *, empty: bool = False) -> str:
     info = os.stat(path)
     if not stat.S_ISDIR(info.st_mode):
         raise ValueError("The bottle path must be a directory.")
-    if info.st_uid != os.getuid():
-        raise PermissionError("The bottle directory must belong to the current user.")
     if not os.access(path, os.R_OK | os.W_OK | os.X_OK):
         raise PermissionError("The bottle directory must be readable and writable.")
     if empty:
         with os.scandir(path) as entries:
             if next(entries, None) is not None:
                 raise ValueError("Select an empty directory for the new bottle.")
-    elif stat.S_IMODE(info.st_mode) & 0o077:
-        raise PermissionError("The bottle directory must be private (mode 0700).")
     return path
 
 

@@ -604,7 +604,7 @@ class ProgramEntry(Adw.ActionRow):
             )
 
         dialog = RenameDialog(self.window, on_save=func, name=self.program["name"])
-        dialog.present()
+        dialog.present(self.window)
 
     def browse_program_folder(self, _widget):
         ManagerUtils.open_filemanager(

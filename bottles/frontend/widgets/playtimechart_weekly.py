@@ -27,6 +27,7 @@ Features:
 - Automatic scaling based on data
 """
 
+import calendar
 import math
 from gettext import gettext as _
 from typing import List, Optional, Dict, Any
@@ -211,7 +212,7 @@ class PlaytimeChartWeekly(Gtk.Box):
         if not self._chart_data or "bar_positions" not in self._chart_data:
             return
 
-        day_abbr = [_("S"), _("M"), _("T"), _("W"), _("T"), _("F"), _("S")]
+        day_abbr = [calendar.day_abbr[6], *calendar.day_abbr[:6]]
         bar_positions = self._chart_data["bar_positions"]
 
         # Get foreground color from theme

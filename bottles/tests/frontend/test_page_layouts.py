@@ -93,11 +93,13 @@ def import_page(monkeypatch):
 
 def test_prefix_refresh_replaces_results_with_empty_page(import_page, iterate_until):
     view, callbacks, messages = import_page
+    assert not view.stack_prefixes.get_visible()
     assert view.stack_prefixes.get_visible_child_name() == "empty"
-    assert view.status_page.get_parent() is view.stack_prefixes
+    assert view.status_title.is_ancestor(view.stack_prefixes)
     view._ImporterView__search_prefixes(view.btn_find_prefixes)
     assert not view.btn_find_prefixes.get_sensitive()
     assert not view.btn_select_prefixes.get_sensitive()
+    assert view.stack_prefixes.get_visible()
     assert view.stack_prefixes.get_visible_child_name() == "searching"
     callbacks.pop()(Result(True, {"wineprefixes": [
         {"Name": "Office", "Manager": "Wine", "Path": "/opt/user/Office", "Lock": False},
@@ -158,3 +160,79 @@ def test_prefix_names_are_rendered_as_literal_text(import_page, widget_texts):
     })
     assert not row.get_use_markup()
     assert name in widget_texts(row)
+
+
+def _descendants(widget):
+    child = widget.get_first_child()
+    while child:
+        yield child
+        yield from _descendants(child)
+        child = child.get_next_sibling()
+
+
+def test_importer_has_one_scroll_area_and_compact_search_states(import_page):
+    view, _callbacks, _messages = import_page
+    # PreferencesPage owns the only scroller; embedded StatusPage creates a
+    # second viewport and forces the entire search group to page height.
+    assert sum(isinstance(w, Gtk.ScrolledWindow) for w in _descendants(view)) == 1
+    assert not any(isinstance(w, Adw.StatusPage) for w in _descendants(view))
+    assert not view.stack_prefixes.get_vhomogeneous()
+    assert not view.stack_prefixes.get_visible()
+    view.stack_prefixes.set_visible(True)
+    view.stack_prefixes.set_visible_child_name("empty")
+    _, initial, _, _ = view.stack_prefixes.measure(Gtk.Orientation.VERTICAL, 650)
+    assert initial < 180
+    view.stack_prefixes.set_visible_child_name("searching")
+    _, searching, _, _ = view.stack_prefixes.measure(Gtk.Orientation.VERTICAL, 650)
+    assert searching < 120
+
+
+@pytest.mark.parametrize("source, label, visible", [
+    ("Manual", "Manual", False), ("Legacy Wine", "Wine", True), ("Lutris", "Lutris", True),
+])
+def test_import_results_show_the_source_path_without_internal_source_labels(import_page, source, label, visible):
+    view, _callbacks, _messages = import_page
+    row = importer.ImporterEntry(view, {
+        "Name": "Office", "Manager": source, "Path": "/opt/user/Office", "Lock": False,
+    })
+    assert row.get_subtitle() == "/opt/user/Office"
+    assert row.label_manager.get_text() == label
+    assert row.label_manager.get_visible() is visible
+
+
+@pytest.mark.parametrize("full, name", [(True, "tar.gz"), (False, "YAML")])
+def test_backup_choices_use_the_same_file_dialog_flow(import_page, monkeypatch, tmp_path, full, name):
+    from gi.repository import Gio
+    view, _callbacks, _messages = import_page
+    opened, restored = [], []
+    selected = tmp_path / ("backup.tar.gz" if full else "backup.yml")
+    monkeypatch.setattr(Gtk.FileDialog, "open", lambda dialog, parent, cancellable, callback: opened.append((dialog, callback)))
+    monkeypatch.setattr(Gtk.FileDialog, "open_finish", lambda *_args: Gio.File.new_for_path(str(selected)))
+    monkeypatch.setattr(view, "_ImporterView__restore_backup", lambda *args: restored.append(args))
+    if full:
+        view._ImporterView__import_full_bck()
+    else:
+        view._ImporterView__import_config_bck()
+    dialog, callback = opened.pop()
+    assert isinstance(dialog, Gtk.FileDialog)
+    assert dialog.get_filters().get_n_items() == 2
+    assert dialog.get_filters().get_item(0).get_name() == name
+    assert dialog.get_accept_label() == importer._("Import")
+    callback(dialog, object())
+    assert restored == [("full" if full else "config", str(selected))]
+
+
+def test_details_status_badges_fit_long_names_without_becoming_navigation(details_pages):
+    from gi.repository import Pango
+
+    view = details_pages[0]
+    view.label_runner.set_text("Locally built Wine with a very long runner name " * 4)
+    view.label_state.set_text("Long snapshot branch " * 6)
+    assert isinstance(view.versioning_badge, Gtk.Box)
+    assert view.label_runner.get_ellipsize() == Pango.EllipsizeMode.MIDDLE
+    assert view.label_runner.get_tooltip_text() == view.label_runner.get_text()
+    assert view.label_state.get_tooltip_text() == view.label_state.get_text()
+    badges = view.label_runner.get_parent().get_parent()
+    assert isinstance(badges, Adw.WrapBox)
+    minimum_width, *_rest = badges.measure(Gtk.Orientation.HORIZONTAL, -1)
+    assert minimum_width <= 360

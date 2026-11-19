@@ -34,3 +34,8 @@ def format_runner_name(runner: str) -> str:
 
 def open_doc_url(widget, page):
     webbrowser.open_new_tab(f"https://docs.usebottles.com/{page}")
+
+
+def format_environment_name(environment: str) -> str:
+    return {"Application": _("Application"), "Gaming": _("Gaming"),
+            "Custom": _("Custom")}.get(environment, environment)

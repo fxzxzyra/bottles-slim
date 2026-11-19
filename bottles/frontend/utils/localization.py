@@ -1,3 +1,5 @@
+import gettext
+import locale
 import os
 
 
@@ -82,3 +84,15 @@ def get_ui_language_environment(language):
         environment["LANGUAGE"] = language
 
     return environment
+
+
+def configure_translations(localedir, language):
+    """Bind Python and GTK translations before importing any UI modules."""
+    apply_ui_language(language)
+    locale.setlocale(locale.LC_ALL, "")
+    domain = "com.usebottles.bottles"
+    locale.bindtextdomain(domain, localedir)
+    locale.textdomain(domain)
+    gettext.bindtextdomain(domain, localedir)
+    gettext.textdomain(domain)
+    gettext.install(domain, localedir)

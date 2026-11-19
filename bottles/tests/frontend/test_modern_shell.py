@@ -55,3 +55,23 @@ def test_header_adapts_and_restores_at_breakpoint(shell, iterate_until):
     shell.set_default_size(880, 640)
     iterate_until(lambda: shell.header_title.get_visible_child_name() == "switcher")
     assert not shell.view_switcher_bar.get_reveal()
+
+
+def test_creation_entry_follows_page_and_locking_preserves_navigation(shell):
+    shell.stack_main.add_named(Gtk.Box(), "page_list")
+    shell.stack_main.add_named(Gtk.Box(), "page_library")
+    shell.stack_main.set_visible_child_name("page_list")
+    assert shell.btn_add.get_visible()
+    assert shell.btn_search.get_visible()
+    shell.lock_ui(True)
+    assert shell.header_title.get_visible()
+    assert not shell.view_switcher.get_sensitive()
+    assert not shell.btn_add.get_sensitive()
+    shell.lock_ui(False)
+    assert shell.btn_add.get_sensitive()
+    shell.stack_main.set_visible_child_name("page_library")
+    assert not shell.btn_add.get_visible()
+    assert not shell.btn_search.get_visible()
+    shell.lock_ui(True)
+    shell.lock_ui(False)
+    assert not shell.btn_add.get_visible()

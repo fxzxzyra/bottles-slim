@@ -20,7 +20,7 @@ template $DetailsRegistryRules: Adw.Bin {
         child: Adw.StatusPage {
           icon-name: "document-open-symbolic";
           title: _("No rules yet");
-          description: _("Create a registry rule to reuse your tweaks across bottles.");
+          description: _("Create a registry rule to reuse your tweaks across containers.");
           vexpand: true;
           hexpand: true;
         };
@@ -31,7 +31,7 @@ template $DetailsRegistryRules: Adw.Bin {
 
         child: Adw.PreferencesPage {
           Adw.PreferencesGroup {
-            description: _("Registry rules are stored locally and can be applied to bottles on demand.");
+            description: _("Registry rules are stored locally and can be applied to containers on demand.");
 
             ListBox list_rules {
               selection-mode: none;

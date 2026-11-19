@@ -66,9 +66,7 @@ def show_external_folder_access_dialog(parent, path: str) -> None:
         parent,
         _("Folder Access Required"),
         _(
-            "Bottles needs direct Flatpak access to this folder for reliable "
-            "bottle storage. Grant access, restart Bottles, then select the "
-            "folder again."
+            "Bottles needs direct Flatpak access to this folder for reliable container storage. Grant access, restart Bottles, then select the folder again."
         ),
     )
 

@@ -73,8 +73,8 @@ class LaunchOptionsDialog(Adw.Window):
     __default_pre_script_msg = _("Choose a script which should be executed before run.")
     __default_post_script_msg = _("Choose a script which should be executed after run.")
     __default_cwd_msg = _("Choose from where start the program.")
-    __msg_disabled = _("{0} is disabled globally for this bottle.")
-    __msg_override = _("This setting overrides the bottle's global setting.")
+    __msg_disabled = _("{0} is disabled globally for this container.")
+    __msg_override = _("This setting overrides the container's global setting.")
 
     def __set_disabled_switches(self):
         vulkan_ok = VulkanUtils.check_support()
@@ -359,7 +359,7 @@ class LaunchOptionsDialog(Adw.Window):
                     logging.warning("Error selecting pre-run script: %s" % error)
 
         dialog = Gtk.FileDialog.new()
-        dialog.set_title("Select Pre-run Script")
+        dialog.set_title(_("Select Pre-run Script"))
         dialog.set_modal(True)
         dialog.open(parent=self.window, callback=set_path)
 
@@ -382,15 +382,15 @@ class LaunchOptionsDialog(Adw.Window):
                 if error.code == 2:
                     # error 2 seems to be 'dismiss' or 'cancel'
                     if self.program.get("post_script") in (None, ""):
-                        self.action_pre_script.set_subtitle(
-                            self.__default_pre_script_msg
+                        self.action_post_script.set_subtitle(
+                            self.__default_post_script_msg
                         )
                 else:
                     # something else happened...
                     logging.warning("Error selecting post-run script: %s" % error)
 
         dialog = Gtk.FileDialog.new()
-        dialog.set_title("Select Post-run Script")
+        dialog.set_title(_("Select Post-run Script"))
         dialog.set_modal(True)
         dialog.open(parent=self.window, callback=set_path)
 

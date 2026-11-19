@@ -19,7 +19,7 @@ from gi.repository import Adw, Gtk
 
 
 @Gtk.Template(resource_path="/com/usebottles/bottles/dialog-rename.ui")
-class RenameDialog(Adw.Window):
+class RenameDialog(Adw.Dialog):
     __gtype_name__ = "RenameDialog"
 
     # region Widgets
@@ -31,8 +31,6 @@ class RenameDialog(Adw.Window):
 
     def __init__(self, window, name, on_save, **kwargs):
         super().__init__(**kwargs)
-
-        self.set_transient_for(window)
 
         # common variables and references
         self.window = window
@@ -55,10 +53,10 @@ class RenameDialog(Adw.Window):
         if not text or text == self.original_name:
             return
         self.on_save(new_name=text)
-        self.destroy()
+        self.close()
 
     def __close_window(self, *_args):
-        self.destroy()
+        self.close()
 
     def on_change(self, *_args):
         text = self.entry_name.get_text().strip()

@@ -61,9 +61,7 @@ class BottlesWindow(Adw.ApplicationWindow):
     stack_main = Gtk.Template.Child()
     btn_add = Gtk.Template.Child()
     btn_search = Gtk.Template.Child()
-    btn_noconnection = Gtk.Template.Child()
     banner_offline = Gtk.Template.Child()
-    box_actions = Gtk.Template.Child()
     headerbar = Gtk.Template.Child()
     view_switcher = Gtk.Template.Child()
     header_title = Gtk.Template.Child()
@@ -125,7 +123,6 @@ class BottlesWindow(Adw.ApplicationWindow):
 
         # Signal connections
         self.btn_add.connect("clicked", self.show_add_view)
-        self.btn_noconnection.connect("clicked", self.check_for_connection)
         self.banner_offline.connect("button-clicked", self.check_for_connection)
         self.stack_main.connect("notify::visible-child", self.__on_page_changed)
 
@@ -299,13 +296,13 @@ class BottlesWindow(Adw.ApplicationWindow):
             self.page_library = LibraryView(self)
 
             self.details_page.set_child(self.page_details)
-            self.importer_page = Adw.NavigationPage.new(self.page_importer, _("Import Bottles"))
+            self.importer_page = Adw.NavigationPage.new(self.page_importer, _("Import Containers"))
             self.importer_page.set_tag("importer")
             self.main_navigation.add(self.details_page)
             self.main_navigation.add(self.importer_page)
 
             self.stack_main.add_titled(
-                child=self.page_list, name="page_list", title=_("Bottles")
+                child=self.page_list, name="page_list", title=_("Wine Containers")
             ).set_icon_name(f"{APP_ID}-symbolic")
             self.stack_main.add_titled(
                 child=self.page_library, name="page_library", title=_("Library")
@@ -396,7 +393,7 @@ class BottlesWindow(Adw.ApplicationWindow):
         GLib.idle_add(self.__continue_startup_dialogs)
 
     def show_add_view(self, widget=False):
-        new_bottle_dialog = BottlesNewBottleDialog()
+        new_bottle_dialog = BottlesNewBottleDialog(self)
         new_bottle_dialog.present(self)
 
     def show_list_view(self, widget=False):
@@ -415,9 +412,6 @@ class BottlesWindow(Adw.ApplicationWindow):
             preferences_dialog.set_visible_page_name(page)
         preferences_dialog.present(self)
         return preferences_dialog
-
-    def show_runners_preferences_view(self, widget=False):
-        return self.show_prefs_view(widget, page="runners")
 
     def check_crash_log(self):
         log_path = Paths.crash_log
@@ -467,14 +461,9 @@ class BottlesWindow(Adw.ApplicationWindow):
 
     def lock_ui(self, status: bool = True):
         self.view_switcher_bar.set_sensitive(not status)
-        widgets = [
-            self.btn_add,
-            self.header_title,
-        ]
-        if self.btn_noconnection.get_visible():
-            widgets.append(self.btn_noconnection)
-        for w in widgets:
-            w.set_visible(not status)
+        self.view_switcher.set_sensitive(not status)
+        self.btn_add.set_sensitive(not status)
+        self.btn_search.set_sensitive(not status)
 
     def show_toast(
         self,
@@ -505,6 +494,7 @@ class BottlesWindow(Adw.ApplicationWindow):
     def __on_page_changed(self, stack, *args):
         is_bottles_list = stack.get_visible_child_name() == "page_list"
         self.btn_search.set_visible(is_bottles_list)
+        self.btn_add.set_visible(is_bottles_list)
 
     @staticmethod
     def proper_close():

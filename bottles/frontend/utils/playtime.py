@@ -491,7 +491,7 @@ class PlaytimeService:
             or "Never Played" if no data.
         """
         if record is None or record.sessions_count == 0:
-            return _("Never Played")
+            return _("Never Used")
 
         last_played_str = self.format_last_played(record.last_played)
         playtime_str = self.format_playtime(record.total_seconds)
@@ -501,7 +501,7 @@ class PlaytimeService:
         playtime_escaped = GLib.markup_escape_text(playtime_str)
 
         # Translators: %s placeholders are for date and playtime duration
-        return _("Last Played: %s – Playtime: %s") % (
+        return _("Last Used: %s – Usage Time: %s") % (
             last_played_escaped,
             playtime_escaped,
         )

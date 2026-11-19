@@ -60,11 +60,9 @@ def _copy_into_bottle(parent, config, exec_path, on_launch):
 
     dialog = Adw.MessageDialog.new(
         parent,
-        _("Copying into the bottle"),
+        _("Copying into the container"),
         _(
-            "Moving “{0}” into a temporary folder inside the bottle so "
-            "the dedicated sandbox can reach it. Files stored next to it are not "
-            "included, so the program may not work fully."
+            "Moving “{0}” into a temporary folder inside the container so the dedicated sandbox can reach it. Files stored next to it are not included, so the program may not work fully."
         ).format(name),
     )
 
@@ -115,7 +113,7 @@ def _copy_into_bottle(parent, config, exec_path, on_launch):
             except OSError:
                 pass
             if error and not state["cancel"] and hasattr(parent, "show_toast"):
-                parent.show_toast(_("Could not copy the file into the bottle."))
+                parent.show_toast(_("Could not copy the file into the container."))
             return
         on_launch(None, result)
 
@@ -149,8 +147,7 @@ def guard_sandbox_launch(parent, config, exec_path, on_launch):
         parent,
         _("Can't reach this program in the sandbox"),
         _(
-            "“{0}” is stored outside the bottle, where the dedicated "
-            "sandbox can't reach it. Choose how to launch it this time:"
+            "“{0}” is stored outside the container, where the dedicated sandbox can't reach it. Choose how to launch it this time:"
         ).format(name),
     )
 
@@ -162,10 +159,9 @@ def guard_sandbox_launch(parent, config, exec_path, on_launch):
     )
     opt_copy = _add_option(
         box,
-        _("Copy into the bottle and keep the sandbox"),
+        _("Copy into the container and keep the sandbox"),
         _(
-            "Copies the file into a temporary folder inside the bottle. Files "
-            "stored next to it are not included, so it may not work fully."
+            "Copies the file into a temporary folder inside the container. Files stored next to it are not included, so it may not work fully."
         ),
         group=opt_off,
     )

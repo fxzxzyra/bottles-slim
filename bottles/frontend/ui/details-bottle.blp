@@ -21,16 +21,16 @@ Popover pop_context {
     Separator {}
 
     $GtkModelButton btn_duplicate {
-      text: _("Duplicate Bottle…");
+      text: _("Duplicate Container…");
     }
 
     $GtkModelButton btn_backup_full {
-      tooltip-text: _("This is the complete archive of your bottle, including personal files.");
+      tooltip-text: _("This is the complete archive of your container, including personal files.");
       text: _("Full Backup…");
     }
 
     $GtkModelButton btn_backup_config {
-      tooltip-text: _("This is just the bottle configuration, it\'s perfect if you want to create a new one but without personal files.");
+      tooltip-text: _("This is just the container configuration, it's perfect if you want to create a new one but without personal files.");
       text: _("Export Configuration…");
     }
 
@@ -47,7 +47,7 @@ Popover pop_context {
     Separator {}
 
     $GtkModelButton btn_delete {
-      text: _("Delete Bottle…");
+      text: _("Delete Container…");
     }
   }
 }
@@ -148,7 +148,7 @@ Popover popover_exec_settings {
 
     CheckButton exec_winebridge {
       Label {
-        label: _("Run using Winebridge");
+        label: _("Use WineBridge");
         margin-start: 6;
       }
     }
@@ -172,7 +172,7 @@ template $DetailsBottle: Adw.Bin {
               justify: center;
               wrap: true;
               max-width-chars: 30;
-              label: _("My bottle");
+              label: _("My container");
               wrap-mode: word_char;
               use-markup: false;
 
@@ -181,9 +181,10 @@ template $DetailsBottle: Adw.Bin {
               ]
             }
 
-            Box {
-              spacing: 6;
-              halign: center;
+            Adw.WrapBox {
+              child-spacing: 6;
+              line-spacing: 6;
+              align: 0.5;
 
               Box {
                 spacing: 6;
@@ -209,7 +210,7 @@ template $DetailsBottle: Adw.Bin {
                 ]
 
                 Label label_environment {
-                  label: _("Environment");
+                  label: _("Preset");
 
                   styles [
                     "heading",
@@ -225,6 +226,9 @@ template $DetailsBottle: Adw.Bin {
                 ]
 
                 Label label_runner {
+                  max-width-chars: 24;
+                  ellipsize: middle;
+                  tooltip-text: bind label_runner.label;
                   label: _("Runner");
 
                   styles [
@@ -233,19 +237,12 @@ template $DetailsBottle: Adw.Bin {
                 }
               }
 
-              Label dot_versioning {
-                label: "·";
-              }
-
-              Button btn_versioning_badge {
-                tooltip-text: _("View snapshots");
+              Box versioning_badge {
                 halign: center;
                 valign: center;
 
                 styles [
                   "tag",
-                  "tag-versioning",
-                  "flat",
                 ]
 
                 Box {
@@ -256,6 +253,9 @@ template $DetailsBottle: Adw.Bin {
                   }
 
                   Label label_state {
+                    max-width-chars: 24;
+                    ellipsize: middle;
+                    tooltip-text: bind label_state.label;
                     label: "main";
                   }
                 }
@@ -269,85 +269,50 @@ template $DetailsBottle: Adw.Bin {
         title: _("Quick Actions");
 
         Adw.ActionRow {
-          activatable: false;
-          focusable: false;
-          title: _("Launch executable");
-          subtitle: _("Run a program now or adjust its launch options.");
+          title: _("Run Executable…");
+          activatable-widget: btn_execute;
 
           [suffix]
           MenuButton btn_exec_settings {
             valign: center;
             icon-name: "applications-system-symbolic";
+            tooltip-text: _("Launch Options");
             popover: popover_exec_settings;
-
-            styles [
-              "flat",
-            ]
+            styles [ "flat", ]
           }
 
           [suffix]
           Button btn_execute {
             valign: center;
-
-            Box {
-              spacing: 6;
-
-              Image {
-                icon-name: "media-playback-start-symbolic";
-              }
-
-              Label {
-                label: _("Run Executable…");
-              }
-            }
+            icon-name: "media-playback-start-symbolic";
+            tooltip-text: _("Run Executable…");
+            styles [ "flat", ]
           }
         }
 
         Adw.ActionRow {
-          activatable: false;
-          focusable: false;
           title: _("Analyze an Executable");
-          subtitle: _("Eagle will extract and analyze as much details as possible of an executable to provide you with a compatibility report.");
+          activatable-widget: btn_eagle;
 
           [suffix]
           Button btn_eagle {
             valign: center;
-
-            Box {
-              spacing: 6;
-
-              Image {
-                icon-name: "com.usebottles.eagle-symbolic";
-              }
-
-              Label {
-                label: _("Analyze…");
-              }
-            }
+            icon-name: "com.usebottles.eagle-symbolic";
+            tooltip-text: _("Analyze an Executable");
+            styles [ "flat", ]
           }
         }
 
         Adw.ActionRow {
-          activatable: false;
-          focusable: false;
-          title: _("Browse Files");
-          subtitle: _("Browse the files of this bottle.");
+          title: _("Open Folder");
+          activatable-widget: btn_browse;
 
           [suffix]
           Button btn_browse {
             valign: center;
-
-            Box {
-              spacing: 6;
-
-              Image {
-                icon-name: "document-open-symbolic";
-              }
-
-              Label {
-                label: _("Open Folder");
-              }
-            }
+            icon-name: "document-open-symbolic";
+            tooltip-text: _("Open Folder");
+            styles [ "flat", ]
           }
         }
       }
@@ -439,7 +404,6 @@ template $DetailsBottle: Adw.Bin {
         Adw.ActionRow row_preferences {
           activatable: true;
           title: _("Settings");
-          subtitle: _("Configure bottle settings.");
 
           Image {
             icon-name: "go-next-symbolic";
@@ -469,10 +433,10 @@ template $DetailsBottle: Adw.Bin {
         Adw.ActionRow row_snapshots {
           activatable: true;
           title: _("Snapshots");
-          subtitle: _("Create and manage bottle states.");
 
           [suffix]
           Button btn_snapshots_settings {
+            tooltip-text: _("Snapshot Settings");
             valign: center;
             icon-name: "emblem-system-symbolic";
             styles [ "flat" ]
@@ -486,7 +450,6 @@ template $DetailsBottle: Adw.Bin {
         Adw.ActionRow row_taskmanager {
           activatable: true;
           title: _("Task Manager");
-          subtitle: _("Manage running programs.");
 
           Image {
             icon-name: "go-next-symbolic";
@@ -500,7 +463,7 @@ template $DetailsBottle: Adw.Bin {
         Adw.ActionRow row_cmd {
           activatable: true;
           title: _("Command Line");
-          subtitle: _("Run commands inside the Bottle.");
+          subtitle: _("Run commands inside the Container.");
 
           Image {
             icon-name: "external-link-symbolic";

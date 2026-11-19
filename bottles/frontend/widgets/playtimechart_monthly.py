@@ -28,6 +28,7 @@ Features:
 - Automatic scaling based on data
 """
 
+import calendar
 import math
 from gettext import gettext as _
 from typing import List, Optional, Dict, Any
@@ -214,21 +215,7 @@ class PlaytimeChartMonthly(Gtk.Box):
         if not self._chart_data or "bar_positions" not in self._chart_data:
             return
 
-        # Month abbreviations (localized)
-        month_abbr = [
-            _("J"),  # January
-            _("F"),  # February
-            _("M"),  # March
-            _("A"),  # April
-            _("M"),  # May
-            _("J"),  # June
-            _("J"),  # July
-            _("A"),  # August
-            _("S"),  # September
-            _("O"),  # October
-            _("N"),  # November
-            _("D"),  # December
-        ]
+        month_abbr = calendar.month_abbr[1:]
         bar_positions = self._chart_data["bar_positions"]
 
         # Get foreground color from theme

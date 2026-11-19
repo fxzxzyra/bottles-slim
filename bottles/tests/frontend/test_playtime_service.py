@@ -41,9 +41,9 @@ def test_format_last_played_at_calendar_boundaries(played, expected):
 
 
 @pytest.mark.parametrize("seconds, count, expected", [
-    (7325, 3, "Last Played: Today – Playtime: 2h 02m"),
-    (30, 1, "Last Played: Today – Playtime: &lt;1m"),
-    (0, 0, "Never Played"),
+    (7325, 3, "Last Used: Today – Usage Time: 2h 02m"),
+    (30, 1, "Last Used: Today – Usage Time: &lt;1m"),
+    (0, 0, "Never Used"),
 ])
 def test_subtitle_includes_date_and_duration_and_escapes_markup(seconds, count, expected):
     service = PlaytimeService(SimpleNamespace(settings=SimpleNamespace(get_boolean=lambda _: False)))
@@ -53,7 +53,7 @@ def test_subtitle_includes_date_and_duration_and_escapes_markup(seconds, count, 
     )
     with freeze_time("2025-02-10 00:01:00"):
         assert service.format_subtitle(record) == expected
-    assert service.format_subtitle(None) == "Never Played"
+    assert service.format_subtitle(None) == "Never Used"
 
 
 def test_translated_date_is_escaped_before_subtitle_interpolation(monkeypatch):
@@ -65,7 +65,7 @@ def test_translated_date_is_escaped_before_subtitle_interpolation(monkeypatch):
     )
     with freeze_time("2025-02-10 00:01:00"):
         assert service.format_subtitle(record) == (
-            "Last Played: &lt;Today &amp; now&gt; – Playtime: &lt;1m"
+            "Last Used: &lt;Today &amp; now&gt; – Usage Time: &lt;1m"
         )
 
 

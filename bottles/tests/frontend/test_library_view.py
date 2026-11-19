@@ -40,14 +40,12 @@ def test_delete_entry_refreshes_library(monkeypatch):
     assert updates == [True]
 
 
-def test_empty_library_opens_existing_bottles(monkeypatch):
-    calls = []
+def test_empty_library_has_no_duplicate_navigation_action(monkeypatch):
     monkeypatch.setattr(library_module, "LibraryManager", lambda: SimpleNamespace(get_library=lambda: {}))
-    view = LibraryView(SimpleNamespace(show_list_view=lambda: calls.append("bottles")))
+    view = LibraryView(SimpleNamespace())
     assert view.library_stack.get_visible_child_name() == "empty"
     assert view.main_flow.get_first_child() is None
-    view.btn_browse_bottles.emit("clicked")
-    assert calls == ["bottles"]
+    assert view.library_stack.get_visible_child().get_child() is None
 
 
 def test_library_returns_to_empty_state_after_last_program_is_removed(monkeypatch):

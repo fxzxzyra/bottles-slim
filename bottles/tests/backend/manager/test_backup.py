@@ -134,6 +134,7 @@ def test_duplicate_keeps_bottle_data_in_exact_destination(tmp_path):
     assert config.dump(str(source / "bottle.yml")).ok
     target = tmp_path / "Chosen Directory"
     target.mkdir()
+    target.chmod(0o750)
     result = BackupManager.duplicate_bottle(config, "Copy", str(target))
     assert result.ok
     assert (target / "drive_c/.hidden").read_text() == "payload"
@@ -143,7 +144,7 @@ def test_duplicate_keeps_bottle_data_in_exact_destination(tmp_path):
     assert loaded.Id != config.Id
     assert loaded.Path == str(target)
     assert BottleIndex().entries() == {str(target): "Copy"}
-    assert target.stat().st_mode & 0o777 == 0o700
+    assert target.stat().st_mode & 0o777 == 0o750
     assert not (target / "Copy").exists()
 
 
@@ -829,3 +830,24 @@ def test_duplicate_library_entries_are_independent_and_survive_separate_edits(tm
     assert manager.get_library() == {}
     assert yaml.load((source / "library.yml").read_text()) == {}
     assert yaml.load((target / "library.yml").read_text()) == {}
+
+
+def test_restore_preserves_the_chosen_directory_permissions(tmp_path, monkeypatch):
+    from bottles.backend.managers import backup as module
+    from bottles.backend.managers.storage import BottleIndex
+    source = tmp_path / "original"
+    (source / "drive_c").mkdir(parents=True)
+    (source / "drive_c/program.exe").write_bytes(b"program")
+    config = BottleConfig(Name="Office")
+    assert config.dump(str(source / "bottle.yml")).ok
+    archive = tmp_path / "backup.tar.gz"
+    assert BackupManager._create_tarfile(str(source), str(archive))
+    destination = tmp_path / "chosen"
+    destination.mkdir()
+    destination.chmod(0o750)
+    monkeypatch.setattr(module, "Manager", lambda: SimpleNamespace(update_bottles=lambda **_: None))
+    result = BackupManager.import_backup("full", str(archive), str(destination))
+    assert result.ok, result.message
+    assert destination.stat().st_mode & 0o777 == 0o750
+    assert (destination / "drive_c/program.exe").read_bytes() == b"program"
+    assert BottleIndex().records() == [(config.Id, str(destination), "Office")]

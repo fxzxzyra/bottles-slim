@@ -2,61 +2,50 @@ using Gtk 4.0;
 using Adw 1;
 
 template $BottleView: Adw.Bin {
-  ScrolledWindow {
-    Box {
-      hexpand: true;
+  Box {
+    orientation: vertical;
+
+    SearchBar search_bar {
+      SearchEntry entry_search {
+        placeholder-text: _("Search your containers…");
+      }
+    }
+
+    Adw.Banner update_banner {
+      button-label: _("Review");
+      revealed: false;
+    }
+
+    Stack content_stack {
       vexpand: true;
-      orientation: vertical;
+      vhomogeneous: false;
 
-      SearchBar search_bar {
-        SearchEntry entry_search {
-          placeholder-text: _("Search your bottles…");
-        }
-      }
-
-      Adw.Banner update_banner {
-        button-label: _("Review");
-        revealed: false;
-      }
-
-      Adw.PreferencesPage pref_page {
-        Adw.PreferencesGroup group_bottles {
-          ListBox list_bottles {
-            selection-mode: none;
-
-            styles [
-              "boxed-list",
-            ]
+      StackPage {
+        name: "list";
+        child: Adw.PreferencesPage pref_page {
+          Adw.PreferencesGroup group_bottles {
+            ListBox list_bottles {
+              selection-mode: none;
+              styles [ "boxed-list", ]
+            }
           }
-        }
-
-
-      }
-
-      Adw.StatusPage bottle_status {
-        title: _("Bottles");
-        hexpand: true;
-        vexpand: true;
-
-        child: Button btn_create {
-          valign: center;
-          halign: center;
-          label: _("Create New Bottle…");
-
-          styles [
-            "suggested-action",
-            "pill",
-          ]
         };
       }
 
-      Adw.StatusPage no_bottles_found {
-        visible: false;
-        icon-name: "system-search-symbolic";
-        title: _("No Results Found");
-        description: _("Try a different search.");
-        hexpand: true;
-        vexpand: true;
+      StackPage {
+        name: "empty";
+        child: Adw.StatusPage bottle_status {
+          title: _("Wine Containers");
+        };
+      }
+
+      StackPage {
+        name: "no-results";
+        child: Adw.StatusPage no_bottles_found {
+          icon-name: "system-search-symbolic";
+          title: _("No Results Found");
+          description: _("Try a different search.");
+        };
       }
     }
   }

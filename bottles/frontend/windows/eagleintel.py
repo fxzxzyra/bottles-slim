@@ -44,10 +44,7 @@ class EagleIntelDialog(Adw.Window):
         status_page.set_title(_("Eagle just got smarter"))
         status_page.set_description(
             _(
-                "Eagle can now identify Windows programs using offline "
-                "compatibility data from ProtonDB and winetricks, then suggest "
-                "settings that helped other users.\n\nTo try it, open a bottle, "
-                "select Analyze with Eagle, and choose an executable."
+                "Eagle can now identify Windows programs using offline compatibility data from ProtonDB and winetricks, then suggest settings that helped other users.\n\nTo try it, open a container, select Analyze with Eagle, and choose an executable."
             )
         )
 

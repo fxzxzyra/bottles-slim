@@ -718,7 +718,6 @@ class BackupManager:
             destination = bottle_directory(destination, empty=True)
             with bottle_operation(destination):
                 bottle_directory(destination, empty=True)
-                os.chmod(destination, 0o700)
                 if not BackupManager._safe_extract_tarfile(path, destination, task=task, strip_root=True):
                     return Result(False, message="Could not extract the backup. Check the selected directory for partial files.")
                 BottleIndex().register(destination)
@@ -732,7 +731,7 @@ class BackupManager:
     @staticmethod
     def duplicate_bottle(config: BottleConfig, name: str, destination: str) -> Result:
         if not name.strip():
-            return Result(False, message=_("Bottle name cannot be empty."))
+            return Result(False, message=_("Container name cannot be empty."))
         try:
             source = bottle_directory(ManagerUtils.get_bottle_path(config))
             destination = bottle_directory(destination, empty=True)
@@ -740,7 +739,6 @@ class BackupManager:
                 raise ValueError("A bottle with this name is already registered.")
             with bottle_operation(source), bottle_operation(destination):
                 bottle_directory(destination, empty=True)
-                os.chmod(destination, 0o700)
                 copy_bottle_contents(source, destination, exclude=(
                     "process_metrics.sqlite", "process_metrics.sqlite-wal", "process_metrics.sqlite-shm",
                 ))

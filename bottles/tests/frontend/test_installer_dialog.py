@@ -76,7 +76,7 @@ def test_steps_restore_overall_progress_ignore_late_steps_and_reset(dialog, iter
     dialog.set_steps({"total": 2, "sections": ["params", "checks"]})
     dialog.next_step()
     iterate_until(lambda: dialog.progressbar.get_fraction() == 0.5)
-    assert dialog.label_activity.get_label() == "Configuring the bottle…"
+    assert dialog.label_activity.get_label() == "Configuring the container…"
 
 
 def test_empty_steps_do_not_divide_by_zero(dialog, iterate_until):

@@ -17,12 +17,11 @@
 
 from gettext import gettext as _
 
-from gi.repository import Adw, GLib, Gtk
+from gi.repository import Adw, Gio, GLib, Gtk
 
 from bottles.backend.managers.backup import BackupManager
 from bottles.backend.state import SignalManager, Signals, TaskManager
 from bottles.backend.utils.threading import RunAsync
-from bottles.frontend.utils.filters import add_all_filters, add_yaml_filters
 from bottles.frontend.utils.gtk import GtkUtils
 from bottles.frontend.utils.flatpak import resolve_bottles_directory
 from bottles.frontend.widgets.importer import ImporterEntry
@@ -41,7 +40,8 @@ class ImporterView(Adw.Bin):
     btn_back = Gtk.Template.Child()
     btn_import_existing = Gtk.Template.Child()
     group_prefixes = Gtk.Template.Child()
-    status_page = Gtk.Template.Child()
+    status_title = Gtk.Template.Child()
+    status_description = Gtk.Template.Child()
     stack_prefixes = Gtk.Template.Child()
     box_import_progress = Gtk.Template.Child()
     spinner_import = Gtk.Template.Child()
@@ -80,7 +80,7 @@ class ImporterView(Adw.Bin):
             path = resolve_bottles_directory(self.window, folder.get_path())
             if path:
                 RunAsync(self.import_manager.import_bottle, callback=self.__finish, path=path)
-        dialog = Gtk.FileDialog(title=_("Select an Existing Bottle"), modal=True)
+        dialog = Gtk.FileDialog(title=_("Select an Existing Container"), modal=True)
         dialog.select_folder(self.window, None, selected)
 
     def __restore_backup(self, scope, source):
@@ -93,7 +93,7 @@ class ImporterView(Adw.Bin):
             if destination:
                 RunAsync(BackupManager.import_backup, callback=self.__finish,
                          scope=scope, path=source, destination=destination)
-        dialog = Gtk.FileDialog(title=_("Select an Empty Bottle Directory"), modal=True)
+        dialog = Gtk.FileDialog(title=_("Select an Empty Container Directory"), modal=True)
         dialog.select_folder(self.window, None, selected)
 
     def __find_prefixes(self, widget):
@@ -110,8 +110,8 @@ class ImporterView(Adw.Bin):
             self.btn_select_prefixes.set_sensitive(True)
             if error or result is None or not result.ok:
                 message = str(error) if error else result.message if result else ""
-                self.status_page.set_title(_("Could Not Find Wine Prefixes"))
-                self.status_page.set_description(message or _("Choose another directory or try the search again."))
+                self.status_title.set_text(_("Could Not Find Wine Prefixes"))
+                self.status_description.set_text(message or _("Choose another directory or try the search again."))
                 self.stack_prefixes.set_visible_child_name("empty")
                 self.window.show_toast(message or _("Could not search for Wine prefixes"))
                 return
@@ -121,14 +121,15 @@ class ImporterView(Adw.Bin):
                 self.list_prefixes.remove(self.list_prefixes.get_first_child())
             for prefix in prefixes:
                 self.list_prefixes.append(ImporterEntry(self, prefix))
-            self.status_page.set_title(_("No Wine Prefixes Found"))
-            self.status_page.set_description(_("Choose another directory or search known locations."))
+            self.status_title.set_text(_("No Wine Prefixes Found"))
+            self.status_description.set_text(_("Choose another directory or search known locations."))
             self.stack_prefixes.set_visible_child_name("prefixes" if prefixes else "empty")
             if not prefixes and selected_paths:
                 self.window.show_toast(_("No Wine prefixes found in the selected folder"))
 
         self.btn_find_prefixes.set_sensitive(False)
         self.btn_select_prefixes.set_sensitive(False)
+        self.stack_prefixes.set_visible(True)
         self.stack_prefixes.set_visible_child_name("searching")
 
         RunAsync(
@@ -157,71 +158,40 @@ class ImporterView(Adw.Bin):
     @GtkUtils.run_in_main_loop
     def __finish(self, result, error=False):
         if not error and result is not None and result.ok:
-            self.window.show_toast(_("Bottle imported successfully"))
+            self.window.show_toast(_("Container imported successfully"))
             self.window.page_list.update_bottles_list()
         else:
             self.window.show_toast(str(error) if error else (result.message if result else "") or _("Import failed"))
 
     def __import_full_bck(self, *_args):
-        """
-        This function shows a dialog to the user, from which it can choose an
-        archive backup to import into Bottles. It supports only .tar.gz files
-        as Bottles export bottles in this format. Once selected, it will
-        be imported.
-        """
-
-        def set_path(_dialog, response):
-            if response != Gtk.ResponseType.ACCEPT:
-                return
-
-            self.__restore_backup("full", dialog.get_file().get_path())
-
-        dialog = Gtk.FileChooserNative.new(
-            title=_("Select a Backup Archive"),
-            action=Gtk.FileChooserAction.OPEN,
-            parent=self.window,
-            accept_label=_("Import"),
-        )
-
-        filter = Gtk.FileFilter()
-        filter.set_name("GNU Gzip Archive")
-        # TODO: Investigate why `filter.add_mime_type(...)` does not show filter in all distributions.
-        # Intended MIME types are:
-        #   - `application/gzip`
-        filter.add_pattern("*.gz")
-
-        dialog.add_filter(filter)
-        add_all_filters(dialog)
-        dialog.set_modal(True)
-        dialog.connect("response", set_path)
-        dialog.show()
+        self.__choose_backup("full")
 
     def __import_config_bck(self, *_args):
-        """
-        This function shows a dialog to the user, from which it can choose an
-        archive backup to import into Bottles. It supports only .yml files
-        which are the Bottles' configuration file. Once selected, it will
-        be imported.
-        """
+        self.__choose_backup("config")
 
-        def set_path(_dialog, response):
-            if response != Gtk.ResponseType.ACCEPT:
+    def __choose_backup(self, scope):
+        full = scope == "full"
+        filters = Gio.ListStore.new(Gtk.FileFilter)
+        supported = Gtk.FileFilter(name="tar.gz" if full else "YAML")
+        for pattern in (["*.tar.gz"] if full else ["*.yml", "*.yaml"]):
+            supported.add_pattern(pattern)
+        filters.append(supported)
+        all_files = Gtk.FileFilter(name=_("All Files"))
+        all_files.add_pattern("*")
+        filters.append(all_files)
+
+        def selected(dialog, result):
+            try:
+                file = dialog.open_finish(result)
+            except GLib.Error:
                 return
+            self.__restore_backup(scope, file.get_path())
 
-            self.__restore_backup("config", dialog.get_file().get_path())
-
-        dialog = Gtk.FileChooserNative.new(
-            title=_("Select a Configuration File"),
-            action=Gtk.FileChooserAction.OPEN,
-            parent=self.window,
-            accept_label=_("Import"),
+        dialog = Gtk.FileDialog(
+            title=_("Select a Backup Archive") if full else _("Select a Configuration File"),
+            accept_label=_("Import"), filters=filters, modal=True,
         )
-
-        add_yaml_filters(dialog)
-        add_all_filters(dialog)
-        dialog.set_modal(True)
-        dialog.connect("response", set_path)
-        dialog.show()
+        dialog.open(self.window, None, selected)
 
     def _on_task_added(self, data=None):
         """Signal handler for TaskAdded events. Shows progress if import task."""

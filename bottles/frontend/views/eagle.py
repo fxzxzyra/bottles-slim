@@ -676,7 +676,7 @@ class EagleView(Gtk.Box):
                     row.set_active(False)
                     row.set_sensitive(False)
                     row.set_subtitle(
-                        _("Enable {0} for this bottle first").format(
+                        _("Enable {0} for this container first").format(
                             component_names[key]
                         )
                     )

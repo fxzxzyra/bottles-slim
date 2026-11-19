@@ -37,7 +37,6 @@ class LibraryView(Adw.Bin):
 
     # region Widgets
     library_stack = Gtk.Template.Child()
-    btn_browse_bottles = Gtk.Template.Child()
     scroll_window = Gtk.Template.Child()
     main_flow = Gtk.Template.Child()
     style_provider = Gtk.CssProvider()
@@ -48,7 +47,6 @@ class LibraryView(Adw.Bin):
     def __init__(self, window, **kwargs):
         super().__init__(**kwargs)
         self.window = window
-        self.btn_browse_bottles.connect("clicked", self.show_bottle_programs)
         self.css = b""
         self.update()
 
@@ -70,9 +68,6 @@ class LibraryView(Adw.Bin):
 
         self.library_stack.set_visible_child_name("programs" if entry_count else "empty")
         self.items_per_line = max(entry_count, 1)
-
-    def show_bottle_programs(self, *_args):
-        self.window.show_list_view()
 
     def remove_entry(self, entry):
         previous_items_per_line = self.items_per_line

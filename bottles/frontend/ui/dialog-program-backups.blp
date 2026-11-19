@@ -37,7 +37,7 @@ template $ProgramBackupsDialog: Adw.Dialog {
     content: Adw.PreferencesPage {
       Adw.PreferencesGroup {
         title: _("After Closing the Program");
-        description: _("Copy only the selected save data instead of creating a snapshot of the whole bottle.");
+        description: _("Copy only the selected save data instead of creating a snapshot of the whole container.");
 
         Adw.SwitchRow switch_enabled {
           title: _("Create Automatic Backups");
@@ -104,7 +104,7 @@ template $ProgramBackupsDialog: Adw.Dialog {
 
       Adw.PreferencesGroup {
         title: _("Files and Folders");
-        description: _("Paths inside the bottle remain valid if the bottle is moved.");
+        description: _("Paths inside the container remain valid if the container is moved.");
 
         Gtk.ListBox list_paths {
           selection-mode: none;
@@ -147,7 +147,7 @@ template $ProgramBackupsDialog: Adw.Dialog {
       Adw.PreferencesGroup {
         Adw.ActionRow {
           title: _("Manual Restore");
-          subtitle: _("Open the backup folder and copy a generation's files back into the bottle.");
+          subtitle: _("Open the backup folder and copy a generation's files back into the container.");
 
           [prefix]
           Image {

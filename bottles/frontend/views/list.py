@@ -26,6 +26,7 @@ from bottles.backend.state import EventManager, Events, SignalManager, Signals
 from bottles.backend.utils.threading import RunAsync
 from bottles.backend.wine.executor import WineExecutor
 from bottles.frontend.params import APP_ID
+from bottles.frontend.utils.common import format_environment_name
 from bottles.frontend.utils.filters import add_all_filters, add_executable_filters
 from bottles.frontend.utils.sandbox_guard import guard_sandbox_launch
 
@@ -102,7 +103,7 @@ class BottlesBottleRow(Adw.ActionRow):
         if self.window.settings.get_boolean("update-date"):
             self.set_subtitle(update_date)
 
-        self.wrap_box.append(Gtk.Label.new(self.config.Environment))
+        self.wrap_box.append(Gtk.Label.new(format_environment_name(self.config.Environment)))
 
         # Set tooltip text
         self.button_run.set_tooltip_text(_("Run Executable in “{0}”").format(self.config.Name))
@@ -169,14 +170,13 @@ class BottlesBottleRow(Adw.ActionRow):
 @Gtk.Template(resource_path="/com/usebottles/bottles/list.ui")
 class BottleView(Adw.Bin):
     __gtype_name__ = "BottleView"
-    __bottles = {}
 
     # region Widgets
     list_bottles = Gtk.Template.Child()
     group_bottles = Gtk.Template.Child()
     pref_page = Gtk.Template.Child()
+    content_stack = Gtk.Template.Child()
     bottle_status = Gtk.Template.Child()
-    btn_create = Gtk.Template.Child()
     entry_search = Gtk.Template.Child()
     search_bar = Gtk.Template.Child()
     no_bottles_found = Gtk.Template.Child()
@@ -190,9 +190,9 @@ class BottleView(Adw.Bin):
         # common variables and references
         self.window = window
         self.arg_bottle = arg_bottle
+        self.__bottles = {}
 
         # connect signals
-        self.btn_create.connect("clicked", self.window.show_add_view)
         self.entry_search.connect("changed", self.__search_bottles)
         self.update_banner.connect("button-clicked", self.__show_bulk_update)
 
@@ -224,9 +224,9 @@ class BottleView(Adw.Bin):
         has_matches = any(
             self.__filter_bottles(row, terms) for row in self.__bottles.values()
         )
-        self.pref_page.set_visible(has_matches)
-        self.bottle_status.set_visible(not has_bottles)
-        self.no_bottles_found.set_visible(has_bottles and not has_matches)
+        self.content_stack.set_visible_child_name(
+            "list" if has_matches else "no-results" if has_bottles else "empty"
+        )
 
     def update_bottles_list(self, *args, refresh_updates=True) -> None:
         self.__bottles = {}
@@ -326,8 +326,8 @@ class BottleView(Adw.Bin):
 
         self.update_banner.set_title(
             ngettext(
-                "Component updates are available for {0} bottle.",
-                "Component updates are available for {0} bottles.",
+                "Component updates are available for {0} container.",
+                "Component updates are available for {0} containers.",
                 count,
             ).format(count)
         )

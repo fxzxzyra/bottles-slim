@@ -17,7 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import gettext
 import os
 import signal
 import sys
@@ -40,10 +39,9 @@ signal.signal(signal.SIGINT, signal.SIG_DFL)
 if __name__ == "__main__":
     from gi.repository import Gio
 
-    from bottles.frontend.utils.localization import apply_ui_language
+    from bottles.frontend.utils.localization import configure_translations
 
-    apply_ui_language(Gio.Settings.new(APP_ID).get_string("ui-language"))
-    gettext.install("com.usebottles.bottles", localedir)
+    configure_translations(localedir, Gio.Settings.new(APP_ID).get_string("ui-language"))
 
     data_resource = Gio.Resource.load(data_gresource_path)
     bottles_resource = Gio.Resource.load(bottles_gresource_path)

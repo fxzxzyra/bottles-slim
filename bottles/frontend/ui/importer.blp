@@ -6,7 +6,7 @@ template $ImporterView: Adw.Bin {
     [top]
     Adw.HeaderBar headerbar {
       show-back-button: false;
-      title-widget: Adw.WindowTitle window_title { title: _("Import Bottles"); };
+      title-widget: Adw.WindowTitle window_title { title: _("Import Containers"); };
       [start]
       Button btn_back {
         tooltip-text: _("Go Back");
@@ -29,10 +29,10 @@ template $ImporterView: Adw.Bin {
       }
 
       Adw.PreferencesGroup {
-        title: _("Existing Bottles");
-        description: _("Register a bottle in its current directory. Its files stay where they are.");
+        title: _("Existing Containers");
+        description: _("Register a container in its current directory. Its files stay where they are.");
         Adw.ActionRow {
-          title: _("Register an Existing Bottle");
+          title: _("Register an Existing Container");
           activatable-widget: btn_import_existing;
           [suffix]
           Button btn_import_existing {
@@ -44,9 +44,9 @@ template $ImporterView: Adw.Bin {
 
       Adw.PreferencesGroup {
         title: _("Backups");
-        description: _("Restore an archive or use a configuration to create a bottle in an empty directory.");
+        description: _("Restore an archive or use a configuration to create a container in an empty directory.");
         Adw.ActionRow {
-          title: _("Restore a Bottle Backup");
+          title: _("Restore a Container Backup");
           activatable-widget: btn_import_backup;
           [suffix]
           MenuButton btn_import_backup {
@@ -59,10 +59,11 @@ template $ImporterView: Adw.Bin {
 
       Adw.PreferencesGroup {
         title: _("Other Wine Prefixes");
-        description: _("Find Wine environments from other applications, then choose one to copy into a new bottle.");
-        [header-suffix]
+        description: _("Find Wine environments from other applications, then choose one to copy into a new container.");
         Box {
           spacing: 6;
+          halign: end;
+          margin-bottom: 12;
           Button btn_select_prefixes {
             label: _("Choose Directory…");
             tooltip-text: _("Find Wine Prefixes in a Directory");
@@ -75,19 +76,37 @@ template $ImporterView: Adw.Bin {
           }
         }
         Stack stack_prefixes {
+          visible: false;
+          vhomogeneous: false;
           StackPage {
             name: "empty";
-            child: Adw.StatusPage status_page {
-              icon-name: "folder-open-symbolic";
-              title: _("Find Wine Prefixes");
-              description: _("Choose a directory or search known locations to get started.");
+            child: Box {
+              orientation: vertical;
+              spacing: 6;
+              margin-top: 12;
+              margin-bottom: 12;
+              Label status_title {
+                label: _("No Wine Prefixes Found");
+                wrap: true;
+                xalign: 0;
+                styles [ "heading", ]
+              }
+              Label status_description {
+                label: _("Choose another directory or search known locations.");
+                wrap: true;
+                xalign: 0;
+                styles [ "dim-label", ]
+              }
             };
           }
           StackPage {
             name: "searching";
-            child: Adw.StatusPage {
-              title: _("Searching for Wine Prefixes…");
-              child: Spinner { spinning: true; halign: center; };
+            child: Box {
+              spacing: 12;
+              margin-top: 12;
+              margin-bottom: 12;
+              Spinner { spinning: true; }
+              Label { label: _("Searching for Wine Prefixes…"); wrap: true; xalign: 0; }
             };
           }
           StackPage {
@@ -116,11 +135,11 @@ Popover pop_backup {
     margin-end: 6;
     $GtkModelButton btn_import_config {
       text: _("Configuration File…");
-      tooltip-text: _("Create a bottle from saved settings without restoring personal files");
+      tooltip-text: _("Create a container from saved settings without restoring personal files");
     }
     $GtkModelButton btn_import_full {
       text: _("Full Archive…");
-      tooltip-text: _("Restore the bottle including its programs and personal files");
+      tooltip-text: _("Restore the container including its programs and personal files");
     }
   }
 }

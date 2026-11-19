@@ -155,3 +155,72 @@ def test_runner_refresh_preserves_selection_and_includes_new_registration():
     assert dialog._runner_ids[combo.get_selected()] == "custom-wine"
     assert model.get_n_items() == 4
     assert checks == [True]
+
+
+@pytest.fixture
+def creation_dialog():
+    from gi.repository import Adw
+
+    window = Adw.Window()
+    window.manager = SimpleNamespace(runners_available=[], local_bottles={})
+    window.get_application = lambda: SimpleNamespace(
+        send_notification=lambda *_args: None,
+        withdraw_notification=lambda *_args: None,
+    )
+    dialog = BottlesNewBottleDialog(window)
+    window.present()
+    dialog.present(window)
+    yield dialog, window
+    if window.get_visible_dialog() is dialog:
+        dialog.force_close()
+    window.destroy()
+
+
+def test_fresh_creation_does_not_show_a_validation_error(creation_dialog):
+    dialog, _window = creation_dialog
+    assert not dialog.btn_create.get_sensitive()
+    assert not dialog.entry_name.has_css_class("error")
+    dialog.entry_name.set_text("   ")
+    assert dialog.entry_name.has_css_class("error")
+    dialog.entry_name.set_text("Work")
+    assert not dialog.entry_name.has_css_class("error")
+    assert not dialog.btn_create.get_sensitive()  # Runner and directory still required.
+
+
+def test_creation_progress_and_failure_each_have_only_one_scroll_owner(creation_dialog):
+    from gi.repository import Gtk
+    from bottles.backend.models.result import Result
+
+    dialog, _window = creation_dialog
+
+    def scroll_ancestors(widget):
+        found = []
+        parent = widget.get_parent()
+        while parent is not None:
+            if isinstance(parent, Gtk.ScrolledWindow):
+                found.append(parent)
+            parent = parent.get_parent()
+        return found
+
+    assert scroll_ancestors(dialog.steps_list) == [dialog.scrolled_steps]
+    dialog.steps_list.append(Gtk.Label(label="Initializing Wine"))
+    BottlesNewBottleDialog.finish.__wrapped__(dialog, Result(status=False, message="Runner failed"))
+    assert dialog.stack_create.get_visible_child_name() == "page_completed"
+    assert dialog.status_page_status.get_description() == "Runner failed"
+    assert dialog.steps_list.is_ancestor(dialog.status_page_status)
+    assert len(scroll_ancestors(dialog.steps_list)) == 1
+    assert not dialog.btn_close.has_css_class("destructive-action")
+    assert dialog.get_can_close()
+
+
+def test_native_creation_dismissal_disconnects_owner_notification_handler(creation_dialog, monkeypatch, iterate_until):
+    dialog, window = creation_dialog
+    calls = []
+    monkeypatch.setattr(dialog.app, "withdraw_notification", lambda *_args: calls.append(True))
+    window.notify("is-active")
+    assert calls
+    dialog.close()
+    iterate_until(lambda: window.get_visible_dialog() is None)
+    calls.clear()
+    window.notify("is-active")
+    assert calls == []

@@ -9,21 +9,21 @@
 | GSettings | 交给原生 GSettings 后端；常见为 `~/.config/dconf/user`，不复制进 data.yml |
 | 应用日志、崩溃报告 | `~/.local/state/bottles/{journal.yml,crash.log}` |
 | 下载包、仓库清单缓存和可重新生成的模板 | `~/.cache/bottles/{temp,templates}` |
-| 瓶子路径索引、共享运行库/图形组件与 Eagle 数据库 | `~/.local/share/bottles/` |
+| 容器路径索引、共享运行库/图形组件与 Eagle 数据库 | `~/.local/share/bottles/` |
 | 桌面入口和图标 | 标准 XDG data 下的 `applications/` 与 `icons/` |
 
 尊重 `XDG_CONFIG_HOME`、`XDG_DATA_HOME`、`XDG_CACHE_HOME`、`XDG_STATE_HOME`。
-Flatpak 的 XDG 目录已经按应用隔离，直接使用各自根目录，不再追加 `bottles/`：例如宿主的 `~/.var/app/com.usebottles.bottles/data/bottles.sqlite` 与 `config/data.yml`。原生安装保留表中的 `bottles/` 应用命名空间。Wine 访问含尾随点或空格的宿主路径时，使用等价的 `/var/data` 挂载路径；用户选择的瓶子目录不被重排。
+Flatpak 的 XDG 目录已经按应用隔离，直接使用各自根目录，不再追加 `bottles/`：例如宿主的 `~/.var/app/com.usebottles.bottles/data/bottles.sqlite` 与 `config/data.yml`。原生安装保留表中的 `bottles/` 应用命名空间。Wine 访问含尾随点或空格的宿主路径时，使用等价的 `/var/data` 挂载路径；用户选择的容器目录不被重排。
 容器内部的 `bottle.yml`、Windows 目录、注册表、程序及着色器缓存属于 Wine 环境，不搬进应用配置目录。
-瓶子没有默认存放目录。创建时必须选择已有的空目录，该目录直接作为根目录，不追加名称、不创建占位目录。
-目标必须属于当前用户；创建时将空根目录设为 0700，不提权、不更改父目录或所有权。导入要求根目录已经私有且可读写，不自动修改权限。
-瓶子配置、程序库、运行统计与瓶子缓存分别存放在根目录的 `bottle.yml`、`library.yml`、`process_metrics.sqlite` 与 `cache/`；Gamescope 和注册表临时脚本位于 `cache/temp/`。
-配置使用独立标识，不保存瓶子的绝对位置或本次启动参数；改名保持标识，移动目录后可重新导入。外部程序路径仍由用户负责保持有效。
+容器没有默认存放目录。创建时必须选择已有的空目录，该目录直接作为根目录，不追加名称、不创建占位目录。
+目标必须可读、可写、可进入，不另外限制所有者或模式位。创建、导入、复制和恢复均保留用户所选目录的权限，不提权、不更改父目录或所有权，也不依据根目录模式位拒绝父目录已隔离的容器。新建的普通子目录和文件遵循当前 umask，不主动扩大访问权限。
+容器配置、程序库、运行统计与容器缓存分别存放在根目录的 `bottle.yml`、`library.yml`、`process_metrics.sqlite` 与 `cache/`；Gamescope 和注册表临时脚本位于 `cache/temp/`。
+配置使用独立标识，不保存容器的绝对位置或本次启动参数；改名保持标识，移动目录后可重新导入。外部程序路径仍由用户负责保持有效。
 应用数据根目录中的 `bottles.sqlite` 只登记当前用户选择的路径与显示名称。读取索引不创建数据库；磁盘不可用时保留登记并显示错误。
 复制会获得新标识并从空的运行统计开始；备份恢复保留原标识。
-“从列表移除”只删除登记；“删除文件”会停止瓶子并删除它的目录。瓶子之间不共享 prefix 或个人数据。
+“从列表移除”只删除登记；“删除文件”会停止容器并删除它的目录。容器之间不共享 prefix 或个人数据。
 
-现有 Bottles 瓶子通过选择目录原地导入，不复制文件、不运行 Wine、不修改配置。第三方 Wine prefix 的转换、配置重建、完整备份恢复与复制均须另选空目标目录。
+现有 Bottles 容器通过选择目录原地导入，不复制文件、不运行 Wine、不修改配置。第三方 Wine prefix 的转换、配置重建、完整备份恢复与复制均须另选空目标目录。
 
 ```sh
 bottles-cli new --bottle-name Office --environment application --path /opt/username/Wine
@@ -32,7 +32,7 @@ bottles-cli list bottles
 bottles-cli forget --bottle <UUID>
 ```
 
-Flatpak 需要获得所选宿主目录的实际访问权限；文档 portal 的临时路径不能作为持久瓶子路径。权限不足时报告错误，不退回另一个目录。
+Flatpak 需要获得所选宿主目录的实际访问权限；文档 portal 的临时路径不能作为持久容器路径。权限不足时报告错误，不退回另一个目录。
 
 系统安装遵守 Meson 的 `prefix/datadir/localedir` 与所选 Python 解释器的安装规则：
 
@@ -67,17 +67,17 @@ Vulkan 通过 `ctypes` 加载系统 `libvulkan.so.1`，调用
 该探测覆盖当前 Python 进程 ABI 的 Vulkan 1.0 实例与设备枚举。软件 Vulkan 设备同样是有效实现；它不证明 32 位驱动、WSI 呈现、特定 DXVK 所需扩展或游戏性能。
 原诊断入口返回原生探测摘要；不再输出 `vulkaninfo` 的完整硬件报告。结果按进程缓存，驱动环境改变后重启应用。
 
-用户 runner 只读取显式登记项，不扫描应用数据目录。登记保存独立标识、名称和绝对路径；修改名称或位置保持标识，已配置瓶子无需重选。失效登记保留可编辑；瓶子仍在使用时不允许取消登记。系统 runner 与当前环境 PATH Wine 继续自动发现，并优先于用户登记项。
+用户 runner 只读取显式登记项，不扫描应用数据目录。登记保存独立标识、名称和绝对路径；修改名称或位置保持标识，已配置容器无需重选。失效登记保留可编辑；容器仍在使用时不允许取消登记。系统 runner 与当前环境 PATH Wine 继续自动发现，并优先于用户登记项。
 
-程序库只汇总各已登记瓶子内的 `library.yml`，不再读取或写入应用数据根目录下的全局 `library.yml`。同一程序 ID 可存在于不同瓶子，去重只在所属瓶子内进行。
+程序库只汇总各已登记容器内的 `library.yml`，不再读取或写入应用数据根目录下的全局 `library.yml`。同一程序 ID 可存在于不同容器，去重只在所属容器内进行。
 
-HIDRAW 设备偏好通过通用 Wine 的 `HKLM\System\CurrentControlSet\Services\winebus\EnableHidraw` 多字符串值设置，不依赖 runner 名称或 Proton 环境变量。它是 Wine 的设备偏好，并非按设备隔离的权限边界；Flatpak 独立沙箱的 HIDRAW 访问需要更广的设备权限。注册表导入使用瓶子内的私有临时文件，结束后清理。
+HIDRAW 设备偏好通过通用 Wine 的 `HKLM\System\CurrentControlSet\Services\winebus\EnableHidraw` 多字符串值设置，不依赖 runner 名称或 Proton 环境变量。它是 Wine 的设备偏好，并非按设备隔离的权限边界；Flatpak 独立沙箱的 HIDRAW 访问需要更广的设备权限。注册表导入使用容器内的私有临时文件，结束后清理。
 
 
-## 瓶子身份
+## 容器身份
 
-`bottle.yml` 中的 `Id` 是瓶子的稳定 UUID。名称用于显示和名称校验，路径用于访问文件；内部实例、运行记录、缓存和列表排序均按 UUID 区分。改名、移动并重新登记后 UUID 不变；复制瓶子生成新的瓶子 UUID，保留程序与程序库条目 ID。
+`bottle.yml` 中的 `Id` 是容器的稳定 UUID。名称用于显示和名称校验，路径用于访问文件；内部实例、运行记录、缓存和列表排序均按 UUID 区分。改名、移动并重新登记后 UUID 不变；复制容器生成新的容器 UUID，保留程序与程序库条目 ID。
 
-程序库汇总以 `(瓶子 UUID, 条目 ID)` 为键，各瓶子的 `library.yml` 仍只保存自身条目 ID。封面引用和删除检查仅在所属瓶子内进行。桌面入口及 Steam 快捷方式以瓶子 UUID 与程序 ID 确定身份，名称变化不再生成另一个入口。
+程序库汇总以 `(容器 UUID, 条目 ID)` 为键，各容器的 `library.yml` 仍只保存自身条目 ID。封面引用和删除检查仅在所属容器内进行。桌面入口及 Steam 快捷方式以容器 UUID 与程序 ID 确定身份，名称变化不再生成另一个入口。
 
 CLI 的 `--bottle` 参数使用 UUID；通过 `bottles-cli list bottles` 查看名称、UUID 和位置。`import --path` 接收待登记目录，`forget --bottle` 以 UUID 取消登记，包括暂时不可用的目录。旧名称参数、路径排序键及旧快捷方式不提供兼容或迁移。

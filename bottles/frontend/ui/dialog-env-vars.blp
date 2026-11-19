@@ -17,7 +17,7 @@ template $EnvironmentVariablesDialog: Adw.Dialog {
 
     Adw.PreferencesPage {
       Adw.PreferencesGroup {
-        description: _("Environment variables are dynamic-named values that can affect the way running processes will behave in your bottle");
+        description: _("Environment variables are dynamic-named values that can affect the way running processes will behave in your container");
 
         Adw.EntryRow entry_new_var {
           title: _("New Variable (KEY=VALUE)");
@@ -29,7 +29,7 @@ template $EnvironmentVariablesDialog: Adw.Dialog {
 
       Adw.PreferencesGroup group_inherited {
         title: _("System Environment");
-        description: _("Control which variables from your system are visible to programs inside this bottle");
+        description: _("Control which variables from your system are visible to programs inside this container");
 
         Adw.SwitchRow switch_limit_inherited {
           title: _("Limit system environment");

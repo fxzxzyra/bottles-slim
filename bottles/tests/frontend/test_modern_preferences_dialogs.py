@@ -3,7 +3,7 @@
 from types import SimpleNamespace
 from unittest.mock import Mock
 
-from gi.repository import Adw, Gio
+from gi.repository import Adw, Gio, Gtk
 
 from bottles.backend.models.config import BottleConfig
 from bottles.frontend.params import APP_ID
@@ -26,6 +26,17 @@ def test_preferences_dialog_can_close_and_present_again(monkeypatch, iterate_unt
     parent.present()
     try:
         assert isinstance(dialog, Adw.PreferencesDialog)
+        for page_name in ("cache", "components"):
+            dialog.set_visible_page_name(page_name)
+            page = dialog.get_visible_page()
+            def descendants(widget):
+                child = widget.get_first_child()
+                while child:
+                    yield child
+                    yield from descendants(child)
+                    child = child.get_next_sibling()
+            assert sum(isinstance(w, Gtk.ScrolledWindow) for w in descendants(page)) == 1
+            assert not any(isinstance(w, Adw.PreferencesPage) for w in descendants(page))
         for _open in range(2):
             dialog.present(parent)
             iterate_until(lambda: parent.get_visible_dialog() is dialog)

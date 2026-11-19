@@ -93,3 +93,72 @@ def test_relaunch_does_not_restore_gtk_theme(monkeypatch):
 
     assert "GTK_THEME" not in environment
     assert os.environ["GTK_THEME"] == "broken-theme"
+
+
+def test_startup_binds_python_and_gtk_to_the_same_catalog_before_loading_ui(tmp_path):
+    import subprocess
+    import sys
+    import textwrap
+
+    # Supply a message-only locale rather than requiring a system language pack.
+    # Its ASCII encoding keeps this test about domain/catalog lookup; GTK and
+    # Python still load the real MO file and must produce the same translation.
+    charmap = tmp_path / "charmap"
+    charmap.write_text(
+        '<code_set_name> "ASCII"\n<mb_cur_min> 1\n<mb_cur_max> 1\n'
+        '<escape_char> /\nCHARMAP\n'
+        + "".join(f"<U{code:04X}> /x{code:02X}\n" for code in range(128))
+        + 'END CHARMAP\n'
+    )
+    definition = tmp_path / "messages.locale"
+    definition.write_text(
+        'LC_MESSAGES\nyesexpr "^[yY]"\nnoexpr "^[nN]"\n'
+        'yesstr "yes"\nnostr "no"\nEND LC_MESSAGES\n'
+    )
+    locale_root = tmp_path / "system-locales"
+    message_locale = locale_root / "bottles_TEST"
+    message_locale.mkdir(parents=True)
+    compiled = subprocess.run([
+        "localedef", "--no-archive", "--quiet", "-c",
+        "-f", str(charmap), "-i", str(definition), str(message_locale),
+    ], capture_output=True, text=True, timeout=30)
+    # localedef returns 1 for the deliberately omitted, unused categories.
+    assert compiled.returncode in (0, 1), compiled.stdout + compiled.stderr
+    assert (message_locale / "LC_MESSAGES/SYS_LC_MESSAGES").is_file(), compiled.stderr
+
+    po = tmp_path / "test.po"
+    po.write_text(
+        'msgid ""\nmsgstr "Content-Type: text/plain; charset=UTF-8\\nLanguage: fr\\n"\n\n'
+        'msgid "Early UI label"\nmsgstr "Texte traduit"\n'
+    )
+    locale_dir = tmp_path / "locale"
+    mo = locale_dir / "fr/LC_MESSAGES/com.usebottles.bottles.mo"
+    mo.parent.mkdir(parents=True)
+    subprocess.run(["msgfmt", "-o", str(mo), str(po)], check=True)
+    script = textwrap.dedent('''        import sys
+        from bottles.frontend.utils.localization import configure_translations
+        configure_translations(sys.argv[1], "fr")
+        from gettext import gettext as _
+        assert _("Early UI label") == "Texte traduit"
+        import gi
+        gi.require_version("Gtk", "4.0")
+        from gi.repository import Gtk
+        Gtk.init()
+        builder = Gtk.Builder.new_from_string(
+            '<interface domain="com.usebottles.bottles">'
+            '<object class="GtkLabel" id="label">'
+            '<property name="label" translatable="yes">Early UI label</property>'
+            '</object></interface>', -1)
+        actual = builder.get_object("label").get_label()
+        assert actual == "Texte traduit", repr(actual)
+    ''')
+    env = os.environ.copy()
+    for key in list(env):
+        if key.startswith("LC_"):
+            env.pop(key)
+    env.update(LANG="C", LC_MESSAGES="bottles_TEST", LOCPATH=str(locale_root),
+               PYTHONCOERCECLOCALE="0")
+    env["PYTHONPATH"] = os.environ.get("BOTTLES_TEST_PACKAGE_ROOT", str(Path(__file__).resolve().parents[3]))
+    completed = subprocess.run([sys.executable, "-c", script, str(locale_dir)],
+                               cwd=tmp_path, env=env, capture_output=True, text=True, timeout=30)
+    assert completed.returncode == 0, completed.stdout + completed.stderr

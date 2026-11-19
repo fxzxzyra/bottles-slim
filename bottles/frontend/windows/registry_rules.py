@@ -66,7 +66,7 @@ class RegistryRuleEntry(Adw.ActionRow):
         if not self.config:
             return
         RegistryRuleManager.apply_rules(self.config, rule_names=[self.rule.name])
-        self.window.show_toast(_("Applied {} to this bottle").format(self.rule.name))
+        self.window.show_toast(_("Applied {} to this container").format(self.rule.name))
 
     def __delete(self, *_args):
         RegistryRuleManager.delete_rule(self.manager, self.config, self.rule.name)

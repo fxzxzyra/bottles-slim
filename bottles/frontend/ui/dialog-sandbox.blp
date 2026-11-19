@@ -41,7 +41,7 @@ template $SandboxDialog: Adw.Window {
 
         Adw.ActionRow row_input {
           title: _("Share Input Devices");
-          subtitle: _("Programs in this bottle can read controllers and global keystrokes while enabled.");
+          subtitle: _("Programs in this container can read controllers and global keystrokes while enabled.");
           activatable-widget: switch_input;
 
           Switch switch_input {
@@ -51,7 +51,7 @@ template $SandboxDialog: Adw.Window {
 
         Adw.ActionRow row_usb {
           title: _("Share USB Devices");
-          subtitle: _("Programs in this bottle can access raw USB devices permitted by the host while enabled.");
+          subtitle: _("Programs in this container can access raw USB devices permitted by the host while enabled.");
           activatable-widget: switch_usb;
 
           Switch switch_usb {
@@ -62,7 +62,7 @@ template $SandboxDialog: Adw.Window {
 
       Adw.PreferencesGroup group_hidraw {
         title: _("Flight Controllers (HIDRAW)");
-        description: _("Prefer raw HID for the selected devices in Wine. Changes may require restarting the bottle. In a dedicated Flatpak sandbox, HIDRAW requires access to all host-permitted devices; this selection does not restrict device permissions.");
+        description: _("Prefer raw HID for the selected devices in Wine. Changes may require restarting the container. In a dedicated Flatpak sandbox, HIDRAW requires access to all host-permitted devices; this selection does not restrict device permissions.");
       }
     }
   }

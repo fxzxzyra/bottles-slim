@@ -101,9 +101,9 @@ def test_python_messages_are_literals_before_interpolation():
 
 def test_runner_registration_and_import_actions_have_usable_translations_in_every_language():
     messages = (
-        "Register Runner", "Edit Runner", "Register an Existing Bottle",
+        "Register Runner", "Edit Runner", "Register an Existing Container",
         "Register", "Choose Directory…", "No Wine Prefixes Found",
-        "No Programs in Library", "Manage Runners…",
+        "No Programs in Library", "Create",
     )
     for path in sorted((ROOT / "po").glob("*.po")):
         catalog = _catalog_entries(path)
@@ -111,3 +111,94 @@ def test_runner_registration_and_import_actions_have_usable_translations_in_ever
             entry = catalog[None, message]
             assert entry.get("msgstr", "").strip(), (path, message)
             assert "fuzzy" not in entry.get("_flags", []), (path, message)
+
+
+def test_application_name_is_not_translatable_metadata():
+    import xml.etree.ElementTree as ET
+    metadata = ET.parse(ROOT / "data/com.usebottles.bottles.metainfo.xml.in")
+    name = metadata.find("name")
+    assert name.text == "Bottles"
+    assert name.get("translate") == "no"
+
+
+def test_new_script_picker_titles_are_translated_in_all_shipped_languages():
+    for language in (ROOT / "po/LINGUAS").read_text().split():
+        catalog = _catalog_entries(ROOT / "po" / (language + ".po"))
+        for message in ("Select Pre-run Script", "Select Post-run Script"):
+            entry = catalog[None, message]
+            assert entry["msgstr"].strip(), (language, message)
+            assert "fuzzy" not in entry.get("_flags", []), (language, message)
+
+
+def test_chinese_catalogs_have_no_missing_or_unreviewed_translations():
+    for language in ("zh_Hans", "zh_Hant"):
+        for key, entry in _catalog_entries(ROOT / "po" / (language + ".po")).items():
+            if not key[1]:
+                continue
+            assert "fuzzy" not in entry.get("_flags", []), (language, key)
+            for field, value in entry.items():
+                if field.startswith("msgstr"):
+                    assert value.strip(), (language, key, field)
+                    assert "酒瓶" not in value and "瓶子" not in value, (language, key)
+
+
+def test_primary_actions_and_terms_are_translated_in_all_supported_languages():
+    messages = ("Log", "Keyboard Shortcuts", "Cache", "Usage Time Tracking", "Preset", "Wine Containers",
+                "System", "User", "System Runners", "User Runners")
+    for language in (ROOT / "po/LINGUAS").read_text().split():
+        catalog = _catalog_entries(ROOT / "po" / (language + ".po"))
+        for message in messages:
+            entry = catalog[None, message]
+            assert entry["msgstr"].strip(), (language, message)
+            assert "fuzzy" not in entry.get("_flags", []), (language, message)
+        assert "Bottles" in catalog[None, "About Bottles"]["msgstr"], language
+        assert "Wine" in catalog[None, "Wine Containers"]["msgstr"], language
+
+
+def test_translated_format_arguments_match_the_message():
+    import re
+    import string
+
+    def braces(value):
+        return sorted(str(name) for _, name, _, _ in string.Formatter().parse(value) if name is not None)
+
+    for path in sorted((ROOT / "po").glob("*.po")):
+        if path.is_symlink():
+            continue
+        for key, entry in _catalog_entries(path).items():
+            if not key[1]:
+                continue
+            for field, value in entry.items():
+                if not field.startswith("msgstr") or not value:
+                    continue
+                source = entry.get("msgid_plural", key[1]) if field not in ("msgstr", "msgstr[0]") else key[1]
+                assert braces(source) == braces(value), (path, key, field)
+                assert re.findall(r"%(?:\([^)]+\))?[sdf]", source) == re.findall(r"%(?:\([^)]+\))?[sdf]", value), (path, key, field)
+
+
+def test_application_name_is_not_reused_as_a_translated_container_title():
+    catalog = _catalog_entries(ROOT / "po/bottles.pot")
+    assert (None, "Bottles") not in catalog
+    assert (None, "Wine Containers") in catalog
+
+
+def test_runner_translations_do_not_describe_athletes():
+    import re
+    forbidden = {
+        "de": r"Läufer", "fr": r"coureur", "es": r"corredor", "it": r"corridor",
+        "pt": r"corredor", "pt_BR": r"corredor", "hi": r"धावक",
+        "nl": r"hardloper", "fi": r"juoksij", "sv": r"löpare", "tr": r"koşucu",
+    }
+    for language, pattern in forbidden.items():
+        for key, entry in _catalog_entries(ROOT / "po" / (language + ".po")).items():
+            if re.search(r"\brunners?\b", key[1], re.I):
+                assert not re.search(pattern, entry.get("msgstr", ""), re.I), (language, key)
+
+
+def test_appstream_is_not_a_translation_source():
+    import xml.etree.ElementTree as ET
+    sources = (ROOT / "po/POTFILES").read_text().splitlines()
+    assert not any("metainfo.xml" in source for source in sources)
+    metadata = ET.parse(ROOT / "data/com.usebottles.bottles.metainfo.xml.in")
+    assert not any("{http://www.w3.org/XML/1998/namespace}lang" in element.attrib
+                   for element in metadata.iter())

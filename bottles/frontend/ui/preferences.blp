@@ -48,7 +48,7 @@ template $PreferencesDialog: Adw.PreferencesDialog {
 
       Adw.ActionRow {
         title: _("Show Update Date");
-        subtitle: _("Whether to show the update date in the bottle list.");
+        subtitle: _("Whether to show the update date in the container list.");
         activatable-widget: switch_update_date;
 
         Switch switch_update_date {
@@ -72,7 +72,7 @@ template $PreferencesDialog: Adw.PreferencesDialog {
 
       Adw.ActionRow {
         title: _("Show Component Updates");
-        subtitle: _("Show component update suggestions for all bottles.");
+        subtitle: _("Show component update suggestions for all containers.");
         activatable-widget: switch_component_updates;
 
         Switch switch_component_updates {
@@ -101,8 +101,8 @@ template $PreferencesDialog: Adw.PreferencesDialog {
       }
 
       Adw.ActionRow {
-        title: _("Playtime Tracking");
-        subtitle: _("Record playtime statistics for programs launched from Bottles.");
+        title: _("Usage Time Tracking");
+        subtitle: _("Record usage time statistics for programs launched from Bottles.");
         activatable-widget: switch_playtime_tracking;
 
         Switch switch_playtime_tracking {
@@ -140,7 +140,7 @@ template $PreferencesDialog: Adw.PreferencesDialog {
 
       Adw.ActionRow {
         title: _("List Steam Apps in Programs List");
-        subtitle: _("Requires Steam for Windows installed in the bottle.");
+        subtitle: _("Requires Steam for Windows installed in the container.");
         activatable-widget: switch_steam_programs;
 
         Switch switch_steam_programs {
@@ -150,7 +150,7 @@ template $PreferencesDialog: Adw.PreferencesDialog {
 
       Adw.ActionRow {
         title: _("List Epic Games in Programs List");
-        subtitle: _("Requires Epic Games Store installed in the bottle.");
+        subtitle: _("Requires Epic Games Store installed in the container.");
         activatable-widget: switch_epic_games;
 
         Switch switch_epic_games {
@@ -160,7 +160,7 @@ template $PreferencesDialog: Adw.PreferencesDialog {
 
       Adw.ActionRow {
         title: _("List Ubisoft Games in Programs List");
-        subtitle: _("Requires Ubisoft Connect installed in the bottle.");
+        subtitle: _("Requires Ubisoft Connect installed in the container.");
         activatable-widget: switch_ubisoft_connect;
 
         Switch switch_ubisoft_connect {
@@ -193,7 +193,7 @@ template $PreferencesDialog: Adw.PreferencesDialog {
       }
 
       Adw.ActionRow {
-        title: _("Default Z: Drive in New Bottles");
+        title: _("Default Z: Drive in New Containers");
         subtitle: _("Expose the filesystem, including your home directory, through Z:.");
         activatable-widget: switch_home_drive;
 
@@ -204,7 +204,7 @@ template $PreferencesDialog: Adw.PreferencesDialog {
 
       Adw.ComboRow combo_audio_driver {
         title: _("Audio Driver");
-        subtitle: _("Choose which Wine audio driver Bottles should enforce for all bottles.");
+        subtitle: _("Choose which Wine audio driver Bottles should enforce for all containers.");
 
         model: StringList {
           strings [
@@ -294,27 +294,27 @@ template $PreferencesDialog: Adw.PreferencesDialog {
     Adw.PreferencesGroup {
       Stack cache_stack {
        transition-type: crossfade;
+       vhomogeneous: false;
 
        StackPage {
          name: "cache_loading";
 
-         child: Adw.StatusPage {
-           vexpand: true;
-           hexpand: true;
-
-           Spinner cache_spinner {
-             valign: center;
-           }
+         child: Spinner cache_spinner {
+           halign: center;
+           margin-top: 24;
+           margin-bottom: 24;
          };
        }
 
        StackPage {
          name: "cache_list";
 
-         child: Adw.PreferencesPage {
+         child: Box {
+           orientation: vertical;
+           spacing: 24;
            Adw.PreferencesGroup {
              title: _("Overview");
-             description: _("Manage cached files used to speed up downloads and bottle creation.");
+             description: _("Manage cached files used to speed up downloads and container creation.");
 
              Adw.ActionRow row_cache_all {
                title: _("All caches");
@@ -380,11 +380,11 @@ template $PreferencesDialog: Adw.PreferencesDialog {
 
            Adw.PreferencesGroup template_cache_group {
              title: _("Prefix templates");
-             description: _("These caches store ready-made prefixes for each environment so new bottles start faster.");
+             description: _("These caches store ready-made prefixes for each environment so new containers start faster.");
 
              Adw.ActionRow row_cache_templates_all {
                title: _("All prefix templates");
-               subtitle: _("Remove every cached prefix template. Bottles will rebuild them when a new bottle is created, which may take longer.");
+               subtitle: _("Remove every cached prefix template. Bottles will rebuild them when a new container is created, which may take longer.");
                activatable-widget: btn_cache_clear_templates;
 
                [suffix]
@@ -424,36 +424,36 @@ template $PreferencesDialog: Adw.PreferencesDialog {
     Adw.PreferencesGroup {
       Stack dlls_stack {
        transition-type: crossfade;
+       vhomogeneous: false;
 
        StackPage {
          name: "dlls_offline";
 
-         child: Adw.StatusPage {
-           icon-name: "network-error-symbolic";
-           title: _("You're offline :(");
-           vexpand: true;
-           hexpand: true;
-           description: _("Bottles is running in offline mode, so DLLs are not available.");
+         child: Label {
+           label: _("Bottles is running in offline mode, so DLLs are not available.");
+           wrap: true;
+           xalign: 0;
+           margin-top: 12;
+           margin-bottom: 12;
          };
        }
 
        StackPage {
          name: "dlls_loading";
 
-         child: Adw.StatusPage {
-           vexpand: true;
-           hexpand: true;
-
-           Spinner dlls_spinner {
-             valign: center;
-           }
+         child: Spinner dlls_spinner {
+           halign: center;
+           margin-top: 24;
+           margin-bottom: 24;
          };
        }
 
        StackPage {
          name: "dlls_list";
 
-         child: Adw.PreferencesPage {
+         child: Box {
+           orientation: vertical;
+           spacing: 24;
            Adw.PreferencesGroup list_dlls {
              vexpand: true;
              hexpand: true;

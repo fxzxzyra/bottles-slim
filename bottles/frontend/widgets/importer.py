@@ -47,8 +47,11 @@ class ImporterEntry(Adw.ActionRow):
         self.prefix = prefix
 
         # populate widgets
-        self.set_title(prefix.get("Name"))
-        self.label_manager.set_text(prefix.get("Manager"))
+        self.set_title(prefix["Name"])
+        self.set_subtitle(prefix["Path"])
+        source = prefix["Manager"]
+        self.label_manager.set_text("Wine" if source == "Legacy Wine" else source)
+        self.label_manager.set_visible(source != "Manual")
 
         registered = bool(prefix.get("Lock"))
         self.img_lock.set_visible(registered)
@@ -56,7 +59,6 @@ class ImporterEntry(Adw.ActionRow):
         existing = os.path.isfile(os.path.join(prefix["Path"], "bottle.yml"))
         self.btn_import.set_label(_("Register") if existing else _("Copy…"))
 
-        self.label_manager.add_css_class("tag-%s" % prefix.get("Manager").lower())
 
         # connect signals
         self.btn_browse.connect("clicked", self.browse_wineprefix)
@@ -96,5 +98,5 @@ class ImporterEntry(Adw.ActionRow):
                 self.set_sensitive(False)
                 RunAsync(self.import_manager.import_wineprefix, callback=set_imported,
                          wineprefix=self.prefix, destination=destination)
-        dialog = Gtk.FileDialog(title=_("Select an Empty Bottle Directory"), modal=True)
+        dialog = Gtk.FileDialog(title=_("Select an Empty Container Directory"), modal=True)
         dialog.select_folder(self.window, None, selected)

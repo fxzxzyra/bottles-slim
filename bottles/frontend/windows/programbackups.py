@@ -128,7 +128,7 @@ class ProgramBackupsDialog(Adw.Dialog):
         path = BackupManager.serialize_program_backup_path(self.config, path)
         if path is None:
             self.window.show_toast(
-                _("Select files and folders within the bottle, not the bottle itself.")
+                _("Select files and folders within the container, not the container itself.")
             )
             return
         if path not in self.paths:
@@ -231,7 +231,7 @@ class ProgramBackupsDialog(Adw.Dialog):
         if self.destination and not destination_available:
             self.banner_error.set_title(_("Choose an available backup folder."))
         elif self.destination and not destination_valid:
-            self.banner_error.set_title(_("Choose a backup folder outside the bottle."))
+            self.banner_error.set_title(_("Choose a backup folder outside the container."))
         elif self.paths and not paths_available:
             self.banner_error.set_title(
                 _("Choose at least one available file or folder.")

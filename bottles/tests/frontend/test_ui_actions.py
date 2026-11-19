@@ -51,7 +51,7 @@ def test_program_rename_preserves_user_cover_and_does_not_fetch_remote(monkeypat
     monkeypatch.setattr(program_module, "LibraryManager", lambda: library)
     monkeypatch.setattr(program_module, "RunAsync", lambda task, callback: task())
     monkeypatch.setattr(program_module, "RenameDialog", lambda _window, **kwargs: (
-        callbacks.append(kwargs["on_save"]) or SimpleNamespace(present=lambda: None)
+        callbacks.append(kwargs["on_save"]) or SimpleNamespace(present=lambda parent: None)
     ))
 
     ProgramEntry.rename_program(view, None)

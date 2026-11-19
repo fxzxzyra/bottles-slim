@@ -463,7 +463,7 @@ class PreferencesView(Adw.PreferencesPage):
         if self.entry_name.get_text() != self.config.Name:
             is_duplicate = any(config.Name == self.entry_name.get_text() for config in self.manager.local_bottles.values())
             if is_duplicate:
-                self.window.show_toast(_("This bottle name is already in use."))
+                self.window.show_toast(_("This container name is already in use."))
                 self.__valid_name = False
                 self.entry_name.add_css_class("error")
                 return

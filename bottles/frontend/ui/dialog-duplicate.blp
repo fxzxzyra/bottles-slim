@@ -1,35 +1,24 @@
 using Gtk 4.0;
 using Adw 1;
 
-template $DuplicateDialog: Adw.Window {
-  modal: true;
-  default-width: 400;
-  default-height: 400;
-  destroy-with-parent: true;
+template $DuplicateDialog: Adw.Dialog {
+  title: _("Duplicate Container");
+  content-width: 460;
+  focus-widget: entry_name;
 
-  Box {
-    orientation: vertical;
-
+  Adw.ToolbarView {
+    [top]
     Adw.HeaderBar {
+      show-start-title-buttons: false;
       show-end-title-buttons: false;
 
       title-widget: Adw.WindowTitle {
-        title: _("Duplicate Bottle");
+        title: _("Duplicate Container");
       };
 
       Button btn_cancel {
         label: _("_Cancel");
         use-underline: true;
-        action-name: "window.close";
-      }
-
-      ShortcutController {
-        scope: managed;
-
-        Shortcut {
-          trigger: "Escape";
-          action: "action(window.close)";
-        }
       }
 
       [end]
@@ -43,11 +32,10 @@ template $DuplicateDialog: Adw.Window {
       }
     }
 
-    Stack stack_switcher {
+    content: Stack stack_switcher {
+      vhomogeneous: false;
       Adw.PreferencesPage page_name {
         Adw.PreferencesGroup {
-          description: _("Enter a name for the duplicate of the Bottle.");
-
           Adw.EntryRow entry_name {
             title: _("Name");
           }
@@ -78,8 +66,9 @@ template $DuplicateDialog: Adw.Window {
             label: _("This could take a while.");
           }
 
-          ProgressBar progressbar {
-            width-request: 300;
+          Spinner spinner {
+            width-request: 32;
+            height-request: 32;
             halign: center;
             margin-top: 24;
             margin-bottom: 12;
@@ -92,7 +81,7 @@ template $DuplicateDialog: Adw.Window {
 
         child: Adw.StatusPage page_duplicated {
           icon-name: "object-select-symbolic";
-          title: _("Bottle Duplicated");
+          title: _("Container Duplicated");
         };
       }
 
@@ -101,10 +90,10 @@ template $DuplicateDialog: Adw.Window {
 
         child: Adw.StatusPage page_failed {
           icon-name: "dialog-error-symbolic";
-          title: _("Bottle Duplication Failed");
-          description: _("The bottle could not be duplicated.");
+          title: _("Container Duplication Failed");
+          description: _("The container could not be duplicated.");
         };
       }
-    }
+    };
   }
 }

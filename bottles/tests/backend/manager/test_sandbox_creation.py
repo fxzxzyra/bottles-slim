@@ -11,6 +11,7 @@ from bottles.backend.managers.manager import Manager
 def test_creation_uses_exact_directory_and_private_profile(monkeypatch, tmp_path, sandbox):
     root = tmp_path / "Wine"
     root.mkdir()
+    root.chmod(0o750)
     captured = {}
     cancel = Event()
     class WineBoot:
@@ -46,7 +47,7 @@ def test_creation_uses_exact_directory_and_private_profile(monkeypatch, tmp_path
     assert captured["config"].Parameters.sandbox is sandbox
     assert captured["profile"] is True
     assert str(captured["alias"]) == "hostuser"
-    assert captured["mode"] == 0o700
+    assert captured["mode"] == 0o750
     assert root.is_dir()
     assert list(root.iterdir()) == []
     assert not (root / "Office").exists()

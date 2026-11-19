@@ -76,7 +76,7 @@ class DependencyEntry(Adw.ActionRow):
             self.btn_reinstall.set_visible(False)
             self.btn_err.set_visible(True)
             self.btn_err.set_tooltip_text(
-                _("This dependency is not compatible with this bottle architecture.")
+                _("This dependency is not compatible with this container architecture.")
             )
 
         # populate widgets

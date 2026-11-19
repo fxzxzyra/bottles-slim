@@ -87,4 +87,10 @@ Review generated changes before committing. New or changed interface messages ne
 
 ## Version metadata
 
-The application version comes from `project(version:)` in `meson.build`; keep the root `VERSION` file in sync. Release notes belong in `data/com.usebottles.bottles.metainfo.xml.in.in`. A version change should describe the actual downstream release rather than imply it is an official upstream package.
+The application version comes from `project(version:)` in `meson.build`; keep the root `VERSION` file in sync. Release notes belong in `data/com.usebottles.bottles.metainfo.xml.in`. A version change should describe the actual downstream release rather than imply it is an official upstream package.
+
+UI terminology distinguishes the Bottles application name, Wine containers (prefixes), and configuration presets such as Application, Gaming and Custom. Keep software and component names unchanged. Translate technical concepts by their meaning in each language; do not translate a Wine container as a glass bottle. Runtime statistics measure program usage, including applications and games, rather than media playback.
+
+Translation checks verify current source coverage, catalog keys, interpolation arguments and the main actions in every shipped language. Chinese catalogs also require complete, non-fuzzy translations. These checks do not replace linguistic review of grammar and meaning.
+
+The native gettext integration test uses `localedef` to compile a message-only locale in its temporary directory, alongside a real French MO catalog. It sets `LOCPATH` only for the test subprocess and requires no installed regional language pack. Both Python gettext and GTK must load the translation; `C` and `C.UTF-8` deliberately disable native gettext translations.

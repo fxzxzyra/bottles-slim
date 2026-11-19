@@ -30,6 +30,7 @@ if get_option('tests')
   endif
   find_program('xvfb-run', required: true)
   find_program('dbus-run-session', required: true)
+  find_program('localedef', required: true)
   foreach group : ['backend', 'frontend', 'fvs', 'downstream']
     test(
       'Python ' + group,
