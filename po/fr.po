@@ -45,11 +45,6 @@ msgid "\"{0}\" hidden"
 msgstr "« {0} » masqué"
 
 #, python-brace-format
-#: bottles/frontend/widgets/importer.py:79
-msgid "\"{0}\" imported"
-msgstr "« {0} » importé"
-
-#, python-brace-format
 #: bottles/frontend/widgets/dependency.py:224
 msgid "\"{0}\" installed"
 msgstr "« {0} » installé"
@@ -251,7 +246,7 @@ msgstr "après la fermeture du programme"
 msgid "All"
 msgstr "Tous"
 
-#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:179 bottles/frontend/views/new_bottle_dialog.py:203
+#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:110 bottles/frontend/views/new_bottle_dialog.py:203
 msgid "All Files"
 msgstr "tous les fichiers"
 
@@ -551,7 +546,7 @@ msgstr "branche supprimée avec succès"
 msgid "Browse"
 msgstr "Parcourir"
 
-#: bottles/frontend/ui/component-entry.blp:24 bottles/frontend/ui/importer-entry.blp:14
+#: bottles/frontend/ui/component-entry.blp:24
 msgid "Browse Files"
 msgstr "Parcourir les fichiers"
 
@@ -575,7 +570,7 @@ msgstr "Intégré (Wine)"
 msgid "Builtin, then Native"
 msgstr "Intégré puis Natif"
 
-#: bottles/backend/utils/manager.py:909
+#: bottles/backend/utils/manager.py:902
 msgid "Bulgarian"
 msgstr "bulgare"
 
@@ -709,11 +704,11 @@ msgstr "recherchez les modèles de logiciels malveillants dans les exécutables 
 msgid "Check your connection or try again later."
 msgstr "vérifiez votre connexion ou réessayez plus tard."
 
-#: bottles/backend/utils/manager.py:934
+#: bottles/backend/utils/manager.py:927
 msgid "Chinese (Simplified)"
 msgstr "chinois (simplifié)"
 
-#: bottles/backend/utils/manager.py:936
+#: bottles/backend/utils/manager.py:929
 msgid "Chinese (Traditional)"
 msgstr "chinois (traditionnel)"
 
@@ -725,7 +720,7 @@ msgstr "Choisir le dossier de sauvegarde"
 msgid "Choose Backup…"
 msgstr "Choisir une sauvegarde…"
 
-#: bottles/frontend/ui/importer.blp:39 bottles/frontend/ui/importer.blp:68
+#: bottles/frontend/ui/importer.blp:39
 msgid "Choose Directory…"
 msgstr "Choisir un répertoire…"
 
@@ -753,14 +748,6 @@ msgstr "choisissez un script qui doit être exécuté avant l'exécution."
 #: bottles/frontend/windows/programbackups.py:232
 msgid "Choose an available backup folder."
 msgstr "choisissez un dossier de sauvegarde disponible."
-
-#: bottles/frontend/ui/importer.blp:95 bottles/frontend/views/importer.py:125
-msgid "Choose another directory or search known locations."
-msgstr "Choisissez un autre répertoire ou recherchez des emplacements connus."
-
-#: bottles/frontend/views/importer.py:114
-msgid "Choose another directory or try the search again."
-msgstr "Choisissez un autre répertoire ou relancez la recherche."
 
 #: bottles/frontend/windows/programbackups.py:237
 msgid "Choose at least one available file or folder."
@@ -931,7 +918,7 @@ msgstr ""
 msgid "Configuration"
 msgstr "Configuration"
 
-#: bottles/frontend/ui/importer.blp:137
+#: bottles/frontend/ui/importer.blp:72
 msgid "Configuration File…"
 msgstr "Fichier de configuration…"
 
@@ -980,7 +967,7 @@ msgstr "UUID de l’environnement Wine"
 msgid "Container creation failed."
 msgstr "La création de l’environnement Wine a échoué."
 
-#: bottles/frontend/views/importer.py:161
+#: bottles/frontend/views/importer.py:92
 msgid "Container imported successfully"
 msgstr "environnement Wine importée avec succès"
 
@@ -1049,14 +1036,6 @@ msgstr "Copie dans l’environnement Wine"
 msgid "Copyright © 2017 {developer_name}"
 msgstr "droit d'auteur © 2017 {developer_name}"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Copy…"
-msgstr "Copier…"
-
-#: bottles/frontend/views/importer.py:113
-msgid "Could Not Find Wine Prefixes"
-msgstr "Impossible de trouver les préfixes Wine"
-
 #, python-brace-format
 #: bottles/frontend/widgets/program.py:553
 msgid "Could not access the desktop entry for \"{0}\""
@@ -1098,10 +1077,6 @@ msgstr "impossible de supprimer l'entrée de bureau pour \"{0}\""
 msgid "Could not save the program: {0}"
 msgstr "Impossible d'enregistrer le programme : {0}"
 
-#: bottles/frontend/views/importer.py:116
-msgid "Could not search for Wine prefixes"
-msgstr "Impossible de rechercher les préfixes Wine"
-
 #: bottles/frontend/views/bottle_preferences.py:936
 msgid "Could not switch to the selected runner."
 msgstr "impossible de basculer vers le exécuteur sélectionné."
@@ -1128,10 +1103,6 @@ msgstr "image de couverture mise à jour."
 msgid "Crashes"
 msgstr "plantages"
 
-#: bottles/frontend/ui/window.blp:35
-msgid "Create"
-msgstr "Créer"
-
 #: bottles/frontend/ui/dialog-program-backups.blp:43
 msgid "Create Automatic Backups"
 msgstr "créer des sauvegardes automatiques"
@@ -1148,7 +1119,7 @@ msgstr "Créer un nouvel environnement Wine"
 msgid "Create Snapshot"
 msgstr "créer un instantané"
 
-#: bottles/frontend/ui/importer.blp:138
+#: bottles/frontend/ui/importer.blp:73
 msgid "Create a container from saved settings without restoring personal files"
 msgstr "Créez un environnement Wine à partir des paramètres enregistrés sans restaurer les fichiers personnels"
 
@@ -1201,7 +1172,7 @@ msgstr "Crédits et licence"
 msgid "Critical"
 msgstr "Critique"
 
-#: bottles/backend/utils/manager.py:919
+#: bottles/backend/utils/manager.py:912
 msgid "Croatian"
 msgstr "croate"
 
@@ -1238,7 +1209,7 @@ msgstr "URL personnalisée pour les dépendances. Laissez vide pour utiliser le 
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr "URL personnalisée pour les installateurs. Laissez vide pour utiliser le point de terminaison par défaut."
 
-#: bottles/backend/utils/manager.py:910
+#: bottles/backend/utils/manager.py:903
 msgid "Czech"
 msgstr "tchèque"
 
@@ -1283,7 +1254,7 @@ msgstr "quotidiennement"
 msgid "Daily Average: {}"
 msgstr "Moyenne quotidienne : {}"
 
-#: bottles/backend/utils/manager.py:911
+#: bottles/backend/utils/manager.py:904
 msgid "Danish"
 msgstr "danois"
 
@@ -1583,7 +1554,7 @@ msgstr "Duplication de l’environnement Wine…"
 msgid "Duplicating…"
 msgstr "Duplication en cours…"
 
-#: bottles/backend/utils/manager.py:924
+#: bottles/backend/utils/manager.py:917
 msgid "Dutch"
 msgstr "néerlandais"
 
@@ -1700,7 +1671,7 @@ msgstr "Activation du lissage des polices…"
 msgid "Engines and Frameworks"
 msgstr "moteurs et frameworks"
 
-#: bottles/backend/utils/manager.py:914
+#: bottles/backend/utils/manager.py:907
 msgid "English"
 msgstr "anglais"
 
@@ -1742,7 +1713,7 @@ msgstr "Erreur lors du traitement de l'exécutable : {0}"
 msgid "Errors"
 msgstr "Erreurs"
 
-#: bottles/backend/utils/manager.py:916
+#: bottles/backend/utils/manager.py:909
 msgid "Estonian"
 msgstr "estonien"
 
@@ -1931,15 +1902,7 @@ msgstr "Finalisation de l'installation..."
 msgid "Finalizing…"
 msgstr "Finalisation…"
 
-#: bottles/frontend/ui/importer.blp:69
-msgid "Find Wine Prefixes in a Directory"
-msgstr "Rechercher les préfixes Wine dans un répertoire"
-
-#: bottles/frontend/ui/importer.blp:62
-msgid "Find Wine environments from other applications, then choose one to copy into a new container."
-msgstr "Recherchez les environnements Wine d'autres applications, puis choisissez-en un à copier dans une nouvel environnement Wine."
-
-#: bottles/backend/utils/manager.py:917
+#: bottles/backend/utils/manager.py:910
 msgid "Finnish"
 msgstr "finnois"
 
@@ -2011,7 +1974,7 @@ msgstr "Limite de fréquence d’images"
 msgid "Frame Rate Limit When Unfocused"
 msgstr "Limite de fréquence d’images en l’absence de focus"
 
-#: bottles/backend/utils/manager.py:918
+#: bottles/backend/utils/manager.py:911
 msgid "French"
 msgstr "français"
 
@@ -2019,7 +1982,7 @@ msgstr "français"
 msgid "Fsync"
 msgstr "Fsync"
 
-#: bottles/frontend/ui/importer.blp:141
+#: bottles/frontend/ui/importer.blp:76
 msgid "Full Archive…"
 msgstr "Archive complète…"
 
@@ -2067,7 +2030,7 @@ msgstr "générez des images supplémentaires avec lsfg-vk. Fonctionne uniquemen
 msgid "Generating container configuration…"
 msgstr "Génération de la configuration de l’environnement Wine…"
 
-#: bottles/backend/utils/manager.py:912
+#: bottles/backend/utils/manager.py:905
 msgid "German"
 msgstr "allemand"
 
@@ -2087,7 +2050,7 @@ msgstr "accordez à Bottles un accès direct au répertoire du exécuteur, puis 
 msgid "Graphics API"
 msgstr "API graphique"
 
-#: bottles/backend/utils/manager.py:913
+#: bottles/backend/utils/manager.py:906
 msgid "Greek"
 msgstr "grec"
 
@@ -2132,7 +2095,7 @@ msgstr "Moyenne horaire : {}"
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr "à quelle fréquence mettre à jour le rythme cardiaque de la session. Définit l’erreur d’horodatage maximale pour les sorties brusques."
 
-#: bottles/backend/utils/manager.py:920
+#: bottles/backend/utils/manager.py:913
 msgid "Hungarian"
 msgstr "hongrois"
 
@@ -2144,7 +2107,7 @@ msgstr "Je souhaite tout de même envoyer un rapport."
 msgid "Images"
 msgstr "Images"
 
-#: bottles/frontend/views/importer.py:192
+#: bottles/frontend/views/importer.py:123
 msgid "Import"
 msgstr "Importation"
 
@@ -2160,7 +2123,7 @@ msgstr "Importer des environnements Wine"
 msgid "Import Containers…"
 msgstr "Importer des environnements Wine…"
 
-#: bottles/frontend/views/importer.py:164 bottles/frontend/widgets/importer.py:83
+#: bottles/frontend/views/importer.py:95
 msgid "Import failed"
 msgstr "Échec de l’importation"
 
@@ -2171,10 +2134,6 @@ msgstr "importation de correspondance de hachage"
 #: bottles/backend/managers/backup.py:715
 msgid "Importing full backup"
 msgstr "Importation d'une sauvegarde complète"
-
-#: bottles/frontend/ui/importer-entry.blp:53
-msgid "Import…"
-msgstr "Importer…"
 
 #: bottles/frontend/ui/details-preferences.blp:56
 msgid "Improve Direct3D 12 compatibility by translating it to Vulkan."
@@ -2367,7 +2326,7 @@ msgstr "composant graphique non valide."
 msgid "Issues that may prevent this program from running."
 msgstr "problèmes pouvant empêcher l'exécution de ce programme."
 
-#: bottles/backend/utils/manager.py:921
+#: bottles/backend/utils/manager.py:914
 msgid "Italian"
 msgstr "italien"
 
@@ -2375,7 +2334,7 @@ msgstr "italien"
 msgid "Item name"
 msgstr "Nom de l’élément"
 
-#: bottles/backend/utils/manager.py:935
+#: bottles/backend/utils/manager.py:928
 msgid "Japanese"
 msgstr "japonais"
 
@@ -2393,7 +2352,7 @@ msgstr "Application connue ({match}) : {name}"
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr "Application connue : {name} (verbe winetricks '{verb}')"
 
-#: bottles/backend/utils/manager.py:937
+#: bottles/backend/utils/manager.py:930
 msgid "Korean"
 msgstr "coréen"
 
@@ -2414,7 +2373,7 @@ msgstr "Dernière lecture : %s – Durée de lecture : %s"
 msgid "LatencyFleX"
 msgstr "LatencyFlex"
 
-#: bottles/backend/utils/manager.py:923
+#: bottles/backend/utils/manager.py:916
 msgid "Latvian"
 msgstr "letton"
 
@@ -2510,7 +2469,7 @@ msgstr "Lister les applications Steam dans la liste des programmes"
 msgid "List Ubisoft Games in Programs List"
 msgstr "Lister les jeux Ubisoft dans la liste des programmes"
 
-#: bottles/backend/utils/manager.py:922
+#: bottles/backend/utils/manager.py:915
 msgid "Lithuanian"
 msgstr "lituanien"
 
@@ -2601,10 +2560,6 @@ msgstr "Gérer les autorisations du bac à sable"
 #: bottles/frontend/ui/details-preferences.blp:291
 msgid "Manage vmtouch settings"
 msgstr "Gérer les paramètres de vmtouch"
-
-#: bottles/frontend/ui/importer-entry.blp:30
-msgid "Manager"
-msgstr "Gestionnaire"
 
 #: bottles/frontend/ui/dialog-mangohud.blp:8
 msgid "MangoHud Settings"
@@ -2842,14 +2797,6 @@ msgstr "Aucune vignette"
 msgid "No VKD3D version available."
 msgstr "aucune version VKD3D disponible."
 
-#: bottles/frontend/ui/importer.blp:89 bottles/frontend/views/importer.py:124
-msgid "No Wine Prefixes Found"
-msgstr "Aucun préfixe Wine trouvé"
-
-#: bottles/frontend/views/importer.py:128
-msgid "No Wine prefixes found in the selected folder"
-msgstr "aucun préfixe Wine trouvé dans le dossier sélectionné"
-
 #: bottles/backend/managers/eagle.py:333
 msgid "No community intelligence match"
 msgstr "aucune correspondance en matière de renseignements communautaires"
@@ -2894,7 +2841,7 @@ msgstr "aucun modèle mis en cache pour le moment."
 msgid "No variables selected"
 msgstr "aucune variable sélectionnée"
 
-#: bottles/backend/utils/manager.py:925
+#: bottles/backend/utils/manager.py:918
 msgid "Norwegian"
 msgstr "norvégien"
 
@@ -3033,10 +2980,6 @@ msgstr "Organisation des dépendances…"
 msgid "Organizing installers…"
 msgstr "Organisation des installateurs…"
 
-#: bottles/frontend/ui/importer.blp:61
-msgid "Other Wine Prefixes"
-msgstr "Autres préfixes Wine"
-
 #: bottles/frontend/ui/preferences.blp:237
 msgid "Override the default repositories Bottles uses when downloading resources."
 msgstr "remplacez les référentiels par défaut utilisés par Bottles lors du téléchargement des ressources."
@@ -3106,11 +3049,11 @@ msgstr "Veuillez passer au nouveau système de gestion des versions pour créer 
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr "veuillez patienter pendant le téléchargement et l'installation de WineBridge."
 
-#: bottles/backend/utils/manager.py:926
+#: bottles/backend/utils/manager.py:919
 msgid "Polish"
 msgstr "Polonais"
 
-#: bottles/backend/utils/manager.py:927
+#: bottles/backend/utils/manager.py:920
 msgid "Portuguese"
 msgstr "portugais"
 
@@ -3343,10 +3286,6 @@ msgstr "enregistrez les statistiques de durée de lecture pour les programmes la
 msgid "Refresh"
 msgstr "Rafraîchir"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Register"
-msgstr "Enregistrer"
-
 #: bottles/frontend/ui/preferences.blp:283 bottles/frontend/views/preferences.py:559
 msgid "Register Runner"
 msgstr "Enregistrer un exécuteur"
@@ -3528,7 +3467,7 @@ msgstr "Restaurer une sauvegarde de environnement Wine"
 msgid "Restore an archive or use a configuration to create a container in an empty directory."
 msgstr "Restaurez une archive ou utilisez une configuration pour créer un environnement Wine dans un répertoire vide."
 
-#: bottles/frontend/ui/importer.blp:142
+#: bottles/frontend/ui/importer.blp:77
 msgid "Restore the container including its programs and personal files"
 msgstr "Restaurer l’environnement Wine y compris ses programmes et fichiers personnels"
 
@@ -3536,7 +3475,7 @@ msgstr "Restaurer l’environnement Wine y compris ses programmes et fichiers pe
 msgid "Restore this Snapshot"
 msgstr "Restaurer cet état"
 
-#: bottles/frontend/views/importer.py:234
+#: bottles/frontend/views/importer.py:165
 msgid "Restoring Backup…"
 msgstr "Restauration de la sauvegarde…"
 
@@ -3566,7 +3505,7 @@ msgstr "Révision"
 msgid "Review for {0}"
 msgstr "Avis pour {0}"
 
-#: bottles/backend/utils/manager.py:928
+#: bottles/backend/utils/manager.py:921
 msgid "Romanian"
 msgstr "roumain"
 
@@ -3665,7 +3604,7 @@ msgstr "fonctionne avec le même accès que Bottles, sans isolation supplémenta
 msgid "Runtimes and Libraries"
 msgstr "environnements d'exécution et bibliothèques"
 
-#: bottles/backend/utils/manager.py:929
+#: bottles/backend/utils/manager.py:922
 msgid "Russian"
 msgstr "russe"
 
@@ -3721,10 +3660,6 @@ msgstr "mise à l'échelle de l'écran"
 msgid "Search"
 msgstr "Rechercher"
 
-#: bottles/frontend/ui/importer.blp:73
-msgid "Search Known Locations"
-msgstr "Rechercher des emplacements connus"
-
 #: bottles/frontend/ui/details-installers.blp:10
 msgid "Search for Programs…"
 msgstr "Rechercher des programmes…"
@@ -3744,10 +3679,6 @@ msgstr "Rechercher des règles…"
 #: bottles/frontend/ui/list.blp:10
 msgid "Search your containers…"
 msgstr "Recherchez vos environnements Wine…"
-
-#: bottles/frontend/ui/importer.blp:109
-msgid "Searching for Wine Prefixes…"
-msgstr "Recherche des préfixes Wine…"
 
 #: bottles/frontend/ui/details-bottle.blp:79 bottles/frontend/ui/details-dependencies.blp:115 bottles/frontend/ui/details-installers.blp:69
 msgid "Secondary Menu"
@@ -3829,17 +3760,13 @@ msgstr "Sélectionner le répertoire de l’exécuteur"
 msgid "Select Working Directory"
 msgstr "Sélectionner le répertoire de travail"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Backup Archive"
 msgstr "Choisissez une archive de sauvegarde"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Configuration File"
 msgstr "Choisir un fichier de configuration"
-
-#: bottles/frontend/views/importer.py:143
-msgid "Select a Wine Prefix Folder"
-msgstr "sélectionnez un dossier de préfixe Wine"
 
 #: bottles/frontend/ui/dialog-program-backups.blp:33 bottles/frontend/windows/programbackups.py:241
 msgid "Select a backup folder and at least one file or folder."
@@ -3849,11 +3776,11 @@ msgstr "sélectionnez un dossier de sauvegarde et au moins un fichier ou un doss
 msgid "Select a permanent runner directory, not a document portal path."
 msgstr "Sélectionnez le répertoire permanent de l’exécuteur, et non un chemin du portail de documents."
 
-#: bottles/frontend/views/importer.py:96 bottles/frontend/widgets/importer.py:101 bottles/frontend/windows/duplicate.py:83
+#: bottles/frontend/views/importer.py:86 bottles/frontend/windows/duplicate.py:83
 msgid "Select an Empty Container Directory"
 msgstr "Sélectionnez un répertoire de environnements Wine vides"
 
-#: bottles/frontend/views/importer.py:83
+#: bottles/frontend/views/importer.py:73
 msgid "Select an Existing Container"
 msgstr "sélectionner un environnement Wine existante"
 
@@ -4050,11 +3977,11 @@ msgstr "Simuler un arrêt du système Windows"
 msgid "Skip Setup"
 msgstr "ignorer la configuration"
 
-#: bottles/backend/utils/manager.py:930
+#: bottles/backend/utils/manager.py:923
 msgid "Slovak"
 msgstr "slovaque"
 
-#: bottles/backend/utils/manager.py:931
+#: bottles/backend/utils/manager.py:924
 msgid "Slovenian"
 msgstr "slovène"
 
@@ -4095,7 +4022,7 @@ msgstr "Quelque chose s’est mal passé."
 msgid "Source: {0}"
 msgstr "Source : {0}"
 
-#: bottles/backend/utils/manager.py:915
+#: bottles/backend/utils/manager.py:908
 msgid "Spanish"
 msgstr "espagnol"
 
@@ -4216,7 +4143,7 @@ msgstr ""
 msgid "Supported Executables"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:932
+#: bottles/backend/utils/manager.py:925
 msgid "Swedish"
 msgstr ""
 
@@ -4236,7 +4163,7 @@ msgstr ""
 msgid "Synchronization"
 msgstr "Synchronisation"
 
-#: bottles/backend/utils/manager.py:908 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:901 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "Système"
 
@@ -4416,10 +4343,6 @@ msgstr "Bibliothèques tierces et remerciements spéciaux"
 #: bottles/frontend/windows/playtimegraph.py:162
 msgid "This Week"
 msgstr "Cette semaine"
-
-#: bottles/frontend/ui/importer-entry.blp:40
-msgid "This Wine prefix is already registered in Bottles"
-msgstr "Ce préfixe Wine est déjà enregistré dans Bottles"
 
 #: bottles/frontend/windows/playtimegraph.py:186
 msgid "This Year"
@@ -4618,7 +4541,7 @@ msgstr "réessayez"
 msgid "Try a different search."
 msgstr "Essayez une recherche différente."
 
-#: bottles/backend/utils/manager.py:933
+#: bottles/backend/utils/manager.py:926
 msgid "Turkish"
 msgstr "turc"
 
@@ -4936,11 +4859,6 @@ msgstr "pilote audio Wine"
 #: bottles/backend/managers/manager.py:1617
 msgid "Wine config updated!"
 msgstr "Configuration de Wine mise à jour !"
-
-#. Translators: A Wine prefix is a separate environment (C:\ drive) for the Wine program
-#: bottles/frontend/ui/importer-entry.blp:23
-msgid "Wine prefix name"
-msgstr "Nom du préfixe Wine"
 
 #: bottles/backend/managers/manager.py:1972
 msgid "WineBridge"

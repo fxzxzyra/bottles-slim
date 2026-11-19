@@ -84,82 +84,30 @@ def test_drop_checks_the_actual_extension(details_pages, monkeypatch, filename, 
 def import_page(monkeypatch):
     monkeypatch.setattr(SignalManager, "_SIGNALS", {})
     callbacks, messages = [], []
-    manager = SimpleNamespace(import_manager=SimpleNamespace(search_wineprefixes=object()))
-    window = SimpleNamespace(manager=manager, show_toast=messages.append)
+    manager = SimpleNamespace(import_manager=SimpleNamespace())
+    updates = []
+    window = SimpleNamespace(
+        manager=manager, show_toast=messages.append, refreshes=updates,
+        page_list=SimpleNamespace(update_bottles_list=lambda: updates.append(True)),
+    )
     monkeypatch.setattr(importer, "RunAsync",
                         lambda _func, callback, **_kwargs: callbacks.append(callback))
     return importer.ImporterView(window), callbacks, messages
 
 
-def test_prefix_refresh_replaces_results_with_empty_page(import_page, iterate_until):
-    view, callbacks, messages = import_page
-    assert not view.stack_prefixes.get_visible()
-    assert view.stack_prefixes.get_visible_child_name() == "empty"
-    assert view.status_title.is_ancestor(view.stack_prefixes)
-    view._ImporterView__search_prefixes(view.btn_find_prefixes)
-    assert not view.btn_find_prefixes.get_sensitive()
-    assert not view.btn_select_prefixes.get_sensitive()
-    assert view.stack_prefixes.get_visible()
-    assert view.stack_prefixes.get_visible_child_name() == "searching"
-    callbacks.pop()(Result(True, {"wineprefixes": [
-        {"Name": "Office", "Manager": "Wine", "Path": "/opt/user/Office", "Lock": False},
-    ]}), None)
-    iterate_until(lambda: view.btn_find_prefixes.get_sensitive())
-    assert view.stack_prefixes.get_visible_child_name() == "prefixes"
-    assert view.list_prefixes.get_first_child().get_title() == "Office"
-    view._ImporterView__search_prefixes(view.btn_find_prefixes)
-    callbacks.pop()(Result(True, {"wineprefixes": []}), None)
-    iterate_until(lambda: view.btn_find_prefixes.get_sensitive())
-    assert view.list_prefixes.get_first_child() is None
-    assert view.stack_prefixes.get_visible_child_name() == "empty"
-    assert messages == []
-
-
-def test_prefix_search_exception_reports_failure_and_unlocks_button(import_page, iterate_until):
-    view, callbacks, messages = import_page
-    view._ImporterView__search_prefixes(view.btn_find_prefixes)
-    callbacks.pop()(None, RuntimeError("Permission denied"))
-    iterate_until(lambda: view.btn_find_prefixes.get_sensitive())
-    assert messages == ["Permission denied"]
-    assert view.btn_select_prefixes.get_sensitive()
-    assert view.stack_prefixes.get_visible_child_name() == "empty"
-
-
 def test_import_exception_reports_failure(import_page, iterate_until):
     view, _callbacks, messages = import_page
-    view._ImporterView__finish(None, RuntimeError("Bottle is not private"))
+    view._ImporterView__finish(None, RuntimeError("Cannot read configuration"))
     iterate_until(lambda: bool(messages))
-    assert messages == ["Bottle is not private"]
+    assert messages == ["Cannot read configuration"]
 
 
-def test_prefix_row_import_exception_restores_controls(import_page, monkeypatch, tmp_path, iterate_until):
-    from bottles.frontend.widgets import importer as rows
-
+def test_successful_registration_refreshes_the_container_list(import_page, iterate_until):
     view, _callbacks, messages = import_page
-    (tmp_path / "bottle.yml").write_text("Name: Office\n")
-    view.import_manager.import_bottle = object()
-    row = rows.ImporterEntry(view, {
-        "Name": "Office", "Manager": "Wine", "Path": str(tmp_path), "Lock": False,
-    })
-    callbacks = []
-    monkeypatch.setattr(rows, "RunAsync", lambda _func, callback, **_kwargs: callbacks.append(callback))
-    row.import_wineprefix(row.btn_import)
-    assert not row.get_sensitive()
-    callbacks.pop()(None, RuntimeError("Cannot read bottle"))
-    iterate_until(lambda: row.get_sensitive())
-    assert row.btn_import.get_visible()
-    assert not row.img_lock.get_visible()
-    assert messages == ["Cannot read bottle"]
-
-
-def test_prefix_names_are_rendered_as_literal_text(import_page, widget_texts):
-    view, _callbacks, _messages = import_page
-    name = "Office & <Work>"
-    row = importer.ImporterEntry(view, {
-        "Name": name, "Manager": "Wine", "Path": "/opt/user/Office", "Lock": False,
-    })
-    assert not row.get_use_markup()
-    assert name in widget_texts(row)
+    view._ImporterView__finish(Result(True))
+    iterate_until(lambda: bool(messages))
+    assert messages == [importer._("Container imported successfully")]
+    assert view.window.refreshes == [True]
 
 
 def _descendants(widget):
@@ -170,34 +118,14 @@ def _descendants(widget):
         child = child.get_next_sibling()
 
 
-def test_importer_has_one_scroll_area_and_compact_search_states(import_page):
-    view, _callbacks, _messages = import_page
-    # PreferencesPage owns the only scroller; embedded StatusPage creates a
-    # second viewport and forces the entire search group to page height.
+def test_importer_actions_share_one_scroll_area(import_page):
+    view, callbacks, _messages = import_page
     assert sum(isinstance(w, Gtk.ScrolledWindow) for w in _descendants(view)) == 1
     assert not any(isinstance(w, Adw.StatusPage) for w in _descendants(view))
-    assert not view.stack_prefixes.get_vhomogeneous()
-    assert not view.stack_prefixes.get_visible()
-    view.stack_prefixes.set_visible(True)
-    view.stack_prefixes.set_visible_child_name("empty")
-    _, initial, _, _ = view.stack_prefixes.measure(Gtk.Orientation.VERTICAL, 650)
-    assert initial < 180
-    view.stack_prefixes.set_visible_child_name("searching")
-    _, searching, _, _ = view.stack_prefixes.measure(Gtk.Orientation.VERTICAL, 650)
-    assert searching < 120
-
-
-@pytest.mark.parametrize("source, label, visible", [
-    ("Manual", "Manual", False), ("Legacy Wine", "Wine", True), ("Lutris", "Lutris", True),
-])
-def test_import_results_show_the_source_path_without_internal_source_labels(import_page, source, label, visible):
-    view, _callbacks, _messages = import_page
-    row = importer.ImporterEntry(view, {
-        "Name": "Office", "Manager": source, "Path": "/opt/user/Office", "Lock": False,
-    })
-    assert row.get_subtitle() == "/opt/user/Office"
-    assert row.label_manager.get_text() == label
-    assert row.label_manager.get_visible() is visible
+    assert view.btn_import_existing.is_ancestor(view)
+    assert view.btn_import_config.get_parent() is not None
+    assert view.btn_import_full.get_parent() is not None
+    assert callbacks == []
 
 
 @pytest.mark.parametrize("full, name", [(True, "tar.gz"), (False, "YAML")])

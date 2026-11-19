@@ -45,11 +45,6 @@ msgid "\"{0}\" hidden"
 msgstr "\"{0}\" disembunyikan"
 
 #, python-brace-format
-#: bottles/frontend/widgets/importer.py:79
-msgid "\"{0}\" imported"
-msgstr "\"{0}\" diimpor"
-
-#, python-brace-format
 #: bottles/frontend/widgets/dependency.py:224
 msgid "\"{0}\" installed"
 msgstr "\"{0}\" terinstal"
@@ -251,7 +246,7 @@ msgstr "Setelah Menutup Program"
 msgid "All"
 msgstr "Semua"
 
-#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:179 bottles/frontend/views/new_bottle_dialog.py:203
+#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:110 bottles/frontend/views/new_bottle_dialog.py:203
 msgid "All Files"
 msgstr "Semua File"
 
@@ -551,7 +546,7 @@ msgstr "Cabang berhasil dihapus"
 msgid "Browse"
 msgstr "Jelajahi"
 
-#: bottles/frontend/ui/component-entry.blp:24 bottles/frontend/ui/importer-entry.blp:14
+#: bottles/frontend/ui/component-entry.blp:24
 msgid "Browse Files"
 msgstr "Jelajahi Berkas"
 
@@ -575,7 +570,7 @@ msgstr "Bawaan (Wine)"
 msgid "Builtin, then Native"
 msgstr "Builtin, kemudian Native"
 
-#: bottles/backend/utils/manager.py:909
+#: bottles/backend/utils/manager.py:902
 msgid "Bulgarian"
 msgstr "Bulgaria"
 
@@ -709,11 +704,11 @@ msgstr "Periksa pola malware pada executable sebelum menjalankannya."
 msgid "Check your connection or try again later."
 msgstr "Periksa koneksi Anda atau coba lagi nanti."
 
-#: bottles/backend/utils/manager.py:934
+#: bottles/backend/utils/manager.py:927
 msgid "Chinese (Simplified)"
 msgstr "Mandarin (Sederhana)"
 
-#: bottles/backend/utils/manager.py:936
+#: bottles/backend/utils/manager.py:929
 msgid "Chinese (Traditional)"
 msgstr "Cina (Tradisional)"
 
@@ -725,7 +720,7 @@ msgstr "Pilih Folder Cadangan"
 msgid "Choose Backup…"
 msgstr "Pilih Cadangan…"
 
-#: bottles/frontend/ui/importer.blp:39 bottles/frontend/ui/importer.blp:68
+#: bottles/frontend/ui/importer.blp:39
 msgid "Choose Directory…"
 msgstr "Pilih Direktori…"
 
@@ -753,14 +748,6 @@ msgstr "Pilih skrip yang harus dijalankan sebelum dijalankan."
 #: bottles/frontend/windows/programbackups.py:232
 msgid "Choose an available backup folder."
 msgstr "Pilih folder cadangan yang tersedia."
-
-#: bottles/frontend/ui/importer.blp:95 bottles/frontend/views/importer.py:125
-msgid "Choose another directory or search known locations."
-msgstr "Pilih direktori lain atau cari lokasi yang diketahui."
-
-#: bottles/frontend/views/importer.py:114
-msgid "Choose another directory or try the search again."
-msgstr "Pilih direktori lain atau coba cari lagi."
 
 #: bottles/frontend/windows/programbackups.py:237
 msgid "Choose at least one available file or folder."
@@ -930,7 +917,7 @@ msgstr "Repositori Komponen"
 msgid "Configuration"
 msgstr "Konfigurasi"
 
-#: bottles/frontend/ui/importer.blp:137
+#: bottles/frontend/ui/importer.blp:72
 msgid "Configuration File…"
 msgstr "File Konfigurasi…"
 
@@ -979,7 +966,7 @@ msgstr "UUID lingkungan Wine"
 msgid "Container creation failed."
 msgstr "Pembuatan lingkungan Wine gagal."
 
-#: bottles/frontend/views/importer.py:161
+#: bottles/frontend/views/importer.py:92
 msgid "Container imported successfully"
 msgstr "lingkungan Wine berhasil diimpor"
 
@@ -1048,14 +1035,6 @@ msgstr "Menyalin ke dalam lingkungan Wine"
 msgid "Copyright © 2017 {developer_name}"
 msgstr "Hak Cipta © 2017 {developer_name}"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Copy…"
-msgstr "Salin…"
-
-#: bottles/frontend/views/importer.py:113
-msgid "Could Not Find Wine Prefixes"
-msgstr "Tidak Dapat Menemukan Awalan Wine"
-
 #, python-brace-format
 #: bottles/frontend/widgets/program.py:553
 msgid "Could not access the desktop entry for \"{0}\""
@@ -1097,10 +1076,6 @@ msgstr "Tidak dapat menghapus entri desktop untuk \"{0}\""
 msgid "Could not save the program: {0}"
 msgstr "Tidak dapat menyimpan program: {0}"
 
-#: bottles/frontend/views/importer.py:116
-msgid "Could not search for Wine prefixes"
-msgstr "Tidak dapat mencari awalan Wine"
-
 #: bottles/frontend/views/bottle_preferences.py:936
 msgid "Could not switch to the selected runner."
 msgstr "Tidak dapat beralih ke pelari yang dipilih."
@@ -1127,10 +1102,6 @@ msgstr "Gambar sampul diperbarui."
 msgid "Crashes"
 msgstr "Macet"
 
-#: bottles/frontend/ui/window.blp:35
-msgid "Create"
-msgstr "Buat"
-
 #: bottles/frontend/ui/dialog-program-backups.blp:43
 msgid "Create Automatic Backups"
 msgstr "Buat Pencadangan Otomatis"
@@ -1147,7 +1118,7 @@ msgstr "Buat lingkungan Wine Baru"
 msgid "Create Snapshot"
 msgstr "Buat Cuplikan"
 
-#: bottles/frontend/ui/importer.blp:138
+#: bottles/frontend/ui/importer.blp:73
 msgid "Create a container from saved settings without restoring personal files"
 msgstr "Membuat lingkungan Wine dari pengaturan tersimpan tanpa memulihkan file pribadi"
 
@@ -1200,7 +1171,7 @@ msgstr "Kredit dan Lisensi"
 msgid "Critical"
 msgstr "Kritis"
 
-#: bottles/backend/utils/manager.py:919
+#: bottles/backend/utils/manager.py:912
 msgid "Croatian"
 msgstr "Kroasia"
 
@@ -1237,7 +1208,7 @@ msgstr "URL khusus untuk dependensi. Biarkan kosong untuk menggunakan titik akhi
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr "URL khusus untuk pemasang. Biarkan kosong untuk menggunakan titik akhir default."
 
-#: bottles/backend/utils/manager.py:910
+#: bottles/backend/utils/manager.py:903
 msgid "Czech"
 msgstr "Ceko"
 
@@ -1282,7 +1253,7 @@ msgstr "Setiap hari"
 msgid "Daily Average: {}"
 msgstr "Rata-rata Harian: {}"
 
-#: bottles/backend/utils/manager.py:911
+#: bottles/backend/utils/manager.py:904
 msgid "Danish"
 msgstr "Denmark"
 
@@ -1582,7 +1553,7 @@ msgstr "Duplikat lingkungan Wine…"
 msgid "Duplicating…"
 msgstr "Menduplikasi…"
 
-#: bottles/backend/utils/manager.py:924
+#: bottles/backend/utils/manager.py:917
 msgid "Dutch"
 msgstr "Belanda"
 
@@ -1699,7 +1670,7 @@ msgstr "Mengaktifkan penghalusan font…"
 msgid "Engines and Frameworks"
 msgstr "Mesin dan Kerangka"
 
-#: bottles/backend/utils/manager.py:914
+#: bottles/backend/utils/manager.py:907
 msgid "English"
 msgstr "Bahasa Inggris"
 
@@ -1741,7 +1712,7 @@ msgstr "Kesalahan saat memproses file yang dapat dieksekusi: {0}"
 msgid "Errors"
 msgstr "Galat"
 
-#: bottles/backend/utils/manager.py:916
+#: bottles/backend/utils/manager.py:909
 msgid "Estonian"
 msgstr "Estonia"
 
@@ -1930,15 +1901,7 @@ msgstr "Menyelesaikan instalasi..."
 msgid "Finalizing…"
 msgstr "Menyelesaikan…"
 
-#: bottles/frontend/ui/importer.blp:69
-msgid "Find Wine Prefixes in a Directory"
-msgstr "Temukan Awalan Wine di Direktori"
-
-#: bottles/frontend/ui/importer.blp:62
-msgid "Find Wine environments from other applications, then choose one to copy into a new container."
-msgstr "Temukan lingkungan Wine dari aplikasi lain, lalu pilih salah satu untuk disalin ke lingkungan Wine baru."
-
-#: bottles/backend/utils/manager.py:917
+#: bottles/backend/utils/manager.py:910
 msgid "Finnish"
 msgstr "Finlandia"
 
@@ -2010,7 +1973,7 @@ msgstr "Batas Frame Rate"
 msgid "Frame Rate Limit When Unfocused"
 msgstr "Batas Frame Rate Saat Tidak Fokus"
 
-#: bottles/backend/utils/manager.py:918
+#: bottles/backend/utils/manager.py:911
 msgid "French"
 msgstr "Perancis"
 
@@ -2018,7 +1981,7 @@ msgstr "Perancis"
 msgid "Fsync"
 msgstr "Fsync"
 
-#: bottles/frontend/ui/importer.blp:141
+#: bottles/frontend/ui/importer.blp:76
 msgid "Full Archive…"
 msgstr "Arsip Lengkap…"
 
@@ -2066,7 +2029,7 @@ msgstr "Hasilkan frame tambahan dengan lsfg-vk. Hanya berfungsi dengan aplikasi 
 msgid "Generating container configuration…"
 msgstr "Membuat konfigurasi lingkungan Wine…"
 
-#: bottles/backend/utils/manager.py:912
+#: bottles/backend/utils/manager.py:905
 msgid "German"
 msgstr "Jerman"
 
@@ -2086,7 +2049,7 @@ msgstr "Berikan Bottles akses langsung ke direktori runner, lalu pilih lagi."
 msgid "Graphics API"
 msgstr "API Grafik"
 
-#: bottles/backend/utils/manager.py:913
+#: bottles/backend/utils/manager.py:906
 msgid "Greek"
 msgstr "Yunani"
 
@@ -2131,7 +2094,7 @@ msgstr "Rata-rata Per Jam: {}"
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr "Seberapa sering memperbarui detak jantung sesi. Mendefinisikan kesalahan stempel waktu maksimal untuk keluar secara tiba-tiba."
 
-#: bottles/backend/utils/manager.py:920
+#: bottles/backend/utils/manager.py:913
 msgid "Hungarian"
 msgstr "Hongaria"
 
@@ -2143,7 +2106,7 @@ msgstr "Saya tetap ingin melaporkan."
 msgid "Images"
 msgstr "Gambar"
 
-#: bottles/frontend/views/importer.py:192
+#: bottles/frontend/views/importer.py:123
 msgid "Import"
 msgstr "Impor"
 
@@ -2159,7 +2122,7 @@ msgstr "Impor lingkungan Wine"
 msgid "Import Containers…"
 msgstr "Impor lingkungan Wine…"
 
-#: bottles/frontend/views/importer.py:164 bottles/frontend/widgets/importer.py:83
+#: bottles/frontend/views/importer.py:95
 msgid "Import failed"
 msgstr "Impor gagal"
 
@@ -2170,10 +2133,6 @@ msgstr "Impor pencocokan hash"
 #: bottles/backend/managers/backup.py:715
 msgid "Importing full backup"
 msgstr "Mengimpor cadangan penuh"
-
-#: bottles/frontend/ui/importer-entry.blp:53
-msgid "Import…"
-msgstr "Impor…"
 
 #: bottles/frontend/ui/details-preferences.blp:56
 msgid "Improve Direct3D 12 compatibility by translating it to Vulkan."
@@ -2366,7 +2325,7 @@ msgstr "Komponen grafis tidak valid."
 msgid "Issues that may prevent this program from running."
 msgstr "Masalah yang mungkin menghalangi program ini untuk berjalan."
 
-#: bottles/backend/utils/manager.py:921
+#: bottles/backend/utils/manager.py:914
 msgid "Italian"
 msgstr "Italia"
 
@@ -2374,7 +2333,7 @@ msgstr "Italia"
 msgid "Item name"
 msgstr "Nama item"
 
-#: bottles/backend/utils/manager.py:935
+#: bottles/backend/utils/manager.py:928
 msgid "Japanese"
 msgstr "Jepang"
 
@@ -2392,7 +2351,7 @@ msgstr "Aplikasi yang dikenal ({match}): {name}"
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr "Aplikasi yang dikenal: {name} (kata kerja winetricks '{verb}')"
 
-#: bottles/backend/utils/manager.py:937
+#: bottles/backend/utils/manager.py:930
 msgid "Korean"
 msgstr "Korea"
 
@@ -2413,7 +2372,7 @@ msgstr "Terakhir Dimainkan: %s – Waktu Putar: %s"
 msgid "LatencyFleX"
 msgstr "LatencyFleX"
 
-#: bottles/backend/utils/manager.py:923
+#: bottles/backend/utils/manager.py:916
 msgid "Latvian"
 msgstr "Latvia"
 
@@ -2509,7 +2468,7 @@ msgstr "Daftarkan Aplikasi Steam di Daftar Program"
 msgid "List Ubisoft Games in Programs List"
 msgstr "Daftarkan Game Ubisoft di Daftar Program"
 
-#: bottles/backend/utils/manager.py:922
+#: bottles/backend/utils/manager.py:915
 msgid "Lithuanian"
 msgstr ""
 
@@ -2600,10 +2559,6 @@ msgstr "Kelola Izin Sandbox"
 #: bottles/frontend/ui/details-preferences.blp:291
 msgid "Manage vmtouch settings"
 msgstr "Kelola pengaturan vmtouch"
-
-#: bottles/frontend/ui/importer-entry.blp:30
-msgid "Manager"
-msgstr "Pengelola"
 
 #: bottles/frontend/ui/dialog-mangohud.blp:8
 msgid "MangoHud Settings"
@@ -2841,14 +2796,6 @@ msgstr "Tidak Ada Thumbnail"
 msgid "No VKD3D version available."
 msgstr "Tidak tersedia versi VKD3D."
 
-#: bottles/frontend/ui/importer.blp:89 bottles/frontend/views/importer.py:124
-msgid "No Wine Prefixes Found"
-msgstr "Tidak Ditemukan Awalan Wine"
-
-#: bottles/frontend/views/importer.py:128
-msgid "No Wine prefixes found in the selected folder"
-msgstr "Tidak ditemukan awalan Wine di folder yang dipilih"
-
 #: bottles/backend/managers/eagle.py:333
 msgid "No community intelligence match"
 msgstr "Tidak ada intelijen komunitas yang cocok"
@@ -2893,7 +2840,7 @@ msgstr "Belum ada templat yang di-cache."
 msgid "No variables selected"
 msgstr "Tidak ada variabel yang dipilih"
 
-#: bottles/backend/utils/manager.py:925
+#: bottles/backend/utils/manager.py:918
 msgid "Norwegian"
 msgstr "Norwegia"
 
@@ -3032,10 +2979,6 @@ msgstr "Mengatur dependensi…"
 msgid "Organizing installers…"
 msgstr "Mengatur pemasang…"
 
-#: bottles/frontend/ui/importer.blp:61
-msgid "Other Wine Prefixes"
-msgstr "Awalan Wine lainnya"
-
 #: bottles/frontend/ui/preferences.blp:237
 msgid "Override the default repositories Bottles uses when downloading resources."
 msgstr "Mengganti repositori default yang digunakan Bottles saat mengunduh sumber daya."
@@ -3105,11 +3048,11 @@ msgstr "Harap migrasi ke sistem Versi baru untuk membuat kondisi baru."
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr "Harap tunggu sementara WineBridge sedang mengunduh dan menginstal."
 
-#: bottles/backend/utils/manager.py:926
+#: bottles/backend/utils/manager.py:919
 msgid "Polish"
 msgstr "Polandia"
 
-#: bottles/backend/utils/manager.py:927
+#: bottles/backend/utils/manager.py:920
 msgid "Portuguese"
 msgstr "Portugis"
 
@@ -3342,10 +3285,6 @@ msgstr "Rekam statistik waktu putar untuk program yang diluncurkan dari Bottles.
 msgid "Refresh"
 msgstr "Segarkan"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Register"
-msgstr "Daftarkan"
-
 #: bottles/frontend/ui/preferences.blp:283 bottles/frontend/views/preferences.py:559
 msgid "Register Runner"
 msgstr "Daftarkan runner"
@@ -3527,7 +3466,7 @@ msgstr "Memulihkan Cadangan lingkungan Wine"
 msgid "Restore an archive or use a configuration to create a container in an empty directory."
 msgstr "Pulihkan arsip atau gunakan konfigurasi untuk membuat lingkungan Wine di direktori kosong."
 
-#: bottles/frontend/ui/importer.blp:142
+#: bottles/frontend/ui/importer.blp:77
 msgid "Restore the container including its programs and personal files"
 msgstr "Kembalikan lingkungan Wine termasuk program dan file pribadinya"
 
@@ -3535,7 +3474,7 @@ msgstr "Kembalikan lingkungan Wine termasuk program dan file pribadinya"
 msgid "Restore this Snapshot"
 msgstr "Pulihkan Snapshot ini"
 
-#: bottles/frontend/views/importer.py:234
+#: bottles/frontend/views/importer.py:165
 msgid "Restoring Backup…"
 msgstr "Memulihkan Cadangan…"
 
@@ -3565,7 +3504,7 @@ msgstr "Ulasan"
 msgid "Review for {0}"
 msgstr "Ulasan untuk {0}"
 
-#: bottles/backend/utils/manager.py:928
+#: bottles/backend/utils/manager.py:921
 msgid "Romanian"
 msgstr "Rumania"
 
@@ -3664,7 +3603,7 @@ msgstr "Berjalan dengan akses yang sama seperti Bottles, tanpa isolasi tambahan.
 msgid "Runtimes and Libraries"
 msgstr "Runtime dan Perpustakaan"
 
-#: bottles/backend/utils/manager.py:929
+#: bottles/backend/utils/manager.py:922
 msgid "Russian"
 msgstr "Rusia"
 
@@ -3720,10 +3659,6 @@ msgstr "Penskalaan Layar"
 msgid "Search"
 msgstr "Cari"
 
-#: bottles/frontend/ui/importer.blp:73
-msgid "Search Known Locations"
-msgstr "Cari Lokasi yang Diketahui"
-
 #: bottles/frontend/ui/details-installers.blp:10
 msgid "Search for Programs…"
 msgstr "Cari Program…"
@@ -3743,10 +3678,6 @@ msgstr "Telusuri aturan…"
 #: bottles/frontend/ui/list.blp:10
 msgid "Search your containers…"
 msgstr "Cari lingkungan Wine Anda…"
-
-#: bottles/frontend/ui/importer.blp:109
-msgid "Searching for Wine Prefixes…"
-msgstr "Mencari Awalan Wine…"
 
 #: bottles/frontend/ui/details-bottle.blp:79 bottles/frontend/ui/details-dependencies.blp:115 bottles/frontend/ui/details-installers.blp:69
 msgid "Secondary Menu"
@@ -3828,17 +3759,13 @@ msgstr "Pilih Direktori Pelari"
 msgid "Select Working Directory"
 msgstr "Pilih Direktori Kerja"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Backup Archive"
 msgstr "Pilih Arsip Cadangan"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Configuration File"
 msgstr "Pilih File Konfigurasi"
-
-#: bottles/frontend/views/importer.py:143
-msgid "Select a Wine Prefix Folder"
-msgstr "Pilih Folder Awalan Wine"
 
 #: bottles/frontend/ui/dialog-program-backups.blp:33 bottles/frontend/windows/programbackups.py:241
 msgid "Select a backup folder and at least one file or folder."
@@ -3848,11 +3775,11 @@ msgstr "Pilih folder cadangan dan setidaknya satu file atau folder."
 msgid "Select a permanent runner directory, not a document portal path."
 msgstr "Pilih direktori Runner permanen, bukan jalur portal dokumen."
 
-#: bottles/frontend/views/importer.py:96 bottles/frontend/widgets/importer.py:101 bottles/frontend/windows/duplicate.py:83
+#: bottles/frontend/views/importer.py:86 bottles/frontend/windows/duplicate.py:83
 msgid "Select an Empty Container Directory"
 msgstr "Pilih Direktori lingkungan Wine Kosong"
 
-#: bottles/frontend/views/importer.py:83
+#: bottles/frontend/views/importer.py:73
 msgid "Select an Existing Container"
 msgstr "Pilih lingkungan Wine yang Ada"
 
@@ -4049,11 +3976,11 @@ msgstr "Mensimulasikan pematian sistem Windows"
 msgid "Skip Setup"
 msgstr "Lewati Pengaturan"
 
-#: bottles/backend/utils/manager.py:930
+#: bottles/backend/utils/manager.py:923
 msgid "Slovak"
 msgstr "Bahasa Slowakia"
 
-#: bottles/backend/utils/manager.py:931
+#: bottles/backend/utils/manager.py:924
 msgid "Slovenian"
 msgstr "Slovenia"
 
@@ -4094,7 +4021,7 @@ msgstr "Ada yang tidak beres."
 msgid "Source: {0}"
 msgstr "Sumber: {0}"
 
-#: bottles/backend/utils/manager.py:915
+#: bottles/backend/utils/manager.py:908
 msgid "Spanish"
 msgstr "Spanyol"
 
@@ -4215,7 +4142,7 @@ msgstr "Saran didasarkan pada analisis teknis dan tidak menjamin kompatibilitas.
 msgid "Supported Executables"
 msgstr "Eksekusi yang Didukung"
 
-#: bottles/backend/utils/manager.py:932
+#: bottles/backend/utils/manager.py:925
 msgid "Swedish"
 msgstr "Swedia"
 
@@ -4235,7 +4162,7 @@ msgstr "Pindah cabang…"
 msgid "Synchronization"
 msgstr "Sinkronisasi"
 
-#: bottles/backend/utils/manager.py:908 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:901 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "Sistem"
 
@@ -4415,10 +4342,6 @@ msgstr "Perpustakaan Pihak Ketiga dan Ucapan Terima Kasih Khusus"
 #: bottles/frontend/windows/playtimegraph.py:162
 msgid "This Week"
 msgstr "Minggu ini"
-
-#: bottles/frontend/ui/importer-entry.blp:40
-msgid "This Wine prefix is already registered in Bottles"
-msgstr "Awalan Wine ini sudah terdaftar di Bottles"
 
 #: bottles/frontend/windows/playtimegraph.py:186
 msgid "This Year"
@@ -4617,7 +4540,7 @@ msgstr "Coba Lagi"
 msgid "Try a different search."
 msgstr "Coba pencarian lain."
 
-#: bottles/backend/utils/manager.py:933
+#: bottles/backend/utils/manager.py:926
 msgid "Turkish"
 msgstr "Turki"
 
@@ -4934,11 +4857,6 @@ msgstr "driver audio Wine"
 #: bottles/backend/managers/manager.py:1617
 msgid "Wine config updated!"
 msgstr "Konfigurasi Wine telah diperbarui!"
-
-#. Translators: A Wine prefix is a separate environment (C:\ drive) for the Wine program
-#: bottles/frontend/ui/importer-entry.blp:23
-msgid "Wine prefix name"
-msgstr "Nama prefix Wine"
 
 #: bottles/backend/managers/manager.py:1972
 msgid "WineBridge"

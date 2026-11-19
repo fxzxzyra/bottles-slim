@@ -45,11 +45,6 @@ msgid "\"{0}\" hidden"
 msgstr "\"{0}\" ir paslēpts"
 
 #, python-brace-format
-#: bottles/frontend/widgets/importer.py:79
-msgid "\"{0}\" imported"
-msgstr "\"{0}\" importēts"
-
-#, python-brace-format
 #: bottles/frontend/widgets/dependency.py:224
 msgid "\"{0}\" installed"
 msgstr "\"{0}\" ir instalēts"
@@ -250,7 +245,7 @@ msgstr "pēc programmas aizvēršanas"
 msgid "All"
 msgstr "viss"
 
-#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:179 bottles/frontend/views/new_bottle_dialog.py:203
+#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:110 bottles/frontend/views/new_bottle_dialog.py:203
 msgid "All Files"
 msgstr "visi faili"
 
@@ -548,7 +543,7 @@ msgstr "filiāle veiksmīgi izdzēsta"
 msgid "Browse"
 msgstr "Pārlūkot"
 
-#: bottles/frontend/ui/component-entry.blp:24 bottles/frontend/ui/importer-entry.blp:14
+#: bottles/frontend/ui/component-entry.blp:24
 msgid "Browse Files"
 msgstr "Pārlūkojiet failus"
 
@@ -572,7 +567,7 @@ msgstr "iebūvēts (Wine)"
 msgid "Builtin, then Native"
 msgstr "iebūvēts, pēc tam vietējais"
 
-#: bottles/backend/utils/manager.py:909
+#: bottles/backend/utils/manager.py:902
 msgid "Bulgarian"
 msgstr "bulgāru valoda"
 
@@ -706,11 +701,11 @@ msgstr "pirms izpildāmo failu palaišanas pārbaudiet, vai tajās nav ļaunprā
 msgid "Check your connection or try again later."
 msgstr "pārbaudiet savienojumu vai vēlāk mēģiniet vēlreiz."
 
-#: bottles/backend/utils/manager.py:934
+#: bottles/backend/utils/manager.py:927
 msgid "Chinese (Simplified)"
 msgstr "ķīniešu (vienkāršotā)"
 
-#: bottles/backend/utils/manager.py:936
+#: bottles/backend/utils/manager.py:929
 msgid "Chinese (Traditional)"
 msgstr "ķīniešu (tradicionālā)"
 
@@ -722,7 +717,7 @@ msgstr "izvēlieties Dublējuma mapi"
 msgid "Choose Backup…"
 msgstr "Izvēlieties Dublēšana…"
 
-#: bottles/frontend/ui/importer.blp:39 bottles/frontend/ui/importer.blp:68
+#: bottles/frontend/ui/importer.blp:39
 msgid "Choose Directory…"
 msgstr "Izvēlieties direktoriju…"
 
@@ -750,14 +745,6 @@ msgstr "izvēlieties skriptu, kas jāizpilda pirms palaišanas."
 #: bottles/frontend/windows/programbackups.py:232
 msgid "Choose an available backup folder."
 msgstr "izvēlieties pieejamo dublējuma mapi."
-
-#: bottles/frontend/ui/importer.blp:95 bottles/frontend/views/importer.py:125
-msgid "Choose another directory or search known locations."
-msgstr "Izvēlieties citu direktoriju vai meklējiet zināmās atrašanās vietas."
-
-#: bottles/frontend/views/importer.py:114
-msgid "Choose another directory or try the search again."
-msgstr "Izvēlieties citu direktoriju vai mēģiniet meklēt vēlreiz."
 
 #: bottles/frontend/windows/programbackups.py:237
 msgid "Choose at least one available file or folder."
@@ -929,7 +916,7 @@ msgstr "komponentu krātuve"
 msgid "Configuration"
 msgstr "Konfigurācija"
 
-#: bottles/frontend/ui/importer.blp:137
+#: bottles/frontend/ui/importer.blp:72
 msgid "Configuration File…"
 msgstr "Konfigurācijas fails…"
 
@@ -978,7 +965,7 @@ msgstr "Wine vides UUID"
 msgid "Container creation failed."
 msgstr "Wine vides izveide neizdevās."
 
-#: bottles/frontend/views/importer.py:161
+#: bottles/frontend/views/importer.py:92
 msgid "Container imported successfully"
 msgstr "Wine vide veiksmīgi importēta"
 
@@ -1047,14 +1034,6 @@ msgstr "kopēšana pudelē"
 msgid "Copyright © 2017 {developer_name}"
 msgstr "autortiesības © 2017 {developer_name}"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Copy…"
-msgstr "Kopēt…"
-
-#: bottles/frontend/views/importer.py:113
-msgid "Could Not Find Wine Prefixes"
-msgstr "Nevarēja atrast Wine prefiksus"
-
 #, python-brace-format
 #: bottles/frontend/widgets/program.py:553
 msgid "Could not access the desktop entry for \"{0}\""
@@ -1096,10 +1075,6 @@ msgstr "nevarēja noņemt darbvirsmas ierakstu \"{0}\""
 msgid "Could not save the program: {0}"
 msgstr "nevarēja saglabāt programmu: {0}"
 
-#: bottles/frontend/views/importer.py:116
-msgid "Could not search for Wine prefixes"
-msgstr "Nevarēja meklēt Wine prefiksus"
-
 #: bottles/frontend/views/bottle_preferences.py:936
 msgid "Could not switch to the selected runner."
 msgstr "nevarēja pārslēgties uz atlasīto skrējēju."
@@ -1126,10 +1101,6 @@ msgstr "vāka attēls ir atjaunināts."
 msgid "Crashes"
 msgstr "avārijas"
 
-#: bottles/frontend/ui/window.blp:35
-msgid "Create"
-msgstr "Izveidot"
-
 #: bottles/frontend/ui/dialog-program-backups.blp:43
 msgid "Create Automatic Backups"
 msgstr "izveidojiet automātiskas dublējumkopijas"
@@ -1146,7 +1117,7 @@ msgstr "izveidojiet jaunu Wine vidi"
 msgid "Create Snapshot"
 msgstr "izveidojiet momentuzņēmumu"
 
-#: bottles/frontend/ui/importer.blp:138
+#: bottles/frontend/ui/importer.blp:73
 msgid "Create a container from saved settings without restoring personal files"
 msgstr "Izveidojiet Wine vidi no saglabātajiem iestatījumiem, neatjaunojot personiskos failus"
 
@@ -1199,7 +1170,7 @@ msgstr "kredīti un licence"
 msgid "Critical"
 msgstr "kritisks"
 
-#: bottles/backend/utils/manager.py:919
+#: bottles/backend/utils/manager.py:912
 msgid "Croatian"
 msgstr "horvātu"
 
@@ -1236,7 +1207,7 @@ msgstr "pielāgots URL atkarībām. Atstājiet tukšu, lai izmantotu noklusējum
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr "pielāgots URL instalētājiem. Atstājiet tukšu, lai izmantotu noklusējuma beigu punktu."
 
-#: bottles/backend/utils/manager.py:910
+#: bottles/backend/utils/manager.py:903
 msgid "Czech"
 msgstr "čehu"
 
@@ -1281,7 +1252,7 @@ msgstr "katru dienu"
 msgid "Daily Average: {}"
 msgstr "ikdienas vidējais: {}"
 
-#: bottles/backend/utils/manager.py:911
+#: bottles/backend/utils/manager.py:904
 msgid "Danish"
 msgstr "dāņu valoda"
 
@@ -1581,7 +1552,7 @@ msgstr "Wine vides dublikāts…"
 msgid "Duplicating…"
 msgstr "notiek dublēšana…"
 
-#: bottles/backend/utils/manager.py:924
+#: bottles/backend/utils/manager.py:917
 msgid "Dutch"
 msgstr "holandiešu valoda"
 
@@ -1698,7 +1669,7 @@ msgstr "fontu izlīdzināšanas iespējošana…"
 msgid "Engines and Frameworks"
 msgstr "dzinēji un ietvari"
 
-#: bottles/backend/utils/manager.py:914
+#: bottles/backend/utils/manager.py:907
 msgid "English"
 msgstr "angļu valoda"
 
@@ -1740,7 +1711,7 @@ msgstr "Kļūda, apstrādājot izpildāmo failu: {0}"
 msgid "Errors"
 msgstr "Kļūdas"
 
-#: bottles/backend/utils/manager.py:916
+#: bottles/backend/utils/manager.py:909
 msgid "Estonian"
 msgstr "igauņu valoda"
 
@@ -1929,15 +1900,7 @@ msgstr "instalēšanas pabeigšana..."
 msgid "Finalizing…"
 msgstr "Notiek pabeigšana…"
 
-#: bottles/frontend/ui/importer.blp:69
-msgid "Find Wine Prefixes in a Directory"
-msgstr "Direktorijā atrodiet Wine prefiksus"
-
-#: bottles/frontend/ui/importer.blp:62
-msgid "Find Wine environments from other applications, then choose one to copy into a new container."
-msgstr "Atrodiet Wine vides no citām lietojumprogrammām, pēc tam izvēlieties vienu, ko kopēt jaunā pudelē."
-
-#: bottles/backend/utils/manager.py:917
+#: bottles/backend/utils/manager.py:910
 msgid "Finnish"
 msgstr "somu valoda"
 
@@ -2009,7 +1972,7 @@ msgstr "kadru ātruma ierobežojums"
 msgid "Frame Rate Limit When Unfocused"
 msgstr "kadru ātruma ierobežojums, kad nav fokusa"
 
-#: bottles/backend/utils/manager.py:918
+#: bottles/backend/utils/manager.py:911
 msgid "French"
 msgstr "franču valoda"
 
@@ -2017,7 +1980,7 @@ msgstr "franču valoda"
 msgid "Fsync"
 msgstr "Fsync"
 
-#: bottles/frontend/ui/importer.blp:141
+#: bottles/frontend/ui/importer.blp:76
 msgid "Full Archive…"
 msgstr "Pilns arhīvs…"
 
@@ -2065,7 +2028,7 @@ msgstr "ģenerējiet papildu kadrus, izmantojot lsfg-vk. Darbojas tikai ar 64 bi
 msgid "Generating container configuration…"
 msgstr "tiek ģenerēta Wine vides konfigurācija…"
 
-#: bottles/backend/utils/manager.py:912
+#: bottles/backend/utils/manager.py:905
 msgid "German"
 msgstr "vācu valoda"
 
@@ -2085,7 +2048,7 @@ msgstr "piešķiriet Bottles tiešu piekļuvi skrējēju direktorijam, pēc tam 
 msgid "Graphics API"
 msgstr "Grafikas API"
 
-#: bottles/backend/utils/manager.py:913
+#: bottles/backend/utils/manager.py:906
 msgid "Greek"
 msgstr "grieķu valoda"
 
@@ -2130,7 +2093,7 @@ msgstr "Stundas vidējais rādītājs: {}"
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr "cik bieži atjaunināt sesijas sirdsdarbību. Nosaka maksimālo laika zīmoga kļūdu pēkšņām izejām."
 
-#: bottles/backend/utils/manager.py:920
+#: bottles/backend/utils/manager.py:913
 msgid "Hungarian"
 msgstr "ungāru"
 
@@ -2142,7 +2105,7 @@ msgstr "Es joprojām vēlos ziņot."
 msgid "Images"
 msgstr "attēli"
 
-#: bottles/frontend/views/importer.py:192
+#: bottles/frontend/views/importer.py:123
 msgid "Import"
 msgstr "importēt"
 
@@ -2158,7 +2121,7 @@ msgstr "Importa Wine vides"
 msgid "Import Containers…"
 msgstr "Importējiet Wine vides…"
 
-#: bottles/frontend/views/importer.py:164 bottles/frontend/widgets/importer.py:83
+#: bottles/frontend/views/importer.py:95
 msgid "Import failed"
 msgstr "importēšana neizdevās"
 
@@ -2169,10 +2132,6 @@ msgstr "importējiet jaucējkrājumus"
 #: bottles/backend/managers/backup.py:715
 msgid "Importing full backup"
 msgstr "tiek importēts pilns dublējums"
-
-#: bottles/frontend/ui/importer-entry.blp:53
-msgid "Import…"
-msgstr "Importēt…"
 
 #: bottles/frontend/ui/details-preferences.blp:56
 msgid "Improve Direct3D 12 compatibility by translating it to Vulkan."
@@ -2365,7 +2324,7 @@ msgstr "nederīgs grafikas komponents."
 msgid "Issues that may prevent this program from running."
 msgstr "problēmas, kas var kavēt šīs programmas darbību."
 
-#: bottles/backend/utils/manager.py:921
+#: bottles/backend/utils/manager.py:914
 msgid "Italian"
 msgstr "itāļu valoda"
 
@@ -2373,7 +2332,7 @@ msgstr "itāļu valoda"
 msgid "Item name"
 msgstr "preces nosaukums"
 
-#: bottles/backend/utils/manager.py:935
+#: bottles/backend/utils/manager.py:928
 msgid "Japanese"
 msgstr "japāņu valoda"
 
@@ -2391,7 +2350,7 @@ msgstr "zināma lietojumprogramma ({match}): {name}"
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr "zināma lietojumprogramma: {name} (winetricks darbības vārds '{verb}')"
 
-#: bottles/backend/utils/manager.py:937
+#: bottles/backend/utils/manager.py:930
 msgid "Korean"
 msgstr "korejiešu"
 
@@ -2412,7 +2371,7 @@ msgstr "pēdējo reizi atskaņots: %s – atskaņošanas laiks: %s"
 msgid "LatencyFleX"
 msgstr "LatencyFleX"
 
-#: bottles/backend/utils/manager.py:923
+#: bottles/backend/utils/manager.py:916
 msgid "Latvian"
 msgstr "latviešu"
 
@@ -2508,7 +2467,7 @@ msgstr "norādiet Steam lietotnes programmu sarakstā"
 msgid "List Ubisoft Games in Programs List"
 msgstr "norādiet Ubisoft spēles programmu sarakstā"
 
-#: bottles/backend/utils/manager.py:922
+#: bottles/backend/utils/manager.py:915
 msgid "Lithuanian"
 msgstr "lietuviešu valoda"
 
@@ -2599,10 +2558,6 @@ msgstr "pārvaldiet smilškastes atļaujas"
 #: bottles/frontend/ui/details-preferences.blp:291
 msgid "Manage vmtouch settings"
 msgstr "pārvaldiet vmtouch iestatījumus"
-
-#: bottles/frontend/ui/importer-entry.blp:30
-msgid "Manager"
-msgstr "vadītājs"
 
 #: bottles/frontend/ui/dialog-mangohud.blp:8
 msgid "MangoHud Settings"
@@ -2840,14 +2795,6 @@ msgstr "nav sīktēla"
 msgid "No VKD3D version available."
 msgstr "nav pieejama VKD3D versija."
 
-#: bottles/frontend/ui/importer.blp:89 bottles/frontend/views/importer.py:124
-msgid "No Wine Prefixes Found"
-msgstr "Wine prefiksi netika atrasti"
-
-#: bottles/frontend/views/importer.py:128
-msgid "No Wine prefixes found in the selected folder"
-msgstr "atlasītajā mapē netika atrasts neviens Wine prefikss"
-
 #: bottles/backend/managers/eagle.py:333
 msgid "No community intelligence match"
 msgstr "neviena kopienas izlūkošanas informācija neatbilst"
@@ -2892,7 +2839,7 @@ msgstr "kešatmiņā vēl nav saglabāta neviena veidne."
 msgid "No variables selected"
 msgstr "nav atlasīts neviens mainīgais"
 
-#: bottles/backend/utils/manager.py:925
+#: bottles/backend/utils/manager.py:918
 msgid "Norwegian"
 msgstr "norvēģu"
 
@@ -3031,10 +2978,6 @@ msgstr "tiek organizētas atkarības…"
 msgid "Organizing installers…"
 msgstr "uzstādītāju organizēšana…"
 
-#: bottles/frontend/ui/importer.blp:61
-msgid "Other Wine Prefixes"
-msgstr "Citi Wine prefiksi"
-
 #: bottles/frontend/ui/preferences.blp:237
 msgid "Override the default repositories Bottles uses when downloading resources."
 msgstr "ignorējiet noklusējuma repozitorijus, ko Bottles izmanto, lejupielādējot resursus."
@@ -3104,11 +3047,11 @@ msgstr "lūdzu, migrējiet uz jauno versiju veidošanas sistēmu, lai izveidotu 
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr "lūdzu, uzgaidiet, kamēr WineBridge tiek lejupielādēts un instalēts."
 
-#: bottles/backend/utils/manager.py:926
+#: bottles/backend/utils/manager.py:919
 msgid "Polish"
 msgstr "poļu"
 
-#: bottles/backend/utils/manager.py:927
+#: bottles/backend/utils/manager.py:920
 msgid "Portuguese"
 msgstr "portugāļu"
 
@@ -3341,10 +3284,6 @@ msgstr "ierakstiet atskaņošanas laika statistiku programmām, kas palaists no 
 msgid "Refresh"
 msgstr "Atsvaidzināt"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Register"
-msgstr "Reģistrēt"
-
 #: bottles/frontend/ui/preferences.blp:283 bottles/frontend/views/preferences.py:559
 msgid "Register Runner"
 msgstr "Reģistrēt palaidēju"
@@ -3526,7 +3465,7 @@ msgstr "Atjaunojiet Wine vides dublējumu"
 msgid "Restore an archive or use a configuration to create a container in an empty directory."
 msgstr "Atjaunojiet arhīvu vai izmantojiet konfigurāciju, lai izveidotu Wine vidi tukšā direktorijā."
 
-#: bottles/frontend/ui/importer.blp:142
+#: bottles/frontend/ui/importer.blp:77
 msgid "Restore the container including its programs and personal files"
 msgstr "Atjaunojiet Wine vidi, tostarp tās programmas un personiskos failus"
 
@@ -3534,7 +3473,7 @@ msgstr "Atjaunojiet Wine vidi, tostarp tās programmas un personiskos failus"
 msgid "Restore this Snapshot"
 msgstr "atjaunojiet šo momentuzņēmumu"
 
-#: bottles/frontend/views/importer.py:234
+#: bottles/frontend/views/importer.py:165
 msgid "Restoring Backup…"
 msgstr "Notiek dublējuma atjaunošana…"
 
@@ -3564,7 +3503,7 @@ msgstr "pārskats"
 msgid "Review for {0}"
 msgstr "pārskats par {0}"
 
-#: bottles/backend/utils/manager.py:928
+#: bottles/backend/utils/manager.py:921
 msgid "Romanian"
 msgstr "rumāņu valoda"
 
@@ -3663,7 +3602,7 @@ msgstr "darbojas ar tādu pašu piekļuvi kā Bottles, bez papildu izolācijas."
 msgid "Runtimes and Libraries"
 msgstr "Runtimes and Libraries"
 
-#: bottles/backend/utils/manager.py:929
+#: bottles/backend/utils/manager.py:922
 msgid "Russian"
 msgstr "krievu valoda"
 
@@ -3719,10 +3658,6 @@ msgstr "ekrāna mērogošana"
 msgid "Search"
 msgstr "Meklēt"
 
-#: bottles/frontend/ui/importer.blp:73
-msgid "Search Known Locations"
-msgstr "Meklējiet zināmās vietas"
-
 #: bottles/frontend/ui/details-installers.blp:10
 msgid "Search for Programs…"
 msgstr "Meklēt programmas…"
@@ -3742,10 +3677,6 @@ msgstr "Meklēt noteikumus…"
 #: bottles/frontend/ui/list.blp:10
 msgid "Search your containers…"
 msgstr "meklējiet savas Wine vides…"
-
-#: bottles/frontend/ui/importer.blp:109
-msgid "Searching for Wine Prefixes…"
-msgstr "Tiek meklēti Wine prefiksi…"
 
 #: bottles/frontend/ui/details-bottle.blp:79 bottles/frontend/ui/details-dependencies.blp:115 bottles/frontend/ui/details-installers.blp:69
 msgid "Secondary Menu"
@@ -3827,17 +3758,13 @@ msgstr "Atlasiet direktoriju Palaidējs"
 msgid "Select Working Directory"
 msgstr "atlasiet darba direktoriju"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Backup Archive"
 msgstr "atlasiet dublējuma arhīvu"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Configuration File"
 msgstr "atlasiet konfigurācijas failu"
-
-#: bottles/frontend/views/importer.py:143
-msgid "Select a Wine Prefix Folder"
-msgstr "atlasiet Wine prefiksa mapi"
 
 #: bottles/frontend/ui/dialog-program-backups.blp:33 bottles/frontend/windows/programbackups.py:241
 msgid "Select a backup folder and at least one file or folder."
@@ -3847,11 +3774,11 @@ msgstr "atlasiet dublējuma mapi un vismaz vienu failu vai mapi."
 msgid "Select a permanent runner directory, not a document portal path."
 msgstr "Atlasiet pastāvīgu Palaidējs direktoriju, nevis dokumentu portāla ceļu."
 
-#: bottles/frontend/views/importer.py:96 bottles/frontend/widgets/importer.py:101 bottles/frontend/windows/duplicate.py:83
+#: bottles/frontend/views/importer.py:86 bottles/frontend/windows/duplicate.py:83
 msgid "Select an Empty Container Directory"
 msgstr "atlasiet tukšo Wine vižu direktoriju"
 
-#: bottles/frontend/views/importer.py:83
+#: bottles/frontend/views/importer.py:73
 msgid "Select an Existing Container"
 msgstr "atlasiet esošu Wine vidi"
 
@@ -4048,11 +3975,11 @@ msgstr ""
 msgid "Skip Setup"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:930
+#: bottles/backend/utils/manager.py:923
 msgid "Slovak"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:931
+#: bottles/backend/utils/manager.py:924
 msgid "Slovenian"
 msgstr ""
 
@@ -4093,7 +4020,7 @@ msgstr ""
 msgid "Source: {0}"
 msgstr "avots: {0}"
 
-#: bottles/backend/utils/manager.py:915
+#: bottles/backend/utils/manager.py:908
 msgid "Spanish"
 msgstr "spāņu valoda"
 
@@ -4213,7 +4140,7 @@ msgstr "ieteikumi ir balstīti uz tehnisko analīzi un negarantē saderību."
 msgid "Supported Executables"
 msgstr "atbalstītie izpildāmie faili"
 
-#: bottles/backend/utils/manager.py:932
+#: bottles/backend/utils/manager.py:925
 msgid "Swedish"
 msgstr "zviedru valoda"
 
@@ -4233,7 +4160,7 @@ msgstr "tiek pārslēgta filiāle…"
 msgid "Synchronization"
 msgstr "sinhronizācija"
 
-#: bottles/backend/utils/manager.py:908 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:901 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "Sistēma"
 
@@ -4413,10 +4340,6 @@ msgstr "trešo pušu bibliotēkas un īpaša pateicība"
 #: bottles/frontend/windows/playtimegraph.py:162
 msgid "This Week"
 msgstr "šonedēļ"
-
-#: bottles/frontend/ui/importer-entry.blp:40
-msgid "This Wine prefix is already registered in Bottles"
-msgstr "Šis Wine prefikss jau ir reģistrēts Bottles"
 
 #: bottles/frontend/windows/playtimegraph.py:186
 msgid "This Year"
@@ -4615,7 +4538,7 @@ msgstr ""
 msgid "Try a different search."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:933
+#: bottles/backend/utils/manager.py:926
 msgid "Turkish"
 msgstr ""
 
@@ -4931,11 +4854,6 @@ msgstr ""
 
 #: bottles/backend/managers/manager.py:1617
 msgid "Wine config updated!"
-msgstr ""
-
-#. Translators: A Wine prefix is a separate environment (C:\ drive) for the Wine program
-#: bottles/frontend/ui/importer-entry.blp:23
-msgid "Wine prefix name"
 msgstr ""
 
 #: bottles/backend/managers/manager.py:1972

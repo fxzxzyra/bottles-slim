@@ -7,30 +7,6 @@ from gi.repository import Gio
 from bottles.frontend.views import importer
 
 
-def test_selected_folder_is_forwarded_to_prefix_search():
-    searches = []
-    view = SimpleNamespace(
-        btn_select_prefixes=object(),
-        window=object(),
-    )
-    setattr(
-        view,
-        "_ImporterView__search_prefixes",
-        lambda widget, paths: searches.append((widget, paths)),
-    )
-    dialog = SimpleNamespace(
-        select_folder_finish=lambda _result: Gio.File.new_for_path(
-            "/tmp/PlayOnLinux prefixes"
-        )
-    )
-
-    importer.ImporterView._ImporterView__folder_selected(view, dialog, object())
-
-    assert searches == [
-        (view.btn_select_prefixes, ["/tmp/PlayOnLinux prefixes"]),
-    ]
-
-
 def test_existing_bottle_registration_uses_the_dedicated_action(monkeypatch, tmp_path):
     (tmp_path / "bottle.yml").write_text("configuration")
     calls = []

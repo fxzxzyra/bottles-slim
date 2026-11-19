@@ -45,11 +45,6 @@ msgid "\"{0}\" hidden"
 msgstr "\"{0}\" மறைக்கப்பட்டுள்ளது"
 
 #, python-brace-format
-#: bottles/frontend/widgets/importer.py:79
-msgid "\"{0}\" imported"
-msgstr "\"{0}\" இறக்குமதி செய்யப்பட்டது"
-
-#, python-brace-format
 #: bottles/frontend/widgets/dependency.py:224
 msgid "\"{0}\" installed"
 msgstr "\"{0}\" நிறுவப்பட்டது"
@@ -251,7 +246,7 @@ msgstr ""
 msgid "All"
 msgstr "எல்லா"
 
-#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:179 bottles/frontend/views/new_bottle_dialog.py:203
+#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:110 bottles/frontend/views/new_bottle_dialog.py:203
 msgid "All Files"
 msgstr ""
 
@@ -551,7 +546,7 @@ msgstr ""
 msgid "Browse"
 msgstr "உலவ"
 
-#: bottles/frontend/ui/component-entry.blp:24 bottles/frontend/ui/importer-entry.blp:14
+#: bottles/frontend/ui/component-entry.blp:24
 msgid "Browse Files"
 msgstr "கோப்புகளை உலாவவும்"
 
@@ -575,7 +570,7 @@ msgstr "உள்ளமைக்கப்பட்ட (ஒயின்)"
 msgid "Builtin, then Native"
 msgstr "பில்டின், பின்னர் பூர்வீகம்"
 
-#: bottles/backend/utils/manager.py:909
+#: bottles/backend/utils/manager.py:902
 msgid "Bulgarian"
 msgstr ""
 
@@ -709,11 +704,11 @@ msgstr ""
 msgid "Check your connection or try again later."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:934
+#: bottles/backend/utils/manager.py:927
 msgid "Chinese (Simplified)"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:936
+#: bottles/backend/utils/manager.py:929
 msgid "Chinese (Traditional)"
 msgstr ""
 
@@ -725,7 +720,7 @@ msgstr ""
 msgid "Choose Backup…"
 msgstr "காப்புப்பிரதியைத் தேர்வுசெய்க…"
 
-#: bottles/frontend/ui/importer.blp:39 bottles/frontend/ui/importer.blp:68
+#: bottles/frontend/ui/importer.blp:39
 msgid "Choose Directory…"
 msgstr "கோப்பகத்தைத் தேர்வுசெய்க…"
 
@@ -753,14 +748,6 @@ msgstr ""
 #: bottles/frontend/windows/programbackups.py:232
 msgid "Choose an available backup folder."
 msgstr ""
-
-#: bottles/frontend/ui/importer.blp:95 bottles/frontend/views/importer.py:125
-msgid "Choose another directory or search known locations."
-msgstr "மற்றொரு கோப்பகத்தைத் தேர்வு செய்யவும் அல்லது தெரிந்த இடங்களைத் தேடவும்."
-
-#: bottles/frontend/views/importer.py:114
-msgid "Choose another directory or try the search again."
-msgstr "மற்றொரு கோப்பகத்தைத் தேர்வு செய்யவும் அல்லது தேடலை மீண்டும் முயற்சிக்கவும்."
 
 #: bottles/frontend/windows/programbackups.py:237
 msgid "Choose at least one available file or folder."
@@ -931,7 +918,7 @@ msgstr ""
 msgid "Configuration"
 msgstr "உள்ளமைவு"
 
-#: bottles/frontend/ui/importer.blp:137
+#: bottles/frontend/ui/importer.blp:72
 msgid "Configuration File…"
 msgstr "உள்ளமைவு கோப்பு…"
 
@@ -980,7 +967,7 @@ msgstr "Wine சூழல் UUID"
 msgid "Container creation failed."
 msgstr ""
 
-#: bottles/frontend/views/importer.py:161
+#: bottles/frontend/views/importer.py:92
 msgid "Container imported successfully"
 msgstr ""
 
@@ -1049,14 +1036,6 @@ msgstr ""
 msgid "Copyright © 2017 {developer_name}"
 msgstr ""
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Copy…"
-msgstr "நகலெடு…"
-
-#: bottles/frontend/views/importer.py:113
-msgid "Could Not Find Wine Prefixes"
-msgstr "Wine முன்னொட்டுகளைக் கண்டறிய முடியவில்லை"
-
 #, python-brace-format
 #: bottles/frontend/widgets/program.py:553
 msgid "Could not access the desktop entry for \"{0}\""
@@ -1098,10 +1077,6 @@ msgstr ""
 msgid "Could not save the program: {0}"
 msgstr ""
 
-#: bottles/frontend/views/importer.py:116
-msgid "Could not search for Wine prefixes"
-msgstr "Wine முன்னொட்டுகளைத் தேட முடியவில்லை"
-
 #: bottles/frontend/views/bottle_preferences.py:936
 msgid "Could not switch to the selected runner."
 msgstr ""
@@ -1128,10 +1103,6 @@ msgstr ""
 msgid "Crashes"
 msgstr ""
 
-#: bottles/frontend/ui/window.blp:35
-msgid "Create"
-msgstr "உருவாக்கு"
-
 #: bottles/frontend/ui/dialog-program-backups.blp:43
 msgid "Create Automatic Backups"
 msgstr ""
@@ -1148,7 +1119,7 @@ msgstr "புதிய பாட்டிலை உருவாக்கவு�
 msgid "Create Snapshot"
 msgstr ""
 
-#: bottles/frontend/ui/importer.blp:138
+#: bottles/frontend/ui/importer.blp:73
 msgid "Create a container from saved settings without restoring personal files"
 msgstr "தனிப்பட்ட கோப்புகளை மீட்டெடுக்காமல் சேமித்த அமைப்புகளிலிருந்து ஒரு பாட்டிலை உருவாக்கவும்"
 
@@ -1201,7 +1172,7 @@ msgstr ""
 msgid "Critical"
 msgstr "முக்கியமான"
 
-#: bottles/backend/utils/manager.py:919
+#: bottles/backend/utils/manager.py:912
 msgid "Croatian"
 msgstr ""
 
@@ -1238,7 +1209,7 @@ msgstr ""
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:910
+#: bottles/backend/utils/manager.py:903
 msgid "Czech"
 msgstr ""
 
@@ -1283,7 +1254,7 @@ msgstr ""
 msgid "Daily Average: {}"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:911
+#: bottles/backend/utils/manager.py:904
 msgid "Danish"
 msgstr ""
 
@@ -1583,7 +1554,7 @@ msgstr "நகல் Wine சூழல்…"
 msgid "Duplicating…"
 msgstr "நகலெடுக்கிறது…"
 
-#: bottles/backend/utils/manager.py:924
+#: bottles/backend/utils/manager.py:917
 msgid "Dutch"
 msgstr ""
 
@@ -1700,7 +1671,7 @@ msgstr ""
 msgid "Engines and Frameworks"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:914
+#: bottles/backend/utils/manager.py:907
 msgid "English"
 msgstr ""
 
@@ -1742,7 +1713,7 @@ msgstr ""
 msgid "Errors"
 msgstr "பிழைகள்"
 
-#: bottles/backend/utils/manager.py:916
+#: bottles/backend/utils/manager.py:909
 msgid "Estonian"
 msgstr ""
 
@@ -1931,15 +1902,7 @@ msgstr ""
 msgid "Finalizing…"
 msgstr "இறுதி செய்கிறது…"
 
-#: bottles/frontend/ui/importer.blp:69
-msgid "Find Wine Prefixes in a Directory"
-msgstr "ஒரு கோப்பகத்தில் Wine முன்னொட்டுகளைக் கண்டறியவும்"
-
-#: bottles/frontend/ui/importer.blp:62
-msgid "Find Wine environments from other applications, then choose one to copy into a new container."
-msgstr "பிற பயன்பாடுகளிலிருந்து Wine சூழல்களைக் கண்டறிந்து, புதிய பாட்டிலில் நகலெடுக்க ஒன்றைத் தேர்ந்தெடுக்கவும்."
-
-#: bottles/backend/utils/manager.py:917
+#: bottles/backend/utils/manager.py:910
 msgid "Finnish"
 msgstr ""
 
@@ -2011,7 +1974,7 @@ msgstr "பிரேம் வீத வரம்பு"
 msgid "Frame Rate Limit When Unfocused"
 msgstr "கவனம் செலுத்தாத போது பிரேம் வீத வரம்பு"
 
-#: bottles/backend/utils/manager.py:918
+#: bottles/backend/utils/manager.py:911
 msgid "French"
 msgstr ""
 
@@ -2019,7 +1982,7 @@ msgstr ""
 msgid "Fsync"
 msgstr "எப் சின்க்"
 
-#: bottles/frontend/ui/importer.blp:141
+#: bottles/frontend/ui/importer.blp:76
 msgid "Full Archive…"
 msgstr "முழு காப்பகம்…"
 
@@ -2067,7 +2030,7 @@ msgstr ""
 msgid "Generating container configuration…"
 msgstr "Wine சூழல் உள்ளமைவை உருவாக்குகிறது…"
 
-#: bottles/backend/utils/manager.py:912
+#: bottles/backend/utils/manager.py:905
 msgid "German"
 msgstr ""
 
@@ -2087,7 +2050,7 @@ msgstr ""
 msgid "Graphics API"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:913
+#: bottles/backend/utils/manager.py:906
 msgid "Greek"
 msgstr ""
 
@@ -2132,7 +2095,7 @@ msgstr ""
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:920
+#: bottles/backend/utils/manager.py:913
 msgid "Hungarian"
 msgstr ""
 
@@ -2144,7 +2107,7 @@ msgstr "நான் இன்னும் புகாரளிக்க வி
 msgid "Images"
 msgstr ""
 
-#: bottles/frontend/views/importer.py:192
+#: bottles/frontend/views/importer.py:123
 msgid "Import"
 msgstr "இறக்குமதி"
 
@@ -2160,7 +2123,7 @@ msgstr "Wine சூழல்களை இறக்குமதி செய்�
 msgid "Import Containers…"
 msgstr "Wine சூழல்களை இறக்குமதி செய்…"
 
-#: bottles/frontend/views/importer.py:164 bottles/frontend/widgets/importer.py:83
+#: bottles/frontend/views/importer.py:95
 msgid "Import failed"
 msgstr "இறக்குமதி தோல்வியடைந்தது"
 
@@ -2171,10 +2134,6 @@ msgstr ""
 #: bottles/backend/managers/backup.py:715
 msgid "Importing full backup"
 msgstr ""
-
-#: bottles/frontend/ui/importer-entry.blp:53
-msgid "Import…"
-msgstr "இறக்குமதி…"
 
 #: bottles/frontend/ui/details-preferences.blp:56
 msgid "Improve Direct3D 12 compatibility by translating it to Vulkan."
@@ -2367,7 +2326,7 @@ msgstr ""
 msgid "Issues that may prevent this program from running."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:921
+#: bottles/backend/utils/manager.py:914
 msgid "Italian"
 msgstr ""
 
@@ -2375,7 +2334,7 @@ msgstr ""
 msgid "Item name"
 msgstr "பொருளின் பெயர்"
 
-#: bottles/backend/utils/manager.py:935
+#: bottles/backend/utils/manager.py:928
 msgid "Japanese"
 msgstr ""
 
@@ -2393,7 +2352,7 @@ msgstr ""
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:937
+#: bottles/backend/utils/manager.py:930
 msgid "Korean"
 msgstr ""
 
@@ -2414,7 +2373,7 @@ msgstr ""
 msgid "LatencyFleX"
 msgstr "லேடென்சிஃப்ளெக்ஸ்"
 
-#: bottles/backend/utils/manager.py:923
+#: bottles/backend/utils/manager.py:916
 msgid "Latvian"
 msgstr ""
 
@@ -2510,7 +2469,7 @@ msgstr "நிரல் பட்டியலில் ஸ்டீம் பய
 msgid "List Ubisoft Games in Programs List"
 msgstr "நிரல் பட்டியலில் யுபிசாஃப்ட் கேம்களை பட்டியலிடவும்"
 
-#: bottles/backend/utils/manager.py:922
+#: bottles/backend/utils/manager.py:915
 msgid "Lithuanian"
 msgstr ""
 
@@ -2601,10 +2560,6 @@ msgstr "சாண்ட்பாக்ஸ் அனுமதிகளை நி�
 #: bottles/frontend/ui/details-preferences.blp:291
 msgid "Manage vmtouch settings"
 msgstr "vmtouch அமைப்புகளை நிர்வகிக்கவும்"
-
-#: bottles/frontend/ui/importer-entry.blp:30
-msgid "Manager"
-msgstr "மேலாளர்"
 
 #: bottles/frontend/ui/dialog-mangohud.blp:8
 msgid "MangoHud Settings"
@@ -2842,14 +2797,6 @@ msgstr "சிறுபடம் இல்லை"
 msgid "No VKD3D version available."
 msgstr ""
 
-#: bottles/frontend/ui/importer.blp:89 bottles/frontend/views/importer.py:124
-msgid "No Wine Prefixes Found"
-msgstr "Wine முன்னொட்டுகள் எதுவும் இல்லை"
-
-#: bottles/frontend/views/importer.py:128
-msgid "No Wine prefixes found in the selected folder"
-msgstr ""
-
 #: bottles/backend/managers/eagle.py:333
 msgid "No community intelligence match"
 msgstr ""
@@ -2894,7 +2841,7 @@ msgstr ""
 msgid "No variables selected"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:925
+#: bottles/backend/utils/manager.py:918
 msgid "Norwegian"
 msgstr ""
 
@@ -3033,10 +2980,6 @@ msgstr ""
 msgid "Organizing installers…"
 msgstr ""
 
-#: bottles/frontend/ui/importer.blp:61
-msgid "Other Wine Prefixes"
-msgstr "பிற Wine முன்னொட்டுகள்"
-
 #: bottles/frontend/ui/preferences.blp:237
 msgid "Override the default repositories Bottles uses when downloading resources."
 msgstr ""
@@ -3106,11 +3049,11 @@ msgstr "புதிய நிலைகளை உருவாக்க, பு�
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:926
+#: bottles/backend/utils/manager.py:919
 msgid "Polish"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:927
+#: bottles/backend/utils/manager.py:920
 msgid "Portuguese"
 msgstr ""
 
@@ -3343,10 +3286,6 @@ msgstr ""
 msgid "Refresh"
 msgstr "புதுப்பிப்பு"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Register"
-msgstr "பதிவு செய்"
-
 #: bottles/frontend/ui/preferences.blp:283 bottles/frontend/views/preferences.py:559
 msgid "Register Runner"
 msgstr "இயக்கச் சூழலைப் பதிவு செய்"
@@ -3528,7 +3467,7 @@ msgstr "Wine சூழல் காப்புப்பிரதியை ம�
 msgid "Restore an archive or use a configuration to create a container in an empty directory."
 msgstr "காப்பகத்தை மீட்டமைக்கவும் அல்லது ஒரு உள்ளமைவைப் பயன்படுத்தி காலியான கோப்பகத்தில் பாட்டிலை உருவாக்கவும்."
 
-#: bottles/frontend/ui/importer.blp:142
+#: bottles/frontend/ui/importer.blp:77
 msgid "Restore the container including its programs and personal files"
 msgstr "பாட்டிலை அதன் நிரல்கள் மற்றும் தனிப்பட்ட கோப்புகள் உட்பட மீட்டெடுக்கவும்"
 
@@ -3536,7 +3475,7 @@ msgstr "பாட்டிலை அதன் நிரல்கள் மற்
 msgid "Restore this Snapshot"
 msgstr "இந்த ஸ்னாப்ஷாட்டை மீட்டெடுக்கவும்"
 
-#: bottles/frontend/views/importer.py:234
+#: bottles/frontend/views/importer.py:165
 msgid "Restoring Backup…"
 msgstr "காப்புப்பிரதியை மீட்டமைக்கிறது…"
 
@@ -3566,7 +3505,7 @@ msgstr ""
 msgid "Review for {0}"
 msgstr "{0} க்கான மதிப்பாய்வு"
 
-#: bottles/backend/utils/manager.py:928
+#: bottles/backend/utils/manager.py:921
 msgid "Romanian"
 msgstr ""
 
@@ -3665,7 +3604,7 @@ msgstr ""
 msgid "Runtimes and Libraries"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:929
+#: bottles/backend/utils/manager.py:922
 msgid "Russian"
 msgstr ""
 
@@ -3721,10 +3660,6 @@ msgstr ""
 msgid "Search"
 msgstr "தேடு"
 
-#: bottles/frontend/ui/importer.blp:73
-msgid "Search Known Locations"
-msgstr "தெரிந்த இடங்களைத் தேடுங்கள்"
-
 #: bottles/frontend/ui/details-installers.blp:10
 msgid "Search for Programs…"
 msgstr "நிரல்களைத் தேடு…"
@@ -3744,10 +3679,6 @@ msgstr ""
 #: bottles/frontend/ui/list.blp:10
 msgid "Search your containers…"
 msgstr "உங்கள் Wine சூழல்களைத் தேடுங்கள்…"
-
-#: bottles/frontend/ui/importer.blp:109
-msgid "Searching for Wine Prefixes…"
-msgstr "Wine முன்னொட்டுகளைத் தேடுகிறது…"
 
 #: bottles/frontend/ui/details-bottle.blp:79 bottles/frontend/ui/details-dependencies.blp:115 bottles/frontend/ui/details-installers.blp:69
 msgid "Secondary Menu"
@@ -3829,17 +3760,13 @@ msgstr "இயக்கச் சூழல் கோப்பகத்தைத�
 msgid "Select Working Directory"
 msgstr "பணி அடைவைத் தேர்ந்தெடுக்கவும்"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Backup Archive"
 msgstr "காப்புப்பிரதி காப்பகத்தைத் தேர்ந்தெடுக்கவும்"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Configuration File"
 msgstr "உள்ளமைவு கோப்பைத் தேர்ந்தெடுக்கவும்"
-
-#: bottles/frontend/views/importer.py:143
-msgid "Select a Wine Prefix Folder"
-msgstr ""
 
 #: bottles/frontend/ui/dialog-program-backups.blp:33 bottles/frontend/windows/programbackups.py:241
 msgid "Select a backup folder and at least one file or folder."
@@ -3849,11 +3776,11 @@ msgstr ""
 msgid "Select a permanent runner directory, not a document portal path."
 msgstr "நிரந்தர இயக்கச் சூழல் கோப்பகத்தைத் தேர்ந்தெடுக்கவும், ஆவண போர்ட்டல் பாதை அல்ல."
 
-#: bottles/frontend/views/importer.py:96 bottles/frontend/widgets/importer.py:101 bottles/frontend/windows/duplicate.py:83
+#: bottles/frontend/views/importer.py:86 bottles/frontend/windows/duplicate.py:83
 msgid "Select an Empty Container Directory"
 msgstr ""
 
-#: bottles/frontend/views/importer.py:83
+#: bottles/frontend/views/importer.py:73
 msgid "Select an Existing Container"
 msgstr ""
 
@@ -4050,11 +3977,11 @@ msgstr ""
 msgid "Skip Setup"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:930
+#: bottles/backend/utils/manager.py:923
 msgid "Slovak"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:931
+#: bottles/backend/utils/manager.py:924
 msgid "Slovenian"
 msgstr ""
 
@@ -4095,7 +4022,7 @@ msgstr "ஏதோ தவறு நடந்தது."
 msgid "Source: {0}"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:915
+#: bottles/backend/utils/manager.py:908
 msgid "Spanish"
 msgstr ""
 
@@ -4216,7 +4143,7 @@ msgstr ""
 msgid "Supported Executables"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:932
+#: bottles/backend/utils/manager.py:925
 msgid "Swedish"
 msgstr ""
 
@@ -4236,7 +4163,7 @@ msgstr ""
 msgid "Synchronization"
 msgstr "ஒத்திசைவு"
 
-#: bottles/backend/utils/manager.py:908 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:901 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "சிஸ்டம்"
 
@@ -4416,10 +4343,6 @@ msgstr "மூன்றாம்-தரப்பு நூலகங்கள் 
 #: bottles/frontend/windows/playtimegraph.py:162
 msgid "This Week"
 msgstr ""
-
-#: bottles/frontend/ui/importer-entry.blp:40
-msgid "This Wine prefix is already registered in Bottles"
-msgstr "இந்த Wine முன்னொட்டு ஏற்கனவே Bottles இல் பதிவு செய்யப்பட்டுள்ளது"
 
 #: bottles/frontend/windows/playtimegraph.py:186
 msgid "This Year"
@@ -4618,7 +4541,7 @@ msgstr ""
 msgid "Try a different search."
 msgstr "வேறு தேடலை முயற்சிக்கவும்."
 
-#: bottles/backend/utils/manager.py:933
+#: bottles/backend/utils/manager.py:926
 msgid "Turkish"
 msgstr ""
 
@@ -4936,11 +4859,6 @@ msgstr ""
 #: bottles/backend/managers/manager.py:1617
 msgid "Wine config updated!"
 msgstr "ஒயின் கட்டமைப்பு புதுப்பிக்கப்பட்டது!"
-
-#. Translators: A Wine prefix is a separate environment (C:\ drive) for the Wine program
-#: bottles/frontend/ui/importer-entry.blp:23
-msgid "Wine prefix name"
-msgstr "ஒயின் முன்னொட்டு பெயர்"
 
 #: bottles/backend/managers/manager.py:1972
 msgid "WineBridge"

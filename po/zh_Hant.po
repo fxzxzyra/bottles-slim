@@ -45,11 +45,6 @@ msgid "\"{0}\" hidden"
 msgstr "「{0}」已隱藏"
 
 #, python-brace-format
-#: bottles/frontend/widgets/importer.py:79
-msgid "\"{0}\" imported"
-msgstr "「{0}」已匯入"
-
-#, python-brace-format
 #: bottles/frontend/widgets/dependency.py:224
 msgid "\"{0}\" installed"
 msgstr "「{0}」已安裝"
@@ -251,7 +246,7 @@ msgstr "關閉程序後"
 msgid "All"
 msgstr "全部"
 
-#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:179 bottles/frontend/views/new_bottle_dialog.py:203
+#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:110 bottles/frontend/views/new_bottle_dialog.py:203
 msgid "All Files"
 msgstr "所有文件"
 
@@ -551,7 +546,7 @@ msgstr "已刪除分支"
 msgid "Browse"
 msgstr "瀏覽"
 
-#: bottles/frontend/ui/component-entry.blp:24 bottles/frontend/ui/importer-entry.blp:14
+#: bottles/frontend/ui/component-entry.blp:24
 msgid "Browse Files"
 msgstr "瀏覽檔案"
 
@@ -575,7 +570,7 @@ msgstr "內建（Wine）"
 msgid "Builtin, then Native"
 msgstr "內建先於原生"
 
-#: bottles/backend/utils/manager.py:909
+#: bottles/backend/utils/manager.py:902
 msgid "Bulgarian"
 msgstr "保加利亞語"
 
@@ -709,11 +704,11 @@ msgstr "運行前檢查可執行文件中的惡意軟件特徵。"
 msgid "Check your connection or try again later."
 msgstr "請檢查網絡連接或稍後重試。"
 
-#: bottles/backend/utils/manager.py:934
+#: bottles/backend/utils/manager.py:927
 msgid "Chinese (Simplified)"
 msgstr "簡體中文"
 
-#: bottles/backend/utils/manager.py:936
+#: bottles/backend/utils/manager.py:929
 msgid "Chinese (Traditional)"
 msgstr "繁體中文"
 
@@ -725,7 +720,7 @@ msgstr "選擇備份文件夾"
 msgid "Choose Backup…"
 msgstr "選擇備份…"
 
-#: bottles/frontend/ui/importer.blp:39 bottles/frontend/ui/importer.blp:68
+#: bottles/frontend/ui/importer.blp:39
 msgid "Choose Directory…"
 msgstr "選擇目錄…"
 
@@ -753,14 +748,6 @@ msgstr "選擇啓動程序前執行的腳本。"
 #: bottles/frontend/windows/programbackups.py:232
 msgid "Choose an available backup folder."
 msgstr "請選擇可用的備份文件夾。"
-
-#: bottles/frontend/ui/importer.blp:95 bottles/frontend/views/importer.py:125
-msgid "Choose another directory or search known locations."
-msgstr "選擇其他目錄或搜尋已知位置。"
-
-#: bottles/frontend/views/importer.py:114
-msgid "Choose another directory or try the search again."
-msgstr "選擇其他目錄或重新搜尋。"
 
 #: bottles/frontend/windows/programbackups.py:237
 msgid "Choose at least one available file or folder."
@@ -930,7 +917,7 @@ msgstr "組件倉庫"
 msgid "Configuration"
 msgstr "配置"
 
-#: bottles/frontend/ui/importer.blp:137
+#: bottles/frontend/ui/importer.blp:72
 msgid "Configuration File…"
 msgstr "設定檔…"
 
@@ -979,7 +966,7 @@ msgstr "容器 UUID"
 msgid "Container creation failed."
 msgstr "創建容器失敗。"
 
-#: bottles/frontend/views/importer.py:161
+#: bottles/frontend/views/importer.py:92
 msgid "Container imported successfully"
 msgstr "已導入容器"
 
@@ -1048,14 +1035,6 @@ msgstr "正在複製到容器"
 msgid "Copyright © 2017 {developer_name}"
 msgstr "版權所有 © 2017 {developer_name}"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Copy…"
-msgstr "複製…"
-
-#: bottles/frontend/views/importer.py:113
-msgid "Could Not Find Wine Prefixes"
-msgstr "無法尋找 Wine 環境"
-
 #, python-brace-format
 #: bottles/frontend/widgets/program.py:553
 msgid "Could not access the desktop entry for \"{0}\""
@@ -1097,10 +1076,6 @@ msgstr "無法移除“{0}”的桌面啓動項"
 msgid "Could not save the program: {0}"
 msgstr "無法保存程序：{0}"
 
-#: bottles/frontend/views/importer.py:116
-msgid "Could not search for Wine prefixes"
-msgstr "無法搜尋 Wine 環境"
-
 #: bottles/frontend/views/bottle_preferences.py:936
 msgid "Could not switch to the selected runner."
 msgstr "無法切換到所選運行器。"
@@ -1127,10 +1102,6 @@ msgstr "已更新封面圖片。"
 msgid "Crashes"
 msgstr "崩潰"
 
-#: bottles/frontend/ui/window.blp:35
-msgid "Create"
-msgstr "建立"
-
 #: bottles/frontend/ui/dialog-program-backups.blp:43
 msgid "Create Automatic Backups"
 msgstr "創建自動備份"
@@ -1147,7 +1118,7 @@ msgstr "建立容器"
 msgid "Create Snapshot"
 msgstr "創建快照"
 
-#: bottles/frontend/ui/importer.blp:138
+#: bottles/frontend/ui/importer.blp:73
 msgid "Create a container from saved settings without restoring personal files"
 msgstr "使用儲存的設定建立容器，不還原個人檔案"
 
@@ -1200,7 +1171,7 @@ msgstr "貢獻與許可"
 msgid "Critical"
 msgstr "重要"
 
-#: bottles/backend/utils/manager.py:919
+#: bottles/backend/utils/manager.py:912
 msgid "Croatian"
 msgstr "克羅地亞語"
 
@@ -1237,7 +1208,7 @@ msgstr "自定義依賴項下載地址。留空使用默認地址。"
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr "自定義安裝程序下載地址。留空使用默認地址。"
 
-#: bottles/backend/utils/manager.py:910
+#: bottles/backend/utils/manager.py:903
 msgid "Czech"
 msgstr "捷克語"
 
@@ -1282,7 +1253,7 @@ msgstr "每天"
 msgid "Daily Average: {}"
 msgstr "日均：{}"
 
-#: bottles/backend/utils/manager.py:911
+#: bottles/backend/utils/manager.py:904
 msgid "Danish"
 msgstr "丹麥語"
 
@@ -1582,7 +1553,7 @@ msgstr "建立容器複本…"
 msgid "Duplicating…"
 msgstr "正在建立複本…"
 
-#: bottles/backend/utils/manager.py:924
+#: bottles/backend/utils/manager.py:917
 msgid "Dutch"
 msgstr "荷蘭語"
 
@@ -1699,7 +1670,7 @@ msgstr "正在啓用字體平滑…"
 msgid "Engines and Frameworks"
 msgstr "引擎和框架"
 
-#: bottles/backend/utils/manager.py:914
+#: bottles/backend/utils/manager.py:907
 msgid "English"
 msgstr "英語"
 
@@ -1741,7 +1712,7 @@ msgstr "處理可執行文件時發生錯誤：{0}"
 msgid "Errors"
 msgstr "錯誤"
 
-#: bottles/backend/utils/manager.py:916
+#: bottles/backend/utils/manager.py:909
 msgid "Estonian"
 msgstr "愛沙尼亞語"
 
@@ -1930,15 +1901,7 @@ msgstr "正在完成安裝…"
 msgid "Finalizing…"
 msgstr "正在收尾…"
 
-#: bottles/frontend/ui/importer.blp:69
-msgid "Find Wine Prefixes in a Directory"
-msgstr "在目錄中尋找 Wine 環境"
-
-#: bottles/frontend/ui/importer.blp:62
-msgid "Find Wine environments from other applications, then choose one to copy into a new container."
-msgstr "尋找其他應用程式的 Wine 環境，然後選擇一個複製到新容器中。"
-
-#: bottles/backend/utils/manager.py:917
+#: bottles/backend/utils/manager.py:910
 msgid "Finnish"
 msgstr "芬蘭語"
 
@@ -2010,7 +1973,7 @@ msgstr "影格率限制"
 msgid "Frame Rate Limit When Unfocused"
 msgstr "非聚焦時的影格率"
 
-#: bottles/backend/utils/manager.py:918
+#: bottles/backend/utils/manager.py:911
 msgid "French"
 msgstr "法語"
 
@@ -2018,7 +1981,7 @@ msgstr "法語"
 msgid "Fsync"
 msgstr "Fsync"
 
-#: bottles/frontend/ui/importer.blp:141
+#: bottles/frontend/ui/importer.blp:76
 msgid "Full Archive…"
 msgstr "完整封存檔…"
 
@@ -2066,7 +2029,7 @@ msgstr "通過 lsfg-vk 生成額外幀。僅支持 64 位 Vulkan 應用。"
 msgid "Generating container configuration…"
 msgstr "正在產生 Wine 容器 設定檔…"
 
-#: bottles/backend/utils/manager.py:912
+#: bottles/backend/utils/manager.py:905
 msgid "German"
 msgstr "德語"
 
@@ -2086,7 +2049,7 @@ msgstr "請授予 Bottles 對運行器目錄的直接訪問權限，然後重新
 msgid "Graphics API"
 msgstr "圖形 API"
 
-#: bottles/backend/utils/manager.py:913
+#: bottles/backend/utils/manager.py:906
 msgid "Greek"
 msgstr "希臘語"
 
@@ -2131,7 +2094,7 @@ msgstr "每小時平均：{}"
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr "會話心跳更新間隔。該值決定意外退出時的最大時間戳誤差。"
 
-#: bottles/backend/utils/manager.py:920
+#: bottles/backend/utils/manager.py:913
 msgid "Hungarian"
 msgstr "匈牙利語"
 
@@ -2143,7 +2106,7 @@ msgstr "我還是要回報。"
 msgid "Images"
 msgstr "圖片"
 
-#: bottles/frontend/views/importer.py:192
+#: bottles/frontend/views/importer.py:123
 msgid "Import"
 msgstr "匯入"
 
@@ -2159,7 +2122,7 @@ msgstr "匯入容器"
 msgid "Import Containers…"
 msgstr "匯入容器…"
 
-#: bottles/frontend/views/importer.py:164 bottles/frontend/widgets/importer.py:83
+#: bottles/frontend/views/importer.py:95
 msgid "Import failed"
 msgstr "匯入失敗"
 
@@ -2170,10 +2133,6 @@ msgstr "導入表哈希匹配"
 #: bottles/backend/managers/backup.py:715
 msgid "Importing full backup"
 msgstr "正在導入完整備份"
-
-#: bottles/frontend/ui/importer-entry.blp:53
-msgid "Import…"
-msgstr "匯入…"
 
 #: bottles/frontend/ui/details-preferences.blp:56
 msgid "Improve Direct3D 12 compatibility by translating it to Vulkan."
@@ -2366,7 +2325,7 @@ msgstr "無效的圖形組件。"
 msgid "Issues that may prevent this program from running."
 msgstr "可能阻止此程序運行的問題。"
 
-#: bottles/backend/utils/manager.py:921
+#: bottles/backend/utils/manager.py:914
 msgid "Italian"
 msgstr "意大利語"
 
@@ -2374,7 +2333,7 @@ msgstr "意大利語"
 msgid "Item name"
 msgstr "項目名稱"
 
-#: bottles/backend/utils/manager.py:935
+#: bottles/backend/utils/manager.py:928
 msgid "Japanese"
 msgstr "日語"
 
@@ -2392,7 +2351,7 @@ msgstr "已識別應用（{match}）：{name}"
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr "已識別應用：{name}（winetricks 指令“{verb}”）"
 
-#: bottles/backend/utils/manager.py:937
+#: bottles/backend/utils/manager.py:930
 msgid "Korean"
 msgstr "韓語"
 
@@ -2413,7 +2372,7 @@ msgstr "上次運行：%s — 運行時長：%s"
 msgid "LatencyFleX"
 msgstr "LatencyFleX"
 
-#: bottles/backend/utils/manager.py:923
+#: bottles/backend/utils/manager.py:916
 msgid "Latvian"
 msgstr "拉脫維亞語"
 
@@ -2509,7 +2468,7 @@ msgstr "在程式列表裡包含 Steam 應用程式"
 msgid "List Ubisoft Games in Programs List"
 msgstr "在程式列表裡包含 Ubisoft 的遊戲"
 
-#: bottles/backend/utils/manager.py:922
+#: bottles/backend/utils/manager.py:915
 msgid "Lithuanian"
 msgstr "立陶宛語"
 
@@ -2600,10 +2559,6 @@ msgstr "管理沙盒權限"
 #: bottles/frontend/ui/details-preferences.blp:291
 msgid "Manage vmtouch settings"
 msgstr "管理 vmtouch 設定"
-
-#: bottles/frontend/ui/importer-entry.blp:30
-msgid "Manager"
-msgstr "管理器"
 
 #: bottles/frontend/ui/dialog-mangohud.blp:8
 msgid "MangoHud Settings"
@@ -2841,14 +2796,6 @@ msgstr "無縮圖"
 msgid "No VKD3D version available."
 msgstr "沒有可用的 VKD3D 版本。"
 
-#: bottles/frontend/ui/importer.blp:89 bottles/frontend/views/importer.py:124
-msgid "No Wine Prefixes Found"
-msgstr "找不到 Wine 環境"
-
-#: bottles/frontend/views/importer.py:128
-msgid "No Wine prefixes found in the selected folder"
-msgstr "所選文件夾中未找到 Wine 容器"
-
 #: bottles/backend/managers/eagle.py:333
 msgid "No community intelligence match"
 msgstr "沒有匹配的社區兼容性數據"
@@ -2893,7 +2840,7 @@ msgstr "尚未緩存模板。"
 msgid "No variables selected"
 msgstr "未選擇變量"
 
-#: bottles/backend/utils/manager.py:925
+#: bottles/backend/utils/manager.py:918
 msgid "Norwegian"
 msgstr "挪威語"
 
@@ -3032,10 +2979,6 @@ msgstr "正在整理依賴項…"
 msgid "Organizing installers…"
 msgstr "正在整理安裝程序…"
 
-#: bottles/frontend/ui/importer.blp:61
-msgid "Other Wine Prefixes"
-msgstr "其他 Wine 環境"
-
 #: bottles/frontend/ui/preferences.blp:237
 msgid "Override the default repositories Bottles uses when downloading resources."
 msgstr "更改 Bottles 下載資源時使用的默認倉庫。"
@@ -3105,11 +3048,11 @@ msgstr "請遷移至新版本的版本控制系統以建立新的狀態檔案。
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr "正在下載並安裝 WineBridge，請稍候。"
 
-#: bottles/backend/utils/manager.py:926
+#: bottles/backend/utils/manager.py:919
 msgid "Polish"
 msgstr "波蘭語"
 
-#: bottles/backend/utils/manager.py:927
+#: bottles/backend/utils/manager.py:920
 msgid "Portuguese"
 msgstr "葡萄牙語"
 
@@ -3342,10 +3285,6 @@ msgstr "記錄通過 Bottles 啓動的程序的運行時長。"
 msgid "Refresh"
 msgstr "重新整理"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Register"
-msgstr "登記"
-
 #: bottles/frontend/ui/preferences.blp:283 bottles/frontend/views/preferences.py:559
 msgid "Register Runner"
 msgstr "登記執行器"
@@ -3527,7 +3466,7 @@ msgstr "還原容器備份"
 msgid "Restore an archive or use a configuration to create a container in an empty directory."
 msgstr "還原封存檔，或使用設定在空目錄中建立容器。"
 
-#: bottles/frontend/ui/importer.blp:142
+#: bottles/frontend/ui/importer.blp:77
 msgid "Restore the container including its programs and personal files"
 msgstr "還原容器，包括其中的程式和個人檔案"
 
@@ -3535,7 +3474,7 @@ msgstr "還原容器，包括其中的程式和個人檔案"
 msgid "Restore this Snapshot"
 msgstr "恢復此快照版本"
 
-#: bottles/frontend/views/importer.py:234
+#: bottles/frontend/views/importer.py:165
 msgid "Restoring Backup…"
 msgstr "正在還原備份…"
 
@@ -3565,7 +3504,7 @@ msgstr "查看"
 msgid "Review for {0}"
 msgstr "{0} 的評論"
 
-#: bottles/backend/utils/manager.py:928
+#: bottles/backend/utils/manager.py:921
 msgid "Romanian"
 msgstr "羅馬尼亞語"
 
@@ -3664,7 +3603,7 @@ msgstr "與 Bottles 使用相同的訪問權限，不額外隔離。"
 msgid "Runtimes and Libraries"
 msgstr "運行時和庫"
 
-#: bottles/backend/utils/manager.py:929
+#: bottles/backend/utils/manager.py:922
 msgid "Russian"
 msgstr "俄語"
 
@@ -3720,10 +3659,6 @@ msgstr "屏幕縮放"
 msgid "Search"
 msgstr "搜尋"
 
-#: bottles/frontend/ui/importer.blp:73
-msgid "Search Known Locations"
-msgstr "搜尋已知位置"
-
 #: bottles/frontend/ui/details-installers.blp:10
 msgid "Search for Programs…"
 msgstr "搜尋程式…"
@@ -3743,10 +3678,6 @@ msgstr "搜索規則…"
 #: bottles/frontend/ui/list.blp:10
 msgid "Search your containers…"
 msgstr "在您的容器中搜尋…"
-
-#: bottles/frontend/ui/importer.blp:109
-msgid "Searching for Wine Prefixes…"
-msgstr "正在搜尋 Wine 環境…"
 
 #: bottles/frontend/ui/details-bottle.blp:79 bottles/frontend/ui/details-dependencies.blp:115 bottles/frontend/ui/details-installers.blp:69
 msgid "Secondary Menu"
@@ -3828,17 +3759,13 @@ msgstr "選擇執行器目錄"
 msgid "Select Working Directory"
 msgstr "選擇工作目錄"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Backup Archive"
 msgstr "選擇備份封存檔"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Configuration File"
 msgstr "選擇配置文件"
-
-#: bottles/frontend/views/importer.py:143
-msgid "Select a Wine Prefix Folder"
-msgstr "選擇 Wine 容器文件夾"
 
 #: bottles/frontend/ui/dialog-program-backups.blp:33 bottles/frontend/windows/programbackups.py:241
 msgid "Select a backup folder and at least one file or folder."
@@ -3848,11 +3775,11 @@ msgstr "請選擇備份文件夾，並至少選擇一個文件或文件夾。"
 msgid "Select a permanent runner directory, not a document portal path."
 msgstr "請選擇執行器的實際目錄，不要選擇文件入口網站路徑。"
 
-#: bottles/frontend/views/importer.py:96 bottles/frontend/widgets/importer.py:101 bottles/frontend/windows/duplicate.py:83
+#: bottles/frontend/views/importer.py:86 bottles/frontend/windows/duplicate.py:83
 msgid "Select an Empty Container Directory"
 msgstr "選擇空的容器目錄"
 
-#: bottles/frontend/views/importer.py:83
+#: bottles/frontend/views/importer.py:73
 msgid "Select an Existing Container"
 msgstr "選擇現有容器"
 
@@ -4049,11 +3976,11 @@ msgstr "模擬 Windows 關機"
 msgid "Skip Setup"
 msgstr "跳過設置"
 
-#: bottles/backend/utils/manager.py:930
+#: bottles/backend/utils/manager.py:923
 msgid "Slovak"
 msgstr "斯洛伐克語"
 
-#: bottles/backend/utils/manager.py:931
+#: bottles/backend/utils/manager.py:924
 msgid "Slovenian"
 msgstr "斯洛文尼亞語"
 
@@ -4094,7 +4021,7 @@ msgstr "發生錯誤。"
 msgid "Source: {0}"
 msgstr "來源：{0}"
 
-#: bottles/backend/utils/manager.py:915
+#: bottles/backend/utils/manager.py:908
 msgid "Spanish"
 msgstr "西班牙語"
 
@@ -4215,7 +4142,7 @@ msgstr "建議基於技術分析，不保證兼容性。"
 msgid "Supported Executables"
 msgstr "支持的可執行文件"
 
-#: bottles/backend/utils/manager.py:932
+#: bottles/backend/utils/manager.py:925
 msgid "Swedish"
 msgstr "瑞典語"
 
@@ -4235,7 +4162,7 @@ msgstr "正在切換分支…"
 msgid "Synchronization"
 msgstr "同步"
 
-#: bottles/backend/utils/manager.py:908 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:901 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "系統"
 
@@ -4415,10 +4342,6 @@ msgstr "第三方函式庫與特別感謝"
 #: bottles/frontend/windows/playtimegraph.py:162
 msgid "This Week"
 msgstr "本週"
-
-#: bottles/frontend/ui/importer-entry.blp:40
-msgid "This Wine prefix is already registered in Bottles"
-msgstr "此 Wine 環境已在 Bottles 中登記"
 
 #: bottles/frontend/windows/playtimegraph.py:186
 msgid "This Year"
@@ -4617,7 +4540,7 @@ msgstr "重試"
 msgid "Try a different search."
 msgstr "請嘗試不一樣的搜尋。"
 
-#: bottles/backend/utils/manager.py:933
+#: bottles/backend/utils/manager.py:926
 msgid "Turkish"
 msgstr "土耳其語"
 
@@ -4934,11 +4857,6 @@ msgstr "Wine 音頻驅動"
 #: bottles/backend/managers/manager.py:1617
 msgid "Wine config updated!"
 msgstr "WINE 設定檔已更新！"
-
-#. Translators: A Wine prefix is a separate environment (C:\ drive) for the Wine program
-#: bottles/frontend/ui/importer-entry.blp:23
-msgid "Wine prefix name"
-msgstr "Wine 前置環境名稱"
 
 #: bottles/backend/managers/manager.py:1972
 msgid "WineBridge"

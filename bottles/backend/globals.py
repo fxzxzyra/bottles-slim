@@ -128,13 +128,6 @@ class Paths:
         return 0
 
 
-class TrdyPaths:
-    # External managers paths
-    wine = f"{Path.home()}/.wine"
-    lutris = f"{Path.home()}/Games"
-    playonlinux = f"{Path.home()}/.PlayOnLinux/wineprefix"
-
-
 def check_flatpak_extension(cmd: str, path: str):
     if "FLATPAK_ID" in os.environ:
         if not os.path.exists(path):

@@ -45,11 +45,6 @@ msgid "\"{0}\" hidden"
 msgstr "\"{0}\" κρυφό"
 
 #, python-brace-format
-#: bottles/frontend/widgets/importer.py:79
-msgid "\"{0}\" imported"
-msgstr "Εισαγωγή \"{0}\"."
-
-#, python-brace-format
 #: bottles/frontend/widgets/dependency.py:224
 msgid "\"{0}\" installed"
 msgstr "Το «{0}» εγκαταστάθηκε"
@@ -252,7 +247,7 @@ msgstr "Μετά το κλείσιμο του προγράμματος"
 msgid "All"
 msgstr "Όλα"
 
-#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:179 bottles/frontend/views/new_bottle_dialog.py:203
+#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:110 bottles/frontend/views/new_bottle_dialog.py:203
 msgid "All Files"
 msgstr "Όλα τα αρχεία"
 
@@ -555,7 +550,7 @@ msgstr "Ο κλάδος διαγράφηκε με επιτυχία"
 msgid "Browse"
 msgstr "Περιήγηση του C:"
 
-#: bottles/frontend/ui/component-entry.blp:24 bottles/frontend/ui/importer-entry.blp:14
+#: bottles/frontend/ui/component-entry.blp:24
 msgid "Browse Files"
 msgstr "Περιήγηση αρχείων"
 
@@ -580,7 +575,7 @@ msgstr "Ενσωματωμένο (Wine)"
 msgid "Builtin, then Native"
 msgstr "Ενσωματωμένο, μετά Τοπικό"
 
-#: bottles/backend/utils/manager.py:909
+#: bottles/backend/utils/manager.py:902
 msgid "Bulgarian"
 msgstr "Βουλγαρικά"
 
@@ -715,11 +710,11 @@ msgstr "Ελέγξτε τα εκτελέσιμα για μοτίβα κακόβ�
 msgid "Check your connection or try again later."
 msgstr "Ελέγξτε τη σύνδεσή σας ή δοκιμάστε ξανά αργότερα."
 
-#: bottles/backend/utils/manager.py:934
+#: bottles/backend/utils/manager.py:927
 msgid "Chinese (Simplified)"
 msgstr "Κινέζικα (Απλοποιημένα)"
 
-#: bottles/backend/utils/manager.py:936
+#: bottles/backend/utils/manager.py:929
 msgid "Chinese (Traditional)"
 msgstr "Κινέζικα (Παραδοσιακό)"
 
@@ -731,7 +726,7 @@ msgstr "Επιλέξτε Backup Folder"
 msgid "Choose Backup…"
 msgstr "Επιλέξτε Backup…"
 
-#: bottles/frontend/ui/importer.blp:39 bottles/frontend/ui/importer.blp:68
+#: bottles/frontend/ui/importer.blp:39
 msgid "Choose Directory…"
 msgstr "Επιλέξτε Κατάλογο…"
 
@@ -760,14 +755,6 @@ msgstr "Επιλέξτε ένα σενάριο που θα πρέπει να ε�
 #: bottles/frontend/windows/programbackups.py:232
 msgid "Choose an available backup folder."
 msgstr "Επιλέξτε έναν διαθέσιμο φάκελο αντιγράφων ασφαλείας."
-
-#: bottles/frontend/ui/importer.blp:95 bottles/frontend/views/importer.py:125
-msgid "Choose another directory or search known locations."
-msgstr "Επιλέξτε έναν άλλο κατάλογο ή αναζητήστε γνωστές τοποθεσίες."
-
-#: bottles/frontend/views/importer.py:114
-msgid "Choose another directory or try the search again."
-msgstr "Επιλέξτε έναν άλλο κατάλογο ή δοκιμάστε ξανά την αναζήτηση."
 
 #: bottles/frontend/windows/programbackups.py:237
 msgid "Choose at least one available file or folder."
@@ -943,7 +930,7 @@ msgstr "Αποθετήριο στοιχείων"
 msgid "Configuration"
 msgstr "Διαμόρφωση"
 
-#: bottles/frontend/ui/importer.blp:137
+#: bottles/frontend/ui/importer.blp:72
 msgid "Configuration File…"
 msgstr "Αρχείο διαμόρφωσης…"
 
@@ -995,7 +982,7 @@ msgstr "UUID φιάλης"
 msgid "Container creation failed."
 msgstr "Η δημιουργία μπουκαλιού απέτυχε."
 
-#: bottles/frontend/views/importer.py:161
+#: bottles/frontend/views/importer.py:92
 msgid "Container imported successfully"
 msgstr "Το περιβάλλον Wine εισήχθη με επιτυχία"
 
@@ -1064,14 +1051,6 @@ msgstr "Αντιγραφή στο περιβάλλον Wine"
 msgid "Copyright © 2017 {developer_name}"
 msgstr "Πνευματικά δικαιώματα © 2017 {developer_name}"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Copy…"
-msgstr "Αντιγραφή…"
-
-#: bottles/frontend/views/importer.py:113
-msgid "Could Not Find Wine Prefixes"
-msgstr "Δεν ήταν δυνατή η εύρεση προθεμάτων Wine"
-
 #, python-brace-format
 #: bottles/frontend/widgets/program.py:553
 msgid "Could not access the desktop entry for \"{0}\""
@@ -1113,10 +1092,6 @@ msgstr "Δεν ήταν δυνατή η κατάργηση της καταχώρ
 msgid "Could not save the program: {0}"
 msgstr "Δεν ήταν δυνατή η αποθήκευση του προγράμματος: {0}"
 
-#: bottles/frontend/views/importer.py:116
-msgid "Could not search for Wine prefixes"
-msgstr "Δεν ήταν δυνατή η αναζήτηση προθεμάτων Wine"
-
 #: bottles/frontend/views/bottle_preferences.py:936
 msgid "Could not switch to the selected runner."
 msgstr "Δεν ήταν δυνατή η εναλλαγή στον επιλεγμένο δρομέα."
@@ -1143,10 +1118,6 @@ msgstr "Η εικόνα εξωφύλλου ενημερώθηκε."
 msgid "Crashes"
 msgstr "Σφάλματα"
 
-#: bottles/frontend/ui/window.blp:35
-msgid "Create"
-msgstr "Δημιουργία"
-
 #: bottles/frontend/ui/dialog-program-backups.blp:43
 msgid "Create Automatic Backups"
 msgstr "Δημιουργήστε αυτόματα αντίγραφα ασφαλείας"
@@ -1164,7 +1135,7 @@ msgstr "περιβάλλοντα Wine"
 msgid "Create Snapshot"
 msgstr "Δημιουργία στιγμιότυπου"
 
-#: bottles/frontend/ui/importer.blp:138
+#: bottles/frontend/ui/importer.blp:73
 msgid "Create a container from saved settings without restoring personal files"
 msgstr "Δημιουργήστε ένα περιβάλλον Wine από αποθηκευμένες ρυθμίσεις χωρίς να επαναφέρετε προσωπικά αρχεία"
 
@@ -1219,7 +1190,7 @@ msgstr "Πιστώσεις και άδεια"
 msgid "Critical"
 msgstr "Κρίσιμο"
 
-#: bottles/backend/utils/manager.py:919
+#: bottles/backend/utils/manager.py:912
 msgid "Croatian"
 msgstr "Κροατικό"
 
@@ -1257,7 +1228,7 @@ msgstr "Προσαρμοσμένη διεύθυνση URL για εξαρτήσ�
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr "Προσαρμοσμένη διεύθυνση URL για προγράμματα εγκατάστασης. Αφήστε κενό για να χρησιμοποιήσετε το προεπιλεγμένο τελικό σημείο."
 
-#: bottles/backend/utils/manager.py:910
+#: bottles/backend/utils/manager.py:903
 msgid "Czech"
 msgstr "Τσέχικα"
 
@@ -1305,7 +1276,7 @@ msgstr "Καθημερινά"
 msgid "Daily Average: {}"
 msgstr "Ημερήσιος μέσος όρος: {}"
 
-#: bottles/backend/utils/manager.py:911
+#: bottles/backend/utils/manager.py:904
 msgid "Danish"
 msgstr "Δανέζικα"
 
@@ -1610,7 +1581,7 @@ msgstr "Διπλοτυπία αυτού του περιβάλλον Wine…"
 msgid "Duplicating…"
 msgstr "Αντιγραφή…"
 
-#: bottles/backend/utils/manager.py:924
+#: bottles/backend/utils/manager.py:917
 msgid "Dutch"
 msgstr "Ολλανδικά"
 
@@ -1728,7 +1699,7 @@ msgstr "Ενεργοποίηση εξομάλυνσης γραμματοσειρ
 msgid "Engines and Frameworks"
 msgstr "Κινητήρες και πλαίσια"
 
-#: bottles/backend/utils/manager.py:914
+#: bottles/backend/utils/manager.py:907
 msgid "English"
 msgstr "Αγγλικά"
 
@@ -1771,7 +1742,7 @@ msgstr "Σφάλμα κατά την επεξεργασία εκτελέσιμο
 msgid "Errors"
 msgstr "Σφάλματα"
 
-#: bottles/backend/utils/manager.py:916
+#: bottles/backend/utils/manager.py:909
 msgid "Estonian"
 msgstr "Εσθονία"
 
@@ -1963,15 +1934,7 @@ msgstr "Ολοκλήρωση εγκατάστασης..."
 msgid "Finalizing…"
 msgstr "Ολοκλήρωση…"
 
-#: bottles/frontend/ui/importer.blp:69
-msgid "Find Wine Prefixes in a Directory"
-msgstr "Βρείτε προθέματα Wine σε έναν κατάλογο"
-
-#: bottles/frontend/ui/importer.blp:62
-msgid "Find Wine environments from other applications, then choose one to copy into a new container."
-msgstr "Βρείτε περιβάλλοντα Wine από άλλες εφαρμογές και, στη συνέχεια, επιλέξτε ένα για αντιγραφή σε ένα νέο περιβάλλον Wine."
-
-#: bottles/backend/utils/manager.py:917
+#: bottles/backend/utils/manager.py:910
 msgid "Finnish"
 msgstr "Φινλανδικά"
 
@@ -2044,7 +2007,7 @@ msgstr "Όριο ρυθμού καρέ"
 msgid "Frame Rate Limit When Unfocused"
 msgstr "Όριο ρυθμού καρέ όταν δεν είναι εστιασμένο"
 
-#: bottles/backend/utils/manager.py:918
+#: bottles/backend/utils/manager.py:911
 msgid "French"
 msgstr "Γαλλικά"
 
@@ -2052,7 +2015,7 @@ msgstr "Γαλλικά"
 msgid "Fsync"
 msgstr "Fsync"
 
-#: bottles/frontend/ui/importer.blp:141
+#: bottles/frontend/ui/importer.blp:76
 msgid "Full Archive…"
 msgstr "Πλήρες αρχείο…"
 
@@ -2100,7 +2063,7 @@ msgstr "Δημιουργήστε επιπλέον καρέ με το lsfg-vk. Λ
 msgid "Generating container configuration…"
 msgstr "Δημιουργία ρυθμίσεων του περιβάλλον Wine…"
 
-#: bottles/backend/utils/manager.py:912
+#: bottles/backend/utils/manager.py:905
 msgid "German"
 msgstr "Γερμανικά"
 
@@ -2120,7 +2083,7 @@ msgstr "Παραχωρήστε στο Bottles άμεση πρόσβαση στο
 msgid "Graphics API"
 msgstr "API γραφικών"
 
-#: bottles/backend/utils/manager.py:913
+#: bottles/backend/utils/manager.py:906
 msgid "Greek"
 msgstr "Ελληνικά"
 
@@ -2167,7 +2130,7 @@ msgstr "Μέσος όρος ανά ώρα: {}"
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr "Πόσο συχνά ενημερώνεται ο καρδιακός παλμός της περιόδου λειτουργίας. Ορίζει το μέγιστο σφάλμα χρονικής σφραγίδας για απότομες εξόδους."
 
-#: bottles/backend/utils/manager.py:920
+#: bottles/backend/utils/manager.py:913
 msgid "Hungarian"
 msgstr "Ουγγρικό"
 
@@ -2179,7 +2142,7 @@ msgstr "Επιθυμώ ακόνα να αναφέρω."
 msgid "Images"
 msgstr "Εικόνες"
 
-#: bottles/frontend/views/importer.py:192
+#: bottles/frontend/views/importer.py:123
 msgid "Import"
 msgstr "Εισαγωγή"
 
@@ -2195,7 +2158,7 @@ msgstr "Εισαγωγή περιβαλλόντων Wine"
 msgid "Import Containers…"
 msgstr "Εισαγωγή φιαλών…"
 
-#: bottles/frontend/views/importer.py:164 bottles/frontend/widgets/importer.py:83
+#: bottles/frontend/views/importer.py:95
 msgid "Import failed"
 msgstr "Η εισαγωγή απέτυχε"
 
@@ -2206,10 +2169,6 @@ msgstr "Εισαγωγή αντιστοίχισης κατακερματισμο
 #: bottles/backend/managers/backup.py:715
 msgid "Importing full backup"
 msgstr "Εισαγωγή πλήρους αντιγράφου ασφαλείας"
-
-#: bottles/frontend/ui/importer-entry.blp:53
-msgid "Import…"
-msgstr "Εισαγωγή…"
 
 #: bottles/frontend/ui/details-preferences.blp:56
 msgid "Improve Direct3D 12 compatibility by translating it to Vulkan."
@@ -2406,7 +2365,7 @@ msgstr "Μη έγκυρο στοιχείο γραφικών."
 msgid "Issues that may prevent this program from running."
 msgstr "Ζητήματα που ενδέχεται να εμποδίσουν την εκτέλεση αυτού του προγράμματος."
 
-#: bottles/backend/utils/manager.py:921
+#: bottles/backend/utils/manager.py:914
 msgid "Italian"
 msgstr "Ιταλικό"
 
@@ -2415,7 +2374,7 @@ msgstr "Ιταλικό"
 msgid "Item name"
 msgstr "Όνομα bottle"
 
-#: bottles/backend/utils/manager.py:935
+#: bottles/backend/utils/manager.py:928
 msgid "Japanese"
 msgstr "Ιαπωνικά"
 
@@ -2433,7 +2392,7 @@ msgstr "Γνωστή εφαρμογή ({match}): {name}"
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr "Γνωστή εφαρμογή: {name} (ρήμα winetricks '{verb}')"
 
-#: bottles/backend/utils/manager.py:937
+#: bottles/backend/utils/manager.py:930
 msgid "Korean"
 msgstr "Κορεάτικο"
 
@@ -2454,7 +2413,7 @@ msgstr "Τελευταία αναπαραγωγή: %s – Χρόνος αναπ�
 msgid "LatencyFleX"
 msgstr "LatencyFleX"
 
-#: bottles/backend/utils/manager.py:923
+#: bottles/backend/utils/manager.py:916
 msgid "Latvian"
 msgstr "Λετονικό"
 
@@ -2551,7 +2510,7 @@ msgstr "Καταχωρίστε τις εφαρμογές Steam στη λίστα
 msgid "List Ubisoft Games in Programs List"
 msgstr "Καταχωρίστε τα παιχνίδια της Ubisoft στη λίστα προγραμμάτων"
 
-#: bottles/backend/utils/manager.py:922
+#: bottles/backend/utils/manager.py:915
 msgid "Lithuanian"
 msgstr "Λιθουανικά"
 
@@ -2644,11 +2603,6 @@ msgstr "Διαχείρηση εκδόσεων DXVK"
 #: bottles/frontend/ui/details-preferences.blp:291
 msgid "Manage vmtouch settings"
 msgstr "Διαχείριση ρυθμίσεων vmtouch"
-
-#, fuzzy
-#: bottles/frontend/ui/importer-entry.blp:30
-msgid "Manager"
-msgstr "Διαχείρηση δρομέων"
 
 #: bottles/frontend/ui/dialog-mangohud.blp:8
 msgid "MangoHud Settings"
@@ -2890,14 +2844,6 @@ msgstr "Χωρίς μικρογραφία"
 msgid "No VKD3D version available."
 msgstr "Δεν υπάρχει διαθέσιμη έκδοση VKD3D."
 
-#: bottles/frontend/ui/importer.blp:89 bottles/frontend/views/importer.py:124
-msgid "No Wine Prefixes Found"
-msgstr "Δεν βρέθηκαν προθέματα Wine"
-
-#: bottles/frontend/views/importer.py:128
-msgid "No Wine prefixes found in the selected folder"
-msgstr "Δεν βρέθηκαν προθέματα Wine στον επιλεγμένο φάκελο"
-
 #: bottles/backend/managers/eagle.py:333
 msgid "No community intelligence match"
 msgstr "Δεν υπάρχει αντιστοιχία πληροφοριών κοινότητας"
@@ -2942,7 +2888,7 @@ msgstr "Δεν έχουν αποθηκευτεί ακόμα πρότυπα."
 msgid "No variables selected"
 msgstr "Δεν έχουν επιλεγεί μεταβλητές"
 
-#: bottles/backend/utils/manager.py:925
+#: bottles/backend/utils/manager.py:918
 msgid "Norwegian"
 msgstr "Νορβηγικά"
 
@@ -3081,10 +3027,6 @@ msgstr "Οργάνωση εξαρτήσεων…"
 msgid "Organizing installers…"
 msgstr "Οργάνωση εγκαταστατών…"
 
-#: bottles/frontend/ui/importer.blp:61
-msgid "Other Wine Prefixes"
-msgstr "Άλλα προθέματα Wine"
-
 #: bottles/frontend/ui/preferences.blp:237
 msgid "Override the default repositories Bottles uses when downloading resources."
 msgstr "Παράκαμψη των προεπιλεγμένων αποθετηρίων που χρησιμοποιεί το Bottles κατά τη λήψη πόρων."
@@ -3155,11 +3097,11 @@ msgstr "Μεταβείτε στο νέο σύστημα έκδοσης για ν
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr "Περιμένετε όσο γίνεται λήψη και εγκατάσταση του WineBridge."
 
-#: bottles/backend/utils/manager.py:926
+#: bottles/backend/utils/manager.py:919
 msgid "Polish"
 msgstr "Πολωνικό"
 
-#: bottles/backend/utils/manager.py:927
+#: bottles/backend/utils/manager.py:920
 msgid "Portuguese"
 msgstr "Πορτογαλικά"
 
@@ -3396,10 +3338,6 @@ msgstr "Καταγράψτε στατιστικά στοιχεία χρόνου 
 msgid "Refresh"
 msgstr "Ανανέωση"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Register"
-msgstr "Καταχώριση"
-
 #: bottles/frontend/ui/preferences.blp:283 bottles/frontend/views/preferences.py:559
 msgid "Register Runner"
 msgstr "Καταχώριση εκτελεστή"
@@ -3585,7 +3523,7 @@ msgstr "Επαναφέρετε ένα αντίγραφο ασφαλείας φι
 msgid "Restore an archive or use a configuration to create a container in an empty directory."
 msgstr "Επαναφέρετε ένα αρχείο ή χρησιμοποιήστε μια διαμόρφωση για να δημιουργήσετε ένα περιβάλλον Wine σε έναν κενό κατάλογο."
 
-#: bottles/frontend/ui/importer.blp:142
+#: bottles/frontend/ui/importer.blp:77
 msgid "Restore the container including its programs and personal files"
 msgstr "Επαναφέρετε το περιβάλλον Wine συμπεριλαμβανομένων των προγραμμάτων και των προσωπικών του αρχείων"
 
@@ -3593,7 +3531,7 @@ msgstr "Επαναφέρετε το περιβάλλον Wine συμπεριλα
 msgid "Restore this Snapshot"
 msgstr "Επαναφέρετε αυτό το Στιγμιότυπο"
 
-#: bottles/frontend/views/importer.py:234
+#: bottles/frontend/views/importer.py:165
 msgid "Restoring Backup…"
 msgstr "Επαναφορά αντιγράφου ασφαλείας…"
 
@@ -3623,7 +3561,7 @@ msgstr "Αξιολόγηση"
 msgid "Review for {0}"
 msgstr "Ανασκόπηση για {0}"
 
-#: bottles/backend/utils/manager.py:928
+#: bottles/backend/utils/manager.py:921
 msgid "Romanian"
 msgstr "Ρουμανικό"
 
@@ -3723,7 +3661,7 @@ msgstr "Εκτελείται με την ίδια πρόσβαση με το Bot
 msgid "Runtimes and Libraries"
 msgstr "Χρόνοι εκτέλεσης και βιβλιοθήκες"
 
-#: bottles/backend/utils/manager.py:929
+#: bottles/backend/utils/manager.py:922
 msgid "Russian"
 msgstr "Ρωσικά"
 
@@ -3779,10 +3717,6 @@ msgstr "Κλιμάκωση οθόνης"
 msgid "Search"
 msgstr "Εύρεση"
 
-#: bottles/frontend/ui/importer.blp:73
-msgid "Search Known Locations"
-msgstr "Αναζήτηση γνωστών τοποθεσιών"
-
 #: bottles/frontend/ui/details-installers.blp:10
 msgid "Search for Programs…"
 msgstr "Εύρεση προγραμμάτων…"
@@ -3802,10 +3736,6 @@ msgstr "Αναζήτηση κανόνων…"
 #: bottles/frontend/ui/list.blp:10
 msgid "Search your containers…"
 msgstr "Ψάξτε τα περιβάλλοντα Wine σας…"
-
-#: bottles/frontend/ui/importer.blp:109
-msgid "Searching for Wine Prefixes…"
-msgstr "Αναζήτηση προθεμάτων Wine…"
 
 #: bottles/frontend/ui/details-bottle.blp:79 bottles/frontend/ui/details-dependencies.blp:115 bottles/frontend/ui/details-installers.blp:69
 msgid "Secondary Menu"
@@ -3891,18 +3821,14 @@ msgstr "Επιλέξτε Κατάλογος Εκτελεστής"
 msgid "Select Working Directory"
 msgstr "Επιλέξτε Κατάλογος εργασίας"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Backup Archive"
 msgstr "Επιλέξτε ένα εφεδρικό αρχείο"
 
 #, fuzzy
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Configuration File"
 msgstr "Εξαγωγή διαμόρφωσης"
-
-#: bottles/frontend/views/importer.py:143
-msgid "Select a Wine Prefix Folder"
-msgstr "Επιλέξτε έναν φάκελο προθέματος Wine"
 
 #: bottles/frontend/ui/dialog-program-backups.blp:33 bottles/frontend/windows/programbackups.py:241
 msgid "Select a backup folder and at least one file or folder."
@@ -3912,11 +3838,11 @@ msgstr "Επιλέξτε έναν φάκελο αντιγράφου ασφαλε
 msgid "Select a permanent runner directory, not a document portal path."
 msgstr "Επιλέξτε έναν μόνιμο κατάλογο Εκτελεστής, όχι μια διαδρομή πύλης εγγράφων."
 
-#: bottles/frontend/views/importer.py:96 bottles/frontend/widgets/importer.py:101 bottles/frontend/windows/duplicate.py:83
+#: bottles/frontend/views/importer.py:86 bottles/frontend/windows/duplicate.py:83
 msgid "Select an Empty Container Directory"
 msgstr "Επιλέξτε έναν κατάλογο άδειας φιάλης"
 
-#: bottles/frontend/views/importer.py:83
+#: bottles/frontend/views/importer.py:73
 msgid "Select an Existing Container"
 msgstr "Επιλέξτε ένα υπάρχον περιβάλλον Wine"
 
@@ -4119,11 +4045,11 @@ msgstr "Προσομοίωση τερματισμού λειτουργίας σ�
 msgid "Skip Setup"
 msgstr "Παράλειψη ρύθμισης"
 
-#: bottles/backend/utils/manager.py:930
+#: bottles/backend/utils/manager.py:923
 msgid "Slovak"
 msgstr "Σλοβάκικο"
 
-#: bottles/backend/utils/manager.py:931
+#: bottles/backend/utils/manager.py:924
 msgid "Slovenian"
 msgstr "Σλοβενικό"
 
@@ -4164,7 +4090,7 @@ msgstr "Κάτι πήγε στραβά."
 msgid "Source: {0}"
 msgstr "Πηγή: {0}"
 
-#: bottles/backend/utils/manager.py:915
+#: bottles/backend/utils/manager.py:908
 msgid "Spanish"
 msgstr "Ισπανικά"
 
@@ -4287,7 +4213,7 @@ msgstr "Οι προτάσεις βασίζονται σε τεχνική ανά�
 msgid "Supported Executables"
 msgstr "Υποστηριζόμενα εκτελέσιμα"
 
-#: bottles/backend/utils/manager.py:932
+#: bottles/backend/utils/manager.py:925
 msgid "Swedish"
 msgstr "Σουηδική"
 
@@ -4307,7 +4233,7 @@ msgstr ""
 msgid "Synchronization"
 msgstr "Συγχoρονισμός"
 
-#: bottles/backend/utils/manager.py:908 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:901 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "Σύστημα"
 
@@ -4488,10 +4414,6 @@ msgstr "Βιβλιοθήκες τρίτων και Ειδικές ευχαρισ
 #: bottles/frontend/windows/playtimegraph.py:162
 msgid "This Week"
 msgstr "Αυτή την εβδομάδα"
-
-#: bottles/frontend/ui/importer-entry.blp:40
-msgid "This Wine prefix is already registered in Bottles"
-msgstr "Αυτό το πρόθεμα Wine είναι ήδη καταχωρημένο στο Bottles"
 
 #: bottles/frontend/windows/playtimegraph.py:186
 msgid "This Year"
@@ -4691,7 +4613,7 @@ msgstr "Δοκιμάστε ξανά"
 msgid "Try a different search."
 msgstr "Δοκιμάστε μια διαφορετική αναζήτηση."
 
-#: bottles/backend/utils/manager.py:933
+#: bottles/backend/utils/manager.py:926
 msgid "Turkish"
 msgstr "Τουρκικά"
 
@@ -5015,11 +4937,6 @@ msgstr "Πρόγραμμα οδήγησης ήχου Wine"
 #: bottles/backend/managers/manager.py:1617
 msgid "Wine config updated!"
 msgstr "Οι ρυθμίσεις του Wine ενημερώθηκαν!"
-
-#. Translators: A Wine prefix is a separate environment (C:\ drive) for the Wine program
-#: bottles/frontend/ui/importer-entry.blp:23
-msgid "Wine prefix name"
-msgstr "Όνομα προθέματος Wine"
 
 #: bottles/backend/managers/manager.py:1972
 msgid "WineBridge"

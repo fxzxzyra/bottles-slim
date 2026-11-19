@@ -45,11 +45,6 @@ msgid "\"{0}\" hidden"
 msgstr "\"{0}\"이 숨겨졌습니다"
 
 #, python-brace-format
-#: bottles/frontend/widgets/importer.py:79
-msgid "\"{0}\" imported"
-msgstr "\"{0}\"이 불러와졌습니다"
-
-#, python-brace-format
 #: bottles/frontend/widgets/dependency.py:224
 msgid "\"{0}\" installed"
 msgstr "\"{0}\"이 설치되었습니다"
@@ -251,7 +246,7 @@ msgstr "프로그램 종료 후"
 msgid "All"
 msgstr "전체"
 
-#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:179 bottles/frontend/views/new_bottle_dialog.py:203
+#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:110 bottles/frontend/views/new_bottle_dialog.py:203
 msgid "All Files"
 msgstr "모든 파일"
 
@@ -551,7 +546,7 @@ msgstr "분기가 성공적으로 삭제되었습니다."
 msgid "Browse"
 msgstr "탐색"
 
-#: bottles/frontend/ui/component-entry.blp:24 bottles/frontend/ui/importer-entry.blp:14
+#: bottles/frontend/ui/component-entry.blp:24
 msgid "Browse Files"
 msgstr "파일 탐색"
 
@@ -575,7 +570,7 @@ msgstr "내장 (Wine)"
 msgid "Builtin, then Native"
 msgstr "내장부터 사용"
 
-#: bottles/backend/utils/manager.py:909
+#: bottles/backend/utils/manager.py:902
 msgid "Bulgarian"
 msgstr "불가리아어"
 
@@ -709,11 +704,11 @@ msgstr "실행하기 전에 실행 파일에서 맬웨어 패턴을 확인하세
 msgid "Check your connection or try again later."
 msgstr "연결을 확인하거나 나중에 다시 시도하세요."
 
-#: bottles/backend/utils/manager.py:934
+#: bottles/backend/utils/manager.py:927
 msgid "Chinese (Simplified)"
 msgstr "중국어(간체)"
 
-#: bottles/backend/utils/manager.py:936
+#: bottles/backend/utils/manager.py:929
 msgid "Chinese (Traditional)"
 msgstr "중국어(번체)"
 
@@ -725,7 +720,7 @@ msgstr "백업 폴더 선택"
 msgid "Choose Backup…"
 msgstr "백업 선택…"
 
-#: bottles/frontend/ui/importer.blp:39 bottles/frontend/ui/importer.blp:68
+#: bottles/frontend/ui/importer.blp:39
 msgid "Choose Directory…"
 msgstr "디렉터리 선택…"
 
@@ -753,14 +748,6 @@ msgstr "실행 전에 실행해야 하는 스크립트를 선택합니다."
 #: bottles/frontend/windows/programbackups.py:232
 msgid "Choose an available backup folder."
 msgstr "사용 가능한 백업 폴더를 선택합니다."
-
-#: bottles/frontend/ui/importer.blp:95 bottles/frontend/views/importer.py:125
-msgid "Choose another directory or search known locations."
-msgstr "다른 디렉터리를 선택하거나 알려진 위치를 검색합니다."
-
-#: bottles/frontend/views/importer.py:114
-msgid "Choose another directory or try the search again."
-msgstr "다른 디렉토리를 선택하거나 검색을 다시 시도하십시오."
 
 #: bottles/frontend/windows/programbackups.py:237
 msgid "Choose at least one available file or folder."
@@ -930,7 +917,7 @@ msgstr "구성 요소 저장소"
 msgid "Configuration"
 msgstr "설정"
 
-#: bottles/frontend/ui/importer.blp:137
+#: bottles/frontend/ui/importer.blp:72
 msgid "Configuration File…"
 msgstr "구성 파일…"
 
@@ -979,7 +966,7 @@ msgstr "Wine 실행 환경 UUID"
 msgid "Container creation failed."
 msgstr "Wine 실행 환경 생성에 실패했습니다."
 
-#: bottles/frontend/views/importer.py:161
+#: bottles/frontend/views/importer.py:92
 msgid "Container imported successfully"
 msgstr "Wine 실행 환경을 성공적으로 가져왔습니다."
 
@@ -1048,14 +1035,6 @@ msgstr ""
 msgid "Copyright © 2017 {developer_name}"
 msgstr ""
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Copy…"
-msgstr "복사…"
-
-#: bottles/frontend/views/importer.py:113
-msgid "Could Not Find Wine Prefixes"
-msgstr "Wine 접두사를 찾을 수 없습니다."
-
 #, python-brace-format
 #: bottles/frontend/widgets/program.py:553
 msgid "Could not access the desktop entry for \"{0}\""
@@ -1097,10 +1076,6 @@ msgstr ""
 msgid "Could not save the program: {0}"
 msgstr ""
 
-#: bottles/frontend/views/importer.py:116
-msgid "Could not search for Wine prefixes"
-msgstr "Wine 접두사를 검색할 수 없습니다."
-
 #: bottles/frontend/views/bottle_preferences.py:936
 msgid "Could not switch to the selected runner."
 msgstr ""
@@ -1127,10 +1102,6 @@ msgstr "표지 이미지가 업데이트되었습니다."
 msgid "Crashes"
 msgstr "충돌"
 
-#: bottles/frontend/ui/window.blp:35
-msgid "Create"
-msgstr "생성"
-
 #: bottles/frontend/ui/dialog-program-backups.blp:43
 msgid "Create Automatic Backups"
 msgstr "자동 백업 생성"
@@ -1147,7 +1118,7 @@ msgstr "새로운 Wine 실행 환경 생성"
 msgid "Create Snapshot"
 msgstr "스냅샷 생성"
 
-#: bottles/frontend/ui/importer.blp:138
+#: bottles/frontend/ui/importer.blp:73
 msgid "Create a container from saved settings without restoring personal files"
 msgstr "개인 파일을 복원하지 않고 저장된 설정에서 Wine 실행 환경 만들기"
 
@@ -1200,7 +1171,7 @@ msgstr "크레딧 및 라이선스"
 msgid "Critical"
 msgstr "치명적인"
 
-#: bottles/backend/utils/manager.py:919
+#: bottles/backend/utils/manager.py:912
 msgid "Croatian"
 msgstr "크로아티아어"
 
@@ -1237,7 +1208,7 @@ msgstr "종속성을 위한 사용자 정의 URL입니다. 기본 엔드포인�
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr "설치 프로그램을 위한 사용자 정의 URL입니다. 기본 엔드포인트를 사용하려면 비워 두세요."
 
-#: bottles/backend/utils/manager.py:910
+#: bottles/backend/utils/manager.py:903
 msgid "Czech"
 msgstr "체코어"
 
@@ -1282,7 +1253,7 @@ msgstr "매일"
 msgid "Daily Average: {}"
 msgstr "일일 평균: {}"
 
-#: bottles/backend/utils/manager.py:911
+#: bottles/backend/utils/manager.py:904
 msgid "Danish"
 msgstr "덴마크어"
 
@@ -1582,7 +1553,7 @@ msgstr "Wine 실행 환경 복제…"
 msgid "Duplicating…"
 msgstr "복제중…"
 
-#: bottles/backend/utils/manager.py:924
+#: bottles/backend/utils/manager.py:917
 msgid "Dutch"
 msgstr "네덜란드어"
 
@@ -1699,7 +1670,7 @@ msgstr "글꼴 다듬기 활성화 중…"
 msgid "Engines and Frameworks"
 msgstr "엔진 및 프레임워크"
 
-#: bottles/backend/utils/manager.py:914
+#: bottles/backend/utils/manager.py:907
 msgid "English"
 msgstr "영어"
 
@@ -1741,7 +1712,7 @@ msgstr "실행 파일 처리 중 오류 발생: {0}"
 msgid "Errors"
 msgstr "에러"
 
-#: bottles/backend/utils/manager.py:916
+#: bottles/backend/utils/manager.py:909
 msgid "Estonian"
 msgstr "에스토니아어"
 
@@ -1930,15 +1901,7 @@ msgstr "설치를 마무리하는 중..."
 msgid "Finalizing…"
 msgstr "완료 중…"
 
-#: bottles/frontend/ui/importer.blp:69
-msgid "Find Wine Prefixes in a Directory"
-msgstr "디렉터리에서 Wine 접두사 찾기"
-
-#: bottles/frontend/ui/importer.blp:62
-msgid "Find Wine environments from other applications, then choose one to copy into a new container."
-msgstr "다른 응용 프로그램에서 Wine 환경을 찾은 다음 하나를 선택하여 새 Wine 실행 환경에 복사합니다."
-
-#: bottles/backend/utils/manager.py:917
+#: bottles/backend/utils/manager.py:910
 msgid "Finnish"
 msgstr "핀란드어"
 
@@ -2010,7 +1973,7 @@ msgstr "프레임 속도 제한"
 msgid "Frame Rate Limit When Unfocused"
 msgstr "초점이 맞지 않을 때의 프레임 속도 제한"
 
-#: bottles/backend/utils/manager.py:918
+#: bottles/backend/utils/manager.py:911
 msgid "French"
 msgstr "프랑스어"
 
@@ -2018,7 +1981,7 @@ msgstr "프랑스어"
 msgid "Fsync"
 msgstr "Fsync"
 
-#: bottles/frontend/ui/importer.blp:141
+#: bottles/frontend/ui/importer.blp:76
 msgid "Full Archive…"
 msgstr "전체 아카이브…"
 
@@ -2066,7 +2029,7 @@ msgstr "lsfg-vk를 사용하여 추가 프레임을 생성합니다. 64비트 Vu
 msgid "Generating container configuration…"
 msgstr "Wine 실행 환경 구성 생성중…"
 
-#: bottles/backend/utils/manager.py:912
+#: bottles/backend/utils/manager.py:905
 msgid "German"
 msgstr "독일어"
 
@@ -2086,7 +2049,7 @@ msgstr "Bottles에 실행기 디렉터리에 대한 직접 액세스 권한을 �
 msgid "Graphics API"
 msgstr "그래픽 API"
 
-#: bottles/backend/utils/manager.py:913
+#: bottles/backend/utils/manager.py:906
 msgid "Greek"
 msgstr "그리스어"
 
@@ -2131,7 +2094,7 @@ msgstr "시간별 평균: {}"
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr "세션 하트비트를 업데이트하는 빈도입니다. 갑작스러운 종료에 대한 최대 타임스탬프 오류를 정의합니다."
 
-#: bottles/backend/utils/manager.py:920
+#: bottles/backend/utils/manager.py:913
 msgid "Hungarian"
 msgstr "헝가리어"
 
@@ -2143,7 +2106,7 @@ msgstr "추가 보고."
 msgid "Images"
 msgstr "이미지"
 
-#: bottles/frontend/views/importer.py:192
+#: bottles/frontend/views/importer.py:123
 msgid "Import"
 msgstr "불러오기"
 
@@ -2159,7 +2122,7 @@ msgstr "Wine 실행 환경 가져오기"
 msgid "Import Containers…"
 msgstr "Wine 실행 환경 가져오기…"
 
-#: bottles/frontend/views/importer.py:164 bottles/frontend/widgets/importer.py:83
+#: bottles/frontend/views/importer.py:95
 msgid "Import failed"
 msgstr "불러오기에 실패했습니다"
 
@@ -2170,10 +2133,6 @@ msgstr "해시 일치 가져오기"
 #: bottles/backend/managers/backup.py:715
 msgid "Importing full backup"
 msgstr "전체 백업 가져오기"
-
-#: bottles/frontend/ui/importer-entry.blp:53
-msgid "Import…"
-msgstr "불러오기…"
 
 #: bottles/frontend/ui/details-preferences.blp:56
 msgid "Improve Direct3D 12 compatibility by translating it to Vulkan."
@@ -2366,7 +2325,7 @@ msgstr "잘못된 그래픽 구성 요소입니다."
 msgid "Issues that may prevent this program from running."
 msgstr "이 프로그램이 실행되지 못하게 할 수 있는 문제입니다."
 
-#: bottles/backend/utils/manager.py:921
+#: bottles/backend/utils/manager.py:914
 msgid "Italian"
 msgstr "이탈리아어"
 
@@ -2374,7 +2333,7 @@ msgstr "이탈리아어"
 msgid "Item name"
 msgstr "항목 이름"
 
-#: bottles/backend/utils/manager.py:935
+#: bottles/backend/utils/manager.py:928
 msgid "Japanese"
 msgstr "일본어"
 
@@ -2392,7 +2351,7 @@ msgstr "알려진 애플리케이션({match}): {name}"
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr "알려진 응용 프로그램: {name}(winetricks 동사 '{verb}')"
 
-#: bottles/backend/utils/manager.py:937
+#: bottles/backend/utils/manager.py:930
 msgid "Korean"
 msgstr "한국어"
 
@@ -2413,7 +2372,7 @@ msgstr "마지막 플레이: %s – 플레이 시간: %s"
 msgid "LatencyFleX"
 msgstr "LatencyFleX(LFX)"
 
-#: bottles/backend/utils/manager.py:923
+#: bottles/backend/utils/manager.py:916
 msgid "Latvian"
 msgstr "라트비아어"
 
@@ -2509,7 +2468,7 @@ msgstr "프로그램 목록에 Steam 앱 나열"
 msgid "List Ubisoft Games in Programs List"
 msgstr "프로그램 목록에 Ubisoft Games 나열"
 
-#: bottles/backend/utils/manager.py:922
+#: bottles/backend/utils/manager.py:915
 msgid "Lithuanian"
 msgstr "리투아니아어"
 
@@ -2600,10 +2559,6 @@ msgstr "샌드박스 권한 관리"
 #: bottles/frontend/ui/details-preferences.blp:291
 msgid "Manage vmtouch settings"
 msgstr "vmtouch 설정 관리"
-
-#: bottles/frontend/ui/importer-entry.blp:30
-msgid "Manager"
-msgstr "관리자"
 
 #: bottles/frontend/ui/dialog-mangohud.blp:8
 msgid "MangoHud Settings"
@@ -2841,14 +2796,6 @@ msgstr "썸네일 없음"
 msgid "No VKD3D version available."
 msgstr "VKD3D 버전을 사용할 수 없습니다."
 
-#: bottles/frontend/ui/importer.blp:89 bottles/frontend/views/importer.py:124
-msgid "No Wine Prefixes Found"
-msgstr "Wine 접두사를 찾을 수 없습니다."
-
-#: bottles/frontend/views/importer.py:128
-msgid "No Wine prefixes found in the selected folder"
-msgstr "선택한 폴더에서 Wine 접두사를 찾을 수 없습니다."
-
 #: bottles/backend/managers/eagle.py:333
 msgid "No community intelligence match"
 msgstr "커뮤니티 인텔리전스 일치 없음"
@@ -2893,7 +2840,7 @@ msgstr "아직 캐시된 템플릿이 없습니다."
 msgid "No variables selected"
 msgstr "선택된 변수가 없습니다."
 
-#: bottles/backend/utils/manager.py:925
+#: bottles/backend/utils/manager.py:918
 msgid "Norwegian"
 msgstr "노르웨이어"
 
@@ -3032,10 +2979,6 @@ msgstr "종속성 구성 중..."
 msgid "Organizing installers…"
 msgstr "설치 프로그램 구성 중…"
 
-#: bottles/frontend/ui/importer.blp:61
-msgid "Other Wine Prefixes"
-msgstr "기타 Wine 접두사"
-
 #: bottles/frontend/ui/preferences.blp:237
 msgid "Override the default repositories Bottles uses when downloading resources."
 msgstr "리소스를 다운로드할 때 Bottles가 사용하는 기본 리포지토리를 재정의합니다."
@@ -3105,11 +3048,11 @@ msgstr "새로운 상태를 생성하기위해 새로운 버전 관리 시스템
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr "WineBridge를 다운로드하고 설치하는 동안 잠시 기다려 주십시오."
 
-#: bottles/backend/utils/manager.py:926
+#: bottles/backend/utils/manager.py:919
 msgid "Polish"
 msgstr "폴란드어"
 
-#: bottles/backend/utils/manager.py:927
+#: bottles/backend/utils/manager.py:920
 msgid "Portuguese"
 msgstr "포르투갈어"
 
@@ -3342,10 +3285,6 @@ msgstr "Bottles에서 시작된 프로그램에 대한 재생 시간 통계를 �
 msgid "Refresh"
 msgstr "새로 고침"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Register"
-msgstr "등록"
-
 #: bottles/frontend/ui/preferences.blp:283 bottles/frontend/views/preferences.py:559
 msgid "Register Runner"
 msgstr "실행기 등록"
@@ -3527,7 +3466,7 @@ msgstr "Wine 실행 환경 백업 복원"
 msgid "Restore an archive or use a configuration to create a container in an empty directory."
 msgstr "아카이브를 복원하거나 구성을 사용하여 빈 디렉터리에 Wine 실행 환경을 만듭니다."
 
-#: bottles/frontend/ui/importer.blp:142
+#: bottles/frontend/ui/importer.blp:77
 msgid "Restore the container including its programs and personal files"
 msgstr "프로그램 및 개인 파일을 포함하여 Wine 실행 환경을 복원합니다."
 
@@ -3535,7 +3474,7 @@ msgstr "프로그램 및 개인 파일을 포함하여 Wine 실행 환경을 복
 msgid "Restore this Snapshot"
 msgstr "이 스냅샷 복구"
 
-#: bottles/frontend/views/importer.py:234
+#: bottles/frontend/views/importer.py:165
 msgid "Restoring Backup…"
 msgstr "백업 복원 중…"
 
@@ -3565,7 +3504,7 @@ msgstr "검토"
 msgid "Review for {0}"
 msgstr "{0}에 대한 리뷰"
 
-#: bottles/backend/utils/manager.py:928
+#: bottles/backend/utils/manager.py:921
 msgid "Romanian"
 msgstr "루마니아어"
 
@@ -3664,7 +3603,7 @@ msgstr "추가 격리 없이 Bottles와 동일한 액세스로 실행됩니다."
 msgid "Runtimes and Libraries"
 msgstr "런타임 및 라이브러리"
 
-#: bottles/backend/utils/manager.py:929
+#: bottles/backend/utils/manager.py:922
 msgid "Russian"
 msgstr "러시아어"
 
@@ -3720,10 +3659,6 @@ msgstr "화면 크기 조정"
 msgid "Search"
 msgstr "검색"
 
-#: bottles/frontend/ui/importer.blp:73
-msgid "Search Known Locations"
-msgstr "알려진 위치 검색"
-
 #: bottles/frontend/ui/details-installers.blp:10
 msgid "Search for Programs…"
 msgstr "프로그램 검색…"
@@ -3743,10 +3678,6 @@ msgstr "규칙 검색…"
 #: bottles/frontend/ui/list.blp:10
 msgid "Search your containers…"
 msgstr "Wine 실행 환경 검색…"
-
-#: bottles/frontend/ui/importer.blp:109
-msgid "Searching for Wine Prefixes…"
-msgstr "Wine 접두사 검색 중…"
 
 #: bottles/frontend/ui/details-bottle.blp:79 bottles/frontend/ui/details-dependencies.blp:115 bottles/frontend/ui/details-installers.blp:69
 msgid "Secondary Menu"
@@ -3828,17 +3759,13 @@ msgstr "실행기 디렉토리 선택"
 msgid "Select Working Directory"
 msgstr "작업 디렉터리 선택"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Backup Archive"
 msgstr "백업 파일 선택"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Configuration File"
 msgstr "구성 파일 선택"
-
-#: bottles/frontend/views/importer.py:143
-msgid "Select a Wine Prefix Folder"
-msgstr "Wine 접두사 폴더 선택"
 
 #: bottles/frontend/ui/dialog-program-backups.blp:33 bottles/frontend/windows/programbackups.py:241
 msgid "Select a backup folder and at least one file or folder."
@@ -3848,11 +3775,11 @@ msgstr "백업 폴더와 하나 이상의 파일 또는 폴더를 선택합니�
 msgid "Select a permanent runner directory, not a document portal path."
 msgstr "문서 포털 경로가 아닌 영구 실행기 디렉터리를 선택하세요."
 
-#: bottles/frontend/views/importer.py:96 bottles/frontend/widgets/importer.py:101 bottles/frontend/windows/duplicate.py:83
+#: bottles/frontend/views/importer.py:86 bottles/frontend/windows/duplicate.py:83
 msgid "Select an Empty Container Directory"
 msgstr "빈 Wine 실행 환경 디렉터리 선택"
 
-#: bottles/frontend/views/importer.py:83
+#: bottles/frontend/views/importer.py:73
 msgid "Select an Existing Container"
 msgstr "기존 Wine 실행 환경 선택"
 
@@ -4049,11 +3976,11 @@ msgstr "Windows 시스템 종료 시뮬레이션"
 msgid "Skip Setup"
 msgstr "설정 건너뛰기"
 
-#: bottles/backend/utils/manager.py:930
+#: bottles/backend/utils/manager.py:923
 msgid "Slovak"
 msgstr "슬로바키아어"
 
-#: bottles/backend/utils/manager.py:931
+#: bottles/backend/utils/manager.py:924
 msgid "Slovenian"
 msgstr "슬로베니아어"
 
@@ -4094,7 +4021,7 @@ msgstr "오류가 발생했습니다."
 msgid "Source: {0}"
 msgstr "소스: {0}"
 
-#: bottles/backend/utils/manager.py:915
+#: bottles/backend/utils/manager.py:908
 msgid "Spanish"
 msgstr "스페인어"
 
@@ -4215,7 +4142,7 @@ msgstr "제안은 기술적 분석을 기반으로 하며 호환성을 보장하
 msgid "Supported Executables"
 msgstr "지원되는 실행 파일"
 
-#: bottles/backend/utils/manager.py:932
+#: bottles/backend/utils/manager.py:925
 msgid "Swedish"
 msgstr "스웨덴어"
 
@@ -4235,7 +4162,7 @@ msgstr "분기 전환 중…"
 msgid "Synchronization"
 msgstr "동기화"
 
-#: bottles/backend/utils/manager.py:908 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:901 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "시스템"
 
@@ -4415,10 +4342,6 @@ msgstr "서드파티 라이브러리와 특별히 감사한 분들"
 #: bottles/frontend/windows/playtimegraph.py:162
 msgid "This Week"
 msgstr "이번 주"
-
-#: bottles/frontend/ui/importer-entry.blp:40
-msgid "This Wine prefix is already registered in Bottles"
-msgstr "이 Wine 접두사는 이미 Bottles에 등록되어 있습니다."
 
 #: bottles/frontend/windows/playtimegraph.py:186
 msgid "This Year"
@@ -4617,7 +4540,7 @@ msgstr "다시 시도"
 msgid "Try a different search."
 msgstr "다른 검색을 시도해 보세요."
 
-#: bottles/backend/utils/manager.py:933
+#: bottles/backend/utils/manager.py:926
 msgid "Turkish"
 msgstr "터키어"
 
@@ -4934,11 +4857,6 @@ msgstr "Wine 오디오 드라이버"
 #: bottles/backend/managers/manager.py:1617
 msgid "Wine config updated!"
 msgstr "Wine 설정 업데이트 완료!"
-
-#. Translators: A Wine prefix is a separate environment (C:\ drive) for the Wine program
-#: bottles/frontend/ui/importer-entry.blp:23
-msgid "Wine prefix name"
-msgstr "Wine 프리픽스 이름"
 
 #: bottles/backend/managers/manager.py:1972
 msgid "WineBridge"

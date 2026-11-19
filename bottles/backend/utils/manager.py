@@ -858,13 +858,6 @@ class ManagerUtils:
             return False
 
     @staticmethod
-    def browse_wineprefix(wineprefix: dict):
-        """Presents a dialog to browse the wineprefix."""
-        ManagerUtils.open_filemanager(
-            path_type="custom", custom_path=wineprefix.get("Path")
-        )
-
-    @staticmethod
     def get_languages(
         from_name=None,
         from_locale=None,

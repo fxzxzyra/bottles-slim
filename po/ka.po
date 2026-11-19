@@ -45,11 +45,6 @@ msgid "\"{0}\" hidden"
 msgstr "\"{0}\" დამალულია"
 
 #, python-brace-format
-#: bottles/frontend/widgets/importer.py:79
-msgid "\"{0}\" imported"
-msgstr "\"{0}\" იმპორტირებულია"
-
-#, python-brace-format
 #: bottles/frontend/widgets/dependency.py:224
 msgid "\"{0}\" installed"
 msgstr "\"{0}\" დაინსტალირებულია"
@@ -250,7 +245,7 @@ msgstr "პროგრამის დახურვის შემდეგ"
 msgid "All"
 msgstr "ყველა"
 
-#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:179 bottles/frontend/views/new_bottle_dialog.py:203
+#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:110 bottles/frontend/views/new_bottle_dialog.py:203
 msgid "All Files"
 msgstr "ყველა ფაილი"
 
@@ -548,7 +543,7 @@ msgstr "ფილიალი წარმატებით წაიშალ�
 msgid "Browse"
 msgstr "პოვნა"
 
-#: bottles/frontend/ui/component-entry.blp:24 bottles/frontend/ui/importer-entry.blp:14
+#: bottles/frontend/ui/component-entry.blp:24
 msgid "Browse Files"
 msgstr "ფაილის არჩევა"
 
@@ -572,7 +567,7 @@ msgstr "ჩაშენებული (Wine)"
 msgid "Builtin, then Native"
 msgstr "ჩაშენებული, შემდეგ მშობლიური"
 
-#: bottles/backend/utils/manager.py:909
+#: bottles/backend/utils/manager.py:902
 msgid "Bulgarian"
 msgstr "ბულგარული"
 
@@ -706,11 +701,11 @@ msgstr "გაშვებამდე შეამოწმეთ შესრ�
 msgid "Check your connection or try again later."
 msgstr "შეამოწმეთ თქვენი კავშირი ან სცადეთ მოგვიანებით."
 
-#: bottles/backend/utils/manager.py:934
+#: bottles/backend/utils/manager.py:927
 msgid "Chinese (Simplified)"
 msgstr "ჩინური (გამარტივებული)"
 
-#: bottles/backend/utils/manager.py:936
+#: bottles/backend/utils/manager.py:929
 msgid "Chinese (Traditional)"
 msgstr "ჩინური (ტრადიციული)"
 
@@ -722,7 +717,7 @@ msgstr "აირჩიეთ სარეზერვო საქაღალ�
 msgid "Choose Backup…"
 msgstr "Აირჩიეთ სარეზერვო…"
 
-#: bottles/frontend/ui/importer.blp:39 bottles/frontend/ui/importer.blp:68
+#: bottles/frontend/ui/importer.blp:39
 msgid "Choose Directory…"
 msgstr "Აირჩიეთ დირექტორია…"
 
@@ -750,14 +745,6 @@ msgstr "აირჩიეთ სკრიპტი, რომელიც უ�
 #: bottles/frontend/windows/programbackups.py:232
 msgid "Choose an available backup folder."
 msgstr "აირჩიეთ ხელმისაწვდომი სარეზერვო საქაღალდე."
-
-#: bottles/frontend/ui/importer.blp:95 bottles/frontend/views/importer.py:125
-msgid "Choose another directory or search known locations."
-msgstr "Აირჩიეთ სხვა დირექტორია ან მოძებნეთ ცნობილი ადგილები."
-
-#: bottles/frontend/views/importer.py:114
-msgid "Choose another directory or try the search again."
-msgstr "Აირჩიეთ სხვა დირექტორია ან ხელახლა სცადეთ ძებნა."
 
 #: bottles/frontend/windows/programbackups.py:237
 msgid "Choose at least one available file or folder."
@@ -928,7 +915,7 @@ msgstr "კომპონენტების საცავი"
 msgid "Configuration"
 msgstr "მორგება"
 
-#: bottles/frontend/ui/importer.blp:137
+#: bottles/frontend/ui/importer.blp:72
 msgid "Configuration File…"
 msgstr "Კონფიგურაციის ფაილი…"
 
@@ -977,7 +964,7 @@ msgstr "Wine-ის გარემოს UUID"
 msgid "Container creation failed."
 msgstr "Wine-ის გარემოს შექმნა ვერ მოხერხდა."
 
-#: bottles/frontend/views/importer.py:161
+#: bottles/frontend/views/importer.py:92
 msgid "Container imported successfully"
 msgstr "Wine-ის გარემო წარმატებით იმპორტირებულია"
 
@@ -1046,14 +1033,6 @@ msgstr "კოპირება Wine-ის გარემოში"
 msgid "Copyright © 2017 {developer_name}"
 msgstr "საავტორო უფლება © 2017 {developer_name}"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Copy…"
-msgstr "Დააკოპირეთ…"
-
-#: bottles/frontend/views/importer.py:113
-msgid "Could Not Find Wine Prefixes"
-msgstr "Ვერ ვიპოვე Wine პრეფიქსები"
-
 #, python-brace-format
 #: bottles/frontend/widgets/program.py:553
 msgid "Could not access the desktop entry for \"{0}\""
@@ -1095,10 +1074,6 @@ msgstr "\"{0}\" დესკტოპის ჩანაწერის წა�
 msgid "Could not save the program: {0}"
 msgstr "პროგრამის შენახვა ვერ მოხერხდა: {0}"
 
-#: bottles/frontend/views/importer.py:116
-msgid "Could not search for Wine prefixes"
-msgstr "Wine პრეფიქსების მოძიება ვერ მოხერხდა"
-
 #: bottles/frontend/views/bottle_preferences.py:936
 msgid "Could not switch to the selected runner."
 msgstr "არჩეულ მორბენალზე გადასვლა ვერ მოხერხდა."
@@ -1125,10 +1100,6 @@ msgstr "ყდის სურათი განახლებულია."
 msgid "Crashes"
 msgstr "ავარია"
 
-#: bottles/frontend/ui/window.blp:35
-msgid "Create"
-msgstr "შექმნა"
-
 #: bottles/frontend/ui/dialog-program-backups.blp:43
 msgid "Create Automatic Backups"
 msgstr "შექმენით ავტომატური სარეზერვო ასლები"
@@ -1145,7 +1116,7 @@ msgstr "შექმენით ახალი Wine-ის გარემო"
 msgid "Create Snapshot"
 msgstr "შექმენით Snapshot"
 
-#: bottles/frontend/ui/importer.blp:138
+#: bottles/frontend/ui/importer.blp:73
 msgid "Create a container from saved settings without restoring personal files"
 msgstr "Შექმენით Wine-ის გარემო შენახული პარამეტრებიდან პირადი ფაილების აღდგენის გარეშე"
 
@@ -1198,7 +1169,7 @@ msgstr "კრედიტები და ლიცენზია"
 msgid "Critical"
 msgstr "კრიტიკული"
 
-#: bottles/backend/utils/manager.py:919
+#: bottles/backend/utils/manager.py:912
 msgid "Croatian"
 msgstr "ხორვატული"
 
@@ -1235,7 +1206,7 @@ msgstr "მორგებული URL დამოკიდებულებ�
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr "მორგებული URL ინსტალერებისთვის. დატოვეთ ცარიელი ნაგულისხმევი საბოლოო წერტილის გამოსაყენებლად."
 
-#: bottles/backend/utils/manager.py:910
+#: bottles/backend/utils/manager.py:903
 msgid "Czech"
 msgstr "ჩეხური"
 
@@ -1280,7 +1251,7 @@ msgstr "ყოველდღიურად"
 msgid "Daily Average: {}"
 msgstr "დღიური საშუალო: {}"
 
-#: bottles/backend/utils/manager.py:911
+#: bottles/backend/utils/manager.py:904
 msgid "Danish"
 msgstr "დანიური"
 
@@ -1580,7 +1551,7 @@ msgstr "დუბლიკატი Wine-ის გარემო…"
 msgid "Duplicating…"
 msgstr "დუბლირება…"
 
-#: bottles/backend/utils/manager.py:924
+#: bottles/backend/utils/manager.py:917
 msgid "Dutch"
 msgstr "ჰოლანდიური"
 
@@ -1697,7 +1668,7 @@ msgstr "შრიფტის გასწორების ჩართვა�
 msgid "Engines and Frameworks"
 msgstr "ძრავები და ჩარჩოები"
 
-#: bottles/backend/utils/manager.py:914
+#: bottles/backend/utils/manager.py:907
 msgid "English"
 msgstr "ინგლისური"
 
@@ -1739,7 +1710,7 @@ msgstr "შეცდომა დამუშავებისას შეს�
 msgid "Errors"
 msgstr "შედომები"
 
-#: bottles/backend/utils/manager.py:916
+#: bottles/backend/utils/manager.py:909
 msgid "Estonian"
 msgstr "ესტონური"
 
@@ -1928,15 +1899,7 @@ msgstr ""
 msgid "Finalizing…"
 msgstr "დასრულება…"
 
-#: bottles/frontend/ui/importer.blp:69
-msgid "Find Wine Prefixes in a Directory"
-msgstr "Იპოვეთ Wine პრეფიქსები დირექტორიაში"
-
-#: bottles/frontend/ui/importer.blp:62
-msgid "Find Wine environments from other applications, then choose one to copy into a new container."
-msgstr "Იპოვეთ Wine გარემო სხვა აპლიკაციებიდან, შემდეგ აირჩიეთ ერთი, რომ დააკოპიროთ ახალ Wine-ის გარემოში."
-
-#: bottles/backend/utils/manager.py:917
+#: bottles/backend/utils/manager.py:910
 msgid "Finnish"
 msgstr ""
 
@@ -2008,7 +1971,7 @@ msgstr "კადრების სიჩქარის ლიმიტი"
 msgid "Frame Rate Limit When Unfocused"
 msgstr "კადრების სიჩქარის ლიმიტი არაფოკუსირებისას"
 
-#: bottles/backend/utils/manager.py:918
+#: bottles/backend/utils/manager.py:911
 msgid "French"
 msgstr "ფრანგული"
 
@@ -2016,7 +1979,7 @@ msgstr "ფრანგული"
 msgid "Fsync"
 msgstr "Fsync"
 
-#: bottles/frontend/ui/importer.blp:141
+#: bottles/frontend/ui/importer.blp:76
 msgid "Full Archive…"
 msgstr "Სრული არქივი…"
 
@@ -2064,7 +2027,7 @@ msgstr "შექმენით დამატებითი ჩარჩო�
 msgid "Generating container configuration…"
 msgstr "Wine-ის გარემოს კონფიგურაციის გენერირება…"
 
-#: bottles/backend/utils/manager.py:912
+#: bottles/backend/utils/manager.py:905
 msgid "German"
 msgstr "გერმანული"
 
@@ -2084,7 +2047,7 @@ msgstr "მიეცით Bottles-ს პირდაპირი წვდო�
 msgid "Graphics API"
 msgstr "გრაფიკული API"
 
-#: bottles/backend/utils/manager.py:913
+#: bottles/backend/utils/manager.py:906
 msgid "Greek"
 msgstr "ბერძნული"
 
@@ -2129,7 +2092,7 @@ msgstr "საათობრივი საშუალო: {}"
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr "რამდენად ხშირად უნდა განახლდეს სესიის გულისცემა. განსაზღვრავს დროის ანაბეჭდის მაქსიმალურ შეცდომას მკვეთრი გასვლებისთვის."
 
-#: bottles/backend/utils/manager.py:920
+#: bottles/backend/utils/manager.py:913
 msgid "Hungarian"
 msgstr "უნგრული"
 
@@ -2141,7 +2104,7 @@ msgstr "მე მაინც მინდა მოხსენება."
 msgid "Images"
 msgstr "სურათები"
 
-#: bottles/frontend/views/importer.py:192
+#: bottles/frontend/views/importer.py:123
 msgid "Import"
 msgstr "შემოტანა"
 
@@ -2157,7 +2120,7 @@ msgstr "Იმპორტი Wine-ის გარემოები"
 msgid "Import Containers…"
 msgstr "Wine-ის გარემოების იმპორტი…"
 
-#: bottles/frontend/views/importer.py:164 bottles/frontend/widgets/importer.py:83
+#: bottles/frontend/views/importer.py:95
 msgid "Import failed"
 msgstr "შემოტანა ჩავარდა"
 
@@ -2168,10 +2131,6 @@ msgstr "ჰეშის შესატყვისის იმპორტი"
 #: bottles/backend/managers/backup.py:715
 msgid "Importing full backup"
 msgstr "სრული სარეზერვო ასლის იმპორტი"
-
-#: bottles/frontend/ui/importer-entry.blp:53
-msgid "Import…"
-msgstr "შემოტანა…"
 
 #: bottles/frontend/ui/details-preferences.blp:56
 msgid "Improve Direct3D 12 compatibility by translating it to Vulkan."
@@ -2364,7 +2323,7 @@ msgstr "არასწორი გრაფიკული კომპონ�
 msgid "Issues that may prevent this program from running."
 msgstr "პრობლემები, რამაც შეიძლება ხელი შეუშალოს ამ პროგრამის გაშვებას."
 
-#: bottles/backend/utils/manager.py:921
+#: bottles/backend/utils/manager.py:914
 msgid "Italian"
 msgstr "იტალიური"
 
@@ -2372,7 +2331,7 @@ msgstr "იტალიური"
 msgid "Item name"
 msgstr "ჩანაწერის სახელი"
 
-#: bottles/backend/utils/manager.py:935
+#: bottles/backend/utils/manager.py:928
 msgid "Japanese"
 msgstr "იაპონური"
 
@@ -2390,7 +2349,7 @@ msgstr "ცნობილი აპლიკაცია ({match}): {name}"
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr "ცნობილი აპლიკაცია: {name} (winetricks ზმნა '{verb}')"
 
-#: bottles/backend/utils/manager.py:937
+#: bottles/backend/utils/manager.py:930
 msgid "Korean"
 msgstr "კორეული"
 
@@ -2411,7 +2370,7 @@ msgstr "ბოლო თამაში: %s – თამაშის დრო:
 msgid "LatencyFleX"
 msgstr "LatencyFleX"
 
-#: bottles/backend/utils/manager.py:923
+#: bottles/backend/utils/manager.py:916
 msgid "Latvian"
 msgstr "ლატვიური"
 
@@ -2507,7 +2466,7 @@ msgstr "ჩამოთვალეთ Steam აპები პროგრა�
 msgid "List Ubisoft Games in Programs List"
 msgstr "ჩამოთვალეთ Ubisoft თამაშები პროგრამების სიაში"
 
-#: bottles/backend/utils/manager.py:922
+#: bottles/backend/utils/manager.py:915
 msgid "Lithuanian"
 msgstr "ლიტვური"
 
@@ -2598,10 +2557,6 @@ msgstr "მართეთ Sandbox ნებართვები"
 #: bottles/frontend/ui/details-preferences.blp:291
 msgid "Manage vmtouch settings"
 msgstr "vmtouch პარამეტრების მართვა"
-
-#: bottles/frontend/ui/importer-entry.blp:30
-msgid "Manager"
-msgstr "მმართველი"
 
 #: bottles/frontend/ui/dialog-mangohud.blp:8
 msgid "MangoHud Settings"
@@ -2839,14 +2794,6 @@ msgstr "ესკიზის გარეშე"
 msgid "No VKD3D version available."
 msgstr "VKD3D ვერსია არ არის ხელმისაწვდომი."
 
-#: bottles/frontend/ui/importer.blp:89 bottles/frontend/views/importer.py:124
-msgid "No Wine Prefixes Found"
-msgstr "Wine პრეფიქსები არ მოიძებნა"
-
-#: bottles/frontend/views/importer.py:128
-msgid "No Wine prefixes found in the selected folder"
-msgstr "არჩეულ საქაღალდეში Wine პრეფიქსები არ მოიძებნა"
-
 #: bottles/backend/managers/eagle.py:333
 msgid "No community intelligence match"
 msgstr "საზოგადოების დაზვერვის მატჩი არ არის"
@@ -2891,7 +2838,7 @@ msgstr "შაბლონები ჯერ არ არის შენა�
 msgid "No variables selected"
 msgstr "არ არის არჩეული ცვლადები"
 
-#: bottles/backend/utils/manager.py:925
+#: bottles/backend/utils/manager.py:918
 msgid "Norwegian"
 msgstr "ნორვეგიული"
 
@@ -3030,10 +2977,6 @@ msgstr "დამოკიდებულებების ორგანი�
 msgid "Organizing installers…"
 msgstr "ინსტალატორების ორგანიზება…"
 
-#: bottles/frontend/ui/importer.blp:61
-msgid "Other Wine Prefixes"
-msgstr "Სხვა Wine პრეფიქსები"
-
 #: bottles/frontend/ui/preferences.blp:237
 msgid "Override the default repositories Bottles uses when downloading resources."
 msgstr "უგულებელყოთ ნაგულისხმევი საცავი, რომელსაც იყენებს Bottles რესურსების ჩამოტვირთვისას."
@@ -3103,11 +3046,11 @@ msgstr "გთხოვთ, გადაიტანოთ ახალი ვ�
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr "გთხოვთ, დაელოდოთ სანამ WineBridge ჩამოიტვირთება და დაინსტალირდება."
 
-#: bottles/backend/utils/manager.py:926
+#: bottles/backend/utils/manager.py:919
 msgid "Polish"
 msgstr "პოლონური"
 
-#: bottles/backend/utils/manager.py:927
+#: bottles/backend/utils/manager.py:920
 msgid "Portuguese"
 msgstr "პორტუგალიური"
 
@@ -3340,10 +3283,6 @@ msgstr "ჩაწერეთ თამაშის დროის სტატ
 msgid "Refresh"
 msgstr "განახლება"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Register"
-msgstr "Რეგისტრაცია"
-
 #: bottles/frontend/ui/preferences.blp:283 bottles/frontend/views/preferences.py:559
 msgid "Register Runner"
 msgstr "Გამშვების რეგისტრაცია"
@@ -3525,7 +3464,7 @@ msgstr "Wine-ის გარემოს სარეზერვო ასლ�
 msgid "Restore an archive or use a configuration to create a container in an empty directory."
 msgstr "Აღადგინეთ არქივი ან გამოიყენეთ კონფიგურაცია ცარიელ დირექტორიაში Wine-ის გარემოს შესაქმნელად."
 
-#: bottles/frontend/ui/importer.blp:142
+#: bottles/frontend/ui/importer.blp:77
 msgid "Restore the container including its programs and personal files"
 msgstr "Აღადგინეთ Wine-ის გარემო მისი პროგრამებისა და პირადი ფაილების ჩათვლით"
 
@@ -3533,7 +3472,7 @@ msgstr "Აღადგინეთ Wine-ის გარემო მისი 
 msgid "Restore this Snapshot"
 msgstr "აღადგინეთ ეს Snapshot"
 
-#: bottles/frontend/views/importer.py:234
+#: bottles/frontend/views/importer.py:165
 msgid "Restoring Backup…"
 msgstr "Სარეზერვო ასლის აღდგენა…"
 
@@ -3563,7 +3502,7 @@ msgstr "მიმოხილვა"
 msgid "Review for {0}"
 msgstr "მიმოხილვა {0}-ისთვის"
 
-#: bottles/backend/utils/manager.py:928
+#: bottles/backend/utils/manager.py:921
 msgid "Romanian"
 msgstr "რუმინული"
 
@@ -3662,7 +3601,7 @@ msgstr "მუშაობს იგივე წვდომით, როგ�
 msgid "Runtimes and Libraries"
 msgstr "გაშვების დრო და ბიბლიოთეკები"
 
-#: bottles/backend/utils/manager.py:929
+#: bottles/backend/utils/manager.py:922
 msgid "Russian"
 msgstr "რუსული"
 
@@ -3718,10 +3657,6 @@ msgstr "ეკრანის მასშტაბირება"
 msgid "Search"
 msgstr "ძებნა"
 
-#: bottles/frontend/ui/importer.blp:73
-msgid "Search Known Locations"
-msgstr "Მოძებნეთ ცნობილი ადგილები"
-
 #: bottles/frontend/ui/details-installers.blp:10
 msgid "Search for Programs…"
 msgstr "მოძებნეთ პროგრამები…"
@@ -3741,10 +3676,6 @@ msgstr "მოძებნეთ წესები…"
 #: bottles/frontend/ui/list.blp:10
 msgid "Search your containers…"
 msgstr "მოძებნეთ თქვენი Wine-ის გარემოები…"
-
-#: bottles/frontend/ui/importer.blp:109
-msgid "Searching for Wine Prefixes…"
-msgstr "Wine პრეფიქსების ძიება…"
 
 #: bottles/frontend/ui/details-bottle.blp:79 bottles/frontend/ui/details-dependencies.blp:115 bottles/frontend/ui/details-installers.blp:69
 msgid "Secondary Menu"
@@ -3826,17 +3757,13 @@ msgstr "Აირჩიეთ გამშვები დირექტორ�
 msgid "Select Working Directory"
 msgstr "აირჩიეთ სამუშაო საქაღალდე"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Backup Archive"
 msgstr "აირჩიეთ სარეზერვო არქივი"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Configuration File"
 msgstr "აირჩიეთ კონფიგურაციის ფაილი"
-
-#: bottles/frontend/views/importer.py:143
-msgid "Select a Wine Prefix Folder"
-msgstr "აირჩიეთ Wine პრეფიქსის საქაღალდე"
 
 #: bottles/frontend/ui/dialog-program-backups.blp:33 bottles/frontend/windows/programbackups.py:241
 msgid "Select a backup folder and at least one file or folder."
@@ -3846,11 +3773,11 @@ msgstr "აირჩიეთ სარეზერვო საქაღალ�
 msgid "Select a permanent runner directory, not a document portal path."
 msgstr "Აირჩიეთ მუდმივი გამშვები დირექტორია და არა დოკუმენტის პორტალის გზა."
 
-#: bottles/frontend/views/importer.py:96 bottles/frontend/widgets/importer.py:101 bottles/frontend/windows/duplicate.py:83
+#: bottles/frontend/views/importer.py:86 bottles/frontend/windows/duplicate.py:83
 msgid "Select an Empty Container Directory"
 msgstr "აირჩიეთ ცარიელი Wine-ის გარემოს დირექტორია"
 
-#: bottles/frontend/views/importer.py:83
+#: bottles/frontend/views/importer.py:73
 msgid "Select an Existing Container"
 msgstr "აირჩიეთ არსებული Wine-ის გარემო"
 
@@ -4047,11 +3974,11 @@ msgstr "Windows სისტემის გამორთვის სიმ�
 msgid "Skip Setup"
 msgstr "გამოტოვეთ დაყენება"
 
-#: bottles/backend/utils/manager.py:930
+#: bottles/backend/utils/manager.py:923
 msgid "Slovak"
 msgstr "სლოვაკური"
 
-#: bottles/backend/utils/manager.py:931
+#: bottles/backend/utils/manager.py:924
 msgid "Slovenian"
 msgstr "სლოვენური"
 
@@ -4092,7 +4019,7 @@ msgstr "რაღაც მოხდა."
 msgid "Source: {0}"
 msgstr "წყარო: {0}"
 
-#: bottles/backend/utils/manager.py:915
+#: bottles/backend/utils/manager.py:908
 msgid "Spanish"
 msgstr "ესპანური"
 
@@ -4212,7 +4139,7 @@ msgstr "შემოთავაზებები ეფუძნება ტ�
 msgid "Supported Executables"
 msgstr "მხარდაჭერილი შესრულებადი ფაილები"
 
-#: bottles/backend/utils/manager.py:932
+#: bottles/backend/utils/manager.py:925
 msgid "Swedish"
 msgstr "შვედური"
 
@@ -4232,7 +4159,7 @@ msgstr "ფილიალის გადართვა…"
 msgid "Synchronization"
 msgstr "სინქრონიზაცია"
 
-#: bottles/backend/utils/manager.py:908 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:901 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "სისტემა"
 
@@ -4412,10 +4339,6 @@ msgstr "მესამე მხარის ბიბლიოთეკებ�
 #: bottles/frontend/windows/playtimegraph.py:162
 msgid "This Week"
 msgstr "ამ კვირაში"
-
-#: bottles/frontend/ui/importer-entry.blp:40
-msgid "This Wine prefix is already registered in Bottles"
-msgstr "Ეს Wine პრეფიქსი უკვე რეგისტრირებულია Bottles-ში"
 
 #: bottles/frontend/windows/playtimegraph.py:186
 msgid "This Year"
@@ -4614,7 +4537,7 @@ msgstr "სცადეთ ხელახლა"
 msgid "Try a different search."
 msgstr "სცადეთ სხვა ძებნა."
 
-#: bottles/backend/utils/manager.py:933
+#: bottles/backend/utils/manager.py:926
 msgid "Turkish"
 msgstr "თურქული"
 
@@ -4930,11 +4853,6 @@ msgstr "Wine აუდიო დრაივერი"
 #: bottles/backend/managers/manager.py:1617
 msgid "Wine config updated!"
 msgstr "Wine კონფიგურაცია განახლებულია!"
-
-#. Translators: A Wine prefix is a separate environment (C:\ drive) for the Wine program
-#: bottles/frontend/ui/importer-entry.blp:23
-msgid "Wine prefix name"
-msgstr "Wine პრეფიქსის სახელი"
 
 #: bottles/backend/managers/manager.py:1972
 msgid "WineBridge"

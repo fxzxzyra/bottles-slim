@@ -24,7 +24,6 @@ from bottles.backend.state import SignalManager, Signals, TaskManager
 from bottles.backend.utils.threading import RunAsync
 from bottles.frontend.utils.gtk import GtkUtils
 from bottles.frontend.utils.flatpak import resolve_bottles_directory
-from bottles.frontend.widgets.importer import ImporterEntry
 
 
 @Gtk.Template(resource_path="/com/usebottles/bottles/importer.ui")
@@ -32,17 +31,10 @@ class ImporterView(Adw.Bin):
     __gtype_name__ = "ImporterView"
 
     # region Widgets
-    list_prefixes = Gtk.Template.Child()
-    btn_find_prefixes = Gtk.Template.Child()
-    btn_select_prefixes = Gtk.Template.Child()
     btn_import_config = Gtk.Template.Child()
     btn_import_full = Gtk.Template.Child()
     btn_back = Gtk.Template.Child()
     btn_import_existing = Gtk.Template.Child()
-    group_prefixes = Gtk.Template.Child()
-    status_title = Gtk.Template.Child()
-    status_description = Gtk.Template.Child()
-    stack_prefixes = Gtk.Template.Child()
     box_import_progress = Gtk.Template.Child()
     spinner_import = Gtk.Template.Child()
     label_import_progress = Gtk.Template.Child()
@@ -60,8 +52,6 @@ class ImporterView(Adw.Bin):
         # connect signals
         self.btn_back.connect("clicked", self.go_back)
         self.btn_import_existing.connect("clicked", self.__import_existing)
-        self.btn_find_prefixes.connect("clicked", self.__find_prefixes)
-        self.btn_select_prefixes.connect("clicked", self.__select_prefixes)
         self.btn_import_full.connect("clicked", self.__import_full_bck)
         self.btn_import_config.connect("clicked", self.__import_config_bck)
 
@@ -95,65 +85,6 @@ class ImporterView(Adw.Bin):
                          scope=scope, path=source, destination=destination)
         dialog = Gtk.FileDialog(title=_("Select an Empty Container Directory"), modal=True)
         dialog.select_folder(self.window, None, selected)
-
-    def __find_prefixes(self, widget):
-        """
-        This function remove all entries from the list_prefixes, ask the
-        manager to find all prefixes in the system and add them to the list
-        """
-        self.__search_prefixes(widget)
-
-    def __search_prefixes(self, widget, selected_paths=None):
-        @GtkUtils.run_in_main_loop
-        def update(result, error=False):
-            self.btn_find_prefixes.set_sensitive(True)
-            self.btn_select_prefixes.set_sensitive(True)
-            if error or result is None or not result.ok:
-                message = str(error) if error else result.message if result else ""
-                self.status_title.set_text(_("Could Not Find Wine Prefixes"))
-                self.status_description.set_text(message or _("Choose another directory or try the search again."))
-                self.stack_prefixes.set_visible_child_name("empty")
-                self.window.show_toast(message or _("Could not search for Wine prefixes"))
-                return
-
-            prefixes = result.data["wineprefixes"]
-            while self.list_prefixes.get_first_child():
-                self.list_prefixes.remove(self.list_prefixes.get_first_child())
-            for prefix in prefixes:
-                self.list_prefixes.append(ImporterEntry(self, prefix))
-            self.status_title.set_text(_("No Wine Prefixes Found"))
-            self.status_description.set_text(_("Choose another directory or search known locations."))
-            self.stack_prefixes.set_visible_child_name("prefixes" if prefixes else "empty")
-            if not prefixes and selected_paths:
-                self.window.show_toast(_("No Wine prefixes found in the selected folder"))
-
-        self.btn_find_prefixes.set_sensitive(False)
-        self.btn_select_prefixes.set_sensitive(False)
-        self.stack_prefixes.set_visible(True)
-        self.stack_prefixes.set_visible_child_name("searching")
-
-        RunAsync(
-            self.import_manager.search_wineprefixes,
-            callback=update,
-            selected_paths=selected_paths,
-        )
-
-    def __select_prefixes(self, _widget):
-        dialog = Gtk.FileDialog.new()
-        dialog.set_title(_("Select a Wine Prefix Folder"))
-        dialog.set_modal(True)
-        dialog.select_folder(self.window, None, self.__folder_selected)
-
-    def __folder_selected(self, dialog, result):
-        try:
-            folder = dialog.select_folder_finish(result)
-        except GLib.Error:
-            return
-        if folder and folder.get_path():
-            path = resolve_bottles_directory(self.window, folder.get_path())
-            if not path:
-                return
-            self.__search_prefixes(self.btn_select_prefixes, [path])
 
     @GtkUtils.run_in_main_loop
     def __finish(self, result, error=False):

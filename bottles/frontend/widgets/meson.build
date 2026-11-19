@@ -2,7 +2,6 @@ bottles_sources = [
   '__init__.py',
   'dependency.py',
   'executable.py',
-  'importer.py',
   'installer.py',
   'playtimechart_weekly.py',
   'playtimechart_hourly.py',

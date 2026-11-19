@@ -45,11 +45,6 @@ msgid "\"{0}\" hidden"
 msgstr "A(z) „{0}” elrejtve"
 
 #, python-brace-format
-#: bottles/frontend/widgets/importer.py:79
-msgid "\"{0}\" imported"
-msgstr "\\\"{0}\\\" importálva"
-
-#, python-brace-format
 #: bottles/frontend/widgets/dependency.py:224
 msgid "\"{0}\" installed"
 msgstr "\\\"{0}\\\" telepítve"
@@ -251,7 +246,7 @@ msgstr "A program bezárása után"
 msgid "All"
 msgstr "Összes"
 
-#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:179 bottles/frontend/views/new_bottle_dialog.py:203
+#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:110 bottles/frontend/views/new_bottle_dialog.py:203
 msgid "All Files"
 msgstr "Minden fájl"
 
@@ -551,7 +546,7 @@ msgstr ""
 msgid "Browse"
 msgstr "Tallózás"
 
-#: bottles/frontend/ui/component-entry.blp:24 bottles/frontend/ui/importer-entry.blp:14
+#: bottles/frontend/ui/component-entry.blp:24
 msgid "Browse Files"
 msgstr "Fájlok tallózása"
 
@@ -575,7 +570,7 @@ msgstr "Beépített (Wine)"
 msgid "Builtin, then Native"
 msgstr "Beépített majd natív"
 
-#: bottles/backend/utils/manager.py:909
+#: bottles/backend/utils/manager.py:902
 msgid "Bulgarian"
 msgstr ""
 
@@ -709,11 +704,11 @@ msgstr "A futtatható fájlok futtatása előtt ellenőrizze a rosszindulatú pr
 msgid "Check your connection or try again later."
 msgstr "Ellenőrizze a kapcsolatot, vagy próbálja újra később."
 
-#: bottles/backend/utils/manager.py:934
+#: bottles/backend/utils/manager.py:927
 msgid "Chinese (Simplified)"
 msgstr "kínai (egyszerűsített)"
 
-#: bottles/backend/utils/manager.py:936
+#: bottles/backend/utils/manager.py:929
 msgid "Chinese (Traditional)"
 msgstr "kínai (hagyományos)"
 
@@ -725,7 +720,7 @@ msgstr "Válassza a Biztonsági mentés mappát"
 msgid "Choose Backup…"
 msgstr "Válassza a Biztonsági mentés lehetőséget…"
 
-#: bottles/frontend/ui/importer.blp:39 bottles/frontend/ui/importer.blp:68
+#: bottles/frontend/ui/importer.blp:39
 msgid "Choose Directory…"
 msgstr "Válassza a Könyvtárat…"
 
@@ -753,14 +748,6 @@ msgstr "Válasszon ki egy szkriptet, amelyet futtatás előtt le kell hajtani."
 #: bottles/frontend/windows/programbackups.py:232
 msgid "Choose an available backup folder."
 msgstr "Válasszon ki egy elérhető biztonsági mentési mappát."
-
-#: bottles/frontend/ui/importer.blp:95 bottles/frontend/views/importer.py:125
-msgid "Choose another directory or search known locations."
-msgstr "Válasszon másik könyvtárat, vagy keressen ismert helyeken."
-
-#: bottles/frontend/views/importer.py:114
-msgid "Choose another directory or try the search again."
-msgstr "Válasszon másik könyvtárat, vagy próbálkozzon újra a kereséssel."
 
 #: bottles/frontend/windows/programbackups.py:237
 msgid "Choose at least one available file or folder."
@@ -931,7 +918,7 @@ msgstr "Összetevők tárháza"
 msgid "Configuration"
 msgstr "Konfiguráció"
 
-#: bottles/frontend/ui/importer.blp:137
+#: bottles/frontend/ui/importer.blp:72
 msgid "Configuration File…"
 msgstr "Konfigurációs fájl…"
 
@@ -980,7 +967,7 @@ msgstr "Wine-környezet UUID"
 msgid "Container creation failed."
 msgstr "A Wine-környezet létrehozása nem sikerült."
 
-#: bottles/frontend/views/importer.py:161
+#: bottles/frontend/views/importer.py:92
 msgid "Container imported successfully"
 msgstr "A Wine-környezet importálása sikeres volt"
 
@@ -1049,14 +1036,6 @@ msgstr "Másolás az üvegbe"
 msgid "Copyright © 2017 {developer_name}"
 msgstr "Copyright © 2017 {developer_name}"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Copy…"
-msgstr "Másolás…"
-
-#: bottles/frontend/views/importer.py:113
-msgid "Could Not Find Wine Prefixes"
-msgstr "Nem találhatók Wine előtagok"
-
 #, python-brace-format
 #: bottles/frontend/widgets/program.py:553
 msgid "Could not access the desktop entry for \"{0}\""
@@ -1098,10 +1077,6 @@ msgstr "Nem sikerült eltávolítani a \"{0}\" asztali bejegyzést"
 msgid "Could not save the program: {0}"
 msgstr "Nem sikerült menteni a programot: {0}"
 
-#: bottles/frontend/views/importer.py:116
-msgid "Could not search for Wine prefixes"
-msgstr "Nem sikerült keresni a Wine előtagokat"
-
 #: bottles/frontend/views/bottle_preferences.py:936
 msgid "Could not switch to the selected runner."
 msgstr "Nem sikerült váltani a kiválasztott futóra."
@@ -1128,10 +1103,6 @@ msgstr "A borítókép frissítve."
 msgid "Crashes"
 msgstr "Összeomlások"
 
-#: bottles/frontend/ui/window.blp:35
-msgid "Create"
-msgstr "Létrehozás"
-
 #: bottles/frontend/ui/dialog-program-backups.blp:43
 msgid "Create Automatic Backups"
 msgstr "Készítsen automatikus biztonsági másolatot"
@@ -1148,7 +1119,7 @@ msgstr "Új Wine-környezet létrehozása"
 msgid "Create Snapshot"
 msgstr "Pillanatkép készítése"
 
-#: bottles/frontend/ui/importer.blp:138
+#: bottles/frontend/ui/importer.blp:73
 msgid "Create a container from saved settings without restoring personal files"
 msgstr "Készítsen Wine-környezetet a mentett beállításokból személyes fájlok visszaállítása nélkül"
 
@@ -1201,7 +1172,7 @@ msgstr "Jóváírások és licenc"
 msgid "Critical"
 msgstr "Kritikus"
 
-#: bottles/backend/utils/manager.py:919
+#: bottles/backend/utils/manager.py:912
 msgid "Croatian"
 msgstr "horvát"
 
@@ -1238,7 +1209,7 @@ msgstr "Egyéni URL a függőségek számára. Hagyja üresen az alapértelmezet
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr "Egyéni URL a telepítők számára. Hagyja üresen az alapértelmezett végpont használatához."
 
-#: bottles/backend/utils/manager.py:910
+#: bottles/backend/utils/manager.py:903
 msgid "Czech"
 msgstr "cseh"
 
@@ -1283,7 +1254,7 @@ msgstr "Naponta"
 msgid "Daily Average: {}"
 msgstr "Napi átlag: {}"
 
-#: bottles/backend/utils/manager.py:911
+#: bottles/backend/utils/manager.py:904
 msgid "Danish"
 msgstr "dán"
 
@@ -1583,7 +1554,7 @@ msgstr "Wine-környezet duplikálása…"
 msgid "Duplicating…"
 msgstr "Duplikálás…"
 
-#: bottles/backend/utils/manager.py:924
+#: bottles/backend/utils/manager.py:917
 msgid "Dutch"
 msgstr "holland"
 
@@ -1700,7 +1671,7 @@ msgstr "Betűsimítás engedélyezése…"
 msgid "Engines and Frameworks"
 msgstr "Motorok és keretrendszerek"
 
-#: bottles/backend/utils/manager.py:914
+#: bottles/backend/utils/manager.py:907
 msgid "English"
 msgstr "angol"
 
@@ -1742,7 +1713,7 @@ msgstr "Hiba a végrehajtható fájl feldolgozása közben: {0}"
 msgid "Errors"
 msgstr "Hibák"
 
-#: bottles/backend/utils/manager.py:916
+#: bottles/backend/utils/manager.py:909
 msgid "Estonian"
 msgstr "észt"
 
@@ -1931,15 +1902,7 @@ msgstr "A telepítés befejezése..."
 msgid "Finalizing…"
 msgstr "Véglegesítés…"
 
-#: bottles/frontend/ui/importer.blp:69
-msgid "Find Wine Prefixes in a Directory"
-msgstr "Keresse meg a Wine előtagokat egy könyvtárban"
-
-#: bottles/frontend/ui/importer.blp:62
-msgid "Find Wine environments from other applications, then choose one to copy into a new container."
-msgstr "Keresse meg a Wine környezeteket más alkalmazásokból, majd válasszon egyet, amelyet új palackba szeretne másolni."
-
-#: bottles/backend/utils/manager.py:917
+#: bottles/backend/utils/manager.py:910
 msgid "Finnish"
 msgstr "finn"
 
@@ -2011,7 +1974,7 @@ msgstr "\"Ablak felbontása"
 msgid "Frame Rate Limit When Unfocused"
 msgstr "Képkockasebesség-korlát, amikor nincs fókuszban"
 
-#: bottles/backend/utils/manager.py:918
+#: bottles/backend/utils/manager.py:911
 msgid "French"
 msgstr "francia"
 
@@ -2019,7 +1982,7 @@ msgstr "francia"
 msgid "Fsync"
 msgstr "Fsync"
 
-#: bottles/frontend/ui/importer.blp:141
+#: bottles/frontend/ui/importer.blp:76
 msgid "Full Archive…"
 msgstr "Teljes archívum…"
 
@@ -2067,7 +2030,7 @@ msgstr "További keretek létrehozása az lsfg-vk segítségével. Csak 64 bites
 msgid "Generating container configuration…"
 msgstr "Wine-környezet konfigurációs fájljának előállítása…"
 
-#: bottles/backend/utils/manager.py:912
+#: bottles/backend/utils/manager.py:905
 msgid "German"
 msgstr "német"
 
@@ -2087,7 +2050,7 @@ msgstr "Közvetlen hozzáférést biztosít a Bottles számára a futókönyvtá
 msgid "Graphics API"
 msgstr "Grafikus API"
 
-#: bottles/backend/utils/manager.py:913
+#: bottles/backend/utils/manager.py:906
 msgid "Greek"
 msgstr "görög"
 
@@ -2132,7 +2095,7 @@ msgstr "Óránkénti átlag: {}"
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr "Milyen gyakran kell frissíteni a munkamenet szívverését. Meghatározza a maximális időbélyeghibát a hirtelen kilépésekhez."
 
-#: bottles/backend/utils/manager.py:920
+#: bottles/backend/utils/manager.py:913
 msgid "Hungarian"
 msgstr "magyar"
 
@@ -2144,7 +2107,7 @@ msgstr "Még mindig szeretném jelenteni."
 msgid "Images"
 msgstr "Képek"
 
-#: bottles/frontend/views/importer.py:192
+#: bottles/frontend/views/importer.py:123
 msgid "Import"
 msgstr "Importálás"
 
@@ -2160,7 +2123,7 @@ msgstr "Import Wine-környezetek"
 msgid "Import Containers…"
 msgstr "Wine-környezetek importálása…"
 
-#: bottles/frontend/views/importer.py:164 bottles/frontend/widgets/importer.py:83
+#: bottles/frontend/views/importer.py:95
 msgid "Import failed"
 msgstr "Az importálás sikertelen"
 
@@ -2171,10 +2134,6 @@ msgstr "Hash egyezés importálása"
 #: bottles/backend/managers/backup.py:715
 msgid "Importing full backup"
 msgstr "Teljes biztonsági másolat importálása"
-
-#: bottles/frontend/ui/importer-entry.blp:53
-msgid "Import…"
-msgstr "Importálás…"
 
 #: bottles/frontend/ui/details-preferences.blp:56
 msgid "Improve Direct3D 12 compatibility by translating it to Vulkan."
@@ -2367,7 +2326,7 @@ msgstr "Érvénytelen grafikus komponens."
 msgid "Issues that may prevent this program from running."
 msgstr "Problémák, amelyek megakadályozhatják a program futtatását."
 
-#: bottles/backend/utils/manager.py:921
+#: bottles/backend/utils/manager.py:914
 msgid "Italian"
 msgstr "olasz"
 
@@ -2375,7 +2334,7 @@ msgstr "olasz"
 msgid "Item name"
 msgstr "Elem neve"
 
-#: bottles/backend/utils/manager.py:935
+#: bottles/backend/utils/manager.py:928
 msgid "Japanese"
 msgstr "Japán"
 
@@ -2393,7 +2352,7 @@ msgstr "Ismert alkalmazás ({match}): {name}"
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr "Ismert alkalmazás: {name} (winetricks ige: '{verb}')"
 
-#: bottles/backend/utils/manager.py:937
+#: bottles/backend/utils/manager.py:930
 msgid "Korean"
 msgstr "koreai"
 
@@ -2414,7 +2373,7 @@ msgstr "Utolsó lejátszás: %s – Lejátszási idő: %s"
 msgid "LatencyFleX"
 msgstr "LatencyFleX"
 
-#: bottles/backend/utils/manager.py:923
+#: bottles/backend/utils/manager.py:916
 msgid "Latvian"
 msgstr "lett"
 
@@ -2510,7 +2469,7 @@ msgstr "Steam alkalmazások listázása a programok listájában"
 msgid "List Ubisoft Games in Programs List"
 msgstr "Ubisoft játékok listázása a programok listájában"
 
-#: bottles/backend/utils/manager.py:922
+#: bottles/backend/utils/manager.py:915
 msgid "Lithuanian"
 msgstr "litván"
 
@@ -2601,10 +2560,6 @@ msgstr "Homokozó engedélyek kezelése"
 #: bottles/frontend/ui/details-preferences.blp:291
 msgid "Manage vmtouch settings"
 msgstr "vmtouch beállítások kezelése"
-
-#: bottles/frontend/ui/importer-entry.blp:30
-msgid "Manager"
-msgstr "Kezelő"
 
 #: bottles/frontend/ui/dialog-mangohud.blp:8
 msgid "MangoHud Settings"
@@ -2842,14 +2797,6 @@ msgstr "Nincs előnézet"
 msgid "No VKD3D version available."
 msgstr "Nem érhető el VKD3D verzió."
 
-#: bottles/frontend/ui/importer.blp:89 bottles/frontend/views/importer.py:124
-msgid "No Wine Prefixes Found"
-msgstr "Nem található Wine előtag"
-
-#: bottles/frontend/views/importer.py:128
-msgid "No Wine prefixes found in the selected folder"
-msgstr "Nem található Wine előtag a kiválasztott mappában"
-
 #: bottles/backend/managers/eagle.py:333
 msgid "No community intelligence match"
 msgstr "A közösségi intelligencia nem egyezik"
@@ -2894,7 +2841,7 @@ msgstr "Még nincsenek gyorsítótárazott sablonok."
 msgid "No variables selected"
 msgstr "Nincsenek kiválasztva változók"
 
-#: bottles/backend/utils/manager.py:925
+#: bottles/backend/utils/manager.py:918
 msgid "Norwegian"
 msgstr "norvég"
 
@@ -3033,10 +2980,6 @@ msgstr ""
 msgid "Organizing installers…"
 msgstr ""
 
-#: bottles/frontend/ui/importer.blp:61
-msgid "Other Wine Prefixes"
-msgstr "Egyéb Wine előtagok"
-
 #: bottles/frontend/ui/preferences.blp:237
 msgid "Override the default repositories Bottles uses when downloading resources."
 msgstr ""
@@ -3106,11 +3049,11 @@ msgstr "Az új állapotok létrehozásához költözzön át az új verziókezel
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr "Kérjük, várjon, amíg a WineBridge letöltődik és telepítődik."
 
-#: bottles/backend/utils/manager.py:926
+#: bottles/backend/utils/manager.py:919
 msgid "Polish"
 msgstr "lengyel"
 
-#: bottles/backend/utils/manager.py:927
+#: bottles/backend/utils/manager.py:920
 msgid "Portuguese"
 msgstr "portugál"
 
@@ -3343,10 +3286,6 @@ msgstr "Lejátszási statisztikák rögzítése a Bottles-ről indított program
 msgid "Refresh"
 msgstr "Frissítés"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Register"
-msgstr "Regisztrálás"
-
 #: bottles/frontend/ui/preferences.blp:283 bottles/frontend/views/preferences.py:559
 msgid "Register Runner"
 msgstr "Futtató regisztrálása"
@@ -3528,7 +3467,7 @@ msgstr "Wine-környezet biztonsági másolatának visszaállítása"
 msgid "Restore an archive or use a configuration to create a container in an empty directory."
 msgstr "Állítson vissza egy archívumot, vagy egy konfiguráció segítségével hozzon létre egy Wine-környezetet egy üres könyvtárban."
 
-#: bottles/frontend/ui/importer.blp:142
+#: bottles/frontend/ui/importer.blp:77
 msgid "Restore the container including its programs and personal files"
 msgstr "Állítsa vissza a Wine-környezetet, beleértve a programokat és a személyes fájlokat"
 
@@ -3536,7 +3475,7 @@ msgstr "Állítsa vissza a Wine-környezetet, beleértve a programokat és a sze
 msgid "Restore this Snapshot"
 msgstr "Állapot visszaállítása"
 
-#: bottles/frontend/views/importer.py:234
+#: bottles/frontend/views/importer.py:165
 msgid "Restoring Backup…"
 msgstr "Biztonsági mentés visszaállítása…"
 
@@ -3566,7 +3505,7 @@ msgstr "Áttekintés"
 msgid "Review for {0}"
 msgstr "Vélemény ehhez: {0}"
 
-#: bottles/backend/utils/manager.py:928
+#: bottles/backend/utils/manager.py:921
 msgid "Romanian"
 msgstr "román"
 
@@ -3665,7 +3604,7 @@ msgstr "Ugyanazzal a hozzáféréssel fut, mint a Bottles, extra leválasztás n
 msgid "Runtimes and Libraries"
 msgstr "Futási idők és könyvtárak"
 
-#: bottles/backend/utils/manager.py:929
+#: bottles/backend/utils/manager.py:922
 msgid "Russian"
 msgstr "orosz"
 
@@ -3721,10 +3660,6 @@ msgstr "Képernyőméretezés"
 msgid "Search"
 msgstr "Keresés"
 
-#: bottles/frontend/ui/importer.blp:73
-msgid "Search Known Locations"
-msgstr "Ismert helyek keresése"
-
 #: bottles/frontend/ui/details-installers.blp:10
 msgid "Search for Programs…"
 msgstr "Programok keresése…"
@@ -3744,10 +3679,6 @@ msgstr "Szabályok keresése…"
 #: bottles/frontend/ui/list.blp:10
 msgid "Search your containers…"
 msgstr "Wine-környezetek keresése…"
-
-#: bottles/frontend/ui/importer.blp:109
-msgid "Searching for Wine Prefixes…"
-msgstr "Wine előtagok keresése…"
 
 #: bottles/frontend/ui/details-bottle.blp:79 bottles/frontend/ui/details-dependencies.blp:115 bottles/frontend/ui/details-installers.blp:69
 msgid "Secondary Menu"
@@ -3829,17 +3760,13 @@ msgstr "Válassza a Futtató címtárat"
 msgid "Select Working Directory"
 msgstr "Munkakönyvtár kiválasztása"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Backup Archive"
 msgstr "Biztonsági mentés archívum kiválasztása"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Configuration File"
 msgstr "Konfigurációs fájl kiválasztása"
-
-#: bottles/frontend/views/importer.py:143
-msgid "Select a Wine Prefix Folder"
-msgstr "Válasszon ki egy Wine előtag mappát"
 
 #: bottles/frontend/ui/dialog-program-backups.blp:33 bottles/frontend/windows/programbackups.py:241
 msgid "Select a backup folder and at least one file or folder."
@@ -3849,11 +3776,11 @@ msgstr "Válasszon ki egy biztonsági mentési mappát és legalább egy fájlt 
 msgid "Select a permanent runner directory, not a document portal path."
 msgstr "Állandó Futtató könyvtárat válasszon, ne dokumentumportál elérési utat."
 
-#: bottles/frontend/views/importer.py:96 bottles/frontend/widgets/importer.py:101 bottles/frontend/windows/duplicate.py:83
+#: bottles/frontend/views/importer.py:86 bottles/frontend/windows/duplicate.py:83
 msgid "Select an Empty Container Directory"
 msgstr "Válasszon ki egy Üres Wine-környezet könyvtárat"
 
-#: bottles/frontend/views/importer.py:83
+#: bottles/frontend/views/importer.py:73
 msgid "Select an Existing Container"
 msgstr "Válasszon ki egy meglévő Wine-környezetet"
 
@@ -4050,11 +3977,11 @@ msgstr "szimulálja a Windows rendszerleállását"
 msgid "Skip Setup"
 msgstr "Kihagyja a beállítást"
 
-#: bottles/backend/utils/manager.py:930
+#: bottles/backend/utils/manager.py:923
 msgid "Slovak"
 msgstr "szlovák"
 
-#: bottles/backend/utils/manager.py:931
+#: bottles/backend/utils/manager.py:924
 msgid "Slovenian"
 msgstr "szlovén"
 
@@ -4095,7 +4022,7 @@ msgstr "Valami balul sült el."
 msgid "Source: {0}"
 msgstr "Forrás: {0}"
 
-#: bottles/backend/utils/manager.py:915
+#: bottles/backend/utils/manager.py:908
 msgid "Spanish"
 msgstr "spanyol"
 
@@ -4216,7 +4143,7 @@ msgstr "A javaslatok technikai elemzésen alapulnak, és nem garantálják a kom
 msgid "Supported Executables"
 msgstr "Támogatott végrehajtható fájlok"
 
-#: bottles/backend/utils/manager.py:932
+#: bottles/backend/utils/manager.py:925
 msgid "Swedish"
 msgstr "svéd"
 
@@ -4236,7 +4163,7 @@ msgstr "Elágazás váltás…"
 msgid "Synchronization"
 msgstr "Szinkronizáció"
 
-#: bottles/backend/utils/manager.py:908 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:901 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "Rendszer"
 
@@ -4416,10 +4343,6 @@ msgstr "Külső programkönyvtárak és külön köszönet"
 #: bottles/frontend/windows/playtimegraph.py:162
 msgid "This Week"
 msgstr "Ezen a héten"
-
-#: bottles/frontend/ui/importer-entry.blp:40
-msgid "This Wine prefix is already registered in Bottles"
-msgstr "Ez a Wine előtag már regisztrálva van a Bottles-ben"
 
 #: bottles/frontend/windows/playtimegraph.py:186
 msgid "This Year"
@@ -4618,7 +4541,7 @@ msgstr "Próbáld újra"
 msgid "Try a different search."
 msgstr "Próbáljon különböző keresést."
 
-#: bottles/backend/utils/manager.py:933
+#: bottles/backend/utils/manager.py:926
 msgid "Turkish"
 msgstr "török"
 
@@ -4936,11 +4859,6 @@ msgstr "Wine audio illesztőprogram"
 #: bottles/backend/managers/manager.py:1617
 msgid "Wine config updated!"
 msgstr "Wine konfiguráció frissítve!"
-
-#. Translators: A Wine prefix is a separate environment (C:\ drive) for the Wine program
-#: bottles/frontend/ui/importer-entry.blp:23
-msgid "Wine prefix name"
-msgstr "Wine prefix neve"
 
 #: bottles/backend/managers/manager.py:1972
 msgid "WineBridge"

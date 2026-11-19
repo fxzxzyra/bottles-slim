@@ -45,11 +45,6 @@ msgid "\"{0}\" hidden"
 msgstr "«{0}» نهفته"
 
 #, python-brace-format
-#: bottles/frontend/widgets/importer.py:79
-msgid "\"{0}\" imported"
-msgstr "«{0}»‌ درون‌ریخته شده"
-
-#, python-brace-format
 #: bottles/frontend/widgets/dependency.py:224
 msgid "\"{0}\" installed"
 msgstr "«{0}» نصب شد"
@@ -251,7 +246,7 @@ msgstr "پس از بستن برنامه"
 msgid "All"
 msgstr "همه"
 
-#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:179 bottles/frontend/views/new_bottle_dialog.py:203
+#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:110 bottles/frontend/views/new_bottle_dialog.py:203
 msgid "All Files"
 msgstr "همه فایل ها"
 
@@ -551,7 +546,7 @@ msgstr "شعبه با موفقیت حذف شد"
 msgid "Browse"
 msgstr "مرور"
 
-#: bottles/frontend/ui/component-entry.blp:24 bottles/frontend/ui/importer-entry.blp:14
+#: bottles/frontend/ui/component-entry.blp:24
 msgid "Browse Files"
 msgstr "مرور پرونده‌ها"
 
@@ -575,7 +570,7 @@ msgstr "توکار (واین)"
 msgid "Builtin, then Native"
 msgstr "توکار، سپس بومی"
 
-#: bottles/backend/utils/manager.py:909
+#: bottles/backend/utils/manager.py:902
 msgid "Bulgarian"
 msgstr "بلغاری"
 
@@ -709,11 +704,11 @@ msgstr "فایل های اجرایی را قبل از اجرای الگوهای 
 msgid "Check your connection or try again later."
 msgstr "اتصال خود را بررسی کنید یا بعداً دوباره امتحان کنید."
 
-#: bottles/backend/utils/manager.py:934
+#: bottles/backend/utils/manager.py:927
 msgid "Chinese (Simplified)"
 msgstr "چینی (ساده شده)"
 
-#: bottles/backend/utils/manager.py:936
+#: bottles/backend/utils/manager.py:929
 msgid "Chinese (Traditional)"
 msgstr "چینی (سنتی)"
 
@@ -725,7 +720,7 @@ msgstr "پوشه پشتیبان را انتخاب کنید"
 msgid "Choose Backup…"
 msgstr "Backup را انتخاب کنید…"
 
-#: bottles/frontend/ui/importer.blp:39 bottles/frontend/ui/importer.blp:68
+#: bottles/frontend/ui/importer.blp:39
 msgid "Choose Directory…"
 msgstr "دایرکتوری را انتخاب کنید…"
 
@@ -753,14 +748,6 @@ msgstr "اسکریپتی را انتخاب کنید که باید قبل از ا
 #: bottles/frontend/windows/programbackups.py:232
 msgid "Choose an available backup folder."
 msgstr "یک پوشه پشتیبان موجود را انتخاب کنید."
-
-#: bottles/frontend/ui/importer.blp:95 bottles/frontend/views/importer.py:125
-msgid "Choose another directory or search known locations."
-msgstr "دایرکتوری دیگری را انتخاب کنید یا مکان های شناخته شده را جستجو کنید."
-
-#: bottles/frontend/views/importer.py:114
-msgid "Choose another directory or try the search again."
-msgstr "دایرکتوری دیگری را انتخاب کنید یا دوباره جستجو کنید."
 
 #: bottles/frontend/windows/programbackups.py:237
 msgid "Choose at least one available file or folder."
@@ -931,7 +918,7 @@ msgstr "مخزن اجزا"
 msgid "Configuration"
 msgstr "پیکربندی"
 
-#: bottles/frontend/ui/importer.blp:137
+#: bottles/frontend/ui/importer.blp:72
 msgid "Configuration File…"
 msgstr "فایل پیکربندی…"
 
@@ -980,7 +967,7 @@ msgstr "محیط Wine UUID"
 msgid "Container creation failed."
 msgstr "ایجاد محیط Wine انجام نشد."
 
-#: bottles/frontend/views/importer.py:161
+#: bottles/frontend/views/importer.py:92
 msgid "Container imported successfully"
 msgstr "محیط Wine با موفقیت وارد شد"
 
@@ -1049,14 +1036,6 @@ msgstr "کپی کردن در محیط Wine"
 msgid "Copyright © 2017 {developer_name}"
 msgstr "حق چاپ © 2017 {developer_name}"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Copy…"
-msgstr "کپی…"
-
-#: bottles/frontend/views/importer.py:113
-msgid "Could Not Find Wine Prefixes"
-msgstr "پیشوندهای Wine یافت نشد"
-
 #, python-brace-format
 #: bottles/frontend/widgets/program.py:553
 msgid "Could not access the desktop entry for \"{0}\""
@@ -1098,10 +1077,6 @@ msgstr "ورودی دسکتاپ برای \"{0}\" حذف نشد"
 msgid "Could not save the program: {0}"
 msgstr "برنامه ذخیره نشد: {0}"
 
-#: bottles/frontend/views/importer.py:116
-msgid "Could not search for Wine prefixes"
-msgstr "نمی توان پیشوندهای Wine را جستجو کرد"
-
 #: bottles/frontend/views/bottle_preferences.py:936
 msgid "Could not switch to the selected runner."
 msgstr "نمی‌توان به دونده انتخاب‌شده سوئیچ کرد."
@@ -1128,10 +1103,6 @@ msgstr "تصویر جلد به روز شد."
 msgid "Crashes"
 msgstr "خراب می شود"
 
-#: bottles/frontend/ui/window.blp:35
-msgid "Create"
-msgstr "ایجاد"
-
 #: bottles/frontend/ui/dialog-program-backups.blp:43
 msgid "Create Automatic Backups"
 msgstr "پشتیبان گیری خودکار ایجاد کنید"
@@ -1148,7 +1119,7 @@ msgstr "ایجاد محیط Wine جدید"
 msgid "Create Snapshot"
 msgstr "ایجاد عکس فوری"
 
-#: bottles/frontend/ui/importer.blp:138
+#: bottles/frontend/ui/importer.blp:73
 msgid "Create a container from saved settings without restoring personal files"
 msgstr "یک محیط Wine از تنظیمات ذخیره شده بدون بازیابی فایل های شخصی ایجاد کنید"
 
@@ -1201,7 +1172,7 @@ msgstr "اعتبار و مجوز"
 msgid "Critical"
 msgstr "بحرانی"
 
-#: bottles/backend/utils/manager.py:919
+#: bottles/backend/utils/manager.py:912
 msgid "Croatian"
 msgstr "کرواتی"
 
@@ -1238,7 +1209,7 @@ msgstr "URL سفارشی برای وابستگی ها. برای استفاده �
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr "URL سفارشی برای نصب کنندگان. برای استفاده از نقطه پایانی پیش فرض خالی بگذارید."
 
-#: bottles/backend/utils/manager.py:910
+#: bottles/backend/utils/manager.py:903
 msgid "Czech"
 msgstr "چک"
 
@@ -1283,7 +1254,7 @@ msgstr "روزانه"
 msgid "Daily Average: {}"
 msgstr "میانگین روزانه: {}"
 
-#: bottles/backend/utils/manager.py:911
+#: bottles/backend/utils/manager.py:904
 msgid "Danish"
 msgstr "دانمارکی"
 
@@ -1583,7 +1554,7 @@ msgstr "تکثیر محیط Wine…"
 msgid "Duplicating…"
 msgstr "تکثیر کردن…"
 
-#: bottles/backend/utils/manager.py:924
+#: bottles/backend/utils/manager.py:917
 msgid "Dutch"
 msgstr "هلندی"
 
@@ -1700,7 +1671,7 @@ msgstr "فعال کردن هموارسازی فونت…"
 msgid "Engines and Frameworks"
 msgstr "موتورها و چارچوب ها"
 
-#: bottles/backend/utils/manager.py:914
+#: bottles/backend/utils/manager.py:907
 msgid "English"
 msgstr "انگلیسی"
 
@@ -1742,7 +1713,7 @@ msgstr "خطا هنگام پردازش قابل اجرا: {0}"
 msgid "Errors"
 msgstr "خطاها"
 
-#: bottles/backend/utils/manager.py:916
+#: bottles/backend/utils/manager.py:909
 msgid "Estonian"
 msgstr "استونیایی"
 
@@ -1931,15 +1902,7 @@ msgstr "نصب نهایی..."
 msgid "Finalizing…"
 msgstr "پایان بندی…"
 
-#: bottles/frontend/ui/importer.blp:69
-msgid "Find Wine Prefixes in a Directory"
-msgstr "پیشوندهای Wine را در دایرکتوری پیدا کنید"
-
-#: bottles/frontend/ui/importer.blp:62
-msgid "Find Wine environments from other applications, then choose one to copy into a new container."
-msgstr "محیط های Wine را از برنامه های دیگر پیدا کنید، سپس یکی را برای کپی کردن در یک محیط Wine جدید انتخاب کنید."
-
-#: bottles/backend/utils/manager.py:917
+#: bottles/backend/utils/manager.py:910
 msgid "Finnish"
 msgstr "فنلاندی"
 
@@ -2011,7 +1974,7 @@ msgstr "محدودیت نرخ فریم"
 msgid "Frame Rate Limit When Unfocused"
 msgstr "محدودیت نرخ فریم در صورت عدم تمرکز"
 
-#: bottles/backend/utils/manager.py:918
+#: bottles/backend/utils/manager.py:911
 msgid "French"
 msgstr "فرانسوی"
 
@@ -2019,7 +1982,7 @@ msgstr "فرانسوی"
 msgid "Fsync"
 msgstr "Fsync"
 
-#: bottles/frontend/ui/importer.blp:141
+#: bottles/frontend/ui/importer.blp:76
 msgid "Full Archive…"
 msgstr "آرشیو کامل…"
 
@@ -2067,7 +2030,7 @@ msgstr "فریم های اضافی را با lsfg-vk ایجاد کنید. فقط
 msgid "Generating container configuration…"
 msgstr "در حال ایجاد پیکربندی باتل…"
 
-#: bottles/backend/utils/manager.py:912
+#: bottles/backend/utils/manager.py:905
 msgid "German"
 msgstr "آلمانی"
 
@@ -2087,7 +2050,7 @@ msgstr "به Bottles دسترسی مستقیم به فهرست راهنما بد
 msgid "Graphics API"
 msgstr "Graphics API"
 
-#: bottles/backend/utils/manager.py:913
+#: bottles/backend/utils/manager.py:906
 msgid "Greek"
 msgstr "یونانی"
 
@@ -2132,7 +2095,7 @@ msgstr "میانگین ساعتی: {}"
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr "هر چند وقت یک‌بار برای به‌روزرسانی ضربان قلب جلسه. حداکثر خطای مهر زمانی را برای خروج های ناگهانی تعریف می کند."
 
-#: bottles/backend/utils/manager.py:920
+#: bottles/backend/utils/manager.py:913
 msgid "Hungarian"
 msgstr "مجارستانی"
 
@@ -2144,7 +2107,7 @@ msgstr "هنوز می‌خواهم گزارش دهم."
 msgid "Images"
 msgstr "تصاویر"
 
-#: bottles/frontend/views/importer.py:192
+#: bottles/frontend/views/importer.py:123
 msgid "Import"
 msgstr "درون‌ریزی"
 
@@ -2160,7 +2123,7 @@ msgstr "محیط Wine های وارداتی"
 msgid "Import Containers…"
 msgstr "محیط Wine های وارداتی…"
 
-#: bottles/frontend/views/importer.py:164 bottles/frontend/widgets/importer.py:83
+#: bottles/frontend/views/importer.py:95
 msgid "Import failed"
 msgstr "درون‌ریزی شکست خورد"
 
@@ -2171,10 +2134,6 @@ msgstr "وارد کردن تطابق هش"
 #: bottles/backend/managers/backup.py:715
 msgid "Importing full backup"
 msgstr "وارد کردن نسخه پشتیبان کامل"
-
-#: bottles/frontend/ui/importer-entry.blp:53
-msgid "Import…"
-msgstr "درون‌ریزی…"
 
 #: bottles/frontend/ui/details-preferences.blp:56
 msgid "Improve Direct3D 12 compatibility by translating it to Vulkan."
@@ -2367,7 +2326,7 @@ msgstr "جزء گرافیکی نامعتبر."
 msgid "Issues that may prevent this program from running."
 msgstr "مشکلاتی که ممکن است از اجرای این برنامه جلوگیری کند."
 
-#: bottles/backend/utils/manager.py:921
+#: bottles/backend/utils/manager.py:914
 msgid "Italian"
 msgstr "ایتالیایی"
 
@@ -2375,7 +2334,7 @@ msgstr "ایتالیایی"
 msgid "Item name"
 msgstr "نام مورد"
 
-#: bottles/backend/utils/manager.py:935
+#: bottles/backend/utils/manager.py:928
 msgid "Japanese"
 msgstr "ژاپنی"
 
@@ -2393,7 +2352,7 @@ msgstr "برنامه شناخته شده ({match}): {name}"
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr "برنامه شناخته شده: {name} (فعل winetricks '{verb}')"
 
-#: bottles/backend/utils/manager.py:937
+#: bottles/backend/utils/manager.py:930
 msgid "Korean"
 msgstr "کره ای"
 
@@ -2414,7 +2373,7 @@ msgstr "آخرین بازی: %s – زمان پخش: %s"
 msgid "LatencyFleX"
 msgstr "LatencyFleX"
 
-#: bottles/backend/utils/manager.py:923
+#: bottles/backend/utils/manager.py:916
 msgid "Latvian"
 msgstr "لتونی"
 
@@ -2510,7 +2469,7 @@ msgstr "برنامه های Steam را در لیست برنامه ها فهرس�
 msgid "List Ubisoft Games in Programs List"
 msgstr "لیست بازی های یوبی سافت در لیست برنامه ها"
 
-#: bottles/backend/utils/manager.py:922
+#: bottles/backend/utils/manager.py:915
 msgid "Lithuanian"
 msgstr "لیتوانیایی"
 
@@ -2601,10 +2560,6 @@ msgstr "مجوزهای Sandbox را مدیریت کنید"
 #: bottles/frontend/ui/details-preferences.blp:291
 msgid "Manage vmtouch settings"
 msgstr "تنظیمات vmtouch را مدیریت کنید"
-
-#: bottles/frontend/ui/importer-entry.blp:30
-msgid "Manager"
-msgstr "مدیر"
 
 #: bottles/frontend/ui/dialog-mangohud.blp:8
 msgid "MangoHud Settings"
@@ -2842,14 +2797,6 @@ msgstr "بدون بندانگشتی"
 msgid "No VKD3D version available."
 msgstr "نسخه VKD3D موجود نیست."
 
-#: bottles/frontend/ui/importer.blp:89 bottles/frontend/views/importer.py:124
-msgid "No Wine Prefixes Found"
-msgstr "هیچ پیشوند Wine یافت نشد"
-
-#: bottles/frontend/views/importer.py:128
-msgid "No Wine prefixes found in the selected folder"
-msgstr "هیچ پیشوند Wine در پوشه انتخاب شده یافت نشد"
-
 #: bottles/backend/managers/eagle.py:333
 msgid "No community intelligence match"
 msgstr "هیچ تطابقی با اطلاعات جامعه وجود ندارد"
@@ -2894,7 +2841,7 @@ msgstr "هنوز هیچ الگوی در حافظه پنهان ذخیره نشد�
 msgid "No variables selected"
 msgstr "هیچ متغیری انتخاب نشده است"
 
-#: bottles/backend/utils/manager.py:925
+#: bottles/backend/utils/manager.py:918
 msgid "Norwegian"
 msgstr "نروژی"
 
@@ -3033,10 +2980,6 @@ msgstr "سازماندهی وابستگی ها…"
 msgid "Organizing installers…"
 msgstr "سازماندهی نصب کنندگان…"
 
-#: bottles/frontend/ui/importer.blp:61
-msgid "Other Wine Prefixes"
-msgstr "سایر پیشوندهای Wine"
-
 #: bottles/frontend/ui/preferences.blp:237
 msgid "Override the default repositories Bottles uses when downloading resources."
 msgstr "مخازن پیش فرضی را که Bottles هنگام دانلود منابع استفاده می کند، لغو کنید."
@@ -3106,11 +3049,11 @@ msgstr "لطفاً برای ایجاد حالت‌های جدید به سیست�
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr "لطفاً تا زمانی که WineBridge در حال دانلود و نصب است صبر کنید."
 
-#: bottles/backend/utils/manager.py:926
+#: bottles/backend/utils/manager.py:919
 msgid "Polish"
 msgstr "لهستانی"
 
-#: bottles/backend/utils/manager.py:927
+#: bottles/backend/utils/manager.py:920
 msgid "Portuguese"
 msgstr "پرتغالی"
 
@@ -3343,10 +3286,6 @@ msgstr "ثبت آمار زمان پخش برای برنامه های راه ان
 msgid "Refresh"
 msgstr "تازه سازی"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Register"
-msgstr "ثبت"
-
 #: bottles/frontend/ui/preferences.blp:283 bottles/frontend/views/preferences.py:559
 msgid "Register Runner"
 msgstr "ثبت اجراگر"
@@ -3528,7 +3467,7 @@ msgstr "یک محیط Wine پشتیبان را بازیابی کنید"
 msgid "Restore an archive or use a configuration to create a container in an empty directory."
 msgstr "یک بایگانی را بازیابی کنید یا از یک پیکربندی برای ایجاد یک محیط Wine در یک فهرست خالی استفاده کنید."
 
-#: bottles/frontend/ui/importer.blp:142
+#: bottles/frontend/ui/importer.blp:77
 msgid "Restore the container including its programs and personal files"
 msgstr "محیط Wine شامل برنامه ها و فایل های شخصی آن را بازیابی کنید"
 
@@ -3536,7 +3475,7 @@ msgstr "محیط Wine شامل برنامه ها و فایل های شخصی آ�
 msgid "Restore this Snapshot"
 msgstr "این اسنپ شات را بازیابی کنید"
 
-#: bottles/frontend/views/importer.py:234
+#: bottles/frontend/views/importer.py:165
 msgid "Restoring Backup…"
 msgstr "در حال بازیابی نسخه پشتیبان…"
 
@@ -3566,7 +3505,7 @@ msgstr "بررسی"
 msgid "Review for {0}"
 msgstr "بازبینی برای {0}"
 
-#: bottles/backend/utils/manager.py:928
+#: bottles/backend/utils/manager.py:921
 msgid "Romanian"
 msgstr "رومانیایی"
 
@@ -3665,7 +3604,7 @@ msgstr "با دسترسی مشابه Bottles، بدون ایزوله اضافی 
 msgid "Runtimes and Libraries"
 msgstr "زمان اجرا و کتابخانه ها"
 
-#: bottles/backend/utils/manager.py:929
+#: bottles/backend/utils/manager.py:922
 msgid "Russian"
 msgstr "روسی"
 
@@ -3721,10 +3660,6 @@ msgstr "مقیاس‌بندی صفحه"
 msgid "Search"
 msgstr "جست‌وجو"
 
-#: bottles/frontend/ui/importer.blp:73
-msgid "Search Known Locations"
-msgstr "مکان های شناخته شده را جستجو کنید"
-
 #: bottles/frontend/ui/details-installers.blp:10
 msgid "Search for Programs…"
 msgstr "جست‌وجوی برنامه‌ها…"
@@ -3744,10 +3679,6 @@ msgstr "جستجوی قوانین…"
 #: bottles/frontend/ui/list.blp:10
 msgid "Search your containers…"
 msgstr "جست‌وجوی محیط‌های Wineیتان…"
-
-#: bottles/frontend/ui/importer.blp:109
-msgid "Searching for Wine Prefixes…"
-msgstr "جستجوی پیشوندهای Wine…"
 
 #: bottles/frontend/ui/details-bottle.blp:79 bottles/frontend/ui/details-dependencies.blp:115 bottles/frontend/ui/details-installers.blp:69
 msgid "Secondary Menu"
@@ -3829,17 +3760,13 @@ msgstr "دایرکتوری اجراگر را انتخاب کنید"
 msgid "Select Working Directory"
 msgstr "گزینش شاخهٔ کاری"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Backup Archive"
 msgstr "یک آرشیو پشتیبان انتخاب کنید"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Configuration File"
 msgstr "گزینش پروندهٔ پیکربندی"
-
-#: bottles/frontend/views/importer.py:143
-msgid "Select a Wine Prefix Folder"
-msgstr "یک پوشه پیشوند Wine را انتخاب کنید"
 
 #: bottles/frontend/ui/dialog-program-backups.blp:33 bottles/frontend/windows/programbackups.py:241
 msgid "Select a backup folder and at least one file or folder."
@@ -3849,11 +3776,11 @@ msgstr "یک پوشه پشتیبان و حداقل یک فایل یا پوشه �
 msgid "Select a permanent runner directory, not a document portal path."
 msgstr "یک دایرکتوری دائمی اجراگر را انتخاب کنید، نه یک مسیر پورتال سند."
 
-#: bottles/frontend/views/importer.py:96 bottles/frontend/widgets/importer.py:101 bottles/frontend/windows/duplicate.py:83
+#: bottles/frontend/views/importer.py:86 bottles/frontend/windows/duplicate.py:83
 msgid "Select an Empty Container Directory"
 msgstr "دایرکتوری محیط Wine خالی را انتخاب کنید"
 
-#: bottles/frontend/views/importer.py:83
+#: bottles/frontend/views/importer.py:73
 msgid "Select an Existing Container"
 msgstr "یک محیط Wine موجود را انتخاب کنید"
 
@@ -4050,11 +3977,11 @@ msgstr "شبیه سازی خاموش شدن سیستم ویندوز"
 msgid "Skip Setup"
 msgstr "رد شدن از تنظیمات"
 
-#: bottles/backend/utils/manager.py:930
+#: bottles/backend/utils/manager.py:923
 msgid "Slovak"
 msgstr "اسلواکی"
 
-#: bottles/backend/utils/manager.py:931
+#: bottles/backend/utils/manager.py:924
 msgid "Slovenian"
 msgstr "اسلوونیایی"
 
@@ -4095,7 +4022,7 @@ msgstr "چیزی اشتباه پیش رفت."
 msgid "Source: {0}"
 msgstr "منبع: {0}"
 
-#: bottles/backend/utils/manager.py:915
+#: bottles/backend/utils/manager.py:908
 msgid "Spanish"
 msgstr "اسپانیایی"
 
@@ -4216,7 +4143,7 @@ msgstr "پیشنهادات مبتنی بر تحلیل فنی هستند و سا�
 msgid "Supported Executables"
 msgstr "فایل های اجرایی پشتیبانی شده"
 
-#: bottles/backend/utils/manager.py:932
+#: bottles/backend/utils/manager.py:925
 msgid "Swedish"
 msgstr "سوئدی"
 
@@ -4236,7 +4163,7 @@ msgstr "تغییر شاخه…"
 msgid "Synchronization"
 msgstr "همگام سازی"
 
-#: bottles/backend/utils/manager.py:908 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:901 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "سیستم"
 
@@ -4416,10 +4343,6 @@ msgstr "کتبخانه های ثالث و تشکر ویژه"
 #: bottles/frontend/windows/playtimegraph.py:162
 msgid "This Week"
 msgstr "این هفته"
-
-#: bottles/frontend/ui/importer-entry.blp:40
-msgid "This Wine prefix is already registered in Bottles"
-msgstr "این پیشوند Wine قبلاً در Bottles ثبت شده است"
 
 #: bottles/frontend/windows/playtimegraph.py:186
 msgid "This Year"
@@ -4618,7 +4541,7 @@ msgstr "دوباره امتحان کنید"
 msgid "Try a different search."
 msgstr "جستجوی دیگری را امتحان کنید."
 
-#: bottles/backend/utils/manager.py:933
+#: bottles/backend/utils/manager.py:926
 msgid "Turkish"
 msgstr "ترکی"
 
@@ -4936,11 +4859,6 @@ msgstr "درایور صوتی Wine"
 #: bottles/backend/managers/manager.py:1617
 msgid "Wine config updated!"
 msgstr "پیکربندی Wine بروزرسانی شد!"
-
-#. Translators: A Wine prefix is a separate environment (C:\ drive) for the Wine program
-#: bottles/frontend/ui/importer-entry.blp:23
-msgid "Wine prefix name"
-msgstr "نام پیشوند Wine"
 
 #: bottles/backend/managers/manager.py:1972
 msgid "WineBridge"

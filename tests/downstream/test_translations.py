@@ -102,8 +102,8 @@ def test_python_messages_are_literals_before_interpolation():
 def test_runner_registration_and_import_actions_have_usable_translations_in_every_language():
     messages = (
         "Register Runner", "Edit Runner", "Register an Existing Container",
-        "Register", "Choose Directory…", "No Wine Prefixes Found",
-        "No Programs in Library", "Create",
+        "Choose Directory…",
+        "No Programs in Library",
     )
     for path in sorted((ROOT / "po").glob("*.po")):
         catalog = _catalog_entries(path)

@@ -45,11 +45,6 @@ msgid "\"{0}\" hidden"
 msgstr "\"{0}\" bị ẩn"
 
 #, python-brace-format
-#: bottles/frontend/widgets/importer.py:79
-msgid "\"{0}\" imported"
-msgstr "\"{0}\" đã được nhập"
-
-#, python-brace-format
 #: bottles/frontend/widgets/dependency.py:224
 msgid "\"{0}\" installed"
 msgstr "\"{0}\" đã được cài đặt"
@@ -251,7 +246,7 @@ msgstr ""
 msgid "All"
 msgstr "Tất cả"
 
-#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:179 bottles/frontend/views/new_bottle_dialog.py:203
+#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:110 bottles/frontend/views/new_bottle_dialog.py:203
 msgid "All Files"
 msgstr ""
 
@@ -551,7 +546,7 @@ msgstr ""
 msgid "Browse"
 msgstr "Duyệt"
 
-#: bottles/frontend/ui/component-entry.blp:24 bottles/frontend/ui/importer-entry.blp:14
+#: bottles/frontend/ui/component-entry.blp:24
 msgid "Browse Files"
 msgstr "Duyệt tập tin"
 
@@ -575,7 +570,7 @@ msgstr "Tích hợp (Wine)"
 msgid "Builtin, then Native"
 msgstr "Tích hợp sau đó mới là Có sẵn"
 
-#: bottles/backend/utils/manager.py:909
+#: bottles/backend/utils/manager.py:902
 msgid "Bulgarian"
 msgstr ""
 
@@ -709,11 +704,11 @@ msgstr ""
 msgid "Check your connection or try again later."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:934
+#: bottles/backend/utils/manager.py:927
 msgid "Chinese (Simplified)"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:936
+#: bottles/backend/utils/manager.py:929
 msgid "Chinese (Traditional)"
 msgstr ""
 
@@ -725,7 +720,7 @@ msgstr ""
 msgid "Choose Backup…"
 msgstr "Chọn Sao lưu…"
 
-#: bottles/frontend/ui/importer.blp:39 bottles/frontend/ui/importer.blp:68
+#: bottles/frontend/ui/importer.blp:39
 msgid "Choose Directory…"
 msgstr "Chọn thư mục…"
 
@@ -753,14 +748,6 @@ msgstr ""
 #: bottles/frontend/windows/programbackups.py:232
 msgid "Choose an available backup folder."
 msgstr ""
-
-#: bottles/frontend/ui/importer.blp:95 bottles/frontend/views/importer.py:125
-msgid "Choose another directory or search known locations."
-msgstr "Chọn thư mục khác hoặc tìm kiếm các địa điểm đã biết."
-
-#: bottles/frontend/views/importer.py:114
-msgid "Choose another directory or try the search again."
-msgstr "Chọn thư mục khác hoặc thử tìm kiếm lại."
 
 #: bottles/frontend/windows/programbackups.py:237
 msgid "Choose at least one available file or folder."
@@ -930,7 +917,7 @@ msgstr ""
 msgid "Configuration"
 msgstr "Cấu hình"
 
-#: bottles/frontend/ui/importer.blp:137
+#: bottles/frontend/ui/importer.blp:72
 msgid "Configuration File…"
 msgstr "Tệp cấu hình…"
 
@@ -979,7 +966,7 @@ msgstr "môi trường Wine UUID"
 msgid "Container creation failed."
 msgstr "Tạo môi trường Wine không thành công."
 
-#: bottles/frontend/views/importer.py:161
+#: bottles/frontend/views/importer.py:92
 msgid "Container imported successfully"
 msgstr "Nhập môi trường Wine thành công"
 
@@ -1048,14 +1035,6 @@ msgstr ""
 msgid "Copyright © 2017 {developer_name}"
 msgstr ""
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Copy…"
-msgstr "Sao chép…"
-
-#: bottles/frontend/views/importer.py:113
-msgid "Could Not Find Wine Prefixes"
-msgstr "Không thể tìm thấy tiền tố Wine"
-
 #, python-brace-format
 #: bottles/frontend/widgets/program.py:553
 msgid "Could not access the desktop entry for \"{0}\""
@@ -1097,10 +1076,6 @@ msgstr ""
 msgid "Could not save the program: {0}"
 msgstr ""
 
-#: bottles/frontend/views/importer.py:116
-msgid "Could not search for Wine prefixes"
-msgstr "Không thể tìm kiếm tiền tố Wine"
-
 #: bottles/frontend/views/bottle_preferences.py:936
 msgid "Could not switch to the selected runner."
 msgstr ""
@@ -1127,10 +1102,6 @@ msgstr ""
 msgid "Crashes"
 msgstr ""
 
-#: bottles/frontend/ui/window.blp:35
-msgid "Create"
-msgstr "Tạo"
-
 #: bottles/frontend/ui/dialog-program-backups.blp:43
 msgid "Create Automatic Backups"
 msgstr ""
@@ -1147,7 +1118,7 @@ msgstr "Tạo môi trường Wine mới"
 msgid "Create Snapshot"
 msgstr ""
 
-#: bottles/frontend/ui/importer.blp:138
+#: bottles/frontend/ui/importer.blp:73
 msgid "Create a container from saved settings without restoring personal files"
 msgstr "Tạo môi trường Wine từ cài đặt đã lưu mà không cần khôi phục tập tin cá nhân"
 
@@ -1200,7 +1171,7 @@ msgstr ""
 msgid "Critical"
 msgstr "Nghiêm trọng"
 
-#: bottles/backend/utils/manager.py:919
+#: bottles/backend/utils/manager.py:912
 msgid "Croatian"
 msgstr ""
 
@@ -1237,7 +1208,7 @@ msgstr ""
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:910
+#: bottles/backend/utils/manager.py:903
 msgid "Czech"
 msgstr ""
 
@@ -1282,7 +1253,7 @@ msgstr ""
 msgid "Daily Average: {}"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:911
+#: bottles/backend/utils/manager.py:904
 msgid "Danish"
 msgstr ""
 
@@ -1582,7 +1553,7 @@ msgstr "Nhân bản môi trường Wine…"
 msgid "Duplicating…"
 msgstr "Đang nhân bản…"
 
-#: bottles/backend/utils/manager.py:924
+#: bottles/backend/utils/manager.py:917
 msgid "Dutch"
 msgstr ""
 
@@ -1699,7 +1670,7 @@ msgstr ""
 msgid "Engines and Frameworks"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:914
+#: bottles/backend/utils/manager.py:907
 msgid "English"
 msgstr ""
 
@@ -1741,7 +1712,7 @@ msgstr ""
 msgid "Errors"
 msgstr "Lỗi"
 
-#: bottles/backend/utils/manager.py:916
+#: bottles/backend/utils/manager.py:909
 msgid "Estonian"
 msgstr ""
 
@@ -1930,15 +1901,7 @@ msgstr ""
 msgid "Finalizing…"
 msgstr "Đang hoàn tất…"
 
-#: bottles/frontend/ui/importer.blp:69
-msgid "Find Wine Prefixes in a Directory"
-msgstr "Tìm tiền tố Wine trong thư mục"
-
-#: bottles/frontend/ui/importer.blp:62
-msgid "Find Wine environments from other applications, then choose one to copy into a new container."
-msgstr "Tìm môi trường Wine từ các ứng dụng khác, sau đó chọn một môi trường để sao chép vào môi trường Wine mới."
-
-#: bottles/backend/utils/manager.py:917
+#: bottles/backend/utils/manager.py:910
 msgid "Finnish"
 msgstr ""
 
@@ -2010,7 +1973,7 @@ msgstr "Giới hạn khung hình"
 msgid "Frame Rate Limit When Unfocused"
 msgstr "Giới Hạn Tốc Độ Khung Hình Khi Không tập trung"
 
-#: bottles/backend/utils/manager.py:918
+#: bottles/backend/utils/manager.py:911
 msgid "French"
 msgstr ""
 
@@ -2018,7 +1981,7 @@ msgstr ""
 msgid "Fsync"
 msgstr "Fsync"
 
-#: bottles/frontend/ui/importer.blp:141
+#: bottles/frontend/ui/importer.blp:76
 msgid "Full Archive…"
 msgstr "Lưu trữ đầy đủ…"
 
@@ -2066,7 +2029,7 @@ msgstr ""
 msgid "Generating container configuration…"
 msgstr "Đang tạo cấu hình môi trường Wine…"
 
-#: bottles/backend/utils/manager.py:912
+#: bottles/backend/utils/manager.py:905
 msgid "German"
 msgstr ""
 
@@ -2086,7 +2049,7 @@ msgstr ""
 msgid "Graphics API"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:913
+#: bottles/backend/utils/manager.py:906
 msgid "Greek"
 msgstr ""
 
@@ -2131,7 +2094,7 @@ msgstr ""
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:920
+#: bottles/backend/utils/manager.py:913
 msgid "Hungarian"
 msgstr ""
 
@@ -2143,7 +2106,7 @@ msgstr "Tôi vẫn muốn báo cáo."
 msgid "Images"
 msgstr ""
 
-#: bottles/frontend/views/importer.py:192
+#: bottles/frontend/views/importer.py:123
 msgid "Import"
 msgstr "Nhập"
 
@@ -2159,7 +2122,7 @@ msgstr "Nhập môi trường Wine"
 msgid "Import Containers…"
 msgstr "Nhập môi trường Wine…"
 
-#: bottles/frontend/views/importer.py:164 bottles/frontend/widgets/importer.py:83
+#: bottles/frontend/views/importer.py:95
 msgid "Import failed"
 msgstr "Nhập không thành công"
 
@@ -2170,10 +2133,6 @@ msgstr ""
 #: bottles/backend/managers/backup.py:715
 msgid "Importing full backup"
 msgstr ""
-
-#: bottles/frontend/ui/importer-entry.blp:53
-msgid "Import…"
-msgstr "Nhập…"
 
 #: bottles/frontend/ui/details-preferences.blp:56
 msgid "Improve Direct3D 12 compatibility by translating it to Vulkan."
@@ -2366,7 +2325,7 @@ msgstr ""
 msgid "Issues that may prevent this program from running."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:921
+#: bottles/backend/utils/manager.py:914
 msgid "Italian"
 msgstr ""
 
@@ -2374,7 +2333,7 @@ msgstr ""
 msgid "Item name"
 msgstr "Tên mục"
 
-#: bottles/backend/utils/manager.py:935
+#: bottles/backend/utils/manager.py:928
 msgid "Japanese"
 msgstr ""
 
@@ -2392,7 +2351,7 @@ msgstr ""
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:937
+#: bottles/backend/utils/manager.py:930
 msgid "Korean"
 msgstr ""
 
@@ -2413,7 +2372,7 @@ msgstr ""
 msgid "LatencyFleX"
 msgstr "LatencyFleX"
 
-#: bottles/backend/utils/manager.py:923
+#: bottles/backend/utils/manager.py:916
 msgid "Latvian"
 msgstr ""
 
@@ -2509,7 +2468,7 @@ msgstr "Liệt kê các ứng dụng Steam trong Danh sách chương trình"
 msgid "List Ubisoft Games in Programs List"
 msgstr "Liệt Kê Các Trò Chơi Ubisoft trong Danh Sách Chương Trình"
 
-#: bottles/backend/utils/manager.py:922
+#: bottles/backend/utils/manager.py:915
 msgid "Lithuanian"
 msgstr ""
 
@@ -2600,10 +2559,6 @@ msgstr "Quản lý quyền cho Sandbox"
 #: bottles/frontend/ui/details-preferences.blp:291
 msgid "Manage vmtouch settings"
 msgstr "Quản lý cài đặt vmtouch"
-
-#: bottles/frontend/ui/importer-entry.blp:30
-msgid "Manager"
-msgstr "Trình Quản Lý"
 
 #: bottles/frontend/ui/dialog-mangohud.blp:8
 msgid "MangoHud Settings"
@@ -2841,14 +2796,6 @@ msgstr "Không có hình thu nhỏ"
 msgid "No VKD3D version available."
 msgstr ""
 
-#: bottles/frontend/ui/importer.blp:89 bottles/frontend/views/importer.py:124
-msgid "No Wine Prefixes Found"
-msgstr "Không tìm thấy tiền tố Wine"
-
-#: bottles/frontend/views/importer.py:128
-msgid "No Wine prefixes found in the selected folder"
-msgstr ""
-
 #: bottles/backend/managers/eagle.py:333
 msgid "No community intelligence match"
 msgstr ""
@@ -2893,7 +2840,7 @@ msgstr ""
 msgid "No variables selected"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:925
+#: bottles/backend/utils/manager.py:918
 msgid "Norwegian"
 msgstr ""
 
@@ -3032,10 +2979,6 @@ msgstr ""
 msgid "Organizing installers…"
 msgstr ""
 
-#: bottles/frontend/ui/importer.blp:61
-msgid "Other Wine Prefixes"
-msgstr "Tiền tố Wine khác"
-
 #: bottles/frontend/ui/preferences.blp:237
 msgid "Override the default repositories Bottles uses when downloading resources."
 msgstr ""
@@ -3105,11 +3048,11 @@ msgstr "Vui lòng di chuyển sang hệ thống Phiên bản mới để tạo t
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:926
+#: bottles/backend/utils/manager.py:919
 msgid "Polish"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:927
+#: bottles/backend/utils/manager.py:920
 msgid "Portuguese"
 msgstr ""
 
@@ -3342,10 +3285,6 @@ msgstr ""
 msgid "Refresh"
 msgstr "Làm mới"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Register"
-msgstr "Đăng ký"
-
 #: bottles/frontend/ui/preferences.blp:283 bottles/frontend/views/preferences.py:559
 msgid "Register Runner"
 msgstr "Đăng ký trình chạy"
@@ -3527,7 +3466,7 @@ msgstr "Khôi phục bản sao lưu môi trường Wine"
 msgid "Restore an archive or use a configuration to create a container in an empty directory."
 msgstr "Khôi phục kho lưu trữ hoặc sử dụng cấu hình để tạo môi trường Wine trong thư mục trống."
 
-#: bottles/frontend/ui/importer.blp:142
+#: bottles/frontend/ui/importer.blp:77
 msgid "Restore the container including its programs and personal files"
 msgstr "Khôi phục môi trường Wine bao gồm các chương trình và tệp cá nhân của nó"
 
@@ -3535,7 +3474,7 @@ msgstr "Khôi phục môi trường Wine bao gồm các chương trình và tệ
 msgid "Restore this Snapshot"
 msgstr "Khôi phục Snapshot này"
 
-#: bottles/frontend/views/importer.py:234
+#: bottles/frontend/views/importer.py:165
 msgid "Restoring Backup…"
 msgstr "Đang khôi phục bản sao lưu…"
 
@@ -3565,7 +3504,7 @@ msgstr ""
 msgid "Review for {0}"
 msgstr "Đánh giá cho {0}"
 
-#: bottles/backend/utils/manager.py:928
+#: bottles/backend/utils/manager.py:921
 msgid "Romanian"
 msgstr ""
 
@@ -3664,7 +3603,7 @@ msgstr ""
 msgid "Runtimes and Libraries"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:929
+#: bottles/backend/utils/manager.py:922
 msgid "Russian"
 msgstr ""
 
@@ -3720,10 +3659,6 @@ msgstr ""
 msgid "Search"
 msgstr "Tìm"
 
-#: bottles/frontend/ui/importer.blp:73
-msgid "Search Known Locations"
-msgstr "Tìm kiếm địa điểm đã biết"
-
 #: bottles/frontend/ui/details-installers.blp:10
 msgid "Search for Programs…"
 msgstr "Tìm kiếm chương trình…"
@@ -3743,10 +3678,6 @@ msgstr ""
 #: bottles/frontend/ui/list.blp:10
 msgid "Search your containers…"
 msgstr "Tìm kiếm môi trường Wine của bạn…"
-
-#: bottles/frontend/ui/importer.blp:109
-msgid "Searching for Wine Prefixes…"
-msgstr "Đang tìm kiếm tiền tố Wine…"
 
 #: bottles/frontend/ui/details-bottle.blp:79 bottles/frontend/ui/details-dependencies.blp:115 bottles/frontend/ui/details-installers.blp:69
 msgid "Secondary Menu"
@@ -3828,17 +3759,13 @@ msgstr "Chọn Danh mục chạy"
 msgid "Select Working Directory"
 msgstr "Chọn thư mục làm việc"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Backup Archive"
 msgstr "Chọn một kho lưu trữ sao lưu"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Configuration File"
 msgstr "Chọn một Tệp cấu hình"
-
-#: bottles/frontend/views/importer.py:143
-msgid "Select a Wine Prefix Folder"
-msgstr ""
 
 #: bottles/frontend/ui/dialog-program-backups.blp:33 bottles/frontend/windows/programbackups.py:241
 msgid "Select a backup folder and at least one file or folder."
@@ -3848,11 +3775,11 @@ msgstr ""
 msgid "Select a permanent runner directory, not a document portal path."
 msgstr "Chọn thư mục Trình chạy cố định, không chọn đường dẫn cổng tài liệu."
 
-#: bottles/frontend/views/importer.py:96 bottles/frontend/widgets/importer.py:101 bottles/frontend/windows/duplicate.py:83
+#: bottles/frontend/views/importer.py:86 bottles/frontend/windows/duplicate.py:83
 msgid "Select an Empty Container Directory"
 msgstr ""
 
-#: bottles/frontend/views/importer.py:83
+#: bottles/frontend/views/importer.py:73
 msgid "Select an Existing Container"
 msgstr ""
 
@@ -4049,11 +3976,11 @@ msgstr ""
 msgid "Skip Setup"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:930
+#: bottles/backend/utils/manager.py:923
 msgid "Slovak"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:931
+#: bottles/backend/utils/manager.py:924
 msgid "Slovenian"
 msgstr ""
 
@@ -4094,7 +4021,7 @@ msgstr "Đã xảy ra lỗi."
 msgid "Source: {0}"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:915
+#: bottles/backend/utils/manager.py:908
 msgid "Spanish"
 msgstr ""
 
@@ -4215,7 +4142,7 @@ msgstr ""
 msgid "Supported Executables"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:932
+#: bottles/backend/utils/manager.py:925
 msgid "Swedish"
 msgstr ""
 
@@ -4235,7 +4162,7 @@ msgstr ""
 msgid "Synchronization"
 msgstr "Đồng bộ hóa"
 
-#: bottles/backend/utils/manager.py:908 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:901 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "Hệ thống"
 
@@ -4415,10 +4342,6 @@ msgstr "Thư viện bên thứ ba và Lời cảm ơn đặc biệt"
 #: bottles/frontend/windows/playtimegraph.py:162
 msgid "This Week"
 msgstr ""
-
-#: bottles/frontend/ui/importer-entry.blp:40
-msgid "This Wine prefix is already registered in Bottles"
-msgstr "Tiền tố Wine này đã được đăng ký trong Bottles"
 
 #: bottles/frontend/windows/playtimegraph.py:186
 msgid "This Year"
@@ -4617,7 +4540,7 @@ msgstr ""
 msgid "Try a different search."
 msgstr "Hãy thử tìm kiếm khác."
 
-#: bottles/backend/utils/manager.py:933
+#: bottles/backend/utils/manager.py:926
 msgid "Turkish"
 msgstr ""
 
@@ -4934,11 +4857,6 @@ msgstr ""
 #: bottles/backend/managers/manager.py:1617
 msgid "Wine config updated!"
 msgstr "Cấu hình Wine đã cập nhật!"
-
-#. Translators: A Wine prefix is a separate environment (C:\ drive) for the Wine program
-#: bottles/frontend/ui/importer-entry.blp:23
-msgid "Wine prefix name"
-msgstr "Tên tiền tố wine"
 
 #: bottles/backend/managers/manager.py:1972
 msgid "WineBridge"

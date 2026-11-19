@@ -45,11 +45,6 @@ msgid "\"{0}\" hidden"
 msgstr "\"{0}\" লুকানো আছে"
 
 #, python-brace-format
-#: bottles/frontend/widgets/importer.py:79
-msgid "\"{0}\" imported"
-msgstr "\"{0}\" আমদানি করা হয়েছে৷"
-
-#, python-brace-format
 #: bottles/frontend/widgets/dependency.py:224
 msgid "\"{0}\" installed"
 msgstr "“{0}” ইনস্টল হয়েছে"
@@ -251,7 +246,7 @@ msgstr "প্রোগ্রাম বন্ধ করার পর"
 msgid "All"
 msgstr "সব"
 
-#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:179 bottles/frontend/views/new_bottle_dialog.py:203
+#: bottles/frontend/utils/filters.py:52 bottles/frontend/views/importer.py:110 bottles/frontend/views/new_bottle_dialog.py:203
 msgid "All Files"
 msgstr "সমস্ত ফাইল"
 
@@ -553,7 +548,7 @@ msgstr "শাখা সফলভাবে মুছে ফেলা হয়�
 msgid "Browse"
 msgstr "ব্রাউজ করুন C:"
 
-#: bottles/frontend/ui/component-entry.blp:24 bottles/frontend/ui/importer-entry.blp:14
+#: bottles/frontend/ui/component-entry.blp:24
 msgid "Browse Files"
 msgstr "ফাইল ব্রাউজ করুন"
 
@@ -578,7 +573,7 @@ msgstr "বিল্টিন (Wine)"
 msgid "Builtin, then Native"
 msgstr "বিল্টিন, তারপর নেটিভ"
 
-#: bottles/backend/utils/manager.py:909
+#: bottles/backend/utils/manager.py:902
 msgid "Bulgarian"
 msgstr "বুলগেরিয়ান"
 
@@ -712,11 +707,11 @@ msgstr "চালানোর আগে ম্যালওয়্যার প
 msgid "Check your connection or try again later."
 msgstr "আপনার সংযোগ পরীক্ষা করুন বা পরে আবার চেষ্টা করুন।"
 
-#: bottles/backend/utils/manager.py:934
+#: bottles/backend/utils/manager.py:927
 msgid "Chinese (Simplified)"
 msgstr "চীনা (সরলীকৃত)"
 
-#: bottles/backend/utils/manager.py:936
+#: bottles/backend/utils/manager.py:929
 msgid "Chinese (Traditional)"
 msgstr "চাইনিজ (ঐতিহ্যগত)"
 
@@ -728,7 +723,7 @@ msgstr "ব্যাকআপ ফোল্ডার বেছে নিন"
 msgid "Choose Backup…"
 msgstr "ব্যাকআপ বেছে নিন…"
 
-#: bottles/frontend/ui/importer.blp:39 bottles/frontend/ui/importer.blp:68
+#: bottles/frontend/ui/importer.blp:39
 msgid "Choose Directory…"
 msgstr "ডিরেক্টরি নির্বাচন করুন…"
 
@@ -757,14 +752,6 @@ msgstr "একটি স্ক্রিপ্ট চয়ন করুন য�
 #: bottles/frontend/windows/programbackups.py:232
 msgid "Choose an available backup folder."
 msgstr "একটি উপলব্ধ ব্যাকআপ ফোল্ডার বেছে নিন।"
-
-#: bottles/frontend/ui/importer.blp:95 bottles/frontend/views/importer.py:125
-msgid "Choose another directory or search known locations."
-msgstr "অন্য একটি ডিরেক্টরি বেছে নিন বা পরিচিত অবস্থান অনুসন্ধান করুন।"
-
-#: bottles/frontend/views/importer.py:114
-msgid "Choose another directory or try the search again."
-msgstr "অন্য একটি ডিরেক্টরি বেছে নিন বা আবার অনুসন্ধান করার চেষ্টা করুন।"
 
 #: bottles/frontend/windows/programbackups.py:237
 msgid "Choose at least one available file or folder."
@@ -942,7 +929,7 @@ msgstr "উপাদান সংগ্রহস্থল"
 msgid "Configuration"
 msgstr "কনফিগারেশন"
 
-#: bottles/frontend/ui/importer.blp:137
+#: bottles/frontend/ui/importer.blp:72
 msgid "Configuration File…"
 msgstr "কনফিগারেশন ফাইল…"
 
@@ -993,7 +980,7 @@ msgstr "Wine পরিবেশ UUID"
 msgid "Container creation failed."
 msgstr "Wine পরিবেশ তৈরি করা ব্যর্থ হয়েছে৷"
 
-#: bottles/frontend/views/importer.py:161
+#: bottles/frontend/views/importer.py:92
 msgid "Container imported successfully"
 msgstr "Wine পরিবেশ সফলভাবে আমদানি করা হয়েছে"
 
@@ -1062,14 +1049,6 @@ msgstr "Wine পরিবেশে কপি করা হচ্ছে"
 msgid "Copyright © 2017 {developer_name}"
 msgstr "কপিরাইট © 2017 {developer_name}"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Copy…"
-msgstr "কপি…"
-
-#: bottles/frontend/views/importer.py:113
-msgid "Could Not Find Wine Prefixes"
-msgstr "Wine উপসর্গ খুঁজে পাওয়া যায়নি"
-
 #, python-brace-format
 #: bottles/frontend/widgets/program.py:553
 msgid "Could not access the desktop entry for \"{0}\""
@@ -1111,10 +1090,6 @@ msgstr "\"{0}\" এর জন্য ডেস্কটপ এন্ট্রি 
 msgid "Could not save the program: {0}"
 msgstr "প্রোগ্রামটি সংরক্ষণ করা যায়নি: {0}"
 
-#: bottles/frontend/views/importer.py:116
-msgid "Could not search for Wine prefixes"
-msgstr "Wine উপসর্গ অনুসন্ধান করা যায়নি"
-
 #: bottles/frontend/views/bottle_preferences.py:936
 msgid "Could not switch to the selected runner."
 msgstr "নির্বাচিত রানারে স্যুইচ করা যায়নি।"
@@ -1141,10 +1116,6 @@ msgstr "কভার ছবি আপডেট করা হয়েছে।"
 msgid "Crashes"
 msgstr "ক্র্যাশ"
 
-#: bottles/frontend/ui/window.blp:35
-msgid "Create"
-msgstr "তৈরি করুন"
-
 #: bottles/frontend/ui/dialog-program-backups.blp:43
 msgid "Create Automatic Backups"
 msgstr "স্বয়ংক্রিয় ব্যাকআপ তৈরি করুন"
@@ -1162,7 +1133,7 @@ msgstr "ডুপ্লিকেট Wine পরিবেশ"
 msgid "Create Snapshot"
 msgstr "স্ন্যাপশট তৈরি করুন"
 
-#: bottles/frontend/ui/importer.blp:138
+#: bottles/frontend/ui/importer.blp:73
 msgid "Create a container from saved settings without restoring personal files"
 msgstr "ব্যক্তিগত ফাইল পুনরুদ্ধার না করে সংরক্ষিত সেটিংস থেকে একটি Wine পরিবেশ তৈরি করুন"
 
@@ -1217,7 +1188,7 @@ msgstr "ক্রেডিট এবং লাইসেন্স"
 msgid "Critical"
 msgstr "সমালোচনামূলক"
 
-#: bottles/backend/utils/manager.py:919
+#: bottles/backend/utils/manager.py:912
 msgid "Croatian"
 msgstr "ক্রোয়েশিয়ান"
 
@@ -1255,7 +1226,7 @@ msgstr "নির্ভরতার জন্য কাস্টম URL। ড�
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr "ইনস্টলারদের জন্য কাস্টম URL। ডিফল্ট এন্ডপয়েন্ট ব্যবহার করতে খালি ছেড়ে দিন।"
 
-#: bottles/backend/utils/manager.py:910
+#: bottles/backend/utils/manager.py:903
 msgid "Czech"
 msgstr "চেক"
 
@@ -1300,7 +1271,7 @@ msgstr "প্রতিদিন"
 msgid "Daily Average: {}"
 msgstr "দৈনিক গড়: {}"
 
-#: bottles/backend/utils/manager.py:911
+#: bottles/backend/utils/manager.py:904
 msgid "Danish"
 msgstr "ডেনিশ"
 
@@ -1606,7 +1577,7 @@ msgstr "ডুপ্লিকেট Wine পরিবেশ"
 msgid "Duplicating…"
 msgstr "নকল করা হচ্ছে..."
 
-#: bottles/backend/utils/manager.py:924
+#: bottles/backend/utils/manager.py:917
 msgid "Dutch"
 msgstr "ডাচ"
 
@@ -1723,7 +1694,7 @@ msgstr "ফন্ট স্মুথিং সক্ষম করা হচ্�
 msgid "Engines and Frameworks"
 msgstr "ইঞ্জিন এবং ফ্রেমওয়ার্ক"
 
-#: bottles/backend/utils/manager.py:914
+#: bottles/backend/utils/manager.py:907
 msgid "English"
 msgstr "ইংরেজি"
 
@@ -1765,7 +1736,7 @@ msgstr "এক্সিকিউটেবল প্রক্রিয়া ক�
 msgid "Errors"
 msgstr "ত্রুটি"
 
-#: bottles/backend/utils/manager.py:916
+#: bottles/backend/utils/manager.py:909
 msgid "Estonian"
 msgstr "এস্তোনিয়ান"
 
@@ -1955,15 +1926,7 @@ msgstr "ইনস্টলেশন চূড়ান্ত করা হচ্
 msgid "Finalizing…"
 msgstr "চূড়ান্ত করা হচ্ছে…"
 
-#: bottles/frontend/ui/importer.blp:69
-msgid "Find Wine Prefixes in a Directory"
-msgstr "একটি ডিরেক্টরিতে Wine উপসর্গ খুঁজুন"
-
-#: bottles/frontend/ui/importer.blp:62
-msgid "Find Wine environments from other applications, then choose one to copy into a new container."
-msgstr "অন্যান্য অ্যাপ্লিকেশন থেকে Wine পরিবেশ খুঁজুন, তারপর একটি নতুন Wine পরিবেশে অনুলিপি করতে বেছে নিন।"
-
-#: bottles/backend/utils/manager.py:917
+#: bottles/backend/utils/manager.py:910
 msgid "Finnish"
 msgstr "ফিনিশ"
 
@@ -2036,7 +1999,7 @@ msgstr "ফ্রেম রেট সীমা"
 msgid "Frame Rate Limit When Unfocused"
 msgstr "ফোকাস না থাকলে ফ্রেম রেট সীমা"
 
-#: bottles/backend/utils/manager.py:918
+#: bottles/backend/utils/manager.py:911
 msgid "French"
 msgstr "ফরাসি"
 
@@ -2044,7 +2007,7 @@ msgstr "ফরাসি"
 msgid "Fsync"
 msgstr "Fsync"
 
-#: bottles/frontend/ui/importer.blp:141
+#: bottles/frontend/ui/importer.blp:76
 msgid "Full Archive…"
 msgstr "সম্পূর্ণ আর্কাইভ…"
 
@@ -2093,7 +2056,7 @@ msgstr "lsfg-vk দিয়ে অতিরিক্ত ফ্রেম তৈ�
 msgid "Generating container configuration…"
 msgstr "Wine পরিবেশ কনফিগারেশন তৈরি করা হচ্ছে…"
 
-#: bottles/backend/utils/manager.py:912
+#: bottles/backend/utils/manager.py:905
 msgid "German"
 msgstr "জার্মান"
 
@@ -2113,7 +2076,7 @@ msgstr "Bottles রানার ডিরেক্টরিতে সরাস�
 msgid "Graphics API"
 msgstr "গ্রাফিক্স API"
 
-#: bottles/backend/utils/manager.py:913
+#: bottles/backend/utils/manager.py:906
 msgid "Greek"
 msgstr "গ্রীক"
 
@@ -2160,7 +2123,7 @@ msgstr "প্রতি ঘণ্টায় গড়: {}"
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr "কত ঘন ঘন সেশন হার্টবিট আপডেট করতে হবে। আকস্মিক প্রস্থানের জন্য সর্বাধিক টাইমস্ট্যাম্প ত্রুটি সংজ্ঞায়িত করে।"
 
-#: bottles/backend/utils/manager.py:920
+#: bottles/backend/utils/manager.py:913
 msgid "Hungarian"
 msgstr "হাঙ্গেরিয়ান"
 
@@ -2172,7 +2135,7 @@ msgstr "আমি এখনও রিপোর্ট করতে চাই।"
 msgid "Images"
 msgstr "ছবি"
 
-#: bottles/frontend/views/importer.py:192
+#: bottles/frontend/views/importer.py:123
 msgid "Import"
 msgstr "আমদানি"
 
@@ -2188,7 +2151,7 @@ msgstr "Wine পরিবেশ আমদানি করুন"
 msgid "Import Containers…"
 msgstr "Wine পরিবেশ আমদানি করুন…"
 
-#: bottles/frontend/views/importer.py:164 bottles/frontend/widgets/importer.py:83
+#: bottles/frontend/views/importer.py:95
 msgid "Import failed"
 msgstr "আমদানি ব্যর্থ হয়েছে৷"
 
@@ -2199,10 +2162,6 @@ msgstr "হ্যাশ মিল আমদানি করুন"
 #: bottles/backend/managers/backup.py:715
 msgid "Importing full backup"
 msgstr "সম্পূর্ণ ব্যাকআপ আমদানি করা হচ্ছে"
-
-#: bottles/frontend/ui/importer-entry.blp:53
-msgid "Import…"
-msgstr "আমদানি…"
 
 #: bottles/frontend/ui/details-preferences.blp:56
 msgid "Improve Direct3D 12 compatibility by translating it to Vulkan."
@@ -2401,7 +2360,7 @@ msgstr "অবৈধ গ্রাফিক্স উপাদান।"
 msgid "Issues that may prevent this program from running."
 msgstr "সমস্যাগুলি যা এই প্রোগ্রামটিকে চলতে বাধা দিতে পারে৷"
 
-#: bottles/backend/utils/manager.py:921
+#: bottles/backend/utils/manager.py:914
 msgid "Italian"
 msgstr "ইতালীয়"
 
@@ -2409,7 +2368,7 @@ msgstr "ইতালীয়"
 msgid "Item name"
 msgstr "আইটেমের নাম"
 
-#: bottles/backend/utils/manager.py:935
+#: bottles/backend/utils/manager.py:928
 msgid "Japanese"
 msgstr "জাপানি"
 
@@ -2427,7 +2386,7 @@ msgstr "পরিচিত অ্যাপ্লিকেশন ({match}): {name
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr "পরিচিত অ্যাপ্লিকেশন: {name} (winetricks ক্রিয়া '{verb}')"
 
-#: bottles/backend/utils/manager.py:937
+#: bottles/backend/utils/manager.py:930
 msgid "Korean"
 msgstr "কোরিয়ান"
 
@@ -2448,7 +2407,7 @@ msgstr "শেষবার খেলা হয়েছে: %s – খেলা�
 msgid "LatencyFleX"
 msgstr "LatencyFleX"
 
-#: bottles/backend/utils/manager.py:923
+#: bottles/backend/utils/manager.py:916
 msgid "Latvian"
 msgstr "লাটভিয়ান"
 
@@ -2545,7 +2504,7 @@ msgstr "প্রোগ্রামের তালিকায় Steam অ্�
 msgid "List Ubisoft Games in Programs List"
 msgstr "প্রোগ্রামের তালিকায় Ubisoft গেমের তালিকা করুন"
 
-#: bottles/backend/utils/manager.py:922
+#: bottles/backend/utils/manager.py:915
 msgid "Lithuanian"
 msgstr "লিথুয়ানিয়ান"
 
@@ -2637,11 +2596,6 @@ msgstr "কম্পোনেন্ট ভার্সন"
 #: bottles/frontend/ui/details-preferences.blp:291
 msgid "Manage vmtouch settings"
 msgstr "vmtouch সেটিংস পরিচালনা করুন"
-
-#, fuzzy
-#: bottles/frontend/ui/importer-entry.blp:30
-msgid "Manager"
-msgstr "টাস্ক ম্যানেজার"
 
 #: bottles/frontend/ui/dialog-mangohud.blp:8
 msgid "MangoHud Settings"
@@ -2881,14 +2835,6 @@ msgstr "থাম্বনেইল নেই"
 msgid "No VKD3D version available."
 msgstr "VKD3D সংস্করণ উপলব্ধ নেই।"
 
-#: bottles/frontend/ui/importer.blp:89 bottles/frontend/views/importer.py:124
-msgid "No Wine Prefixes Found"
-msgstr "কোন Wine উপসর্গ পাওয়া যায়নি"
-
-#: bottles/frontend/views/importer.py:128
-msgid "No Wine prefixes found in the selected folder"
-msgstr "নির্বাচিত ফোল্ডারে Wine উপসর্গ পাওয়া যায়নি"
-
 #: bottles/backend/managers/eagle.py:333
 msgid "No community intelligence match"
 msgstr "সম্প্রদায়ের বুদ্ধিমত্তার কোনো মিল নেই"
@@ -2934,7 +2880,7 @@ msgstr "এখনো কোনো টেমপ্লেট ক্যাশে �
 msgid "No variables selected"
 msgstr "কোন ভেরিয়েবল নির্বাচন করা হয়নি"
 
-#: bottles/backend/utils/manager.py:925
+#: bottles/backend/utils/manager.py:918
 msgid "Norwegian"
 msgstr "নরওয়েজিয়ান"
 
@@ -3073,10 +3019,6 @@ msgstr "নির্ভরতা সংগঠিত করা হচ্ছে...
 msgid "Organizing installers…"
 msgstr "সংগঠিত ইনস্টলার..."
 
-#: bottles/frontend/ui/importer.blp:61
-msgid "Other Wine Prefixes"
-msgstr "অন্যান্য Wine উপসর্গ"
-
 #: bottles/frontend/ui/preferences.blp:237
 msgid "Override the default repositories Bottles uses when downloading resources."
 msgstr "সম্পদ ডাউনলোড করার সময় Bottles ব্যবহার করা ডিফল্ট সংগ্রহস্থল ওভাররাইড করুন।"
@@ -3146,11 +3088,11 @@ msgstr "নতুন রাজ্য তৈরি করতে দয়া ক�
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr "WineBridge ডাউনলোড এবং ইনস্টল করার সময় অনুগ্রহ করে অপেক্ষা করুন।"
 
-#: bottles/backend/utils/manager.py:926
+#: bottles/backend/utils/manager.py:919
 msgid "Polish"
 msgstr "পোলিশ"
 
-#: bottles/backend/utils/manager.py:927
+#: bottles/backend/utils/manager.py:920
 msgid "Portuguese"
 msgstr "পর্তুগিজ"
 
@@ -3387,10 +3329,6 @@ msgstr "Bottles থেকে চালু হওয়া প্রোগ্র�
 msgid "Refresh"
 msgstr "রিফ্রেশ করুন"
 
-#: bottles/frontend/widgets/importer.py:60
-msgid "Register"
-msgstr "নিবন্ধন করুন"
-
 #: bottles/frontend/ui/preferences.blp:283 bottles/frontend/views/preferences.py:559
 msgid "Register Runner"
 msgstr "রানার নিবন্ধন করুন"
@@ -3575,7 +3513,7 @@ msgstr "একটি Wine পরিবেশ ব্যাকআপ পুনর�
 msgid "Restore an archive or use a configuration to create a container in an empty directory."
 msgstr "একটি সংরক্ষণাগার পুনরুদ্ধার করুন বা একটি খালি ডিরেক্টরিতে একটি Wine পরিবেশ তৈরি করতে একটি কনফিগারেশন ব্যবহার করুন৷"
 
-#: bottles/frontend/ui/importer.blp:142
+#: bottles/frontend/ui/importer.blp:77
 msgid "Restore the container including its programs and personal files"
 msgstr "Wine পরিবেশটি এর প্রোগ্রাম এবং ব্যক্তিগত ফাইল সহ পুনরুদ্ধার করুন"
 
@@ -3583,7 +3521,7 @@ msgstr "Wine পরিবেশটি এর প্রোগ্রাম এব�
 msgid "Restore this Snapshot"
 msgstr "এই স্ন্যাপশটটি পুনরুদ্ধার করুন"
 
-#: bottles/frontend/views/importer.py:234
+#: bottles/frontend/views/importer.py:165
 msgid "Restoring Backup…"
 msgstr "ব্যাকআপ পুনরুদ্ধার করা হচ্ছে…"
 
@@ -3613,7 +3551,7 @@ msgstr "পর্যালোচনা"
 msgid "Review for {0}"
 msgstr "{0} এর জন্য পর্যালোচনা"
 
-#: bottles/backend/utils/manager.py:928
+#: bottles/backend/utils/manager.py:921
 msgid "Romanian"
 msgstr "রোমানিয়ান"
 
@@ -3715,7 +3653,7 @@ msgstr "অতিরিক্ত বিচ্ছিন্নতা ছাড়�
 msgid "Runtimes and Libraries"
 msgstr "রানটাইম এবং লাইব্রেরি"
 
-#: bottles/backend/utils/manager.py:929
+#: bottles/backend/utils/manager.py:922
 msgid "Russian"
 msgstr "রাশিয়ান"
 
@@ -3771,10 +3709,6 @@ msgstr "স্ক্রিন স্কেলিং"
 msgid "Search"
 msgstr "অনুসন্ধান করুন"
 
-#: bottles/frontend/ui/importer.blp:73
-msgid "Search Known Locations"
-msgstr "পরিচিত অবস্থান অনুসন্ধান করুন"
-
 #: bottles/frontend/ui/details-installers.blp:10
 msgid "Search for Programs…"
 msgstr "প্রোগ্রাম অনুসন্ধান করুন..."
@@ -3796,10 +3730,6 @@ msgstr "নিয়ম অনুসন্ধান করুন..."
 #: bottles/frontend/ui/list.blp:10
 msgid "Search your containers…"
 msgstr "আপনার Wine পরিবেশ অনুসন্ধান করুন..."
-
-#: bottles/frontend/ui/importer.blp:109
-msgid "Searching for Wine Prefixes…"
-msgstr "Wine উপসর্গ অনুসন্ধান করা হচ্ছে…"
 
 #: bottles/frontend/ui/details-bottle.blp:79 bottles/frontend/ui/details-dependencies.blp:115 bottles/frontend/ui/details-installers.blp:69
 msgid "Secondary Menu"
@@ -3885,18 +3815,14 @@ msgstr "# ডিরেক্টরি নির্বাচন করুন"
 msgid "Select Working Directory"
 msgstr "ওয়ার্কিং ডিরেক্টরি নির্বাচন করুন"
 
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Backup Archive"
 msgstr "একটি ব্যাকআপ আর্কাইভ নির্বাচন করুন"
 
 #, fuzzy
-#: bottles/frontend/views/importer.py:191
+#: bottles/frontend/views/importer.py:122
 msgid "Select a Configuration File"
 msgstr "ওয়াইন কনফিগারেশন"
-
-#: bottles/frontend/views/importer.py:143
-msgid "Select a Wine Prefix Folder"
-msgstr "একটি Wine প্রিফিক্স ফোল্ডার নির্বাচন করুন"
 
 #: bottles/frontend/ui/dialog-program-backups.blp:33 bottles/frontend/windows/programbackups.py:241
 msgid "Select a backup folder and at least one file or folder."
@@ -3906,11 +3832,11 @@ msgstr "একটি ব্যাকআপ ফোল্ডার এবং অ�
 msgid "Select a permanent runner directory, not a document portal path."
 msgstr "একটি স্থায়ী রানার ডিরেক্টরি নির্বাচন করুন, একটি নথি পোর্টাল পথ নয়।"
 
-#: bottles/frontend/views/importer.py:96 bottles/frontend/widgets/importer.py:101 bottles/frontend/windows/duplicate.py:83
+#: bottles/frontend/views/importer.py:86 bottles/frontend/windows/duplicate.py:83
 msgid "Select an Empty Container Directory"
 msgstr "একটি খালি Wine পরিবেশ ডিরেক্টরি নির্বাচন করুন"
 
-#: bottles/frontend/views/importer.py:83
+#: bottles/frontend/views/importer.py:73
 msgid "Select an Existing Container"
 msgstr "একটি বিদ্যমান Wine পরিবেশ নির্বাচন করুন"
 
@@ -4114,11 +4040,11 @@ msgstr "একটি উইন্ডোজ সিস্টেম শাটডা
 msgid "Skip Setup"
 msgstr "সেটআপ এড়িয়ে যান"
 
-#: bottles/backend/utils/manager.py:930
+#: bottles/backend/utils/manager.py:923
 msgid "Slovak"
 msgstr "স্লোভাক"
 
-#: bottles/backend/utils/manager.py:931
+#: bottles/backend/utils/manager.py:924
 msgid "Slovenian"
 msgstr "স্লোভেনীয়"
 
@@ -4159,7 +4085,7 @@ msgstr "কিছু ভুল হয়েছে।"
 msgid "Source: {0}"
 msgstr "উৎস: {0}"
 
-#: bottles/backend/utils/manager.py:915
+#: bottles/backend/utils/manager.py:908
 msgid "Spanish"
 msgstr "স্প্যানিশ"
 
@@ -4280,7 +4206,7 @@ msgstr "পরামর্শগুলি প্রযুক্তিগত ব�
 msgid "Supported Executables"
 msgstr "সমর্থিত এক্সিকিউটেবল"
 
-#: bottles/backend/utils/manager.py:932
+#: bottles/backend/utils/manager.py:925
 msgid "Swedish"
 msgstr "সুইডিশ"
 
@@ -4300,7 +4226,7 @@ msgstr "শাখা পরিবর্তন করা হচ্ছে..."
 msgid "Synchronization"
 msgstr "সিঙ্ক্রোনাইজেশন"
 
-#: bottles/backend/utils/manager.py:908 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:901 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "সিস্টেম"
 
@@ -4483,10 +4409,6 @@ msgstr "তৃতীয় পক্ষের লাইব্রেরি এব
 #: bottles/frontend/windows/playtimegraph.py:162
 msgid "This Week"
 msgstr "এই সপ্তাহে"
-
-#: bottles/frontend/ui/importer-entry.blp:40
-msgid "This Wine prefix is already registered in Bottles"
-msgstr "এই Wine উপসর্গটি ইতিমধ্যে Bottles এ নিবন্ধিত আছে"
 
 #: bottles/frontend/windows/playtimegraph.py:186
 msgid "This Year"
@@ -4689,7 +4611,7 @@ msgstr "আবার চেষ্টা করুন"
 msgid "Try a different search."
 msgstr "একটি ভিন্ন অনুসন্ধান চেষ্টা করুন."
 
-#: bottles/backend/utils/manager.py:933
+#: bottles/backend/utils/manager.py:926
 msgid "Turkish"
 msgstr "তুর্কি"
 
@@ -5012,11 +4934,6 @@ msgstr "Wine অডিও ড্রাইভার"
 #: bottles/backend/managers/manager.py:1617
 msgid "Wine config updated!"
 msgstr "ওয়াইন কনফিগ আপডেট করা হয়েছে!"
-
-#. Translators: A Wine prefix is a separate environment (C:\ drive) for the Wine program
-#: bottles/frontend/ui/importer-entry.blp:23
-msgid "Wine prefix name"
-msgstr "Wine প্রিফিক্স নাম"
 
 #: bottles/backend/managers/manager.py:1972
 msgid "WineBridge"

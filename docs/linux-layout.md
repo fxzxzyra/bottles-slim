@@ -23,7 +23,7 @@ Flatpak 的 XDG 目录已经按应用隔离，直接使用各自根目录，不�
 复制会获得新标识并从空的运行统计开始；备份恢复保留原标识。
 “从列表移除”只删除登记；“删除文件”会停止容器并删除它的目录。容器之间不共享 prefix 或个人数据。
 
-现有 Bottles 容器通过选择目录原地导入，不复制文件、不运行 Wine、不修改配置。第三方 Wine prefix 的转换、配置重建、完整备份恢复与复制均须另选空目标目录。
+现有 Bottles 容器通过选择目录原地导入，不复制文件、不运行 Wine、不修改配置。配置重建、完整备份恢复与复制均须另选空目标目录。
 
 ```sh
 bottles-cli new --bottle-name Office --environment application --path /opt/username/Wine
