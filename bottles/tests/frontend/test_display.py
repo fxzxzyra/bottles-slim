@@ -32,7 +32,7 @@ def test_display_saves_dpi_scaling_only_after_the_registry_update(monkeypatch, m
 
     window.manager = SimpleNamespace(update_config=Mock(side_effect=save))
     queue = SimpleNamespace(add_task=Mock(), end_task=Mock())
-    spinner = Gtk.Spinner()
+    spinner = Adw.Spinner()
     button = Gtk.Button()
     monkeypatch.setattr(RegKeys, "get_dpi_scaling", lambda self: Result(True, "default"))
     dialog = DisplayDialog(window, config, None, queue, button, spinner)
@@ -62,7 +62,7 @@ def test_display_saves_dpi_scaling_only_after_the_registry_update(monkeypatch, m
         registry.assert_called_once_with(mode=expected)
         queue.end_task.assert_called_once()
         assert button.get_sensitive()
-        assert not spinner.get_spinning()
+        assert not spinner.get_visible()
         if success:
             assert config.Parameters.dpi_scaling == expected
             window.manager.update_config.assert_called_once()
@@ -89,7 +89,7 @@ def test_display_reads_existing_manual_dpi_settings(monkeypatch, mode, success):
     monkeypatch.setattr(RegKeys, "get_dpi_scaling", read)
     registry = Mock()
     monkeypatch.setattr(RegKeys, "set_dpi_scaling", registry)
-    dialog = DisplayDialog(window, config, None, SimpleNamespace(), Gtk.Button(), Gtk.Spinner())
+    dialog = DisplayDialog(window, config, None, SimpleNamespace(), Gtk.Button(), Adw.Spinner())
     context = GLib.MainContext.default()
     deadline = time.monotonic() + 5
     while time.monotonic() < deadline:
@@ -138,7 +138,7 @@ def test_display_preserves_failed_settings_and_completes_other_changes(monkeypat
 
     window.manager = SimpleNamespace(update_config=Mock(side_effect=save))
     queue = SimpleNamespace(add_task=Mock(), end_task=Mock())
-    spinner, button = Gtk.Spinner(), Gtk.Button()
+    spinner, button = Adw.Spinner(), Gtk.Button()
     order = []
 
     def set_dpi(self, value):
@@ -174,7 +174,7 @@ def test_display_preserves_failed_settings_and_completes_other_changes(monkeypat
         queue.add_task.assert_called_once()
         queue.end_task.assert_called_once()
         assert button.get_sensitive()
-        assert not spinner.get_spinning()
+        assert not spinner.get_visible()
     finally:
         dialog.destroy()
         window.destroy()
@@ -198,7 +198,7 @@ def test_virtual_desktop_and_resolution_are_applied_and_saved_together(monkeypat
     monkeypatch.setattr(RegKeys, "get_dpi_scaling", lambda self: Result(True, "default"))
     registry = Mock(return_value=Result(success))
     monkeypatch.setattr(RegKeys, "toggle_virtual_desktop", registry)
-    dialog = DisplayDialog(window, config, None, queue, Gtk.Button(), Gtk.Spinner())
+    dialog = DisplayDialog(window, config, None, queue, Gtk.Button(), Adw.Spinner())
     try:
         _drain_until(lambda: dialog.dpi_scaling is not None)
         dialog.expander_virtual_desktop.set_enable_expansion(True)

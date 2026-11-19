@@ -39,7 +39,7 @@ def test_failed_removal_preserves_enabled_config(graphics_manager, component):
         Result(True),
     ]
 
-    result = manager.set_graphics_component(config, component, False)
+    result = manager.set_dll_component(config, component, False)
 
     assert not result.ok
     assert result.message == "remove failed"
@@ -50,7 +50,7 @@ def test_failed_removal_preserves_enabled_config(graphics_manager, component):
     )
 
 
-def test_version_switch_failure_restores_old_version(graphics_manager):
+def test_version_switch_failure_does_not_persist_or_retry(graphics_manager):
     manager, config, path = graphics_manager
     original = path.read_bytes()
     manager.install_dll_component.side_effect = [
@@ -58,29 +58,29 @@ def test_version_switch_failure_restores_old_version(graphics_manager):
         Result(True),
     ]
 
-    result = manager.set_graphics_component(config, "dxvk", True, "dxvk-new")
+    result = manager.set_dll_component(config, "dxvk", True, "dxvk-new")
 
     assert not result.ok
     assert config.DXVK == "dxvk-old"
     assert config.Parameters.dxvk
     assert path.read_bytes() == original
-    assert manager.install_dll_component.call_args.kwargs["version"] == "dxvk-old"
+    manager.install_dll_component.assert_called_once()
 
 
-def test_save_failure_restores_components(graphics_manager, monkeypatch):
+def test_save_failure_is_reported_without_reinstalling_components(graphics_manager, monkeypatch):
     manager, config, path = graphics_manager
     original = path.read_bytes()
     monkeypatch.setattr(
         BottleConfig, "dump", lambda *_args: Result(False, message="save failed")
     )
 
-    result = manager.set_graphics_component(config, "dxvk", False)
+    result = manager.set_dll_component(config, "dxvk", False)
 
     assert not result.ok
     assert result.message == "save failed"
     assert config.Parameters.dxvk
     assert path.read_bytes() == original
-    assert manager.install_dll_component.call_args.kwargs["version"] == "dxvk-old"
+    manager.install_dll_component.assert_called_once()
 
 
 def test_disabling_dxvk_disables_vkd3d_first(graphics_manager):
@@ -97,7 +97,7 @@ def test_disabling_dxvk_disables_vkd3d_first(graphics_manager):
         return Result(True)
 
     manager.install_dll_component.side_effect = remove
-    result = manager.set_graphics_component(config, "dxvk", False)
+    result = manager.set_dll_component(config, "dxvk", False)
 
     assert result.ok
     assert calls == ["vkd3d", "dxvk"]
@@ -115,7 +115,7 @@ def test_vkd3d_dependency_failure_does_not_install_vkd3d(graphics_manager):
         Result(True),
     ]
 
-    result = manager.set_graphics_component(config, "vkd3d", True, "vkd3d-new")
+    result = manager.set_dll_component(config, "vkd3d", True, "vkd3d-new")
 
     assert not result.ok
     assert not config.Parameters.dxvk and not config.Parameters.vkd3d
@@ -136,7 +136,7 @@ def test_enabling_vkd3d_persists_dependency_once(graphics_manager, monkeypatch):
         return dump(candidate, path)
 
     monkeypatch.setattr(BottleConfig, "dump", save)
-    result = manager.set_graphics_component(config, "vkd3d", True, "vkd3d-new")
+    result = manager.set_dll_component(config, "vkd3d", True, "vkd3d-new")
 
     assert result.ok
     assert config.Parameters.dxvk and config.Parameters.vkd3d
@@ -145,18 +145,19 @@ def test_enabling_vkd3d_persists_dependency_once(graphics_manager, monkeypatch):
     assert saved[0]["Parameters"]["dxvk"] and saved[0]["Parameters"]["vkd3d"]
 
 
-def test_rollback_failure_is_reported(graphics_manager):
+def test_component_failure_is_returned_without_compensation(graphics_manager):
     manager, config, _path = graphics_manager
-    manager.install_dll_component.return_value = Result(False)
+    failure = Result(False, message="Install failed")
+    manager.install_dll_component.return_value = failure
 
-    result = manager.set_graphics_component(config, "dxvk", False)
+    result = manager.set_dll_component(config, "dxvk", False)
 
-    assert not result.ok
-    assert result.message == "Failed to restore graphics components."
+    assert result is failure
+    manager.install_dll_component.assert_called_once()
     assert config.Parameters.dxvk
 
 
-def test_failed_update_restores_dlls_and_original_backups(
+def test_registry_failure_stops_without_reinstalling_old_dlls(
     graphics_manager, monkeypatch
 ):
     from bottles.backend.dlls import dll as dll_module
@@ -196,15 +197,15 @@ def test_failed_update_restores_dlls_and_original_backups(
 
     monkeypatch.setattr(dll_module.Reg, "import_bundle", registry)
     original = path.read_bytes()
-    result = manager.set_graphics_component(config, "dxvk", True, "dxvk-new")
+    result = manager.set_dll_component(config, "dxvk", True, "dxvk-new")
 
     assert not result.ok
     assert config.DXVK == "dxvk-old"
     assert path.read_bytes() == original
     for name in DXVKComponent.dlls["x64"]:
-        assert (system / name).read_bytes() == b"dxvk-old"
+        assert (system / name).read_bytes() == b"dxvk-new"
         assert (system / f"{name}.bck").read_bytes() == b"custom-native"
-    assert len(bundles) == 2
+    assert len(bundles) == 1
 
 
 def test_component_save_preserves_other_preferences_changed_while_pending(
@@ -217,7 +218,7 @@ def test_component_save_preserves_other_preferences_changed_while_pending(
         return Result(True)
 
     manager.install_dll_component.side_effect = install
-    result = manager.set_graphics_component(config, "dxvk", True, "dxvk-new")
+    result = manager.set_dll_component(config, "dxvk", True, "dxvk-new")
 
     assert result.ok
     assert config.Parameters.gamemode
@@ -249,3 +250,48 @@ def test_missing_component_cache_is_not_reported_as_installed(
         result.message
         == f"The selected {component.upper()} installation is incomplete."
     )
+
+
+@pytest.mark.parametrize("component,field,flag", [
+    ("d7vk", "D7VK", "d7vk"),
+    ("dxvk", "DXVK", "dxvk"),
+    ("vkd3d", "VKD3D", "vkd3d"),
+    ("nvapi", "NVAPI", "dxvk_nvapi"),
+    ("latencyflex", "LatencyFleX", "latencyflex"),
+])
+@pytest.mark.parametrize("enabled", [False, True])
+def test_components_persist_only_after_installation(graphics_manager, component, field, flag, enabled):
+    manager, config, path = graphics_manager
+    setattr(config, field, "old")
+    setattr(config.Parameters, flag, not enabled)
+    result = manager.set_dll_component(config, component, enabled, "new")
+    assert result.ok
+    assert getattr(config.Parameters, flag) is enabled
+    assert getattr(config, field) == ("new" if enabled else "old")
+    installed = manager.install_dll_component.call_args
+    assert installed.args[1] == component
+    assert installed.kwargs["remove"] is not enabled
+    loaded = BottleConfig.load(str(path))
+    assert loaded.ok
+    assert getattr(loaded.data.Parameters, flag) is enabled
+
+
+@pytest.mark.parametrize("component,field,flag", [
+    ("d7vk", "D7VK", "d7vk"),
+    ("dxvk", "DXVK", "dxvk"),
+    ("vkd3d", "VKD3D", "vkd3d"),
+    ("nvapi", "NVAPI", "dxvk_nvapi"),
+    ("latencyflex", "LatencyFleX", "latencyflex"),
+])
+def test_failed_component_does_not_save_requested_version(graphics_manager, monkeypatch, component, field, flag):
+    from bottles.backend.wine.reg import Reg
+    monkeypatch.setattr(Reg, "import_bundle", lambda *_args: Result(True))
+    manager, config, path = graphics_manager
+    setattr(config, field, "old")
+    setattr(config.Parameters, flag, True)
+    original = path.read_bytes()
+    manager.install_dll_component.return_value = Result(False)
+    assert not manager.set_dll_component(config, component, True, "new").ok
+    assert getattr(config, field) == "old"
+    assert getattr(config.Parameters, flag)
+    assert path.read_bytes() == original

@@ -96,7 +96,7 @@ class VersioningView(Adw.Bin):
         self.list_states.set_sensitive(not busy)
         if label:
             self.label_spinner.set_text(label)
-        self.spinner.set_spinning(busy)
+        self.spinner.set_visible(busy)
         self.box_spinner.set_visible(busy)
 
     def _refresh_details_badge(self):

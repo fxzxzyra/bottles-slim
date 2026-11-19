@@ -235,10 +235,8 @@ class DetailsView(Adw.Bin):
 
     def __spin_tasks_toggle(self, widget, *_args):
         if widget.get_visible():
-            self.spinner_tasks.start()
             self.spinner_tasks.set_visible(True)
         else:
-            self.spinner_tasks.stop()
             self.spinner_tasks.set_visible(False)
 
     def go_back(self, _widget=False):

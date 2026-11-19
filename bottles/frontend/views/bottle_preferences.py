@@ -62,12 +62,12 @@ from bottles.frontend.windows.vmtouch import VmtouchDialog
 logging = Logger()
 
 FLATPAK_INSTALL_COMMANDS = {
-    "gamescope": "flatpak install flathub org.freedesktop.Platform.VulkanLayer.gamescope//25.08",
-    "hdr": "flatpak install flathub org.freedesktop.Platform.VulkanLayer.HdrWsi//25.08",
-    "vkbasalt": "flatpak install flathub org.freedesktop.Platform.VulkanLayer.vkBasalt//25.08",
-    "lsfg_vk": "flatpak install flathub org.freedesktop.Platform.VulkanLayer.lsfgvk//25.08",
-    "mangohud": "flatpak install flathub org.freedesktop.Platform.VulkanLayer.MangoHud//25.08",
-    "obsvkc": "flatpak install flathub org.freedesktop.Platform.VulkanLayer.OBSVkCapture//25.08",
+    "gamescope": "flatpak install flathub org.freedesktop.Platform.VulkanLayer.gamescope//26.08",
+    "hdr": "flatpak install flathub org.freedesktop.Platform.VulkanLayer.HdrWsi//26.08",
+    "vkbasalt": "flatpak install flathub org.freedesktop.Platform.VulkanLayer.vkBasalt//26.08",
+    "lsfg_vk": "flatpak install flathub org.freedesktop.Platform.VulkanLayer.lsfgvk//26.08",
+    "mangohud": "flatpak install flathub org.freedesktop.Platform.VulkanLayer.MangoHud//26.08",
+    "obsvkc": "flatpak install flathub org.freedesktop.Platform.VulkanLayer.OBSVkCapture//26.08",
 }
 
 
@@ -85,7 +85,6 @@ class PreferencesView(Adw.PreferencesPage):
     btn_manage_vmtouch = Gtk.Template.Child()
     btn_cwd_reset = Gtk.Template.Child()
     btn_cwd = Gtk.Template.Child()
-    row_nvapi = Gtk.Template.Child()
     row_discrete = Gtk.Template.Child()
     row_vkbasalt = Gtk.Template.Child()
     row_lsfg_vk = Gtk.Template.Child()
@@ -116,7 +115,6 @@ class PreferencesView(Adw.PreferencesPage):
     switch_wayland = Gtk.Template.Child()
     switch_hdr = Gtk.Template.Child()
     switch_winebridge = Gtk.Template.Child()
-    switch_nvapi = Gtk.Template.Child()
     switch_gamemode = Gtk.Template.Child()
     switch_gamescope = Gtk.Template.Child()
     switch_discrete = Gtk.Template.Child()
@@ -138,7 +136,6 @@ class PreferencesView(Adw.PreferencesPage):
     spinner_dxvk = Gtk.Template.Child()
     spinner_vkd3d = Gtk.Template.Child()
     spinner_nvapi = Gtk.Template.Child()
-    spinner_nvapibool = Gtk.Template.Child()
     spinner_latencyflex = Gtk.Template.Child()
     spinner_runner = Gtk.Template.Child()
     spinner_windows = Gtk.Template.Child()
@@ -326,7 +323,6 @@ class PreferencesView(Adw.PreferencesPage):
         self.switch_winebridge.connect(
             "state-set", self.__toggle_feature_cb, "winebridge"
         )
-        self.switch_nvapi.connect("state-set", self.__toggle_nvapi)
         self.switch_gamemode.connect("state-set", self.__toggle_feature_cb, "gamemode")
         self.switch_gamescope.connect("state-set", self.__toggle_gamescope)
         self.switch_sandbox.connect("state-set", self.__toggle_feature_cb, "sandbox")
@@ -373,12 +369,6 @@ class PreferencesView(Adw.PreferencesPage):
 
         vulkan_supported = VulkanUtils.check_support()
         if not vulkan_supported:
-            self.combo_d7vk.set_sensitive(False)
-            self.combo_dxvk.set_sensitive(False)
-            self.combo_vkd3d.set_sensitive(False)
-            self.combo_nvapi.set_sensitive(False)
-            self.switch_nvapi.set_sensitive(False)
-            self.combo_latencyflex.set_sensitive(False)
             self.switch_vkbasalt.set_sensitive(False)
             self.btn_manage_vkbasalt.set_sensitive(False)
             self.switch_lsfg_vk.set_sensitive(False)
@@ -544,60 +534,27 @@ class PreferencesView(Adw.PreferencesPage):
         bottle configuration to be updated during the process.
         """
         self.combo_runner.handler_block_by_func(self.__set_runner)
-        self.combo_d7vk.handler_block_by_func(self.__set_d7vk)
-        self.combo_dxvk.handler_block_by_func(self.__set_dxvk)
-        self.combo_vkd3d.handler_block_by_func(self.__set_vkd3d)
-        self.combo_nvapi.handler_block_by_func(self.__set_nvapi)
-        self.combo_latencyflex.handler_block_by_func(self.__set_latencyflex)
         self.combo_language.handler_block_by_func(self.__set_language)
         self.combo_windows.handler_block_by_func(self.__set_windows)
 
         for string_list in [
             self.str_list_runner,
-            self.str_list_d7vk,
-            self.str_list_dxvk,
-            self.str_list_vkd3d,
-            self.str_list_nvapi,
-            self.str_list_latencyflex,
             self.str_list_languages,
             self.str_list_windows,
         ]:
             string_list.splice(0, string_list.get_n_items())
 
-        self.str_list_d7vk.append(_("Disabled"))
-        self.str_list_dxvk.append(_("Disabled"))
-        self.str_list_vkd3d.append(_("Disabled"))
-        self.str_list_latencyflex.append(_("Disabled"))
-        for d7vk in self.manager.d7vk_available:
-            self.str_list_d7vk.append(d7vk)
-
-        for index, dxvk in enumerate(self.manager.dxvk_available):
-            self.str_list_dxvk.append(dxvk)
-
-        for index, vkd3d in enumerate(self.manager.vkd3d_available):
-            self.str_list_vkd3d.append(vkd3d)
-
         self._runner_ids = list(self.manager.runners_available)
         for index, runner in enumerate(self._runner_ids):
             self.str_list_runner.append(format_runner_name(runner))
-
-        for index, nvapi in enumerate(self.manager.nvapi_available):
-            self.str_list_nvapi.append(nvapi)
-
-        for index, latencyflex in enumerate(self.manager.latencyflex_available):
-            self.str_list_latencyflex.append(latencyflex)
 
         for lang in ManagerUtils.get_languages():
             self.str_list_languages.append(lang)
 
         self.combo_runner.handler_unblock_by_func(self.__set_runner)
-        self.combo_d7vk.handler_unblock_by_func(self.__set_d7vk)
-        self.combo_dxvk.handler_unblock_by_func(self.__set_dxvk)
-        self.combo_vkd3d.handler_unblock_by_func(self.__set_vkd3d)
-        self.combo_nvapi.handler_unblock_by_func(self.__set_nvapi)
-        self.combo_latencyflex.handler_unblock_by_func(self.__set_latencyflex)
         self.combo_language.handler_unblock_by_func(self.__set_language)
         self.combo_windows.handler_unblock_by_func(self.__set_windows)
+        self.__refresh_component_selection()
 
     def __notes_changed(self, buffer):
         notes = buffer.get_text(buffer.get_start_iter(), buffer.get_end_iter(), True)
@@ -625,7 +582,6 @@ class PreferencesView(Adw.PreferencesPage):
 
         # temporary lock functions connected to the widgets
         self.switch_mangohud.handler_block_by_func(self.__toggle_feature_cb)
-        self.switch_nvapi.handler_block_by_func(self.__toggle_nvapi)
         self.switch_vkbasalt.handler_block_by_func(self.__toggle_feature_cb)
         self.switch_lsfg_vk.handler_block_by_func(self.__toggle_feature_cb)
         self.switch_wayland.handler_block_by_func(self.__toggle_wayland)
@@ -662,7 +618,6 @@ class PreferencesView(Adw.PreferencesPage):
         self.switch_hdr.set_active(parameters.hdr)
         self.__update_hdr_sensitivity(parameters.hdr)
         self.switch_winebridge.set_active(parameters.winebridge)
-        self.switch_nvapi.set_active(parameters.dxvk_nvapi)
         self.switch_gamemode.set_active(parameters.gamemode)
         self.switch_gamescope.set_active(parameters.gamescope)
         self.switch_sandbox.set_active(parameters.sandbox)
@@ -716,48 +671,7 @@ class PreferencesView(Adw.PreferencesPage):
 
         parameters = self.config.Parameters
 
-        _d7vk = self.config.D7VK
-        if parameters.d7vk:
-            if _d7vk in self.manager.d7vk_available:
-                self.combo_d7vk.set_selected(
-                    self.manager.d7vk_available.index(_d7vk) + 1
-                )
-        else:
-            self.combo_d7vk.set_selected(0)
-
-        _dxvk = self.config.DXVK
-        if parameters.dxvk:
-            if _dxvk in self.manager.dxvk_available:
-                if _i_dxvk := self.manager.dxvk_available.index(_dxvk) + 1:
-                    self.combo_dxvk.set_selected(_i_dxvk)
-        else:
-            self.combo_dxvk.set_selected(0)
-
-        _vkd3d = self.config.VKD3D
-        if parameters.vkd3d:
-            if _vkd3d in self.manager.vkd3d_available:
-                if _i_vkd3d := self.manager.vkd3d_available.index(_vkd3d) + 1:
-                    self.combo_vkd3d.set_selected(_i_vkd3d)
-        else:
-            self.combo_vkd3d.set_selected(0)
-
-        _nvapi = self.config.NVAPI
-        if _nvapi in self.manager.nvapi_available:
-            if _i_nvapi := self.manager.nvapi_available.index(_nvapi):
-                self.combo_nvapi.set_selected(_i_nvapi)
-
-        _latencyflex = self.config.LatencyFleX
-        if parameters.latencyflex:
-            if _latencyflex in self.manager.latencyflex_available:
-                if (
-                    _i_latencyflex := self.manager.latencyflex_available.index(
-                        _latencyflex
-                    )
-                    + 1
-                ):
-                    self.combo_latencyflex.set_selected(_i_latencyflex)
-        else:
-            self.combo_latencyflex.set_selected(0)
+        self.__refresh_component_selection()
 
         self.__select_configured_runner()
 
@@ -773,7 +687,6 @@ class PreferencesView(Adw.PreferencesPage):
 
         # unlock functions connected to the widgets
         self.switch_mangohud.handler_unblock_by_func(self.__toggle_feature_cb)
-        self.switch_nvapi.handler_unblock_by_func(self.__toggle_nvapi)
         self.switch_vkbasalt.handler_unblock_by_func(self.__toggle_feature_cb)
         self.switch_lsfg_vk.handler_unblock_by_func(self.__toggle_feature_cb)
         self.switch_wayland.handler_unblock_by_func(self.__toggle_wayland)
@@ -842,7 +755,6 @@ class PreferencesView(Adw.PreferencesPage):
 
     def __update_nvapi_visibility(self) -> None:
         visible = GPUUtils.is_gpu(GPUVendors.NVIDIA) or self.config.Parameters.dxvk_nvapi
-        self.row_nvapi.set_visible(visible)
         self.combo_nvapi.set_visible(visible)
 
     def __update_hdr_sensitivity(self, active: bool | None = None) -> None:
@@ -924,21 +836,6 @@ class PreferencesView(Adw.PreferencesPage):
             scope="Parameters",
         ).data["config"]
 
-    def __toggle_nvapi(self, widget=False, state=False):
-        """Install/Uninstall NVAPI from the bottle"""
-        self.queue.add_task()
-        self.set_nvapi_status(pending=True)
-
-        RunAsync(
-            task_func=self.manager.install_dll_component,
-            callback=self.set_nvapi_status,
-            config=self.config,
-            component="nvapi",
-            remove=not state,
-        )
-
-        self.__toggle_feature(state=state, key="dxvk_nvapi")
-
     def __select_configured_runner(self):
         # Call with the selection handler blocked. Missing means unselected;
         # displaying preferences must never rewrite the bottle's runner.
@@ -949,24 +846,18 @@ class PreferencesView(Adw.PreferencesPage):
         )
         self.combo_runner.set_selected(selected)
 
+    def __set_components_busy(self, busy):
+        for name in ("runner", "d7vk", "dxvk", "vkd3d", "nvapi", "latencyflex"):
+            getattr(self, f"combo_{name}").set_sensitive(not busy)
+
     def __set_runner(self, *_args):
         """Set the runner to use for the bottle"""
 
         def set_widgets_status(status=True):
-            for w in [
-                self.combo_runner,
-                self.switch_nvapi,
-                self.combo_d7vk,
-                self.combo_dxvk,
-                self.combo_nvapi,
-                self.combo_vkd3d,
-            ]:
-                w.set_sensitive(status)
+            self.__set_components_busy(not status)
             if status:
-                self.spinner_runner.stop()
                 self.spinner_runner.set_visible(False)
             else:
-                self.spinner_runner.start()
                 self.spinner_runner.set_visible(True)
 
         @GtkUtils.run_in_main_loop
@@ -1012,115 +903,55 @@ class PreferencesView(Adw.PreferencesPage):
             runner=runner,
         )
 
-    def __dll_component_task_func(self, *args, **kwargs):
-        # Remove old version
-        self.manager.install_dll_component(
-            config=kwargs["config"], component=kwargs["component"], remove=True
-        )
-        # Install new version
-        self.manager.install_dll_component(
-            config=kwargs["config"], component=kwargs["component"]
-        )
-
     def __set_d7vk(self, *_args):
-        """Set the D7VK version to use for the bottle"""
-        self.set_d7vk_status(pending=True)
-        self.queue.add_task()
-        selected = self.combo_d7vk.get_selected()
-        version = self.manager.d7vk_available[selected - 1] if selected else None
-        RunAsync(
-            task_func=self.manager.set_d7vk,
-            callback=self.set_d7vk_status,
-            config=self.config,
-            enabled=selected != 0,
-            version=version,
-        )
+        self.__change_component("d7vk", self.set_d7vk_status)
 
     def __set_dxvk(self, *_args):
-        """Set the DXVK version to use for the bottle"""
-        selected = self.combo_dxvk.get_selected()
-        version = self.manager.dxvk_available[selected - 1] if selected else None
-        self.set_dxvk_status(pending=True)
-        self.queue.add_task()
-        RunAsync(
-            task_func=self.manager.set_graphics_component,
-            callback=self.set_dxvk_status,
-            config=self.config,
-            component="dxvk",
-            enabled=selected != 0,
-            version=version,
-        )
+        self.__change_component("dxvk", self.set_dxvk_status)
 
     def __set_vkd3d(self, *_args):
-        """Set the VKD3D version to use for the bottle"""
-        selected = self.combo_vkd3d.get_selected()
-        version = self.manager.vkd3d_available[selected - 1] if selected else None
-        self.set_vkd3d_status(pending=True)
-        self.queue.add_task()
-        RunAsync(
-            task_func=self.manager.set_graphics_component,
-            callback=self.set_vkd3d_status,
-            config=self.config,
-            component="vkd3d",
-            enabled=selected != 0,
-            version=version,
-        )
+        self.__change_component("vkd3d", self.set_vkd3d_status)
 
     def __set_nvapi(self, *_args):
-        """Set the NVAPI version to use for the bottle"""
-        self.set_nvapi_status(pending=True)
-        self.queue.add_task()
-
-        self.switch_nvapi.set_active(True)
-
-        nvapi = self.manager.nvapi_available[self.combo_nvapi.get_selected()]
-        self.config = self.manager.update_config(
-            config=self.config, key="NVAPI", value=nvapi
-        ).data["config"]
-
-        RunAsync(
-            task_func=self.__dll_component_task_func,
-            callback=self.set_nvapi_status,
-            config=self.config,
-            component="nvapi",
-        )
-
-        self.config = self.manager.update_config(
-            config=self.config, key="dxvk_nvapi", value=True, scope="Parameters"
-        ).data["config"]
+        self.__change_component("nvapi", self.set_nvapi_status)
 
     def __set_latencyflex(self, *_args):
-        """Set the latency flex value"""
+        self.__change_component("latencyflex", self.set_latencyflex_status)
+
+    def __change_component(self, component, callback):
+        selected = getattr(self, f"combo_{component}").get_selected()
+        if selected == Gtk.INVALID_LIST_POSITION:
+            return
+        version = self._component_versions[component][selected - 1] if selected else None
+        callback(pending=True)
         self.queue.add_task()
-        if self.combo_latencyflex.get_selected() == 0:
-            RunAsync(
-                task_func=self.manager.install_dll_component,
-                callback=self.set_latencyflex_status,
-                config=self.config,
-                component="latencyflex",
-                remove=True,
-            )
+        arguments = {"config": self.config, "enabled": selected != 0, "version": version}
+        RunAsync(
+            task_func=self.manager.set_dll_component, callback=callback,
+            component=component, **arguments,
+        )
 
-            self.config = self.manager.update_config(
-                config=self.config, key="latencyflex", value=False, scope="Parameters"
-            ).data["config"]
-        else:
-            latencyflex = self.manager.latencyflex_available[
-                self.combo_latencyflex.get_selected() - 1
-            ]
-            self.config = self.manager.update_config(
-                config=self.config, key="LatencyFleX", value=latencyflex
-            ).data["config"]
-
-            RunAsync(
-                task_func=self.__dll_component_task_func,
-                callback=self.set_latencyflex_status,
-                config=self.config,
-                component="latencyflex",
-            )
-            self.config = self.manager.update_config(
-                config=self.config, key="latencyflex", value=True, scope="Parameters"
-            ).data["config"]
+    def __refresh_component_selection(self):
+        self._component_versions = {}
+        for name, field, enabled_key, handler in (
+            ("d7vk", "D7VK", "d7vk", self.__set_d7vk),
+            ("dxvk", "DXVK", "dxvk", self.__set_dxvk),
+            ("vkd3d", "VKD3D", "vkd3d", self.__set_vkd3d),
+            ("nvapi", "NVAPI", "dxvk_nvapi", self.__set_nvapi),
+            ("latencyflex", "LatencyFleX", "latencyflex", self.__set_latencyflex),
+        ):
+            versions = list(getattr(self.manager, f"{name}_available"))
+            enabled = getattr(self.config.Parameters, enabled_key)
+            version = getattr(self.config, field)
+            if enabled and version and version not in versions:
+                versions.append(version)
+            self._component_versions[name] = versions
+            combo = getattr(self, f"combo_{name}")
+            model = getattr(self, f"str_list_{name}")
+            combo.handler_block_by_func(handler)
+            model.splice(0, model.get_n_items(), [_("Disabled"), *versions])
+            combo.set_selected(versions.index(version) + 1 if enabled and version in versions else 0)
+            combo.handler_unblock_by_func(handler)
 
     def __set_windows(self, *_args):
         """Set the Windows version to use for the bottle"""
@@ -1140,13 +971,11 @@ class PreferencesView(Adw.PreferencesPage):
                 self.config = self.manager.update_config(
                     config=self.config, key="Windows", value=windows_version
                 ).data["config"]
-            self.spinner_windows.stop()
             self.spinner_windows.set_visible(False)
             self.combo_windows.set_sensitive(True)
             self.queue.end_task()
 
         self.queue.add_task()
-        self.spinner_windows.start()
         self.spinner_windows.set_visible(True)
         self.combo_windows.set_sensitive(False)
         rk = RegKeys(self.config)
@@ -1166,94 +995,35 @@ class PreferencesView(Adw.PreferencesPage):
             value=language[0],
         ).data["config"]
 
-    def __set_graphics_status(self, status, error, pending, spinner):
-        self.combo_dxvk.set_sensitive(not pending)
-        self.combo_vkd3d.set_sensitive(not pending)
+    def __set_component_status(self, component, status, error, pending):
+        self.__set_components_busy(pending)
+        getattr(self, f"spinner_{component}").set_visible(pending)
         if pending:
-            spinner.start()
-            spinner.set_visible(True)
             return
-
-        if not error and isinstance(status, Result) and status.ok and status.data:
+        if error or not status.ok:
+            message = str(error) if error else status.message
+            self.window.show_toast(message or _("Failed to update {component}").format(component=component.upper()))
+        else:
             self.config = status.data["config"]
-        elif error or not isinstance(status, Result) or not status.ok:
-            logging.error("Failed to update graphics components")
-        for name, handler in (
-            ("dxvk", self.__set_dxvk),
-            ("vkd3d", self.__set_vkd3d),
-        ):
-            combo = getattr(self, f"combo_{name}")
-            available = getattr(self.manager, f"{name}_available")
-            version = getattr(self.config, name.upper())
-            selected = 0
-            if getattr(self.config.Parameters, name) and version in available:
-                selected = available.index(version) + 1
-            combo.handler_block_by_func(handler)
-            combo.set_selected(selected)
-            combo.handler_unblock_by_func(handler)
-        spinner.stop()
-        spinner.set_visible(False)
+        self.__refresh_component_selection()
         self.queue.end_task()
 
     @GtkUtils.run_in_main_loop
-    def set_dxvk_status(self, status=None, error=None, pending=False):
-        """Set the dxvk status"""
-        self.__set_graphics_status(status, error, pending, self.spinner_dxvk)
+    def set_d7vk_status(self, status=None, error=None, pending=False):
+        self.__set_component_status("d7vk", status, error, pending)
 
     @GtkUtils.run_in_main_loop
-    def set_d7vk_status(self, status=None, error=None, pending=False):
-        """Set the D7VK status"""
-        self.combo_d7vk.set_sensitive(not pending)
-        if pending:
-            self.spinner_d7vk.start()
-            self.spinner_d7vk.set_visible(True)
-        else:
-            if isinstance(status, Result) and status.ok and status.data:
-                self.config = status.data["config"]
-            elif error or not isinstance(status, Result) or not status.ok:
-                self.combo_d7vk.handler_block_by_func(self.__set_d7vk)
-                selected = 0
-                if (
-                    self.config.Parameters.d7vk
-                    and self.config.D7VK in self.manager.d7vk_available
-                ):
-                    selected = self.manager.d7vk_available.index(self.config.D7VK) + 1
-                self.combo_d7vk.set_selected(selected)
-                self.combo_d7vk.handler_unblock_by_func(self.__set_d7vk)
-            self.spinner_d7vk.stop()
-            self.spinner_d7vk.set_visible(False)
-            self.queue.end_task()
+    def set_dxvk_status(self, status=None, error=None, pending=False):
+        self.__set_component_status("dxvk", status, error, pending)
 
     @GtkUtils.run_in_main_loop
     def set_vkd3d_status(self, status=None, error=None, pending=False):
-        """Set the vkd3d status"""
-        self.__set_graphics_status(status, error, pending, self.spinner_vkd3d)
+        self.__set_component_status("vkd3d", status, error, pending)
 
     @GtkUtils.run_in_main_loop
     def set_nvapi_status(self, status=None, error=None, pending=False):
-        """Set the nvapi status"""
-        self.switch_nvapi.set_sensitive(not pending)
-        self.combo_nvapi.set_sensitive(not pending)
-        if pending:
-            self.spinner_nvapi.start()
-            self.spinner_nvapibool.start()
-            self.spinner_nvapi.set_visible(True)
-            self.spinner_nvapibool.set_visible(True)
-        else:
-            self.spinner_nvapi.stop()
-            self.spinner_nvapibool.stop()
-            self.spinner_nvapi.set_visible(False)
-            self.spinner_nvapibool.set_visible(False)
-            self.queue.end_task()
+        self.__set_component_status("nvapi", status, error, pending)
 
     @GtkUtils.run_in_main_loop
     def set_latencyflex_status(self, status=None, error=None, pending=False):
-        """Set the latencyflex status"""
-        self.combo_latencyflex.set_sensitive(not pending)
-        if pending:
-            self.spinner_latencyflex.start()
-            self.spinner_latencyflex.set_visible(True)
-        else:
-            self.spinner_latencyflex.stop()
-            self.spinner_latencyflex.set_visible(False)
-            self.queue.end_task()
+        self.__set_component_status("latencyflex", status, error, pending)

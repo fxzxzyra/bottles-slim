@@ -16,7 +16,7 @@ template $DetailsPreferences: Adw.PreferencesPage {
       title: _("Runner");
       subtitle: _("The version of the Wine compatibility layer.");
 
-      Spinner spinner_runner {
+      Adw.Spinner spinner_runner {
         tooltip-text: _("Updating Runner and components, please wait…");
         valign: center;
         visible: false;
@@ -29,7 +29,7 @@ template $DetailsPreferences: Adw.PreferencesPage {
       title: _("D7VK");
       subtitle: _("Improve Direct3D 3/5/6/7 compatibility for 32-bit applications by translating it to Vulkan.");
 
-      Spinner spinner_d7vk {
+      Adw.Spinner spinner_d7vk {
         tooltip-text: _("Updating D7VK, please wait...");
         valign: center;
         visible: false;
@@ -42,7 +42,7 @@ template $DetailsPreferences: Adw.PreferencesPage {
       title: _("DXVK");
       subtitle: _("Improve Direct3D 8/9/10/11 compatibility by translating it to Vulkan.");
 
-      Spinner spinner_dxvk {
+      Adw.Spinner spinner_dxvk {
         tooltip-text: _("Updating DXVK, please wait…");
         valign: center;
         visible: false;
@@ -55,7 +55,7 @@ template $DetailsPreferences: Adw.PreferencesPage {
       title: _("VKD3D");
       subtitle: _("Improve Direct3D 12 compatibility by translating it to Vulkan.");
 
-      Spinner spinner_vkd3d {
+      Adw.Spinner spinner_vkd3d {
         tooltip-text: _("Updating VKD3D, please wait…");
         valign: center;
         visible: false;
@@ -68,7 +68,7 @@ template $DetailsPreferences: Adw.PreferencesPage {
       title: _("DXVK NVAPI");
       visible: false;
 
-      Spinner spinner_nvapi {
+      Adw.Spinner spinner_nvapi {
         tooltip-text: _("Updating DXVK-NVAPI, please wait…");
         valign: center;
         visible: false;
@@ -81,7 +81,7 @@ template $DetailsPreferences: Adw.PreferencesPage {
       title: _("LatencyFleX");
       subtitle: _("Increase responsiveness. Can be detected by some anti-cheat software.");
 
-      Spinner spinner_latencyflex {
+      Adw.Spinner spinner_latencyflex {
         tooltip-text: _("Updating LatencyFleX, please wait…");
         valign: center;
         visible: false;
@@ -95,25 +95,7 @@ template $DetailsPreferences: Adw.PreferencesPage {
   Adw.PreferencesGroup {
     title: _("Display");
 
-    Adw.ActionRow row_nvapi {
-      activatable-widget: switch_nvapi;
-      title: _("Deep Learning Super Sampling");
-      subtitle: _("Increase performance at the expense of visuals using DXVK-NVAPI. Only works on newer NVIDIA GPUs.");
-      visible: false;
-
-      Spinner spinner_nvapibool {
-        tooltip-text: _("Updating DXVK-NVAPI, please wait…");
-        valign: center;
-        margin-end: 6;
-      }
-
-      Switch switch_nvapi {
-        valign: center;
-      }
-    }
-
     Adw.ActionRow row_discrete {
-      visible: false;
       activatable-widget: switch_discrete;
       title: _("Discrete Graphics");
       subtitle: _("Use the discrete graphics card to increase performance at the expense of power consumption.");
@@ -207,7 +189,8 @@ template $DetailsPreferences: Adw.PreferencesPage {
       title: _("Advanced Display Settings");
       activatable: true;
 
-      Spinner spinner_display {
+      Adw.Spinner spinner_display {
+        visible: false;
         valign: center;
         margin-end: 6;
       }
@@ -319,7 +302,7 @@ template $DetailsPreferences: Adw.PreferencesPage {
     Adw.ComboRow combo_windows {
       title: _("Windows Version");
 
-      Spinner spinner_windows {
+      Adw.Spinner spinner_windows {
         tooltip-text: _("Updating Windows version, please wait…");
         valign: center;
         visible: false;

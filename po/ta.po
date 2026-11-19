@@ -99,7 +99,7 @@ msgstr ""
 msgid "%s template"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:416 bottles/frontend/views/bottle_preferences.py:534 bottles/frontend/views/new_bottle_dialog.py:99
+#: bottles/frontend/ui/details-preferences.blp:399 bottles/frontend/views/bottle_preferences.py:524 bottles/frontend/views/new_bottle_dialog.py:99
 msgid "(Default)"
 msgstr "(இயல்புநிலை)"
 
@@ -218,7 +218,7 @@ msgstr "ஸ்டீமில் சேர்க்கவும்"
 msgid "Add variable"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:149
+#: bottles/frontend/ui/details-preferences.blp:131
 msgid "Add various post-processing effects using vkBasalt. Only works on Vulkan."
 msgstr "vkBasalt ஐப் பயன்படுத்தி பல்வேறு பிந்தைய செயலாக்க விளைவுகளைச் சேர்க்கவும். வல்கனில் மட்டுமே வேலை செய்கிறது."
 
@@ -230,7 +230,7 @@ msgstr ""
 msgid "Advanced"
 msgstr "மேம்பட்ட"
 
-#: bottles/frontend/ui/details-preferences.blp:207
+#: bottles/frontend/ui/details-preferences.blp:189
 msgid "Advanced Display Settings"
 msgstr "மேம்பட்ட காட்சி அமைப்புகள்"
 
@@ -287,7 +287,7 @@ msgstr ""
 msgid "An installation error occurred. Restart Bottles to read the Crash Report or run it via terminal to read the output."
 msgstr "நிறுவல் பிழை ஏற்பட்டது. செயலிழப்பு அறிக்கையைப் படிக்க Bottlesகளை மறுதொடக்கம் செய்யவும் அல்லது வெளியீட்டைப் படிக்க டெர்மினல் வழியாக இயக்கவும்."
 
-#: bottles/frontend/views/bottle_details.py:723
+#: bottles/frontend/views/bottle_details.py:721
 msgid "Analyse"
 msgstr ""
 
@@ -344,7 +344,7 @@ msgstr ""
 msgid "Apply CMD default settings…"
 msgstr "CMD இயல்புநிலை அமைப்புகளைப் பயன்படுத்து…"
 
-#: bottles/frontend/ui/details-preferences.blp:277
+#: bottles/frontend/ui/details-preferences.blp:260
 msgid "Apply a set of optimizations to your device. Can improve game performance."
 msgstr "உங்கள் சாதனத்தில் மேம்படுத்தல்களின் தொகுப்பைப் பயன்படுத்தவும். விளையாட்டு செயல்திறனை மேம்படுத்த முடியும்."
 
@@ -369,16 +369,16 @@ msgstr "விண்ணப்பிக்கும் சூழல்: {0}…"
 msgid "Architecture"
 msgstr "கட்டிடக்கலை"
 
-#: bottles/frontend/views/bottle_details.py:955
+#: bottles/frontend/views/bottle_details.py:953
 msgid "Are you sure you want to force stop all processes?"
 msgstr "எல்லா செயல்முறைகளையும் கட்டாயப்படுத்தி நிறுத்த விரும்புகிறீர்களா?"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:855
+#: bottles/frontend/views/bottle_details.py:853
 msgid "Are you sure you want to permanently delete \"{}\"?"
 msgstr "\"{}\" ஐ நிரந்தரமாக நீக்க விரும்புகிறீர்களா?"
 
-#: bottles/frontend/widgets/state.py:122
+#: bottles/frontend/widgets/state.py:121
 msgid "Are you sure you want to restore this state?"
 msgstr ""
 
@@ -420,7 +420,7 @@ msgstr ""
 msgid "Backing up {0}"
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:749
+#: bottles/frontend/views/bottle_details.py:747
 msgid "Backup"
 msgstr "காப்புப்பிரதி"
 
@@ -429,17 +429,17 @@ msgid "Backup Folder"
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:755
+#: bottles/frontend/views/bottle_details.py:753
 msgid "Backup cancelled for \"{0}\""
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:760
+#: bottles/frontend/views/bottle_details.py:758
 msgid "Backup created for \"{0}\""
 msgstr "\"{0}\"க்கான காப்புப்பிரதி உருவாக்கப்பட்டது"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:764
+#: bottles/frontend/views/bottle_details.py:762
 msgid "Backup failed for \"{0}\""
 msgstr "\"{0}\"க்கான காப்புப்பிரதி தோல்வியடைந்தது"
 
@@ -460,7 +460,7 @@ msgstr "காப்புப்பிரதிகள்"
 msgid "Backups to Keep"
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:687
+#: bottles/frontend/views/bottle_details.py:685
 msgid "Be Aware of Sandbox"
 msgstr "சாண்ட்பாக்ஸ் பற்றி விழிப்புடன் இருங்கள்"
 
@@ -482,7 +482,7 @@ msgid "Bottles Crash Report"
 msgstr "Bottles விபத்து அறிக்கை"
 
 # Translators: Bottles is a proper noun referring to the app
-#: bottles/frontend/ui/details-preferences.blp:360
+#: bottles/frontend/ui/details-preferences.blp:343
 msgid "Bottles Runtime"
 msgstr "Bottles இயங்கும் நேரம்"
 
@@ -498,7 +498,7 @@ msgstr "கடந்த முறை Bottles நொறுங்கின. இத
 msgid "Bottles has a whole new Versioning System that is not backwards compatible.\n\nTo continue using versioning we need to re-initialize the container repository. This will not delete data from your container but will delete all existing snapshots and create a new one.\n\nIf you need to go back to a previous snapshot before continuing, close this window and restore the snapshot, then reopen the container to show this window again.\n\nThe old system will be discontinued in one of the next releases."
 msgstr "Bottles பின்னோக்கி இணக்கமாக இல்லாத முற்றிலும் புதிய பதிப்பு முறைமையைக் கொண்டுள்ளது.\n\nபதிப்பைத் தொடர்ந்து பயன்படுத்த, Wine சூழல் களஞ்சியத்தை மீண்டும் தொடங்க வேண்டும். இது உங்கள் பாட்டிலிலிருந்து தரவை நீக்காது, ஆனால் ஏற்கனவே உள்ள எல்லா நிலைகளையும் நீக்கி புதிய ஒன்றை உருவாக்கும்.\n\nதொடர்வதற்கு முன் முந்தைய நிலைக்குச் செல்ல வேண்டும் என்றால், இந்தச் சாளரத்தை மூடிவிட்டு நிலையை மீட்டெடுக்கவும், பின்னர் இந்தச் சாளரத்தைக் காட்ட பாட்டிலை மீண்டும் திறக்கவும்.\n\nபழைய முறை அடுத்த வெளியீடுகளில் ஒன்றில் நிறுத்தப்படும்."
 
-#: bottles/frontend/views/bottle_details.py:688
+#: bottles/frontend/views/bottle_details.py:686
 msgid "Bottles is running in a sandbox, a restricted permission environment needed to keep you safe. If the program won't run, consider moving inside the container (3 dots icon on the top), then launch from there."
 msgstr "சாண்ட்பாக்ஸில் Bottles இயங்குகின்றன, உங்களைப் பாதுகாப்பாக வைத்திருக்க தடைசெய்யப்பட்ட அனுமதிச் சூழல் தேவை. நிரல் இயங்கவில்லை என்றால், பாட்டிலின் உள்ளே நகர்த்துவதைக் கவனியுங்கள் (மேலே உள்ள 3 புள்ளிகள் ஐகான்), பின்னர் அங்கிருந்து தொடங்கவும்."
 
@@ -570,7 +570,7 @@ msgstr "உள்ளமைக்கப்பட்ட (ஒயின்)"
 msgid "Builtin, then Native"
 msgstr "பில்டின், பின்னர் பூர்வீகம்"
 
-#: bottles/backend/utils/manager.py:935
+#: bottles/backend/utils/manager.py:939
 msgid "Bulgarian"
 msgstr ""
 
@@ -604,7 +604,7 @@ msgstr ""
 msgid "Cached prefix for the %s environment, created on %s"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1902
+#: bottles/backend/managers/manager.py:1879
 msgid "Caching template…"
 msgstr "டெம்ப்ளேட்டை தற்காலிகமாக சேமிக்கிறது…"
 
@@ -704,11 +704,11 @@ msgstr ""
 msgid "Check your connection or try again later."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:960
+#: bottles/backend/utils/manager.py:964
 msgid "Chinese (Simplified)"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:962
+#: bottles/backend/utils/manager.py:966
 msgid "Chinese (Traditional)"
 msgstr ""
 
@@ -761,7 +761,7 @@ msgstr "நிரலை எங்கிருந்து தொடங்கு�
 msgid "Choose the Wine installation used by this container"
 msgstr "இந்த Wine சூழல் பயன்படுத்தும் Wine நிறுவலைத் தேர்வு செய்யவும்"
 
-#: bottles/frontend/ui/details-preferences.blp:333
+#: bottles/frontend/ui/details-preferences.blp:316
 msgid "Choose the language to use with programs."
 msgstr "நிரல்களுடன் பயன்படுத்த மொழியைத் தேர்ந்தெடுக்கவும்."
 
@@ -871,7 +871,7 @@ msgstr ""
 msgid "Community verdict"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:317
+#: bottles/frontend/ui/details-preferences.blp:300
 msgid "Compatibility"
 msgstr "இணக்கத்தன்மை"
 
@@ -1007,7 +1007,7 @@ msgstr "கண்ட்ரோல் பேனல்"
 msgid "Control which variables from your system are visible to programs inside this container"
 msgstr ""
 
-#: bottles/frontend/utils/flatpak.py:61 bottles/frontend/views/bottle_preferences.py:468
+#: bottles/frontend/utils/flatpak.py:61 bottles/frontend/views/bottle_preferences.py:458
 msgid "Copied to clipboard"
 msgstr ""
 
@@ -1015,7 +1015,7 @@ msgstr ""
 msgid "Copies the file into a temporary folder inside the container. Files stored next to it are not included, so it may not work fully."
 msgstr ""
 
-#: bottles/frontend/utils/flatpak.py:92 bottles/frontend/views/bottle_preferences.py:427 bottles/frontend/widgets/program.py:730
+#: bottles/frontend/utils/flatpak.py:92 bottles/frontend/views/bottle_preferences.py:417 bottles/frontend/widgets/program.py:730
 msgid "Copy command"
 msgstr ""
 
@@ -1057,7 +1057,7 @@ msgstr ""
 msgid "Could not analyse this file."
 msgstr ""
 
-#: bottles/frontend/views/bottle_preferences.py:889
+#: bottles/frontend/views/bottle_preferences.py:801
 msgid "Could not change the synchronization mode."
 msgstr "ஒத்திசைவு பயன்முறையை மாற்ற முடியவில்லை."
 
@@ -1083,7 +1083,7 @@ msgstr ""
 msgid "Could not read the DPI scaling mode."
 msgstr "DPI அளவிடுதல் பயன்முறையைப் படிக்க முடியவில்லை."
 
-#: bottles/frontend/views/bottle_details.py:839
+#: bottles/frontend/views/bottle_details.py:837
 msgid "Could not remove the container."
 msgstr ""
 
@@ -1097,7 +1097,7 @@ msgstr ""
 msgid "Could not save the program: {0}"
 msgstr ""
 
-#: bottles/frontend/views/bottle_preferences.py:995
+#: bottles/frontend/views/bottle_preferences.py:886
 msgid "Could not switch to the selected runner."
 msgstr ""
 
@@ -1175,7 +1175,7 @@ msgstr ""
 msgid "Creating snapshot…"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1875
+#: bottles/backend/managers/manager.py:1852
 msgid "Creating versioning state 0…"
 msgstr "பதிப்பு நிலை 0 ஐ உருவாக்குகிறது…"
 
@@ -1192,7 +1192,7 @@ msgstr ""
 msgid "Critical"
 msgstr "முக்கியமான"
 
-#: bottles/backend/utils/manager.py:945
+#: bottles/backend/utils/manager.py:949
 msgid "Croatian"
 msgstr ""
 
@@ -1229,11 +1229,11 @@ msgstr ""
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:936
+#: bottles/backend/utils/manager.py:940
 msgid "Czech"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1935 bottles/frontend/ui/details-preferences.blp:29
+#: bottles/backend/managers/manager.py:1912 bottles/frontend/ui/details-preferences.blp:29
 msgid "D7VK"
 msgstr ""
 
@@ -1245,7 +1245,7 @@ msgstr "டிஎல்எல் கூறுகள்"
 msgid "DLL Override"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:424 bottles/frontend/ui/dialog-dll-overrides.blp:7 bottles/frontend/ui/dialog-dll-overrides.blp:12
+#: bottles/frontend/ui/details-preferences.blp:407 bottles/frontend/ui/dialog-dll-overrides.blp:7 bottles/frontend/ui/dialog-dll-overrides.blp:12
 msgid "DLL Overrides"
 msgstr "DLL மேலெழுதுகிறது"
 
@@ -1257,7 +1257,7 @@ msgstr "டிஎல்எஸ் டெனோயிஸ் ஒரு சட்ட
 msgid "DLS sharpness increases the sharpness of a frame. Higher values make the frame sharper."
 msgstr "டிஎல்எஸ் கூர்மை ஒரு சட்டகத்தின் கூர்மையை அதிகரிக்கிறது. அதிக மதிப்புகள் சட்டகத்தை கூர்மையாக்கும்."
 
-#: bottles/backend/managers/manager.py:1941 bottles/frontend/ui/details-preferences.blp:42
+#: bottles/backend/managers/manager.py:1918 bottles/frontend/ui/details-preferences.blp:42
 msgid "DXVK"
 msgstr "DXVK"
 
@@ -1274,7 +1274,7 @@ msgstr ""
 msgid "Daily Average: {}"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:937
+#: bottles/backend/utils/manager.py:941
 msgid "Danish"
 msgstr ""
 
@@ -1310,13 +1310,9 @@ msgstr "பிழைத்திருத்தி"
 msgid "Declining can cause instability, performance degradation, and incompatibilities with new Bottles releases."
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:340 bottles/frontend/ui/new-bottle-dialog.blp:116
+#: bottles/frontend/ui/details-preferences.blp:323 bottles/frontend/ui/new-bottle-dialog.blp:116
 msgid "Dedicated Sandbox"
 msgstr "பிரத்யேக சாண்ட்பாக்ஸ்"
-
-#: bottles/frontend/ui/details-preferences.blp:100
-msgid "Deep Learning Super Sampling"
-msgstr "ஆழ்ந்த கற்றல் சூப்பர் மாதிரி"
 
 #: bottles/frontend/ui/dialog-display.blp:140 bottles/frontend/ui/dialog-vkbasalt.blp:44
 msgid "Default"
@@ -1459,7 +1455,7 @@ msgid "Directory"
 msgstr "அடைவு"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_preferences.py:684
+#: bottles/frontend/views/bottle_preferences.py:639
 msgid "Directory that contains the data of \"{}\"."
 msgstr "\"{}\" இன் தரவைக் கொண்ட கோப்பகம்."
 
@@ -1467,7 +1463,7 @@ msgstr "\"{}\" இன் தரவைக் கொண்ட கோப்பக�
 msgid "Disable the default Z: drive"
 msgstr ""
 
-#: bottles/frontend/ui/dialog-launch-options.blp:178 bottles/frontend/ui/dll-override-entry.blp:13 bottles/frontend/ui/preferences.blp:225 bottles/frontend/views/bottle_preferences.py:567 bottles/frontend/views/bottle_preferences.py:568 bottles/frontend/views/bottle_preferences.py:569 bottles/frontend/views/bottle_preferences.py:570 bottles/frontend/windows/launchoptions.py:455
+#: bottles/frontend/ui/dialog-launch-options.blp:178 bottles/frontend/ui/dll-override-entry.blp:13 bottles/frontend/ui/preferences.blp:225 bottles/frontend/views/bottle_preferences.py:952 bottles/frontend/windows/launchoptions.py:455
 msgid "Disabled"
 msgstr "முடக்கப்பட்ட"
 
@@ -1475,7 +1471,7 @@ msgstr "முடக்கப்பட்ட"
 msgid "Disabled. Executables will run without being checked for threats."
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:118
+#: bottles/frontend/ui/details-preferences.blp:100
 msgid "Discrete Graphics"
 msgstr "தனித்துவமான கிராபிக்ஸ்"
 
@@ -1495,7 +1491,7 @@ msgstr ""
 msgid "Display Settings"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:257
+#: bottles/frontend/ui/details-preferences.blp:240
 msgid "Display monitoring information such as framerate, temperatures, CPU/GPU load and more on OpenGL and Vulkan using MangoHud."
 msgstr "MangoHud ஐப் பயன்படுத்தி OpenGL மற்றும் Vulkan இல் ஃப்ரேம்ரேட், வெப்பநிலை, CPU/GPU சுமை மற்றும் பல போன்ற கண்காணிப்புத் தகவலைக் காண்பி."
 
@@ -1578,7 +1574,7 @@ msgstr "நகல் Wine சூழல்…"
 msgid "Duplicating…"
 msgstr "நகலெடுக்கிறது…"
 
-#: bottles/backend/utils/manager.py:950
+#: bottles/backend/utils/manager.py:954
 msgid "Dutch"
 msgstr ""
 
@@ -1674,7 +1670,7 @@ msgstr ""
 msgid "Enable playtime tracking"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:229
+#: bottles/frontend/ui/details-preferences.blp:212
 msgid "Enable synchronization to increase performance of multicore processors."
 msgstr "மல்டிகோர் செயலிகளின் செயல்திறனை அதிகரிக்க ஒத்திசைவை இயக்கவும்."
 
@@ -1695,7 +1691,7 @@ msgstr ""
 msgid "Engines and Frameworks"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:940
+#: bottles/backend/utils/manager.py:944
 msgid "English"
 msgstr ""
 
@@ -1711,7 +1707,7 @@ msgstr ""
 msgid "Environment Variable"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:437 bottles/frontend/ui/dialog-env-vars.blp:7
+#: bottles/frontend/ui/details-preferences.blp:420 bottles/frontend/ui/dialog-env-vars.blp:7
 msgid "Environment Variables"
 msgstr "சுற்றுச்சூழல் மாறிகள்"
 
@@ -1737,11 +1733,11 @@ msgstr ""
 msgid "Errors"
 msgstr "பிழைகள்"
 
-#: bottles/backend/utils/manager.py:942
+#: bottles/backend/utils/manager.py:946
 msgid "Estonian"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:235
+#: bottles/frontend/ui/details-preferences.blp:218
 msgid "Esync"
 msgstr "ஈசின்க்"
 
@@ -1785,7 +1781,7 @@ msgstr "பரிசோதனைகள்"
 msgid "Explorer"
 msgstr "எக்ஸ்ப்ளோரர்"
 
-#: bottles/frontend/views/bottle_details.py:745
+#: bottles/frontend/views/bottle_details.py:743
 msgid "Export"
 msgstr "ஏற்றுமதி"
 
@@ -1793,7 +1789,7 @@ msgstr "ஏற்றுமதி"
 msgid "Export Configuration…"
 msgstr "ஏற்றுமதி உள்ளமைவு…"
 
-#: bottles/frontend/ui/details-preferences.blp:139
+#: bottles/frontend/ui/details-preferences.blp:121
 msgid "Expose HDR to games using DXVK. Requires native Wayland or Gamescope. Older NVIDIA drivers also need HdrWsi and ENABLE_HDR_WSI=1."
 msgstr ""
 
@@ -1844,12 +1840,12 @@ msgid "Failed to initialize the Wine prefix."
 msgstr ""
 
 #, python-format
-#: bottles/backend/managers/manager.py:1826 bottles/backend/managers/manager.py:1831
+#: bottles/backend/managers/manager.py:1803 bottles/backend/managers/manager.py:1808
 msgid "Failed to install dependency: %s"
 msgstr ""
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2453
+#: bottles/backend/managers/manager.py:2319
 msgid "Failed to install {0}."
 msgstr ""
 
@@ -1858,24 +1854,16 @@ msgid "Failed to prepare the container user profile."
 msgstr "கொள்கலன் பயனர் சுயவிவரத்தைத் தயாரிப்பதில் தோல்வி."
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2453
+#: bottles/backend/managers/manager.py:2319
 msgid "Failed to remove {0}."
-msgstr ""
-
-#: bottles/backend/managers/manager.py:2138
-msgid "Failed to restore graphics components."
 msgstr ""
 
 #: bottles/backend/managers/manager.py:1653
 msgid "Failed to sandbox the container user directory."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:2228
-msgid "Failed to save and roll back the D7VK configuration."
-msgstr ""
-
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:611
+#: bottles/frontend/views/bottle_details.py:609 bottles/frontend/views/bottle_preferences.py:1005
 msgid "Failed to update {component}"
 msgstr ""
 
@@ -1883,7 +1871,7 @@ msgstr ""
 msgid "Fast Approximate Anti-Aliasing"
 msgstr "வேகமான தோராயமான எதிர்ப்பு-மாற்றுப்பெயர்"
 
-#: bottles/frontend/ui/details-preferences.blp:276
+#: bottles/frontend/ui/details-preferences.blp:259
 msgid "Feral GameMode"
 msgstr "ஃபெரல் கேம்மோட்"
 
@@ -1926,11 +1914,11 @@ msgstr ""
 msgid "Finalizing installation..."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1880
+#: bottles/backend/managers/manager.py:1857
 msgid "Finalizing…"
 msgstr "இறுதி செய்கிறது…"
 
-#: bottles/backend/utils/manager.py:943
+#: bottles/backend/utils/manager.py:947
 msgid "Finnish"
 msgstr ""
 
@@ -1966,7 +1954,7 @@ msgstr "அனைத்து செயல்முறைகளையும் �
 msgid "Force Stop all Processes (Native method)"
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:959
+#: bottles/frontend/views/bottle_details.py:957
 msgid "Force _Stop"
 msgstr "கட்டாயப்படுத்தி _நிறுத்து"
 
@@ -1974,7 +1962,7 @@ msgstr "கட்டாயப்படுத்தி _நிறுத்து"
 msgid "Force disable any network activity even with available network connection."
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:129
+#: bottles/frontend/ui/details-preferences.blp:111
 msgid "Force the experimental native Wayland driver instead of Xwayland. Requires a Wayland session."
 msgstr ""
 
@@ -1986,7 +1974,7 @@ msgstr "டார்க் தீம் பயன்படுத்துவத�
 msgid "Frame Generation"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:168
+#: bottles/frontend/ui/details-preferences.blp:150
 msgid "Frame Generation (Experimental)"
 msgstr ""
 
@@ -1994,7 +1982,7 @@ msgstr ""
 msgid "Frame Generation Settings"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:243 bottles/frontend/ui/dialog-gamescope.blp:141
+#: bottles/frontend/ui/details-preferences.blp:226 bottles/frontend/ui/dialog-gamescope.blp:141
 msgid "Frame Rate Limit"
 msgstr "பிரேம் வீத வரம்பு"
 
@@ -2002,11 +1990,11 @@ msgstr "பிரேம் வீத வரம்பு"
 msgid "Frame Rate Limit When Unfocused"
 msgstr "கவனம் செலுத்தாத போது பிரேம் வீத வரம்பு"
 
-#: bottles/backend/utils/manager.py:944
+#: bottles/backend/utils/manager.py:948
 msgid "French"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:236
+#: bottles/frontend/ui/details-preferences.blp:219
 msgid "Fsync"
 msgstr "எப் சின்க்"
 
@@ -2050,7 +2038,7 @@ msgstr "கேமிங்"
 msgid "General"
 msgstr "பொது"
 
-#: bottles/frontend/ui/details-preferences.blp:169
+#: bottles/frontend/ui/details-preferences.blp:151
 msgid "Generate additional frames with lsfg-vk. Only works with 64-bit Vulkan applications."
 msgstr ""
 
@@ -2058,7 +2046,7 @@ msgstr ""
 msgid "Generating container configuration…"
 msgstr "Wine சூழல் உள்ளமைவை உருவாக்குகிறது…"
 
-#: bottles/backend/utils/manager.py:938
+#: bottles/backend/utils/manager.py:942
 msgid "German"
 msgstr ""
 
@@ -2078,7 +2066,7 @@ msgstr ""
 msgid "Graphics API"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:939
+#: bottles/backend/utils/manager.py:943
 msgid "Greek"
 msgstr ""
 
@@ -2110,7 +2098,7 @@ msgstr "மறைக்கப்பட்ட நிரல்களை மறை"
 msgid "Hide Program"
 msgstr "நிரலை மறை"
 
-#: bottles/frontend/ui/details-preferences.blp:138
+#: bottles/frontend/ui/details-preferences.blp:120
 msgid "High Dynamic Range"
 msgstr ""
 
@@ -2123,7 +2111,7 @@ msgstr ""
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:946
+#: bottles/backend/utils/manager.py:950
 msgid "Hungarian"
 msgstr ""
 
@@ -2175,7 +2163,7 @@ msgstr ""
 msgid "Improve Direct3D 8/9/10/11 compatibility by translating it to Vulkan."
 msgstr "Direct3D 8/9/10/11 இணக்கத்தன்மையை வல்கனுக்கு மொழிபெயர்ப்பதன் மூலம் மேம்படுத்தவும்."
 
-#: bottles/frontend/ui/details-preferences.blp:287
+#: bottles/frontend/ui/details-preferences.blp:270
 msgid "Improve loading time when launching the game multiple times. The game will take longer to start for the first time."
 msgstr "விளையாட்டை பல முறை தொடங்கும் போது ஏற்றுதல் நேரத்தை மேம்படுத்தவும். விளையாட்டு முதல் முறையாக தொடங்குவதற்கு அதிக நேரம் எடுக்கும்."
 
@@ -2186,10 +2174,6 @@ msgstr ""
 #: bottles/frontend/ui/dialog-deps-check.blp:14
 msgid "Incomplete package"
 msgstr "முழுமையற்ற தொகுப்பு"
-
-#: bottles/frontend/ui/details-preferences.blp:101
-msgid "Increase performance at the expense of visuals using DXVK-NVAPI. Only works on newer NVIDIA GPUs."
-msgstr "DXVK-NVAPI ஐப் பயன்படுத்தி காட்சிகளின் செலவில் செயல்திறனை அதிகரிக்கவும். புதிய NVIDIA GPUகளில் மட்டுமே வேலை செய்யும்."
 
 #: bottles/frontend/ui/details-preferences.blp:82
 msgid "Increase responsiveness. Can be detected by some anti-cheat software."
@@ -2231,7 +2215,7 @@ msgstr "எங்கள் சமூகத்தால் நிர்வகி�
 msgid "Install this Program"
 msgstr "இந்த நிரலை நிறுவவும்"
 
-#: bottles/frontend/views/bottle_preferences.py:165
+#: bottles/frontend/views/bottle_preferences.py:162
 msgid "Install vkbasalt-cli to edit vkBasalt settings."
 msgstr ""
 
@@ -2276,28 +2260,16 @@ msgstr ""
 msgid "Installing \"{0}\"..."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1853
+#: bottles/backend/managers/manager.py:1830
 msgid "Installing D7VK..."
 msgstr ""
-
-#: bottles/backend/managers/manager.py:1806
-msgid "Installing DXVK-NVAPI…"
-msgstr "DXVK-NVAPI ஐ நிறுவுகிறது…"
-
-#: bottles/backend/managers/manager.py:1775
-msgid "Installing DXVK…"
-msgstr "DXVK ஐ நிறுவுகிறது…"
-
-#: bottles/backend/managers/manager.py:1790
-msgid "Installing VKD3D…"
-msgstr "VKD3D ஐ நிறுவுகிறது…"
 
 #: bottles/frontend/windows/installer.py:142
 msgid "Installing Windows dependencies…"
 msgstr "விண்டோஸ் சார்புகளை நிறுவுகிறது…"
 
 #, python-format
-#: bottles/backend/managers/manager.py:1820
+#: bottles/backend/managers/manager.py:1797
 msgid "Installing dependency: %s …"
 msgstr "சார்புநிலையை நிறுவுகிறது: %s…"
 
@@ -2346,7 +2318,7 @@ msgstr "ஒருங்கிணைப்புகள்"
 msgid "Invalid URI (syntax: bottles:run/<bottle>/<program>)"
 msgstr "தவறான URI (தொடரியல்: Wine சூழல்கள்:ரன்/<Wine சூழல்>/<நிரல்>)"
 
-#: bottles/backend/managers/manager.py:2098
+#: bottles/backend/managers/manager.py:2055
 msgid "Invalid graphics component."
 msgstr ""
 
@@ -2354,7 +2326,7 @@ msgstr ""
 msgid "Issues that may prevent this program from running."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:947
+#: bottles/backend/utils/manager.py:951
 msgid "Italian"
 msgstr ""
 
@@ -2362,7 +2334,7 @@ msgstr ""
 msgid "Item name"
 msgstr "பொருளின் பெயர்"
 
-#: bottles/backend/utils/manager.py:961
+#: bottles/backend/utils/manager.py:965
 msgid "Japanese"
 msgstr ""
 
@@ -2380,11 +2352,11 @@ msgstr ""
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:963
+#: bottles/backend/utils/manager.py:967
 msgid "Korean"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:332 bottles/frontend/ui/preferences.blp:28
+#: bottles/frontend/ui/details-preferences.blp:315 bottles/frontend/ui/preferences.blp:28
 msgid "Language"
 msgstr "மொழி"
 
@@ -2397,11 +2369,11 @@ msgstr ""
 msgid "Last Used: %s – Usage Time: %s"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1959 bottles/frontend/ui/details-preferences.blp:81
+#: bottles/backend/managers/manager.py:1936 bottles/frontend/ui/details-preferences.blp:81
 msgid "LatencyFleX"
 msgstr "லேடென்சிஃப்ளெக்ஸ்"
 
-#: bottles/backend/utils/manager.py:949
+#: bottles/backend/utils/manager.py:953
 msgid "Latvian"
 msgstr ""
 
@@ -2434,7 +2406,7 @@ msgid "Launch with Terminal"
 msgstr "முனையத்துடன் தொடங்கவும்"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:652 bottles/frontend/widgets/library.py:271 bottles/frontend/widgets/program.py:367
+#: bottles/frontend/views/bottle_details.py:650 bottles/frontend/widgets/library.py:271 bottles/frontend/widgets/program.py:367
 msgid "Launching \"{0}\"…"
 msgstr "\"{0}\" தொடங்கப்படுகிறது…"
 
@@ -2485,7 +2457,7 @@ msgstr "நூலக வரிசைப்படுத்தல்"
 msgid "License"
 msgstr "உரிமம்"
 
-#: bottles/frontend/ui/details-preferences.blp:244
+#: bottles/frontend/ui/details-preferences.blp:227
 msgid "Limit DXVK and VKD3D applications. Set to 0 to disable."
 msgstr ""
 
@@ -2505,7 +2477,7 @@ msgstr "நிரல் பட்டியலில் ஸ்டீம் பய
 msgid "List Ubisoft Games in Programs List"
 msgstr "நிரல் பட்டியலில் யுபிசாஃப்ட் கேம்களை பட்டியலிடவும்"
 
-#: bottles/backend/utils/manager.py:948
+#: bottles/backend/utils/manager.py:952
 msgid "Lithuanian"
 msgstr ""
 
@@ -2549,7 +2521,7 @@ msgstr "முதன்மை பட்டியல்"
 msgid "Manage Branches"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:450
+#: bottles/frontend/ui/details-preferences.blp:433
 msgid "Manage Drives"
 msgstr "இயக்ககங்களை நிர்வகிக்கவும்"
 
@@ -2557,15 +2529,15 @@ msgstr "இயக்ககங்களை நிர்வகிக்கவு�
 msgid "Manage File Associations..."
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:192
+#: bottles/frontend/ui/details-preferences.blp:174
 msgid "Manage Gamescope settings"
 msgstr "கேம்ஸ்கோப் அமைப்புகளை நிர்வகிக்கவும்"
 
-#: bottles/frontend/ui/details-preferences.blp:260
+#: bottles/frontend/ui/details-preferences.blp:243
 msgid "Manage MangoHud settings"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:152
+#: bottles/frontend/ui/details-preferences.blp:134
 msgid "Manage Post-Processing Layer settings"
 msgstr "பிந்தைய செயலாக்க லேயர் அமைப்புகளை நிர்வகிக்கவும்"
 
@@ -2573,7 +2545,7 @@ msgstr "பிந்தைய செயலாக்க லேயர் அமை
 msgid "Manage cached files used to speed up downloads and container creation."
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:189
+#: bottles/frontend/ui/details-preferences.blp:171
 msgid "Manage how games should be displayed on the screen using Gamescope."
 msgstr "கேம்ஸ்கோப்பைப் பயன்படுத்தி கேம்கள் எப்படி திரையில் காட்டப்பட வேண்டும் என்பதை நிர்வகிக்கவும்."
 
@@ -2581,7 +2553,7 @@ msgstr "கேம்ஸ்கோப்பைப் பயன்படுத்�
 msgid "Manage how games should be displayed."
 msgstr "கேம்கள் எவ்வாறு காட்டப்பட வேண்டும் என்பதை நிர்வகிக்கவும்."
 
-#: bottles/frontend/ui/details-preferences.blp:172
+#: bottles/frontend/ui/details-preferences.blp:154
 msgid "Manage lsfg-vk settings"
 msgstr ""
 
@@ -2589,11 +2561,11 @@ msgstr ""
 msgid "Manage reusable registry tweaks."
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:344
+#: bottles/frontend/ui/details-preferences.blp:327
 msgid "Manage the Sandbox Permissions"
 msgstr "சாண்ட்பாக்ஸ் அனுமதிகளை நிர்வகிக்கவும்"
 
-#: bottles/frontend/ui/details-preferences.blp:291
+#: bottles/frontend/ui/details-preferences.blp:274
 msgid "Manage vmtouch settings"
 msgstr "vmtouch அமைப்புகளை நிர்வகிக்கவும்"
 
@@ -2650,11 +2622,11 @@ msgstr ""
 msgid "Miscellaneous"
 msgstr "இதர"
 
-#: bottles/frontend/views/bottle_details.py:878
+#: bottles/frontend/views/bottle_details.py:876
 msgid "Missing Runner"
 msgstr "ரன்னர் காணவில்லை"
 
-#: bottles/frontend/ui/details-preferences.blp:256
+#: bottles/frontend/ui/details-preferences.blp:239
 msgid "Monitor Performance"
 msgstr "செயல்திறனைக் கண்காணிக்கவும்"
 
@@ -2700,11 +2672,11 @@ msgstr "என் Wine சூழல்"
 msgid "N/A"
 msgstr "N/A"
 
-#: bottles/frontend/ui/details-preferences.blp:237
+#: bottles/frontend/ui/details-preferences.blp:220
 msgid "NTSync"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1953
+#: bottles/backend/managers/manager.py:1930
 msgid "NVAPI"
 msgstr ""
 
@@ -2781,7 +2753,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:2192 bottles/backend/managers/manager.py:2387
+#: bottles/backend/managers/manager.py:2255
 msgid "No D7VK version available."
 msgstr ""
 
@@ -2789,7 +2761,7 @@ msgstr ""
 msgid "No DLL selected"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:2120 bottles/backend/managers/manager.py:2396
+#: bottles/backend/managers/manager.py:2078 bottles/backend/managers/manager.py:2264
 msgid "No DXVK version available."
 msgstr ""
 
@@ -2805,11 +2777,11 @@ msgstr ""
 msgid "No Installers Found"
 msgstr "நிறுவிகள் எதுவும் இல்லை"
 
-#: bottles/backend/managers/manager.py:2426
+#: bottles/backend/managers/manager.py:2292
 msgid "No LatencyFleX version available."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:2414
+#: bottles/backend/managers/manager.py:2282
 msgid "No NVAPI version available."
 msgstr ""
 
@@ -2829,7 +2801,7 @@ msgstr "ஸ்னாப்ஷாட்கள் எதுவும் கிட�
 msgid "No Thumbnail"
 msgstr "சிறுபடம் இல்லை"
 
-#: bottles/backend/managers/manager.py:2405
+#: bottles/backend/managers/manager.py:2273
 msgid "No VKD3D version available."
 msgstr ""
 
@@ -2853,7 +2825,7 @@ msgstr "விதிவிலக்கு வடிவங்கள் எது�
 msgid "No files or folders selected"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:2107
+#: bottles/backend/managers/manager.py:2065
 msgid "No graphics component version available."
 msgstr ""
 
@@ -2877,7 +2849,7 @@ msgstr ""
 msgid "No variables selected"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:951
+#: bottles/backend/utils/manager.py:955
 msgid "Norwegian"
 msgstr ""
 
@@ -2894,11 +2866,11 @@ msgstr ""
 msgid "Not enough disk space to create a snapshot! Requires at least {0} of free space."
 msgstr ""
 
-#: bottles/backend/managers/manager.py:2010
+#: bottles/backend/managers/manager.py:1987
 msgid "Not installed"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:463
+#: bottles/frontend/ui/details-preferences.blp:446
 msgid "Notes"
 msgstr "குறிப்புகள்"
 
@@ -2910,7 +2882,7 @@ msgstr "கமிட் செய்ய எதுவும் இல்லை"
 msgid "Notifications"
 msgstr "அறிவிப்புகள்"
 
-#: bottles/frontend/ui/details-preferences.blp:307
+#: bottles/frontend/ui/details-preferences.blp:290
 msgid "OBS Game Capture"
 msgstr "OBS கேம் பிடிப்பு"
 
@@ -2926,7 +2898,7 @@ msgstr ""
 msgid "Offer an Eagle analysis when a program closes right after starting."
 msgstr ""
 
-#: bottles/frontend/views/bottle_preferences.py:283
+#: bottles/frontend/views/bottle_preferences.py:280
 msgid "Older NVIDIA drivers require HdrWsi and ENABLE_HDR_WSI=1 for HDR."
 msgstr ""
 
@@ -2984,7 +2956,7 @@ msgstr ""
 msgid "Operations"
 msgstr "செயல்பாடுகள்"
 
-#: bottles/frontend/views/details.py:268
+#: bottles/frontend/views/details.py:266
 msgid "Operations in progress, please wait."
 msgstr "செயல்பாடுகள் நடந்து வருகின்றன, காத்திருக்கவும்."
 
@@ -3057,7 +3029,7 @@ msgstr ""
 msgid "Pattern"
 msgstr "வடிவம்"
 
-#: bottles/frontend/ui/details-preferences.blp:226
+#: bottles/frontend/ui/details-preferences.blp:209
 msgid "Performance"
 msgstr "செயல்திறன்"
 
@@ -3089,15 +3061,15 @@ msgstr "புதிய நிலைகளை உருவாக்க, பு�
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:952
+#: bottles/backend/utils/manager.py:956
 msgid "Polish"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:953
+#: bottles/backend/utils/manager.py:957
 msgid "Portuguese"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:148
+#: bottles/frontend/ui/details-preferences.blp:130
 msgid "Post-Processing Effects"
 msgstr "பிந்தைய செயலாக்க விளைவுகள்"
 
@@ -3146,7 +3118,7 @@ msgstr "விருப்பத்தேர்வுகள் மேலெழ�
 msgid "Prefix templates"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:286
+#: bottles/frontend/ui/details-preferences.blp:269
 msgid "Preload Game Files"
 msgstr "கேம் கோப்புகளை முன்கூட்டியே ஏற்றவும்"
 
@@ -3250,11 +3222,11 @@ msgstr ""
 msgid "ProtonDB community reports: ODbL 1.0, contents DbCL 1.0.\nwinetricks data: LGPL-2.1-or-later."
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:382
+#: bottles/frontend/ui/details-preferences.blp:365
 msgid "Provide a bundle of extra libraries for more compatibility with Steam games. Disable it if you run into issues."
 msgstr "மேலும் இணக்கத்தன்மைக்கு கூடுதல் நூலகங்களின் தொகுப்பை வழங்குகிறது, நீங்கள் சிக்கல்களைச் சந்தித்தால் முடக்கவும்."
 
-#: bottles/frontend/ui/details-preferences.blp:361
+#: bottles/frontend/ui/details-preferences.blp:344
 msgid "Provide a bundle of extra libraries for more compatibility. Disable it if you run into issues."
 msgstr "மேலும் இணக்கத்தன்மைக்கு கூடுதல் நூலகங்களின் தொகுப்பை வழங்குகிறது, நீங்கள் சிக்கல்களைச் சந்தித்தால் முடக்கவும்."
 
@@ -3426,7 +3398,7 @@ msgstr "பட்டியலில் இருந்து நீக்கு"
 msgid "Remove from list (keep files)"
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:856
+#: bottles/frontend/views/bottle_details.py:854
 msgid "Remove this container from your list, or permanently delete its directory and all files."
 msgstr ""
 
@@ -3503,7 +3475,7 @@ msgstr "பயன்பாட்டு நேரப் புள்ளிவி�
 msgid "Reset to Container's Defaults"
 msgstr "பாட்டிலின் இயல்புநிலைக்கு மீட்டமைக்கவும்"
 
-#: bottles/frontend/ui/details-preferences.blp:395 bottles/frontend/ui/dialog-launch-options.blp:76 bottles/frontend/ui/dialog-launch-options.blp:113 bottles/frontend/ui/dialog-launch-options.blp:150 bottles/frontend/ui/new-bottle-dialog.blp:160
+#: bottles/frontend/ui/details-preferences.blp:378 bottles/frontend/ui/dialog-launch-options.blp:76 bottles/frontend/ui/dialog-launch-options.blp:113 bottles/frontend/ui/dialog-launch-options.blp:150 bottles/frontend/ui/new-bottle-dialog.blp:160
 msgid "Reset to Default"
 msgstr "இயல்புநிலைக்கு மீட்டமைக்கவும்"
 
@@ -3540,11 +3512,11 @@ msgstr "நிலையை மீட்டெடுக்கிறது {} …"
 msgid "Restoring state..."
 msgstr ""
 
-#: bottles/frontend/widgets/state.py:123
+#: bottles/frontend/widgets/state.py:122
 msgid "Restoring this state will overwrite the current configuration and cannot be undone."
 msgstr ""
 
-#: bottles/frontend/views/details.py:275
+#: bottles/frontend/views/details.py:273
 msgid "Return to your containers."
 msgstr "உங்கள் Wine சூழல்களுக்குத் திரும்பு."
 
@@ -3557,7 +3529,7 @@ msgstr ""
 msgid "Review for {0}"
 msgstr "{0} க்கான மதிப்பாய்வு"
 
-#: bottles/backend/utils/manager.py:954
+#: bottles/backend/utils/manager.py:958
 msgid "Romanian"
 msgstr ""
 
@@ -3569,7 +3541,7 @@ msgstr ""
 msgid "Rule name"
 msgstr ""
 
-#: bottles/frontend/ui/dialog-run-args.blp:33 bottles/frontend/utils/sandbox_guard.py:172 bottles/frontend/views/bottle_details.py:671 bottles/frontend/views/list.py:151
+#: bottles/frontend/ui/dialog-run-args.blp:33 bottles/frontend/utils/sandbox_guard.py:172 bottles/frontend/views/bottle_details.py:669 bottles/frontend/views/list.py:151
 msgid "Run"
 msgstr "ஓடு"
 
@@ -3657,7 +3629,7 @@ msgstr ""
 msgid "Runtimes and Libraries"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:955
+#: bottles/backend/utils/manager.py:959
 msgid "Russian"
 msgstr ""
 
@@ -3685,7 +3657,7 @@ msgstr "சாண்ட்பாக்ஸ் அமைப்புகள்"
 msgid "Save"
 msgstr "சேமி"
 
-#: bottles/frontend/ui/details-preferences.blp:467
+#: bottles/frontend/ui/details-preferences.blp:450
 msgid "Save Notes"
 msgstr "குறிப்புகளைச் சேமிக்கவும்"
 
@@ -3773,11 +3745,11 @@ msgstr ""
 msgid "Select Drive Path"
 msgstr "இயக்கி பாதையைத் தேர்ந்தெடுக்கவும்"
 
-#: bottles/frontend/views/bottle_details.py:348 bottles/frontend/views/bottle_details.py:668 bottles/frontend/views/list.py:148
+#: bottles/frontend/views/bottle_details.py:348 bottles/frontend/views/bottle_details.py:666 bottles/frontend/views/list.py:148
 msgid "Select Executable"
 msgstr "இயங்கக்கூடியதைத் தேர்ந்தெடுக்கவும்"
 
-#: bottles/frontend/views/bottle_details.py:720
+#: bottles/frontend/views/bottle_details.py:718
 msgid "Select Executable for Eagle Analysis"
 msgstr ""
 
@@ -3813,7 +3785,7 @@ msgstr "ஆதாரக் கோப்பைத் தேர்ந்தெட�
 msgid "Select Runner Directory"
 msgstr "இயக்கச் சூழல் கோப்பகத்தைத் தேர்ந்தெடுக்கவும்"
 
-#: bottles/frontend/views/bottle_preferences.py:510 bottles/frontend/windows/launchoptions.py:438
+#: bottles/frontend/views/bottle_preferences.py:500 bottles/frontend/windows/launchoptions.py:438
 msgid "Select Working Directory"
 msgstr "பணி அடைவைத் தேர்ந்தெடுக்கவும்"
 
@@ -3853,11 +3825,11 @@ msgstr ""
 msgid "Select files and folders within the container, not the container itself."
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:747
+#: bottles/frontend/views/bottle_details.py:745
 msgid "Select the location where to save the backup archive"
 msgstr "காப்பு காப்பகத்தை சேமிக்க வேண்டிய இடத்தைத் தேர்ந்தெடுக்கவும்"
 
-#: bottles/frontend/views/bottle_details.py:743
+#: bottles/frontend/views/bottle_details.py:741
 msgid "Select the location where to save the backup config"
 msgstr "காப்புப்பிரதி கட்டமைப்பைச் சேமிக்கும் இடத்தைத் தேர்ந்தெடுக்கவும்"
 
@@ -4039,11 +4011,11 @@ msgstr ""
 msgid "Skipping {0}: not installed."
 msgstr "{0} ஐத் தவிர்க்கிறது: நிறுவப்படவில்லை."
 
-#: bottles/backend/utils/manager.py:956
+#: bottles/backend/utils/manager.py:960
 msgid "Slovak"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:957
+#: bottles/backend/utils/manager.py:961
 msgid "Slovenian"
 msgstr ""
 
@@ -4096,7 +4068,7 @@ msgstr "நிரல் பெயர் அல்லது கொள்கலன
 msgid "Source: {0}"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:941
+#: bottles/backend/utils/manager.py:945
 msgid "Spanish"
 msgstr ""
 
@@ -4108,7 +4080,7 @@ msgstr "நிறுவலைத் தொடங்கவும்"
 msgid "Start program"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:372
+#: bottles/frontend/ui/details-preferences.blp:355
 msgid "Start programs through WineBridge by default for this container."
 msgstr ""
 
@@ -4155,11 +4127,11 @@ msgstr "மாநிலம் {} ஏற்கனவே செயலில் உ
 msgid "States list retrieved successfully!"
 msgstr "மாநிலங்களின் பட்டியல் வெற்றிகரமாக மீட்டெடுக்கப்பட்டது!"
 
-#: bottles/frontend/ui/details-preferences.blp:381
+#: bottles/frontend/ui/details-preferences.blp:364
 msgid "Steam Runtime"
 msgstr "ஸ்டீம் இயக்க நேரம்"
 
-#: bottles/frontend/views/bottle_preferences.py:194
+#: bottles/frontend/views/bottle_preferences.py:191
 msgid "Steam Runtime was not detected. Install it or grant Bottles access to Steam files, then restart Bottles."
 msgstr ""
 
@@ -4217,7 +4189,7 @@ msgstr ""
 msgid "Supported Executables"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:958
+#: bottles/backend/utils/manager.py:962
 msgid "Swedish"
 msgstr ""
 
@@ -4233,11 +4205,11 @@ msgstr ""
 msgid "Switching branch…"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:230
+#: bottles/frontend/ui/details-preferences.blp:213
 msgid "Synchronization"
 msgstr "ஒத்திசைவு"
 
-#: bottles/backend/utils/manager.py:934 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/ui/dialog-display.blp:142 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:938 bottles/frontend/ui/details-preferences.blp:217 bottles/frontend/ui/dialog-display.blp:142 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "சிஸ்டம்"
 
@@ -4351,7 +4323,7 @@ msgstr "புதிய Wine சூழல் பதிப்பு அமைப�
 msgid "The next container for this environment will take longer to create because Bottles must rebuild the template."
 msgstr ""
 
-#: bottles/frontend/views/bottle_preferences.py:613
+#: bottles/frontend/views/bottle_preferences.py:570
 msgid "The notes could not be saved."
 msgstr "குறிப்புகளைச் சேமிக்க முடியவில்லை."
 
@@ -4372,7 +4344,7 @@ msgstr "நிரல் கோப்பைக் கண்டறிய முட
 msgid "The repository is unreachable or no installer is compatible with this container."
 msgstr "களஞ்சியத்தை அணுக முடியவில்லை அல்லது இந்த பாட்டிலுடன் எந்த நிறுவியும் இணக்கமாக இல்லை."
 
-#: bottles/frontend/views/bottle_details.py:879
+#: bottles/frontend/views/bottle_details.py:877
 msgid "The runner requested by this container is missing. Restore it using your package manager, add its local directory in Preferences, or explicitly choose another runner for this container."
 msgstr ""
 
@@ -4389,7 +4361,7 @@ msgid "The selected file is unavailable."
 msgstr ""
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2441
+#: bottles/backend/managers/manager.py:2307
 msgid "The selected {0} installation is incomplete."
 msgstr ""
 
@@ -4434,7 +4406,7 @@ msgstr ""
 msgid "This application may work poorly. The installer was configured to provide the best possible experience, but expect glitches, instability and lack of working features."
 msgstr "இந்த பயன்பாடு மோசமாக வேலை செய்யக்கூடும். நிறுவி சிறந்த அனுபவத்தை வழங்கும் வகையில் கட்டமைக்கப்பட்டுள்ளது, ஆனால் குறைபாடுகள், உறுதியற்ற தன்மை மற்றும் வேலை செய்யும் அம்சங்களின் பற்றாக்குறை ஆகியவற்றை எதிர்பார்க்கலாம்."
 
-#: bottles/frontend/views/bottle_details.py:956
+#: bottles/frontend/views/bottle_details.py:954
 msgid "This can cause data loss, corruption, and programs to malfunction."
 msgstr "இது தரவு இழப்பு, ஊழல் மற்றும் நிரல்களை செயலிழக்கச் செய்யலாம்."
 
@@ -4442,7 +4414,7 @@ msgstr "இது தரவு இழப்பு, ஊழல் மற்று�
 msgid "This component is not installable offline because its files are not cached."
 msgstr ""
 
-#: bottles/frontend/views/bottle_preferences.py:474
+#: bottles/frontend/views/bottle_preferences.py:464
 msgid "This container name is already in use."
 msgstr "இந்த Wine சூழல் பெயர் ஏற்கனவே பயன்Wine சூழல் உள்ளது."
 
@@ -4458,7 +4430,7 @@ msgstr ""
 msgid "This dependency is not installable offline because its files are not cached."
 msgstr ""
 
-#: bottles/frontend/views/bottle_preferences.py:200 bottles/frontend/views/bottle_preferences.py:455 bottles/frontend/views/bottle_preferences.py:403
+#: bottles/frontend/views/bottle_preferences.py:197 bottles/frontend/views/bottle_preferences.py:445 bottles/frontend/views/bottle_preferences.py:393
 msgid "This feature is unavailable on your system."
 msgstr "இந்த அம்சம் உங்கள் கணினியில் இல்லை."
 
@@ -4506,7 +4478,7 @@ msgstr "இந்த வளம் காணவில்லை."
 msgid "This runner cannot create a 32-bit prefix. Select a 64-bit container."
 msgstr "இந்த இயக்கச் சூழல் 32-பிட் முன்னொட்டை உருவாக்க முடியாது. 64-பிட் கொள்கலனைத் தேர்ந்தெடுக்கவும்."
 
-#: bottles/frontend/views/bottle_preferences.py:909
+#: bottles/frontend/views/bottle_preferences.py:821
 msgid "This runner has no Esync, so it will use its default."
 msgstr "இந்த இயக்கச் சூழலில் Esync இல்லை, எனவே இது அதன் இயல்புநிலையைப் பயன்படுத்தும்."
 
@@ -4555,7 +4527,7 @@ msgstr "வாசல்"
 msgid "Timestamp"
 msgstr ""
 
-#: bottles/frontend/views/bottle_preferences.py:410
+#: bottles/frontend/views/bottle_preferences.py:400
 msgid "To add it, please run:"
 msgstr ""
 
@@ -4563,7 +4535,7 @@ msgstr ""
 msgid "Today"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:308
+#: bottles/frontend/ui/details-preferences.blp:291
 msgid "Toggle OBS Game Capture for all Vulkan and OpenGL programs."
 msgstr "அனைத்து Vulkan மற்றும் OpenGL நிரல்களுக்கும் OBS கேம் கேப்சரை நிலைமாற்று."
 
@@ -4636,7 +4608,7 @@ msgstr ""
 msgid "Try a different search."
 msgstr "வேறு தேடலை முயற்சிக்கவும்."
 
-#: bottles/backend/utils/manager.py:959
+#: bottles/backend/utils/manager.py:963
 msgid "Turkish"
 msgstr ""
 
@@ -4711,7 +4683,7 @@ msgid "Updated {0} components."
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:597
+#: bottles/frontend/views/bottle_details.py:595
 msgid "Updated {component} to {version}"
 msgstr ""
 
@@ -4740,7 +4712,7 @@ msgstr ""
 msgid "Updating DXVK, please wait…"
 msgstr "DXVKஐப் புதுப்பிக்கிறது, காத்திருக்கவும்…"
 
-#: bottles/frontend/ui/details-preferences.blp:72 bottles/frontend/ui/details-preferences.blp:105
+#: bottles/frontend/ui/details-preferences.blp:72
 msgid "Updating DXVK-NVAPI, please wait…"
 msgstr "DXVK-NVAPI ஐப் புதுப்பிக்கிறது, காத்திருக்கவும்…"
 
@@ -4756,7 +4728,7 @@ msgstr "ரன்னர் மற்றும் கூறுகளைப் ப
 msgid "Updating VKD3D, please wait…"
 msgstr "VKD3Dஐப் புதுப்பிக்கிறது, காத்திருக்கவும்…"
 
-#: bottles/frontend/ui/details-preferences.blp:323
+#: bottles/frontend/ui/details-preferences.blp:306
 msgid "Updating Windows version, please wait…"
 msgstr "விண்டோஸ் பதிப்பைப் புதுப்பிக்கிறது, காத்திருக்கவும்…"
 
@@ -4802,7 +4774,7 @@ msgstr "\"{}\" இயங்கும் போது பயன்பாட்ட
 msgid "Usage time tracking is disabled."
 msgstr "பயன்பாட்டு நேர கண்காணிப்பு முடக்கப்பட்டுள்ளது."
 
-#: bottles/frontend/ui/details-bottle.blp:151 bottles/frontend/ui/details-preferences.blp:371
+#: bottles/frontend/ui/details-bottle.blp:151 bottles/frontend/ui/details-preferences.blp:354
 msgid "Use WineBridge"
 msgstr ""
 
@@ -4814,7 +4786,7 @@ msgstr ""
 msgid "Use a lighter model with a small quality reduction."
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:341
+#: bottles/frontend/ui/details-preferences.blp:324
 msgid "Use a restricted/managed environment for this container."
 msgstr "இந்த பாட்டிலுக்கு கட்டுப்படுத்தப்பட்ட/நிர்வகிக்கப்பட்ட சூழலைப் பயன்படுத்தவும்."
 
@@ -4822,7 +4794,7 @@ msgstr "இந்த பாட்டிலுக்கு கட்டுப்�
 msgid "Use shipping binary instead"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:119
+#: bottles/frontend/ui/details-preferences.blp:101
 msgid "Use the discrete graphics card to increase performance at the expense of power consumption."
 msgstr "ஆற்றல் நுகர்வு செலவில் செயல்திறனை அதிகரிக்க தனித்துவமான கிராபிக்ஸ் அட்டையைப் பயன்படுத்தவும்."
 
@@ -4842,7 +4814,7 @@ msgstr "இயக்கச் சூழல்கள் · பயனர்"
 msgid "Uses the resolution of the video game as a reference in pixels."
 msgstr "வீடியோ கேமின் தெளிவுத்திறனை பிக்சல்களில் குறிப்புகளாகப் பயன்படுத்துகிறது."
 
-#: bottles/backend/managers/manager.py:1947 bottles/frontend/ui/details-preferences.blp:55
+#: bottles/backend/managers/manager.py:1924 bottles/frontend/ui/details-preferences.blp:55
 msgid "VKD3D"
 msgstr "VKD3D"
 
@@ -4878,7 +4850,7 @@ msgstr ""
 msgid "Warnings"
 msgstr "எச்சரிக்கைகள்"
 
-#: bottles/frontend/ui/details-preferences.blp:128
+#: bottles/frontend/ui/details-preferences.blp:110
 msgid "Wayland (Experimental)"
 msgstr ""
 
@@ -4939,7 +4911,7 @@ msgstr "ஜன்னல் உயரம்"
 msgid "Window width"
 msgstr "ஜன்னல் அகலம்"
 
-#: bottles/frontend/ui/details-preferences.blp:320
+#: bottles/frontend/ui/details-preferences.blp:303
 msgid "Windows Version"
 msgstr "விண்டோஸ் பதிப்பு"
 
@@ -4964,7 +4936,7 @@ msgstr ""
 msgid "Wine config updated!"
 msgstr "ஒயின் கட்டமைப்பு புதுப்பிக்கப்பட்டது!"
 
-#: bottles/backend/managers/manager.py:2009
+#: bottles/backend/managers/manager.py:1986
 msgid "WineBridge"
 msgstr "ஒயின்பிரிட்ஜ்"
 
@@ -4984,7 +4956,7 @@ msgstr ""
 msgid "WineBridge update failed"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:391 bottles/frontend/ui/dialog-launch-options.blp:143
+#: bottles/frontend/ui/details-preferences.blp:374 bottles/frontend/ui/dialog-launch-options.blp:143
 msgid "Working Directory"
 msgstr "பணி அடைவு"
 
@@ -5056,7 +5028,7 @@ msgstr ""
 msgid "_Application"
 msgstr "பயன்பாடு (_A)"
 
-#: bottles/frontend/ui/bulk-update-dialog.blp:22 bottles/frontend/ui/dialog-crash-report.blp:19 bottles/frontend/ui/dialog-display.blp:25 bottles/frontend/ui/dialog-duplicate.blp:20 bottles/frontend/ui/dialog-file-associations.blp:17 bottles/frontend/ui/dialog-gamescope.blp:24 bottles/frontend/ui/dialog-launch-options.blp:17 bottles/frontend/ui/dialog-lsfg-vk.blp:25 bottles/frontend/ui/dialog-mangohud.blp:25 bottles/frontend/ui/dialog-program-backups.blp:16 bottles/frontend/ui/dialog-upgrade-versioning.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:27 bottles/frontend/ui/dialog-vmtouch.blp:24 bottles/frontend/ui/dialog-winebridge-update.blp:19 bottles/frontend/ui/new-bottle-dialog.blp:23 bottles/frontend/views/bottle_details.py:860 bottles/frontend/views/bottle_details.py:958 bottles/frontend/views/preferences.py:366 bottles/frontend/views/preferences.py:828 bottles/frontend/widgets/state.py:127
+#: bottles/frontend/ui/bulk-update-dialog.blp:22 bottles/frontend/ui/dialog-crash-report.blp:19 bottles/frontend/ui/dialog-display.blp:25 bottles/frontend/ui/dialog-duplicate.blp:20 bottles/frontend/ui/dialog-file-associations.blp:17 bottles/frontend/ui/dialog-gamescope.blp:24 bottles/frontend/ui/dialog-launch-options.blp:17 bottles/frontend/ui/dialog-lsfg-vk.blp:25 bottles/frontend/ui/dialog-mangohud.blp:25 bottles/frontend/ui/dialog-program-backups.blp:16 bottles/frontend/ui/dialog-upgrade-versioning.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:27 bottles/frontend/ui/dialog-vmtouch.blp:24 bottles/frontend/ui/dialog-winebridge-update.blp:19 bottles/frontend/ui/new-bottle-dialog.blp:23 bottles/frontend/views/bottle_details.py:858 bottles/frontend/views/bottle_details.py:956 bottles/frontend/views/preferences.py:366 bottles/frontend/views/preferences.py:828 bottles/frontend/widgets/state.py:126
 msgid "_Cancel"
 msgstr "_ரத்துசெய்"
 
@@ -5076,7 +5048,7 @@ msgstr "_அழி"
 msgid "_Delete All"
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:862
+#: bottles/frontend/views/bottle_details.py:860
 msgid "_Delete Files"
 msgstr ""
 
@@ -5084,7 +5056,7 @@ msgstr ""
 msgid "_Delete and Cancel"
 msgstr ""
 
-#: bottles/frontend/utils/flatpak.py:112 bottles/frontend/views/bottle_details.py:883 bottles/frontend/views/bottle_details.py:692
+#: bottles/frontend/utils/flatpak.py:112 bottles/frontend/views/bottle_details.py:881 bottles/frontend/views/bottle_details.py:690
 msgid "_Dismiss"
 msgstr "_ நிராகரி"
 
@@ -5100,11 +5072,11 @@ msgstr ""
 msgid "_Relaunch"
 msgstr "_மீண்டும் துவக்கவும்"
 
-#: bottles/frontend/views/bottle_details.py:861
+#: bottles/frontend/views/bottle_details.py:859
 msgid "_Remove from List"
 msgstr ""
 
-#: bottles/frontend/widgets/state.py:128
+#: bottles/frontend/widgets/state.py:127
 msgid "_Restore"
 msgstr ""
 
@@ -5185,7 +5157,7 @@ msgstr ""
 msgid "lsfg-vk 1.x: MIT.\nlsfg-vk 2.x: GPL-3.0-or-later."
 msgstr ""
 
-#: bottles/frontend/views/bottle_preferences.py:364
+#: bottles/frontend/views/bottle_preferences.py:360
 msgid "lsfg-vk only supports 64-bit Vulkan applications."
 msgstr ""
 
@@ -5240,7 +5212,7 @@ msgid "{0} detected"
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/windows/dependency_install.py:128
+#: bottles/frontend/windows/dependency_install.py:127
 msgid "{0} failed to install."
 msgstr ""
 
@@ -5250,7 +5222,7 @@ msgid "{0} installed, {1} failed."
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/windows/dependency_install.py:126
+#: bottles/frontend/windows/dependency_install.py:125
 msgid "{0} installed."
 msgstr ""
 
@@ -5270,7 +5242,7 @@ msgid "{0} positive / {1} negative reports"
 msgstr ""
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2373
+#: bottles/backend/managers/manager.py:2241
 msgid "{0} requires Vulkan, which is not available on this system."
 msgstr "{0}க்கு Vulkan தேவை, இது இந்த சிஸ்டத்தில் இல்லை."
 
@@ -5312,7 +5284,7 @@ msgid "{reason} (x{evidence})"
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_preferences.py:201
+#: bottles/frontend/views/bottle_preferences.py:198
 msgid "{} To add this feature, please run"
 msgstr ""
 

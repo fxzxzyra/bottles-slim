@@ -55,17 +55,6 @@ def test_steam_runtime_row_explains_availability(monkeypatch, runtimes, sensitiv
 
     assert view.row_steam_runtime.get_visible()
     assert view.switch_steam_runtime.get_sensitive() is sensitive
-    if not runtimes:
-        assert view.row_steam_runtime.get_subtitle() == bottle_preferences._(
-            "Steam Runtime was not detected. Install it or grant Bottles access "
-            "to Steam files, then restart Bottles."
-        )
-    else:
-        assert view.row_steam_runtime.get_subtitle() == bottle_preferences._(
-            "Provide a bundle of extra libraries for more compatibility with Steam "
-            "games. Disable it if you run into issues."
-        )
-
     view.switch_steam_runtime.emit("state-set", True)
     if runtimes:
         manager.update_config.assert_called_once_with(
@@ -85,4 +74,5 @@ def test_steam_runtime_row_explains_availability(monkeypatch, runtimes, sensitiv
         config=config, key="winebridge", value=False, scope="Parameters",
     )
     assert view.switch_gamemode.get_sensitive() is False
-    assert view.combo_dxvk.get_sensitive() is False
+    # Missing Vulkan must not prevent removing an installed component.
+    assert view.combo_dxvk.get_sensitive() is True

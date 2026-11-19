@@ -219,6 +219,10 @@ class ManagerUtils:
         return f"{Paths.latencyflex}/{latencyflex}"
 
     @staticmethod
+    def get_component_path(config: BottleConfig, component: str) -> str:
+        return os.path.join(ManagerUtils.get_bottle_path(config), "components", component)
+
+    @staticmethod
     def get_temp_path(dest: str, config: BottleConfig) -> str:
         directory = os.path.join(ManagerUtils.get_bottle_path(config), "cache", "temp")
         os.makedirs(directory, mode=0o700, exist_ok=True)

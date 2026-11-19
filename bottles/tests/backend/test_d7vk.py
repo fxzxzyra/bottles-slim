@@ -30,7 +30,7 @@ def test_d7vk_preserves_wine_ddraw_for_win64(monkeypatch, tmp_path):
     monkeypatch.setattr(
         dll_module.Reg,
         "import_bundle",
-        lambda _self, bundle: bundles.append(bundle),
+        lambda _self, bundle: bundles.append(bundle) or Result(True),
     )
 
     config = BottleConfig(Path=str(bottle_path), Arch="win64")
@@ -72,7 +72,7 @@ def test_d7vk_targets_system32_for_win32(monkeypatch, tmp_path):
         "get_base_path",
         staticmethod(lambda _version: str(component_path)),
     )
-    monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: None)
+    monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: Result(True))
 
     config = BottleConfig(Path=str(bottle_path), Arch="win32")
     D7VKComponent("d7vk-v2.0").install(config)
@@ -151,7 +151,7 @@ def test_d7vk_preserves_preexisting_manual_files(monkeypatch, tmp_path):
         "get_base_path",
         staticmethod(lambda _version: str(component_path)),
     )
-    monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: None)
+    monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: Result(True))
 
     config = BottleConfig(Path=str(bottle_path), Arch="win64")
     component = D7VKComponent("d7vk-v2.0")
@@ -188,7 +188,7 @@ def test_d7vk_rejects_preexisting_target_backup(monkeypatch, tmp_path):
         "get_base_path",
         staticmethod(lambda _version: str(component_path)),
     )
-    monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: None)
+    monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: Result(True))
 
     config = BottleConfig(Path=str(bottle_path), Arch="win64")
     assert not D7VKComponent("d7vk-v2.0").install(config)
@@ -218,7 +218,7 @@ def test_d7vk_rejects_preexisting_wine_backup(monkeypatch, tmp_path):
         "get_base_path",
         staticmethod(lambda _version: str(component_path)),
     )
-    monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: None)
+    monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: Result(True))
 
     config = BottleConfig(Path=str(bottle_path), Arch="win64")
     assert not D7VKComponent("d7vk-v2.0").install(config)
@@ -249,7 +249,7 @@ def test_d7vk_update_keeps_original_files(monkeypatch, tmp_path):
         "get_base_path",
         staticmethod(lambda version: str(components_path / version)),
     )
-    monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: None)
+    monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: Result(True))
 
     config = BottleConfig(Path=str(bottle_path), Arch="win64")
     assert D7VKComponent("d7vk-v1.0").install(config)
@@ -324,14 +324,14 @@ def test_set_d7vk_does_not_change_config_after_install_failure(monkeypatch):
         lambda *_args, **_kwargs: pytest.fail("configuration changed"),
     )
 
-    result = Manager.set_d7vk(manager, config, True, "d7vk-v2.0")
+    result = Manager.set_dll_component(manager, config, "d7vk", True, "d7vk-v2.0")
 
     assert result.ok is False
     assert config.D7VK == "d7vk-v1.0"
     assert config.Parameters.d7vk is True
 
 
-def test_set_d7vk_rolls_back_after_registry_failure(monkeypatch, tmp_path):
+def test_set_d7vk_reports_registry_failure_without_reinstalling(monkeypatch, tmp_path):
     component_path = tmp_path / "component"
     component_dll = component_path / "x32/ddraw.dll"
     component_dll.parent.mkdir(parents=True)
@@ -363,17 +363,17 @@ def test_set_d7vk_rolls_back_after_registry_failure(monkeypatch, tmp_path):
         Name="Test", Path=str(bottle_path), Arch="win64"
     )
 
-    result = Manager.set_d7vk(manager, config, True, "d7vk-v2.0")
+    result = Manager.set_dll_component(manager, config, "d7vk", True, "d7vk-v2.0")
 
     assert not result.ok
-    assert target.read_bytes() == b"wine"
-    assert not (system_path / "ddraw_.dll").exists()
-    assert not D7VKComponent.has_managed_install(config)
+    assert target.read_bytes() == b"managed"
+    assert (system_path / "ddraw_.dll").read_bytes() == b"wine"
+    assert D7VKComponent.has_managed_install(config)
     assert config.D7VK == ""
     assert config.Parameters.d7vk is False
 
 
-def test_set_d7vk_rolls_back_after_persistence_failure(monkeypatch, tmp_path):
+def test_set_d7vk_reports_persistence_failure_without_reinstalling(monkeypatch, tmp_path):
     component_path = tmp_path / "component"
     component_dll = component_path / "x32/ddraw.dll"
     component_dll.parent.mkdir(parents=True)
@@ -391,7 +391,7 @@ def test_set_d7vk_rolls_back_after_persistence_failure(monkeypatch, tmp_path):
         "get_base_path",
         staticmethod(lambda _version: str(component_path)),
     )
-    monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: None)
+    monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: Result(True))
     monkeypatch.setattr(
         BottleConfig,
         "dump",
@@ -405,18 +405,18 @@ def test_set_d7vk_rolls_back_after_persistence_failure(monkeypatch, tmp_path):
         Name="Test", Path=str(bottle_path), Arch="win64"
     )
 
-    result = Manager.set_d7vk(manager, config, True, "d7vk-v2.0")
+    result = Manager.set_dll_component(manager, config, "d7vk", True, "d7vk-v2.0")
 
     assert not result.ok
     assert result.message == "disk full"
-    assert target.read_bytes() == b"wine"
-    assert not (system_path / "ddraw_.dll").exists()
-    assert not D7VKComponent.has_managed_install(config)
+    assert target.read_bytes() == b"managed"
+    assert (system_path / "ddraw_.dll").read_bytes() == b"wine"
+    assert D7VKComponent.has_managed_install(config)
     assert config.D7VK == ""
     assert config.Parameters.d7vk is False
 
 
-def test_unset_d7vk_rolls_back_after_persistence_failure(monkeypatch, tmp_path):
+def test_unset_d7vk_reports_persistence_failure_without_reinstalling(monkeypatch, tmp_path):
     component_path = tmp_path / "component"
     component_dll = component_path / "x32/ddraw.dll"
     component_dll.parent.mkdir(parents=True)
@@ -434,7 +434,7 @@ def test_unset_d7vk_rolls_back_after_persistence_failure(monkeypatch, tmp_path):
         "get_base_path",
         staticmethod(lambda _version: str(component_path)),
     )
-    monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: None)
+    monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: Result(True))
 
     config = BottleConfig(
         Name="Test",
@@ -454,12 +454,12 @@ def test_unset_d7vk_rolls_back_after_persistence_failure(monkeypatch, tmp_path):
     manager.d7vk_available = ["d7vk-v2.0"]
     manager.local_bottles = {}
 
-    result = Manager.set_d7vk(manager, config, False)
+    result = Manager.set_dll_component(manager, config, "d7vk", False)
 
     assert not result.ok
     assert result.message == "disk full"
-    assert target.read_bytes() == b"managed"
-    assert D7VKComponent.has_managed_install(config)
+    assert target.read_bytes() == b"wine"
+    assert not D7VKComponent.has_managed_install(config)
     assert config.D7VK == "d7vk-v2.0"
     assert config.Parameters.d7vk is True
 
@@ -482,7 +482,7 @@ def test_set_d7vk_persists_one_candidate_config(monkeypatch, tmp_path):
         "get_base_path",
         staticmethod(lambda _version: str(component_path)),
     )
-    monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: None)
+    monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: Result(True))
     monkeypatch.setattr(
         BottleConfig,
         "dump",
@@ -501,7 +501,7 @@ def test_set_d7vk_persists_one_candidate_config(monkeypatch, tmp_path):
     )
     manager.local_bottles = {config.Id: config}
 
-    result = Manager.set_d7vk(manager, config, True, "d7vk-v2.0")
+    result = Manager.set_dll_component(manager, config, "d7vk", True, "d7vk-v2.0")
 
     assert result.ok
     assert len(dumped) == 1
@@ -511,73 +511,6 @@ def test_set_d7vk_persists_one_candidate_config(monkeypatch, tmp_path):
     assert result.data["config"] is config
     assert config.D7VK == "d7vk-v2.0"
     assert config.Parameters.d7vk is True
-
-
-def test_reconcile_d7vk_reverts_an_interrupted_enable(monkeypatch, tmp_path):
-    component_path = tmp_path / "component"
-    component_dll = component_path / "x32/ddraw.dll"
-    component_dll.parent.mkdir(parents=True)
-    component_dll.write_bytes(b"managed")
-
-    bottle_path = tmp_path / "bottle"
-    system_path = bottle_path / "drive_c/windows/syswow64"
-    system_path.mkdir(parents=True)
-    target = system_path / "ddraw.dll"
-    target.write_bytes(b"wine")
-
-    monkeypatch.setattr(
-        D7VKComponent,
-        "get_base_path",
-        staticmethod(lambda _version: str(component_path)),
-    )
-    monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: None)
-
-    config = BottleConfig(
-        Name="Test", Path=str(bottle_path), Arch="win64"
-    )
-    assert D7VKComponent("d7vk-v2.0").install(config)
-
-    manager = object.__new__(Manager)
-    assert Manager.reconcile_d7vk(manager, config)
-    assert target.read_bytes() == b"wine"
-    assert not D7VKComponent.has_managed_install(config)
-
-
-def test_reconcile_d7vk_reverts_an_interrupted_update(monkeypatch, tmp_path):
-    components_path = tmp_path / "components"
-    for version, content in (("d7vk-v1.0", b"old"), ("d7vk-v2.0", b"new")):
-        dll = components_path / version / "x32/ddraw.dll"
-        dll.parent.mkdir(parents=True)
-        dll.write_bytes(content)
-
-    bottle_path = tmp_path / "bottle"
-    system_path = bottle_path / "drive_c/windows/syswow64"
-    system_path.mkdir(parents=True)
-    target = system_path / "ddraw.dll"
-    target.write_bytes(b"wine")
-
-    monkeypatch.setattr(
-        D7VKComponent,
-        "get_base_path",
-        staticmethod(lambda version: str(components_path / version)),
-    )
-    monkeypatch.setattr(dll_module.Reg, "import_bundle", lambda *_args: None)
-
-    config = BottleConfig(
-        Name="Test",
-        Path=str(bottle_path),
-        Arch="win64",
-        D7VK="d7vk-v1.0",
-    )
-    config.Parameters.d7vk = True
-    assert D7VKComponent("d7vk-v1.0").install(config)
-    assert D7VKComponent("d7vk-v2.0").install(config)
-    assert target.read_bytes() == b"new"
-
-    manager = object.__new__(Manager)
-    assert Manager.reconcile_d7vk(manager, config)
-    assert target.read_bytes() == b"old"
-    assert D7VKComponent("d7vk-v1.0").is_installed(config)
 
 
 def test_create_bottle_from_config_reports_creation_failure(tmp_path):

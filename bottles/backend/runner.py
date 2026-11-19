@@ -77,14 +77,17 @@ class Runner:
             logging.error("Could not unlink the new bottle user profile.")
             return Result(status=False, data={"config": up_config})
 
-        # re-initialize DLLComponents
-        if config.Parameters.d7vk:
-            manager.install_dll_component(config, "d7vk", overrides_only=True)
-        if config.Parameters.dxvk:
-            manager.install_dll_component(config, "dxvk", overrides_only=True)
-        if config.Parameters.dxvk_nvapi:
-            manager.install_dll_component(config, "nvapi", overrides_only=True)
-        if config.Parameters.vkd3d:
-            manager.install_dll_component(config, "vkd3d", overrides_only=True)
+        # Registry overrides refer to the installed DLLs, never the download cache.
+        for component, enabled in (
+            ("d7vk", config.Parameters.d7vk),
+            ("dxvk", config.Parameters.dxvk),
+            ("nvapi", config.Parameters.dxvk_nvapi),
+            ("vkd3d", config.Parameters.vkd3d),
+            ("latencyflex", config.Parameters.latencyflex),
+        ):
+            if enabled:
+                result = manager.install_dll_component(config, component, overrides_only=True)
+                if not result.ok:
+                    return result
 
         return Result(status=True, data={"config": up_config})

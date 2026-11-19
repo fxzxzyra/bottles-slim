@@ -178,7 +178,7 @@ class DependencyEntry(Adw.ActionRow):
         self.check_select.set_active(False)
         self.check_select.set_visible(False)
         self.spinner.show()
-        self.spinner.start()
+        self.spinner.set_visible(True)
 
         self.install_dialog = DependencyInstallDialog(self.window, self.dependency[0])
         self.install_dialog.present()
@@ -240,7 +240,7 @@ class DependencyEntry(Adw.ActionRow):
         This function set the dependency as not installed
         if errors occur during installation
         """
-        self.spinner.stop()
+        self.spinner.set_visible(False)
         self.btn_install.set_visible(False)
         self.check_select.set_active(False)
         self.check_select.set_visible(False)
@@ -254,7 +254,7 @@ class DependencyEntry(Adw.ActionRow):
         """
         This function set the dependency as installed
         """
-        self.spinner.stop()
+        self.spinner.set_visible(False)
         if not removed:
             self.btn_install.set_visible(False)
             self.btn_reinstall.set_visible(True)

@@ -526,11 +526,11 @@ class BottleView(Adw.Bin):
         """Show the backup progress indicator."""
         self.label_backup_progress.set_text("")
         self.box_backup_progress.set_visible(True)
-        self.spinner_backup.start()
+        self.spinner_backup.set_visible(True)
 
     def _hide_backup_progress(self):
         """Hide the backup progress indicator."""
-        self.spinner_backup.stop()
+        self.spinner_backup.set_visible(False)
         self.box_backup_progress.set_visible(False)
 
     def _update_backup_progress(self, text: str):
@@ -565,7 +565,7 @@ class BottleView(Adw.Bin):
         )
         row.set_activatable(False)
 
-        spinner = Gtk.Spinner()
+        spinner = Adw.Spinner()
         spinner.set_visible(False)
         row.add_suffix(spinner)
         spinner.set_valign(Gtk.Align.CENTER)
@@ -579,11 +579,9 @@ class BottleView(Adw.Bin):
 
     def __run_update(self, button, spinner, update):
         spinner.set_visible(True)
-        spinner.start()
         button.set_sensitive(False)
 
         def handle_response(result, error=False):
-            spinner.stop()
             spinner.set_visible(False)
             button.set_sensitive(True)
 

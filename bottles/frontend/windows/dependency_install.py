@@ -51,7 +51,7 @@ class DependencyInstallDialog(Adw.Window):
         self.label_status.set_label(_("Preparing installation…"))
         self.progress_download.set_visible(False)
         self.btn_close.set_sensitive(False)
-        self.spinner_progress.start()
+        self.spinner_progress.set_visible(True)
 
         self.btn_close.connect("clicked", self.__on_close_clicked)
 
@@ -117,7 +117,6 @@ class DependencyInstallDialog(Adw.Window):
     @GtkUtils.run_in_main_loop
     def finish(self, success: bool, message: Optional[str] = None) -> None:
         self.spinner_progress.set_visible(False)
-        self.spinner_progress.stop()
         self.progress_download.set_visible(False)
         self.btn_close.set_sensitive(True)
 

@@ -99,7 +99,7 @@ msgstr "%s даступны"
 msgid "%s template"
 msgstr "шаблон %s"
 
-#: bottles/frontend/ui/details-preferences.blp:416 bottles/frontend/views/bottle_preferences.py:534 bottles/frontend/views/new_bottle_dialog.py:99
+#: bottles/frontend/ui/details-preferences.blp:399 bottles/frontend/views/bottle_preferences.py:524 bottles/frontend/views/new_bottle_dialog.py:99
 msgid "(Default)"
 msgstr "(прадвызначана)"
 
@@ -218,7 +218,7 @@ msgstr "Дадаць у Steam"
 msgid "Add variable"
 msgstr "Дадаць зменную"
 
-#: bottles/frontend/ui/details-preferences.blp:149
+#: bottles/frontend/ui/details-preferences.blp:131
 msgid "Add various post-processing effects using vkBasalt. Only works on Vulkan."
 msgstr "дадайце розныя эфекты пост-апрацоўкі з дапамогай vkBasalt. Працуе толькі на Vulkan."
 
@@ -230,7 +230,7 @@ msgstr "Наладжванне версіі Windows…"
 msgid "Advanced"
 msgstr "пашыраны"
 
-#: bottles/frontend/ui/details-preferences.blp:207
+#: bottles/frontend/ui/details-preferences.blp:189
 msgid "Advanced Display Settings"
 msgstr "Дадатковыя налады дысплэя"
 
@@ -287,7 +287,7 @@ msgstr "Адбылася памылка падчас стварэння здым
 msgid "An installation error occurred. Restart Bottles to read the Crash Report or run it via terminal to read the output."
 msgstr "Адбылася памылка ўстаноўкі. Перазапусціце Bottles, каб прачытаць справаздачу аб збоях, або запусціце яго праз тэрмінал, каб прачытаць вывад."
 
-#: bottles/frontend/views/bottle_details.py:723
+#: bottles/frontend/views/bottle_details.py:721
 msgid "Analyse"
 msgstr "Аналіз"
 
@@ -344,7 +344,7 @@ msgstr "Ужыць"
 msgid "Apply CMD default settings…"
 msgstr "Прымяніць стандартныя налады CMD…"
 
-#: bottles/frontend/ui/details-preferences.blp:277
+#: bottles/frontend/ui/details-preferences.blp:260
 msgid "Apply a set of optimizations to your device. Can improve game performance."
 msgstr "прымяніць набор аптымізацый да вашай прылады. Можа палепшыць прадукцыйнасць гульні."
 
@@ -369,16 +369,16 @@ msgstr "Прымяненне асяроддзя: {0}…"
 msgid "Architecture"
 msgstr "Архітэктура"
 
-#: bottles/frontend/views/bottle_details.py:955
+#: bottles/frontend/views/bottle_details.py:953
 msgid "Are you sure you want to force stop all processes?"
 msgstr "Вы ўпэўнены, што хочаце прымусова спыніць усе працэсы?"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:855
+#: bottles/frontend/views/bottle_details.py:853
 msgid "Are you sure you want to permanently delete \"{}\"?"
 msgstr "Вы ўпэўнены, што хочаце назаўжды выдаліць \"{}\"?"
 
-#: bottles/frontend/widgets/state.py:122
+#: bottles/frontend/widgets/state.py:121
 msgid "Are you sure you want to restore this state?"
 msgstr "Вы ўпэўнены, што хочаце аднавіць гэты стан?"
 
@@ -420,7 +420,7 @@ msgstr "Сярэдняе значэнне: 0 гадзін 0 хвілін"
 msgid "Backing up {0}"
 msgstr "рэзервовае капіраванне {0}"
 
-#: bottles/frontend/views/bottle_details.py:749
+#: bottles/frontend/views/bottle_details.py:747
 msgid "Backup"
 msgstr "Рэзервовае капіраванне"
 
@@ -429,17 +429,17 @@ msgid "Backup Folder"
 msgstr "папка рэзервовага капіявання"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:755
+#: bottles/frontend/views/bottle_details.py:753
 msgid "Backup cancelled for \"{0}\""
 msgstr "рэзервовае капіраванне для \"{0}\" адменена"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:760
+#: bottles/frontend/views/bottle_details.py:758
 msgid "Backup created for \"{0}\""
 msgstr "рэзервовая копія створана для \"{0}\""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:764
+#: bottles/frontend/views/bottle_details.py:762
 msgid "Backup failed for \"{0}\""
 msgstr "Памылка рэзервовага капіявання для \"{0}\""
 
@@ -460,7 +460,7 @@ msgstr "Рэзервовыя копіі"
 msgid "Backups to Keep"
 msgstr "Рэзервовыя копіі для захавання"
 
-#: bottles/frontend/views/bottle_details.py:687
+#: bottles/frontend/views/bottle_details.py:685
 msgid "Be Aware of Sandbox"
 msgstr "Будзьце ў курсе Sandbox"
 
@@ -482,7 +482,7 @@ msgid "Bottles Crash Report"
 msgstr "Справаздача аб збоях Bottles"
 
 # Translators: Bottles is a proper noun referring to the app
-#: bottles/frontend/ui/details-preferences.blp:360
+#: bottles/frontend/ui/details-preferences.blp:343
 msgid "Bottles Runtime"
 msgstr "Асяроддзе выканання Bottles"
 
@@ -498,7 +498,7 @@ msgstr "апошні раз адбыўся збой Bottles. Калі ласка
 msgid "Bottles has a whole new Versioning System that is not backwards compatible.\n\nTo continue using versioning we need to re-initialize the container repository. This will not delete data from your container but will delete all existing snapshots and create a new one.\n\nIf you need to go back to a previous snapshot before continuing, close this window and restore the snapshot, then reopen the container to show this window again.\n\nThe old system will be discontinued in one of the next releases."
 msgstr "Bottles мае цалкам новую сістэму кантролю версій, якая не мае зваротнай сумяшчальнасці.\n\nКаб працягваць выкарыстоўваць кіраванне версіямі, нам трэба паўторна ініцыялізаваць сховішча асяроддзяў Wine. Гэта не прывядзе да выдалення даных з вашай асяроддзі Wine, але выдаліць усе існуючыя здымкі і стварыць новы.\n\nКалі вам трэба вярнуцца да папярэдняга здымка перад тым, як працягнуць, зачыніце гэтае акно і аднавіце здымак, затым зноў адкрыйце асяроддзе Wine, каб зноў паказаць гэтае акно.\n\nСтарая сістэма будзе спынена ў адным з наступных выпускаў."
 
-#: bottles/frontend/views/bottle_details.py:688
+#: bottles/frontend/views/bottle_details.py:686
 msgid "Bottles is running in a sandbox, a restricted permission environment needed to keep you safe. If the program won't run, consider moving inside the container (3 dots icon on the top), then launch from there."
 msgstr "Bottles працуе ў пясочніцы, асяроддзі з абмежаванымі дазволамі, неабходнай для вашай бяспекі. Калі праграма не запускаецца, паспрабуйце перамясціцца ўнутр асяроддзі Wine (значок з 3 кропкамі ўверсе), затым запусціце адтуль."
 
@@ -570,7 +570,7 @@ msgstr "убудаваны (Wine)"
 msgid "Builtin, then Native"
 msgstr "Убудаваны, затым уласны"
 
-#: bottles/backend/utils/manager.py:935
+#: bottles/backend/utils/manager.py:939
 msgid "Bulgarian"
 msgstr "балгарская"
 
@@ -604,7 +604,7 @@ msgstr "кэшаваны прэфікс для асяроддзя %s"
 msgid "Cached prefix for the %s environment, created on %s"
 msgstr "кэшаваны прэфікс для асяроддзя %s, створаны на %s"
 
-#: bottles/backend/managers/manager.py:1902
+#: bottles/backend/managers/manager.py:1879
 msgid "Caching template…"
 msgstr "Шаблон кэшавання…"
 
@@ -704,11 +704,11 @@ msgstr "Праверце выкананыя файлы на наяўнасць �
 msgid "Check your connection or try again later."
 msgstr "Праверце падключэнне або паўтарыце спробу пазней."
 
-#: bottles/backend/utils/manager.py:960
+#: bottles/backend/utils/manager.py:964
 msgid "Chinese (Simplified)"
 msgstr "кітайская (спрошчаная)"
 
-#: bottles/backend/utils/manager.py:962
+#: bottles/backend/utils/manager.py:966
 msgid "Chinese (Traditional)"
 msgstr "кітайская (традыцыйная)"
 
@@ -761,7 +761,7 @@ msgstr "Выберыце, адкуль запускаць праграму."
 msgid "Choose the Wine installation used by this container"
 msgstr "Выберыце ўстаноўку Wine, якая выкарыстоўваецца гэтай бутэлькай"
 
-#: bottles/frontend/ui/details-preferences.blp:333
+#: bottles/frontend/ui/details-preferences.blp:316
 msgid "Choose the language to use with programs."
 msgstr "Выберыце мову для праграмам."
 
@@ -871,7 +871,7 @@ msgstr "Супольнасць паведамляе аб неабходнасц�
 msgid "Community verdict"
 msgstr "Вердыкт супольнасці"
 
-#: bottles/frontend/ui/details-preferences.blp:317
+#: bottles/frontend/ui/details-preferences.blp:300
 msgid "Compatibility"
 msgstr "Сумяшчальнасць"
 
@@ -1008,7 +1008,7 @@ msgstr "Панэль кіравання"
 msgid "Control which variables from your system are visible to programs inside this container"
 msgstr "кантралюйце, якія зменныя вашай сістэмы бачныя праграмам у гэтай асяроддзі Wine"
 
-#: bottles/frontend/utils/flatpak.py:61 bottles/frontend/views/bottle_preferences.py:468
+#: bottles/frontend/utils/flatpak.py:61 bottles/frontend/views/bottle_preferences.py:458
 msgid "Copied to clipboard"
 msgstr "скапіравана ў буфер абмену"
 
@@ -1016,7 +1016,7 @@ msgstr "скапіравана ў буфер абмену"
 msgid "Copies the file into a temporary folder inside the container. Files stored next to it are not included, so it may not work fully."
 msgstr "капіюе файл у часовую тэчку ўнутры асяроддзі Wine. Файлы, якія захоўваюцца побач, не ўключаны, таму ён можа працаваць не ў поўнай меры."
 
-#: bottles/frontend/utils/flatpak.py:92 bottles/frontend/views/bottle_preferences.py:427 bottles/frontend/widgets/program.py:730
+#: bottles/frontend/utils/flatpak.py:92 bottles/frontend/views/bottle_preferences.py:417 bottles/frontend/widgets/program.py:730
 msgid "Copy command"
 msgstr "Капіраваць каманду"
 
@@ -1058,7 +1058,7 @@ msgstr "Не атрымалася атрымаць доступ да запіс�
 msgid "Could not analyse this file."
 msgstr "Немагчыма прааналізаваць гэты файл."
 
-#: bottles/frontend/views/bottle_preferences.py:889
+#: bottles/frontend/views/bottle_preferences.py:801
 msgid "Could not change the synchronization mode."
 msgstr "Не атрымалася змяніць рэжым сінхранізацыі."
 
@@ -1084,7 +1084,7 @@ msgstr "Не атрымалася загрузіць праграму ўстан
 msgid "Could not read the DPI scaling mode."
 msgstr "Немагчыма прачытаць рэжым маштабавання DPI."
 
-#: bottles/frontend/views/bottle_details.py:839
+#: bottles/frontend/views/bottle_details.py:837
 msgid "Could not remove the container."
 msgstr "Не атрымалася выдаліць асяроддзе Wine."
 
@@ -1098,7 +1098,7 @@ msgstr "не атрымалася выдаліць запіс з працоўн�
 msgid "Could not save the program: {0}"
 msgstr "Не атрымалася захаваць праграму: {0}"
 
-#: bottles/frontend/views/bottle_preferences.py:995
+#: bottles/frontend/views/bottle_preferences.py:886
 msgid "Could not switch to the selected runner."
 msgstr "Не атрымалася пераключыцца на абраны бягун."
 
@@ -1176,7 +1176,7 @@ msgstr "Стварэнне галінкі…"
 msgid "Creating snapshot…"
 msgstr "Стварэнне здымка…"
 
-#: bottles/backend/managers/manager.py:1875
+#: bottles/backend/managers/manager.py:1852
 msgid "Creating versioning state 0…"
 msgstr "Стварэнне стану кіравання версіямі 0…"
 
@@ -1193,7 +1193,7 @@ msgstr "Аўтары і ліцэнзія"
 msgid "Critical"
 msgstr "Крытычныя"
 
-#: bottles/backend/utils/manager.py:945
+#: bottles/backend/utils/manager.py:949
 msgid "Croatian"
 msgstr "харвацкая"
 
@@ -1230,11 +1230,11 @@ msgstr "Карыстальніцкі URL для залежнасцей. Пакі
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr "Карыстальніцкі URL для ўсталёўшчыкаў. Пакіньце пустым, каб выкарыстоўваць канечную кропку па змаўчанні."
 
-#: bottles/backend/utils/manager.py:936
+#: bottles/backend/utils/manager.py:940
 msgid "Czech"
 msgstr "Чэшская"
 
-#: bottles/backend/managers/manager.py:1935 bottles/frontend/ui/details-preferences.blp:29
+#: bottles/backend/managers/manager.py:1912 bottles/frontend/ui/details-preferences.blp:29
 msgid "D7VK"
 msgstr "D7VK"
 
@@ -1246,7 +1246,7 @@ msgstr "Кампаненты DLL"
 msgid "DLL Override"
 msgstr "Перавызначэнне DLL"
 
-#: bottles/frontend/ui/details-preferences.blp:424 bottles/frontend/ui/dialog-dll-overrides.blp:7 bottles/frontend/ui/dialog-dll-overrides.blp:12
+#: bottles/frontend/ui/details-preferences.blp:407 bottles/frontend/ui/dialog-dll-overrides.blp:7 bottles/frontend/ui/dialog-dll-overrides.blp:12
 msgid "DLL Overrides"
 msgstr "Перавызначэнні DLL"
 
@@ -1258,7 +1258,7 @@ msgstr "DLS denoise памяншае шум кадра. Больш высокі�
 msgid "DLS sharpness increases the sharpness of a frame. Higher values make the frame sharper."
 msgstr "рэзкасць DLS павялічвае рэзкасць кадра. Больш высокія значэнні робяць кадр больш выразным."
 
-#: bottles/backend/managers/manager.py:1941 bottles/frontend/ui/details-preferences.blp:42
+#: bottles/backend/managers/manager.py:1918 bottles/frontend/ui/details-preferences.blp:42
 msgid "DXVK"
 msgstr "DXVK"
 
@@ -1275,7 +1275,7 @@ msgstr "штодня"
 msgid "Daily Average: {}"
 msgstr "Сярэднясутачнае: {}"
 
-#: bottles/backend/utils/manager.py:937
+#: bottles/backend/utils/manager.py:941
 msgid "Danish"
 msgstr "дацкая"
 
@@ -1311,13 +1311,9 @@ msgstr "адладчык"
 msgid "Declining can cause instability, performance degradation, and incompatibilities with new Bottles releases."
 msgstr "зніжэнне можа выклікаць нестабільнасць, пагаршэнне прадукцыйнасці і несумяшчальнасць з новымі версіямі Bottles."
 
-#: bottles/frontend/ui/details-preferences.blp:340 bottles/frontend/ui/new-bottle-dialog.blp:116
+#: bottles/frontend/ui/details-preferences.blp:323 bottles/frontend/ui/new-bottle-dialog.blp:116
 msgid "Dedicated Sandbox"
 msgstr "спецыяльная пясочніца"
-
-#: bottles/frontend/ui/details-preferences.blp:100
-msgid "Deep Learning Super Sampling"
-msgstr "супервыбарка глыбокага навучання"
 
 #: bottles/frontend/ui/dialog-display.blp:140 bottles/frontend/ui/dialog-vkbasalt.blp:44
 msgid "Default"
@@ -1460,7 +1456,7 @@ msgid "Directory"
 msgstr "Каталог"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_preferences.py:684
+#: bottles/frontend/views/bottle_preferences.py:639
 msgid "Directory that contains the data of \"{}\"."
 msgstr "Каталог, які змяшчае даныя \"{}\"."
 
@@ -1468,7 +1464,7 @@ msgstr "Каталог, які змяшчае даныя \"{}\"."
 msgid "Disable the default Z: drive"
 msgstr "адключыць стандартны дыск Z:"
 
-#: bottles/frontend/ui/dialog-launch-options.blp:178 bottles/frontend/ui/dll-override-entry.blp:13 bottles/frontend/ui/preferences.blp:225 bottles/frontend/views/bottle_preferences.py:567 bottles/frontend/views/bottle_preferences.py:568 bottles/frontend/views/bottle_preferences.py:569 bottles/frontend/views/bottle_preferences.py:570 bottles/frontend/windows/launchoptions.py:455
+#: bottles/frontend/ui/dialog-launch-options.blp:178 bottles/frontend/ui/dll-override-entry.blp:13 bottles/frontend/ui/preferences.blp:225 bottles/frontend/views/bottle_preferences.py:952 bottles/frontend/windows/launchoptions.py:455
 msgid "Disabled"
 msgstr "адключана"
 
@@ -1476,7 +1472,7 @@ msgstr "адключана"
 msgid "Disabled. Executables will run without being checked for threats."
 msgstr "адключана. Выкананыя файлы будуць працаваць без праверкі на наяўнасць пагроз."
 
-#: bottles/frontend/ui/details-preferences.blp:118
+#: bottles/frontend/ui/details-preferences.blp:100
 msgid "Discrete Graphics"
 msgstr "Дыскрэтная відэакарта"
 
@@ -1496,7 +1492,7 @@ msgstr "Дысплей пры запуску гульні"
 msgid "Display Settings"
 msgstr "Налады дысплея"
 
-#: bottles/frontend/ui/details-preferences.blp:257
+#: bottles/frontend/ui/details-preferences.blp:240
 msgid "Display monitoring information such as framerate, temperatures, CPU/GPU load and more on OpenGL and Vulkan using MangoHud."
 msgstr "Адлюстроўвайце інфармацыю пра маніторынг, такую як частата кадраў, тэмпература, загрузка CPU/GPU і многае іншае на OpenGL і Vulkan з дапамогай MangoHud."
 
@@ -1579,7 +1575,7 @@ msgstr "Дублікат асяроддзі Wine…"
 msgid "Duplicating…"
 msgstr "дубліраванне..."
 
-#: bottles/backend/utils/manager.py:950
+#: bottles/backend/utils/manager.py:954
 msgid "Dutch"
 msgstr "галандская"
 
@@ -1675,7 +1671,7 @@ msgstr "Уключыць"
 msgid "Enable playtime tracking"
 msgstr "Уключыць адсочванне часу прайгравання"
 
-#: bottles/frontend/ui/details-preferences.blp:229
+#: bottles/frontend/ui/details-preferences.blp:212
 msgid "Enable synchronization to increase performance of multicore processors."
 msgstr "Уключыце сінхранізацыю для павышэння прадукцыйнасці шмат'ядравых працэсараў."
 
@@ -1696,7 +1692,7 @@ msgstr "Уключэнне згладжвання шрыфтоў…"
 msgid "Engines and Frameworks"
 msgstr "Рухавікі і каркасы"
 
-#: bottles/backend/utils/manager.py:940
+#: bottles/backend/utils/manager.py:944
 msgid "English"
 msgstr "англійская"
 
@@ -1712,7 +1708,7 @@ msgstr "увядзіце пашырэнні файлаў праз коскі. Bo
 msgid "Environment Variable"
 msgstr "Зменная асяроддзя"
 
-#: bottles/frontend/ui/details-preferences.blp:437 bottles/frontend/ui/dialog-env-vars.blp:7
+#: bottles/frontend/ui/details-preferences.blp:420 bottles/frontend/ui/dialog-env-vars.blp:7
 msgid "Environment Variables"
 msgstr "Пераменныя асяроддзя"
 
@@ -1738,11 +1734,11 @@ msgstr "Памылка пры апрацоўцы выкананага файла
 msgid "Errors"
 msgstr "Памылкі"
 
-#: bottles/backend/utils/manager.py:942
+#: bottles/backend/utils/manager.py:946
 msgid "Estonian"
 msgstr "эстонскі"
 
-#: bottles/frontend/ui/details-preferences.blp:235
+#: bottles/frontend/ui/details-preferences.blp:218
 msgid "Esync"
 msgstr "Esync"
 
@@ -1786,7 +1782,7 @@ msgstr "Эксперыменты"
 msgid "Explorer"
 msgstr "Праваднік"
 
-#: bottles/frontend/views/bottle_details.py:745
+#: bottles/frontend/views/bottle_details.py:743
 msgid "Export"
 msgstr "Экспарт"
 
@@ -1794,7 +1790,7 @@ msgstr "Экспарт"
 msgid "Export Configuration…"
 msgstr "Экспарт канфігурацыі…"
 
-#: bottles/frontend/ui/details-preferences.blp:139
+#: bottles/frontend/ui/details-preferences.blp:121
 msgid "Expose HDR to games using DXVK. Requires native Wayland or Gamescope. Older NVIDIA drivers also need HdrWsi and ENABLE_HDR_WSI=1."
 msgstr "выстаўляйце HDR для гульняў з дапамогай DXVK. Патрабуецца ўласны Wayland або Gamescope. Старым драйверам NVIDIA таксама патрэбны HdrWsi і ENABLE_HDR_WSI=1."
 
@@ -1845,12 +1841,12 @@ msgid "Failed to initialize the Wine prefix."
 msgstr "Не ўдалося ініцыялізаваць прэфікс Wine."
 
 #, python-format
-#: bottles/backend/managers/manager.py:1826 bottles/backend/managers/manager.py:1831
+#: bottles/backend/managers/manager.py:1803 bottles/backend/managers/manager.py:1808
 msgid "Failed to install dependency: %s"
 msgstr "не ўдалося ўсталяваць залежнасць: %s"
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2453
+#: bottles/backend/managers/manager.py:2319
 msgid "Failed to install {0}."
 msgstr "не ўдалося ўсталяваць {0}."
 
@@ -1859,24 +1855,16 @@ msgid "Failed to prepare the container user profile."
 msgstr "Не ўдалося падрыхтаваць профіль карыстальніка кантэйнера."
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2453
+#: bottles/backend/managers/manager.py:2319
 msgid "Failed to remove {0}."
 msgstr "не ўдалося выдаліць {0}."
-
-#: bottles/backend/managers/manager.py:2138
-msgid "Failed to restore graphics components."
-msgstr "Не ўдалося аднавіць графічныя кампаненты."
 
 #: bottles/backend/managers/manager.py:1653
 msgid "Failed to sandbox the container user directory."
 msgstr "Не атрымалася ўключыць у пясочніцу каталог карыстальніка асяроддзі Wine."
 
-#: bottles/backend/managers/manager.py:2228
-msgid "Failed to save and roll back the D7VK configuration."
-msgstr "Не ўдалося захаваць і адкаціць канфігурацыю D7VK."
-
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:611
+#: bottles/frontend/views/bottle_details.py:609 bottles/frontend/views/bottle_preferences.py:1005
 msgid "Failed to update {component}"
 msgstr "не ўдалося абнавіць {component}"
 
@@ -1884,7 +1872,7 @@ msgstr "не ўдалося абнавіць {component}"
 msgid "Fast Approximate Anti-Aliasing"
 msgstr "Хуткае прыблізнае згладжванне"
 
-#: bottles/frontend/ui/details-preferences.blp:276
+#: bottles/frontend/ui/details-preferences.blp:259
 msgid "Feral GameMode"
 msgstr "рэжым Feral GameMode"
 
@@ -1927,11 +1915,11 @@ msgstr "файлы для кэшавання"
 msgid "Finalizing installation..."
 msgstr "Завяршэнне ўстаноўкі..."
 
-#: bottles/backend/managers/manager.py:1880
+#: bottles/backend/managers/manager.py:1857
 msgid "Finalizing…"
 msgstr "Фіналізацыя"
 
-#: bottles/backend/utils/manager.py:943
+#: bottles/backend/utils/manager.py:947
 msgid "Finnish"
 msgstr "фінская"
 
@@ -1967,7 +1955,7 @@ msgstr "прымусова спыніць усе працэсы"
 msgid "Force Stop all Processes (Native method)"
 msgstr "прымусова спыніць усе працэсы (уласны метад)"
 
-#: bottles/frontend/views/bottle_details.py:959
+#: bottles/frontend/views/bottle_details.py:957
 msgid "Force _Stop"
 msgstr "прымусова спыніцца"
 
@@ -1975,7 +1963,7 @@ msgstr "прымусова спыніцца"
 msgid "Force disable any network activity even with available network connection."
 msgstr "Прымусовае адключэнне любой сеткавай актыўнасці нават пры даступным падключэнні да сеткі."
 
-#: bottles/frontend/ui/details-preferences.blp:129
+#: bottles/frontend/ui/details-preferences.blp:111
 msgid "Force the experimental native Wayland driver instead of Xwayland. Requires a Wayland session."
 msgstr "прымусова ўключыць эксперыментальны ўласны драйвер Wayland замест Xwayland. Патрабуецца сеанс Wayland."
 
@@ -1987,7 +1975,7 @@ msgstr "прымусова выкарыстоўваць цёмную тэму."
 msgid "Frame Generation"
 msgstr "Стварэнне фрэйма"
 
-#: bottles/frontend/ui/details-preferences.blp:168
+#: bottles/frontend/ui/details-preferences.blp:150
 msgid "Frame Generation (Experimental)"
 msgstr "Стварэнне кадра (эксперыментальны)"
 
@@ -1995,7 +1983,7 @@ msgstr "Стварэнне кадра (эксперыментальны)"
 msgid "Frame Generation Settings"
 msgstr "Налады генерацыі кадраў"
 
-#: bottles/frontend/ui/details-preferences.blp:243 bottles/frontend/ui/dialog-gamescope.blp:141
+#: bottles/frontend/ui/details-preferences.blp:226 bottles/frontend/ui/dialog-gamescope.blp:141
 msgid "Frame Rate Limit"
 msgstr "Ліміт частаты кадраў"
 
@@ -2003,11 +1991,11 @@ msgstr "Ліміт частаты кадраў"
 msgid "Frame Rate Limit When Unfocused"
 msgstr "Ліміт частоты кадраў, калі не сфакусаваны"
 
-#: bottles/backend/utils/manager.py:944
+#: bottles/backend/utils/manager.py:948
 msgid "French"
 msgstr "французская"
 
-#: bottles/frontend/ui/details-preferences.blp:236
+#: bottles/frontend/ui/details-preferences.blp:219
 msgid "Fsync"
 msgstr "Fsync"
 
@@ -2051,7 +2039,7 @@ msgstr "Гульні"
 msgid "General"
 msgstr "Агульныя"
 
-#: bottles/frontend/ui/details-preferences.blp:169
+#: bottles/frontend/ui/details-preferences.blp:151
 msgid "Generate additional frames with lsfg-vk. Only works with 64-bit Vulkan applications."
 msgstr "Стварыце дадатковыя кадры з дапамогай lsfg-vk. Працуе толькі з 64-бітнымі праграмамі Vulkan."
 
@@ -2059,7 +2047,7 @@ msgstr "Стварыце дадатковыя кадры з дапамогай l
 msgid "Generating container configuration…"
 msgstr "Стварэнне канфігурацыі асяроддзі Wine…"
 
-#: bottles/backend/utils/manager.py:938
+#: bottles/backend/utils/manager.py:942
 msgid "German"
 msgstr "нямецкая"
 
@@ -2079,7 +2067,7 @@ msgstr "Дайце Bottles прамы доступ да каталога бяг�
 msgid "Graphics API"
 msgstr "Graphics API"
 
-#: bottles/backend/utils/manager.py:939
+#: bottles/backend/utils/manager.py:943
 msgid "Greek"
 msgstr "грэчаская"
 
@@ -2111,7 +2099,7 @@ msgstr "Hide Hidden Programs"
 msgid "Hide Program"
 msgstr "Hide Program"
 
-#: bottles/frontend/ui/details-preferences.blp:138
+#: bottles/frontend/ui/details-preferences.blp:120
 msgid "High Dynamic Range"
 msgstr "High Dynamic Range"
 
@@ -2124,7 +2112,7 @@ msgstr "Hourly Average: {}"
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr "Як часта абнаўляць пульс сеанса. Defines max timestamp error for abrupt exits."
 
-#: bottles/backend/utils/manager.py:946
+#: bottles/backend/utils/manager.py:950
 msgid "Hungarian"
 msgstr "венгерская"
 
@@ -2176,7 +2164,7 @@ msgstr "палепшыце сумяшчальнасць Direct3D 3/5/6/7 для 
 msgid "Improve Direct3D 8/9/10/11 compatibility by translating it to Vulkan."
 msgstr "палепшыце сумяшчальнасць Direct3D 8/9/10/11, перавёўшы яго ў Vulkan."
 
-#: bottles/frontend/ui/details-preferences.blp:287
+#: bottles/frontend/ui/details-preferences.blp:270
 msgid "Improve loading time when launching the game multiple times. The game will take longer to start for the first time."
 msgstr "Палепшыць час загрузкі пры шматразовым запуску гульні. Першы запуск гульні зойме больш часу."
 
@@ -2187,10 +2175,6 @@ msgstr "уключае архівы і вынятыя рэсурсы, спамп
 #: bottles/frontend/ui/dialog-deps-check.blp:14
 msgid "Incomplete package"
 msgstr "няпоўны пакет"
-
-#: bottles/frontend/ui/details-preferences.blp:101
-msgid "Increase performance at the expense of visuals using DXVK-NVAPI. Only works on newer NVIDIA GPUs."
-msgstr "Павялічце прадукцыйнасць за кошт візуальных эфектаў з дапамогай DXVK-NVAPI. Працуе толькі на новых графічных працэсарах NVIDIA."
 
 #: bottles/frontend/ui/details-preferences.blp:82
 msgid "Increase responsiveness. Can be detected by some anti-cheat software."
@@ -2232,7 +2216,7 @@ msgstr "Усталюйце праграмы, курыраваныя нашай �
 msgid "Install this Program"
 msgstr "Усталяваць гэту праграму"
 
-#: bottles/frontend/views/bottle_preferences.py:165
+#: bottles/frontend/views/bottle_preferences.py:162
 msgid "Install vkbasalt-cli to edit vkBasalt settings."
 msgstr "усталюйце vkbasalt-cli для рэдагавання налад vkBasalt."
 
@@ -2277,28 +2261,16 @@ msgstr "Рэпазітар установак"
 msgid "Installing \"{0}\"..."
 msgstr "усталяванне \"{0}\"..."
 
-#: bottles/backend/managers/manager.py:1853
+#: bottles/backend/managers/manager.py:1830
 msgid "Installing D7VK..."
 msgstr "усталяванне D7VK..."
-
-#: bottles/backend/managers/manager.py:1806
-msgid "Installing DXVK-NVAPI…"
-msgstr "Усталяванне DXVK-NVAPI…"
-
-#: bottles/backend/managers/manager.py:1775
-msgid "Installing DXVK…"
-msgstr "Усталяванне DXVK…"
-
-#: bottles/backend/managers/manager.py:1790
-msgid "Installing VKD3D…"
-msgstr "Усталяванне VKD3D…"
 
 #: bottles/frontend/windows/installer.py:142
 msgid "Installing Windows dependencies…"
 msgstr "Усталяванне залежнасцей Windows…"
 
 #, python-format
-#: bottles/backend/managers/manager.py:1820
+#: bottles/backend/managers/manager.py:1797
 msgid "Installing dependency: %s …"
 msgstr "Усталяванне залежнасці: %s…"
 
@@ -2347,7 +2319,7 @@ msgstr "Інтэграцыі"
 msgid "Invalid URI (syntax: bottles:run/<bottle>/<program>)"
 msgstr "Некарэктны рэсурс (сінтаксіс: bottles:run/<асяроддзе Wine>/<праграма>)"
 
-#: bottles/backend/managers/manager.py:2098
+#: bottles/backend/managers/manager.py:2055
 msgid "Invalid graphics component."
 msgstr "няправільны графічны кампанент."
 
@@ -2355,7 +2327,7 @@ msgstr "няправільны графічны кампанент."
 msgid "Issues that may prevent this program from running."
 msgstr "Праблемы, якія могуць перашкодзіць запуску гэтай праграмы."
 
-#: bottles/backend/utils/manager.py:947
+#: bottles/backend/utils/manager.py:951
 msgid "Italian"
 msgstr "італьянскі"
 
@@ -2363,7 +2335,7 @@ msgstr "італьянскі"
 msgid "Item name"
 msgstr "Назва элемента"
 
-#: bottles/backend/utils/manager.py:961
+#: bottles/backend/utils/manager.py:965
 msgid "Japanese"
 msgstr "Японскі"
 
@@ -2381,11 +2353,11 @@ msgstr "вядомае прымяненне ({match}): {name}"
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr "вядомае прымяненне: {name} (дзеяслоў winetricks '{verb}')"
 
-#: bottles/backend/utils/manager.py:963
+#: bottles/backend/utils/manager.py:967
 msgid "Korean"
 msgstr "карэйская"
 
-#: bottles/frontend/ui/details-preferences.blp:332 bottles/frontend/ui/preferences.blp:28
+#: bottles/frontend/ui/details-preferences.blp:315 bottles/frontend/ui/preferences.blp:28
 msgid "Language"
 msgstr "Мова"
 
@@ -2398,11 +2370,11 @@ msgstr "Апошняя гульня"
 msgid "Last Used: %s – Usage Time: %s"
 msgstr "Апошняя гульня: %s – Час прайгравання: %s"
 
-#: bottles/backend/managers/manager.py:1959 bottles/frontend/ui/details-preferences.blp:81
+#: bottles/backend/managers/manager.py:1936 bottles/frontend/ui/details-preferences.blp:81
 msgid "LatencyFleX"
 msgstr "LatencyFleX"
 
-#: bottles/backend/utils/manager.py:949
+#: bottles/backend/utils/manager.py:953
 msgid "Latvian"
 msgstr "латышская"
 
@@ -2435,7 +2407,7 @@ msgid "Launch with Terminal"
 msgstr "Запуск з тэрміналам"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:652 bottles/frontend/widgets/library.py:271 bottles/frontend/widgets/program.py:367
+#: bottles/frontend/views/bottle_details.py:650 bottles/frontend/widgets/library.py:271 bottles/frontend/widgets/program.py:367
 msgid "Launching \"{0}\"…"
 msgstr "Запуск \"{0}\"…"
 
@@ -2486,7 +2458,7 @@ msgstr "парадак сартавання бібліятэкі"
 msgid "License"
 msgstr "Ліцэнзія"
 
-#: bottles/frontend/ui/details-preferences.blp:244
+#: bottles/frontend/ui/details-preferences.blp:227
 msgid "Limit DXVK and VKD3D applications. Set to 0 to disable."
 msgstr "абмежаванне прыкладанняў DXVK і VKD3D. Усталюйце 0, каб адключыць."
 
@@ -2506,7 +2478,7 @@ msgstr "спіс праграм Steam у спісе праграм"
 msgid "List Ubisoft Games in Programs List"
 msgstr "Пералік гульняў Ubisoft у спісе праграм"
 
-#: bottles/backend/utils/manager.py:948
+#: bottles/backend/utils/manager.py:952
 msgid "Lithuanian"
 msgstr "літоўская"
 
@@ -2550,7 +2522,7 @@ msgstr "Галоўнае меню"
 msgid "Manage Branches"
 msgstr "Кіраванне аддзяленнямі"
 
-#: bottles/frontend/ui/details-preferences.blp:450
+#: bottles/frontend/ui/details-preferences.blp:433
 msgid "Manage Drives"
 msgstr "Кіраванне дыскамі"
 
@@ -2558,15 +2530,15 @@ msgstr "Кіраванне дыскамі"
 msgid "Manage File Associations..."
 msgstr "Кіраванне асацыяцыямі файлаў..."
 
-#: bottles/frontend/ui/details-preferences.blp:192
+#: bottles/frontend/ui/details-preferences.blp:174
 msgid "Manage Gamescope settings"
 msgstr "Кіраванне наладамі Gamescope"
 
-#: bottles/frontend/ui/details-preferences.blp:260
+#: bottles/frontend/ui/details-preferences.blp:243
 msgid "Manage MangoHud settings"
 msgstr "Кіраванне наладамі MangoHud"
 
-#: bottles/frontend/ui/details-preferences.blp:152
+#: bottles/frontend/ui/details-preferences.blp:134
 msgid "Manage Post-Processing Layer settings"
 msgstr "Кіраванне наладамі ўзроўню пост-апрацоўкі"
 
@@ -2574,7 +2546,7 @@ msgstr "Кіраванне наладамі ўзроўню пост-апрацо
 msgid "Manage cached files used to speed up downloads and container creation."
 msgstr "Кіраванне кэшаванымі файламі, якія выкарыстоўваюцца для паскарэння загрузкі і стварэння асяроддзяў Wine."
 
-#: bottles/frontend/ui/details-preferences.blp:189
+#: bottles/frontend/ui/details-preferences.blp:171
 msgid "Manage how games should be displayed on the screen using Gamescope."
 msgstr "Кіруйце тым, як гульні павінны адлюстроўвацца на экране, з дапамогай Gamescope."
 
@@ -2582,7 +2554,7 @@ msgstr "Кіруйце тым, як гульні павінны адлюстро
 msgid "Manage how games should be displayed."
 msgstr "Кіруйце спосабам адлюстравання гульняў."
 
-#: bottles/frontend/ui/details-preferences.blp:172
+#: bottles/frontend/ui/details-preferences.blp:154
 msgid "Manage lsfg-vk settings"
 msgstr "Кіраванне наладамі lsfg-vk"
 
@@ -2590,11 +2562,11 @@ msgstr "Кіраванне наладамі lsfg-vk"
 msgid "Manage reusable registry tweaks."
 msgstr "Кіраванне шматразовымі наладамі рэестра."
 
-#: bottles/frontend/ui/details-preferences.blp:344
+#: bottles/frontend/ui/details-preferences.blp:327
 msgid "Manage the Sandbox Permissions"
 msgstr "Кіраванне дазволамі пясочніцы"
 
-#: bottles/frontend/ui/details-preferences.blp:291
+#: bottles/frontend/ui/details-preferences.blp:274
 msgid "Manage vmtouch settings"
 msgstr "Кіраванне наладамі vmtouch"
 
@@ -2651,11 +2623,11 @@ msgstr "Мінімальная версія АС"
 msgid "Miscellaneous"
 msgstr "Рознае"
 
-#: bottles/frontend/views/bottle_details.py:878
+#: bottles/frontend/views/bottle_details.py:876
 msgid "Missing Runner"
 msgstr "Адсутнічае бягун"
 
-#: bottles/frontend/ui/details-preferences.blp:256
+#: bottles/frontend/ui/details-preferences.blp:239
 msgid "Monitor Performance"
 msgstr "Прадукцыйнасць манітора"
 
@@ -2701,11 +2673,11 @@ msgstr "Мая асяроддзе Wine"
 msgid "N/A"
 msgstr "недаступна"
 
-#: bottles/frontend/ui/details-preferences.blp:237
+#: bottles/frontend/ui/details-preferences.blp:220
 msgid "NTSync"
 msgstr "NTSync"
 
-#: bottles/backend/managers/manager.py:1953
+#: bottles/backend/managers/manager.py:1930
 msgid "NVAPI"
 msgstr "NVAPI"
 
@@ -2782,7 +2754,7 @@ msgstr "У наступным годзе"
 msgid "No"
 msgstr "Не"
 
-#: bottles/backend/managers/manager.py:2192 bottles/backend/managers/manager.py:2387
+#: bottles/backend/managers/manager.py:2255
 msgid "No D7VK version available."
 msgstr "няма даступнай версіі D7VK."
 
@@ -2790,7 +2762,7 @@ msgstr "няма даступнай версіі D7VK."
 msgid "No DLL selected"
 msgstr "DLL не выбрана"
 
-#: bottles/backend/managers/manager.py:2120 bottles/backend/managers/manager.py:2396
+#: bottles/backend/managers/manager.py:2078 bottles/backend/managers/manager.py:2264
 msgid "No DXVK version available."
 msgstr "няма даступнай версіі DXVK."
 
@@ -2806,11 +2778,11 @@ msgstr "прылады HIDRAW не знойдзены"
 msgid "No Installers Found"
 msgstr "Устаноўшчыкаў не знойдзена"
 
-#: bottles/backend/managers/manager.py:2426
+#: bottles/backend/managers/manager.py:2292
 msgid "No LatencyFleX version available."
 msgstr "версія LatencyFleX адсутнічае."
 
-#: bottles/backend/managers/manager.py:2414
+#: bottles/backend/managers/manager.py:2282
 msgid "No NVAPI version available."
 msgstr "версія NVAPI адсутнічае."
 
@@ -2830,7 +2802,7 @@ msgstr "Снапшотаў не знойдзена"
 msgid "No Thumbnail"
 msgstr "Няма мініяцюры"
 
-#: bottles/backend/managers/manager.py:2405
+#: bottles/backend/managers/manager.py:2273
 msgid "No VKD3D version available."
 msgstr "няма даступнай версіі VKD3D."
 
@@ -2854,7 +2826,7 @@ msgstr "Шаблоны выключэнняў не вызначаны."
 msgid "No files or folders selected"
 msgstr "Файлы і тэчкі не выбраны"
 
-#: bottles/backend/managers/manager.py:2107
+#: bottles/backend/managers/manager.py:2065
 msgid "No graphics component version available."
 msgstr "версія графічнага кампанента адсутнічае."
 
@@ -2878,7 +2850,7 @@ msgstr "кэшаваных шаблонаў пакуль няма."
 msgid "No variables selected"
 msgstr "зменныя не выбраны"
 
-#: bottles/backend/utils/manager.py:951
+#: bottles/backend/utils/manager.py:955
 msgid "Norwegian"
 msgstr "нарвежская"
 
@@ -2895,11 +2867,11 @@ msgstr "Зараз няма падключэння"
 msgid "Not enough disk space to create a snapshot! Requires at least {0} of free space."
 msgstr "Недастаткова месца на дыску для стварэння здымка! Патрабуецца мінімум {0} вольнага месца."
 
-#: bottles/backend/managers/manager.py:2010
+#: bottles/backend/managers/manager.py:1987
 msgid "Not installed"
 msgstr "не ўстаноўлена"
 
-#: bottles/frontend/ui/details-preferences.blp:463
+#: bottles/frontend/ui/details-preferences.blp:446
 msgid "Notes"
 msgstr "Заўвагі"
 
@@ -2911,7 +2883,7 @@ msgstr "Няма чаго фіксіраваць"
 msgid "Notifications"
 msgstr "Апавяшчэнні"
 
-#: bottles/frontend/ui/details-preferences.blp:307
+#: bottles/frontend/ui/details-preferences.blp:290
 msgid "OBS Game Capture"
 msgstr "OBS Game Capture"
 
@@ -2927,7 +2899,7 @@ msgstr "OSS"
 msgid "Offer an Eagle analysis when a program closes right after starting."
 msgstr "Прапануйце аналіз Eagle, калі праграма зачыняецца адразу пасля запуску."
 
-#: bottles/frontend/views/bottle_preferences.py:283
+#: bottles/frontend/views/bottle_preferences.py:280
 msgid "Older NVIDIA drivers require HdrWsi and ENABLE_HDR_WSI=1 for HDR."
 msgstr "Старыя драйверы NVIDIA патрабуюць HdrWsi і ENABLE_HDR_WSI=1 для HDR."
 
@@ -2985,7 +2957,7 @@ msgstr "адкрытая ліцэнзія {0}"
 msgid "Operations"
 msgstr "Аперацыі"
 
-#: bottles/frontend/views/details.py:268
+#: bottles/frontend/views/details.py:266
 msgid "Operations in progress, please wait."
 msgstr "Аперацыі выконваюцца, пачакайце."
 
@@ -3058,7 +3030,7 @@ msgstr "Шляхі ўнутры асяроддзі Wine застаюцца са�
 msgid "Pattern"
 msgstr "Шаблон"
 
-#: bottles/frontend/ui/details-preferences.blp:226
+#: bottles/frontend/ui/details-preferences.blp:209
 msgid "Performance"
 msgstr "Прадукцыйнасць"
 
@@ -3090,15 +3062,15 @@ msgstr "Калі ласка, перайдзіце на новую сістэму
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr "Калі ласка, пачакайце, пакуль WineBridge спампоўваецца і ўсталёўваецца."
 
-#: bottles/backend/utils/manager.py:952
+#: bottles/backend/utils/manager.py:956
 msgid "Polish"
 msgstr "польскі"
 
-#: bottles/backend/utils/manager.py:953
+#: bottles/backend/utils/manager.py:957
 msgid "Portuguese"
 msgstr "партугальская"
 
-#: bottles/frontend/ui/details-preferences.blp:148
+#: bottles/frontend/ui/details-preferences.blp:130
 msgid "Post-Processing Effects"
 msgstr "Эфекты пасля апрацоўкі"
 
@@ -3147,7 +3119,7 @@ msgstr "Перавызначэнне налад"
 msgid "Prefix templates"
 msgstr "Шаблоны прэфіксаў"
 
-#: bottles/frontend/ui/details-preferences.blp:286
+#: bottles/frontend/ui/details-preferences.blp:269
 msgid "Preload Game Files"
 msgstr "Загадзя загрузіць файлы гульні"
 
@@ -3251,11 +3223,11 @@ msgstr "Абарона"
 msgid "ProtonDB community reports: ODbL 1.0, contents DbCL 1.0.\nwinetricks data: LGPL-2.1-or-later."
 msgstr "Справаздачы супольнасці ProtonDB: ODbL 1.0, змест DbCL 1.0.\nданыя winetricks: LGPL-2.1 або больш позняя версія."
 
-#: bottles/frontend/ui/details-preferences.blp:382
+#: bottles/frontend/ui/details-preferences.blp:365
 msgid "Provide a bundle of extra libraries for more compatibility with Steam games. Disable it if you run into issues."
 msgstr "Прадастаўленне пакета дадатковых бібліятэк для большай сумяшчальнасці з гульнямі Steam. Адключыце яго, калі ўзнікнуць праблемы."
 
-#: bottles/frontend/ui/details-preferences.blp:361
+#: bottles/frontend/ui/details-preferences.blp:344
 msgid "Provide a bundle of extra libraries for more compatibility. Disable it if you run into issues."
 msgstr "Прадастаўленне пакета дадатковых бібліятэк для большай сумяшчальнасці. Адключыце яго, калі ўзнікнуць праблемы."
 
@@ -3427,7 +3399,7 @@ msgstr "Выдаліць са спісу"
 msgid "Remove from list (keep files)"
 msgstr "Выдаліць са спісу (захаваць файлы)"
 
-#: bottles/frontend/views/bottle_details.py:856
+#: bottles/frontend/views/bottle_details.py:854
 msgid "Remove this container from your list, or permanently delete its directory and all files."
 msgstr "Выдаліце гэту асяроддзе Wine са свайго спісу або назаўжды выдаліце яе каталог і ўсе файлы."
 
@@ -3504,7 +3476,7 @@ msgstr "Скінуць статыстыку часу выкарыстання?"
 msgid "Reset to Container's Defaults"
 msgstr "Скід да налад па змаўчанні"
 
-#: bottles/frontend/ui/details-preferences.blp:395 bottles/frontend/ui/dialog-launch-options.blp:76 bottles/frontend/ui/dialog-launch-options.blp:113 bottles/frontend/ui/dialog-launch-options.blp:150 bottles/frontend/ui/new-bottle-dialog.blp:160
+#: bottles/frontend/ui/details-preferences.blp:378 bottles/frontend/ui/dialog-launch-options.blp:76 bottles/frontend/ui/dialog-launch-options.blp:113 bottles/frontend/ui/dialog-launch-options.blp:150 bottles/frontend/ui/new-bottle-dialog.blp:160
 msgid "Reset to Default"
 msgstr "Вярнуць прадвызначаныя"
 
@@ -3541,11 +3513,11 @@ msgstr "Аднаўленне стану {}…"
 msgid "Restoring state..."
 msgstr "Аднаўленне стану..."
 
-#: bottles/frontend/widgets/state.py:123
+#: bottles/frontend/widgets/state.py:122
 msgid "Restoring this state will overwrite the current configuration and cannot be undone."
 msgstr "аднаўленне гэтага стану перазапіша бягучую канфігурацыю і не можа быць адменена."
 
-#: bottles/frontend/views/details.py:275
+#: bottles/frontend/views/details.py:273
 msgid "Return to your containers."
 msgstr "Вярніцеся да сваіх асяроддзяў Wine."
 
@@ -3558,7 +3530,7 @@ msgstr "агляд"
 msgid "Review for {0}"
 msgstr "агляд {0}"
 
-#: bottles/backend/utils/manager.py:954
+#: bottles/backend/utils/manager.py:958
 msgid "Romanian"
 msgstr "румынская"
 
@@ -3570,7 +3542,7 @@ msgstr "дэталі правілаў"
 msgid "Rule name"
 msgstr "Назва правіла"
 
-#: bottles/frontend/ui/dialog-run-args.blp:33 bottles/frontend/utils/sandbox_guard.py:172 bottles/frontend/views/bottle_details.py:671 bottles/frontend/views/list.py:151
+#: bottles/frontend/ui/dialog-run-args.blp:33 bottles/frontend/utils/sandbox_guard.py:172 bottles/frontend/views/bottle_details.py:669 bottles/frontend/views/list.py:151
 msgid "Run"
 msgstr "Запусціць"
 
@@ -3658,7 +3630,7 @@ msgstr "працуе з тым жа доступам, што і Bottles, без 
 msgid "Runtimes and Libraries"
 msgstr "асяроддзя выканання і бібліятэкі"
 
-#: bottles/backend/utils/manager.py:955
+#: bottles/backend/utils/manager.py:959
 msgid "Russian"
 msgstr "рус"
 
@@ -3686,7 +3658,7 @@ msgstr "Налады пясочніцы"
 msgid "Save"
 msgstr "Захаваць"
 
-#: bottles/frontend/ui/details-preferences.blp:467
+#: bottles/frontend/ui/details-preferences.blp:450
 msgid "Save Notes"
 msgstr "Захаваць нататкі"
 
@@ -3774,11 +3746,11 @@ msgstr "Выберыце каталог"
 msgid "Select Drive Path"
 msgstr "Выберыце шлях дыска"
 
-#: bottles/frontend/views/bottle_details.py:348 bottles/frontend/views/bottle_details.py:668 bottles/frontend/views/list.py:148
+#: bottles/frontend/views/bottle_details.py:348 bottles/frontend/views/bottle_details.py:666 bottles/frontend/views/list.py:148
 msgid "Select Executable"
 msgstr "Выберыце выкананы файл"
 
-#: bottles/frontend/views/bottle_details.py:720
+#: bottles/frontend/views/bottle_details.py:718
 msgid "Select Executable for Eagle Analysis"
 msgstr "Выберыце выкананы файл для аналізу Eagle"
 
@@ -3814,7 +3786,7 @@ msgstr "Выберыце файл рэсурсаў"
 msgid "Select Runner Directory"
 msgstr "Выберыце Каталог запуску Сродак"
 
-#: bottles/frontend/views/bottle_preferences.py:510 bottles/frontend/windows/launchoptions.py:438
+#: bottles/frontend/views/bottle_preferences.py:500 bottles/frontend/windows/launchoptions.py:438
 msgid "Select Working Directory"
 msgstr "Выберыце працоўны каталог"
 
@@ -3854,11 +3826,11 @@ msgstr "Выберыце пусты каталог"
 msgid "Select files and folders within the container, not the container itself."
 msgstr "Выбірайце файлы і тэчкі ўнутры асяроддзі Wine, а не саму асяроддзе Wine."
 
-#: bottles/frontend/views/bottle_details.py:747
+#: bottles/frontend/views/bottle_details.py:745
 msgid "Select the location where to save the backup archive"
 msgstr "Выберыце месца для захавання архіва рэзервовай копіі"
 
-#: bottles/frontend/views/bottle_details.py:743
+#: bottles/frontend/views/bottle_details.py:741
 msgid "Select the location where to save the backup config"
 msgstr "Выберыце месца для захавання рэзервовай копіі канфігурацыі"
 
@@ -4040,11 +4012,11 @@ msgstr "прапусціць наладку"
 msgid "Skipping {0}: not installed."
 msgstr "пропуск {0}: не ўстаноўлена."
 
-#: bottles/backend/utils/manager.py:956
+#: bottles/backend/utils/manager.py:960
 msgid "Slovak"
 msgstr "славацкая"
 
-#: bottles/backend/utils/manager.py:957
+#: bottles/backend/utils/manager.py:961
 msgid "Slovenian"
 msgstr "Славенская"
 
@@ -4097,7 +4069,7 @@ msgstr "Сартаванне бібліятэкі па назве праграм
 msgid "Source: {0}"
 msgstr "Крыніца: {0}"
 
-#: bottles/backend/utils/manager.py:941
+#: bottles/backend/utils/manager.py:945
 msgid "Spanish"
 msgstr "іспанская"
 
@@ -4109,7 +4081,7 @@ msgstr "Пачаць усталяванне"
 msgid "Start program"
 msgstr "Запусціць праграму"
 
-#: bottles/frontend/ui/details-preferences.blp:372
+#: bottles/frontend/ui/details-preferences.blp:355
 msgid "Start programs through WineBridge by default for this container."
 msgstr "запускаць праграмы праз WineBridge па змаўчанні для гэтай асяроддзі Wine."
 
@@ -4156,11 +4128,11 @@ msgstr "Стан {} ужо актыўны"
 msgid "States list retrieved successfully!"
 msgstr "Спіс станаў паспяхова атрыманы!"
 
-#: bottles/frontend/ui/details-preferences.blp:381
+#: bottles/frontend/ui/details-preferences.blp:364
 msgid "Steam Runtime"
 msgstr "Асяроддзе выканання Steam"
 
-#: bottles/frontend/views/bottle_preferences.py:194
+#: bottles/frontend/views/bottle_preferences.py:191
 msgid "Steam Runtime was not detected. Install it or grant Bottles access to Steam files, then restart Bottles."
 msgstr "час выканання Steam не выяўлены. Усталюйце яго або дайце Bottles доступ да файлаў Steam, затым перазапусціце Bottles."
 
@@ -4218,7 +4190,7 @@ msgstr "Прапановы заснаваны на тэхнічным аналі
 msgid "Supported Executables"
 msgstr "Падтрымліваюцца выкананыя файлы"
 
-#: bottles/backend/utils/manager.py:958
+#: bottles/backend/utils/manager.py:962
 msgid "Swedish"
 msgstr "шведская"
 
@@ -4234,11 +4206,11 @@ msgstr "пераключэнне галіны..."
 msgid "Switching branch…"
 msgstr "пераключэнне галіны…"
 
-#: bottles/frontend/ui/details-preferences.blp:230
+#: bottles/frontend/ui/details-preferences.blp:213
 msgid "Synchronization"
 msgstr "Сінхранізацыя"
 
-#: bottles/backend/utils/manager.py:934 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/ui/dialog-display.blp:142 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:938 bottles/frontend/ui/details-preferences.blp:217 bottles/frontend/ui/dialog-display.blp:142 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "Сістэма"
 
@@ -4352,7 +4324,7 @@ msgstr "Новая сістэма кіравання версіямі асяро
 msgid "The next container for this environment will take longer to create because Bottles must rebuild the template."
 msgstr "стварэнне наступнай асяроддзі Wine для гэтага асяроддзя зойме больш часу, таму што Bottles павінен перабудаваць шаблон."
 
-#: bottles/frontend/views/bottle_preferences.py:613
+#: bottles/frontend/views/bottle_preferences.py:570
 msgid "The notes could not be saved."
 msgstr "Не ўдалося захаваць нататкі."
 
@@ -4373,7 +4345,7 @@ msgstr "Праграмны файл не знойдзены. Праверце я
 msgid "The repository is unreachable or no installer is compatible with this container."
 msgstr "рэпазітар недаступны, або ніякая праграма ўстаноўкі не сумяшчальная з гэтай бутэлькай."
 
-#: bottles/frontend/views/bottle_details.py:879
+#: bottles/frontend/views/bottle_details.py:877
 msgid "The runner requested by this container is missing. Restore it using your package manager, add its local directory in Preferences, or explicitly choose another runner for this container."
 msgstr "Бягун, запытаны гэтай бутэлькай, адсутнічае. Аднавіце яго з дапамогай дыспетчара пакетаў, дадайце яго лакальны каталог у наладах або відавочна выберыце іншы бягун для гэтай асяроддзі Wine."
 
@@ -4390,7 +4362,7 @@ msgid "The selected file is unavailable."
 msgstr "Выбраны файл недаступны."
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2441
+#: bottles/backend/managers/manager.py:2307
 msgid "The selected {0} installation is incomplete."
 msgstr "выбраная ўстаноўка {0} няпоўная."
 
@@ -4435,7 +4407,7 @@ msgstr "У гэтым годзе"
 msgid "This application may work poorly. The installer was configured to provide the best possible experience, but expect glitches, instability and lack of working features."
 msgstr "гэта дадатак можа працаваць дрэнна. Праграма ўсталёўкі была настроена так, каб забяспечыць найлепшы вопыт, але можна чакаць збояў, нестабільнасці і адсутнасці працоўных функцый."
 
-#: bottles/frontend/views/bottle_details.py:956
+#: bottles/frontend/views/bottle_details.py:954
 msgid "This can cause data loss, corruption, and programs to malfunction."
 msgstr "Гэта можа прывесці да страты даных, пашкоджання і няспраўнасці праграм."
 
@@ -4443,7 +4415,7 @@ msgstr "Гэта можа прывесці да страты даных, паш�
 msgid "This component is not installable offline because its files are not cached."
 msgstr "гэты кампанент нельга ўсталяваць у аўтаномным рэжыме, таму што яго файлы не кэшуюцца."
 
-#: bottles/frontend/views/bottle_preferences.py:474
+#: bottles/frontend/views/bottle_preferences.py:464
 msgid "This container name is already in use."
 msgstr "гэта назва асяроддзі Wine ўжо выкарыстоўваецца."
 
@@ -4459,7 +4431,7 @@ msgstr "гэтая залежнасць несумяшчальная з гэта
 msgid "This dependency is not installable offline because its files are not cached."
 msgstr "гэту залежнасць нельга ўсталяваць у аўтаномным рэжыме, таму што яе файлы не кэшуюцца."
 
-#: bottles/frontend/views/bottle_preferences.py:200 bottles/frontend/views/bottle_preferences.py:455 bottles/frontend/views/bottle_preferences.py:403
+#: bottles/frontend/views/bottle_preferences.py:197 bottles/frontend/views/bottle_preferences.py:445 bottles/frontend/views/bottle_preferences.py:393
 msgid "This feature is unavailable on your system."
 msgstr "гэтая функцыя недаступная ў вашай сістэме."
 
@@ -4507,7 +4479,7 @@ msgstr "гэты рэсурс адсутнічае."
 msgid "This runner cannot create a 32-bit prefix. Select a 64-bit container."
 msgstr "This Сродак запуску cannot create a 32-bit prefix. Выберыце 64-бітны кантэйнер."
 
-#: bottles/frontend/views/bottle_preferences.py:909
+#: bottles/frontend/views/bottle_preferences.py:821
 msgid "This runner has no Esync, so it will use its default."
 msgstr "Гэты запуск Сродка не мае Esync, таму ён будзе выкарыстоўваць стандартны."
 
@@ -4556,7 +4528,7 @@ msgstr "Парог"
 msgid "Timestamp"
 msgstr "метка часу"
 
-#: bottles/frontend/views/bottle_preferences.py:410
+#: bottles/frontend/views/bottle_preferences.py:400
 msgid "To add it, please run:"
 msgstr "Каб дадаць яго, запусціце:"
 
@@ -4564,7 +4536,7 @@ msgstr "Каб дадаць яго, запусціце:"
 msgid "Today"
 msgstr "Сёння"
 
-#: bottles/frontend/ui/details-preferences.blp:308
+#: bottles/frontend/ui/details-preferences.blp:291
 msgid "Toggle OBS Game Capture for all Vulkan and OpenGL programs."
 msgstr "пераключыць OBS Game Capture для ўсіх праграм Vulkan і OpenGL."
 
@@ -4637,7 +4609,7 @@ msgstr "паспрабуйце яшчэ раз"
 msgid "Try a different search."
 msgstr "паспрабуйце іншы пошук."
 
-#: bottles/backend/utils/manager.py:959
+#: bottles/backend/utils/manager.py:963
 msgid "Turkish"
 msgstr "турэцкая"
 
@@ -4713,7 +4685,7 @@ msgid "Updated {0} components."
 msgstr "абноўлены кампаненты {0}."
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:597
+#: bottles/frontend/views/bottle_details.py:595
 msgid "Updated {component} to {version}"
 msgstr "абноўлены {component} да {version}"
 
@@ -4742,7 +4714,7 @@ msgstr "Абнаўленне DLL перавызначае..."
 msgid "Updating DXVK, please wait…"
 msgstr "Абнаўленне DXVK, пачакайце…"
 
-#: bottles/frontend/ui/details-preferences.blp:72 bottles/frontend/ui/details-preferences.blp:105
+#: bottles/frontend/ui/details-preferences.blp:72
 msgid "Updating DXVK-NVAPI, please wait…"
 msgstr "Абнаўленне DXVK-NVAPI, пачакайце…"
 
@@ -4758,7 +4730,7 @@ msgstr "Абнаўленне сродка запуску і кампанента
 msgid "Updating VKD3D, please wait…"
 msgstr "Абнаўленне VKD3D, пачакайце…"
 
-#: bottles/frontend/ui/details-preferences.blp:323
+#: bottles/frontend/ui/details-preferences.blp:306
 msgid "Updating Windows version, please wait…"
 msgstr "Абнаўленне Windows, пачакайце, калі ласка…"
 
@@ -4804,7 +4776,7 @@ msgstr "Usage time statistics cannot be reset while \"{}\" is running. Зачы�
 msgid "Usage time tracking is disabled."
 msgstr "адсочванне часу выкарыстання адключана."
 
-#: bottles/frontend/ui/details-bottle.blp:151 bottles/frontend/ui/details-preferences.blp:371
+#: bottles/frontend/ui/details-bottle.blp:151 bottles/frontend/ui/details-preferences.blp:354
 msgid "Use WineBridge"
 msgstr "выкарыстоўвайце WineBridge"
 
@@ -4816,7 +4788,7 @@ msgstr "выкарыстоўвайце 64-бітнае прыкладанне Vu
 msgid "Use a lighter model with a small quality reduction."
 msgstr "Выкарыстоўвайце больш лёгкую мадэль з невялікім зніжэннем якасці."
 
-#: bottles/frontend/ui/details-preferences.blp:341
+#: bottles/frontend/ui/details-preferences.blp:324
 msgid "Use a restricted/managed environment for this container."
 msgstr "Выкарыстоўвайце абмежаванае/кіраванае асяроддзе для гэтай асяроддзі Wine."
 
@@ -4824,7 +4796,7 @@ msgstr "Выкарыстоўвайце абмежаванае/кіраванае
 msgid "Use shipping binary instead"
 msgstr "замест гэтага выкарыстоўвайце двайковы файл дастаўкі"
 
-#: bottles/frontend/ui/details-preferences.blp:119
+#: bottles/frontend/ui/details-preferences.blp:101
 msgid "Use the discrete graphics card to increase performance at the expense of power consumption."
 msgstr "выкарыстоўвайце дыскрэтную відэакарту для павышэння прадукцыйнасці за кошт энергаспажывання."
 
@@ -4844,7 +4816,7 @@ msgstr "Карыстальніцкія бегуны"
 msgid "Uses the resolution of the video game as a reference in pixels."
 msgstr "Выкарыстоўвае раздзяленне відэагульні ў якасці эталона ў пікселях."
 
-#: bottles/backend/managers/manager.py:1947 bottles/frontend/ui/details-preferences.blp:55
+#: bottles/backend/managers/manager.py:1924 bottles/frontend/ui/details-preferences.blp:55
 msgid "VKD3D"
 msgstr "VKD3D"
 
@@ -4880,7 +4852,7 @@ msgstr "Vulkan недаступны ў гэтай сістэме."
 msgid "Warnings"
 msgstr "Папярэджанні"
 
-#: bottles/frontend/ui/details-preferences.blp:128
+#: bottles/frontend/ui/details-preferences.blp:110
 msgid "Wayland (Experimental)"
 msgstr "Wayland (эксперыментальны)"
 
@@ -4941,7 +4913,7 @@ msgstr "вышыня акна"
 msgid "Window width"
 msgstr "шырыня акна"
 
-#: bottles/frontend/ui/details-preferences.blp:320
+#: bottles/frontend/ui/details-preferences.blp:303
 msgid "Windows Version"
 msgstr "Версія Windows"
 
@@ -4966,7 +4938,7 @@ msgstr "гукавы драйвер Wine"
 msgid "Wine config updated!"
 msgstr "Канфігурацыя Wine абноўлена!"
 
-#: bottles/backend/managers/manager.py:2009
+#: bottles/backend/managers/manager.py:1986
 msgid "WineBridge"
 msgstr "WineBridge"
 
@@ -4986,7 +4958,7 @@ msgstr "абнаўленне WineBridge"
 msgid "WineBridge update failed"
 msgstr "Памылка абнаўлення WineBridge"
 
-#: bottles/frontend/ui/details-preferences.blp:391 bottles/frontend/ui/dialog-launch-options.blp:143
+#: bottles/frontend/ui/details-preferences.blp:374 bottles/frontend/ui/dialog-launch-options.blp:143
 msgid "Working Directory"
 msgstr "Працоўны каталог"
 
@@ -5058,7 +5030,7 @@ msgstr "Пачынаецца ачыстка [Выключэнне]."
 msgid "_Application"
 msgstr "_Прыкладанне"
 
-#: bottles/frontend/ui/bulk-update-dialog.blp:22 bottles/frontend/ui/dialog-crash-report.blp:19 bottles/frontend/ui/dialog-display.blp:25 bottles/frontend/ui/dialog-duplicate.blp:20 bottles/frontend/ui/dialog-file-associations.blp:17 bottles/frontend/ui/dialog-gamescope.blp:24 bottles/frontend/ui/dialog-launch-options.blp:17 bottles/frontend/ui/dialog-lsfg-vk.blp:25 bottles/frontend/ui/dialog-mangohud.blp:25 bottles/frontend/ui/dialog-program-backups.blp:16 bottles/frontend/ui/dialog-upgrade-versioning.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:27 bottles/frontend/ui/dialog-vmtouch.blp:24 bottles/frontend/ui/dialog-winebridge-update.blp:19 bottles/frontend/ui/new-bottle-dialog.blp:23 bottles/frontend/views/bottle_details.py:860 bottles/frontend/views/bottle_details.py:958 bottles/frontend/views/preferences.py:366 bottles/frontend/views/preferences.py:828 bottles/frontend/widgets/state.py:127
+#: bottles/frontend/ui/bulk-update-dialog.blp:22 bottles/frontend/ui/dialog-crash-report.blp:19 bottles/frontend/ui/dialog-display.blp:25 bottles/frontend/ui/dialog-duplicate.blp:20 bottles/frontend/ui/dialog-file-associations.blp:17 bottles/frontend/ui/dialog-gamescope.blp:24 bottles/frontend/ui/dialog-launch-options.blp:17 bottles/frontend/ui/dialog-lsfg-vk.blp:25 bottles/frontend/ui/dialog-mangohud.blp:25 bottles/frontend/ui/dialog-program-backups.blp:16 bottles/frontend/ui/dialog-upgrade-versioning.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:27 bottles/frontend/ui/dialog-vmtouch.blp:24 bottles/frontend/ui/dialog-winebridge-update.blp:19 bottles/frontend/ui/new-bottle-dialog.blp:23 bottles/frontend/views/bottle_details.py:858 bottles/frontend/views/bottle_details.py:956 bottles/frontend/views/preferences.py:366 bottles/frontend/views/preferences.py:828 bottles/frontend/widgets/state.py:126
 msgid "_Cancel"
 msgstr "Скасаваць"
 
@@ -5078,7 +5050,7 @@ msgstr "_Выдаліць"
 msgid "_Delete All"
 msgstr "_Выдаліць усе"
 
-#: bottles/frontend/views/bottle_details.py:862
+#: bottles/frontend/views/bottle_details.py:860
 msgid "_Delete Files"
 msgstr "_Выдаліць файлы"
 
@@ -5086,7 +5058,7 @@ msgstr "_Выдаліць файлы"
 msgid "_Delete and Cancel"
 msgstr "_Выдаліць і адмяніць"
 
-#: bottles/frontend/utils/flatpak.py:112 bottles/frontend/views/bottle_details.py:883 bottles/frontend/views/bottle_details.py:692
+#: bottles/frontend/utils/flatpak.py:112 bottles/frontend/views/bottle_details.py:881 bottles/frontend/views/bottle_details.py:690
 msgid "_Dismiss"
 msgstr "_Адхіліць"
 
@@ -5102,11 +5074,11 @@ msgstr "_Працягвайце чакаць"
 msgid "_Relaunch"
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:861
+#: bottles/frontend/views/bottle_details.py:859
 msgid "_Remove from List"
 msgstr ""
 
-#: bottles/frontend/widgets/state.py:128
+#: bottles/frontend/widgets/state.py:127
 msgid "_Restore"
 msgstr ""
 
@@ -5187,7 +5159,7 @@ msgstr "lsfg-vk"
 msgid "lsfg-vk 1.x: MIT.\nlsfg-vk 2.x: GPL-3.0-or-later."
 msgstr "lsfg-vk 1.x: MIT.\nlsfg-vk 2.x: GPL-3.0 або больш позняй версіі."
 
-#: bottles/frontend/views/bottle_preferences.py:364
+#: bottles/frontend/views/bottle_preferences.py:360
 msgid "lsfg-vk only supports 64-bit Vulkan applications."
 msgstr "lsfg-vk падтрымлівае толькі 64-бітныя праграмы Vulkan."
 
@@ -5244,7 +5216,7 @@ msgid "{0} detected"
 msgstr "выяўлены {0}"
 
 #, python-brace-format
-#: bottles/frontend/windows/dependency_install.py:128
+#: bottles/frontend/windows/dependency_install.py:127
 msgid "{0} failed to install."
 msgstr "не атрымалася ўсталяваць {0}."
 
@@ -5254,7 +5226,7 @@ msgid "{0} installed, {1} failed."
 msgstr "{0} усталяваны, {1} не ўдалося."
 
 #, python-brace-format
-#: bottles/frontend/windows/dependency_install.py:126
+#: bottles/frontend/windows/dependency_install.py:125
 msgid "{0} installed."
 msgstr "усталяваны {0}."
 
@@ -5274,7 +5246,7 @@ msgid "{0} positive / {1} negative reports"
 msgstr "{0} станоўчыя / {1} адмоўныя справаздачы"
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2373
+#: bottles/backend/managers/manager.py:2241
 msgid "{0} requires Vulkan, which is not available on this system."
 msgstr "{0} патрабуе Vulkan, які недаступны ў гэтай сістэме."
 
@@ -5317,7 +5289,7 @@ msgid "{reason} (x{evidence})"
 msgstr "{reason} (x{evidence})"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_preferences.py:201
+#: bottles/frontend/views/bottle_preferences.py:198
 msgid "{} To add this feature, please run"
 msgstr "{} Каб дадаць гэтую функцыю, запусціце"
 

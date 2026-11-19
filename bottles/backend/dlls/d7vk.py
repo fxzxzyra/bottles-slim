@@ -30,6 +30,7 @@ from bottles.backend.utils.manager import ManagerUtils
 
 
 class D7VKComponent(DLLComponent):
+    component_id = "d7vk"
     dlls: ClassVar[dict[str, list[str]]] = {"x32": ["ddraw.dll"]}
     state_version = 1
 

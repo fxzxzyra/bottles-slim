@@ -1763,49 +1763,26 @@ class Manager(metaclass=Singleton):
             if cancel_result is not None:
                 return cancel_result
 
-            if (not template and config.Parameters.dxvk) or (
-                template and template["config"]["DXVK"] != dxvk
+            for component, flag, key, version in (
+                ("dxvk", "dxvk", "DXVK", dxvk_name),
+                ("vkd3d", "vkd3d", "VKD3D", vkd3d_name),
+                ("nvapi", "dxvk_nvapi", "NVAPI", nvapi_name),
+                ("latencyflex", "latencyflex", "LatencyFleX", latencyflex_name),
             ):
+                if not getattr(config.Parameters, flag):
+                    continue
+                if (template and template["config"].get(key) == version
+                        and template["config"].get("Parameters", {}).get(flag)):
+                    continue
                 cancel_result = check_cancel()
                 if cancel_result is not None:
                     return cancel_result
-
-                # perform dxvk installation if configured
-                logging.info("Installing DXVK…")
-                log_update(_("Installing DXVK…"))
-                self.install_dll_component(config, "dxvk", version=dxvk_name)
+                logging.info(f"Installing {key}…")
+                log_update(key)
+                result = self.install_dll_component(config, component, version=version)
+                if not result.ok:
+                    return result
                 template_updated = True
-
-            if (
-                not template
-                and config.Parameters.vkd3d
-                or (template and template["config"]["VKD3D"] != vkd3d)
-            ):
-                cancel_result = check_cancel()
-                if cancel_result is not None:
-                    return cancel_result
-
-                # perform vkd3d installation if configured
-                logging.info("Installing VKD3D…")
-                log_update(_("Installing VKD3D…"))
-                self.install_dll_component(config, "vkd3d", version=vkd3d_name)
-                template_updated = True
-
-            if (
-                not template
-                and config.Parameters.dxvk_nvapi
-                or (template and template["config"]["NVAPI"] != nvapi)
-            ):
-                if GPUUtils.is_gpu(GPUVendors.NVIDIA):
-                    cancel_result = check_cancel()
-                    if cancel_result is not None:
-                        return cancel_result
-
-                    # perform nvapi installation if configured
-                    logging.info("Installing DXVK-NVAPI…")
-                    log_update(_("Installing DXVK-NVAPI…"))
-                    self.install_dll_component(config, "nvapi", version=nvapi_name)
-                    template_updated = True
 
             for dep in env.get("Installed_Dependencies", []):
                 if template and dep in template["config"]["Installed_Dependencies"]:
@@ -2063,51 +2040,32 @@ class Manager(metaclass=Singleton):
         if not ensure.ok:
             return ensure
 
-        if component == "d7vk":
-            return self.set_d7vk(config, True, version)
+        return self.set_dll_component(config, component, True, version)
 
-        remove_res = self.install_dll_component(
-            config=config, component=component, remove=True
-        )
-        if not remove_res.ok:
-            return remove_res
-
-        update_res = self.update_config(
-            config=config, key=self.__dll_component_keys[component], value=version
-        )
-        if not update_res.ok:
-            return update_res
-        updated_config = update_res.data["config"]
-
-        install_res = self.install_dll_component(
-            config=updated_config, component=component, version=version
-        )
-        if not install_res.ok:
-            return install_res
-
-        return Result(True, data={"config": updated_config})
-
-    def set_graphics_component(
+    def set_dll_component(
         self,
         config: BottleConfig,
         component: str,
         enabled: bool,
         version: str | None = None,
     ) -> Result:
-        if component not in ("dxvk", "vkd3d"):
+        fields = {"d7vk": ("D7VK", "d7vk"), "dxvk": ("DXVK", "dxvk"), "vkd3d": ("VKD3D", "vkd3d"),
+                  "nvapi": ("NVAPI", "dxvk_nvapi"), "latencyflex": ("LatencyFleX", "latencyflex")}
+        if component not in fields:
             return Result(False, message=_("Invalid graphics component."))
 
+        version_key, enabled_key = fields[component]
         previous = deepcopy(config)
         candidate = deepcopy(config)
-        selected = version or getattr(config, component.upper())
+        selected = version or getattr(config, version_key)
         if enabled and not selected:
             available = getattr(self, f"{component}_available")
             selected = available[0] if available else ""
         if enabled and not selected:
             return Result(False, message=_("No graphics component version available."))
         if enabled:
-            setattr(candidate, component.upper(), selected)
-        setattr(candidate.Parameters, component, enabled)
+            setattr(candidate, version_key, selected)
+        setattr(candidate.Parameters, enabled_key, enabled)
         components = [component]
         if component == "dxvk" and not enabled and previous.Parameters.vkd3d:
             candidate.Parameters.vkd3d = False
@@ -2121,129 +2079,39 @@ class Manager(metaclass=Singleton):
             candidate.Parameters.dxvk = True
             components.insert(0, "dxvk")
 
-        changed = []
-
-        def rollback(failure):
-            restored = True
-            for name in reversed(changed):
-                result = self.install_dll_component(
-                    previous,
-                    name,
-                    remove=not getattr(previous.Parameters, name),
-                    version=getattr(previous, name.upper()),
-                )
-                restored = result.ok and restored
-            if not restored:
-                return Result(
-                    False, message=_("Failed to restore graphics components.")
-                )
-            return failure
-
+        # Stop at the first failure. Retrying an old installation is not recovery.
         for name in components:
-            changed.append(name)
-            result = self.install_dll_component(
-                candidate,
-                name,
-                remove=not getattr(candidate.Parameters, name),
-                version=getattr(candidate, name.upper()),
-            )
+            try:
+                result = self.install_dll_component(
+                    candidate, name,
+                    remove=not getattr(candidate.Parameters, fields[name][1]),
+                    version=getattr(candidate, fields[name][0]),
+                )
+            except (OSError, ValueError) as error:
+                return Result(False, message=str(error))
             if not result.ok:
-                return rollback(result)
+                return result
 
         current = deepcopy(config)
         for name in components:
-            setattr(current, name.upper(), getattr(candidate, name.upper()))
-            setattr(current.Parameters, name, getattr(candidate.Parameters, name))
+            setattr(current, fields[name][0], getattr(candidate, fields[name][0]))
+            setattr(current.Parameters, fields[name][1], getattr(candidate.Parameters, fields[name][1]))
         candidate = current
         candidate.Update_Date = str(datetime.now().astimezone().replace(tzinfo=None))
         bottle_path = ManagerUtils.get_bottle_path(candidate)
         result = candidate.dump(os.path.join(bottle_path, "bottle.yml"))
         if not result.ok:
-            return rollback(result)
+            return result
 
-        config.DXVK = candidate.DXVK
-        config.VKD3D = candidate.VKD3D
-        config.Parameters.dxvk = candidate.Parameters.dxvk
-        config.Parameters.vkd3d = candidate.Parameters.vkd3d
+        for name in components:
+            version_field, enabled_field = fields[name]
+            setattr(config, version_field, getattr(candidate, version_field))
+            setattr(config.Parameters, enabled_field, getattr(candidate.Parameters, enabled_field))
         config.Update_Date = candidate.Update_Date
         if config.Id in self.local_bottles:
             self.local_bottles[config.Id] = config
         RegistryRuleManager.apply_rules(config, trigger="components")
         return Result(True, data={"config": config})
-
-    def set_d7vk(
-        self, config: BottleConfig, enabled: bool, version: str | None = None
-    ) -> Result:
-        previous = deepcopy(config)
-
-        if not enabled:
-            result = self.install_dll_component(config, "d7vk", remove=True)
-            if not result.ok:
-                return self.__rollback_d7vk(previous, result)
-            persisted = self.__persist_d7vk_config(config, False, config.D7VK)
-            if persisted.ok:
-                return persisted
-            return self.__rollback_d7vk(previous, persisted)
-
-        selected = version or config.D7VK
-        if not selected:
-            selected = self.d7vk_available[0] if self.d7vk_available else ""
-        if not selected:
-            return Result(False, message=_("No D7VK version available."))
-
-        result = self.install_dll_component(config, "d7vk", version=selected)
-        if not result.ok:
-            return self.__rollback_d7vk(previous, result)
-
-        persisted = self.__persist_d7vk_config(config, True, selected)
-        if persisted.ok:
-            return persisted
-        return self.__rollback_d7vk(previous, persisted)
-
-    def __persist_d7vk_config(
-        self, config: BottleConfig, enabled: bool, version: str
-    ) -> Result:
-        candidate = deepcopy(config)
-        candidate.D7VK = version
-        candidate.Parameters.d7vk = enabled
-        candidate.Update_Date = str(datetime.now().astimezone().replace(tzinfo=None))
-
-        bottle_path = ManagerUtils.get_bottle_path(candidate)
-        saved = candidate.dump(os.path.join(bottle_path, "bottle.yml"))
-        if not saved.ok:
-            return Result(False, message=saved.message)
-
-        config.D7VK = candidate.D7VK
-        config.Parameters.d7vk = candidate.Parameters.d7vk
-        config.Update_Date = candidate.Update_Date
-        if candidate.Id in self.local_bottles:
-            self.local_bottles[candidate.Id] = config
-        RegistryRuleManager.apply_rules(config, trigger="components")
-        return Result(True, data={"config": config})
-
-    def __rollback_d7vk(self, previous: BottleConfig, failure: Result) -> Result:
-        if not self.reconcile_d7vk(previous):
-            return Result(
-                False,
-                message=_("Failed to save and roll back the D7VK configuration."),
-            )
-        return failure
-
-    def reconcile_d7vk(self, config: BottleConfig) -> bool:
-        if not config.Parameters.d7vk and not D7VKComponent.has_managed_install(config):
-            return True
-
-        component = D7VKComponent(config.D7VK or "d7vk")
-        if config.Parameters.d7vk:
-            if not config.D7VK or not component.checked_dlls:
-                return False
-            if component.is_installed(config):
-                return True
-            return component.install(config)
-
-        if component.has_managed_install(config):
-            return component.uninstall(config)
-        return True
 
     def __update_winebridge_component(
         self, config: BottleConfig, version: str
@@ -2361,7 +2229,7 @@ class Manager(metaclass=Singleton):
             exclude = []
 
         # D7VK, DXVK, VKD3D and NVAPI require Vulkan to be present on the host.
-        if not remove and component in ("d7vk", "dxvk", "vkd3d", "nvapi"):
+        if not remove and not overrides_only and component in ("d7vk", "dxvk", "vkd3d", "nvapi"):
             from bottles.backend.utils.vulkan import VulkanUtils
 
             if not VulkanUtils.check_support():
@@ -2416,8 +2284,6 @@ class Manager(metaclass=Singleton):
         elif component == "latencyflex":
             _version = version or config.LatencyFleX
             if not _version:
-                if len(self.latencyflex_available) == 0:
-                    self.check_latencyflex(install_latest=True)
                 _version = (
                     self.latencyflex_available[0] if self.latencyflex_available else ""
                 )
@@ -2433,7 +2299,7 @@ class Manager(metaclass=Singleton):
 
         if (
             not remove
-            and component in ("d7vk", "dxvk", "vkd3d")
+            and not overrides_only
             and not manager.checked_dlls
         ):
             return Result(

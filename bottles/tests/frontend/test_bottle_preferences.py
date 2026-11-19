@@ -22,7 +22,7 @@ def test_flatpak_addons_use_the_current_runtime_branch():
         "obsvkc",
     }
     assert all("remote-add" not in command for command in FLATPAK_INSTALL_COMMANDS.values())
-    assert all(command.endswith("//25.08") for command in FLATPAK_INSTALL_COMMANDS.values())
+    assert all(command.endswith("//26.08") for command in FLATPAK_INSTALL_COMMANDS.values())
     assert (
         "org.freedesktop.Platform.VulkanLayer.OBSVkCapture"
         in FLATPAK_INSTALL_COMMANDS["obsvkc"]
@@ -164,30 +164,21 @@ def test_windows_version_is_saved_only_after_winecfg_succeeds(monkeypatch, error
     assert run_async.call_count == 1
     assert combo.get_sensitive()
     view.queue.end_task.assert_called_once_with()
-    view.spinner_windows.stop.assert_called_once_with()
+    view.spinner_windows.set_visible.assert_called_with(False)
 
 
 
 def _make_graphics_view(config):
     from bottles.frontend.views.bottle_preferences import PreferencesView
 
-    view = SimpleNamespace(
-        config=config,
-        manager=Mock(
-            dxvk_available=["dxvk-old", "dxvk-new"],
-            vkd3d_available=["vkd3d-old", "vkd3d-new"],
-        ),
-        combo_dxvk=Mock(),
-        combo_vkd3d=Mock(),
-        spinner_dxvk=Mock(),
-        spinner_vkd3d=Mock(),
-        queue=Mock(),
-    )
-    view._PreferencesView__set_dxvk = Mock()
-    view._PreferencesView__set_vkd3d = Mock()
-    view._PreferencesView__set_graphics_status = lambda *args: (
-        PreferencesView._PreferencesView__set_graphics_status(view, *args)
-    )
+    view = _component_view()
+    view.config = config
+    view.manager.dxvk_available = ["dxvk-old", "dxvk-new"]
+    view.manager.vkd3d_available = ["vkd3d-old", "vkd3d-new"]
+    view.manager.update_config = Mock()
+    view.manager.set_dll_component = Mock()
+    view.queue = Mock()
+    view._PreferencesView__refresh_component_selection()
     view.set_dxvk_status = lambda **kwargs: (
         PreferencesView.set_dxvk_status.__wrapped__(view, **kwargs)
     )
@@ -205,7 +196,11 @@ def test_graphics_removal_does_not_save_while_pending(monkeypatch, component):
     config = BottleConfig(DXVK="dxvk-old", VKD3D="vkd3d-old")
     setattr(config.Parameters, component, True)
     view = _make_graphics_view(config)
-    getattr(view, f"combo_{component}").get_selected.return_value = 0
+    combo = getattr(view, f"combo_{component}")
+    handler = getattr(view, f"_PreferencesView__set_{component}")
+    combo.handler_block_by_func(handler)
+    combo.set_selected(0)
+    combo.handler_unblock_by_func(handler)
     jobs = []
     monkeypatch.setattr(
         bottle_preferences, "RunAsync", lambda **kwargs: jobs.append(kwargs)
@@ -215,8 +210,8 @@ def test_graphics_removal_does_not_save_while_pending(monkeypatch, component):
 
     assert getattr(config.Parameters, component)
     view.manager.update_config.assert_not_called()
-    view.combo_dxvk.set_sensitive.assert_called_once_with(False)
-    view.combo_vkd3d.set_sensitive.assert_called_once_with(False)
+    assert not view.combo_dxvk.get_sensitive()
+    assert not view.combo_vkd3d.get_sensitive()
     assert len(jobs) == 1 and jobs[0]["enabled"] is False
 
 
@@ -230,9 +225,7 @@ def test_graphics_failure_restores_selector(component):
 
     getattr(view, f"set_{component}_status")(status=Result(False, message="failed"))
 
-    getattr(view, f"combo_{component}").set_selected.assert_called_once_with(1)
-    getattr(view, f"combo_{component}").handler_block_by_func.assert_called_once()
-    getattr(view, f"combo_{component}").handler_unblock_by_func.assert_called_once()
+    assert getattr(view, f"combo_{component}").get_selected() == 1
     assert getattr(config.Parameters, component)
     view.queue.end_task.assert_called_once()
 
@@ -248,8 +241,8 @@ def test_graphics_success_updates_both_selectors():
     view.set_vkd3d_status(status=Result(True, data={"config": updated}))
 
     assert view.config is updated
-    view.combo_dxvk.set_selected.assert_called_once_with(2)
-    view.combo_vkd3d.set_selected.assert_called_once_with(2)
+    assert view.combo_dxvk.get_selected() == 2
+    assert view.combo_vkd3d.get_selected() == 2
     view.queue.end_task.assert_called_once()
 
 
@@ -276,12 +269,11 @@ def test_nvapi_remains_manageable_after_gpu_change(monkeypatch, nvidia, enabled)
 
     config = BottleConfig()
     config.Parameters.dxvk_nvapi = enabled
-    view = SimpleNamespace(config=config, row_nvapi=Mock(), combo_nvapi=Mock())
+    view = SimpleNamespace(config=config, combo_nvapi=Mock())
     monkeypatch.setattr(bottle_preferences.GPUUtils, "is_gpu", lambda *_args: nvidia)
 
     PreferencesView._PreferencesView__update_nvapi_visibility(view)
 
-    view.row_nvapi.set_visible.assert_called_once_with(nvidia or enabled)
     view.combo_nvapi.set_visible.assert_called_once_with(nvidia or enabled)
 
 
@@ -381,3 +373,103 @@ def test_sync_stays_locked_until_completion_and_restores_failed_selection(monkey
     assert len(jobs) == 1  # Reverting the selection must not submit another write.
     view.queue.end_task.assert_called_once()
     assert view.window.show_toast.called is (failure is not None)
+
+
+def _component_view():
+    from gi.repository import Adw, Gtk
+    from bottles.frontend.views.bottle_preferences import PreferencesView
+
+    view = SimpleNamespace(config=BottleConfig(), manager=SimpleNamespace())
+    view.combo_runner = Adw.ComboRow()
+    view._PreferencesView__set_components_busy = lambda busy: PreferencesView._PreferencesView__set_components_busy(view, busy)
+    view._PreferencesView__set_component_status = lambda *args: PreferencesView._PreferencesView__set_component_status(view, *args)
+    view._PreferencesView__change_component = lambda *args: PreferencesView._PreferencesView__change_component(view, *args)
+    view.window = SimpleNamespace(show_toast=Mock())
+    for name in ("d7vk", "dxvk", "vkd3d", "nvapi", "latencyflex"):
+        model = Gtk.StringList.new([])
+        combo = Adw.ComboRow(model=model)
+        setattr(view.manager, f"{name}_available", ["latest"])
+        setattr(view, f"str_list_{name}", model)
+        setattr(view, f"combo_{name}", combo)
+        setattr(view, f"spinner_{name}", Adw.Spinner(visible=False))
+        def unexpected(*_args):
+            pytest.fail("Refreshing installed components must not install anything")
+        setattr(view, f"_PreferencesView__set_{name}", unexpected)
+        combo.connect("notify::selected", unexpected)
+    view._PreferencesView__refresh_component_selection = lambda: PreferencesView._PreferencesView__refresh_component_selection(view)
+    return view
+
+
+def test_imported_component_versions_remain_visible_without_the_source_cache():
+    from bottles.frontend.views.bottle_preferences import PreferencesView
+
+    view = _component_view()
+    view.config.LatencyFleX = "installed-before-import"
+    view.config.Parameters.latencyflex = True
+    view.config.NVAPI = "latest"
+    view.config.Parameters.dxvk_nvapi = True
+    refresh = lambda: PreferencesView._PreferencesView__refresh_component_selection(view)
+    refresh()
+    assert view.combo_latencyflex.get_selected() == 2
+    assert view.str_list_latencyflex.get_string(2) == "installed-before-import"
+    # Cache index zero is a real version; the first UI item is Disabled.
+    assert view.combo_nvapi.get_selected() == 1
+    view.manager.latencyflex_available = []
+    refresh()
+    assert view.combo_latencyflex.get_selected() == 1
+    assert view.str_list_latencyflex.get_string(1) == "installed-before-import"
+    view.config.Parameters.dxvk_nvapi = False
+    refresh()
+    assert view.combo_nvapi.get_selected() == 0
+
+
+@pytest.mark.parametrize("component,field,flag", [
+    ("d7vk", "D7VK", "d7vk"),
+    ("dxvk", "DXVK", "dxvk"),
+    ("vkd3d", "VKD3D", "vkd3d"),
+    ("nvapi", "NVAPI", "dxvk_nvapi"),
+    ("latencyflex", "LatencyFleX", "latencyflex"),
+])
+@pytest.mark.parametrize("success", [False, True])
+def test_component_controls_share_worker_completion_and_failed_selection(monkeypatch, component, field, flag, success):
+    from bottles.frontend.views import bottle_preferences as module
+    from bottles.backend.models.result import Result
+
+    view = _component_view()
+    view.queue = SimpleNamespace(add_task=Mock(), end_task=Mock())
+    view.window = SimpleNamespace(show_toast=Mock())
+    setattr(view.config, field, "old")
+    setattr(view.config.Parameters, flag, True)
+    view._PreferencesView__refresh_component_selection()
+    combo = getattr(view, f"combo_{component}")
+    handler = getattr(view, f"_PreferencesView__set_{component}")
+    combo.handler_block_by_func(handler)
+    combo.set_selected(1)
+    combo.handler_unblock_by_func(handler)
+    spinner = getattr(view, f"spinner_{component}")
+    pending = []
+    monkeypatch.setattr(module, "RunAsync", lambda task_func, **kwargs: pending.append((task_func, kwargs)))
+    view.manager.set_dll_component = Mock()
+    callback = lambda status=None, error=None, pending=False: module.PreferencesView._PreferencesView__set_component_status(view, component, status, error, pending)
+    module.PreferencesView._PreferencesView__change_component(view, component, callback)
+    assert not combo.get_sensitive()
+    assert not view.combo_runner.get_sensitive()
+    assert not view.combo_dxvk.get_sensitive()
+    assert not view.combo_latencyflex.get_sensitive()
+    assert spinner.get_visible()
+    assert getattr(view.config, field) == "old"
+    view.queue.end_task.assert_not_called()
+    assert len(pending) == 1
+    task, arguments = pending[0]
+    assert task is view.manager.set_dll_component
+    assert arguments["version"] == "latest"
+    assert arguments["enabled"]
+    config = view.config.copy()
+    if success:
+        setattr(config, field, "latest")
+    arguments["callback"](Result(success, {"config": config}, message="Installation failed"), None)
+    assert combo.get_sensitive()
+    assert not spinner.get_visible()
+    assert combo.get_selected() == (1 if success else 2)
+    assert view.window.show_toast.called is not success
+    view.queue.end_task.assert_called_once()

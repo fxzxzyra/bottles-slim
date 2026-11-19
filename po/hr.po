@@ -99,7 +99,7 @@ msgstr "%s dostupno"
 msgid "%s template"
 msgstr "predložak %s"
 
-#: bottles/frontend/ui/details-preferences.blp:416 bottles/frontend/views/bottle_preferences.py:534 bottles/frontend/views/new_bottle_dialog.py:99
+#: bottles/frontend/ui/details-preferences.blp:399 bottles/frontend/views/bottle_preferences.py:524 bottles/frontend/views/new_bottle_dialog.py:99
 msgid "(Default)"
 msgstr "(Standardno)"
 
@@ -218,7 +218,7 @@ msgstr "Dodaj u Steam"
 msgid "Add variable"
 msgstr "Dodajte varijablu"
 
-#: bottles/frontend/ui/details-preferences.blp:149
+#: bottles/frontend/ui/details-preferences.blp:131
 msgid "Add various post-processing effects using vkBasalt. Only works on Vulkan."
 msgstr "Dodaj razne efekte naknadne obrade koristeći vkBasalt. Radi samo s Vulkan."
 
@@ -230,7 +230,7 @@ msgstr "Podešavanje verzije sustava Windows…"
 msgid "Advanced"
 msgstr "Napredno"
 
-#: bottles/frontend/ui/details-preferences.blp:207
+#: bottles/frontend/ui/details-preferences.blp:189
 msgid "Advanced Display Settings"
 msgstr "Napredne postavke prikaza"
 
@@ -287,7 +287,7 @@ msgstr "Došlo je do pogreške prilikom izrade snimke: {0}"
 msgid "An installation error occurred. Restart Bottles to read the Crash Report or run it via terminal to read the output."
 msgstr "Došlo je do pogreške pri instalaciji. Ponovno pokrenite Bottles za čitanje izvješća o padu ili ga pokrenite putem terminala za čitanje izlaza."
 
-#: bottles/frontend/views/bottle_details.py:723
+#: bottles/frontend/views/bottle_details.py:721
 msgid "Analyse"
 msgstr "Analiziraj"
 
@@ -344,7 +344,7 @@ msgstr "Primijeni"
 msgid "Apply CMD default settings…"
 msgstr "Primijeni standardne CMD postavke …"
 
-#: bottles/frontend/ui/details-preferences.blp:277
+#: bottles/frontend/ui/details-preferences.blp:260
 msgid "Apply a set of optimizations to your device. Can improve game performance."
 msgstr "Primijeni niz optimiziranja na tvom uređaju. Može poboljšati performancu igri."
 
@@ -369,16 +369,16 @@ msgstr "Primjenjivanje okruženja: {0} …"
 msgid "Architecture"
 msgstr "Arhitektura"
 
-#: bottles/frontend/views/bottle_details.py:955
+#: bottles/frontend/views/bottle_details.py:953
 msgid "Are you sure you want to force stop all processes?"
 msgstr "Stvarno želiš prisilno prekinuti sve procese?"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:855
+#: bottles/frontend/views/bottle_details.py:853
 msgid "Are you sure you want to permanently delete \"{}\"?"
 msgstr "Stvarno želiš zauvijek izbrisati „{}”?"
 
-#: bottles/frontend/widgets/state.py:122
+#: bottles/frontend/widgets/state.py:121
 msgid "Are you sure you want to restore this state?"
 msgstr "Jeste li sigurni da želite vratiti ovo stanje?"
 
@@ -420,7 +420,7 @@ msgstr "Prosjek: 0h 0m"
 msgid "Backing up {0}"
 msgstr "Sigurnosno kopiranje {0}"
 
-#: bottles/frontend/views/bottle_details.py:749
+#: bottles/frontend/views/bottle_details.py:747
 msgid "Backup"
 msgstr "Sigurnosna kopija"
 
@@ -429,17 +429,17 @@ msgid "Backup Folder"
 msgstr "Sigurnosna mapa"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:755
+#: bottles/frontend/views/bottle_details.py:753
 msgid "Backup cancelled for \"{0}\""
 msgstr "Sigurnosno kopiranje otkazano za \"{0}\""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:760
+#: bottles/frontend/views/bottle_details.py:758
 msgid "Backup created for \"{0}\""
 msgstr "Sigurnosna kopija stvorena za „{0}”"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:764
+#: bottles/frontend/views/bottle_details.py:762
 msgid "Backup failed for \"{0}\""
 msgstr "Sigurnosna kopija neuspjela za „{0}”"
 
@@ -460,7 +460,7 @@ msgstr "Sigurnosne kopije"
 msgid "Backups to Keep"
 msgstr "Sigurnosne kopije za čuvanje"
 
-#: bottles/frontend/views/bottle_details.py:687
+#: bottles/frontend/views/bottle_details.py:685
 msgid "Be Aware of Sandbox"
 msgstr "Budi svjestan/na o testnom okruženju"
 
@@ -482,7 +482,7 @@ msgid "Bottles Crash Report"
 msgstr "Bottles Izvješće o padu"
 
 # Translators: Bottles is a proper noun referring to the app
-#: bottles/frontend/ui/details-preferences.blp:360
+#: bottles/frontend/ui/details-preferences.blp:343
 msgid "Bottles Runtime"
 msgstr "Bottles Runtime"
 
@@ -498,7 +498,7 @@ msgstr "Bottles se zadnji put srušio. Ispunite izvješće prilažući sljedeće
 msgid "Bottles has a whole new Versioning System that is not backwards compatible.\n\nTo continue using versioning we need to re-initialize the container repository. This will not delete data from your container but will delete all existing snapshots and create a new one.\n\nIf you need to go back to a previous snapshot before continuing, close this window and restore the snapshot, then reopen the container to show this window again.\n\nThe old system will be discontinued in one of the next releases."
 msgstr "Bottles ima potpuno novi sustav verzioniranja koji nije kompatibilan s prethodnim verzijama.\n\nDa bismo nastavili koristiti verzioniranje, moramo ponovo inicijalizirati repozitorij butelje. To neće izbrisati podatke iz tvoje butelje, ali će izbrisati sve postojeće snimke i stvoriti novu butelju.\n\nAko se moraš vratiti na jedno prethodno stanje prije nastavljanja, zatvori ovaj prozor i obnovi snimku, a zatim ponovo otvori butelju za ponovno prikazivanje ovog prozora.\n\nStari sustav će se ukinuti u jednom od sljedećih izdanja."
 
-#: bottles/frontend/views/bottle_details.py:688
+#: bottles/frontend/views/bottle_details.py:686
 msgid "Bottles is running in a sandbox, a restricted permission environment needed to keep you safe. If the program won't run, consider moving inside the container (3 dots icon on the top), then launch from there."
 msgstr "Bottles radi u sandboxu, okruženju s ograničenim dopuštenjima potrebnim za tvoju sigurnost. Ako se program ne pokreće, razmisli o pomicanju unutar butelje (ikona s 3 točke na vrhu), zatim ga pokreni od tamo."
 
@@ -570,7 +570,7 @@ msgstr "Ugrađeni (Wine)"
 msgid "Builtin, then Native"
 msgstr "Ugrađeni, zatim izvorni"
 
-#: bottles/backend/utils/manager.py:935
+#: bottles/backend/utils/manager.py:939
 msgid "Bulgarian"
 msgstr "bugarski"
 
@@ -604,7 +604,7 @@ msgstr "Predmemorirani prefiks za okruženje %s"
 msgid "Cached prefix for the %s environment, created on %s"
 msgstr "Predmemorirani prefiks za okruženje %s, kreirano na %s"
 
-#: bottles/backend/managers/manager.py:1902
+#: bottles/backend/managers/manager.py:1879
 msgid "Caching template…"
 msgstr "Spremanje predloška u predmemoriju …"
 
@@ -704,11 +704,11 @@ msgstr "Provjerite ima li u izvršnim datotekama uzoraka zlonamjernog softvera p
 msgid "Check your connection or try again later."
 msgstr "Provjerite vezu ili pokušajte ponovno kasnije."
 
-#: bottles/backend/utils/manager.py:960
+#: bottles/backend/utils/manager.py:964
 msgid "Chinese (Simplified)"
 msgstr "kineski (pojednostavljeni)"
 
-#: bottles/backend/utils/manager.py:962
+#: bottles/backend/utils/manager.py:966
 msgid "Chinese (Traditional)"
 msgstr "kineski (tradicionalni)"
 
@@ -761,7 +761,7 @@ msgstr "Odaberi otkuda pokrenuti program."
 msgid "Choose the Wine installation used by this container"
 msgstr "Odaberite instalaciju Wine koju koristi ova Wine okruženje"
 
-#: bottles/frontend/ui/details-preferences.blp:333
+#: bottles/frontend/ui/details-preferences.blp:316
 msgid "Choose the language to use with programs."
 msgstr "Odaberi jezik za programe."
 
@@ -871,7 +871,7 @@ msgstr "Izvješća zajednice kojima je potrebno zaobilazno rješenje Media Found
 msgid "Community verdict"
 msgstr "Presuda zajednice"
 
-#: bottles/frontend/ui/details-preferences.blp:317
+#: bottles/frontend/ui/details-preferences.blp:300
 msgid "Compatibility"
 msgstr "Kompatibilnost"
 
@@ -1008,7 +1008,7 @@ msgstr "Upravljačka ploča"
 msgid "Control which variables from your system are visible to programs inside this container"
 msgstr "Kontrolirajte koje su varijable vašeg sustava vidljive programima unutar ove Wine okruženja"
 
-#: bottles/frontend/utils/flatpak.py:61 bottles/frontend/views/bottle_preferences.py:468
+#: bottles/frontend/utils/flatpak.py:61 bottles/frontend/views/bottle_preferences.py:458
 msgid "Copied to clipboard"
 msgstr "Kopirano u međuspremnik"
 
@@ -1016,7 +1016,7 @@ msgstr "Kopirano u međuspremnik"
 msgid "Copies the file into a temporary folder inside the container. Files stored next to it are not included, so it may not work fully."
 msgstr "Kopira datoteku u privremenu mapu unutar Wine okruženja. Datoteke pohranjene pored njega nisu uključene, tako da možda neće raditi u potpunosti."
 
-#: bottles/frontend/utils/flatpak.py:92 bottles/frontend/views/bottle_preferences.py:427 bottles/frontend/widgets/program.py:730
+#: bottles/frontend/utils/flatpak.py:92 bottles/frontend/views/bottle_preferences.py:417 bottles/frontend/widgets/program.py:730
 msgid "Copy command"
 msgstr "Kopiraj naredbu"
 
@@ -1058,7 +1058,7 @@ msgstr "Nije moguće pristupiti unosu radne površine za \"{0}\""
 msgid "Could not analyse this file."
 msgstr "Nije moguće analizirati ovu datoteku."
 
-#: bottles/frontend/views/bottle_preferences.py:889
+#: bottles/frontend/views/bottle_preferences.py:801
 msgid "Could not change the synchronization mode."
 msgstr "Nije moguće promijeniti način sinkronizacije."
 
@@ -1084,7 +1084,7 @@ msgstr "Nije moguće učitati program za instalaciju. Molimo pokušajte ponovo."
 msgid "Could not read the DPI scaling mode."
 msgstr "Nije moguće očitati način skaliranja DPI."
 
-#: bottles/frontend/views/bottle_details.py:839
+#: bottles/frontend/views/bottle_details.py:837
 msgid "Could not remove the container."
 msgstr "Nije moguće ukloniti Wine okruženje."
 
@@ -1098,7 +1098,7 @@ msgstr "Nije moguće ukloniti unos s radne površine za \"{0}\""
 msgid "Could not save the program: {0}"
 msgstr "Nije moguće spremiti program: {0}"
 
-#: bottles/frontend/views/bottle_preferences.py:995
+#: bottles/frontend/views/bottle_preferences.py:886
 msgid "Could not switch to the selected runner."
 msgstr "Nije moguće prebaciti na odabrani trkač."
 
@@ -1176,7 +1176,7 @@ msgstr "Stvaranje grane..."
 msgid "Creating snapshot…"
 msgstr "Stvaranje snimke…"
 
-#: bottles/backend/managers/manager.py:1875
+#: bottles/backend/managers/manager.py:1852
 msgid "Creating versioning state 0…"
 msgstr "Stvaranje verzioniranog stanja 0 …"
 
@@ -1193,7 +1193,7 @@ msgstr "Zasluge i licenca"
 msgid "Critical"
 msgstr "Kritično"
 
-#: bottles/backend/utils/manager.py:945
+#: bottles/backend/utils/manager.py:949
 msgid "Croatian"
 msgstr "hrvatski"
 
@@ -1230,11 +1230,11 @@ msgstr "Prilagođeni URL za ovisnosti. Ostavite prazno za korištenje zadane kra
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr "prilagođeni URL za instalatere. Ostavite prazno za korištenje zadane krajnje točke."
 
-#: bottles/backend/utils/manager.py:936
+#: bottles/backend/utils/manager.py:940
 msgid "Czech"
 msgstr "češki"
 
-#: bottles/backend/managers/manager.py:1935 bottles/frontend/ui/details-preferences.blp:29
+#: bottles/backend/managers/manager.py:1912 bottles/frontend/ui/details-preferences.blp:29
 msgid "D7VK"
 msgstr "D7VK"
 
@@ -1246,7 +1246,7 @@ msgstr "DLL komponente"
 msgid "DLL Override"
 msgstr "DLL nadjačavanje"
 
-#: bottles/frontend/ui/details-preferences.blp:424 bottles/frontend/ui/dialog-dll-overrides.blp:7 bottles/frontend/ui/dialog-dll-overrides.blp:12
+#: bottles/frontend/ui/details-preferences.blp:407 bottles/frontend/ui/dialog-dll-overrides.blp:7 bottles/frontend/ui/dialog-dll-overrides.blp:12
 msgid "DLL Overrides"
 msgstr "DLL zamjene"
 
@@ -1258,7 +1258,7 @@ msgstr "DLS uklanjanje mrlja smanjuje mrlje u kadru. Veće vrijednosti smanjuju 
 msgid "DLS sharpness increases the sharpness of a frame. Higher values make the frame sharper."
 msgstr "CAS oštrina povećava oštrinu kadrova. Veće vrijednosti povećavaju oštrinu kadra."
 
-#: bottles/backend/managers/manager.py:1941 bottles/frontend/ui/details-preferences.blp:42
+#: bottles/backend/managers/manager.py:1918 bottles/frontend/ui/details-preferences.blp:42
 msgid "DXVK"
 msgstr "DXVK"
 
@@ -1275,7 +1275,7 @@ msgstr "Svakodnevno"
 msgid "Daily Average: {}"
 msgstr "Dnevni prosjek: {}"
 
-#: bottles/backend/utils/manager.py:937
+#: bottles/backend/utils/manager.py:941
 msgid "Danish"
 msgstr "danski"
 
@@ -1311,13 +1311,9 @@ msgstr "Otklanjanje grešaka"
 msgid "Declining can cause instability, performance degradation, and incompatibilities with new Bottles releases."
 msgstr "Odbijanje može uzrokovati nestabilnost, degradaciju performansi i nekompatibilnost s novim izdanjima Bottles."
 
-#: bottles/frontend/ui/details-preferences.blp:340 bottles/frontend/ui/new-bottle-dialog.blp:116
+#: bottles/frontend/ui/details-preferences.blp:323 bottles/frontend/ui/new-bottle-dialog.blp:116
 msgid "Dedicated Sandbox"
 msgstr "Namjensko testno okruženje"
-
-#: bottles/frontend/ui/details-preferences.blp:100
-msgid "Deep Learning Super Sampling"
-msgstr "Deep Learning Super Sampling"
 
 #: bottles/frontend/ui/dialog-display.blp:140 bottles/frontend/ui/dialog-vkbasalt.blp:44
 msgid "Default"
@@ -1460,7 +1456,7 @@ msgid "Directory"
 msgstr "Imenik"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_preferences.py:684
+#: bottles/frontend/views/bottle_preferences.py:639
 msgid "Directory that contains the data of \"{}\"."
 msgstr "Direktorij koji sadrži podatke od „{}”."
 
@@ -1468,7 +1464,7 @@ msgstr "Direktorij koji sadrži podatke od „{}”."
 msgid "Disable the default Z: drive"
 msgstr "Onemogućite zadani pogon Z:"
 
-#: bottles/frontend/ui/dialog-launch-options.blp:178 bottles/frontend/ui/dll-override-entry.blp:13 bottles/frontend/ui/preferences.blp:225 bottles/frontend/views/bottle_preferences.py:567 bottles/frontend/views/bottle_preferences.py:568 bottles/frontend/views/bottle_preferences.py:569 bottles/frontend/views/bottle_preferences.py:570 bottles/frontend/windows/launchoptions.py:455
+#: bottles/frontend/ui/dialog-launch-options.blp:178 bottles/frontend/ui/dll-override-entry.blp:13 bottles/frontend/ui/preferences.blp:225 bottles/frontend/views/bottle_preferences.py:952 bottles/frontend/windows/launchoptions.py:455
 msgid "Disabled"
 msgstr "Isključeno"
 
@@ -1476,7 +1472,7 @@ msgstr "Isključeno"
 msgid "Disabled. Executables will run without being checked for threats."
 msgstr "Onemogućeno. Izvršne datoteke pokrenut će se bez provjere prijetnji."
 
-#: bottles/frontend/ui/details-preferences.blp:118
+#: bottles/frontend/ui/details-preferences.blp:100
 msgid "Discrete Graphics"
 msgstr "Dodatna grafička kartica"
 
@@ -1496,7 +1492,7 @@ msgstr "Prikaz na početku igre"
 msgid "Display Settings"
 msgstr "Postavke zaslona"
 
-#: bottles/frontend/ui/details-preferences.blp:257
+#: bottles/frontend/ui/details-preferences.blp:240
 msgid "Display monitoring information such as framerate, temperatures, CPU/GPU load and more on OpenGL and Vulkan using MangoHud."
 msgstr "Prikaži informacije praćenja kao što su broj sličica u sekundi, temperature, CPU/GPU opterećenje i više na OpenGL-u i Vulkanu koristeći MangoHud."
 
@@ -1579,7 +1575,7 @@ msgstr "Dupliciraj butelju …"
 msgid "Duplicating…"
 msgstr "Dupliciranje …"
 
-#: bottles/backend/utils/manager.py:950
+#: bottles/backend/utils/manager.py:954
 msgid "Dutch"
 msgstr "nizozemski"
 
@@ -1675,7 +1671,7 @@ msgstr "Omogući"
 msgid "Enable playtime tracking"
 msgstr "Omogućite praćenje vremena igranja"
 
-#: bottles/frontend/ui/details-preferences.blp:229
+#: bottles/frontend/ui/details-preferences.blp:212
 msgid "Enable synchronization to increase performance of multicore processors."
 msgstr "Aktiviraj sinkronizaciju za povećavanje performance višejezgrenih procesora."
 
@@ -1696,7 +1692,7 @@ msgstr "Omogućavanje izglađivanja fonta…"
 msgid "Engines and Frameworks"
 msgstr "Motori i okviri"
 
-#: bottles/backend/utils/manager.py:940
+#: bottles/backend/utils/manager.py:944
 msgid "English"
 msgstr "engleski"
 
@@ -1712,7 +1708,7 @@ msgstr "Unesite ekstenzije datoteka odvojene zarezima. Bottles učinit će ovaj 
 msgid "Environment Variable"
 msgstr "Varijabla okruženja"
 
-#: bottles/frontend/ui/details-preferences.blp:437 bottles/frontend/ui/dialog-env-vars.blp:7
+#: bottles/frontend/ui/details-preferences.blp:420 bottles/frontend/ui/dialog-env-vars.blp:7
 msgid "Environment Variables"
 msgstr "Varijable okruženja"
 
@@ -1738,11 +1734,11 @@ msgstr "Greška prilikom obrade izvršne datoteke: {0}"
 msgid "Errors"
 msgstr "Greške"
 
-#: bottles/backend/utils/manager.py:942
+#: bottles/backend/utils/manager.py:946
 msgid "Estonian"
 msgstr "estonski"
 
-#: bottles/frontend/ui/details-preferences.blp:235
+#: bottles/frontend/ui/details-preferences.blp:218
 msgid "Esync"
 msgstr "Esync"
 
@@ -1786,7 +1782,7 @@ msgstr "Eksperimenti"
 msgid "Explorer"
 msgstr "Preglednik"
 
-#: bottles/frontend/views/bottle_details.py:745
+#: bottles/frontend/views/bottle_details.py:743
 msgid "Export"
 msgstr "Izvoz"
 
@@ -1794,7 +1790,7 @@ msgstr "Izvoz"
 msgid "Export Configuration…"
 msgstr "Izvezi konfiguraciju …"
 
-#: bottles/frontend/ui/details-preferences.blp:139
+#: bottles/frontend/ui/details-preferences.blp:121
 msgid "Expose HDR to games using DXVK. Requires native Wayland or Gamescope. Older NVIDIA drivers also need HdrWsi and ENABLE_HDR_WSI=1."
 msgstr "Izložite HDR igrama pomoću DXVK. Zahtijeva izvorni Wayland ili Gamescope. Stariji NVIDIA upravljački programi također trebaju HdrWsi i ENABLE_HDR_WSI=1."
 
@@ -1845,12 +1841,12 @@ msgid "Failed to initialize the Wine prefix."
 msgstr "Nije uspjelo inicijaliziranje prefiksa Wine."
 
 #, python-format
-#: bottles/backend/managers/manager.py:1826 bottles/backend/managers/manager.py:1831
+#: bottles/backend/managers/manager.py:1803 bottles/backend/managers/manager.py:1808
 msgid "Failed to install dependency: %s"
 msgstr "Neuspješno instaliranje ovisnosti: %s"
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2453
+#: bottles/backend/managers/manager.py:2319
 msgid "Failed to install {0}."
 msgstr "Instalacija {0} nije uspjela."
 
@@ -1859,24 +1855,16 @@ msgid "Failed to prepare the container user profile."
 msgstr "Nije uspjela priprema korisničkog profila spremnika."
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2453
+#: bottles/backend/managers/manager.py:2319
 msgid "Failed to remove {0}."
 msgstr "nije uspjelo uklanjanje {0}."
-
-#: bottles/backend/managers/manager.py:2138
-msgid "Failed to restore graphics components."
-msgstr "Nije uspjelo vraćanje grafičkih komponenti."
 
 #: bottles/backend/managers/manager.py:1653
 msgid "Failed to sandbox the container user directory."
 msgstr "Nije uspjelo sandbox korisničkog imenika Wine okruženja."
 
-#: bottles/backend/managers/manager.py:2228
-msgid "Failed to save and roll back the D7VK configuration."
-msgstr "Nije uspjelo spremanje i vraćanje konfiguracije D7VK."
-
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:611
+#: bottles/frontend/views/bottle_details.py:609 bottles/frontend/views/bottle_preferences.py:1005
 msgid "Failed to update {component}"
 msgstr "nije uspjelo ažuriranje {component}"
 
@@ -1884,7 +1872,7 @@ msgstr "nije uspjelo ažuriranje {component}"
 msgid "Fast Approximate Anti-Aliasing"
 msgstr "Brzo približno zaglađivanje rubova"
 
-#: bottles/frontend/ui/details-preferences.blp:276
+#: bottles/frontend/ui/details-preferences.blp:259
 msgid "Feral GameMode"
 msgstr "Feral GameMode"
 
@@ -1927,11 +1915,11 @@ msgstr "Datoteke za predmemoriju"
 msgid "Finalizing installation..."
 msgstr "Završetak instalacije..."
 
-#: bottles/backend/managers/manager.py:1880
+#: bottles/backend/managers/manager.py:1857
 msgid "Finalizing…"
 msgstr "Završavanje …"
 
-#: bottles/backend/utils/manager.py:943
+#: bottles/backend/utils/manager.py:947
 msgid "Finnish"
 msgstr "finski"
 
@@ -1967,7 +1955,7 @@ msgstr "Prisilno prekini sve procese"
 msgid "Force Stop all Processes (Native method)"
 msgstr "Prisilno zaustavi sve procese (Nativna metoda)"
 
-#: bottles/frontend/views/bottle_details.py:959
+#: bottles/frontend/views/bottle_details.py:957
 msgid "Force _Stop"
 msgstr "_Prisili prekid"
 
@@ -1975,7 +1963,7 @@ msgstr "_Prisili prekid"
 msgid "Force disable any network activity even with available network connection."
 msgstr "Prisilno onemogući bilo koju mrežnu aktivnost čak i uz dostupnu mrežnu vezu."
 
-#: bottles/frontend/ui/details-preferences.blp:129
+#: bottles/frontend/ui/details-preferences.blp:111
 msgid "Force the experimental native Wayland driver instead of Xwayland. Requires a Wayland session."
 msgstr "Forsirajte eksperimentalni nativni Wayland drajver umjesto Xwaylanda. Zahtijeva Wayland sesiju."
 
@@ -1987,7 +1975,7 @@ msgstr "Prisili korištenje tamne teme."
 msgid "Frame Generation"
 msgstr "Generiranje okvira"
 
-#: bottles/frontend/ui/details-preferences.blp:168
+#: bottles/frontend/ui/details-preferences.blp:150
 msgid "Frame Generation (Experimental)"
 msgstr "Generiranje okvira (eksperimentalno)"
 
@@ -1995,7 +1983,7 @@ msgstr "Generiranje okvira (eksperimentalno)"
 msgid "Frame Generation Settings"
 msgstr "Postavke generiranja okvira"
 
-#: bottles/frontend/ui/details-preferences.blp:243 bottles/frontend/ui/dialog-gamescope.blp:141
+#: bottles/frontend/ui/details-preferences.blp:226 bottles/frontend/ui/dialog-gamescope.blp:141
 msgid "Frame Rate Limit"
 msgstr "Ograničenje frekvencije"
 
@@ -2003,11 +1991,11 @@ msgstr "Ograničenje frekvencije"
 msgid "Frame Rate Limit When Unfocused"
 msgstr "Ograničenje frekvencije kad prozor nije aktivan"
 
-#: bottles/backend/utils/manager.py:944
+#: bottles/backend/utils/manager.py:948
 msgid "French"
 msgstr "francuski"
 
-#: bottles/frontend/ui/details-preferences.blp:236
+#: bottles/frontend/ui/details-preferences.blp:219
 msgid "Fsync"
 msgstr "Fsync"
 
@@ -2051,7 +2039,7 @@ msgstr "Igre"
 msgid "General"
 msgstr "Općenito"
 
-#: bottles/frontend/ui/details-preferences.blp:169
+#: bottles/frontend/ui/details-preferences.blp:151
 msgid "Generate additional frames with lsfg-vk. Only works with 64-bit Vulkan applications."
 msgstr "Generirajte dodatne okvire pomoću lsfg-vk. Radi samo sa 64-bitnim Vulkan aplikacijama."
 
@@ -2059,7 +2047,7 @@ msgstr "Generirajte dodatne okvire pomoću lsfg-vk. Radi samo sa 64-bitnim Vulka
 msgid "Generating container configuration…"
 msgstr "Generiranje konfiguracije butelje …"
 
-#: bottles/backend/utils/manager.py:938
+#: bottles/backend/utils/manager.py:942
 msgid "German"
 msgstr "njemački"
 
@@ -2079,7 +2067,7 @@ msgstr "Odobrite Bottles izravan pristup direktoriju pokretača, zatim ga ponovn
 msgid "Graphics API"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:939
+#: bottles/backend/utils/manager.py:943
 msgid "Greek"
 msgstr ""
 
@@ -2111,7 +2099,7 @@ msgstr "Sakrij skrivene programe"
 msgid "Hide Program"
 msgstr "Sakrij program"
 
-#: bottles/frontend/ui/details-preferences.blp:138
+#: bottles/frontend/ui/details-preferences.blp:120
 msgid "High Dynamic Range"
 msgstr ""
 
@@ -2124,7 +2112,7 @@ msgstr ""
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr ""
 
-#: bottles/backend/utils/manager.py:946
+#: bottles/backend/utils/manager.py:950
 msgid "Hungarian"
 msgstr ""
 
@@ -2176,7 +2164,7 @@ msgstr ""
 msgid "Improve Direct3D 8/9/10/11 compatibility by translating it to Vulkan."
 msgstr "Poboljšaj kompatibilnost s Direct3D 8/9/10/11 prevođenjem na Vulkan."
 
-#: bottles/frontend/ui/details-preferences.blp:287
+#: bottles/frontend/ui/details-preferences.blp:270
 msgid "Improve loading time when launching the game multiple times. The game will take longer to start for the first time."
 msgstr "Poboljšaj vrijeme učitavanja pri višestrukom pokretanju igre. Pokretanje igre će trajati duže pri prvom pokretanju."
 
@@ -2187,10 +2175,6 @@ msgstr ""
 #: bottles/frontend/ui/dialog-deps-check.blp:14
 msgid "Incomplete package"
 msgstr "Nepotpun paket"
-
-#: bottles/frontend/ui/details-preferences.blp:101
-msgid "Increase performance at the expense of visuals using DXVK-NVAPI. Only works on newer NVIDIA GPUs."
-msgstr "Povećaj performancu nauštrb vizualnih prikaza koristeći DXVK-NVAPI. Radi samo na novijim NVIDIA GPU-ovima."
 
 #: bottles/frontend/ui/details-preferences.blp:82
 msgid "Increase responsiveness. Can be detected by some anti-cheat software."
@@ -2232,7 +2216,7 @@ msgstr "Instaliraj programe koje pruža naša zajednica.\n\nDatoteke na ovoj str
 msgid "Install this Program"
 msgstr "Instaliraj ovaj program"
 
-#: bottles/frontend/views/bottle_preferences.py:165
+#: bottles/frontend/views/bottle_preferences.py:162
 msgid "Install vkbasalt-cli to edit vkBasalt settings."
 msgstr "Instalirajte vkbasalt-cli za uređivanje postavki vkBasalt."
 
@@ -2277,28 +2261,16 @@ msgstr "Repozitorij instalatera"
 msgid "Installing \"{0}\"..."
 msgstr "Instaliranje \"{0}\"..."
 
-#: bottles/backend/managers/manager.py:1853
+#: bottles/backend/managers/manager.py:1830
 msgid "Installing D7VK..."
 msgstr "Instaliranje D7VK..."
-
-#: bottles/backend/managers/manager.py:1806
-msgid "Installing DXVK-NVAPI…"
-msgstr "Instaliranje DXVK-NVAPI-a …"
-
-#: bottles/backend/managers/manager.py:1775
-msgid "Installing DXVK…"
-msgstr "Instaliranje DXVK-a …"
-
-#: bottles/backend/managers/manager.py:1790
-msgid "Installing VKD3D…"
-msgstr "Instaliranje VKD3D-a …"
 
 #: bottles/frontend/windows/installer.py:142
 msgid "Installing Windows dependencies…"
 msgstr "Instaliranje ovisnosti za Windows …"
 
 #, python-format
-#: bottles/backend/managers/manager.py:1820
+#: bottles/backend/managers/manager.py:1797
 msgid "Installing dependency: %s …"
 msgstr "Instaliranje ovisnosti: %s …"
 
@@ -2347,7 +2319,7 @@ msgstr "Integracije"
 msgid "Invalid URI (syntax: bottles:run/<bottle>/<program>)"
 msgstr "Neispravni URI (sintaksa: bottles:run/<Wine okruženje>/<program>)"
 
-#: bottles/backend/managers/manager.py:2098
+#: bottles/backend/managers/manager.py:2055
 msgid "Invalid graphics component."
 msgstr "Nevažeća grafička komponenta."
 
@@ -2355,7 +2327,7 @@ msgstr "Nevažeća grafička komponenta."
 msgid "Issues that may prevent this program from running."
 msgstr "Problemi koji mogu spriječiti pokretanje ovog programa."
 
-#: bottles/backend/utils/manager.py:947
+#: bottles/backend/utils/manager.py:951
 msgid "Italian"
 msgstr "talijanski"
 
@@ -2363,7 +2335,7 @@ msgstr "talijanski"
 msgid "Item name"
 msgstr "Ime stavke"
 
-#: bottles/backend/utils/manager.py:961
+#: bottles/backend/utils/manager.py:965
 msgid "Japanese"
 msgstr "japanski"
 
@@ -2381,11 +2353,11 @@ msgstr "Poznata aplikacija ({match}): {name}"
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr "Poznata primjena: {name} (winetricks glagol '{verb}')"
 
-#: bottles/backend/utils/manager.py:963
+#: bottles/backend/utils/manager.py:967
 msgid "Korean"
 msgstr "korejski"
 
-#: bottles/frontend/ui/details-preferences.blp:332 bottles/frontend/ui/preferences.blp:28
+#: bottles/frontend/ui/details-preferences.blp:315 bottles/frontend/ui/preferences.blp:28
 msgid "Language"
 msgstr "Jezik"
 
@@ -2398,11 +2370,11 @@ msgstr "Zadnje igrano"
 msgid "Last Used: %s – Usage Time: %s"
 msgstr "Zadnje igranje: %s – Vrijeme reprodukcije: %s"
 
-#: bottles/backend/managers/manager.py:1959 bottles/frontend/ui/details-preferences.blp:81
+#: bottles/backend/managers/manager.py:1936 bottles/frontend/ui/details-preferences.blp:81
 msgid "LatencyFleX"
 msgstr "LatencyFleX"
 
-#: bottles/backend/utils/manager.py:949
+#: bottles/backend/utils/manager.py:953
 msgid "Latvian"
 msgstr "Latvijski"
 
@@ -2435,7 +2407,7 @@ msgid "Launch with Terminal"
 msgstr "Pokreni s terminalom"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:652 bottles/frontend/widgets/library.py:271 bottles/frontend/widgets/program.py:367
+#: bottles/frontend/views/bottle_details.py:650 bottles/frontend/widgets/library.py:271 bottles/frontend/widgets/program.py:367
 msgid "Launching \"{0}\"…"
 msgstr "Pokreće se „{0}” …"
 
@@ -2486,7 +2458,7 @@ msgstr "Redoslijed sortiranja biblioteke"
 msgid "License"
 msgstr "Licenca"
 
-#: bottles/frontend/ui/details-preferences.blp:244
+#: bottles/frontend/ui/details-preferences.blp:227
 msgid "Limit DXVK and VKD3D applications. Set to 0 to disable."
 msgstr "Ograničite aplikacije DXVK i VKD3D. Postavite na 0 za onemogućavanje."
 
@@ -2506,7 +2478,7 @@ msgstr "Prikaži Steam aplikacije u popisu programa"
 msgid "List Ubisoft Games in Programs List"
 msgstr "Prikaži Ubisoft igre u popisu programa"
 
-#: bottles/backend/utils/manager.py:948
+#: bottles/backend/utils/manager.py:952
 msgid "Lithuanian"
 msgstr "litvanski"
 
@@ -2550,7 +2522,7 @@ msgstr "Glavni izbornik"
 msgid "Manage Branches"
 msgstr "Upravljanje ograncima"
 
-#: bottles/frontend/ui/details-preferences.blp:450
+#: bottles/frontend/ui/details-preferences.blp:433
 msgid "Manage Drives"
 msgstr "Upravljaj pogonima"
 
@@ -2558,15 +2530,15 @@ msgstr "Upravljaj pogonima"
 msgid "Manage File Associations..."
 msgstr "Upravljanje asocijacijama datoteka..."
 
-#: bottles/frontend/ui/details-preferences.blp:192
+#: bottles/frontend/ui/details-preferences.blp:174
 msgid "Manage Gamescope settings"
 msgstr "Upravljaj Gamescope postavkama"
 
-#: bottles/frontend/ui/details-preferences.blp:260
+#: bottles/frontend/ui/details-preferences.blp:243
 msgid "Manage MangoHud settings"
 msgstr "Upravljanje postavkama MangoHud"
 
-#: bottles/frontend/ui/details-preferences.blp:152
+#: bottles/frontend/ui/details-preferences.blp:134
 msgid "Manage Post-Processing Layer settings"
 msgstr "Upravljaj postavkama slojeva naknadne obrade"
 
@@ -2574,7 +2546,7 @@ msgstr "Upravljaj postavkama slojeva naknadne obrade"
 msgid "Manage cached files used to speed up downloads and container creation."
 msgstr "Upravljajte predmemoriranim datotekama koje se koriste za ubrzavanje preuzimanja i stvaranja Wine okruženje."
 
-#: bottles/frontend/ui/details-preferences.blp:189
+#: bottles/frontend/ui/details-preferences.blp:171
 msgid "Manage how games should be displayed on the screen using Gamescope."
 msgstr "Upravljaj načinom prikaza igri na ekranu pomoću Gamescopea."
 
@@ -2582,7 +2554,7 @@ msgstr "Upravljaj načinom prikaza igri na ekranu pomoću Gamescopea."
 msgid "Manage how games should be displayed."
 msgstr "Upravljaj načinom prikaza igara."
 
-#: bottles/frontend/ui/details-preferences.blp:172
+#: bottles/frontend/ui/details-preferences.blp:154
 msgid "Manage lsfg-vk settings"
 msgstr "Upravljanje postavkama lsfg-vk"
 
@@ -2590,11 +2562,11 @@ msgstr "Upravljanje postavkama lsfg-vk"
 msgid "Manage reusable registry tweaks."
 msgstr "Upravljajte višekratnim podešavanjima registra."
 
-#: bottles/frontend/ui/details-preferences.blp:344
+#: bottles/frontend/ui/details-preferences.blp:327
 msgid "Manage the Sandbox Permissions"
 msgstr "Upravljaj dozvolama testnog okruženja"
 
-#: bottles/frontend/ui/details-preferences.blp:291
+#: bottles/frontend/ui/details-preferences.blp:274
 msgid "Manage vmtouch settings"
 msgstr "Upravljaj vmtouch postavkama"
 
@@ -2651,11 +2623,11 @@ msgstr "Minimalna verzija OS-a"
 msgid "Miscellaneous"
 msgstr "Razno"
 
-#: bottles/frontend/views/bottle_details.py:878
+#: bottles/frontend/views/bottle_details.py:876
 msgid "Missing Runner"
 msgstr "Nedostaje pokretač"
 
-#: bottles/frontend/ui/details-preferences.blp:256
+#: bottles/frontend/ui/details-preferences.blp:239
 msgid "Monitor Performance"
 msgstr "Prati performancu"
 
@@ -2701,11 +2673,11 @@ msgstr "Moja butelja"
 msgid "N/A"
 msgstr "--"
 
-#: bottles/frontend/ui/details-preferences.blp:237
+#: bottles/frontend/ui/details-preferences.blp:220
 msgid "NTSync"
 msgstr "NTSync"
 
-#: bottles/backend/managers/manager.py:1953
+#: bottles/backend/managers/manager.py:1930
 msgid "NVAPI"
 msgstr "NVAPI"
 
@@ -2782,7 +2754,7 @@ msgstr "Sljedeće godine"
 msgid "No"
 msgstr "Ne"
 
-#: bottles/backend/managers/manager.py:2192 bottles/backend/managers/manager.py:2387
+#: bottles/backend/managers/manager.py:2255
 msgid "No D7VK version available."
 msgstr "Nije dostupna verzija D7VK."
 
@@ -2790,7 +2762,7 @@ msgstr "Nije dostupna verzija D7VK."
 msgid "No DLL selected"
 msgstr "DLL nije odabran"
 
-#: bottles/backend/managers/manager.py:2120 bottles/backend/managers/manager.py:2396
+#: bottles/backend/managers/manager.py:2078 bottles/backend/managers/manager.py:2264
 msgid "No DXVK version available."
 msgstr "Nije dostupna verzija DXVK."
 
@@ -2806,11 +2778,11 @@ msgstr "Nije pronađen nijedan HIDRAW uređaj"
 msgid "No Installers Found"
 msgstr "Nijedan instalacijski program nije pronađen"
 
-#: bottles/backend/managers/manager.py:2426
+#: bottles/backend/managers/manager.py:2292
 msgid "No LatencyFleX version available."
 msgstr "nije dostupna verzija LatencyFleX."
 
-#: bottles/backend/managers/manager.py:2414
+#: bottles/backend/managers/manager.py:2282
 msgid "No NVAPI version available."
 msgstr "NVAPI verzija nije dostupna."
 
@@ -2830,7 +2802,7 @@ msgstr "Nijedna snimka nije pronađena"
 msgid "No Thumbnail"
 msgstr "Bez minijature"
 
-#: bottles/backend/managers/manager.py:2405
+#: bottles/backend/managers/manager.py:2273
 msgid "No VKD3D version available."
 msgstr "Nije dostupna verzija VKD3D."
 
@@ -2854,7 +2826,7 @@ msgstr "Nijedan uzorak isključivanja nije određen."
 msgid "No files or folders selected"
 msgstr "Nema odabranih datoteka ili mapa"
 
-#: bottles/backend/managers/manager.py:2107
+#: bottles/backend/managers/manager.py:2065
 msgid "No graphics component version available."
 msgstr "Nije dostupna verzija grafičke komponente."
 
@@ -2878,7 +2850,7 @@ msgstr "Još nema predložaka u predmemoriji."
 msgid "No variables selected"
 msgstr "Nije odabrana nijedna varijabla"
 
-#: bottles/backend/utils/manager.py:951
+#: bottles/backend/utils/manager.py:955
 msgid "Norwegian"
 msgstr "norveški"
 
@@ -2895,11 +2867,11 @@ msgstr "Trenutno nije povezano"
 msgid "Not enough disk space to create a snapshot! Requires at least {0} of free space."
 msgstr "Nema dovoljno prostora na disku za izradu snimke! Zahtijeva najmanje {0} slobodnog prostora."
 
-#: bottles/backend/managers/manager.py:2010
+#: bottles/backend/managers/manager.py:1987
 msgid "Not installed"
 msgstr "Nije instalirano"
 
-#: bottles/frontend/ui/details-preferences.blp:463
+#: bottles/frontend/ui/details-preferences.blp:446
 msgid "Notes"
 msgstr "Bilješke"
 
@@ -2911,7 +2883,7 @@ msgstr "Nema promjena"
 msgid "Notifications"
 msgstr "Obavijesti"
 
-#: bottles/frontend/ui/details-preferences.blp:307
+#: bottles/frontend/ui/details-preferences.blp:290
 msgid "OBS Game Capture"
 msgstr "Snimanje OBS igre"
 
@@ -2927,7 +2899,7 @@ msgstr "OSS"
 msgid "Offer an Eagle analysis when a program closes right after starting."
 msgstr "Ponudite analizu Eagle kada se program zatvori odmah nakon pokretanja."
 
-#: bottles/frontend/views/bottle_preferences.py:283
+#: bottles/frontend/views/bottle_preferences.py:280
 msgid "Older NVIDIA drivers require HdrWsi and ENABLE_HDR_WSI=1 for HDR."
 msgstr "Stariji NVIDIA upravljački programi zahtijevaju HdrWsi i ENABLE_HDR_WSI=1 za HDR."
 
@@ -2985,7 +2957,7 @@ msgstr "Otvorite licencu {0}"
 msgid "Operations"
 msgstr "Operacije"
 
-#: bottles/frontend/views/details.py:268
+#: bottles/frontend/views/details.py:266
 msgid "Operations in progress, please wait."
 msgstr "Operacije se izvode, pričekaj."
 
@@ -3058,7 +3030,7 @@ msgstr "Staze unutar Wine okruženja ostaju važeće ako se Wine okruženje poma
 msgid "Pattern"
 msgstr "Uzorak"
 
-#: bottles/frontend/ui/details-preferences.blp:226
+#: bottles/frontend/ui/details-preferences.blp:209
 msgid "Performance"
 msgstr "Performanca"
 
@@ -3090,15 +3062,15 @@ msgstr "Prijeđi na novi sustav verzioniranja za stvaranje novih stanja."
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr "Pričekajte dok se WineBridge preuzima i instalira."
 
-#: bottles/backend/utils/manager.py:952
+#: bottles/backend/utils/manager.py:956
 msgid "Polish"
 msgstr "poljski"
 
-#: bottles/backend/utils/manager.py:953
+#: bottles/backend/utils/manager.py:957
 msgid "Portuguese"
 msgstr "portugalski"
 
-#: bottles/frontend/ui/details-preferences.blp:148
+#: bottles/frontend/ui/details-preferences.blp:130
 msgid "Post-Processing Effects"
 msgstr "Efekti naknadne obrade"
 
@@ -3147,7 +3119,7 @@ msgstr "Zamjene postavki"
 msgid "Prefix templates"
 msgstr "Predlošci prefiksa"
 
-#: bottles/frontend/ui/details-preferences.blp:286
+#: bottles/frontend/ui/details-preferences.blp:269
 msgid "Preload Game Files"
 msgstr "Predučitaj datoteke igre"
 
@@ -3251,11 +3223,11 @@ msgstr ""
 msgid "ProtonDB community reports: ODbL 1.0, contents DbCL 1.0.\nwinetricks data: LGPL-2.1-or-later."
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:382
+#: bottles/frontend/ui/details-preferences.blp:365
 msgid "Provide a bundle of extra libraries for more compatibility with Steam games. Disable it if you run into issues."
 msgstr "Pruža paket dodatnih biblioteka za bolju kompatibilnost sa Steam igrama. Deaktiviraj ako naiđeš na probleme."
 
-#: bottles/frontend/ui/details-preferences.blp:361
+#: bottles/frontend/ui/details-preferences.blp:344
 msgid "Provide a bundle of extra libraries for more compatibility. Disable it if you run into issues."
 msgstr "Pruža paket dodatnih biblioteka za bolju kompatibilnost. Deaktiviraj ako naiđeš na probleme."
 
@@ -3427,7 +3399,7 @@ msgstr "Ukloni iz popisa"
 msgid "Remove from list (keep files)"
 msgstr "Ukloni s popisa (zadrži datoteke)"
 
-#: bottles/frontend/views/bottle_details.py:856
+#: bottles/frontend/views/bottle_details.py:854
 msgid "Remove this container from your list, or permanently delete its directory and all files."
 msgstr "Uklonite ovu Wine okruženje sa svog popisa ili trajno izbrišite njen direktorij i sve datoteke."
 
@@ -3504,7 +3476,7 @@ msgstr "Poništiti statistiku vremena korištenja?"
 msgid "Reset to Container's Defaults"
 msgstr "Vrati na standardne postavke programa Butelje"
 
-#: bottles/frontend/ui/details-preferences.blp:395 bottles/frontend/ui/dialog-launch-options.blp:76 bottles/frontend/ui/dialog-launch-options.blp:113 bottles/frontend/ui/dialog-launch-options.blp:150 bottles/frontend/ui/new-bottle-dialog.blp:160
+#: bottles/frontend/ui/details-preferences.blp:378 bottles/frontend/ui/dialog-launch-options.blp:76 bottles/frontend/ui/dialog-launch-options.blp:113 bottles/frontend/ui/dialog-launch-options.blp:150 bottles/frontend/ui/new-bottle-dialog.blp:160
 msgid "Reset to Default"
 msgstr "Vrati na standardne vrijednosti"
 
@@ -3541,11 +3513,11 @@ msgstr "Obnavljanje stanja {} …"
 msgid "Restoring state..."
 msgstr "Vraćanje stanja..."
 
-#: bottles/frontend/widgets/state.py:123
+#: bottles/frontend/widgets/state.py:122
 msgid "Restoring this state will overwrite the current configuration and cannot be undone."
 msgstr "Vraćanje ovog stanja prebrisat će trenutnu konfiguraciju i ne može se poništiti."
 
-#: bottles/frontend/views/details.py:275
+#: bottles/frontend/views/details.py:273
 msgid "Return to your containers."
 msgstr "Vrati se na tvoje butelje."
 
@@ -3558,7 +3530,7 @@ msgstr "Pregled"
 msgid "Review for {0}"
 msgstr "Pregled za {0}"
 
-#: bottles/backend/utils/manager.py:954
+#: bottles/backend/utils/manager.py:958
 msgid "Romanian"
 msgstr "rumunjski"
 
@@ -3570,7 +3542,7 @@ msgstr "Detalji pravila"
 msgid "Rule name"
 msgstr "Naziv pravila"
 
-#: bottles/frontend/ui/dialog-run-args.blp:33 bottles/frontend/utils/sandbox_guard.py:172 bottles/frontend/views/bottle_details.py:671 bottles/frontend/views/list.py:151
+#: bottles/frontend/ui/dialog-run-args.blp:33 bottles/frontend/utils/sandbox_guard.py:172 bottles/frontend/views/bottle_details.py:669 bottles/frontend/views/list.py:151
 msgid "Run"
 msgstr "Pokreni"
 
@@ -3658,7 +3630,7 @@ msgstr "Radi s istim pristupom kao Bottles, bez dodatne izolacije."
 msgid "Runtimes and Libraries"
 msgstr "Vremena izvođenja i biblioteke"
 
-#: bottles/backend/utils/manager.py:955
+#: bottles/backend/utils/manager.py:959
 msgid "Russian"
 msgstr "ruski"
 
@@ -3686,7 +3658,7 @@ msgstr "Postavke testnog okruženja"
 msgid "Save"
 msgstr "Spremi"
 
-#: bottles/frontend/ui/details-preferences.blp:467
+#: bottles/frontend/ui/details-preferences.blp:450
 msgid "Save Notes"
 msgstr "Spremi bilješke"
 
@@ -3774,11 +3746,11 @@ msgstr "Odaberite imenik"
 msgid "Select Drive Path"
 msgstr "Odaberi stazu diska"
 
-#: bottles/frontend/views/bottle_details.py:348 bottles/frontend/views/bottle_details.py:668 bottles/frontend/views/list.py:148
+#: bottles/frontend/views/bottle_details.py:348 bottles/frontend/views/bottle_details.py:666 bottles/frontend/views/list.py:148
 msgid "Select Executable"
 msgstr "Odaberi izvršnu datoteku"
 
-#: bottles/frontend/views/bottle_details.py:720
+#: bottles/frontend/views/bottle_details.py:718
 msgid "Select Executable for Eagle Analysis"
 msgstr "Odaberite izvršnu datoteku za analizu Eagle"
 
@@ -3814,7 +3786,7 @@ msgstr "Odaberi datoteku resursa"
 msgid "Select Runner Directory"
 msgstr "Odaberite imenik Pokretač"
 
-#: bottles/frontend/views/bottle_preferences.py:510 bottles/frontend/windows/launchoptions.py:438
+#: bottles/frontend/views/bottle_preferences.py:500 bottles/frontend/windows/launchoptions.py:438
 msgid "Select Working Directory"
 msgstr "Odaberi radni direktorij"
 
@@ -3854,11 +3826,11 @@ msgstr "Odaberite prazan imenik"
 msgid "Select files and folders within the container, not the container itself."
 msgstr "Odaberite datoteke i mape unutar Wine okruženja, a ne samu Wine okruženje."
 
-#: bottles/frontend/views/bottle_details.py:747
+#: bottles/frontend/views/bottle_details.py:745
 msgid "Select the location where to save the backup archive"
 msgstr "Odaberi mjesto za spremanje arhive sigurnosne kopije"
 
-#: bottles/frontend/views/bottle_details.py:743
+#: bottles/frontend/views/bottle_details.py:741
 msgid "Select the location where to save the backup config"
 msgstr "Odaberi mjesto za spremanje konfiguracije sigurnosne kopije"
 
@@ -4040,11 +4012,11 @@ msgstr "Preskoči postavljanje"
 msgid "Skipping {0}: not installed."
 msgstr "Preskakanje {0}: nije instalirano."
 
-#: bottles/backend/utils/manager.py:956
+#: bottles/backend/utils/manager.py:960
 msgid "Slovak"
 msgstr "slovački"
 
-#: bottles/backend/utils/manager.py:957
+#: bottles/backend/utils/manager.py:961
 msgid "Slovenian"
 msgstr "slovenski"
 
@@ -4097,7 +4069,7 @@ msgstr "Sortirajte biblioteku prema nazivu programa ili prema nazivu spremnika i
 msgid "Source: {0}"
 msgstr "Izvor: {0}"
 
-#: bottles/backend/utils/manager.py:941
+#: bottles/backend/utils/manager.py:945
 msgid "Spanish"
 msgstr "španjolski"
 
@@ -4109,7 +4081,7 @@ msgstr "Pokreni instalaciju"
 msgid "Start program"
 msgstr "Pokrenite program"
 
-#: bottles/frontend/ui/details-preferences.blp:372
+#: bottles/frontend/ui/details-preferences.blp:355
 msgid "Start programs through WineBridge by default for this container."
 msgstr "Pokrenite programe putem WineBridge prema zadanim postavkama za ovu Wine okruženje."
 
@@ -4156,11 +4128,11 @@ msgstr "Stanje {} već je aktivno stanje"
 msgid "States list retrieved successfully!"
 msgstr "Popis stanja je uspješno dohvaćen!"
 
-#: bottles/frontend/ui/details-preferences.blp:381
+#: bottles/frontend/ui/details-preferences.blp:364
 msgid "Steam Runtime"
 msgstr "Paket biblioteka Steama"
 
-#: bottles/frontend/views/bottle_preferences.py:194
+#: bottles/frontend/views/bottle_preferences.py:191
 msgid "Steam Runtime was not detected. Install it or grant Bottles access to Steam files, then restart Bottles."
 msgstr "Steam Vrijeme izvođenja nije otkriveno. Instalirajte ga ili odobrite Bottles pristup datotekama Steam, zatim ponovno pokrenite Bottles."
 
@@ -4218,7 +4190,7 @@ msgstr "Prijedlozi se temelje na tehničkoj analizi i ne jamče kompatibilnost."
 msgid "Supported Executables"
 msgstr "Podržane izvršne datoteke"
 
-#: bottles/backend/utils/manager.py:958
+#: bottles/backend/utils/manager.py:962
 msgid "Swedish"
 msgstr "švedski"
 
@@ -4234,11 +4206,11 @@ msgstr "Promjena grane..."
 msgid "Switching branch…"
 msgstr "Promjena grane..."
 
-#: bottles/frontend/ui/details-preferences.blp:230
+#: bottles/frontend/ui/details-preferences.blp:213
 msgid "Synchronization"
 msgstr "Sinkronizacija"
 
-#: bottles/backend/utils/manager.py:934 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/ui/dialog-display.blp:142 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:938 bottles/frontend/ui/details-preferences.blp:217 bottles/frontend/ui/dialog-display.blp:142 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "Sustav"
 
@@ -4352,7 +4324,7 @@ msgstr "Uveden je novi sustav verzioniranja butelja."
 msgid "The next container for this environment will take longer to create because Bottles must rebuild the template."
 msgstr "Za izradu sljedeće Wine okruženja za ovo okruženje trebat će više vremena jer Bottles mora ponovno izgraditi predložak."
 
-#: bottles/frontend/views/bottle_preferences.py:613
+#: bottles/frontend/views/bottle_preferences.py:570
 msgid "The notes could not be saved."
 msgstr "Bilješke se nisu mogle spremiti."
 
@@ -4373,7 +4345,7 @@ msgstr "Programsku datoteku nije moguće pronaći. Provjerite njegov put i sve v
 msgid "The repository is unreachable or no installer is compatible with this container."
 msgstr "Repozitorij je nedostupan ili nijedan instalacijski program nije kompatibilan s ovom buteljom."
 
-#: bottles/frontend/views/bottle_details.py:879
+#: bottles/frontend/views/bottle_details.py:877
 msgid "The runner requested by this container is missing. Restore it using your package manager, add its local directory in Preferences, or explicitly choose another runner for this container."
 msgstr "Nedostaje trkač koji zahtijeva ova Wine okruženje. Vratite ga pomoću svog upravitelja paketima, dodajte njegov lokalni direktorij u Preferences ili izričito odaberite drugog pokretača za ovu Wine okruženje."
 
@@ -4390,7 +4362,7 @@ msgid "The selected file is unavailable."
 msgstr "Odabrana datoteka nije dostupna."
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2441
+#: bottles/backend/managers/manager.py:2307
 msgid "The selected {0} installation is incomplete."
 msgstr "odabrana instalacija {0} nije dovršena."
 
@@ -4435,7 +4407,7 @@ msgstr "Ove godine"
 msgid "This application may work poorly. The installer was configured to provide the best possible experience, but expect glitches, instability and lack of working features."
 msgstr "Ova aplikacija možda ne radi kako treba. Instalacijski program je konfiguriran kako bi pružio najbolje moguće iskustvo, ali očekuj greške, nestabilnost i nefunkcioniranje funkcija."
 
-#: bottles/frontend/views/bottle_details.py:956
+#: bottles/frontend/views/bottle_details.py:954
 msgid "This can cause data loss, corruption, and programs to malfunction."
 msgstr "To može prouzročiti gubitak podataka, oštećenje i kvarove programa."
 
@@ -4443,7 +4415,7 @@ msgstr "To može prouzročiti gubitak podataka, oštećenje i kvarove programa."
 msgid "This component is not installable offline because its files are not cached."
 msgstr "ovu komponentu nije moguće instalirati izvanmrežno jer njezine datoteke nisu u predmemoriji."
 
-#: bottles/frontend/views/bottle_preferences.py:474
+#: bottles/frontend/views/bottle_preferences.py:464
 msgid "This container name is already in use."
 msgstr "Ime butelje se već koristi."
 
@@ -4459,7 +4431,7 @@ msgstr "Ova ovisnost nije kompatibilna s ovom arhitekturom Wine okruženja."
 msgid "This dependency is not installable offline because its files are not cached."
 msgstr "Ovu ovisnost nije moguće instalirati izvanmrežno jer njezine datoteke nisu predmemorirane."
 
-#: bottles/frontend/views/bottle_preferences.py:200 bottles/frontend/views/bottle_preferences.py:455 bottles/frontend/views/bottle_preferences.py:403
+#: bottles/frontend/views/bottle_preferences.py:197 bottles/frontend/views/bottle_preferences.py:445 bottles/frontend/views/bottle_preferences.py:393
 msgid "This feature is unavailable on your system."
 msgstr "Ova funkcija nije dostupna na tvom sustavu."
 
@@ -4507,7 +4479,7 @@ msgstr "Ovaj resurs nedostaje."
 msgid "This runner cannot create a 32-bit prefix. Select a 64-bit container."
 msgstr "Ovaj Pokretač ne može stvoriti 32-bitni prefiks. Odaberite 64-bitni spremnik."
 
-#: bottles/frontend/views/bottle_preferences.py:909
+#: bottles/frontend/views/bottle_preferences.py:821
 msgid "This runner has no Esync, so it will use its default."
 msgstr "Ovaj Pokretač nema Esync, pa će koristiti svoj default."
 
@@ -4556,7 +4528,7 @@ msgstr "Prag"
 msgid "Timestamp"
 msgstr "vremenska oznaka"
 
-#: bottles/frontend/views/bottle_preferences.py:410
+#: bottles/frontend/views/bottle_preferences.py:400
 msgid "To add it, please run:"
 msgstr "Da biste ga dodali, pokrenite:"
 
@@ -4564,7 +4536,7 @@ msgstr "Da biste ga dodali, pokrenite:"
 msgid "Today"
 msgstr "Danas"
 
-#: bottles/frontend/ui/details-preferences.blp:308
+#: bottles/frontend/ui/details-preferences.blp:291
 msgid "Toggle OBS Game Capture for all Vulkan and OpenGL programs."
 msgstr "Uključi/Isključi snimanje OBS igre za sve Vulkan and OpenGL programe."
 
@@ -4637,7 +4609,7 @@ msgstr "Pokušajte ponovo"
 msgid "Try a different search."
 msgstr "Pokušaj s jednom drugom pretragom."
 
-#: bottles/backend/utils/manager.py:959
+#: bottles/backend/utils/manager.py:963
 msgid "Turkish"
 msgstr "turski"
 
@@ -4713,7 +4685,7 @@ msgid "Updated {0} components."
 msgstr "Ažurirane komponente {0}."
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:597
+#: bottles/frontend/views/bottle_details.py:595
 msgid "Updated {component} to {version}"
 msgstr "ažurirano {component} na {version}"
 
@@ -4742,7 +4714,7 @@ msgstr "Ažuriranje DLL nadjačava..."
 msgid "Updating DXVK, please wait…"
 msgstr "Aktualiziranje DXVK-a, pričekaj …"
 
-#: bottles/frontend/ui/details-preferences.blp:72 bottles/frontend/ui/details-preferences.blp:105
+#: bottles/frontend/ui/details-preferences.blp:72
 msgid "Updating DXVK-NVAPI, please wait…"
 msgstr "Aktualiziranje DXVK-NVAPI-a, pričekaj …"
 
@@ -4758,7 +4730,7 @@ msgstr "Aktualiziranje pokretača i komponenata, pričekaj …"
 msgid "Updating VKD3D, please wait…"
 msgstr "Aktualiziranje VKD3D-a, pričekaj …"
 
-#: bottles/frontend/ui/details-preferences.blp:323
+#: bottles/frontend/ui/details-preferences.blp:306
 msgid "Updating Windows version, please wait…"
 msgstr "Aktualiziranje verzije Windowsa, pričekaj …"
 
@@ -4804,7 +4776,7 @@ msgstr "Statistika vremena korištenja ne može se poništiti dok je \"{}\" pokr
 msgid "Usage time tracking is disabled."
 msgstr "Praćenje vremena korištenja je onemogućeno."
 
-#: bottles/frontend/ui/details-bottle.blp:151 bottles/frontend/ui/details-preferences.blp:371
+#: bottles/frontend/ui/details-bottle.blp:151 bottles/frontend/ui/details-preferences.blp:354
 msgid "Use WineBridge"
 msgstr "Koristite WineBridge"
 
@@ -4816,7 +4788,7 @@ msgstr "Koristite 64-bitnu aplikaciju Vulkan. Onemogućite ostale slojeve Vulkan
 msgid "Use a lighter model with a small quality reduction."
 msgstr "Koristite lakši model s malim smanjenjem kvalitete."
 
-#: bottles/frontend/ui/details-preferences.blp:341
+#: bottles/frontend/ui/details-preferences.blp:324
 msgid "Use a restricted/managed environment for this container."
 msgstr "Koristi ograničeno/upravljano okruženje za ovu butelju."
 
@@ -4824,7 +4796,7 @@ msgstr "Koristi ograničeno/upravljano okruženje za ovu butelju."
 msgid "Use shipping binary instead"
 msgstr "Umjesto toga upotrijebite binarnu datoteku za otpremu"
 
-#: bottles/frontend/ui/details-preferences.blp:119
+#: bottles/frontend/ui/details-preferences.blp:101
 msgid "Use the discrete graphics card to increase performance at the expense of power consumption."
 msgstr "Koristi dodatnu grafičku karticu za povećanje performance nauštrb potrošnje energije."
 
@@ -4844,7 +4816,7 @@ msgstr "korisnički trkači"
 msgid "Uses the resolution of the video game as a reference in pixels."
 msgstr "Koristi rezoluciju u pikselima videoigre kao referencu."
 
-#: bottles/backend/managers/manager.py:1947 bottles/frontend/ui/details-preferences.blp:55
+#: bottles/backend/managers/manager.py:1924 bottles/frontend/ui/details-preferences.blp:55
 msgid "VKD3D"
 msgstr "VKD3D"
 
@@ -4880,7 +4852,7 @@ msgstr "Vulkan nije dostupan na ovom sustavu."
 msgid "Warnings"
 msgstr "Upozorenja"
 
-#: bottles/frontend/ui/details-preferences.blp:128
+#: bottles/frontend/ui/details-preferences.blp:110
 msgid "Wayland (Experimental)"
 msgstr "Wayland (eksperimentalno)"
 
@@ -4941,7 +4913,7 @@ msgstr "Visina prozora"
 msgid "Window width"
 msgstr "Širina prozora"
 
-#: bottles/frontend/ui/details-preferences.blp:320
+#: bottles/frontend/ui/details-preferences.blp:303
 msgid "Windows Version"
 msgstr "Windows verzija"
 
@@ -4966,7 +4938,7 @@ msgstr "Wine audio upravljački program"
 msgid "Wine config updated!"
 msgstr "Wine konfiguracija je aktualizirana!"
 
-#: bottles/backend/managers/manager.py:2009
+#: bottles/backend/managers/manager.py:1986
 msgid "WineBridge"
 msgstr "WineBridge"
 
@@ -4986,7 +4958,7 @@ msgstr "ažuriranje WineBridge"
 msgid "WineBridge update failed"
 msgstr "ažuriranje WineBridge nije uspjelo"
 
-#: bottles/frontend/ui/details-preferences.blp:391 bottles/frontend/ui/dialog-launch-options.blp:143
+#: bottles/frontend/ui/details-preferences.blp:374 bottles/frontend/ui/dialog-launch-options.blp:143
 msgid "Working Directory"
 msgstr "Radna mapa"
 
@@ -5058,7 +5030,7 @@ msgstr "[Isključi] čišćenje počinje."
 msgid "_Application"
 msgstr "_Aplikacija"
 
-#: bottles/frontend/ui/bulk-update-dialog.blp:22 bottles/frontend/ui/dialog-crash-report.blp:19 bottles/frontend/ui/dialog-display.blp:25 bottles/frontend/ui/dialog-duplicate.blp:20 bottles/frontend/ui/dialog-file-associations.blp:17 bottles/frontend/ui/dialog-gamescope.blp:24 bottles/frontend/ui/dialog-launch-options.blp:17 bottles/frontend/ui/dialog-lsfg-vk.blp:25 bottles/frontend/ui/dialog-mangohud.blp:25 bottles/frontend/ui/dialog-program-backups.blp:16 bottles/frontend/ui/dialog-upgrade-versioning.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:27 bottles/frontend/ui/dialog-vmtouch.blp:24 bottles/frontend/ui/dialog-winebridge-update.blp:19 bottles/frontend/ui/new-bottle-dialog.blp:23 bottles/frontend/views/bottle_details.py:860 bottles/frontend/views/bottle_details.py:958 bottles/frontend/views/preferences.py:366 bottles/frontend/views/preferences.py:828 bottles/frontend/widgets/state.py:127
+#: bottles/frontend/ui/bulk-update-dialog.blp:22 bottles/frontend/ui/dialog-crash-report.blp:19 bottles/frontend/ui/dialog-display.blp:25 bottles/frontend/ui/dialog-duplicate.blp:20 bottles/frontend/ui/dialog-file-associations.blp:17 bottles/frontend/ui/dialog-gamescope.blp:24 bottles/frontend/ui/dialog-launch-options.blp:17 bottles/frontend/ui/dialog-lsfg-vk.blp:25 bottles/frontend/ui/dialog-mangohud.blp:25 bottles/frontend/ui/dialog-program-backups.blp:16 bottles/frontend/ui/dialog-upgrade-versioning.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:27 bottles/frontend/ui/dialog-vmtouch.blp:24 bottles/frontend/ui/dialog-winebridge-update.blp:19 bottles/frontend/ui/new-bottle-dialog.blp:23 bottles/frontend/views/bottle_details.py:858 bottles/frontend/views/bottle_details.py:956 bottles/frontend/views/preferences.py:366 bottles/frontend/views/preferences.py:828 bottles/frontend/widgets/state.py:126
 msgid "_Cancel"
 msgstr "_Odustani"
 
@@ -5078,7 +5050,7 @@ msgstr "_Izbriši"
 msgid "_Delete All"
 msgstr "_Izbriši sve"
 
-#: bottles/frontend/views/bottle_details.py:862
+#: bottles/frontend/views/bottle_details.py:860
 msgid "_Delete Files"
 msgstr "_Brisanje datoteka"
 
@@ -5086,7 +5058,7 @@ msgstr "_Brisanje datoteka"
 msgid "_Delete and Cancel"
 msgstr "_Izbriši i odustani"
 
-#: bottles/frontend/utils/flatpak.py:112 bottles/frontend/views/bottle_details.py:883 bottles/frontend/views/bottle_details.py:692
+#: bottles/frontend/utils/flatpak.py:112 bottles/frontend/views/bottle_details.py:881 bottles/frontend/views/bottle_details.py:690
 msgid "_Dismiss"
 msgstr "_Odbaci"
 
@@ -5102,11 +5074,11 @@ msgstr "_Samo čekajte"
 msgid "_Relaunch"
 msgstr "_Pokreni ponovo"
 
-#: bottles/frontend/views/bottle_details.py:861
+#: bottles/frontend/views/bottle_details.py:859
 msgid "_Remove from List"
 msgstr "_Ukloni s popisa"
 
-#: bottles/frontend/widgets/state.py:128
+#: bottles/frontend/widgets/state.py:127
 msgid "_Restore"
 msgstr "_Vrati"
 
@@ -5187,7 +5159,7 @@ msgstr "lsfg-vk"
 msgid "lsfg-vk 1.x: MIT.\nlsfg-vk 2.x: GPL-3.0-or-later."
 msgstr "lsfg-vk 1.x: MIT.\nlsfg-vk 2.x: GPL-3.0-ili noviji."
 
-#: bottles/frontend/views/bottle_preferences.py:364
+#: bottles/frontend/views/bottle_preferences.py:360
 msgid "lsfg-vk only supports 64-bit Vulkan applications."
 msgstr "lsfg-vk podržava samo 64-bitne Vulkan aplikacije."
 
@@ -5244,7 +5216,7 @@ msgid "{0} detected"
 msgstr "otkriven {0}"
 
 #, python-brace-format
-#: bottles/frontend/windows/dependency_install.py:128
+#: bottles/frontend/windows/dependency_install.py:127
 msgid "{0} failed to install."
 msgstr "{0} se nije uspjela instalirati."
 
@@ -5254,7 +5226,7 @@ msgid "{0} installed, {1} failed."
 msgstr "{0} instaliran, {1} nije uspio."
 
 #, python-brace-format
-#: bottles/frontend/windows/dependency_install.py:126
+#: bottles/frontend/windows/dependency_install.py:125
 msgid "{0} installed."
 msgstr "{0} instaliran."
 
@@ -5274,7 +5246,7 @@ msgid "{0} positive / {1} negative reports"
 msgstr "{0} pozitivno / {1} negativno izvješće"
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2373
+#: bottles/backend/managers/manager.py:2241
 msgid "{0} requires Vulkan, which is not available on this system."
 msgstr "{0} zahtijeva Vulkan, koji nije dostupan na ovom sustavu."
 
@@ -5317,7 +5289,7 @@ msgid "{reason} (x{evidence})"
 msgstr "{reason} (x{evidence})"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_preferences.py:201
+#: bottles/frontend/views/bottle_preferences.py:198
 msgid "{} To add this feature, please run"
 msgstr "{} Da biste dodali ovu značajku, pokrenite"
 

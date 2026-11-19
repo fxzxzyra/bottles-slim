@@ -1,7 +1,6 @@
 # ruff: noqa: E402
 
 from types import SimpleNamespace
-from unittest.mock import Mock
 
 import pytest
 
@@ -38,33 +37,18 @@ def test_runner_dropdown_uses_display_names_without_changing_ids(monkeypatch, ru
         nvapi_available=[],
         latencyflex_available=[],
     )
-    view = SimpleNamespace(manager=manager)
-    for name in (
-        "runner",
-        "d7vk",
-        "dxvk",
-        "vkd3d",
-        "nvapi",
-        "latencyflex",
-        "language",
-        "windows",
-    ):
-        setattr(view, f"combo_{name}", Mock())
-        setattr(view, f"_PreferencesView__set_{name}", Mock())
-    for name in (
-        "runner",
-        "d7vk",
-        "dxvk",
-        "vkd3d",
-        "nvapi",
-        "latencyflex",
-        "languages",
-        "windows",
-    ):
-        setattr(view, f"str_list_{name}", Mock())
+    from bottles.backend.models.config import BottleConfig
+    from bottles.frontend.views import bottle_preferences
 
-    PreferencesView.update_combo_components(view)
+    monkeypatch.setattr(bottle_preferences.GPUUtils, "is_gpu", lambda _vendor: False)
+    monkeypatch.setattr(bottle_preferences.VulkanUtils, "check_support", lambda: False)
+    monkeypatch.setattr(bottle_preferences.DisplayUtils, "display_server_type", lambda: "x11")
+    monkeypatch.setattr(bottle_preferences.RuntimeManager, "get_runtimes", lambda _category: False)
+    details = SimpleNamespace(window=SimpleNamespace(manager=manager), queue=object())
+    view = PreferencesView(details, BottleConfig(Runner="system-wine"))
+    view.update_combo_components()
 
-    labels = [call.args[0] for call in view.str_list_runner.append.call_args_list]
+    labels = [view.str_list_runner.get_string(index) for index in range(view.str_list_runner.get_n_items())]
     assert labels == ["System · system-wine", "User · soda-11.0-3"]
+    assert view._runner_ids == ["system-wine", "soda-11.0-3"]
     assert manager.runners_available[0] == "system-wine"

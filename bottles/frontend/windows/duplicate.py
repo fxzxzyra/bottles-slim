@@ -77,7 +77,7 @@ class DuplicateDialog(Adw.Dialog):
             self.set_can_close(False)
             self.btn_cancel.set_sensitive(False)
             self.btn_cancel.set_label(_("Close"))
-            self.spinner.start()
+            self.spinner.set_visible(True)
             RunAsync(BackupManager.duplicate_bottle, callback=self.finish,
                      config=self.config, name=self.entry_name.get_text().strip(), destination=destination)
         dialog = Gtk.FileDialog(title=_("Select an Empty Container Directory"), modal=True)
@@ -85,7 +85,7 @@ class DuplicateDialog(Adw.Dialog):
 
     @GtkUtils.run_in_main_loop
     def finish(self, result, error=None):
-        self.spinner.stop()
+        self.spinner.set_visible(False)
         self.set_can_close(True)
         self.btn_cancel.set_sensitive(True)
         self.btn_cancel.set_label(_("Close"))

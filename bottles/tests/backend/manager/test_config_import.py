@@ -1,3 +1,5 @@
+from types import SimpleNamespace
+
 import pytest
 from bottles.backend.managers import manager as manager_module
 from bottles.backend.managers.manager import Manager
@@ -5,7 +7,8 @@ from bottles.backend.models.config import BottleConfig, BottleParams
 from bottles.backend.models.result import Result
 
 
-def test_config_import_restores_runtime_settings(monkeypatch, tmp_path):
+@pytest.mark.parametrize("component_failure", [None, "dxvk", "vkd3d", "nvapi", "latencyflex", "dependency"])
+def test_config_import_restores_runtime_settings(monkeypatch, tmp_path, component_failure):
     applied_settings = []
     windows_versions = []
     wineboot_inits = []
@@ -39,6 +42,10 @@ def test_config_import_restores_runtime_settings(monkeypatch, tmp_path):
         @staticmethod
         def is_alive():
             return False
+
+        @staticmethod
+        def force_kill():
+            pass
 
     class Reg:
         def __init__(self, _config):
@@ -127,6 +134,21 @@ def test_config_import_restores_runtime_settings(monkeypatch, tmp_path):
         ),
     )
 
+    component_calls = []
+    if component_failure == "dependency":
+        source.Installed_Dependencies = ["failed-dependency"]
+        manager.supported_dependencies = {"failed-dependency": {"Description": "sample"}}
+        manager.dependency_manager = SimpleNamespace(install=lambda *_args: Result(False))
+    elif component_failure:
+        flag = "dxvk_nvapi" if component_failure == "nvapi" else component_failure
+        setattr(source.Parameters, flag, True)
+
+        def fail_component(_config, component, **kwargs):
+            component_calls.append((component, kwargs["version"]))
+            return Result(False, message="Cannot install component")
+
+        manager.install_dll_component = fail_component
+
     (tmp_path / "Imported").mkdir()
     monkeypatch.setattr(manager_module.FileUtils, "chattr_f", lambda _path: None)
     monkeypatch.setattr(
@@ -152,6 +174,15 @@ def test_config_import_restores_runtime_settings(monkeypatch, tmp_path):
     monkeypatch.setattr(manager_module, "RegKeys", RegKeys)
 
     result = Manager.create_bottle_from_config(manager, source, str(tmp_path / "Imported"))
+    if component_failure:
+        assert result is False
+        if component_failure == "dependency":
+            assert component_calls == []
+        else:
+            version_key = "LatencyFleX" if component_failure == "latencyflex" else component_failure.upper()
+            assert component_calls == [(component_failure, getattr(source, version_key))]
+        assert list((tmp_path / "Imported").iterdir()) == []
+        return
 
     restored = BottleConfig.load(str(tmp_path / "Imported" / "bottle.yml")).data
     assert result is True

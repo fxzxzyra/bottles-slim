@@ -49,7 +49,7 @@ def test_duplicate_name_validation(name, existing_names, expected_sensitive):
 
 def _make_finish_dialog():
     dialog = SimpleNamespace(
-        spinner=SimpleNamespace(stop=lambda: setattr(dialog, "spinning", False)),
+        spinner=SimpleNamespace(set_visible=lambda visible: setattr(dialog, "spinning", visible)),
         set_can_close=lambda value: setattr(dialog, "can_close", value),
         btn_cancel=SimpleNamespace(
             set_sensitive=lambda value: setattr(dialog, "close_enabled", value),
@@ -142,7 +142,7 @@ def test_copy_keeps_native_dialog_open_until_worker_completes(monkeypatch, itera
         assert pending[0]["destination"] == "/selected/empty"
         assert not dialog.get_can_close()
         assert not dialog.btn_cancel.get_sensitive()
-        assert dialog.spinner.get_spinning()
+        assert dialog.spinner.get_visible()
         dialog.close()
         assert owner.get_visible_dialog() is dialog
         assert dialog.stack_switcher.get_visible_child_name() == "page_duplicating"
@@ -150,7 +150,7 @@ def test_copy_keeps_native_dialog_open_until_worker_completes(monkeypatch, itera
         pending[0]["callback"](Result(status=succeeds, message="copy failed"), None)
         iterate_until(dialog.get_can_close)
         assert dialog.btn_cancel.get_sensitive()
-        assert not dialog.spinner.get_spinning()
+        assert not dialog.spinner.get_visible()
         assert refreshed == ([True] if succeeds else [])
         assert dialog.stack_switcher.get_visible_child_name() == (
             "page_duplicated" if succeeds else "page_failed"

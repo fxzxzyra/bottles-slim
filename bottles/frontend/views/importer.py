@@ -164,11 +164,11 @@ class ImporterView(Adw.Bin):
         """Show the import progress indicator."""
         self.label_import_progress.set_text(_("Restoring Backup…"))
         self.box_import_progress.set_visible(True)
-        self.spinner_import.start()
+        self.spinner_import.set_visible(True)
 
     def _hide_import_progress(self):
         """Hide the import progress indicator."""
-        self.spinner_import.stop()
+        self.spinner_import.set_visible(False)
         self.box_import_progress.set_visible(False)
 
     def _update_import_progress(self, text: str):

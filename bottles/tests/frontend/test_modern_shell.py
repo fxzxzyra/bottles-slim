@@ -75,3 +75,25 @@ def test_creation_entry_follows_page_and_locking_preserves_navigation(shell):
     shell.lock_ui(True)
     shell.lock_ui(False)
     assert not shell.btn_add.get_visible()
+
+
+def test_native_loading_remains_mapped_inside_a_disabled_control(iterate_until):
+    from gi.repository import Adw, GLib, Gtk
+
+    window = Adw.Window()
+    spinner = Adw.Spinner()
+    row = Adw.ActionRow()
+    row.add_suffix(spinner)
+    window.set_content(row)
+    row.set_sensitive(False)
+    ticks = []
+    spinner.add_tick_callback(lambda *_args: ticks.append(True) or GLib.SOURCE_CONTINUE)
+    window.present()
+    try:
+        iterate_until(lambda: len(ticks) >= 3)
+        assert spinner.get_mapped()
+        assert not spinner.is_sensitive()
+        spinner.set_visible(False)
+        iterate_until(lambda: not spinner.get_mapped())
+    finally:
+        window.destroy()

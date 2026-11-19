@@ -694,13 +694,22 @@ class CLI:
 
         bottle = mng.local_bottles[_bottle]
 
+        def set_component(component, enabled, version=None):
+            result = mng.set_dll_component(bottle, component, enabled, version)
+            if not result.ok:
+                sys.stderr.write(f"{component}: {result.message}\n")
+                sys.exit(1)
+
+        component_flags = {
+            "d7vk": "d7vk", "dxvk": "dxvk", "vkd3d": "vkd3d",
+            "dxvk_nvapi": "nvapi", "latencyflex": "latencyflex",
+        }
+
+
         if _params is not None:
             _params = _params.split(",")
             _params = [p.split(":") for p in _params]
             for k, v in _params:
-                if k == "d7vk":
-                    sys.stderr.write("Use --d7vk to change D7VK\n")
-                    sys.exit(1)
                 if k not in valid_parameters:
                     sys.stderr.write(f"Invalid parameter {k}\n")
                     exit(1)
@@ -715,9 +724,19 @@ class CLI:
                     except ValueError:
                         pass
 
+                if k in component_flags:
+                    if not isinstance(v, bool):
+                        sys.stderr.write(f"{k}: {v}\n")
+                        sys.exit(1)
+                    set_component(component_flags[k], v)
+                    continue
+
                 if k == "renderer":
                     try:
-                        RegKeys(bottle).set_renderer(v)
+                        result = RegKeys(bottle).set_renderer(v)
+                        if not result.ok:
+                            sys.stderr.write(f"{result.message}\n")
+                            sys.exit(1)
                     except ValueError as error:
                         sys.stderr.write(f"{error}\n")
                         sys.exit(1)
@@ -737,58 +756,14 @@ class CLI:
                 sys.stderr.write(f"{result.message or 'Could not change runner'}\n")
                 sys.exit(1)
 
-        if _d7vk is not None:
-            if _d7vk.lower() == "disabled":
-                result = mng.set_d7vk(bottle, False)
-            else:
-                mng.check_d7vk(False)
-                if _d7vk not in mng.d7vk_available:
-                    sys.stderr.write(f"D7VK version {_d7vk} not available\n")
-                    sys.exit(1)
-                result = mng.set_d7vk(bottle, True, _d7vk)
-            if not result.ok:
-                sys.stderr.write(f"Failed to change D7VK: {result.message}\n")
-                sys.exit(1)
-
-        if _dxvk is not None:
-            mng.check_dxvk(False)
-
-            if _dxvk not in mng.dxvk_available:
-                sys.stderr.write(f"DXVK version {_dxvk} not available\n")
-                exit(1)
-
-            if mng.install_dll_component(bottle, "dxvk", version=_dxvk):
-                mng.update_config(bottle, "DXVK", _dxvk)
-
-        if _vkd3d is not None:
-            mng.check_vkd3d(False)
-
-            if _vkd3d not in mng.vkd3d_available:
-                sys.stderr.write(f"VKD3D version {_vkd3d} not available\n")
-                exit(1)
-
-            if mng.install_dll_component(bottle, "vkd3d", version=_vkd3d):
-                mng.update_config(bottle, "VKD3D", _vkd3d)
-
-        if _nvapi is not None:
-            mng.check_nvapi(False)
-
-            if _nvapi not in mng.nvapi_available:
-                sys.stderr.write(f"NVAPI version {_nvapi} not available\n")
-                exit(1)
-
-            if mng.install_dll_component(bottle, "nvapi", version=_nvapi):
-                mng.update_config(bottle, "NVAPI", _nvapi)
-
-        if _latencyflex is not None:
-            mng.check_latencyflex(False)
-
-            if _latencyflex not in mng.latencyflex_available:
-                sys.stderr.write(f"LatencyFlex version {_latencyflex} not available\n")
-                exit(1)
-
-            if mng.install_dll_component(bottle, "latencyflex", version=_latencyflex):
-                mng.update_config(bottle, "LatencyFlex", _latencyflex)
+        for component, requested in (
+            ("d7vk", _d7vk), ("dxvk", _dxvk), ("vkd3d", _vkd3d),
+            ("nvapi", _nvapi), ("latencyflex", _latencyflex),
+        ):
+            if requested is None:
+                continue
+            enabled = requested.casefold() != "disabled"
+            set_component(component, enabled, requested if enabled else None)
 
     # endregion
 

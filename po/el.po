@@ -99,7 +99,7 @@ msgstr "%s Διαθέσιμο"
 msgid "%s template"
 msgstr "Πρότυπο %s"
 
-#: bottles/frontend/ui/details-preferences.blp:416 bottles/frontend/views/bottle_preferences.py:534 bottles/frontend/views/new_bottle_dialog.py:99
+#: bottles/frontend/ui/details-preferences.blp:399 bottles/frontend/views/bottle_preferences.py:524 bottles/frontend/views/new_bottle_dialog.py:99
 msgid "(Default)"
 msgstr "(Προεπιλογή)"
 
@@ -218,7 +218,7 @@ msgstr "Προσθήκη στο Steam"
 msgid "Add variable"
 msgstr "Προσθήκη μεταβλητής"
 
-#: bottles/frontend/ui/details-preferences.blp:149
+#: bottles/frontend/ui/details-preferences.blp:131
 msgid "Add various post-processing effects using vkBasalt. Only works on Vulkan."
 msgstr "Προσθέστε διάφορα εφέ μετα-επεξεργασίας χρησιμοποιώντας το vkBasalt. Λειτουργεί μόνο σε Vulkan."
 
@@ -231,7 +231,7 @@ msgstr "Προσαρμογή της έκδοσης των Windows…"
 msgid "Advanced"
 msgstr "Iσορροπημένο"
 
-#: bottles/frontend/ui/details-preferences.blp:207
+#: bottles/frontend/ui/details-preferences.blp:189
 msgid "Advanced Display Settings"
 msgstr "Προηγμένες ρυθμίσεις οθόνης"
 
@@ -288,7 +288,7 @@ msgstr "Παρουσιάστηκε σφάλμα κατά τη δημιουργί
 msgid "An installation error occurred. Restart Bottles to read the Crash Report or run it via terminal to read the output."
 msgstr "Παρουσιάστηκε σφάλμα κατά την εγκατάσταση. Επανεκκινήστε το Bottles για να διαβάσετε την αναφορά τερματικού σφάλματος ή εκτελέστε το μέσω τερματικού για να διαβάσετε την έξοδο."
 
-#: bottles/frontend/views/bottle_details.py:723
+#: bottles/frontend/views/bottle_details.py:721
 msgid "Analyse"
 msgstr "Ανάλυση"
 
@@ -345,7 +345,7 @@ msgstr "Εφαρμογή"
 msgid "Apply CMD default settings…"
 msgstr "Εφαρμογή προεπιλεγμένων ρυθμίσεων CMD…"
 
-#: bottles/frontend/ui/details-preferences.blp:277
+#: bottles/frontend/ui/details-preferences.blp:260
 msgid "Apply a set of optimizations to your device. Can improve game performance."
 msgstr "Εφαρμόστε ένα σύνολο βελτιστοποιήσεων στη συσκευή σας. Μπορεί να βελτιώσει την απόδοση του παιχνιδιού."
 
@@ -370,16 +370,16 @@ msgstr "Εφαρμογή περιβάλλοντος: {0}…"
 msgid "Architecture"
 msgstr "Αρχιτεκτονική"
 
-#: bottles/frontend/views/bottle_details.py:955
+#: bottles/frontend/views/bottle_details.py:953
 msgid "Are you sure you want to force stop all processes?"
 msgstr "Είστε βέβαιοι ότι θέλετε να διακόψετε αναγκαστικά όλες τις διαδικασίες;"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:855
+#: bottles/frontend/views/bottle_details.py:853
 msgid "Are you sure you want to permanently delete \"{}\"?"
 msgstr "Είστε βέβαιοι ότι θέλετε να διαγράψετε οριστικά το \"{}\";"
 
-#: bottles/frontend/widgets/state.py:122
+#: bottles/frontend/widgets/state.py:121
 msgid "Are you sure you want to restore this state?"
 msgstr "Είστε βέβαιοι ότι θέλετε να επαναφέρετε αυτήν την κατάσταση;"
 
@@ -422,7 +422,7 @@ msgstr "Μέσος όρος: 0h 0m"
 msgid "Backing up {0}"
 msgstr "Δημιουργία αντιγράφων ασφαλείας {0}"
 
-#: bottles/frontend/views/bottle_details.py:749
+#: bottles/frontend/views/bottle_details.py:747
 msgid "Backup"
 msgstr "Αντίγραφο ασφαλείας"
 
@@ -431,17 +431,17 @@ msgid "Backup Folder"
 msgstr "Φάκελος αντιγράφων ασφαλείας"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:755
+#: bottles/frontend/views/bottle_details.py:753
 msgid "Backup cancelled for \"{0}\""
 msgstr "Η δημιουργία αντιγράφων ασφαλείας ακυρώθηκε για το \"{0}\""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:760
+#: bottles/frontend/views/bottle_details.py:758
 msgid "Backup created for \"{0}\""
 msgstr "Δημιουργήθηκε αντίγραφο ασφαλείας για το \"{0}\""
 
 #, fuzzy, python-brace-format
-#: bottles/frontend/views/bottle_details.py:764
+#: bottles/frontend/views/bottle_details.py:762
 msgid "Backup failed for \"{0}\""
 msgstr "Αντίγραφο ασφαλείας {0}"
 
@@ -462,7 +462,7 @@ msgstr "Αντίγραφα ασφαλείας"
 msgid "Backups to Keep"
 msgstr "Αντίγραφα ασφαλείας για διατήρηση"
 
-#: bottles/frontend/views/bottle_details.py:687
+#: bottles/frontend/views/bottle_details.py:685
 msgid "Be Aware of Sandbox"
 msgstr "Να γνωρίζετε το Sandbox"
 
@@ -485,7 +485,7 @@ msgstr "Αναφορά σφαλμάτων Bottles"
 
 # Translators: Bottles is a proper noun referring to the app
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:360
+#: bottles/frontend/ui/details-preferences.blp:343
 msgid "Bottles Runtime"
 msgstr "Χρηση Bottles runtime"
 
@@ -501,7 +501,7 @@ msgstr "Το Bottles κράσαρε την προηγούμενη φορά. Πα
 msgid "Bottles has a whole new Versioning System that is not backwards compatible.\n\nTo continue using versioning we need to re-initialize the container repository. This will not delete data from your container but will delete all existing snapshots and create a new one.\n\nIf you need to go back to a previous snapshot before continuing, close this window and restore the snapshot, then reopen the container to show this window again.\n\nThe old system will be discontinued in one of the next releases."
 msgstr "Το Bottles διαθέτει ένα εντελώς νέο Σύστημα έκδοσης που δεν είναι συμβατό προς τα πίσω.\n\nΓια να συνεχίσουμε να χρησιμοποιούμε την έκδοση εκδόσεων, πρέπει να αρχικοποιήσουμε ξανά το αποθετήριο φιαλών. Αυτό δεν θα διαγράψει δεδομένα από το περιβάλλον Wine σας, αλλά θα διαγράψει όλα τα υπάρχοντα στιγμιότυπα και θα δημιουργήσει ένα νέο.\n\nΕάν πρέπει να επιστρέψετε σε ένα προηγούμενο στιγμιότυπο πριν συνεχίσετε, κλείστε αυτό το παράθυρο και επαναφέρετε το στιγμιότυπο και, στη συνέχεια, ανοίξτε ξανά το περιβάλλον Wine για να εμφανιστεί ξανά αυτό το παράθυρο.\n\nΤο παλιό σύστημα θα διακοπεί σε μία από τις επόμενες εκδόσεις."
 
-#: bottles/frontend/views/bottle_details.py:688
+#: bottles/frontend/views/bottle_details.py:686
 msgid "Bottles is running in a sandbox, a restricted permission environment needed to keep you safe. If the program won't run, consider moving inside the container (3 dots icon on the top), then launch from there."
 msgstr "Το Bottles εκτελείται σε sandbox, ένα περιβάλλον περιορισμένης άδειας που απαιτείται για να σας κρατήσει ασφαλείς. Εάν το πρόγραμμα δεν εκτελείται, σκεφτείτε να μετακινηθείτε μέσα στο περιβάλλον Wine (εικονίδιο 3 κουκκίδων στην κορυφή) και μετά ξεκινήστε από εκεί."
 
@@ -575,7 +575,7 @@ msgstr "Ενσωματωμένο (Wine)"
 msgid "Builtin, then Native"
 msgstr "Ενσωματωμένο, μετά Τοπικό"
 
-#: bottles/backend/utils/manager.py:935
+#: bottles/backend/utils/manager.py:939
 msgid "Bulgarian"
 msgstr "Βουλγαρικά"
 
@@ -610,7 +610,7 @@ msgstr "Αποθηκευμένο πρόθεμα για το περιβάλλον
 msgid "Cached prefix for the %s environment, created on %s"
 msgstr "Αποθηκευμένο πρόθεμα για το περιβάλλον %s, που δημιουργήθηκε στο %s"
 
-#: bottles/backend/managers/manager.py:1902
+#: bottles/backend/managers/manager.py:1879
 msgid "Caching template…"
 msgstr "Κρυφή αποθήκευση προτύπου…"
 
@@ -710,11 +710,11 @@ msgstr "Ελέγξτε τα εκτελέσιμα για μοτίβα κακόβ�
 msgid "Check your connection or try again later."
 msgstr "Ελέγξτε τη σύνδεσή σας ή δοκιμάστε ξανά αργότερα."
 
-#: bottles/backend/utils/manager.py:960
+#: bottles/backend/utils/manager.py:964
 msgid "Chinese (Simplified)"
 msgstr "Κινέζικα (Απλοποιημένα)"
 
-#: bottles/backend/utils/manager.py:962
+#: bottles/backend/utils/manager.py:966
 msgid "Chinese (Traditional)"
 msgstr "Κινέζικα (Παραδοσιακό)"
 
@@ -769,7 +769,7 @@ msgstr "Kλείσιμο Bottles μετα την εκκίνηση προγραμ�
 msgid "Choose the Wine installation used by this container"
 msgstr "Επιλέξτε την εγκατάσταση Wine που χρησιμοποιείται από αυτό το περιβάλλον Wine"
 
-#: bottles/frontend/ui/details-preferences.blp:333
+#: bottles/frontend/ui/details-preferences.blp:316
 msgid "Choose the language to use with programs."
 msgstr "Επιλέξτε τη γλώσσα που θα χρησιμοποιήσετε με τα προγράμματα."
 
@@ -882,7 +882,7 @@ msgstr "Αναφορές κοινότητας που χρειάζονται λύ
 msgid "Community verdict"
 msgstr "Κοινοτική ετυμηγορία"
 
-#: bottles/frontend/ui/details-preferences.blp:317
+#: bottles/frontend/ui/details-preferences.blp:300
 msgid "Compatibility"
 msgstr "Συμβατότητα"
 
@@ -1022,7 +1022,7 @@ msgstr "Πίνακας ελέγχου"
 msgid "Control which variables from your system are visible to programs inside this container"
 msgstr "Ελέγξτε ποιες μεταβλητές από το σύστημά σας είναι ορατές σε προγράμματα μέσα σε αυτό το περιβάλλον Wine"
 
-#: bottles/frontend/utils/flatpak.py:61 bottles/frontend/views/bottle_preferences.py:468
+#: bottles/frontend/utils/flatpak.py:61 bottles/frontend/views/bottle_preferences.py:458
 msgid "Copied to clipboard"
 msgstr "Αντιγράφηκε στο πρόχειρο"
 
@@ -1030,7 +1030,7 @@ msgstr "Αντιγράφηκε στο πρόχειρο"
 msgid "Copies the file into a temporary folder inside the container. Files stored next to it are not included, so it may not work fully."
 msgstr "Αντιγράφει το αρχείο σε έναν προσωρινό φάκελο μέσα στο περιβάλλον Wine. Τα αρχεία που είναι αποθηκευμένα δίπλα του δεν περιλαμβάνονται, επομένως ενδέχεται να μην λειτουργεί πλήρως."
 
-#: bottles/frontend/utils/flatpak.py:92 bottles/frontend/views/bottle_preferences.py:427 bottles/frontend/widgets/program.py:730
+#: bottles/frontend/utils/flatpak.py:92 bottles/frontend/views/bottle_preferences.py:417 bottles/frontend/widgets/program.py:730
 msgid "Copy command"
 msgstr "Εντολή αντιγραφής"
 
@@ -1072,7 +1072,7 @@ msgstr "Δεν ήταν δυνατή η πρόσβαση στην καταχώρ
 msgid "Could not analyse this file."
 msgstr "Δεν ήταν δυνατή η ανάλυση αυτού του αρχείου."
 
-#: bottles/frontend/views/bottle_preferences.py:889
+#: bottles/frontend/views/bottle_preferences.py:801
 msgid "Could not change the synchronization mode."
 msgstr "Δεν ήταν δυνατή η αλλαγή της λειτουργίας συγχρονισμού."
 
@@ -1098,7 +1098,7 @@ msgstr "Δεν ήταν δυνατή η φόρτωση του προγράμμα
 msgid "Could not read the DPI scaling mode."
 msgstr "Δεν ήταν δυνατή η ανάγνωση της λειτουργίας κλιμάκωσης DPI."
 
-#: bottles/frontend/views/bottle_details.py:839
+#: bottles/frontend/views/bottle_details.py:837
 msgid "Could not remove the container."
 msgstr "Δεν ήταν δυνατή η αφαίρεση της φιάλης."
 
@@ -1112,7 +1112,7 @@ msgstr "Δεν ήταν δυνατή η κατάργηση της καταχώρ
 msgid "Could not save the program: {0}"
 msgstr "Δεν ήταν δυνατή η αποθήκευση του προγράμματος: {0}"
 
-#: bottles/frontend/views/bottle_preferences.py:995
+#: bottles/frontend/views/bottle_preferences.py:886
 msgid "Could not switch to the selected runner."
 msgstr "Δεν ήταν δυνατή η εναλλαγή στον επιλεγμένο δρομέα."
 
@@ -1193,7 +1193,7 @@ msgstr "Δημιουργία κλάδου…"
 msgid "Creating snapshot…"
 msgstr "Δημιουργία στιγμιότυπου…"
 
-#: bottles/backend/managers/manager.py:1875
+#: bottles/backend/managers/manager.py:1852
 msgid "Creating versioning state 0…"
 msgstr "Δημιουργία κατάστασης έκδοσης 0…"
 
@@ -1210,7 +1210,7 @@ msgstr "Πιστώσεις και άδεια"
 msgid "Critical"
 msgstr "Κρίσιμο"
 
-#: bottles/backend/utils/manager.py:945
+#: bottles/backend/utils/manager.py:949
 msgid "Croatian"
 msgstr "Κροατικό"
 
@@ -1248,11 +1248,11 @@ msgstr "Προσαρμοσμένη διεύθυνση URL για εξαρτήσ�
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr "Προσαρμοσμένη διεύθυνση URL για προγράμματα εγκατάστασης. Αφήστε κενό για να χρησιμοποιήσετε το προεπιλεγμένο τελικό σημείο."
 
-#: bottles/backend/utils/manager.py:936
+#: bottles/backend/utils/manager.py:940
 msgid "Czech"
 msgstr "Τσέχικα"
 
-#: bottles/backend/managers/manager.py:1935 bottles/frontend/ui/details-preferences.blp:29
+#: bottles/backend/managers/manager.py:1912 bottles/frontend/ui/details-preferences.blp:29
 msgid "D7VK"
 msgstr "D7VK"
 
@@ -1266,7 +1266,7 @@ msgid "DLL Override"
 msgstr "Παράκαμψη DLL"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:424 bottles/frontend/ui/dialog-dll-overrides.blp:7 bottles/frontend/ui/dialog-dll-overrides.blp:12
+#: bottles/frontend/ui/details-preferences.blp:407 bottles/frontend/ui/dialog-dll-overrides.blp:7 bottles/frontend/ui/dialog-dll-overrides.blp:12
 msgid "DLL Overrides"
 msgstr "Υπερισχύσεις DLL"
 
@@ -1278,7 +1278,7 @@ msgstr "Η απόσβεση θορύβου DLS μειώνει τον θόρυβ�
 msgid "DLS sharpness increases the sharpness of a frame. Higher values make the frame sharper."
 msgstr "Η ευκρίνεια DLS αυξάνει την ευκρίνεια ενός καρέ. Οι υψηλότερες τιμές κάνουν το πλαίσιο πιο ευκρινές."
 
-#: bottles/backend/managers/manager.py:1941 bottles/frontend/ui/details-preferences.blp:42
+#: bottles/backend/managers/manager.py:1918 bottles/frontend/ui/details-preferences.blp:42
 msgid "DXVK"
 msgstr "DXVK"
 
@@ -1296,7 +1296,7 @@ msgstr "Καθημερινά"
 msgid "Daily Average: {}"
 msgstr "Ημερήσιος μέσος όρος: {}"
 
-#: bottles/backend/utils/manager.py:937
+#: bottles/backend/utils/manager.py:941
 msgid "Danish"
 msgstr "Δανέζικα"
 
@@ -1334,13 +1334,9 @@ msgstr "Εντοπισμός σφαλμάτων"
 msgid "Declining can cause instability, performance degradation, and incompatibilities with new Bottles releases."
 msgstr "Η πτώση μπορεί να προκαλέσει αστάθεια, υποβάθμιση της απόδοσης και ασυμβατότητες με τις νέες εκδόσεις Bottles."
 
-#: bottles/frontend/ui/details-preferences.blp:340 bottles/frontend/ui/new-bottle-dialog.blp:116
+#: bottles/frontend/ui/details-preferences.blp:323 bottles/frontend/ui/new-bottle-dialog.blp:116
 msgid "Dedicated Sandbox"
 msgstr "Αποκλειστικό Sandbox"
-
-#: bottles/frontend/ui/details-preferences.blp:100
-msgid "Deep Learning Super Sampling"
-msgstr "Σούπερ δειγματοληψία σε βάθος εκμάθησης"
 
 #: bottles/frontend/ui/dialog-display.blp:140 bottles/frontend/ui/dialog-vkbasalt.blp:44
 msgid "Default"
@@ -1484,7 +1480,7 @@ msgid "Directory"
 msgstr "Κατάλογος"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_preferences.py:684
+#: bottles/frontend/views/bottle_preferences.py:639
 msgid "Directory that contains the data of \"{}\"."
 msgstr "Κατάλογος που περιέχει τα δεδομένα του \"{}\"."
 
@@ -1492,7 +1488,7 @@ msgstr "Κατάλογος που περιέχει τα δεδομένα του 
 msgid "Disable the default Z: drive"
 msgstr "Απενεργοποιήστε την προεπιλεγμένη μονάδα δίσκου Z:"
 
-#: bottles/frontend/ui/dialog-launch-options.blp:178 bottles/frontend/ui/dll-override-entry.blp:13 bottles/frontend/ui/preferences.blp:225 bottles/frontend/views/bottle_preferences.py:567 bottles/frontend/views/bottle_preferences.py:568 bottles/frontend/views/bottle_preferences.py:569 bottles/frontend/views/bottle_preferences.py:570 bottles/frontend/windows/launchoptions.py:455
+#: bottles/frontend/ui/dialog-launch-options.blp:178 bottles/frontend/ui/dll-override-entry.blp:13 bottles/frontend/ui/preferences.blp:225 bottles/frontend/views/bottle_preferences.py:952 bottles/frontend/windows/launchoptions.py:455
 msgid "Disabled"
 msgstr "Απενεργοποιημένο"
 
@@ -1501,7 +1497,7 @@ msgid "Disabled. Executables will run without being checked for threats."
 msgstr "Απενεργοποιημένο. Τα εκτελέσιμα αρχεία θα εκτελούνται χωρίς να ελέγχονται για απειλές."
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:118
+#: bottles/frontend/ui/details-preferences.blp:100
 msgid "Discrete Graphics"
 msgstr "Ξεχωριστή κάρτα γραφικών"
 
@@ -1521,7 +1517,7 @@ msgstr "Εμφάνιση κατά την έναρξη του παιχνιδιο�
 msgid "Display Settings"
 msgstr "Ρυθμίσεις οθόνης"
 
-#: bottles/frontend/ui/details-preferences.blp:257
+#: bottles/frontend/ui/details-preferences.blp:240
 msgid "Display monitoring information such as framerate, temperatures, CPU/GPU load and more on OpenGL and Vulkan using MangoHud."
 msgstr "Εμφάνιση πληροφοριών παρακολούθησης, όπως ρυθμός καρέ, θερμοκρασίες, φορτίο CPU/GPU και άλλα σε OpenGL και Vulkan χρησιμοποιώντας το MangoHud."
 
@@ -1605,7 +1601,7 @@ msgstr "Διπλοτυπία αυτού του περιβάλλον Wine…"
 msgid "Duplicating…"
 msgstr "Αντιγραφή…"
 
-#: bottles/backend/utils/manager.py:950
+#: bottles/backend/utils/manager.py:954
 msgid "Dutch"
 msgstr "Ολλανδικά"
 
@@ -1702,7 +1698,7 @@ msgid "Enable playtime tracking"
 msgstr "Ενεργοποίηση παρακολούθησης χρόνου αναπαραγωγής"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:229
+#: bottles/frontend/ui/details-preferences.blp:212
 msgid "Enable synchronization to increase performance of multicore processors."
 msgstr "Ενεργοποίηση συγχρονισμού για καλύτερη απόδοση των πολυπύρηνων επεξεργαστών."
 
@@ -1723,7 +1719,7 @@ msgstr "Ενεργοποίηση εξομάλυνσης γραμματοσειρ
 msgid "Engines and Frameworks"
 msgstr "Κινητήρες και πλαίσια"
 
-#: bottles/backend/utils/manager.py:940
+#: bottles/backend/utils/manager.py:944
 msgid "English"
 msgstr "Αγγλικά"
 
@@ -1740,7 +1736,7 @@ msgid "Environment Variable"
 msgstr "Μεταβλητή Περιβάλλοντος"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:437 bottles/frontend/ui/dialog-env-vars.blp:7
+#: bottles/frontend/ui/details-preferences.blp:420 bottles/frontend/ui/dialog-env-vars.blp:7
 msgid "Environment Variables"
 msgstr "Προσθέστε μεταβλητές περιβάλλοντος γρήγορα"
 
@@ -1766,11 +1762,11 @@ msgstr "Σφάλμα κατά την επεξεργασία εκτελέσιμο
 msgid "Errors"
 msgstr "Σφάλματα"
 
-#: bottles/backend/utils/manager.py:942
+#: bottles/backend/utils/manager.py:946
 msgid "Estonian"
 msgstr "Εσθονία"
 
-#: bottles/frontend/ui/details-preferences.blp:235
+#: bottles/frontend/ui/details-preferences.blp:218
 msgid "Esync"
 msgstr "Esync"
 
@@ -1816,7 +1812,7 @@ msgstr "Πειράματα"
 msgid "Explorer"
 msgstr "Εξερευνητής"
 
-#: bottles/frontend/views/bottle_details.py:745
+#: bottles/frontend/views/bottle_details.py:743
 msgid "Export"
 msgstr "Εξαγωγή"
 
@@ -1824,7 +1820,7 @@ msgstr "Εξαγωγή"
 msgid "Export Configuration…"
 msgstr "Εξαγωγή διαμόρφωσης…"
 
-#: bottles/frontend/ui/details-preferences.blp:139
+#: bottles/frontend/ui/details-preferences.blp:121
 msgid "Expose HDR to games using DXVK. Requires native Wayland or Gamescope. Older NVIDIA drivers also need HdrWsi and ENABLE_HDR_WSI=1."
 msgstr "Εκθέστε το HDR σε παιχνίδια χρησιμοποιώντας το DXVK. Απαιτεί εγγενές Wayland ή Gamescope. Τα παλαιότερα προγράμματα οδήγησης NVIDIA χρειάζονται επίσης HdrWsi και ENABLE_HDR_WSI=1."
 
@@ -1875,12 +1871,12 @@ msgid "Failed to initialize the Wine prefix."
 msgstr "Απέτυχε η προετοιμασία του προθέματος Wine."
 
 #, python-format
-#: bottles/backend/managers/manager.py:1826 bottles/backend/managers/manager.py:1831
+#: bottles/backend/managers/manager.py:1803 bottles/backend/managers/manager.py:1808
 msgid "Failed to install dependency: %s"
 msgstr "Αποτυχία εγκατάστασης εξάρτησης: %s"
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2453
+#: bottles/backend/managers/manager.py:2319
 msgid "Failed to install {0}."
 msgstr "Απέτυχε η εγκατάσταση του {0}."
 
@@ -1889,24 +1885,16 @@ msgid "Failed to prepare the container user profile."
 msgstr "Αποτυχία προετοιμασίας του προφίλ χρήστη του κοντέινερ."
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2453
+#: bottles/backend/managers/manager.py:2319
 msgid "Failed to remove {0}."
 msgstr "Απέτυχε η κατάργηση του {0}."
-
-#: bottles/backend/managers/manager.py:2138
-msgid "Failed to restore graphics components."
-msgstr "Αποτυχία επαναφοράς στοιχείων γραφικών."
 
 #: bottles/backend/managers/manager.py:1653
 msgid "Failed to sandbox the container user directory."
 msgstr "Απέτυχε το sandbox του καταλόγου χρήστη του μπουκαλιού."
 
-#: bottles/backend/managers/manager.py:2228
-msgid "Failed to save and roll back the D7VK configuration."
-msgstr "Αποτυχία αποθήκευσης και επαναφοράς της διαμόρφωσης D7VK."
-
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:611
+#: bottles/frontend/views/bottle_details.py:609 bottles/frontend/views/bottle_preferences.py:1005
 msgid "Failed to update {component}"
 msgstr "Απέτυχε η ενημέρωση του {component}"
 
@@ -1915,7 +1903,7 @@ msgid "Fast Approximate Anti-Aliasing"
 msgstr "Γρήγορη κατά προσέγγιση αντιπαράθεση"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:276
+#: bottles/frontend/ui/details-preferences.blp:259
 msgid "Feral GameMode"
 msgstr "Χρήση GameMode"
 
@@ -1958,11 +1946,11 @@ msgstr "Αρχεία για προσωρινή αποθήκευση"
 msgid "Finalizing installation..."
 msgstr "Ολοκλήρωση εγκατάστασης..."
 
-#: bottles/backend/managers/manager.py:1880
+#: bottles/backend/managers/manager.py:1857
 msgid "Finalizing…"
 msgstr "Ολοκλήρωση…"
 
-#: bottles/backend/utils/manager.py:943
+#: bottles/backend/utils/manager.py:947
 msgid "Finnish"
 msgstr "Φινλανδικά"
 
@@ -1999,7 +1987,7 @@ msgstr "Τερματίστε όλες τις διαδικασίες"
 msgid "Force Stop all Processes (Native method)"
 msgstr "Αναγκαστική διακοπή όλων των διεργασιών (Εγγενής μέθοδος)"
 
-#: bottles/frontend/views/bottle_details.py:959
+#: bottles/frontend/views/bottle_details.py:957
 msgid "Force _Stop"
 msgstr "Force _Stop"
 
@@ -2007,7 +1995,7 @@ msgstr "Force _Stop"
 msgid "Force disable any network activity even with available network connection."
 msgstr "Αναγκαστική απενεργοποίηση οποιασδήποτε δραστηριότητας δικτύου ακόμα και με διαθέσιμη σύνδεση δικτύου."
 
-#: bottles/frontend/ui/details-preferences.blp:129
+#: bottles/frontend/ui/details-preferences.blp:111
 msgid "Force the experimental native Wayland driver instead of Xwayland. Requires a Wayland session."
 msgstr "Επιβάλετε το πειραματικό εγγενές πρόγραμμα οδήγησης Wayland αντί για το Xwayland. Απαιτεί μια συνεδρία Wayland."
 
@@ -2019,7 +2007,7 @@ msgstr "Επιβολή χρήσης του σκοτεινού θέματος."
 msgid "Frame Generation"
 msgstr "Γενιά καρέ"
 
-#: bottles/frontend/ui/details-preferences.blp:168
+#: bottles/frontend/ui/details-preferences.blp:150
 msgid "Frame Generation (Experimental)"
 msgstr "Δημιουργία καρέ (Πειραματικό)"
 
@@ -2027,7 +2015,7 @@ msgstr "Δημιουργία καρέ (Πειραματικό)"
 msgid "Frame Generation Settings"
 msgstr "Ρυθμίσεις δημιουργίας καρέ"
 
-#: bottles/frontend/ui/details-preferences.blp:243 bottles/frontend/ui/dialog-gamescope.blp:141
+#: bottles/frontend/ui/details-preferences.blp:226 bottles/frontend/ui/dialog-gamescope.blp:141
 msgid "Frame Rate Limit"
 msgstr "Όριο ρυθμού καρέ"
 
@@ -2035,11 +2023,11 @@ msgstr "Όριο ρυθμού καρέ"
 msgid "Frame Rate Limit When Unfocused"
 msgstr "Όριο ρυθμού καρέ όταν δεν είναι εστιασμένο"
 
-#: bottles/backend/utils/manager.py:944
+#: bottles/backend/utils/manager.py:948
 msgid "French"
 msgstr "Γαλλικά"
 
-#: bottles/frontend/ui/details-preferences.blp:236
+#: bottles/frontend/ui/details-preferences.blp:219
 msgid "Fsync"
 msgstr "Fsync"
 
@@ -2083,7 +2071,7 @@ msgstr "Παιχνίδια"
 msgid "General"
 msgstr "Γενικά"
 
-#: bottles/frontend/ui/details-preferences.blp:169
+#: bottles/frontend/ui/details-preferences.blp:151
 msgid "Generate additional frames with lsfg-vk. Only works with 64-bit Vulkan applications."
 msgstr "Δημιουργήστε επιπλέον καρέ με το lsfg-vk. Λειτουργεί μόνο με εφαρμογές 64-bit Vulkan."
 
@@ -2091,7 +2079,7 @@ msgstr "Δημιουργήστε επιπλέον καρέ με το lsfg-vk. Λ
 msgid "Generating container configuration…"
 msgstr "Δημιουργία ρυθμίσεων του περιβάλλον Wine…"
 
-#: bottles/backend/utils/manager.py:938
+#: bottles/backend/utils/manager.py:942
 msgid "German"
 msgstr "Γερμανικά"
 
@@ -2111,7 +2099,7 @@ msgstr "Παραχωρήστε στο Bottles άμεση πρόσβαση στο
 msgid "Graphics API"
 msgstr "API γραφικών"
 
-#: bottles/backend/utils/manager.py:939
+#: bottles/backend/utils/manager.py:943
 msgid "Greek"
 msgstr "Ελληνικά"
 
@@ -2145,7 +2133,7 @@ msgstr "Προγράμματα"
 msgid "Hide Program"
 msgstr "Προγράμματα"
 
-#: bottles/frontend/ui/details-preferences.blp:138
+#: bottles/frontend/ui/details-preferences.blp:120
 msgid "High Dynamic Range"
 msgstr "Υψηλό δυναμικό εύρος"
 
@@ -2158,7 +2146,7 @@ msgstr "Μέσος όρος ανά ώρα: {}"
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr "Πόσο συχνά ενημερώνεται ο καρδιακός παλμός της περιόδου λειτουργίας. Ορίζει το μέγιστο σφάλμα χρονικής σφραγίδας για απότομες εξόδους."
 
-#: bottles/backend/utils/manager.py:946
+#: bottles/backend/utils/manager.py:950
 msgid "Hungarian"
 msgstr "Ουγγρικό"
 
@@ -2210,7 +2198,7 @@ msgstr "Βελτιώστε τη συμβατότητα Direct3D 3/5/6/7 για �
 msgid "Improve Direct3D 8/9/10/11 compatibility by translating it to Vulkan."
 msgstr "Βελτιώστε τη συμβατότητα Direct3D 8/9/10/11 μεταφράζοντάς το σε Vulkan."
 
-#: bottles/frontend/ui/details-preferences.blp:287
+#: bottles/frontend/ui/details-preferences.blp:270
 msgid "Improve loading time when launching the game multiple times. The game will take longer to start for the first time."
 msgstr "Βελτιώστε τον χρόνο φόρτωσης κατά την εκκίνηση του παιχνιδιού πολλές φορές. Το παιχνίδι θα πάρει περισσότερο χρόνο για να ξεκινήσει για πρώτη φορά."
 
@@ -2221,10 +2209,6 @@ msgstr "Περιλαμβάνει αρχεία και εξαγόμενους πό
 #: bottles/frontend/ui/dialog-deps-check.blp:14
 msgid "Incomplete package"
 msgstr "Ημιτελές πακέτο"
-
-#: bottles/frontend/ui/details-preferences.blp:101
-msgid "Increase performance at the expense of visuals using DXVK-NVAPI. Only works on newer NVIDIA GPUs."
-msgstr "Αυξήστε την απόδοση εις βάρος των γραφικών χρησιμοποιώντας το DXVK-NVAPI. Λειτουργεί μόνο σε νεότερες GPU NVIDIA."
 
 #: bottles/frontend/ui/details-preferences.blp:82
 msgid "Increase responsiveness. Can be detected by some anti-cheat software."
@@ -2266,7 +2250,7 @@ msgstr "Εγκαταστήστε προγράμματα που επιμελεί�
 msgid "Install this Program"
 msgstr "Εγκαταστήστε αυτό το πρόγραμμα"
 
-#: bottles/frontend/views/bottle_preferences.py:165
+#: bottles/frontend/views/bottle_preferences.py:162
 msgid "Install vkbasalt-cli to edit vkBasalt settings."
 msgstr "Εγκαταστήστε το vkbasalt-cli για να επεξεργαστείτε τις ρυθμίσεις vkBasalt."
 
@@ -2313,28 +2297,16 @@ msgstr "Αποθετήριο εγκαταστατών"
 msgid "Installing \"{0}\"..."
 msgstr "Εγκατάσταση του \"{0}\"..."
 
-#: bottles/backend/managers/manager.py:1853
+#: bottles/backend/managers/manager.py:1830
 msgid "Installing D7VK..."
 msgstr "Εγκατάσταση του D7VK..."
-
-#: bottles/backend/managers/manager.py:1806
-msgid "Installing DXVK-NVAPI…"
-msgstr "Εγκατάσταση DXVK-NVAPI…"
-
-#: bottles/backend/managers/manager.py:1775
-msgid "Installing DXVK…"
-msgstr "Εγκατάσταση DXVK…"
-
-#: bottles/backend/managers/manager.py:1790
-msgid "Installing VKD3D…"
-msgstr "Εγκατάσταση VKD3D…"
 
 #: bottles/frontend/windows/installer.py:142
 msgid "Installing Windows dependencies…"
 msgstr "Εγκατάσταση εξαρτήσεων των Windows…"
 
 #, python-format
-#: bottles/backend/managers/manager.py:1820
+#: bottles/backend/managers/manager.py:1797
 msgid "Installing dependency: %s …"
 msgstr "Εγκατάσταση εξάρτησης: %s…"
 
@@ -2385,7 +2357,7 @@ msgstr "Εξαγωγή διαμόρφωσης"
 msgid "Invalid URI (syntax: bottles:run/<bottle>/<program>)"
 msgstr "Μη έγκυρος σύνδεσμος (σύνταξη: bottles:run/<περιβάλλον Wine>/<πρόγραμμα>)"
 
-#: bottles/backend/managers/manager.py:2098
+#: bottles/backend/managers/manager.py:2055
 msgid "Invalid graphics component."
 msgstr "Μη έγκυρο στοιχείο γραφικών."
 
@@ -2393,7 +2365,7 @@ msgstr "Μη έγκυρο στοιχείο γραφικών."
 msgid "Issues that may prevent this program from running."
 msgstr "Ζητήματα που ενδέχεται να εμποδίσουν την εκτέλεση αυτού του προγράμματος."
 
-#: bottles/backend/utils/manager.py:947
+#: bottles/backend/utils/manager.py:951
 msgid "Italian"
 msgstr "Ιταλικό"
 
@@ -2402,7 +2374,7 @@ msgstr "Ιταλικό"
 msgid "Item name"
 msgstr "Όνομα bottle"
 
-#: bottles/backend/utils/manager.py:961
+#: bottles/backend/utils/manager.py:965
 msgid "Japanese"
 msgstr "Ιαπωνικά"
 
@@ -2420,11 +2392,11 @@ msgstr "Γνωστή εφαρμογή ({match}): {name}"
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr "Γνωστή εφαρμογή: {name} (ρήμα winetricks '{verb}')"
 
-#: bottles/backend/utils/manager.py:963
+#: bottles/backend/utils/manager.py:967
 msgid "Korean"
 msgstr "Κορεάτικο"
 
-#: bottles/frontend/ui/details-preferences.blp:332 bottles/frontend/ui/preferences.blp:28
+#: bottles/frontend/ui/details-preferences.blp:315 bottles/frontend/ui/preferences.blp:28
 msgid "Language"
 msgstr "Γλώσσα"
 
@@ -2437,11 +2409,11 @@ msgstr "Τελευταία αναπαραγωγή"
 msgid "Last Used: %s – Usage Time: %s"
 msgstr "Τελευταία αναπαραγωγή: %s – Χρόνος αναπαραγωγής: %s"
 
-#: bottles/backend/managers/manager.py:1959 bottles/frontend/ui/details-preferences.blp:81
+#: bottles/backend/managers/manager.py:1936 bottles/frontend/ui/details-preferences.blp:81
 msgid "LatencyFleX"
 msgstr "LatencyFleX"
 
-#: bottles/backend/utils/manager.py:949
+#: bottles/backend/utils/manager.py:953
 msgid "Latvian"
 msgstr "Λετονικό"
 
@@ -2475,7 +2447,7 @@ msgid "Launch with Terminal"
 msgstr "Εκτέλεση μέσω τερματικού"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:652 bottles/frontend/widgets/library.py:271 bottles/frontend/widgets/program.py:367
+#: bottles/frontend/views/bottle_details.py:650 bottles/frontend/widgets/library.py:271 bottles/frontend/widgets/program.py:367
 msgid "Launching \"{0}\"…"
 msgstr "Εκκίνηση του «{0}»…"
 
@@ -2526,7 +2498,7 @@ msgstr "Σειρά ταξινόμησης βιβλιοθήκης"
 msgid "License"
 msgstr "Αδεια"
 
-#: bottles/frontend/ui/details-preferences.blp:244
+#: bottles/frontend/ui/details-preferences.blp:227
 msgid "Limit DXVK and VKD3D applications. Set to 0 to disable."
 msgstr "Περιορίστε τις εφαρμογές DXVK και VKD3D. Ορίστε στο 0 για απενεργοποίηση."
 
@@ -2546,7 +2518,7 @@ msgstr "Καταχωρίστε τις εφαρμογές Steam στη λίστα
 msgid "List Ubisoft Games in Programs List"
 msgstr "Καταχωρίστε τα παιχνίδια της Ubisoft στη λίστα προγραμμάτων"
 
-#: bottles/backend/utils/manager.py:948
+#: bottles/backend/utils/manager.py:952
 msgid "Lithuanian"
 msgstr "Λιθουανικά"
 
@@ -2591,7 +2563,7 @@ msgid "Manage Branches"
 msgstr "Διαχείριση υποκαταστημάτων"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:450
+#: bottles/frontend/ui/details-preferences.blp:433
 msgid "Manage Drives"
 msgstr "Διαχείρηση δρομέων"
 
@@ -2599,15 +2571,15 @@ msgstr "Διαχείρηση δρομέων"
 msgid "Manage File Associations..."
 msgstr "Διαχείριση συσχετίσεων αρχείων..."
 
-#: bottles/frontend/ui/details-preferences.blp:192
+#: bottles/frontend/ui/details-preferences.blp:174
 msgid "Manage Gamescope settings"
 msgstr "Διαχειριστείτε τις ρυθμίσεις \"Gamescope\""
 
-#: bottles/frontend/ui/details-preferences.blp:260
+#: bottles/frontend/ui/details-preferences.blp:243
 msgid "Manage MangoHud settings"
 msgstr "Διαχειριστείτε τις ρυθμίσεις MangoHud"
 
-#: bottles/frontend/ui/details-preferences.blp:152
+#: bottles/frontend/ui/details-preferences.blp:134
 msgid "Manage Post-Processing Layer settings"
 msgstr "Διαχείριση ρυθμίσεων επιπέδου μετά την επεξεργασία"
 
@@ -2615,7 +2587,7 @@ msgstr "Διαχείριση ρυθμίσεων επιπέδου μετά την
 msgid "Manage cached files used to speed up downloads and container creation."
 msgstr "Διαχειριστείτε αποθηκευμένα αρχεία που χρησιμοποιούνται για την επιτάχυνση των λήψεων και της δημιουργίας φιαλών."
 
-#: bottles/frontend/ui/details-preferences.blp:189
+#: bottles/frontend/ui/details-preferences.blp:171
 msgid "Manage how games should be displayed on the screen using Gamescope."
 msgstr "Διαχειριστείτε τον τρόπο εμφάνισης των παιχνιδιών στην οθόνη χρησιμοποιώντας το Gamescope."
 
@@ -2623,7 +2595,7 @@ msgstr "Διαχειριστείτε τον τρόπο εμφάνισης των
 msgid "Manage how games should be displayed."
 msgstr "Διαχειριστείτε τον τρόπο εμφάνισης των παιχνιδιών."
 
-#: bottles/frontend/ui/details-preferences.blp:172
+#: bottles/frontend/ui/details-preferences.blp:154
 msgid "Manage lsfg-vk settings"
 msgstr "Διαχείριση ρυθμίσεων lsfg-vk"
 
@@ -2632,11 +2604,11 @@ msgid "Manage reusable registry tweaks."
 msgstr "Διαχείριση επαναχρησιμοποιήσιμων τροποποιήσεων μητρώου."
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:344
+#: bottles/frontend/ui/details-preferences.blp:327
 msgid "Manage the Sandbox Permissions"
 msgstr "Διαχείρηση εκδόσεων DXVK"
 
-#: bottles/frontend/ui/details-preferences.blp:291
+#: bottles/frontend/ui/details-preferences.blp:274
 msgid "Manage vmtouch settings"
 msgstr "Διαχείριση ρυθμίσεων vmtouch"
 
@@ -2694,12 +2666,12 @@ msgid "Miscellaneous"
 msgstr "Διάφορα"
 
 #, fuzzy
-#: bottles/frontend/views/bottle_details.py:878
+#: bottles/frontend/views/bottle_details.py:876
 msgid "Missing Runner"
 msgstr "Δρομέας"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:256
+#: bottles/frontend/ui/details-preferences.blp:239
 msgid "Monitor Performance"
 msgstr "Απόδοση"
 
@@ -2745,11 +2717,11 @@ msgstr "Το δικό μου περιβάλλον Wine"
 msgid "N/A"
 msgstr "Δ/Υ"
 
-#: bottles/frontend/ui/details-preferences.blp:237
+#: bottles/frontend/ui/details-preferences.blp:220
 msgid "NTSync"
 msgstr "NTSync"
 
-#: bottles/backend/managers/manager.py:1953
+#: bottles/backend/managers/manager.py:1930
 msgid "NVAPI"
 msgstr "NVAPI"
 
@@ -2827,7 +2799,7 @@ msgstr "Την επόμενη χρονιά"
 msgid "No"
 msgstr "Όχι"
 
-#: bottles/backend/managers/manager.py:2192 bottles/backend/managers/manager.py:2387
+#: bottles/backend/managers/manager.py:2255
 msgid "No D7VK version available."
 msgstr "Δεν υπάρχει διαθέσιμη έκδοση D7VK."
 
@@ -2835,7 +2807,7 @@ msgstr "Δεν υπάρχει διαθέσιμη έκδοση D7VK."
 msgid "No DLL selected"
 msgstr "Δεν έχει επιλεγεί DLL"
 
-#: bottles/backend/managers/manager.py:2120 bottles/backend/managers/manager.py:2396
+#: bottles/backend/managers/manager.py:2078 bottles/backend/managers/manager.py:2264
 msgid "No DXVK version available."
 msgstr "Δεν υπάρχει διαθέσιμη έκδοση DXVK."
 
@@ -2851,11 +2823,11 @@ msgstr "Δεν βρέθηκαν συσκευές HIDRAW"
 msgid "No Installers Found"
 msgstr "Δε βρέθηκαν προγράμματα εγκατάστασης"
 
-#: bottles/backend/managers/manager.py:2426
+#: bottles/backend/managers/manager.py:2292
 msgid "No LatencyFleX version available."
 msgstr "Δεν υπάρχει διαθέσιμη έκδοση LatencyFleX."
 
-#: bottles/backend/managers/manager.py:2414
+#: bottles/backend/managers/manager.py:2282
 msgid "No NVAPI version available."
 msgstr "Δεν υπάρχει διαθέσιμη έκδοση NVAPI."
 
@@ -2876,7 +2848,7 @@ msgstr "Πειράματα:εγκαταστάτες"
 msgid "No Thumbnail"
 msgstr "Χωρίς μικρογραφία"
 
-#: bottles/backend/managers/manager.py:2405
+#: bottles/backend/managers/manager.py:2273
 msgid "No VKD3D version available."
 msgstr "Δεν υπάρχει διαθέσιμη έκδοση VKD3D."
 
@@ -2900,7 +2872,7 @@ msgstr "Δεν έχουν προστεθεί κανόνες αποκλεισμο
 msgid "No files or folders selected"
 msgstr "Δεν έχουν επιλεγεί αρχεία ή φάκελοι"
 
-#: bottles/backend/managers/manager.py:2107
+#: bottles/backend/managers/manager.py:2065
 msgid "No graphics component version available."
 msgstr "Δεν υπάρχει διαθέσιμη έκδοση στοιχείων γραφικών."
 
@@ -2924,7 +2896,7 @@ msgstr "Δεν έχουν αποθηκευτεί ακόμα πρότυπα."
 msgid "No variables selected"
 msgstr "Δεν έχουν επιλεγεί μεταβλητές"
 
-#: bottles/backend/utils/manager.py:951
+#: bottles/backend/utils/manager.py:955
 msgid "Norwegian"
 msgstr "Νορβηγικά"
 
@@ -2941,11 +2913,11 @@ msgstr "Δεν είναι συνδεδεμένο αυτήν τη στιγμή"
 msgid "Not enough disk space to create a snapshot! Requires at least {0} of free space."
 msgstr "Δεν υπάρχει αρκετός χώρος στο δίσκο για να δημιουργήσετε ένα στιγμιότυπο! Απαιτεί τουλάχιστον {0} ελεύθερου χώρου."
 
-#: bottles/backend/managers/manager.py:2010
+#: bottles/backend/managers/manager.py:1987
 msgid "Not installed"
 msgstr "Δεν έχει εγκατασταθεί"
 
-#: bottles/frontend/ui/details-preferences.blp:463
+#: bottles/frontend/ui/details-preferences.blp:446
 msgid "Notes"
 msgstr "Σημειώσεις"
 
@@ -2957,7 +2929,7 @@ msgstr "Τίποτα να δεσμευτεί"
 msgid "Notifications"
 msgstr "Ειδοποιήσεις"
 
-#: bottles/frontend/ui/details-preferences.blp:307
+#: bottles/frontend/ui/details-preferences.blp:290
 msgid "OBS Game Capture"
 msgstr "Λήψη παιχνιδιών OBS"
 
@@ -2973,7 +2945,7 @@ msgstr "OSS"
 msgid "Offer an Eagle analysis when a program closes right after starting."
 msgstr "Προσφέρετε μια ανάλυση Eagle όταν ένα πρόγραμμα κλείνει αμέσως μετά την εκκίνηση."
 
-#: bottles/frontend/views/bottle_preferences.py:283
+#: bottles/frontend/views/bottle_preferences.py:280
 msgid "Older NVIDIA drivers require HdrWsi and ENABLE_HDR_WSI=1 for HDR."
 msgstr "Τα παλαιότερα προγράμματα οδήγησης NVIDIA απαιτούν HdrWsi και ENABLE_HDR_WSI=1 για HDR."
 
@@ -3031,7 +3003,7 @@ msgstr "Ανοίξτε την άδεια {0}"
 msgid "Operations"
 msgstr "Λειτουργίες"
 
-#: bottles/frontend/views/details.py:268
+#: bottles/frontend/views/details.py:266
 msgid "Operations in progress, please wait."
 msgstr "Λειτουργίες σε εξέλιξη, περιμένετε."
 
@@ -3105,7 +3077,7 @@ msgstr "Οι διαδρομές στο εσωτερικό της φιάλης π
 msgid "Pattern"
 msgstr "Μοτίβο"
 
-#: bottles/frontend/ui/details-preferences.blp:226
+#: bottles/frontend/ui/details-preferences.blp:209
 msgid "Performance"
 msgstr "Απόδοση"
 
@@ -3137,15 +3109,15 @@ msgstr "Μεταβείτε στο νέο σύστημα έκδοσης για ν
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr "Περιμένετε όσο γίνεται λήψη και εγκατάσταση του WineBridge."
 
-#: bottles/backend/utils/manager.py:952
+#: bottles/backend/utils/manager.py:956
 msgid "Polish"
 msgstr "Πολωνικό"
 
-#: bottles/backend/utils/manager.py:953
+#: bottles/backend/utils/manager.py:957
 msgid "Portuguese"
 msgstr "Πορτογαλικά"
 
-#: bottles/frontend/ui/details-preferences.blp:148
+#: bottles/frontend/ui/details-preferences.blp:130
 msgid "Post-Processing Effects"
 msgstr "Εφέ μετά την επεξεργασία"
 
@@ -3194,7 +3166,7 @@ msgstr "Αντικαταστάσεις προτιμήσεων"
 msgid "Prefix templates"
 msgstr "Πρότυπα προθέματος"
 
-#: bottles/frontend/ui/details-preferences.blp:286
+#: bottles/frontend/ui/details-preferences.blp:269
 msgid "Preload Game Files"
 msgstr "Προφόρτωση αρχείων παιχνιδιών"
 
@@ -3301,12 +3273,12 @@ msgid "ProtonDB community reports: ODbL 1.0, contents DbCL 1.0.\nwinetricks data
 msgstr "Αναφορές κοινότητας ProtonDB: ODbL 1.0, περιεχόμενα DbCL 1.0.\nδεδομένα winetricks: LGPL-2.1 ή νεότερη έκδοση."
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:382
+#: bottles/frontend/ui/details-preferences.blp:365
 msgid "Provide a bundle of extra libraries for more compatibility with Steam games. Disable it if you run into issues."
 msgstr "Παρέχει μια δέσμη επιπλέων βιβλιοθηκών για καλύτερη συμβατότητα,\nαπενεργοποιήστε αν αντιμετωπίζετε προβλήματα."
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:361
+#: bottles/frontend/ui/details-preferences.blp:344
 msgid "Provide a bundle of extra libraries for more compatibility. Disable it if you run into issues."
 msgstr "Παρέχει μια δέσμη επιπλέων βιβλιοθηκών για καλύτερη συμβατότητα,\nαπενεργοποιήστε αν αντιμετωπίζετε προβλήματα."
 
@@ -3479,7 +3451,7 @@ msgstr "Αφαίρεση από τη λίστα"
 msgid "Remove from list (keep files)"
 msgstr "Κατάργηση από τη λίστα (διατήρηση αρχείων)"
 
-#: bottles/frontend/views/bottle_details.py:856
+#: bottles/frontend/views/bottle_details.py:854
 msgid "Remove this container from your list, or permanently delete its directory and all files."
 msgstr "Καταργήστε αυτό το περιβάλλον Wine από τη λίστα σας ή διαγράψτε οριστικά τον κατάλογό του και όλα τα αρχεία."
 
@@ -3559,7 +3531,7 @@ msgid "Reset to Container's Defaults"
 msgstr "περιβάλλοντα Wine"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:395 bottles/frontend/ui/dialog-launch-options.blp:76 bottles/frontend/ui/dialog-launch-options.blp:113 bottles/frontend/ui/dialog-launch-options.blp:150 bottles/frontend/ui/new-bottle-dialog.blp:160
+#: bottles/frontend/ui/details-preferences.blp:378 bottles/frontend/ui/dialog-launch-options.blp:76 bottles/frontend/ui/dialog-launch-options.blp:113 bottles/frontend/ui/dialog-launch-options.blp:150 bottles/frontend/ui/new-bottle-dialog.blp:160
 msgid "Reset to Default"
 msgstr "Bottles"
 
@@ -3596,11 +3568,11 @@ msgstr "Επαναφορά της κατάστασης {}…"
 msgid "Restoring state..."
 msgstr "Επαναφορά κατάστασης..."
 
-#: bottles/frontend/widgets/state.py:123
+#: bottles/frontend/widgets/state.py:122
 msgid "Restoring this state will overwrite the current configuration and cannot be undone."
 msgstr "Η επαναφορά αυτής της κατάστασης θα αντικαταστήσει την τρέχουσα διαμόρφωση και δεν μπορεί να αναιρεθεί."
 
-#: bottles/frontend/views/details.py:275
+#: bottles/frontend/views/details.py:273
 msgid "Return to your containers."
 msgstr "Επιστρέψτε στα περιβάλλοντα Wine σας."
 
@@ -3613,7 +3585,7 @@ msgstr "Αξιολόγηση"
 msgid "Review for {0}"
 msgstr "Ανασκόπηση για {0}"
 
-#: bottles/backend/utils/manager.py:954
+#: bottles/backend/utils/manager.py:958
 msgid "Romanian"
 msgstr "Ρουμανικό"
 
@@ -3625,7 +3597,7 @@ msgstr "Λεπτομέρειες κανόνα"
 msgid "Rule name"
 msgstr "Όνομα κανόνα"
 
-#: bottles/frontend/ui/dialog-run-args.blp:33 bottles/frontend/utils/sandbox_guard.py:172 bottles/frontend/views/bottle_details.py:671 bottles/frontend/views/list.py:151
+#: bottles/frontend/ui/dialog-run-args.blp:33 bottles/frontend/utils/sandbox_guard.py:172 bottles/frontend/views/bottle_details.py:669 bottles/frontend/views/list.py:151
 msgid "Run"
 msgstr "Εκτέλεση"
 
@@ -3714,7 +3686,7 @@ msgstr "Εκτελείται με την ίδια πρόσβαση με το Bot
 msgid "Runtimes and Libraries"
 msgstr "Χρόνοι εκτέλεσης και βιβλιοθήκες"
 
-#: bottles/backend/utils/manager.py:955
+#: bottles/backend/utils/manager.py:959
 msgid "Russian"
 msgstr "Ρωσικά"
 
@@ -3742,7 +3714,7 @@ msgstr "Ρυθμίσεις Sandbox"
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: bottles/frontend/ui/details-preferences.blp:467
+#: bottles/frontend/ui/details-preferences.blp:450
 msgid "Save Notes"
 msgstr "Αποθήκευση σημειώσεων"
 
@@ -3833,11 +3805,11 @@ msgid "Select Drive Path"
 msgstr "Διαγραφή bottle"
 
 #, fuzzy
-#: bottles/frontend/views/bottle_details.py:348 bottles/frontend/views/bottle_details.py:668 bottles/frontend/views/list.py:148
+#: bottles/frontend/views/bottle_details.py:348 bottles/frontend/views/bottle_details.py:666 bottles/frontend/views/list.py:148
 msgid "Select Executable"
 msgstr "Διαγραφή bottle"
 
-#: bottles/frontend/views/bottle_details.py:720
+#: bottles/frontend/views/bottle_details.py:718
 msgid "Select Executable for Eagle Analysis"
 msgstr "Επιλέξτε Εκτελέσιμο για ανάλυση Eagle"
 
@@ -3874,7 +3846,7 @@ msgstr "Διαγραφή bottle"
 msgid "Select Runner Directory"
 msgstr "Επιλέξτε Κατάλογος Εκτελεστής"
 
-#: bottles/frontend/views/bottle_preferences.py:510 bottles/frontend/windows/launchoptions.py:438
+#: bottles/frontend/views/bottle_preferences.py:500 bottles/frontend/windows/launchoptions.py:438
 msgid "Select Working Directory"
 msgstr "Επιλέξτε Κατάλογος εργασίας"
 
@@ -3915,11 +3887,11 @@ msgstr "Επιλέξτε έναν κενό κατάλογο"
 msgid "Select files and folders within the container, not the container itself."
 msgstr "Επιλέξτε αρχεία και φακέλους μέσα στο περιβάλλον Wine, όχι στο ίδιο το περιβάλλον Wine."
 
-#: bottles/frontend/views/bottle_details.py:747
+#: bottles/frontend/views/bottle_details.py:745
 msgid "Select the location where to save the backup archive"
 msgstr "Επιλέξτε τη θέση αποθήκευσης της βιβλιοθήκης αντιγράφων ασφαλείας"
 
-#: bottles/frontend/views/bottle_details.py:743
+#: bottles/frontend/views/bottle_details.py:741
 msgid "Select the location where to save the backup config"
 msgstr "Επιλέξτε τη θέση αποθήκευσης του αντιγράφου ασφαλείας διαμόρφωσης"
 
@@ -4107,11 +4079,11 @@ msgstr "Παράλειψη ρύθμισης"
 msgid "Skipping {0}: not installed."
 msgstr "Παράλειψη {0}: δεν έχει εγκατασταθεί."
 
-#: bottles/backend/utils/manager.py:956
+#: bottles/backend/utils/manager.py:960
 msgid "Slovak"
 msgstr "Σλοβάκικο"
 
-#: bottles/backend/utils/manager.py:957
+#: bottles/backend/utils/manager.py:961
 msgid "Slovenian"
 msgstr "Σλοβενικό"
 
@@ -4164,7 +4136,7 @@ msgstr "Ταξινόμηση της βιβλιοθήκης κατά όνομα �
 msgid "Source: {0}"
 msgstr "Πηγή: {0}"
 
-#: bottles/backend/utils/manager.py:941
+#: bottles/backend/utils/manager.py:945
 msgid "Spanish"
 msgstr "Ισπανικά"
 
@@ -4176,7 +4148,7 @@ msgstr "Έναρξη εγκατάστασης"
 msgid "Start program"
 msgstr "Έναρξη προγράμματος"
 
-#: bottles/frontend/ui/details-preferences.blp:372
+#: bottles/frontend/ui/details-preferences.blp:355
 msgid "Start programs through WineBridge by default for this container."
 msgstr "Ξεκινήστε προγράμματα μέσω του WineBridge από προεπιλογή για αυτό το περιβάλλον Wine."
 
@@ -4224,11 +4196,11 @@ msgid "States list retrieved successfully!"
 msgstr "Η λίστα καταστάσεων ανακτήθηκε με επιτυχία!"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:381
+#: bottles/frontend/ui/details-preferences.blp:364
 msgid "Steam Runtime"
 msgstr "Χρηση Bottles runtime"
 
-#: bottles/frontend/views/bottle_preferences.py:194
+#: bottles/frontend/views/bottle_preferences.py:191
 msgid "Steam Runtime was not detected. Install it or grant Bottles access to Steam files, then restart Bottles."
 msgstr "Ο χρόνος εκτέλεσης Steam δεν εντοπίστηκε. Εγκαταστήστε το ή παραχωρήστε στο Bottles πρόσβαση σε αρχεία Steam και, στη συνέχεια, επανεκκινήστε το Bottles."
 
@@ -4287,7 +4259,7 @@ msgstr "Οι προτάσεις βασίζονται σε τεχνική ανά�
 msgid "Supported Executables"
 msgstr "Υποστηριζόμενα εκτελέσιμα"
 
-#: bottles/backend/utils/manager.py:958
+#: bottles/backend/utils/manager.py:962
 msgid "Swedish"
 msgstr "Σουηδική"
 
@@ -4303,11 +4275,11 @@ msgstr "Εναλλαγή κλάδου..."
 msgid "Switching branch…"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:230
+#: bottles/frontend/ui/details-preferences.blp:213
 msgid "Synchronization"
 msgstr "Συγχoρονισμός"
 
-#: bottles/backend/utils/manager.py:934 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/ui/dialog-display.blp:142 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:938 bottles/frontend/ui/details-preferences.blp:217 bottles/frontend/ui/dialog-display.blp:142 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "Σύστημα"
 
@@ -4422,7 +4394,7 @@ msgstr "Το νέο σύστημα έκδοσης φιαλών προσγειώ�
 msgid "The next container for this environment will take longer to create because Bottles must rebuild the template."
 msgstr "Το επόμενο περιβάλλον Wine για αυτό το περιβάλλον θα χρειαστεί περισσότερο χρόνο για να δημιουργηθεί επειδή το Bottles πρέπει να δημιουργήσει ξανά το πρότυπο."
 
-#: bottles/frontend/views/bottle_preferences.py:613
+#: bottles/frontend/views/bottle_preferences.py:570
 msgid "The notes could not be saved."
 msgstr "Δεν ήταν δυνατή η αποθήκευση των σημειώσεων."
 
@@ -4443,7 +4415,7 @@ msgstr "Δεν ήταν δυνατή η εύρεση του αρχείου πρ�
 msgid "The repository is unreachable or no installer is compatible with this container."
 msgstr "Το αποθετήριο δεν είναι προσβάσιμο ή κανένα πρόγραμμα εγκατάστασης δεν είναι συμβατό με αυτό το περιβάλλον Wine."
 
-#: bottles/frontend/views/bottle_details.py:879
+#: bottles/frontend/views/bottle_details.py:877
 msgid "The runner requested by this container is missing. Restore it using your package manager, add its local directory in Preferences, or explicitly choose another runner for this container."
 msgstr "Ο δρομέας που ζητήθηκε από αυτό το περιβάλλον Wine λείπει. Επαναφέρετέ το χρησιμοποιώντας τον διαχειριστή πακέτων, προσθέστε τον τοπικό του κατάλογο στις Προτιμήσεις ή επιλέξτε ρητά άλλο πρόγραμμα εκτέλεσης για αυτό το περιβάλλον Wine."
 
@@ -4460,7 +4432,7 @@ msgid "The selected file is unavailable."
 msgstr "Το επιλεγμένο αρχείο δεν είναι διαθέσιμο."
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2441
+#: bottles/backend/managers/manager.py:2307
 msgid "The selected {0} installation is incomplete."
 msgstr "Η επιλεγμένη εγκατάσταση {0} δεν έχει ολοκληρωθεί."
 
@@ -4505,7 +4477,7 @@ msgstr "Φέτος"
 msgid "This application may work poorly. The installer was configured to provide the best possible experience, but expect glitches, instability and lack of working features."
 msgstr "Αυτή η εφαρμογή ενδέχεται να λειτουργεί ανεπαρκώς. Το πρόγραμμα εγκατάστασης έχει διαμορφωθεί ώστε να παρέχει την καλύτερη δυνατή εμπειρία, αλλά αναμένονται δυσλειτουργίες, αστάθεια και έλλειψη λειτουργικών λειτουργιών."
 
-#: bottles/frontend/views/bottle_details.py:956
+#: bottles/frontend/views/bottle_details.py:954
 msgid "This can cause data loss, corruption, and programs to malfunction."
 msgstr "Αυτό μπορεί να προκαλέσει απώλεια δεδομένων, καταστροφή και δυσλειτουργία προγραμμάτων."
 
@@ -4513,7 +4485,7 @@ msgstr "Αυτό μπορεί να προκαλέσει απώλεια δεδο�
 msgid "This component is not installable offline because its files are not cached."
 msgstr "Αυτό το στοιχείο δεν μπορεί να εγκατασταθεί εκτός σύνδεσης επειδή τα αρχεία του δεν αποθηκεύονται προσωρινά."
 
-#: bottles/frontend/views/bottle_preferences.py:474
+#: bottles/frontend/views/bottle_preferences.py:464
 msgid "This container name is already in use."
 msgstr "Αυτό το όνομα φιάλης χρησιμοποιείται ήδη."
 
@@ -4529,7 +4501,7 @@ msgstr "Αυτή η εξάρτηση δεν είναι συμβατή με αυ�
 msgid "This dependency is not installable offline because its files are not cached."
 msgstr "Αυτή η εξάρτηση δεν μπορεί να εγκατασταθεί εκτός σύνδεσης επειδή τα αρχεία της δεν αποθηκεύονται προσωρινά."
 
-#: bottles/frontend/views/bottle_preferences.py:200 bottles/frontend/views/bottle_preferences.py:455 bottles/frontend/views/bottle_preferences.py:403
+#: bottles/frontend/views/bottle_preferences.py:197 bottles/frontend/views/bottle_preferences.py:445 bottles/frontend/views/bottle_preferences.py:393
 msgid "This feature is unavailable on your system."
 msgstr "Αυτή η δυνατότητα δεν είναι διαθέσιμη στο σύστημά σας."
 
@@ -4577,7 +4549,7 @@ msgstr "Αυτός ο πόρος λείπει."
 msgid "This runner cannot create a 32-bit prefix. Select a 64-bit container."
 msgstr "Αυτός ο Εκτελεστής δεν μπορεί να δημιουργήσει πρόθεμα 32 bit. Επιλέξτε ένα κοντέινερ 64-bit."
 
-#: bottles/frontend/views/bottle_preferences.py:909
+#: bottles/frontend/views/bottle_preferences.py:821
 msgid "This runner has no Esync, so it will use its default."
 msgstr "Αυτός ο Εκτελεστής δεν έχει Esync, επομένως θα χρησιμοποιήσει την προεπιλογή του."
 
@@ -4626,7 +4598,7 @@ msgstr "Κατώφλι"
 msgid "Timestamp"
 msgstr "Χρονική σήμανση"
 
-#: bottles/frontend/views/bottle_preferences.py:410
+#: bottles/frontend/views/bottle_preferences.py:400
 msgid "To add it, please run:"
 msgstr "Για να το προσθέσετε, εκτελέστε:"
 
@@ -4634,7 +4606,7 @@ msgstr "Για να το προσθέσετε, εκτελέστε:"
 msgid "Today"
 msgstr "Σήμερα"
 
-#: bottles/frontend/ui/details-preferences.blp:308
+#: bottles/frontend/ui/details-preferences.blp:291
 msgid "Toggle OBS Game Capture for all Vulkan and OpenGL programs."
 msgstr "Εναλλαγή OBS Game Capture για όλα τα προγράμματα Vulkan και OpenGL."
 
@@ -4708,7 +4680,7 @@ msgstr "Δοκιμάστε ξανά"
 msgid "Try a different search."
 msgstr "Δοκιμάστε μια διαφορετική αναζήτηση."
 
-#: bottles/backend/utils/manager.py:959
+#: bottles/backend/utils/manager.py:963
 msgid "Turkish"
 msgstr "Τουρκικά"
 
@@ -4784,7 +4756,7 @@ msgid "Updated {0} components."
 msgstr "Ενημερωμένα στοιχεία {0}."
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:597
+#: bottles/frontend/views/bottle_details.py:595
 msgid "Updated {component} to {version}"
 msgstr "Ενημερώθηκε το {component} σε {version}"
 
@@ -4813,7 +4785,7 @@ msgstr "Ενημέρωση παρακάμψεων DLL…"
 msgid "Updating DXVK, please wait…"
 msgstr "Γίνεται αναβάθμιση του DXVK, παρακαλώ περιμένετε…"
 
-#: bottles/frontend/ui/details-preferences.blp:72 bottles/frontend/ui/details-preferences.blp:105
+#: bottles/frontend/ui/details-preferences.blp:72
 msgid "Updating DXVK-NVAPI, please wait…"
 msgstr "Γίνεται αναβάθμιση του DXVK-NVAPI, παρακαλώ περιμένετε…"
 
@@ -4829,7 +4801,7 @@ msgstr "Γίνεται αναβάθμιση του εκτελεστή και τ�
 msgid "Updating VKD3D, please wait…"
 msgstr "Γίνεται αναβάθμιση του VKD3D, παρακαλώ περιμένετε…"
 
-#: bottles/frontend/ui/details-preferences.blp:323
+#: bottles/frontend/ui/details-preferences.blp:306
 msgid "Updating Windows version, please wait…"
 msgstr "Γίνεται αναβάθμιση της έκδοσης των Windows, παρακαλώ περιμένετε…"
 
@@ -4875,7 +4847,7 @@ msgstr "Δεν είναι δυνατή η επαναφορά των στατισ
 msgid "Usage time tracking is disabled."
 msgstr "Η παρακολούθηση χρόνου χρήσης είναι απενεργοποιημένη."
 
-#: bottles/frontend/ui/details-bottle.blp:151 bottles/frontend/ui/details-preferences.blp:371
+#: bottles/frontend/ui/details-bottle.blp:151 bottles/frontend/ui/details-preferences.blp:354
 msgid "Use WineBridge"
 msgstr "Χρησιμοποιήστε το WineBridge"
 
@@ -4887,7 +4859,7 @@ msgstr "Χρησιμοποιήστε μια εφαρμογή 64-bit Vulkan. Απ
 msgid "Use a lighter model with a small quality reduction."
 msgstr "Χρησιμοποιήστε ένα ελαφρύτερο μοντέλο με μικρή μείωση ποιότητας."
 
-#: bottles/frontend/ui/details-preferences.blp:341
+#: bottles/frontend/ui/details-preferences.blp:324
 msgid "Use a restricted/managed environment for this container."
 msgstr "Χρησιμοποιήστε ένα περιορισμένο/διαχειριζόμενο περιβάλλον για αυτό το περιβάλλον Wine."
 
@@ -4895,7 +4867,7 @@ msgstr "Χρησιμοποιήστε ένα περιορισμένο/διαχε�
 msgid "Use shipping binary instead"
 msgstr "Χρησιμοποιήστε δυαδικό σύστημα αποστολής"
 
-#: bottles/frontend/ui/details-preferences.blp:119
+#: bottles/frontend/ui/details-preferences.blp:101
 msgid "Use the discrete graphics card to increase performance at the expense of power consumption."
 msgstr "Χρησιμοποιήστε τη διακριτή κάρτα γραφικών για να αυξήσετε την απόδοση σε βάρος της κατανάλωσης ενέργειας."
 
@@ -4915,7 +4887,7 @@ msgstr "User Runners"
 msgid "Uses the resolution of the video game as a reference in pixels."
 msgstr "Χρησιμοποιεί την ανάλυση του βιντεοπαιχνιδιού ως αναφορά σε pixel."
 
-#: bottles/backend/managers/manager.py:1947 bottles/frontend/ui/details-preferences.blp:55
+#: bottles/backend/managers/manager.py:1924 bottles/frontend/ui/details-preferences.blp:55
 msgid "VKD3D"
 msgstr "VKD3D"
 
@@ -4952,7 +4924,7 @@ msgstr "Το Vulkan δεν είναι διαθέσιμο σε αυτό το σύ
 msgid "Warnings"
 msgstr "Προειδοποιήσεις"
 
-#: bottles/frontend/ui/details-preferences.blp:128
+#: bottles/frontend/ui/details-preferences.blp:110
 msgid "Wayland (Experimental)"
 msgstr "Wayland (Πειραματικό)"
 
@@ -5016,7 +4988,7 @@ msgid "Window width"
 msgstr "Πλάτος παραθύρου"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:320
+#: bottles/frontend/ui/details-preferences.blp:303
 msgid "Windows Version"
 msgstr "Εκδοση Windows"
 
@@ -5042,7 +5014,7 @@ msgstr "Πρόγραμμα οδήγησης ήχου Wine"
 msgid "Wine config updated!"
 msgstr "Οι ρυθμίσεις του Wine ενημερώθηκαν!"
 
-#: bottles/backend/managers/manager.py:2009
+#: bottles/backend/managers/manager.py:1986
 msgid "WineBridge"
 msgstr "WineBridge"
 
@@ -5062,7 +5034,7 @@ msgstr "Ενημέρωση WineBridge"
 msgid "WineBridge update failed"
 msgstr "Η ενημέρωση WineBridge απέτυχε"
 
-#: bottles/frontend/ui/details-preferences.blp:391 bottles/frontend/ui/dialog-launch-options.blp:143
+#: bottles/frontend/ui/details-preferences.blp:374 bottles/frontend/ui/dialog-launch-options.blp:143
 msgid "Working Directory"
 msgstr "Λειτουργικός κατάλογος"
 
@@ -5134,7 +5106,7 @@ msgstr "Έναρξη εκκαθάρισης [Τερματισμός]."
 msgid "_Application"
 msgstr "_Εφαρμογή"
 
-#: bottles/frontend/ui/bulk-update-dialog.blp:22 bottles/frontend/ui/dialog-crash-report.blp:19 bottles/frontend/ui/dialog-display.blp:25 bottles/frontend/ui/dialog-duplicate.blp:20 bottles/frontend/ui/dialog-file-associations.blp:17 bottles/frontend/ui/dialog-gamescope.blp:24 bottles/frontend/ui/dialog-launch-options.blp:17 bottles/frontend/ui/dialog-lsfg-vk.blp:25 bottles/frontend/ui/dialog-mangohud.blp:25 bottles/frontend/ui/dialog-program-backups.blp:16 bottles/frontend/ui/dialog-upgrade-versioning.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:27 bottles/frontend/ui/dialog-vmtouch.blp:24 bottles/frontend/ui/dialog-winebridge-update.blp:19 bottles/frontend/ui/new-bottle-dialog.blp:23 bottles/frontend/views/bottle_details.py:860 bottles/frontend/views/bottle_details.py:958 bottles/frontend/views/preferences.py:366 bottles/frontend/views/preferences.py:828 bottles/frontend/widgets/state.py:127
+#: bottles/frontend/ui/bulk-update-dialog.blp:22 bottles/frontend/ui/dialog-crash-report.blp:19 bottles/frontend/ui/dialog-display.blp:25 bottles/frontend/ui/dialog-duplicate.blp:20 bottles/frontend/ui/dialog-file-associations.blp:17 bottles/frontend/ui/dialog-gamescope.blp:24 bottles/frontend/ui/dialog-launch-options.blp:17 bottles/frontend/ui/dialog-lsfg-vk.blp:25 bottles/frontend/ui/dialog-mangohud.blp:25 bottles/frontend/ui/dialog-program-backups.blp:16 bottles/frontend/ui/dialog-upgrade-versioning.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:27 bottles/frontend/ui/dialog-vmtouch.blp:24 bottles/frontend/ui/dialog-winebridge-update.blp:19 bottles/frontend/ui/new-bottle-dialog.blp:23 bottles/frontend/views/bottle_details.py:858 bottles/frontend/views/bottle_details.py:956 bottles/frontend/views/preferences.py:366 bottles/frontend/views/preferences.py:828 bottles/frontend/widgets/state.py:126
 msgid "_Cancel"
 msgstr "_Ακύρωση"
 
@@ -5154,7 +5126,7 @@ msgstr "_Διαγραφή"
 msgid "_Delete All"
 msgstr "_Διαγραφή όλων"
 
-#: bottles/frontend/views/bottle_details.py:862
+#: bottles/frontend/views/bottle_details.py:860
 msgid "_Delete Files"
 msgstr "_Διαγραφή αρχείων"
 
@@ -5162,7 +5134,7 @@ msgstr "_Διαγραφή αρχείων"
 msgid "_Delete and Cancel"
 msgstr "_Διαγραφή και Ακύρωση"
 
-#: bottles/frontend/utils/flatpak.py:112 bottles/frontend/views/bottle_details.py:883 bottles/frontend/views/bottle_details.py:692
+#: bottles/frontend/utils/flatpak.py:112 bottles/frontend/views/bottle_details.py:881 bottles/frontend/views/bottle_details.py:690
 msgid "_Dismiss"
 msgstr "_Παράβλεψη"
 
@@ -5178,11 +5150,11 @@ msgstr "_Συνεχίστε να περιμένετε"
 msgid "_Relaunch"
 msgstr "_Επανεκκίνηση"
 
-#: bottles/frontend/views/bottle_details.py:861
+#: bottles/frontend/views/bottle_details.py:859
 msgid "_Remove from List"
 msgstr "_Κατάργηση από τη λίστα"
 
-#: bottles/frontend/widgets/state.py:128
+#: bottles/frontend/widgets/state.py:127
 msgid "_Restore"
 msgstr "_Επαναφορά"
 
@@ -5263,7 +5235,7 @@ msgstr "lsfg-vk"
 msgid "lsfg-vk 1.x: MIT.\nlsfg-vk 2.x: GPL-3.0-or-later."
 msgstr "lsfg-vk 1.x: MIT.\nlsfg-vk 2.x: GPL-3.0 ή νεότερη έκδοση."
 
-#: bottles/frontend/views/bottle_preferences.py:364
+#: bottles/frontend/views/bottle_preferences.py:360
 msgid "lsfg-vk only supports 64-bit Vulkan applications."
 msgstr "Το lsfg-vk υποστηρίζει μόνο εφαρμογές 64-bit Vulkan."
 
@@ -5318,7 +5290,7 @@ msgid "{0} detected"
 msgstr "Εντοπίστηκε {0}"
 
 #, python-brace-format
-#: bottles/frontend/windows/dependency_install.py:128
+#: bottles/frontend/windows/dependency_install.py:127
 msgid "{0} failed to install."
 msgstr "Η εγκατάσταση του {0} απέτυχε."
 
@@ -5328,7 +5300,7 @@ msgid "{0} installed, {1} failed."
 msgstr "Το {0} εγκαταστάθηκε, το {1} απέτυχε."
 
 #, python-brace-format
-#: bottles/frontend/windows/dependency_install.py:126
+#: bottles/frontend/windows/dependency_install.py:125
 msgid "{0} installed."
 msgstr "Εγκατεστημένο το {0}."
 
@@ -5348,7 +5320,7 @@ msgid "{0} positive / {1} negative reports"
 msgstr "{0} θετικές / {1} αρνητικές αναφορές"
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2373
+#: bottles/backend/managers/manager.py:2241
 msgid "{0} requires Vulkan, which is not available on this system."
 msgstr "Το {0} απαιτεί Vulkan, το οποίο δεν είναι διαθέσιμο σε αυτό το σύστημα."
 
@@ -5390,7 +5362,7 @@ msgid "{reason} (x{evidence})"
 msgstr "{reason} (x{evidence})"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_preferences.py:201
+#: bottles/frontend/views/bottle_preferences.py:198
 msgid "{} To add this feature, please run"
 msgstr "{} Για να προσθέσετε αυτήν τη δυνατότητα, εκτελέστε"
 

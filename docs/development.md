@@ -22,7 +22,7 @@ GUI tests use a virtual display, private D-Bus session, isolated HOME/XDG direct
 
 ## Continuous integration
 
-The Tests workflow runs on every branch or tag push, pull request and manual dispatch. It uses `ubuntu-latest` and the Flathub GNOME 50 container to build `build-aux/com.usebottles.bottles.Devel.json` directly with Flatpak Builder. The manifest enables Meson tests and runs them against the installed package through the `installed` test setup. Build or test failures fail the job; Meson logs and JUnit reports are retained as workflow artifacts even after failure.
+The Tests workflow runs on every branch or tag push, pull request and manual dispatch. It uses `ubuntu-latest` and the Flathub GNOME 51 container to build `build-aux/com.usebottles.bottles.Devel.json` directly with Flatpak Builder. The manifest enables Meson tests and runs them against the installed package through the `installed` test setup. Build or test failures fail the job; Meson logs and JUnit reports are retained as workflow artifacts even after failure.
 
 ## Test design and review
 

@@ -97,8 +97,7 @@ class StateEntry(Adw.ActionRow):
                     versioning_view._set_busy(True, _("Restoring state..."))
                 else:
                     self.parent.set_sensitive(False)
-                    self.spinner.show()
-                    self.spinner.start()
+                    self.spinner.set_visible(True)
 
                 @GtkUtils.run_in_main_loop
                 def _after():
@@ -142,8 +141,7 @@ class StateEntry(Adw.ActionRow):
         if versioning_view and hasattr(versioning_view, "_set_busy"):
             versioning_view._set_busy(False)
         else:
-            self.spinner.stop()
-            self.spinner.hide()
+            self.spinner.set_visible(False)
             self.parent.set_sensitive(True)
             
         self.btn_restore.set_visible(False)

@@ -150,7 +150,7 @@ class DisplayDialog(Adw.Window):
             return
         self.btn_save.set_sensitive(False)
         self.widget.set_sensitive(False)
-        self.spinner_display.start()
+        self.spinner_display.set_visible(True)
         self.queue.add_task()
         self.window.show_toast(_("Updating display settings, please wait…"))
 
@@ -199,7 +199,7 @@ class DisplayDialog(Adw.Window):
                 logging.error(f"Could not save display settings: {exception}")
             finally:
                 self.widget.set_sensitive(True)
-                self.spinner_display.stop()
+                self.spinner_display.set_visible(False)
                 self.queue.end_task()
                 self.window.show_toast(
                     _("Some display settings could not be updated.")

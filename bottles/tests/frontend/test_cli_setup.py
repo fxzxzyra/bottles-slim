@@ -137,7 +137,8 @@ def test_list_components_prepares_directories(monkeypatch, capsys):
     assert "Found 0 runners" in capsys.readouterr().out
 
 
-def test_edit_renderer_applies_registry_before_config(monkeypatch):
+@pytest.mark.parametrize("success", [True, False])
+def test_edit_renderer_applies_registry_before_config(monkeypatch, success):
     config = SimpleNamespace()
     calls = []
     manager = SimpleNamespace(
@@ -152,16 +153,21 @@ def test_edit_renderer_applies_registry_before_config(monkeypatch):
         cli,
         "RegKeys",
         lambda bottle: SimpleNamespace(
-            set_renderer=lambda value: calls.append(("registry", bottle, value))
+            set_renderer=lambda value: calls.append(("registry", bottle, value)) or Result(success)
         ),
     )
 
-    _edit_cli("renderer:gdi").edit_bottle()
+    if success:
+        _edit_cli("renderer:gdi").edit_bottle()
+    else:
+        with pytest.raises(SystemExit) as error:
+            _edit_cli("renderer:gdi").edit_bottle()
+        assert error.value.code == 1
 
-    assert calls == [
-        ("registry", config, "gdi"),
-        ("config", config, "renderer", "gdi", "Parameters"),
-    ]
+    expected = [("registry", config, "gdi")]
+    if success:
+        expected.append(("config", config, "renderer", "gdi", "Parameters"))
+    assert calls == expected
 
 
 def test_edit_invalid_renderer_keeps_config(monkeypatch, capsys):

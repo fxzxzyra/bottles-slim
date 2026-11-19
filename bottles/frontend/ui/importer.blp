@@ -20,7 +20,7 @@ template $ImporterView: Adw.Bin {
         Box box_import_progress {
           visible: false;
           spacing: 12;
-          Spinner spinner_import {}
+          Adw.Spinner spinner_import { visible: false; }
           Label label_import_progress {
             wrap: true;
             xalign: 0;

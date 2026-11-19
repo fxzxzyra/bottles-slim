@@ -28,6 +28,7 @@ logging = Logger()
 
 
 class NVAPIComponent(DLLComponent):
+    component_id = "nvapi"
     dlls = {
         "x32": ["nvapi.dll"],
         "x64": ["nvapi64.dll"],
@@ -42,6 +43,16 @@ class NVAPIComponent(DLLComponent):
             # Keep driver DLLs removable even after the NVIDIA driver is gone.
             self.dlls["x64"].extend(["nvngx.dll", "_nvngx.dll"])
         super().__init__(version)
+
+    def check(self):
+        if not super().check():
+            return False
+        required = (("x32", "nvapi.dll"), ("x64", "nvapi64.dll"))
+        if any(not os.path.isfile(os.path.join(self.base_path, directory, name))
+               for directory, name in required):
+            self.checked_dlls = {}
+            return False
+        return True
 
     @staticmethod
     def get_override_keys() -> str:

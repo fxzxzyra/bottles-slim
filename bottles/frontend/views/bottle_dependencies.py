@@ -82,7 +82,7 @@ class DependenciesView(Adw.Bin):
         if not self.manager.utils_conn.status:
             self.stack.set_visible_child_name("page_offline")
 
-        self.spinner_loading.start()
+        self.spinner_loading.set_visible(True)
 
     def __search_dependencies(self, *_args):
         """

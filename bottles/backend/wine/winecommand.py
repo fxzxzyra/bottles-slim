@@ -452,7 +452,9 @@ class WineCommand:
 
         # Get Runtime libraries
         if (
-            (params.use_runtime or params.use_eac_runtime or params.use_be_runtime)
+            (params.use_runtime or (
+                not self.minimal and (params.use_eac_runtime or params.use_be_runtime)
+            ))
             and not self.terminal
             and not return_steam_env
         ):
@@ -463,17 +465,17 @@ class WineCommand:
 
                 if params.use_runtime:
                     logging.info("Using Bottles runtime")
-                    ld += _rb
+                    ld += [path for path in _rb.split(":") if path]
 
                 if (
-                    _eac and not self.minimal
+                    params.use_eac_runtime and _eac and not self.minimal
                 ):  # NOTE: should check for runner compatibility with "eac" (?)
                     logging.info("Using EasyAntiCheat runtime")
                     env.add("PROTON_EAC_RUNTIME", _eac)
                     dll_overrides.append("easyanticheat_x86,easyanticheat_x64=b,n")
 
                 if (
-                    _be and not self.minimal
+                    params.use_be_runtime and _be and not self.minimal
                 ):  # NOTE: should check for runner compatibility with "be" (?)
                     logging.info("Using BattlEye runtime")
                     env.add("PROTON_BATTLEYE_RUNTIME", _be)
@@ -551,13 +553,13 @@ class WineCommand:
 
         # LatencyFleX environment variables
         if params.latencyflex and not return_steam_env:
-            _lf_path = ManagerUtils.get_latencyflex_path(config.LatencyFleX)
+            _lf_path = ManagerUtils.get_component_path(config, "latencyflex")
             _lf_layer_path = os.path.join(
-                _lf_path, "layer/usr/share/vulkan/implicit_layer.d"
+                _lf_path, "share/vulkan/implicit_layer.d"
             )
             env.concat("VK_ADD_LAYER_PATH", _lf_layer_path)
             env.add("LFX", "1")
-            ld.append(os.path.join(_lf_path, "layer/usr/lib/x86_64-linux-gnu"))
+            ld.append(os.path.join(_lf_path, "lib/x86_64-linux-gnu"))
         else:
             env.add("DISABLE_LFX", "1")
 

@@ -309,9 +309,9 @@ class ComponentEntry(Adw.ActionRow):
             return
         self.spinner.set_visible(active)
         if active:
-            self.spinner.start()
+            self.spinner.set_visible(True)
         else:
-            self.spinner.stop()
+            self.spinner.set_visible(False)
 
     @staticmethod
     def _sanitize_progress_value(value: Optional[int]) -> int:

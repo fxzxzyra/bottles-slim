@@ -254,9 +254,9 @@ class PreferencesDialog(Adw.PreferencesDialog):
 
         # setup loading screens
         self.dlls_stack.set_visible_child_name("dlls_loading")
-        self.dlls_spinner.start()
+        self.dlls_spinner.set_visible(True)
         self.cache_stack.set_visible_child_name("cache_loading")
-        self.cache_spinner.start()
+        self.cache_spinner.set_visible(True)
 
         if not self.manager.utils_conn.status:
             self.dlls_stack.set_visible_child_name("dlls_offline")
@@ -666,10 +666,10 @@ class PreferencesDialog(Adw.PreferencesDialog):
 
     def populate_cache_list(self):
         self.cache_stack.set_visible_child_name("cache_loading")
-        self.cache_spinner.start()
+        self.cache_spinner.set_visible(True)
 
         def update_cache_view(result, error=False):
-            self.cache_spinner.stop()
+            self.cache_spinner.set_visible(False)
             if error or result is None:
                 return
 

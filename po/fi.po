@@ -99,7 +99,7 @@ msgstr "%s Saatavilla"
 msgid "%s template"
 msgstr "%s malli"
 
-#: bottles/frontend/ui/details-preferences.blp:416 bottles/frontend/views/bottle_preferences.py:534 bottles/frontend/views/new_bottle_dialog.py:99
+#: bottles/frontend/ui/details-preferences.blp:399 bottles/frontend/views/bottle_preferences.py:524 bottles/frontend/views/new_bottle_dialog.py:99
 msgid "(Default)"
 msgstr "(Oletus)"
 
@@ -218,7 +218,7 @@ msgstr "Lisää Steamiin"
 msgid "Add variable"
 msgstr "Lisää muuttuja"
 
-#: bottles/frontend/ui/details-preferences.blp:149
+#: bottles/frontend/ui/details-preferences.blp:131
 msgid "Add various post-processing effects using vkBasalt. Only works on Vulkan."
 msgstr "Lisää useita jälkikäsittelytehosteita käyttämällä vkBasaltia. Toimii vain Vulkanilla."
 
@@ -230,7 +230,7 @@ msgstr "Säädetään Windows-versiota…"
 msgid "Advanced"
 msgstr "Lisäasetukset"
 
-#: bottles/frontend/ui/details-preferences.blp:207
+#: bottles/frontend/ui/details-preferences.blp:189
 msgid "Advanced Display Settings"
 msgstr "Edistyneet näyttöasetukset"
 
@@ -287,7 +287,7 @@ msgstr "Tilannekuvaa luotaessa tapahtui virhe: {0}"
 msgid "An installation error occurred. Restart Bottles to read the Crash Report or run it via terminal to read the output."
 msgstr "Tapahtui asennusvirhe. Käynnistä Bottles uudelleen lukeaksesi kaatumisraportin tai suorita se terminaalin kautta lukeaksesi tulos."
 
-#: bottles/frontend/views/bottle_details.py:723
+#: bottles/frontend/views/bottle_details.py:721
 msgid "Analyse"
 msgstr "Analysoi"
 
@@ -344,7 +344,7 @@ msgstr "Käytä"
 msgid "Apply CMD default settings…"
 msgstr "Toteuta CMD-oletusasetukset…"
 
-#: bottles/frontend/ui/details-preferences.blp:277
+#: bottles/frontend/ui/details-preferences.blp:260
 msgid "Apply a set of optimizations to your device. Can improve game performance."
 msgstr "Toteuta joukko optimointeja laitteellesi. Voi parantaa pelien suorituskykyä."
 
@@ -369,16 +369,16 @@ msgstr "Toteutetaan ympäristö: {0}…"
 msgid "Architecture"
 msgstr "Arkkitehtuuri"
 
-#: bottles/frontend/views/bottle_details.py:955
+#: bottles/frontend/views/bottle_details.py:953
 msgid "Are you sure you want to force stop all processes?"
 msgstr "Haluatko varmasti pakottaa kaikkien prosessien lopetuksen?"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:855
+#: bottles/frontend/views/bottle_details.py:853
 msgid "Are you sure you want to permanently delete \"{}\"?"
 msgstr "Haluatko varmasti poistaa pysyvästi \"{}\"?"
 
-#: bottles/frontend/widgets/state.py:122
+#: bottles/frontend/widgets/state.py:121
 msgid "Are you sure you want to restore this state?"
 msgstr "Haluatko varmasti palauttaa tämän tilan?"
 
@@ -420,7 +420,7 @@ msgstr "Keskiarvo: 0h 0m"
 msgid "Backing up {0}"
 msgstr "Varmuuskopioi {0}"
 
-#: bottles/frontend/views/bottle_details.py:749
+#: bottles/frontend/views/bottle_details.py:747
 msgid "Backup"
 msgstr "Varmuuskopiointi"
 
@@ -429,17 +429,17 @@ msgid "Backup Folder"
 msgstr "Varmuuskopiokansio"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:755
+#: bottles/frontend/views/bottle_details.py:753
 msgid "Backup cancelled for \"{0}\""
 msgstr "Varmuuskopiointi peruttu kohteelle \"{0}\""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:760
+#: bottles/frontend/views/bottle_details.py:758
 msgid "Backup created for \"{0}\""
 msgstr "Luotu varmuuskopio pullosta \"{0}\""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:764
+#: bottles/frontend/views/bottle_details.py:762
 msgid "Backup failed for \"{0}\""
 msgstr "Varmuuskopion luonti pullosta \"{0}\" epäonnistui"
 
@@ -460,7 +460,7 @@ msgstr "Varmuuskopiot"
 msgid "Backups to Keep"
 msgstr "Varmuuskopiot Keepiin"
 
-#: bottles/frontend/views/bottle_details.py:687
+#: bottles/frontend/views/bottle_details.py:685
 msgid "Be Aware of Sandbox"
 msgstr "Varoitus hiekkalaatikkosta"
 
@@ -482,7 +482,7 @@ msgid "Bottles Crash Report"
 msgstr "Bottles kaatumisraportti"
 
 # Translators: Bottles is a proper noun referring to the app
-#: bottles/frontend/ui/details-preferences.blp:360
+#: bottles/frontend/ui/details-preferences.blp:343
 msgid "Bottles Runtime"
 msgstr "Bottles Suoritusaika"
 
@@ -498,7 +498,7 @@ msgstr "Bottles kaatui viime kerralla. Täytä raportti, johon on liitetty seura
 msgid "Bottles has a whole new Versioning System that is not backwards compatible.\n\nTo continue using versioning we need to re-initialize the container repository. This will not delete data from your container but will delete all existing snapshots and create a new one.\n\nIf you need to go back to a previous snapshot before continuing, close this window and restore the snapshot, then reopen the container to show this window again.\n\nThe old system will be discontinued in one of the next releases."
 msgstr "Bottlesissa on kokonaan uusi versiojärjestelmä, joka ei ole taaksepäin yhteensopiva.\n\nJotta voimme jatkaa versioinnin käyttöä, meidän on alustettava pullovarasto uudelleen. Tämä ei poista tietoja pullosta, mutta poistaa kaikki olemassa olevat tilannekuvat ja luo uuden.\n\nJos sinun on palattava edelliseen tilannekuvaan ennen jatkamista, sulje tämä ikkuna ja palauta tilannevedos ja avaa sitten Wine-ympäristö uudelleen näyttääksesi tämän ikkunan uudelleen.\n\nVanha järjestelmä lopetetaan jossain seuraavista julkaisuista."
 
-#: bottles/frontend/views/bottle_details.py:688
+#: bottles/frontend/views/bottle_details.py:686
 msgid "Bottles is running in a sandbox, a restricted permission environment needed to keep you safe. If the program won't run, consider moving inside the container (3 dots icon on the top), then launch from there."
 msgstr "Bottles toimii hiekkalaatikossa, rajoitetun luvan ympäristössä, jota tarvitaan turvassasi. Jos ohjelma ei käynnisty, harkitse Wine-ympäristön sisällä liikkumista (3 pisteen kuvake ylhäällä) ja käynnistä sitten sieltä."
 
@@ -570,7 +570,7 @@ msgstr "Sisäänrakennettu (Wine)"
 msgid "Builtin, then Native"
 msgstr "Sisäänrakennettu, sitten natiivi"
 
-#: bottles/backend/utils/manager.py:935
+#: bottles/backend/utils/manager.py:939
 msgid "Bulgarian"
 msgstr "bulgaria"
 
@@ -604,7 +604,7 @@ msgstr "Välimuistissa oleva etuliite %s-ympäristölle"
 msgid "Cached prefix for the %s environment, created on %s"
 msgstr "Välimuistissa oleva etuliite %s-ympäristölle, luotu %s"
 
-#: bottles/backend/managers/manager.py:1902
+#: bottles/backend/managers/manager.py:1879
 msgid "Caching template…"
 msgstr "Asetetaan mallipohja välimuistiin…"
 
@@ -704,11 +704,11 @@ msgstr "Tarkista suoritettavat tiedostot haittaohjelmien varalta ennen niiden su
 msgid "Check your connection or try again later."
 msgstr "Tarkista yhteys tai yritä myöhemmin uudelleen."
 
-#: bottles/backend/utils/manager.py:960
+#: bottles/backend/utils/manager.py:964
 msgid "Chinese (Simplified)"
 msgstr "kiina (yksinkertaistettu)"
 
-#: bottles/backend/utils/manager.py:962
+#: bottles/backend/utils/manager.py:966
 msgid "Chinese (Traditional)"
 msgstr "kiina (perinteinen)"
 
@@ -761,7 +761,7 @@ msgstr "Valitse mistä ohjelma käynnistetään."
 msgid "Choose the Wine installation used by this container"
 msgstr "Valitse tämän Wine-ympäristön käyttämä Wine-asennus"
 
-#: bottles/frontend/ui/details-preferences.blp:333
+#: bottles/frontend/ui/details-preferences.blp:316
 msgid "Choose the language to use with programs."
 msgstr "Valitse ohjelmissa käytettävä kieli."
 
@@ -871,7 +871,7 @@ msgstr "Yhteisöraportit, jotka tarvitsevat Media Foundationin ratkaisun (x{evid
 msgid "Community verdict"
 msgstr "Yhteisön tuomio"
 
-#: bottles/frontend/ui/details-preferences.blp:317
+#: bottles/frontend/ui/details-preferences.blp:300
 msgid "Compatibility"
 msgstr "Yhteensopivuus"
 
@@ -1007,7 +1007,7 @@ msgstr "Ohjauspaneeli"
 msgid "Control which variables from your system are visible to programs inside this container"
 msgstr "Hallitse, mitkä järjestelmäsi muuttujat näkyvät tämän Wine-ympäristön sisällä oleville ohjelmille"
 
-#: bottles/frontend/utils/flatpak.py:61 bottles/frontend/views/bottle_preferences.py:468
+#: bottles/frontend/utils/flatpak.py:61 bottles/frontend/views/bottle_preferences.py:458
 msgid "Copied to clipboard"
 msgstr "Kopioitu leikepöydälle"
 
@@ -1015,7 +1015,7 @@ msgstr "Kopioitu leikepöydälle"
 msgid "Copies the file into a temporary folder inside the container. Files stored next to it are not included, so it may not work fully."
 msgstr "Kopioi tiedoston Wine-ympäristön sisällä olevaan väliaikaiseen kansioon. Sen viereen tallennetut tiedostot eivät sisälly, joten se ei välttämättä toimi täysin."
 
-#: bottles/frontend/utils/flatpak.py:92 bottles/frontend/views/bottle_preferences.py:427 bottles/frontend/widgets/program.py:730
+#: bottles/frontend/utils/flatpak.py:92 bottles/frontend/views/bottle_preferences.py:417 bottles/frontend/widgets/program.py:730
 msgid "Copy command"
 msgstr "Kopioi komento"
 
@@ -1057,7 +1057,7 @@ msgstr "Ei voitu käyttää työpöytämerkintää \"{0}\""
 msgid "Could not analyse this file."
 msgstr "Tätä tiedostoa ei voitu analysoida."
 
-#: bottles/frontend/views/bottle_preferences.py:889
+#: bottles/frontend/views/bottle_preferences.py:801
 msgid "Could not change the synchronization mode."
 msgstr "Synkronointitilaa ei voitu muuttaa."
 
@@ -1083,7 +1083,7 @@ msgstr "Asennusohjelmaa ei voitu ladata. Yritä uudelleen."
 msgid "Could not read the DPI scaling mode."
 msgstr "DPI-skaalaustilaa ei voitu lukea."
 
-#: bottles/frontend/views/bottle_details.py:839
+#: bottles/frontend/views/bottle_details.py:837
 msgid "Could not remove the container."
 msgstr "Wine-ympäristöä ei voitu poistaa."
 
@@ -1097,7 +1097,7 @@ msgstr "Ei voitu poistaa työpöytämerkintää \"{0}\""
 msgid "Could not save the program: {0}"
 msgstr "Ohjelmaa ei voitu tallentaa: {0}"
 
-#: bottles/frontend/views/bottle_preferences.py:995
+#: bottles/frontend/views/bottle_preferences.py:886
 msgid "Could not switch to the selected runner."
 msgstr "Ei voitu vaihtaa valittuun ajajaan."
 
@@ -1175,7 +1175,7 @@ msgstr "Luodaan haaraa…"
 msgid "Creating snapshot…"
 msgstr "Luodaan tilannekuvaa…"
 
-#: bottles/backend/managers/manager.py:1875
+#: bottles/backend/managers/manager.py:1852
 msgid "Creating versioning state 0…"
 msgstr "Luodaan versionointitila 0…"
 
@@ -1192,7 +1192,7 @@ msgstr "Tekijät ja lisenssi"
 msgid "Critical"
 msgstr "Kriittiset"
 
-#: bottles/backend/utils/manager.py:945
+#: bottles/backend/utils/manager.py:949
 msgid "Croatian"
 msgstr "Kroatia"
 
@@ -1229,11 +1229,11 @@ msgstr "Muokattu URL-osoite riippuvuuksille. Jätä tyhjäksi, jos haluat käytt
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr "Muokattu URL-osoite asentajille. Jätä tyhjäksi, jos haluat käyttää oletuspäätepistettä."
 
-#: bottles/backend/utils/manager.py:936
+#: bottles/backend/utils/manager.py:940
 msgid "Czech"
 msgstr "Tšekki"
 
-#: bottles/backend/managers/manager.py:1935 bottles/frontend/ui/details-preferences.blp:29
+#: bottles/backend/managers/manager.py:1912 bottles/frontend/ui/details-preferences.blp:29
 msgid "D7VK"
 msgstr "D7VK"
 
@@ -1245,7 +1245,7 @@ msgstr "DLL-komponentit"
 msgid "DLL Override"
 msgstr "DLL-ohitus"
 
-#: bottles/frontend/ui/details-preferences.blp:424 bottles/frontend/ui/dialog-dll-overrides.blp:7 bottles/frontend/ui/dialog-dll-overrides.blp:12
+#: bottles/frontend/ui/details-preferences.blp:407 bottles/frontend/ui/dialog-dll-overrides.blp:7 bottles/frontend/ui/dialog-dll-overrides.blp:12
 msgid "DLL Overrides"
 msgstr "DLL-ohitukset"
 
@@ -1257,7 +1257,7 @@ msgstr "DLS-kohinanpoisto vähentää kuvan kohinaa. Suuremmat arvot tekevät ku
 msgid "DLS sharpness increases the sharpness of a frame. Higher values make the frame sharper."
 msgstr "DLS-terävyys lisää kuvan terävyyttä. Suuremmat arvot tekevät kuvat terävämmän."
 
-#: bottles/backend/managers/manager.py:1941 bottles/frontend/ui/details-preferences.blp:42
+#: bottles/backend/managers/manager.py:1918 bottles/frontend/ui/details-preferences.blp:42
 msgid "DXVK"
 msgstr "DXVK"
 
@@ -1274,7 +1274,7 @@ msgstr "päivittäin"
 msgid "Daily Average: {}"
 msgstr "Päivittäinen keskiarvo: {}"
 
-#: bottles/backend/utils/manager.py:937
+#: bottles/backend/utils/manager.py:941
 msgid "Danish"
 msgstr "tanska"
 
@@ -1310,13 +1310,9 @@ msgstr "Virheenjäljitys"
 msgid "Declining can cause instability, performance degradation, and incompatibilities with new Bottles releases."
 msgstr "Väheneminen voi aiheuttaa epävakautta, suorituskyvyn heikkenemistä ja yhteensopimattomuutta uusien Bottles-julkaisujen kanssa."
 
-#: bottles/frontend/ui/details-preferences.blp:340 bottles/frontend/ui/new-bottle-dialog.blp:116
+#: bottles/frontend/ui/details-preferences.blp:323 bottles/frontend/ui/new-bottle-dialog.blp:116
 msgid "Dedicated Sandbox"
 msgstr "Itsenäinen hiekkalaatikko"
-
-#: bottles/frontend/ui/details-preferences.blp:100
-msgid "Deep Learning Super Sampling"
-msgstr "DLSS"
 
 #: bottles/frontend/ui/dialog-display.blp:140 bottles/frontend/ui/dialog-vkbasalt.blp:44
 msgid "Default"
@@ -1459,7 +1455,7 @@ msgid "Directory"
 msgstr "Hakemisto"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_preferences.py:684
+#: bottles/frontend/views/bottle_preferences.py:639
 msgid "Directory that contains the data of \"{}\"."
 msgstr "Kohteen \"{}\" datan sisältävä kansio."
 
@@ -1467,7 +1463,7 @@ msgstr "Kohteen \"{}\" datan sisältävä kansio."
 msgid "Disable the default Z: drive"
 msgstr "Poista oletusarvoinen Z:-asema käytöstä"
 
-#: bottles/frontend/ui/dialog-launch-options.blp:178 bottles/frontend/ui/dll-override-entry.blp:13 bottles/frontend/ui/preferences.blp:225 bottles/frontend/views/bottle_preferences.py:567 bottles/frontend/views/bottle_preferences.py:568 bottles/frontend/views/bottle_preferences.py:569 bottles/frontend/views/bottle_preferences.py:570 bottles/frontend/windows/launchoptions.py:455
+#: bottles/frontend/ui/dialog-launch-options.blp:178 bottles/frontend/ui/dll-override-entry.blp:13 bottles/frontend/ui/preferences.blp:225 bottles/frontend/views/bottle_preferences.py:952 bottles/frontend/windows/launchoptions.py:455
 msgid "Disabled"
 msgstr "Pois käytöstä"
 
@@ -1475,7 +1471,7 @@ msgstr "Pois käytöstä"
 msgid "Disabled. Executables will run without being checked for threats."
 msgstr "Ei käytössä. Suoritettavat tiedostot toimivat ilman, että niitä tarkistetaan uhkien varalta."
 
-#: bottles/frontend/ui/details-preferences.blp:118
+#: bottles/frontend/ui/details-preferences.blp:100
 msgid "Discrete Graphics"
 msgstr "Erillinen näytönohjain"
 
@@ -1495,7 +1491,7 @@ msgstr "Näyttö pelin alkaessa"
 msgid "Display Settings"
 msgstr "Näyttöasetukset"
 
-#: bottles/frontend/ui/details-preferences.blp:257
+#: bottles/frontend/ui/details-preferences.blp:240
 msgid "Display monitoring information such as framerate, temperatures, CPU/GPU load and more on OpenGL and Vulkan using MangoHud."
 msgstr "Näytä tarkkailutietoja kuten kuvan päivitystaajuus, lämpötilat, suorittimen ja näytönohjaimen rasitus sekä paljon muuta OpenGL:llä ja Vulkanilla käyttäen MangoHudia."
 
@@ -1578,7 +1574,7 @@ msgstr "Monista Wine-ympäristö…"
 msgid "Duplicating…"
 msgstr "Monistetaan…"
 
-#: bottles/backend/utils/manager.py:950
+#: bottles/backend/utils/manager.py:954
 msgid "Dutch"
 msgstr "hollanti"
 
@@ -1674,7 +1670,7 @@ msgstr "Ota käyttöön"
 msgid "Enable playtime tracking"
 msgstr "Ota toistoajan seuranta käyttöön"
 
-#: bottles/frontend/ui/details-preferences.blp:229
+#: bottles/frontend/ui/details-preferences.blp:212
 msgid "Enable synchronization to increase performance of multicore processors."
 msgstr "Ota synkronointi käyttöön moniydinsuorittimien suorituskyvyn parantamiseksi."
 
@@ -1695,7 +1691,7 @@ msgstr "Otetaan fontin tasoitus käyttöön…"
 msgid "Engines and Frameworks"
 msgstr "Moottorit ja rungot"
 
-#: bottles/backend/utils/manager.py:940
+#: bottles/backend/utils/manager.py:944
 msgid "English"
 msgstr "englanti"
 
@@ -1711,7 +1707,7 @@ msgstr "Anna tiedostotunnisteet pilkuilla erotettuina. Bottles tekee tämän ohj
 msgid "Environment Variable"
 msgstr "Ympäristömuuttuja"
 
-#: bottles/frontend/ui/details-preferences.blp:437 bottles/frontend/ui/dialog-env-vars.blp:7
+#: bottles/frontend/ui/details-preferences.blp:420 bottles/frontend/ui/dialog-env-vars.blp:7
 msgid "Environment Variables"
 msgstr "Ympäristömuuttujat"
 
@@ -1737,11 +1733,11 @@ msgstr "Virhe käsiteltäessä suoritettavaa tiedostoa: {0}"
 msgid "Errors"
 msgstr "Virheet"
 
-#: bottles/backend/utils/manager.py:942
+#: bottles/backend/utils/manager.py:946
 msgid "Estonian"
 msgstr "Viro"
 
-#: bottles/frontend/ui/details-preferences.blp:235
+#: bottles/frontend/ui/details-preferences.blp:218
 msgid "Esync"
 msgstr "Esync"
 
@@ -1785,7 +1781,7 @@ msgstr "Kokeilut"
 msgid "Explorer"
 msgstr "Resurssienhallinta"
 
-#: bottles/frontend/views/bottle_details.py:745
+#: bottles/frontend/views/bottle_details.py:743
 msgid "Export"
 msgstr "Vie"
 
@@ -1793,7 +1789,7 @@ msgstr "Vie"
 msgid "Export Configuration…"
 msgstr "Vie kokoonpano…"
 
-#: bottles/frontend/ui/details-preferences.blp:139
+#: bottles/frontend/ui/details-preferences.blp:121
 msgid "Expose HDR to games using DXVK. Requires native Wayland or Gamescope. Older NVIDIA drivers also need HdrWsi and ENABLE_HDR_WSI=1."
 msgstr "Näytä HDR peleille DXVK:n avulla. Vaatii alkuperäisen Waylandin tai Gamescope:n. Vanhemmat NVIDIA-ohjaimet tarvitsevat myös HdrWsi ja ENABLE_HDR_WSI=1."
 
@@ -1844,12 +1840,12 @@ msgid "Failed to initialize the Wine prefix."
 msgstr "Wine-etuliitettä ei voitu alustaa."
 
 #, python-format
-#: bottles/backend/managers/manager.py:1826 bottles/backend/managers/manager.py:1831
+#: bottles/backend/managers/manager.py:1803 bottles/backend/managers/manager.py:1808
 msgid "Failed to install dependency: %s"
 msgstr "Riippuvuuden asennus epäonnistui: %s"
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2453
+#: bottles/backend/managers/manager.py:2319
 msgid "Failed to install {0}."
 msgstr "{0}:n asennus epäonnistui."
 
@@ -1858,24 +1854,16 @@ msgid "Failed to prepare the container user profile."
 msgstr "Säilön käyttäjäprofiilin valmistelu epäonnistui."
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2453
+#: bottles/backend/managers/manager.py:2319
 msgid "Failed to remove {0}."
 msgstr "{0}:n poistaminen epäonnistui."
-
-#: bottles/backend/managers/manager.py:2138
-msgid "Failed to restore graphics components."
-msgstr "Grafiikkakomponenttien palauttaminen epäonnistui."
 
 #: bottles/backend/managers/manager.py:1653
 msgid "Failed to sandbox the container user directory."
 msgstr "Wine-ympäristön käyttäjähakemiston hiekkalaatikko ei onnistunut."
 
-#: bottles/backend/managers/manager.py:2228
-msgid "Failed to save and roll back the D7VK configuration."
-msgstr "D7VK-määrityksen tallentaminen ja palauttaminen epäonnistui."
-
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:611
+#: bottles/frontend/views/bottle_details.py:609 bottles/frontend/views/bottle_preferences.py:1005
 msgid "Failed to update {component}"
 msgstr "{component}:n päivitys epäonnistui"
 
@@ -1883,7 +1871,7 @@ msgstr "{component}:n päivitys epäonnistui"
 msgid "Fast Approximate Anti-Aliasing"
 msgstr "Fast Approximate -anti-aliasointi"
 
-#: bottles/frontend/ui/details-preferences.blp:276
+#: bottles/frontend/ui/details-preferences.blp:259
 msgid "Feral GameMode"
 msgstr "Feral GameMode"
 
@@ -1926,11 +1914,11 @@ msgstr "Välimuistiin tallennettavat tiedostot"
 msgid "Finalizing installation..."
 msgstr "Asennusta viimeistellään..."
 
-#: bottles/backend/managers/manager.py:1880
+#: bottles/backend/managers/manager.py:1857
 msgid "Finalizing…"
 msgstr "Viimeistellään…"
 
-#: bottles/backend/utils/manager.py:943
+#: bottles/backend/utils/manager.py:947
 msgid "Finnish"
 msgstr "suomi"
 
@@ -1966,7 +1954,7 @@ msgstr "Pakota kaikkien prosessien lopetus"
 msgid "Force Stop all Processes (Native method)"
 msgstr "Pakota kaikki prosessit pysäyttämään (alkuperäinen menetelmä)"
 
-#: bottles/frontend/views/bottle_details.py:959
+#: bottles/frontend/views/bottle_details.py:957
 msgid "Force _Stop"
 msgstr "Pakota _lopetus"
 
@@ -1974,7 +1962,7 @@ msgstr "Pakota _lopetus"
 msgid "Force disable any network activity even with available network connection."
 msgstr "Pakota kaikki verkkotoiminnot pois päältä, vaikka verkkoyhteys olisi käytettävissä."
 
-#: bottles/frontend/ui/details-preferences.blp:129
+#: bottles/frontend/ui/details-preferences.blp:111
 msgid "Force the experimental native Wayland driver instead of Xwayland. Requires a Wayland session."
 msgstr "Pakota kokeellinen natiivi Wayland-ohjain Xwaylandin sijaan. Edellyttää Wayland-istunnon."
 
@@ -1986,7 +1974,7 @@ msgstr "Pakota tumman teeman käyttö."
 msgid "Frame Generation"
 msgstr "Kehyksen luominen"
 
-#: bottles/frontend/ui/details-preferences.blp:168
+#: bottles/frontend/ui/details-preferences.blp:150
 msgid "Frame Generation (Experimental)"
 msgstr "Kehyksen luominen (kokeellinen)"
 
@@ -1994,7 +1982,7 @@ msgstr "Kehyksen luominen (kokeellinen)"
 msgid "Frame Generation Settings"
 msgstr "Kehyksen luontiasetukset"
 
-#: bottles/frontend/ui/details-preferences.blp:243 bottles/frontend/ui/dialog-gamescope.blp:141
+#: bottles/frontend/ui/details-preferences.blp:226 bottles/frontend/ui/dialog-gamescope.blp:141
 msgid "Frame Rate Limit"
 msgstr "Kuvan päivitysnopeuden raja"
 
@@ -2002,11 +1990,11 @@ msgstr "Kuvan päivitysnopeuden raja"
 msgid "Frame Rate Limit When Unfocused"
 msgstr "Kuvan päivitysnopeuden raja, kun ei kohdistettuna"
 
-#: bottles/backend/utils/manager.py:944
+#: bottles/backend/utils/manager.py:948
 msgid "French"
 msgstr "ranska"
 
-#: bottles/frontend/ui/details-preferences.blp:236
+#: bottles/frontend/ui/details-preferences.blp:219
 msgid "Fsync"
 msgstr "Fsync"
 
@@ -2050,7 +2038,7 @@ msgstr "Pelaaminen"
 msgid "General"
 msgstr "Yleinen"
 
-#: bottles/frontend/ui/details-preferences.blp:169
+#: bottles/frontend/ui/details-preferences.blp:151
 msgid "Generate additional frames with lsfg-vk. Only works with 64-bit Vulkan applications."
 msgstr "Luo lisäkehyksiä lsfg-vk:llä. Toimii vain 64-bittisten Vulkan sovellusten kanssa."
 
@@ -2058,7 +2046,7 @@ msgstr "Luo lisäkehyksiä lsfg-vk:llä. Toimii vain 64-bittisten Vulkan sovellu
 msgid "Generating container configuration…"
 msgstr "Luodaan Wine-ympäristö-kokoonpanoa…"
 
-#: bottles/backend/utils/manager.py:938
+#: bottles/backend/utils/manager.py:942
 msgid "German"
 msgstr "saksalainen"
 
@@ -2078,7 +2066,7 @@ msgstr "Myönnä Bottles:lle suora pääsy ajajahakemistoon ja valitse se sitten
 msgid "Graphics API"
 msgstr "Graphics API"
 
-#: bottles/backend/utils/manager.py:939
+#: bottles/backend/utils/manager.py:943
 msgid "Greek"
 msgstr "Kreikka"
 
@@ -2110,7 +2098,7 @@ msgstr "Piilota piilotetut ohjelmat"
 msgid "Hide Program"
 msgstr "Piilota ohjelma"
 
-#: bottles/frontend/ui/details-preferences.blp:138
+#: bottles/frontend/ui/details-preferences.blp:120
 msgid "High Dynamic Range"
 msgstr "High Dynamic Range"
 
@@ -2123,7 +2111,7 @@ msgstr "Tuntikeskiarvo: {}"
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr "Kuinka usein istunnon syke päivitetään. Määrittää enimmäisaikaleiman virheen äkillisille poistuksille."
 
-#: bottles/backend/utils/manager.py:946
+#: bottles/backend/utils/manager.py:950
 msgid "Hungarian"
 msgstr "unkari"
 
@@ -2175,7 +2163,7 @@ msgstr "Paranna Direct3D 3/5/6/7 -yhteensopivuutta 32-bittisille sovelluksille k
 msgid "Improve Direct3D 8/9/10/11 compatibility by translating it to Vulkan."
 msgstr "Paranna Direct3D 8/9/10/11 -yhteensopivuutta kääntämällä se Vulkanille."
 
-#: bottles/frontend/ui/details-preferences.blp:287
+#: bottles/frontend/ui/details-preferences.blp:270
 msgid "Improve loading time when launching the game multiple times. The game will take longer to start for the first time."
 msgstr "Paranna latausaikoja, kun peli käynnistetään useita kertoja. Pelin käynnistys kestää tavallista kauemmin ensimmäisellä käynnistyskerralla."
 
@@ -2186,10 +2174,6 @@ msgstr "Sisältää komponentteja, riippuvuuksia ja asennusohjelmia varten ladat
 #: bottles/frontend/ui/dialog-deps-check.blp:14
 msgid "Incomplete package"
 msgstr "Puutteellinen paketti"
-
-#: bottles/frontend/ui/details-preferences.blp:101
-msgid "Increase performance at the expense of visuals using DXVK-NVAPI. Only works on newer NVIDIA GPUs."
-msgstr "Paranna suorituskykyä visuaalisen laadun kustannuksella käyttäen DXVK-NVAPI:a. Toimii vain suhteellisen uusilla NVIDIA:n näytönohjaimilla."
 
 #: bottles/frontend/ui/details-preferences.blp:82
 msgid "Increase responsiveness. Can be detected by some anti-cheat software."
@@ -2231,7 +2215,7 @@ msgstr "Asenna yhteisön kuratoimia ohjelmia.\n\nTällä sivulla olevat tiedosto
 msgid "Install this Program"
 msgstr "Asenna tämä ohjelma"
 
-#: bottles/frontend/views/bottle_preferences.py:165
+#: bottles/frontend/views/bottle_preferences.py:162
 msgid "Install vkbasalt-cli to edit vkBasalt settings."
 msgstr "Asenna vkbasalt-cli muokataksesi vkBasalt-asetuksia."
 
@@ -2276,28 +2260,16 @@ msgstr "Installers Repository"
 msgid "Installing \"{0}\"..."
 msgstr "Asennetaan \"{0}\"..."
 
-#: bottles/backend/managers/manager.py:1853
+#: bottles/backend/managers/manager.py:1830
 msgid "Installing D7VK..."
 msgstr "Asennetaan D7VK..."
-
-#: bottles/backend/managers/manager.py:1806
-msgid "Installing DXVK-NVAPI…"
-msgstr "Asennetaan DXVK-NVAPI…"
-
-#: bottles/backend/managers/manager.py:1775
-msgid "Installing DXVK…"
-msgstr "Asennetaan DXVK…"
-
-#: bottles/backend/managers/manager.py:1790
-msgid "Installing VKD3D…"
-msgstr "Asennetaan VKD3D…"
 
 #: bottles/frontend/windows/installer.py:142
 msgid "Installing Windows dependencies…"
 msgstr "Asennetaan Windows-riippuvuuksia…"
 
 #, python-format
-#: bottles/backend/managers/manager.py:1820
+#: bottles/backend/managers/manager.py:1797
 msgid "Installing dependency: %s …"
 msgstr "Asennetaan riippuvuus: %s…"
 
@@ -2346,7 +2318,7 @@ msgstr "Integraatiot"
 msgid "Invalid URI (syntax: bottles:run/<bottle>/<program>)"
 msgstr "Virheellinen URI (syntaksi: bottles:run/<Wine-ympäristö>/<program>)"
 
-#: bottles/backend/managers/manager.py:2098
+#: bottles/backend/managers/manager.py:2055
 msgid "Invalid graphics component."
 msgstr "Virheellinen grafiikkakomponentti."
 
@@ -2354,7 +2326,7 @@ msgstr "Virheellinen grafiikkakomponentti."
 msgid "Issues that may prevent this program from running."
 msgstr "Ongelmat, jotka voivat estää tämän ohjelman suorittamisen."
 
-#: bottles/backend/utils/manager.py:947
+#: bottles/backend/utils/manager.py:951
 msgid "Italian"
 msgstr "italialainen"
 
@@ -2362,7 +2334,7 @@ msgstr "italialainen"
 msgid "Item name"
 msgstr "Tietueen nimi"
 
-#: bottles/backend/utils/manager.py:961
+#: bottles/backend/utils/manager.py:965
 msgid "Japanese"
 msgstr "Japani"
 
@@ -2380,11 +2352,11 @@ msgstr "Tunnettu sovellus ({match}): {name}"
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr "Tunnettu sovellus: {name} (winetricks-verbi '{verb}')"
 
-#: bottles/backend/utils/manager.py:963
+#: bottles/backend/utils/manager.py:967
 msgid "Korean"
 msgstr "korea"
 
-#: bottles/frontend/ui/details-preferences.blp:332 bottles/frontend/ui/preferences.blp:28
+#: bottles/frontend/ui/details-preferences.blp:315 bottles/frontend/ui/preferences.blp:28
 msgid "Language"
 msgstr "Kieli"
 
@@ -2397,11 +2369,11 @@ msgstr "Toistettu viimeksi"
 msgid "Last Used: %s – Usage Time: %s"
 msgstr "Toistettu viimeksi: %s – Toistoaika: %s"
 
-#: bottles/backend/managers/manager.py:1959 bottles/frontend/ui/details-preferences.blp:81
+#: bottles/backend/managers/manager.py:1936 bottles/frontend/ui/details-preferences.blp:81
 msgid "LatencyFleX"
 msgstr "LatencyFleX"
 
-#: bottles/backend/utils/manager.py:949
+#: bottles/backend/utils/manager.py:953
 msgid "Latvian"
 msgstr "Latvia"
 
@@ -2434,7 +2406,7 @@ msgid "Launch with Terminal"
 msgstr "Käynnistä päätteellä"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:652 bottles/frontend/widgets/library.py:271 bottles/frontend/widgets/program.py:367
+#: bottles/frontend/views/bottle_details.py:650 bottles/frontend/widgets/library.py:271 bottles/frontend/widgets/program.py:367
 msgid "Launching \"{0}\"…"
 msgstr "Käynnistetään \"{0}\"…"
 
@@ -2485,7 +2457,7 @@ msgstr "Kirjaston lajittelujärjestys"
 msgid "License"
 msgstr "Lisenssi"
 
-#: bottles/frontend/ui/details-preferences.blp:244
+#: bottles/frontend/ui/details-preferences.blp:227
 msgid "Limit DXVK and VKD3D applications. Set to 0 to disable."
 msgstr "Rajoita DXVK- ja VKD3D-sovelluksia. Aseta arvoksi 0 poistaaksesi käytöstä."
 
@@ -2505,7 +2477,7 @@ msgstr "Listaa Steam-sovellukset Ohjelmat-luettelossa"
 msgid "List Ubisoft Games in Programs List"
 msgstr "Listaa Ubisoft Games Ohjelmat-luettelossa"
 
-#: bottles/backend/utils/manager.py:948
+#: bottles/backend/utils/manager.py:952
 msgid "Lithuanian"
 msgstr "Liettua"
 
@@ -2549,7 +2521,7 @@ msgstr "Päävalikko"
 msgid "Manage Branches"
 msgstr "Hallinnoi sivuliikkeitä"
 
-#: bottles/frontend/ui/details-preferences.blp:450
+#: bottles/frontend/ui/details-preferences.blp:433
 msgid "Manage Drives"
 msgstr "Hallitse asemia"
 
@@ -2557,15 +2529,15 @@ msgstr "Hallitse asemia"
 msgid "Manage File Associations..."
 msgstr "Hallitse tiedostoyhdistelmiä..."
 
-#: bottles/frontend/ui/details-preferences.blp:192
+#: bottles/frontend/ui/details-preferences.blp:174
 msgid "Manage Gamescope settings"
 msgstr "Hallitse Gamescopen asetuksia"
 
-#: bottles/frontend/ui/details-preferences.blp:260
+#: bottles/frontend/ui/details-preferences.blp:243
 msgid "Manage MangoHud settings"
 msgstr "Hallinnoi MangoHud-asetuksia"
 
-#: bottles/frontend/ui/details-preferences.blp:152
+#: bottles/frontend/ui/details-preferences.blp:134
 msgid "Manage Post-Processing Layer settings"
 msgstr "Hallitse jälkikäsittelyn tasoasetuksia"
 
@@ -2573,7 +2545,7 @@ msgstr "Hallitse jälkikäsittelyn tasoasetuksia"
 msgid "Manage cached files used to speed up downloads and container creation."
 msgstr "Hallinnoi välimuistissa olevia tiedostoja, joita käytetään latausten ja Wine-ympäristöjen luomisen nopeuttamiseen."
 
-#: bottles/frontend/ui/details-preferences.blp:189
+#: bottles/frontend/ui/details-preferences.blp:171
 msgid "Manage how games should be displayed on the screen using Gamescope."
 msgstr "Hallitse miten pelit tulee esittää näytöllä Gamescopea käyttäen."
 
@@ -2581,7 +2553,7 @@ msgstr "Hallitse miten pelit tulee esittää näytöllä Gamescopea käyttäen."
 msgid "Manage how games should be displayed."
 msgstr "Hallitse miten pelit tulee näyttää."
 
-#: bottles/frontend/ui/details-preferences.blp:172
+#: bottles/frontend/ui/details-preferences.blp:154
 msgid "Manage lsfg-vk settings"
 msgstr "Hallitse lsfg-vk-asetuksia"
 
@@ -2589,11 +2561,11 @@ msgstr "Hallitse lsfg-vk-asetuksia"
 msgid "Manage reusable registry tweaks."
 msgstr "Hallinnoi uudelleenkäytettäviä rekisterin parannuksia."
 
-#: bottles/frontend/ui/details-preferences.blp:344
+#: bottles/frontend/ui/details-preferences.blp:327
 msgid "Manage the Sandbox Permissions"
 msgstr "Hallitse hiekkalaatikon oikeuksia"
 
-#: bottles/frontend/ui/details-preferences.blp:291
+#: bottles/frontend/ui/details-preferences.blp:274
 msgid "Manage vmtouch settings"
 msgstr "Hallitse vmtouchin asetuksia"
 
@@ -2650,11 +2622,11 @@ msgstr "Käyttöjärjestelmän vähimmäisversio"
 msgid "Miscellaneous"
 msgstr "Sekalaiset"
 
-#: bottles/frontend/views/bottle_details.py:878
+#: bottles/frontend/views/bottle_details.py:876
 msgid "Missing Runner"
 msgstr "Puuttuva ajaja"
 
-#: bottles/frontend/ui/details-preferences.blp:256
+#: bottles/frontend/ui/details-preferences.blp:239
 msgid "Monitor Performance"
 msgstr "Tarkkaile suorituskykyä"
 
@@ -2700,11 +2672,11 @@ msgstr "Oma Wine-ympäristö"
 msgid "N/A"
 msgstr "Tyhjä"
 
-#: bottles/frontend/ui/details-preferences.blp:237
+#: bottles/frontend/ui/details-preferences.blp:220
 msgid "NTSync"
 msgstr "NTSync"
 
-#: bottles/backend/managers/manager.py:1953
+#: bottles/backend/managers/manager.py:1930
 msgid "NVAPI"
 msgstr "NVAPI"
 
@@ -2781,7 +2753,7 @@ msgstr "Ensi vuonna"
 msgid "No"
 msgstr "Ei"
 
-#: bottles/backend/managers/manager.py:2192 bottles/backend/managers/manager.py:2387
+#: bottles/backend/managers/manager.py:2255
 msgid "No D7VK version available."
 msgstr "D7VK-versiota ei ole saatavilla."
 
@@ -2789,7 +2761,7 @@ msgstr "D7VK-versiota ei ole saatavilla."
 msgid "No DLL selected"
 msgstr "DLL-tiedostoa ei ole valittu"
 
-#: bottles/backend/managers/manager.py:2120 bottles/backend/managers/manager.py:2396
+#: bottles/backend/managers/manager.py:2078 bottles/backend/managers/manager.py:2264
 msgid "No DXVK version available."
 msgstr "DXVK-versiota ei ole saatavilla."
 
@@ -2805,11 +2777,11 @@ msgstr "HIDRAW-laitteita ei löytynyt"
 msgid "No Installers Found"
 msgstr "Asentajia ei löytynyt"
 
-#: bottles/backend/managers/manager.py:2426
+#: bottles/backend/managers/manager.py:2292
 msgid "No LatencyFleX version available."
 msgstr "LatencyFleX-versiota ei ole saatavilla."
 
-#: bottles/backend/managers/manager.py:2414
+#: bottles/backend/managers/manager.py:2282
 msgid "No NVAPI version available."
 msgstr "NVAPI-versiota ei ole saatavilla."
 
@@ -2829,7 +2801,7 @@ msgstr "Tilannevedoksia ei löytynyt"
 msgid "No Thumbnail"
 msgstr "Ei pienoiskuvaa"
 
-#: bottles/backend/managers/manager.py:2405
+#: bottles/backend/managers/manager.py:2273
 msgid "No VKD3D version available."
 msgstr "VKD3D-versiota ei ole saatavilla."
 
@@ -2853,7 +2825,7 @@ msgstr "Ohituskaavoja ei ole määritetty."
 msgid "No files or folders selected"
 msgstr "Ei valittuja tiedostoja tai kansioita"
 
-#: bottles/backend/managers/manager.py:2107
+#: bottles/backend/managers/manager.py:2065
 msgid "No graphics component version available."
 msgstr "Grafiikkakomponenttiversiota ei ole saatavilla."
 
@@ -2877,7 +2849,7 @@ msgstr "Välimuistiin ei ole vielä tallennettu malleja."
 msgid "No variables selected"
 msgstr "Muuttujia ei ole valittu"
 
-#: bottles/backend/utils/manager.py:951
+#: bottles/backend/utils/manager.py:955
 msgid "Norwegian"
 msgstr "Norja"
 
@@ -2894,11 +2866,11 @@ msgstr "Ei tällä hetkellä yhdistettynä"
 msgid "Not enough disk space to create a snapshot! Requires at least {0} of free space."
 msgstr "Ei tarpeeksi levytilaa tilannekuvan luomiseen! Vaatii vähintään {0} vapaata tilaa."
 
-#: bottles/backend/managers/manager.py:2010
+#: bottles/backend/managers/manager.py:1987
 msgid "Not installed"
 msgstr "Ei asennettu"
 
-#: bottles/frontend/ui/details-preferences.blp:463
+#: bottles/frontend/ui/details-preferences.blp:446
 msgid "Notes"
 msgstr "Huomautuksia"
 
@@ -2910,7 +2882,7 @@ msgstr "Ei mitään kommitoitavaa"
 msgid "Notifications"
 msgstr "Ilmoitukset"
 
-#: bottles/frontend/ui/details-preferences.blp:307
+#: bottles/frontend/ui/details-preferences.blp:290
 msgid "OBS Game Capture"
 msgstr "OBS:n pelikaappaus"
 
@@ -2926,7 +2898,7 @@ msgstr "OSS"
 msgid "Offer an Eagle analysis when a program closes right after starting."
 msgstr "Tarjoa Eagle-analyysiä, kun ohjelma sulkeutuu heti käynnistyksen jälkeen."
 
-#: bottles/frontend/views/bottle_preferences.py:283
+#: bottles/frontend/views/bottle_preferences.py:280
 msgid "Older NVIDIA drivers require HdrWsi and ENABLE_HDR_WSI=1 for HDR."
 msgstr "Vanhemmat NVIDIA-ohjaimet vaativat HdrWsi:n ja ENABLE_HDR_WSI=1 HDR:ää varten."
 
@@ -2984,7 +2956,7 @@ msgstr "Avaa {0}-lisenssi"
 msgid "Operations"
 msgstr "Toiminnot"
 
-#: bottles/frontend/views/details.py:268
+#: bottles/frontend/views/details.py:266
 msgid "Operations in progress, please wait."
 msgstr "Toimenpiteitä meneillään, odota hetki."
 
@@ -3057,7 +3029,7 @@ msgstr "Wine-ympäristön sisällä olevat reitit pysyvät voimassa, jos Wine-ym
 msgid "Pattern"
 msgstr "Kaava"
 
-#: bottles/frontend/ui/details-preferences.blp:226
+#: bottles/frontend/ui/details-preferences.blp:209
 msgid "Performance"
 msgstr "Suorituskyky"
 
@@ -3089,15 +3061,15 @@ msgstr "Siirry uuteen versiojärjestelmään luodaksesi uusia tiloja."
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr "Odota, kun WineBridge lataa ja asentaa."
 
-#: bottles/backend/utils/manager.py:952
+#: bottles/backend/utils/manager.py:956
 msgid "Polish"
 msgstr "Puola"
 
-#: bottles/backend/utils/manager.py:953
+#: bottles/backend/utils/manager.py:957
 msgid "Portuguese"
 msgstr "portugali"
 
-#: bottles/frontend/ui/details-preferences.blp:148
+#: bottles/frontend/ui/details-preferences.blp:130
 msgid "Post-Processing Effects"
 msgstr "Jälkikäsittelyn tehosteet"
 
@@ -3147,7 +3119,7 @@ msgstr "Asetukset"
 msgid "Prefix templates"
 msgstr "Etuliitemallit"
 
-#: bottles/frontend/ui/details-preferences.blp:286
+#: bottles/frontend/ui/details-preferences.blp:269
 msgid "Preload Game Files"
 msgstr "Esilataa pelien tiedostot"
 
@@ -3251,11 +3223,11 @@ msgstr "Suojaus"
 msgid "ProtonDB community reports: ODbL 1.0, contents DbCL 1.0.\nwinetricks data: LGPL-2.1-or-later."
 msgstr "ProtonDB-yhteisöraportit: ODbL 1.0, sisältö DbCL 1.0.\nwinetricks-tiedot: LGPL-2.1 tai uudempi."
 
-#: bottles/frontend/ui/details-preferences.blp:382
+#: bottles/frontend/ui/details-preferences.blp:365
 msgid "Provide a bundle of extra libraries for more compatibility with Steam games. Disable it if you run into issues."
 msgstr "Paranna yhteensopivuutta Steam-pelien kanssa tarjoamalla ylimääräisiä kirjastoja. Poista käytöstä, jos kohtaat ongelmia."
 
-#: bottles/frontend/ui/details-preferences.blp:361
+#: bottles/frontend/ui/details-preferences.blp:344
 msgid "Provide a bundle of extra libraries for more compatibility. Disable it if you run into issues."
 msgstr "Paranna yhteensopivuutta tarjoamalla ylimääräisiä kirjastoja. Poista käytöstä, jos kohtaat ongelmia."
 
@@ -3427,7 +3399,7 @@ msgstr "Poista luettelosta"
 msgid "Remove from list (keep files)"
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:856
+#: bottles/frontend/views/bottle_details.py:854
 msgid "Remove this container from your list, or permanently delete its directory and all files."
 msgstr ""
 
@@ -3504,7 +3476,7 @@ msgstr "Nollataanko käyttöaikatilastot?"
 msgid "Reset to Container's Defaults"
 msgstr "Palauta oletusarvoon"
 
-#: bottles/frontend/ui/details-preferences.blp:395 bottles/frontend/ui/dialog-launch-options.blp:76 bottles/frontend/ui/dialog-launch-options.blp:113 bottles/frontend/ui/dialog-launch-options.blp:150 bottles/frontend/ui/new-bottle-dialog.blp:160
+#: bottles/frontend/ui/details-preferences.blp:378 bottles/frontend/ui/dialog-launch-options.blp:76 bottles/frontend/ui/dialog-launch-options.blp:113 bottles/frontend/ui/dialog-launch-options.blp:150 bottles/frontend/ui/new-bottle-dialog.blp:160
 msgid "Reset to Default"
 msgstr "Palauta oletusarvoon"
 
@@ -3541,11 +3513,11 @@ msgstr "Palautetaan tila {}…"
 msgid "Restoring state..."
 msgstr ""
 
-#: bottles/frontend/widgets/state.py:123
+#: bottles/frontend/widgets/state.py:122
 msgid "Restoring this state will overwrite the current configuration and cannot be undone."
 msgstr ""
 
-#: bottles/frontend/views/details.py:275
+#: bottles/frontend/views/details.py:273
 msgid "Return to your containers."
 msgstr "Palaa pullojesi pariin."
 
@@ -3558,7 +3530,7 @@ msgstr ""
 msgid "Review for {0}"
 msgstr "Arvio {0}:lle"
 
-#: bottles/backend/utils/manager.py:954
+#: bottles/backend/utils/manager.py:958
 msgid "Romanian"
 msgstr "romania"
 
@@ -3570,7 +3542,7 @@ msgstr "Säännön tiedot"
 msgid "Rule name"
 msgstr "Säännön nimi"
 
-#: bottles/frontend/ui/dialog-run-args.blp:33 bottles/frontend/utils/sandbox_guard.py:172 bottles/frontend/views/bottle_details.py:671 bottles/frontend/views/list.py:151
+#: bottles/frontend/ui/dialog-run-args.blp:33 bottles/frontend/utils/sandbox_guard.py:172 bottles/frontend/views/bottle_details.py:669 bottles/frontend/views/list.py:151
 msgid "Run"
 msgstr "Suorita"
 
@@ -3658,7 +3630,7 @@ msgstr "Toimii samalla pääsyllä kuin Bottles, ilman ylimääräistä eristyst
 msgid "Runtimes and Libraries"
 msgstr "Suoritusajat ja kirjastot"
 
-#: bottles/backend/utils/manager.py:955
+#: bottles/backend/utils/manager.py:959
 msgid "Russian"
 msgstr "venäjä"
 
@@ -3686,7 +3658,7 @@ msgstr "Hiekkalaatikon asetukset"
 msgid "Save"
 msgstr "Tallenna"
 
-#: bottles/frontend/ui/details-preferences.blp:467
+#: bottles/frontend/ui/details-preferences.blp:450
 msgid "Save Notes"
 msgstr "Tallenna muistiinpanoja"
 
@@ -3774,11 +3746,11 @@ msgstr "Valitse Hakemisto"
 msgid "Select Drive Path"
 msgstr "Valitse aseman polku"
 
-#: bottles/frontend/views/bottle_details.py:348 bottles/frontend/views/bottle_details.py:668 bottles/frontend/views/list.py:148
+#: bottles/frontend/views/bottle_details.py:348 bottles/frontend/views/bottle_details.py:666 bottles/frontend/views/list.py:148
 msgid "Select Executable"
 msgstr "Valitse suoritustiedosto"
 
-#: bottles/frontend/views/bottle_details.py:720
+#: bottles/frontend/views/bottle_details.py:718
 msgid "Select Executable for Eagle Analysis"
 msgstr "Valitse Suoritettava Eagle-analyysiä varten"
 
@@ -3814,7 +3786,7 @@ msgstr "Valitse resurssitiedosto"
 msgid "Select Runner Directory"
 msgstr "Valitse Ajaja-hakemisto"
 
-#: bottles/frontend/views/bottle_preferences.py:510 bottles/frontend/windows/launchoptions.py:438
+#: bottles/frontend/views/bottle_preferences.py:500 bottles/frontend/windows/launchoptions.py:438
 msgid "Select Working Directory"
 msgstr "Valitse työskentelyhakemisto"
 
@@ -3854,11 +3826,11 @@ msgstr ""
 msgid "Select files and folders within the container, not the container itself."
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:747
+#: bottles/frontend/views/bottle_details.py:745
 msgid "Select the location where to save the backup archive"
 msgstr "Valitse sijainti, johon varmuuskopioarkisto tallennetaan"
 
-#: bottles/frontend/views/bottle_details.py:743
+#: bottles/frontend/views/bottle_details.py:741
 msgid "Select the location where to save the backup config"
 msgstr "Valitse sijainti, mihin varmuuskopioitava kokoonpano tallennetaan"
 
@@ -4040,11 +4012,11 @@ msgstr "Ohita asennus"
 msgid "Skipping {0}: not installed."
 msgstr "Ohitetaan {0}: ei asennettu."
 
-#: bottles/backend/utils/manager.py:956
+#: bottles/backend/utils/manager.py:960
 msgid "Slovak"
 msgstr "slovakki"
 
-#: bottles/backend/utils/manager.py:957
+#: bottles/backend/utils/manager.py:961
 msgid "Slovenian"
 msgstr "Slovenia"
 
@@ -4097,7 +4069,7 @@ msgstr "Lajittele kirjasto ohjelman nimen tai säilön ja ohjelman nimen mukaan.
 msgid "Source: {0}"
 msgstr "Lähde: {0}"
 
-#: bottles/backend/utils/manager.py:941
+#: bottles/backend/utils/manager.py:945
 msgid "Spanish"
 msgstr "espanja"
 
@@ -4109,7 +4081,7 @@ msgstr "Aloita asennus"
 msgid "Start program"
 msgstr "Käynnistä ohjelma"
 
-#: bottles/frontend/ui/details-preferences.blp:372
+#: bottles/frontend/ui/details-preferences.blp:355
 msgid "Start programs through WineBridge by default for this container."
 msgstr "Käynnistä ohjelmat WineBridge:n kautta oletusarvoisesti tälle pullolle."
 
@@ -4157,11 +4129,11 @@ msgid "States list retrieved successfully!"
 msgstr "Tilaluettelo noudettu onnistuneesti!"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:381
+#: bottles/frontend/ui/details-preferences.blp:364
 msgid "Steam Runtime"
 msgstr "Pullon nimi"
 
-#: bottles/frontend/views/bottle_preferences.py:194
+#: bottles/frontend/views/bottle_preferences.py:191
 msgid "Steam Runtime was not detected. Install it or grant Bottles access to Steam files, then restart Bottles."
 msgstr "Steam Ajonaikaa ei havaittu. Asenna se tai myönnä Bottles:lle pääsy Steam-tiedostoihin ja käynnistä sitten Bottles uudelleen."
 
@@ -4219,7 +4191,7 @@ msgstr "Ehdotukset perustuvat tekniseen analyysiin eivätkä takaa yhteensopivuu
 msgid "Supported Executables"
 msgstr "Tuetut suoritettavat tiedostot"
 
-#: bottles/backend/utils/manager.py:958
+#: bottles/backend/utils/manager.py:962
 msgid "Swedish"
 msgstr "ruotsi"
 
@@ -4235,11 +4207,11 @@ msgstr "Vaihdetaan haaraa..."
 msgid "Switching branch…"
 msgstr "Vaihdetaan haaraa…"
 
-#: bottles/frontend/ui/details-preferences.blp:230
+#: bottles/frontend/ui/details-preferences.blp:213
 msgid "Synchronization"
 msgstr "Synkronointi"
 
-#: bottles/backend/utils/manager.py:934 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/ui/dialog-display.blp:142 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:938 bottles/frontend/ui/details-preferences.blp:217 bottles/frontend/ui/dialog-display.blp:142 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "Järjestelmä"
 
@@ -4353,7 +4325,7 @@ msgstr "Wine-ympäristöjen uusi versiointijärjestelmä on julkaistu."
 msgid "The next container for this environment will take longer to create because Bottles must rebuild the template."
 msgstr "Tämän ympäristön seuraavan Wine-ympäristön luominen kestää kauemmin, koska Bottles:n on rakennettava malli uudelleen."
 
-#: bottles/frontend/views/bottle_preferences.py:613
+#: bottles/frontend/views/bottle_preferences.py:570
 msgid "The notes could not be saved."
 msgstr "Muistiinpanoja ei voitu tallentaa."
 
@@ -4374,7 +4346,7 @@ msgstr "Ohjelmatiedostoa ei löydy. Tarkista sen polku ja mahdolliset ulkoiset a
 msgid "The repository is unreachable or no installer is compatible with this container."
 msgstr "Tietovarasto ei ole tavoitettavissa tai yksikään asennusohjelma ei ole yhteensopiva tämän Wine-ympäristön kanssa."
 
-#: bottles/frontend/views/bottle_details.py:879
+#: bottles/frontend/views/bottle_details.py:877
 msgid "The runner requested by this container is missing. Restore it using your package manager, add its local directory in Preferences, or explicitly choose another runner for this container."
 msgstr "Tämän Wine-ympäristön pyytämä ajaja puuttuu. Palauta se paketinhallinnan avulla, lisää sen paikallinen hakemisto Asetuksiin tai valitse tälle pullolle toinen ajaja."
 
@@ -4391,7 +4363,7 @@ msgid "The selected file is unavailable."
 msgstr "Valittu tiedosto ei ole käytettävissä."
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2441
+#: bottles/backend/managers/manager.py:2307
 msgid "The selected {0} installation is incomplete."
 msgstr "Valittu {0}-asennus on kesken."
 
@@ -4436,7 +4408,7 @@ msgstr "Tänä vuonna"
 msgid "This application may work poorly. The installer was configured to provide the best possible experience, but expect glitches, instability and lack of working features."
 msgstr "Tämä sovellus saattaa toimia heikonlaisesti. Asentaja määritettiin tarjoamaan paras mahdollinen kokemus, mutta varaudu häiriöihin, epävakauteen ja puuttuviin toiminnallisuuksiin."
 
-#: bottles/frontend/views/bottle_details.py:956
+#: bottles/frontend/views/bottle_details.py:954
 msgid "This can cause data loss, corruption, and programs to malfunction."
 msgstr "Tämä saattaa aiheuttaa tietojen katoamista, korruptiota ja ohjelmien virheellistä toimintaa."
 
@@ -4444,7 +4416,7 @@ msgstr "Tämä saattaa aiheuttaa tietojen katoamista, korruptiota ja ohjelmien v
 msgid "This component is not installable offline because its files are not cached."
 msgstr "Tätä komponenttia ei voi asentaa offline-tilassa, koska sen tiedostoja ei ole välimuistissa."
 
-#: bottles/frontend/views/bottle_preferences.py:474
+#: bottles/frontend/views/bottle_preferences.py:464
 msgid "This container name is already in use."
 msgstr "Tämä Wine-ympäristön nimi on jo käytössä."
 
@@ -4460,7 +4432,7 @@ msgstr "Tämä riippuvuus ei ole yhteensopiva tämän pulloarkkitehtuurin kanssa
 msgid "This dependency is not installable offline because its files are not cached."
 msgstr "Tätä riippuvuutta ei voi asentaa offline-tilassa, koska sen tiedostoja ei ole välimuistissa."
 
-#: bottles/frontend/views/bottle_preferences.py:200 bottles/frontend/views/bottle_preferences.py:455 bottles/frontend/views/bottle_preferences.py:403
+#: bottles/frontend/views/bottle_preferences.py:197 bottles/frontend/views/bottle_preferences.py:445 bottles/frontend/views/bottle_preferences.py:393
 msgid "This feature is unavailable on your system."
 msgstr "Tämä ominaisuus ei ole käytettävissä järjestelmässäsi."
 
@@ -4508,7 +4480,7 @@ msgstr "Tämä resurssi puuttuu."
 msgid "This runner cannot create a 32-bit prefix. Select a 64-bit container."
 msgstr "Tämä Ajaja ei voi luoda 32-bittistä etuliitettä. Valitse 64-bittinen säilö."
 
-#: bottles/frontend/views/bottle_preferences.py:909
+#: bottles/frontend/views/bottle_preferences.py:821
 msgid "This runner has no Esync, so it will use its default."
 msgstr "Tässä Ajajassa ei ole Esyncia, joten se käyttää oletusarvoaan."
 
@@ -4557,7 +4529,7 @@ msgstr "Kynnystys"
 msgid "Timestamp"
 msgstr "Aikaleima"
 
-#: bottles/frontend/views/bottle_preferences.py:410
+#: bottles/frontend/views/bottle_preferences.py:400
 msgid "To add it, please run:"
 msgstr "Lisää se suorittamalla:"
 
@@ -4565,7 +4537,7 @@ msgstr "Lisää se suorittamalla:"
 msgid "Today"
 msgstr "Tänään"
 
-#: bottles/frontend/ui/details-preferences.blp:308
+#: bottles/frontend/ui/details-preferences.blp:291
 msgid "Toggle OBS Game Capture for all Vulkan and OpenGL programs."
 msgstr "Käytä tai poista käytöstä OBS:n pelikaappausta kaikille Vulkan- ja OpenGL-ohjelmille."
 
@@ -4638,7 +4610,7 @@ msgstr "Yritä uudelleen"
 msgid "Try a different search."
 msgstr "Yritä eri hakuehtoja."
 
-#: bottles/backend/utils/manager.py:959
+#: bottles/backend/utils/manager.py:963
 msgid "Turkish"
 msgstr "turkki"
 
@@ -4713,7 +4685,7 @@ msgid "Updated {0} components."
 msgstr "Päivitetyt {0} komponentit."
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:597
+#: bottles/frontend/views/bottle_details.py:595
 msgid "Updated {component} to {version}"
 msgstr "Päivitetty {component} muotoon {version}"
 
@@ -4742,7 +4714,7 @@ msgstr "Päivitetään DLL ohituksia…"
 msgid "Updating DXVK, please wait…"
 msgstr "Päivitetään DXVK:ta…"
 
-#: bottles/frontend/ui/details-preferences.blp:72 bottles/frontend/ui/details-preferences.blp:105
+#: bottles/frontend/ui/details-preferences.blp:72
 msgid "Updating DXVK-NVAPI, please wait…"
 msgstr "Päivitetään DXVK-NVAPI:a…"
 
@@ -4758,7 +4730,7 @@ msgstr "Päivitetään ajajaa sekä komponentteja, odota hetki…"
 msgid "Updating VKD3D, please wait…"
 msgstr "Päivitetään VKD3D:tä…"
 
-#: bottles/frontend/ui/details-preferences.blp:323
+#: bottles/frontend/ui/details-preferences.blp:306
 msgid "Updating Windows version, please wait…"
 msgstr "Päivitetään Windows-versiota…"
 
@@ -4804,7 +4776,7 @@ msgstr "Käyttöaikatilastoja ei voi nollata, kun \"{}\" on käynnissä. Sulje o
 msgid "Usage time tracking is disabled."
 msgstr "Käyttöajan seuranta ei ole käytössä."
 
-#: bottles/frontend/ui/details-bottle.blp:151 bottles/frontend/ui/details-preferences.blp:371
+#: bottles/frontend/ui/details-bottle.blp:151 bottles/frontend/ui/details-preferences.blp:354
 msgid "Use WineBridge"
 msgstr "Käytä WineBridge"
 
@@ -4816,7 +4788,7 @@ msgstr "Käytä 64-bittistä Vulkan-sovellusta. Poista muut Vulkan-tasot käytö
 msgid "Use a lighter model with a small quality reduction."
 msgstr "Käytä kevyempää mallia pienellä laadun heikkenemisellä."
 
-#: bottles/frontend/ui/details-preferences.blp:341
+#: bottles/frontend/ui/details-preferences.blp:324
 msgid "Use a restricted/managed environment for this container."
 msgstr "Käytä rajoitettua/hallittua ympäristö tälle pullolle."
 
@@ -4824,7 +4796,7 @@ msgstr "Käytä rajoitettua/hallittua ympäristö tälle pullolle."
 msgid "Use shipping binary instead"
 msgstr "Käytä sen sijaan toimitusbinaaria"
 
-#: bottles/frontend/ui/details-preferences.blp:119
+#: bottles/frontend/ui/details-preferences.blp:101
 msgid "Use the discrete graphics card to increase performance at the expense of power consumption."
 msgstr "Käytä erillistä näytönohjainta suorituskyvyn parantamiseksi. Virrankulutus kasvaa tämän myötä."
 
@@ -4844,7 +4816,7 @@ msgstr "Käyttäjien ajajat"
 msgid "Uses the resolution of the video game as a reference in pixels."
 msgstr "Käyttää videopelin resoluutiota referenssinä pikseleinä."
 
-#: bottles/backend/managers/manager.py:1947 bottles/frontend/ui/details-preferences.blp:55
+#: bottles/backend/managers/manager.py:1924 bottles/frontend/ui/details-preferences.blp:55
 msgid "VKD3D"
 msgstr "VKD3D"
 
@@ -4880,7 +4852,7 @@ msgstr "Vulkan ei ole saatavilla tässä järjestelmässä."
 msgid "Warnings"
 msgstr "Varoitukset"
 
-#: bottles/frontend/ui/details-preferences.blp:128
+#: bottles/frontend/ui/details-preferences.blp:110
 msgid "Wayland (Experimental)"
 msgstr "Wayland (kokeellinen)"
 
@@ -4941,7 +4913,7 @@ msgstr "Ikkunan korkeus"
 msgid "Window width"
 msgstr "Ikkunan leveys"
 
-#: bottles/frontend/ui/details-preferences.blp:320
+#: bottles/frontend/ui/details-preferences.blp:303
 msgid "Windows Version"
 msgstr "Windows-versio"
 
@@ -4966,7 +4938,7 @@ msgstr "Wine ääniohjain"
 msgid "Wine config updated!"
 msgstr "Winen kokoonpano päivitetty!"
 
-#: bottles/backend/managers/manager.py:2009
+#: bottles/backend/managers/manager.py:1986
 msgid "WineBridge"
 msgstr "WineBridge"
 
@@ -4986,7 +4958,7 @@ msgstr "WineBridge päivitys"
 msgid "WineBridge update failed"
 msgstr "WineBridge päivitys epäonnistui"
 
-#: bottles/frontend/ui/details-preferences.blp:391 bottles/frontend/ui/dialog-launch-options.blp:143
+#: bottles/frontend/ui/details-preferences.blp:374 bottles/frontend/ui/dialog-launch-options.blp:143
 msgid "Working Directory"
 msgstr "Työskentelyhakemisto"
 
@@ -5058,7 +5030,7 @@ msgstr "[Sammutus] -siivous alkaa."
 msgid "_Application"
 msgstr "_Sovellus"
 
-#: bottles/frontend/ui/bulk-update-dialog.blp:22 bottles/frontend/ui/dialog-crash-report.blp:19 bottles/frontend/ui/dialog-display.blp:25 bottles/frontend/ui/dialog-duplicate.blp:20 bottles/frontend/ui/dialog-file-associations.blp:17 bottles/frontend/ui/dialog-gamescope.blp:24 bottles/frontend/ui/dialog-launch-options.blp:17 bottles/frontend/ui/dialog-lsfg-vk.blp:25 bottles/frontend/ui/dialog-mangohud.blp:25 bottles/frontend/ui/dialog-program-backups.blp:16 bottles/frontend/ui/dialog-upgrade-versioning.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:27 bottles/frontend/ui/dialog-vmtouch.blp:24 bottles/frontend/ui/dialog-winebridge-update.blp:19 bottles/frontend/ui/new-bottle-dialog.blp:23 bottles/frontend/views/bottle_details.py:860 bottles/frontend/views/bottle_details.py:958 bottles/frontend/views/preferences.py:366 bottles/frontend/views/preferences.py:828 bottles/frontend/widgets/state.py:127
+#: bottles/frontend/ui/bulk-update-dialog.blp:22 bottles/frontend/ui/dialog-crash-report.blp:19 bottles/frontend/ui/dialog-display.blp:25 bottles/frontend/ui/dialog-duplicate.blp:20 bottles/frontend/ui/dialog-file-associations.blp:17 bottles/frontend/ui/dialog-gamescope.blp:24 bottles/frontend/ui/dialog-launch-options.blp:17 bottles/frontend/ui/dialog-lsfg-vk.blp:25 bottles/frontend/ui/dialog-mangohud.blp:25 bottles/frontend/ui/dialog-program-backups.blp:16 bottles/frontend/ui/dialog-upgrade-versioning.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:27 bottles/frontend/ui/dialog-vmtouch.blp:24 bottles/frontend/ui/dialog-winebridge-update.blp:19 bottles/frontend/ui/new-bottle-dialog.blp:23 bottles/frontend/views/bottle_details.py:858 bottles/frontend/views/bottle_details.py:956 bottles/frontend/views/preferences.py:366 bottles/frontend/views/preferences.py:828 bottles/frontend/widgets/state.py:126
 msgid "_Cancel"
 msgstr "_Peru"
 
@@ -5078,7 +5050,7 @@ msgstr "_Poista"
 msgid "_Delete All"
 msgstr "_Poista kaikki"
 
-#: bottles/frontend/views/bottle_details.py:862
+#: bottles/frontend/views/bottle_details.py:860
 msgid "_Delete Files"
 msgstr "_Poista tiedostot"
 
@@ -5086,7 +5058,7 @@ msgstr "_Poista tiedostot"
 msgid "_Delete and Cancel"
 msgstr "_Poista ja peruuta"
 
-#: bottles/frontend/utils/flatpak.py:112 bottles/frontend/views/bottle_details.py:883 bottles/frontend/views/bottle_details.py:692
+#: bottles/frontend/utils/flatpak.py:112 bottles/frontend/views/bottle_details.py:881 bottles/frontend/views/bottle_details.py:690
 msgid "_Dismiss"
 msgstr "_Hylkää"
 
@@ -5102,11 +5074,11 @@ msgstr "_Odota"
 msgid "_Relaunch"
 msgstr "_Käynnistä uudelleen"
 
-#: bottles/frontend/views/bottle_details.py:861
+#: bottles/frontend/views/bottle_details.py:859
 msgid "_Remove from List"
 msgstr "_Poista luettelosta"
 
-#: bottles/frontend/widgets/state.py:128
+#: bottles/frontend/widgets/state.py:127
 msgid "_Restore"
 msgstr "_Palauta"
 
@@ -5187,7 +5159,7 @@ msgstr "lsfg-vk"
 msgid "lsfg-vk 1.x: MIT.\nlsfg-vk 2.x: GPL-3.0-or-later."
 msgstr "lsfg-vk 1.x: MIT.\nlsfg-vk 2.x: GPL-3.0 tai uudempi."
 
-#: bottles/frontend/views/bottle_preferences.py:364
+#: bottles/frontend/views/bottle_preferences.py:360
 msgid "lsfg-vk only supports 64-bit Vulkan applications."
 msgstr "lsfg-vk tukee vain 64-bittisiä Vulkan-sovelluksia."
 
@@ -5242,7 +5214,7 @@ msgid "{0} detected"
 msgstr "{0} havaittu"
 
 #, python-brace-format
-#: bottles/frontend/windows/dependency_install.py:128
+#: bottles/frontend/windows/dependency_install.py:127
 msgid "{0} failed to install."
 msgstr "{0}:n asennus epäonnistui."
 
@@ -5252,7 +5224,7 @@ msgid "{0} installed, {1} failed."
 msgstr "{0} asennettu, {1} epäonnistui."
 
 #, python-brace-format
-#: bottles/frontend/windows/dependency_install.py:126
+#: bottles/frontend/windows/dependency_install.py:125
 msgid "{0} installed."
 msgstr "{0} asennettu."
 
@@ -5272,7 +5244,7 @@ msgid "{0} positive / {1} negative reports"
 msgstr "{0} positiiviset / {1} negatiiviset raportit"
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2373
+#: bottles/backend/managers/manager.py:2241
 msgid "{0} requires Vulkan, which is not available on this system."
 msgstr "{0} vaatii Vulkan:n, joka ei ole käytettävissä tässä järjestelmässä."
 
@@ -5314,7 +5286,7 @@ msgid "{reason} (x{evidence})"
 msgstr "{reason} (x{evidence})"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_preferences.py:201
+#: bottles/frontend/views/bottle_preferences.py:198
 msgid "{} To add this feature, please run"
 msgstr "{} Lisää tämä ominaisuus suorittamalla"
 

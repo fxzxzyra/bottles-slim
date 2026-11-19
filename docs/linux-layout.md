@@ -81,3 +81,31 @@ HIDRAW 设备偏好通过通用 Wine 的 `HKLM\System\CurrentControlSet\Services
 程序库汇总以 `(容器 UUID, 条目 ID)` 为键，各容器的 `library.yml` 仍只保存自身条目 ID。封面引用和删除检查仅在所属容器内进行。桌面入口及 Steam 快捷方式以容器 UUID 与程序 ID 确定身份，名称变化不再生成另一个入口。
 
 CLI 的 `--bottle` 参数使用 UUID；通过 `bottles-cli list bottles` 查看名称、UUID 和位置。`import --path` 接收待登记目录，`forget --bottle` 以 UUID 取消登记，包括暂时不可用的目录。旧名称参数、路径排序键及旧快捷方式不提供兼容或迁移。
+
+## 容器内组件布局
+
+组件按用途而非下载包的目录结构安装：
+
+```text
+<容器>/
+├── drive_c/windows/
+│   ├── system32/                    # Wine 对应架构的 Windows DLL
+│   └── syswow64/                    # win64 容器中的 32 位 DLL
+├── components/
+│   └── latencyflex/
+│       ├── lib/x86_64-linux-gnu/liblatencyflex_layer.so
+│       └── share/vulkan/implicit_layer.d/latencyflex.json
+└── cache/temp/component-*/          # 一次操作的准备文件，结束后清理
+```
+
+`components/<组件标识>/` 只保存该组件需要的私有文件，保持一份当前安装结果，不再按版本叠加目录。原生库使用 `lib/<ABI>/`，组件私有的 Windows DLL 使用 `lib/<Windows 架构>/`，所需的可执行辅助程序使用 `bin/`，只读资源使用 `share/`。没有对应文件就不创建空目录。需要被 Windows 程序常规导入的 DLL 仍进入 Wine 的系统目录；不得为规整应用目录而改动 Wine 的内部布局。
+
+下载包中的 `layer/usr/`、源代码、构建日志及其它无关内容不照搬。共享数据目录只作为这些 prefix 安装组件的安装源和缓存；安装时解引用来源软链接，Vulkan 清单的库路径改为组件目录内的相对路径。组件自己的目录不可链接到容器外。DLL 卸载所需的原始文件备份继续由 DLL 安装器管理，不是更新失败的事务回滚。
+
+新增含原生库的 DLL 组件只需声明源文件到上述布局的映射；清单等元数据在准备阶段处理。它使用与普通 DLL 组件相同的安装器，不另写下载、文件快照或版本回退流程。D7VK 仅保留 Wine `ddraw` 与别名的必要文件处理，配置保存与错误语义使用共同入口。
+
+GUI 选择、CLI 版本选项及参数开关、组件更新入口均调用 `set_dll_component`。安装与更换版本先校验并准备完整文件，再逐文件替换、写 overrides，成功后才保存版本和启用状态。禁用则恢复或移除 DLL、清除 overrides、删除该组件私有目录，成功后才保存禁用状态。首次失败立即停止并报告；文件与 Wine 注册表之间不提供整体事务，不自动重装旧版。完整备份保留实际的 prefix 安装组件。`Lossless.dll` 属于依赖宿主 lsfg-vk 层的运行时素材，不纳入此组件布局或自包含备份要求；缺少对应层时禁用该可选功能，不能使 prefix 的基本启动依赖它。
+
+组件自包含指当前支持的基础 Wine 环境下，其安装结果不依赖应用缓存中的文件；目录布局本身不等于宿主能力可移植。依赖特定宿主能力的可选运行时需要单独检测。
+
+WineBridge、Bottles runtime 及反作弊 runtime 保持共享使用，不复制到容器。系统或登记的 Wine runner、宿主驱动及 Steam 提供的 runtime 仍属于外部系统集成。

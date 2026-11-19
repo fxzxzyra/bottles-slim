@@ -99,7 +99,7 @@ msgstr "%s Elérhető"
 msgid "%s template"
 msgstr "%s sablon"
 
-#: bottles/frontend/ui/details-preferences.blp:416 bottles/frontend/views/bottle_preferences.py:534 bottles/frontend/views/new_bottle_dialog.py:99
+#: bottles/frontend/ui/details-preferences.blp:399 bottles/frontend/views/bottle_preferences.py:524 bottles/frontend/views/new_bottle_dialog.py:99
 msgid "(Default)"
 msgstr "(Alapértelmezett)"
 
@@ -218,7 +218,7 @@ msgstr "Hozzáadás Steamhez"
 msgid "Add variable"
 msgstr "Változó hozzáadása"
 
-#: bottles/frontend/ui/details-preferences.blp:149
+#: bottles/frontend/ui/details-preferences.blp:131
 msgid "Add various post-processing effects using vkBasalt. Only works on Vulkan."
 msgstr "Különböző utófeldolgozási hatások hozzáadása a vkBasalt segítségével. Csak Vulkanon működik."
 
@@ -230,7 +230,7 @@ msgstr "A Windows verzió beállítása…"
 msgid "Advanced"
 msgstr "Haladó"
 
-#: bottles/frontend/ui/details-preferences.blp:207
+#: bottles/frontend/ui/details-preferences.blp:189
 msgid "Advanced Display Settings"
 msgstr "Fejlett megjelenítő beállítások"
 
@@ -287,7 +287,7 @@ msgstr "Hiba történt a pillanatkép létrehozásakor: {0}"
 msgid "An installation error occurred. Restart Bottles to read the Crash Report or run it via terminal to read the output."
 msgstr "Telepítési hiba történt. Indítsa újra a Bottles-et a hibajelentés olvasásához, vagy futtassa a terminálon keresztül a kimenet olvasásához."
 
-#: bottles/frontend/views/bottle_details.py:723
+#: bottles/frontend/views/bottle_details.py:721
 msgid "Analyse"
 msgstr "Elemzés"
 
@@ -344,7 +344,7 @@ msgstr "Jelentkezzen"
 msgid "Apply CMD default settings…"
 msgstr "CMD alapértelmezett beállításainak alkalmazása…"
 
-#: bottles/frontend/ui/details-preferences.blp:277
+#: bottles/frontend/ui/details-preferences.blp:260
 msgid "Apply a set of optimizations to your device. Can improve game performance."
 msgstr "Alkalmaz egy sor optimalizálást a készüléken. Javíthatja a játék teljesítményét."
 
@@ -369,16 +369,16 @@ msgstr "Környezet alkalmazása: {0}…"
 msgid "Architecture"
 msgstr "Architektúra"
 
-#: bottles/frontend/views/bottle_details.py:955
+#: bottles/frontend/views/bottle_details.py:953
 msgid "Are you sure you want to force stop all processes?"
 msgstr "Biztos erőltetetten meg szeretné szakítani az összes folyamatot?"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:855
+#: bottles/frontend/views/bottle_details.py:853
 msgid "Are you sure you want to permanently delete \"{}\"?"
 msgstr "Biztosan végelegesen törölni szeretné ezt: \\\"{}\\\"?"
 
-#: bottles/frontend/widgets/state.py:122
+#: bottles/frontend/widgets/state.py:121
 msgid "Are you sure you want to restore this state?"
 msgstr "Biztosan vissza szeretné állítani ezt az állapotot?"
 
@@ -420,7 +420,7 @@ msgstr "Átlag: 0h 0p"
 msgid "Backing up {0}"
 msgstr "{0} biztonsági mentése"
 
-#: bottles/frontend/views/bottle_details.py:749
+#: bottles/frontend/views/bottle_details.py:747
 msgid "Backup"
 msgstr "Biztonsági mentése"
 
@@ -429,17 +429,17 @@ msgid "Backup Folder"
 msgstr "Biztonsági mentés mappa"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:755
+#: bottles/frontend/views/bottle_details.py:753
 msgid "Backup cancelled for \"{0}\""
 msgstr "A \"{0}\" biztonsági mentése megszakítva"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:760
+#: bottles/frontend/views/bottle_details.py:758
 msgid "Backup created for \"{0}\""
 msgstr "Biztonsági mentés létrehozva {0} számára"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:764
+#: bottles/frontend/views/bottle_details.py:762
 msgid "Backup failed for \"{0}\""
 msgstr "{0} biztonsági mentése sikertelen"
 
@@ -460,7 +460,7 @@ msgstr "Biztonsági mentések"
 msgid "Backups to Keep"
 msgstr "Biztonsági mentések a Keepbe"
 
-#: bottles/frontend/views/bottle_details.py:687
+#: bottles/frontend/views/bottle_details.py:685
 msgid "Be Aware of Sandbox"
 msgstr "Legyen tisztában a homokozóval"
 
@@ -482,7 +482,7 @@ msgid "Bottles Crash Report"
 msgstr "Bottles összeomlási jelentés"
 
 # Translators: Bottles is a proper noun referring to the app
-#: bottles/frontend/ui/details-preferences.blp:360
+#: bottles/frontend/ui/details-preferences.blp:343
 msgid "Bottles Runtime"
 msgstr "Bottles Futásidő"
 
@@ -498,7 +498,7 @@ msgstr "A Bottles legutóbb összeomlott. Kérjük, töltsön ki egy jelentést,
 msgid "Bottles has a whole new Versioning System that is not backwards compatible.\n\nTo continue using versioning we need to re-initialize the container repository. This will not delete data from your container but will delete all existing snapshots and create a new one.\n\nIf you need to go back to a previous snapshot before continuing, close this window and restore the snapshot, then reopen the container to show this window again.\n\nThe old system will be discontinued in one of the next releases."
 msgstr "A Bottles egy teljesen új verziókezelő rendszerrel rendelkezik, amely nem kompatibilis visszafelé.\n\nA verziókezelés folytatásához újra kell inicializálnunk a palacktárat. Ez nem törli az adatokat az üvegből, de törli az összes meglévő pillanatképet, és újat hoz létre.\n\nHa a folytatás előtt vissza kell térnie egy korábbi pillanatképhez, zárja be ezt az ablakot, állítsa vissza a pillanatképet, majd nyissa ki újra a Wine-környezetet, hogy ismét megjelenjen ez az ablak.\n\nA régi rendszer a következő kiadások egyikében megszűnik."
 
-#: bottles/frontend/views/bottle_details.py:688
+#: bottles/frontend/views/bottle_details.py:686
 msgid "Bottles is running in a sandbox, a restricted permission environment needed to keep you safe. If the program won't run, consider moving inside the container (3 dots icon on the top), then launch from there."
 msgstr "A Bottles homokozóban fut, egy korlátozott engedélyű környezet, amely az Ön biztonsága érdekében szükséges. Ha a program nem fut, fontolja meg, hogy a Wine-környezet belsejében mozogjon (3 pont a tetején), majd indítsa el onnan."
 
@@ -570,7 +570,7 @@ msgstr "Beépített (Wine)"
 msgid "Builtin, then Native"
 msgstr "Beépített majd natív"
 
-#: bottles/backend/utils/manager.py:935
+#: bottles/backend/utils/manager.py:939
 msgid "Bulgarian"
 msgstr ""
 
@@ -604,7 +604,7 @@ msgstr ""
 msgid "Cached prefix for the %s environment, created on %s"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1902
+#: bottles/backend/managers/manager.py:1879
 msgid "Caching template…"
 msgstr "Sablon gyorsítótárazása…"
 
@@ -704,11 +704,11 @@ msgstr "A futtatható fájlok futtatása előtt ellenőrizze a rosszindulatú pr
 msgid "Check your connection or try again later."
 msgstr "Ellenőrizze a kapcsolatot, vagy próbálja újra később."
 
-#: bottles/backend/utils/manager.py:960
+#: bottles/backend/utils/manager.py:964
 msgid "Chinese (Simplified)"
 msgstr "kínai (egyszerűsített)"
 
-#: bottles/backend/utils/manager.py:962
+#: bottles/backend/utils/manager.py:966
 msgid "Chinese (Traditional)"
 msgstr "kínai (hagyományos)"
 
@@ -761,7 +761,7 @@ msgstr "Válassza ki a program indítási helyét."
 msgid "Choose the Wine installation used by this container"
 msgstr "Válassza ki a Wine-környezet által használt Wine telepítést"
 
-#: bottles/frontend/ui/details-preferences.blp:333
+#: bottles/frontend/ui/details-preferences.blp:316
 msgid "Choose the language to use with programs."
 msgstr "Válassza ki a programokhoz használt nyelvet."
 
@@ -871,7 +871,7 @@ msgstr "A Media Foundation megoldást igénylő közösségi jelentések (x{evid
 msgid "Community verdict"
 msgstr "Közösségi ítélet"
 
-#: bottles/frontend/ui/details-preferences.blp:317
+#: bottles/frontend/ui/details-preferences.blp:300
 msgid "Compatibility"
 msgstr "Kompatibilitás"
 
@@ -1007,7 +1007,7 @@ msgstr "Vezérlőpult"
 msgid "Control which variables from your system are visible to programs inside this container"
 msgstr "Szabályozza, hogy a rendszer mely változói legyenek láthatók a palackban lévő programok számára"
 
-#: bottles/frontend/utils/flatpak.py:61 bottles/frontend/views/bottle_preferences.py:468
+#: bottles/frontend/utils/flatpak.py:61 bottles/frontend/views/bottle_preferences.py:458
 msgid "Copied to clipboard"
 msgstr "Vágólapra másolva"
 
@@ -1015,7 +1015,7 @@ msgstr "Vágólapra másolva"
 msgid "Copies the file into a temporary folder inside the container. Files stored next to it are not included, so it may not work fully."
 msgstr "A fájlt a Wine-környezet belsejében lévő ideiglenes mappába másolja. A mellette tárolt fájlok nem tartoznak bele, így előfordulhat, hogy nem működik teljesen."
 
-#: bottles/frontend/utils/flatpak.py:92 bottles/frontend/views/bottle_preferences.py:427 bottles/frontend/widgets/program.py:730
+#: bottles/frontend/utils/flatpak.py:92 bottles/frontend/views/bottle_preferences.py:417 bottles/frontend/widgets/program.py:730
 msgid "Copy command"
 msgstr "Másolás parancs"
 
@@ -1057,7 +1057,7 @@ msgstr "Nem sikerült elérni a \"{0}\" asztali bejegyzést"
 msgid "Could not analyse this file."
 msgstr "Nem sikerült elemezni ezt a fájlt."
 
-#: bottles/frontend/views/bottle_preferences.py:889
+#: bottles/frontend/views/bottle_preferences.py:801
 msgid "Could not change the synchronization mode."
 msgstr "Nem sikerült megváltoztatni a szinkronizálási módot."
 
@@ -1083,7 +1083,7 @@ msgstr "Nem sikerült betölteni a telepítőt. Kérjük, próbálja újra."
 msgid "Could not read the DPI scaling mode."
 msgstr "Nem sikerült beolvasni a DPI skálázási módot."
 
-#: bottles/frontend/views/bottle_details.py:839
+#: bottles/frontend/views/bottle_details.py:837
 msgid "Could not remove the container."
 msgstr "Nem sikerült eltávolítani az üveget."
 
@@ -1097,7 +1097,7 @@ msgstr "Nem sikerült eltávolítani a \"{0}\" asztali bejegyzést"
 msgid "Could not save the program: {0}"
 msgstr "Nem sikerült menteni a programot: {0}"
 
-#: bottles/frontend/views/bottle_preferences.py:995
+#: bottles/frontend/views/bottle_preferences.py:886
 msgid "Could not switch to the selected runner."
 msgstr "Nem sikerült váltani a kiválasztott futóra."
 
@@ -1175,7 +1175,7 @@ msgstr "Elágazás létrehozása…"
 msgid "Creating snapshot…"
 msgstr "Pillanatkép készítése…"
 
-#: bottles/backend/managers/manager.py:1875
+#: bottles/backend/managers/manager.py:1852
 msgid "Creating versioning state 0…"
 msgstr "A 0. verzióállapot létrehozása…"
 
@@ -1192,7 +1192,7 @@ msgstr "Jóváírások és licenc"
 msgid "Critical"
 msgstr "Kritikus"
 
-#: bottles/backend/utils/manager.py:945
+#: bottles/backend/utils/manager.py:949
 msgid "Croatian"
 msgstr "horvát"
 
@@ -1229,11 +1229,11 @@ msgstr "Egyéni URL a függőségek számára. Hagyja üresen az alapértelmezet
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr "Egyéni URL a telepítők számára. Hagyja üresen az alapértelmezett végpont használatához."
 
-#: bottles/backend/utils/manager.py:936
+#: bottles/backend/utils/manager.py:940
 msgid "Czech"
 msgstr "cseh"
 
-#: bottles/backend/managers/manager.py:1935 bottles/frontend/ui/details-preferences.blp:29
+#: bottles/backend/managers/manager.py:1912 bottles/frontend/ui/details-preferences.blp:29
 msgid "D7VK"
 msgstr "D7VK"
 
@@ -1245,7 +1245,7 @@ msgstr "DLL összetevők"
 msgid "DLL Override"
 msgstr "DLL felülírás"
 
-#: bottles/frontend/ui/details-preferences.blp:424 bottles/frontend/ui/dialog-dll-overrides.blp:7 bottles/frontend/ui/dialog-dll-overrides.blp:12
+#: bottles/frontend/ui/details-preferences.blp:407 bottles/frontend/ui/dialog-dll-overrides.blp:7 bottles/frontend/ui/dialog-dll-overrides.blp:12
 msgid "DLL Overrides"
 msgstr "DLL felülbírálások"
 
@@ -1257,7 +1257,7 @@ msgstr "A DLS zajcsökkentés csökkenti a képkocka zaját. A magasabb értéke
 msgid "DLS sharpness increases the sharpness of a frame. Higher values make the frame sharper."
 msgstr "A DLS élesség növeli egy képkocka élességét. A magasabb értékek élesebbé teszik a képet."
 
-#: bottles/backend/managers/manager.py:1941 bottles/frontend/ui/details-preferences.blp:42
+#: bottles/backend/managers/manager.py:1918 bottles/frontend/ui/details-preferences.blp:42
 msgid "DXVK"
 msgstr "DXVK"
 
@@ -1274,7 +1274,7 @@ msgstr "Naponta"
 msgid "Daily Average: {}"
 msgstr "Napi átlag: {}"
 
-#: bottles/backend/utils/manager.py:937
+#: bottles/backend/utils/manager.py:941
 msgid "Danish"
 msgstr "dán"
 
@@ -1310,13 +1310,9 @@ msgstr "Hibakereső"
 msgid "Declining can cause instability, performance degradation, and incompatibilities with new Bottles releases."
 msgstr "A csökkenés instabilitást, teljesítményromlást és inkompatibilitást okozhat az új Bottles kiadásokkal."
 
-#: bottles/frontend/ui/details-preferences.blp:340 bottles/frontend/ui/new-bottle-dialog.blp:116
+#: bottles/frontend/ui/details-preferences.blp:323 bottles/frontend/ui/new-bottle-dialog.blp:116
 msgid "Dedicated Sandbox"
 msgstr "Dedikált homokozó"
-
-#: bottles/frontend/ui/details-preferences.blp:100
-msgid "Deep Learning Super Sampling"
-msgstr "Deep Learning Super Sampling"
 
 #: bottles/frontend/ui/dialog-display.blp:140 bottles/frontend/ui/dialog-vkbasalt.blp:44
 msgid "Default"
@@ -1459,7 +1455,7 @@ msgid "Directory"
 msgstr "Címtár"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_preferences.py:684
+#: bottles/frontend/views/bottle_preferences.py:639
 msgid "Directory that contains the data of \"{}\"."
 msgstr "\"{}\" adatait tartalmazó könyvtár."
 
@@ -1467,7 +1463,7 @@ msgstr "\"{}\" adatait tartalmazó könyvtár."
 msgid "Disable the default Z: drive"
 msgstr "Az alapértelmezett Z: meghajtó letiltása"
 
-#: bottles/frontend/ui/dialog-launch-options.blp:178 bottles/frontend/ui/dll-override-entry.blp:13 bottles/frontend/ui/preferences.blp:225 bottles/frontend/views/bottle_preferences.py:567 bottles/frontend/views/bottle_preferences.py:568 bottles/frontend/views/bottle_preferences.py:569 bottles/frontend/views/bottle_preferences.py:570 bottles/frontend/windows/launchoptions.py:455
+#: bottles/frontend/ui/dialog-launch-options.blp:178 bottles/frontend/ui/dll-override-entry.blp:13 bottles/frontend/ui/preferences.blp:225 bottles/frontend/views/bottle_preferences.py:952 bottles/frontend/windows/launchoptions.py:455
 msgid "Disabled"
 msgstr "Letiltva"
 
@@ -1475,7 +1471,7 @@ msgstr "Letiltva"
 msgid "Disabled. Executables will run without being checked for threats."
 msgstr "Letiltva. A végrehajtható fájlok fenyegetések ellenőrzése nélkül futnak."
 
-#: bottles/frontend/ui/details-preferences.blp:118
+#: bottles/frontend/ui/details-preferences.blp:100
 msgid "Discrete Graphics"
 msgstr "Diszkrét grafika"
 
@@ -1495,7 +1491,7 @@ msgstr "Megjelenítés a játék indításakor"
 msgid "Display Settings"
 msgstr "Kijelző beállítások"
 
-#: bottles/frontend/ui/details-preferences.blp:257
+#: bottles/frontend/ui/details-preferences.blp:240
 msgid "Display monitoring information such as framerate, temperatures, CPU/GPU load and more on OpenGL and Vulkan using MangoHud."
 msgstr "A MangoHud segítségével megjelenítheti az OpenGL és Vulkan monitorozásra vonatkozó információkat, például a képfrissítési gyakoriságot, a hőmérsékletet, a CPU/GPU terhelést és még sok mást a MangoHud segítségével."
 
@@ -1578,7 +1574,7 @@ msgstr "Wine-környezet duplikálása…"
 msgid "Duplicating…"
 msgstr "Duplikálás…"
 
-#: bottles/backend/utils/manager.py:950
+#: bottles/backend/utils/manager.py:954
 msgid "Dutch"
 msgstr "holland"
 
@@ -1674,7 +1670,7 @@ msgstr "Engedélyezés"
 msgid "Enable playtime tracking"
 msgstr "Engedélyezze a lejátszási idő követését"
 
-#: bottles/frontend/ui/details-preferences.blp:229
+#: bottles/frontend/ui/details-preferences.blp:212
 msgid "Enable synchronization to increase performance of multicore processors."
 msgstr "Szinkronizáció engedélyezése a többmagos processzorok teljesítményének növelése érdekében."
 
@@ -1695,7 +1691,7 @@ msgstr "Betűsimítás engedélyezése…"
 msgid "Engines and Frameworks"
 msgstr "Motorok és keretrendszerek"
 
-#: bottles/backend/utils/manager.py:940
+#: bottles/backend/utils/manager.py:944
 msgid "English"
 msgstr "angol"
 
@@ -1711,7 +1707,7 @@ msgstr "Adja meg a fájlkiterjesztéseket vesszővel elválasztva. A Bottles az 
 msgid "Environment Variable"
 msgstr "Környezeti változó"
 
-#: bottles/frontend/ui/details-preferences.blp:437 bottles/frontend/ui/dialog-env-vars.blp:7
+#: bottles/frontend/ui/details-preferences.blp:420 bottles/frontend/ui/dialog-env-vars.blp:7
 msgid "Environment Variables"
 msgstr "Környezeti változók"
 
@@ -1737,11 +1733,11 @@ msgstr "Hiba a végrehajtható fájl feldolgozása közben: {0}"
 msgid "Errors"
 msgstr "Hibák"
 
-#: bottles/backend/utils/manager.py:942
+#: bottles/backend/utils/manager.py:946
 msgid "Estonian"
 msgstr "észt"
 
-#: bottles/frontend/ui/details-preferences.blp:235
+#: bottles/frontend/ui/details-preferences.blp:218
 msgid "Esync"
 msgstr "Esync"
 
@@ -1785,7 +1781,7 @@ msgstr "Kísérleti"
 msgid "Explorer"
 msgstr "Intéző"
 
-#: bottles/frontend/views/bottle_details.py:745
+#: bottles/frontend/views/bottle_details.py:743
 msgid "Export"
 msgstr "Exportálás"
 
@@ -1793,7 +1789,7 @@ msgstr "Exportálás"
 msgid "Export Configuration…"
 msgstr "Konfiguráció exportálása…"
 
-#: bottles/frontend/ui/details-preferences.blp:139
+#: bottles/frontend/ui/details-preferences.blp:121
 msgid "Expose HDR to games using DXVK. Requires native Wayland or Gamescope. Older NVIDIA drivers also need HdrWsi and ENABLE_HDR_WSI=1."
 msgstr "Tegye elérhetővé a HDR-t a játékok számára a DXVK használatával. Natív Wayland vagy Gamescope szükséges. A régebbi NVIDIA-illesztőprogramokhoz HdrWsi és ENABLE_HDR_WSI=1 is szükséges."
 
@@ -1844,12 +1840,12 @@ msgid "Failed to initialize the Wine prefix."
 msgstr "Nem sikerült inicializálni a Wine előtagot."
 
 #, python-format
-#: bottles/backend/managers/manager.py:1826 bottles/backend/managers/manager.py:1831
+#: bottles/backend/managers/manager.py:1803 bottles/backend/managers/manager.py:1808
 msgid "Failed to install dependency: %s"
 msgstr "Nem sikerült telepíteni a függőséget: %s"
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2453
+#: bottles/backend/managers/manager.py:2319
 msgid "Failed to install {0}."
 msgstr "A {0} telepítése sikertelen."
 
@@ -1858,24 +1854,16 @@ msgid "Failed to prepare the container user profile."
 msgstr "Nem sikerült előkészíteni a tároló felhasználói profilt."
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2453
+#: bottles/backend/managers/manager.py:2319
 msgid "Failed to remove {0}."
 msgstr "Nem sikerült eltávolítani a {0} fájlt."
-
-#: bottles/backend/managers/manager.py:2138
-msgid "Failed to restore graphics components."
-msgstr "Nem sikerült visszaállítani a grafikus összetevőket."
 
 #: bottles/backend/managers/manager.py:1653
 msgid "Failed to sandbox the container user directory."
 msgstr "Nem sikerült homokozóba helyezni a Wine-környezet felhasználói könyvtárát."
 
-#: bottles/backend/managers/manager.py:2228
-msgid "Failed to save and roll back the D7VK configuration."
-msgstr "Nem sikerült menteni és visszaállítani a D7VK konfigurációt."
-
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:611
+#: bottles/frontend/views/bottle_details.py:609 bottles/frontend/views/bottle_preferences.py:1005
 msgid "Failed to update {component}"
 msgstr "Nem sikerült frissíteni a {component} fájlt"
 
@@ -1883,7 +1871,7 @@ msgstr "Nem sikerült frissíteni a {component} fájlt"
 msgid "Fast Approximate Anti-Aliasing"
 msgstr "Gyors hozzávetőleges élsimítás"
 
-#: bottles/frontend/ui/details-preferences.blp:276
+#: bottles/frontend/ui/details-preferences.blp:259
 msgid "Feral GameMode"
 msgstr "Feral GameMode"
 
@@ -1926,11 +1914,11 @@ msgstr "A gyorsítótárba helyezendő fájlok"
 msgid "Finalizing installation..."
 msgstr "A telepítés befejezése..."
 
-#: bottles/backend/managers/manager.py:1880
+#: bottles/backend/managers/manager.py:1857
 msgid "Finalizing…"
 msgstr "Véglegesítés…"
 
-#: bottles/backend/utils/manager.py:943
+#: bottles/backend/utils/manager.py:947
 msgid "Finnish"
 msgstr "finn"
 
@@ -1966,7 +1954,7 @@ msgstr "Minden folyamat erőltetett megszakítása"
 msgid "Force Stop all Processes (Native method)"
 msgstr "Minden folyamat kényszerített leállítása (natív módszer)"
 
-#: bottles/frontend/views/bottle_details.py:959
+#: bottles/frontend/views/bottle_details.py:957
 msgid "Force _Stop"
 msgstr "Erőltetett _megszakítás"
 
@@ -1974,7 +1962,7 @@ msgstr "Erőltetett _megszakítás"
 msgid "Force disable any network activity even with available network connection."
 msgstr "Bármilyen hálózati tevékenység kényszerített letiltása még elérhető hálózati kapcsolat esetén is."
 
-#: bottles/frontend/ui/details-preferences.blp:129
+#: bottles/frontend/ui/details-preferences.blp:111
 msgid "Force the experimental native Wayland driver instead of Xwayland. Requires a Wayland session."
 msgstr "Kényszerítse a kísérleti natív Wayland meghajtót Xwayland helyett. Wayland munkamenetet igényel."
 
@@ -1986,7 +1974,7 @@ msgstr "Sötét téma használatának kényszerítése."
 msgid "Frame Generation"
 msgstr "Keretgenerálás"
 
-#: bottles/frontend/ui/details-preferences.blp:168
+#: bottles/frontend/ui/details-preferences.blp:150
 msgid "Frame Generation (Experimental)"
 msgstr "Keretgenerálás (kísérleti)"
 
@@ -1994,7 +1982,7 @@ msgstr "Keretgenerálás (kísérleti)"
 msgid "Frame Generation Settings"
 msgstr "Keretgenerálási beállítások"
 
-#: bottles/frontend/ui/details-preferences.blp:243 bottles/frontend/ui/dialog-gamescope.blp:141
+#: bottles/frontend/ui/details-preferences.blp:226 bottles/frontend/ui/dialog-gamescope.blp:141
 msgid "Frame Rate Limit"
 msgstr "\"Ablak felbontása"
 
@@ -2002,11 +1990,11 @@ msgstr "\"Ablak felbontása"
 msgid "Frame Rate Limit When Unfocused"
 msgstr "Képkockasebesség-korlát, amikor nincs fókuszban"
 
-#: bottles/backend/utils/manager.py:944
+#: bottles/backend/utils/manager.py:948
 msgid "French"
 msgstr "francia"
 
-#: bottles/frontend/ui/details-preferences.blp:236
+#: bottles/frontend/ui/details-preferences.blp:219
 msgid "Fsync"
 msgstr "Fsync"
 
@@ -2050,7 +2038,7 @@ msgstr "Játék"
 msgid "General"
 msgstr "Általános"
 
-#: bottles/frontend/ui/details-preferences.blp:169
+#: bottles/frontend/ui/details-preferences.blp:151
 msgid "Generate additional frames with lsfg-vk. Only works with 64-bit Vulkan applications."
 msgstr "További keretek létrehozása az lsfg-vk segítségével. Csak 64 bites Vulkan alkalmazásokkal működik."
 
@@ -2058,7 +2046,7 @@ msgstr "További keretek létrehozása az lsfg-vk segítségével. Csak 64 bites
 msgid "Generating container configuration…"
 msgstr "Wine-környezet konfigurációs fájljának előállítása…"
 
-#: bottles/backend/utils/manager.py:938
+#: bottles/backend/utils/manager.py:942
 msgid "German"
 msgstr "német"
 
@@ -2078,7 +2066,7 @@ msgstr "Közvetlen hozzáférést biztosít a Bottles számára a futókönyvtá
 msgid "Graphics API"
 msgstr "Grafikus API"
 
-#: bottles/backend/utils/manager.py:939
+#: bottles/backend/utils/manager.py:943
 msgid "Greek"
 msgstr "görög"
 
@@ -2110,7 +2098,7 @@ msgstr "Rejtett programok elrejtése"
 msgid "Hide Program"
 msgstr "Program elrejtése"
 
-#: bottles/frontend/ui/details-preferences.blp:138
+#: bottles/frontend/ui/details-preferences.blp:120
 msgid "High Dynamic Range"
 msgstr "Nagy dinamikatartomány"
 
@@ -2123,7 +2111,7 @@ msgstr "Óránkénti átlag: {}"
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr "Milyen gyakran kell frissíteni a munkamenet szívverését. Meghatározza a maximális időbélyeghibát a hirtelen kilépésekhez."
 
-#: bottles/backend/utils/manager.py:946
+#: bottles/backend/utils/manager.py:950
 msgid "Hungarian"
 msgstr "magyar"
 
@@ -2175,7 +2163,7 @@ msgstr "Javítsa a Direct3D 3/5/6/7 kompatibilitását 32 bites alkalmazásokhoz
 msgid "Improve Direct3D 8/9/10/11 compatibility by translating it to Vulkan."
 msgstr "A Direct3D 8/9/10/11 kompatibilitás javítása Vulkanra való fordítással."
 
-#: bottles/frontend/ui/details-preferences.blp:287
+#: bottles/frontend/ui/details-preferences.blp:270
 msgid "Improve loading time when launching the game multiple times. The game will take longer to start for the first time."
 msgstr "A betöltési idő javítása a játék többszöri indításakor. A játék indítása első alkalommal hosszabb időt vesz igénybe."
 
@@ -2186,10 +2174,6 @@ msgstr "Tartalmazza az összetevők, függőségek és telepítők számára let
 #: bottles/frontend/ui/dialog-deps-check.blp:14
 msgid "Incomplete package"
 msgstr "Hiányos csomag"
-
-#: bottles/frontend/ui/details-preferences.blp:101
-msgid "Increase performance at the expense of visuals using DXVK-NVAPI. Only works on newer NVIDIA GPUs."
-msgstr "Teljesítmény növelése a látvány rovására a DXVK-NVAPI használatával. Csak az újabb NVIDIA GPU-kon működik."
 
 #: bottles/frontend/ui/details-preferences.blp:82
 msgid "Increase responsiveness. Can be detected by some anti-cheat software."
@@ -2231,7 +2215,7 @@ msgstr "A közösségünk által gondozott programok telepítése, anélkül, ho
 msgid "Install this Program"
 msgstr "Program telepítése"
 
-#: bottles/frontend/views/bottle_preferences.py:165
+#: bottles/frontend/views/bottle_preferences.py:162
 msgid "Install vkbasalt-cli to edit vkBasalt settings."
 msgstr "Telepítse a vkbasalt-cli-t a vkBasalt beállítások szerkesztéséhez."
 
@@ -2276,28 +2260,16 @@ msgstr "Telepítők tárháza"
 msgid "Installing \"{0}\"..."
 msgstr "\"{0}\" telepítése..."
 
-#: bottles/backend/managers/manager.py:1853
+#: bottles/backend/managers/manager.py:1830
 msgid "Installing D7VK..."
 msgstr "D7VK telepítése..."
-
-#: bottles/backend/managers/manager.py:1806
-msgid "Installing DXVK-NVAPI…"
-msgstr "DXVK-NVAPI telepítése…"
-
-#: bottles/backend/managers/manager.py:1775
-msgid "Installing DXVK…"
-msgstr "DXVK telepítése…"
-
-#: bottles/backend/managers/manager.py:1790
-msgid "Installing VKD3D…"
-msgstr "VKD3D telepítése…"
 
 #: bottles/frontend/windows/installer.py:142
 msgid "Installing Windows dependencies…"
 msgstr "Windows függőségek telepítése…"
 
 #, python-format
-#: bottles/backend/managers/manager.py:1820
+#: bottles/backend/managers/manager.py:1797
 msgid "Installing dependency: %s …"
 msgstr "Függőség telepítése: %s…"
 
@@ -2346,7 +2318,7 @@ msgstr "Integrációk"
 msgid "Invalid URI (syntax: bottles:run/<bottle>/<program>)"
 msgstr "Érvénytelen URI (szintaxis: bottles:run/<Wine-környezet>/<program>)"
 
-#: bottles/backend/managers/manager.py:2098
+#: bottles/backend/managers/manager.py:2055
 msgid "Invalid graphics component."
 msgstr "Érvénytelen grafikus komponens."
 
@@ -2354,7 +2326,7 @@ msgstr "Érvénytelen grafikus komponens."
 msgid "Issues that may prevent this program from running."
 msgstr "Problémák, amelyek megakadályozhatják a program futtatását."
 
-#: bottles/backend/utils/manager.py:947
+#: bottles/backend/utils/manager.py:951
 msgid "Italian"
 msgstr "olasz"
 
@@ -2362,7 +2334,7 @@ msgstr "olasz"
 msgid "Item name"
 msgstr "Elem neve"
 
-#: bottles/backend/utils/manager.py:961
+#: bottles/backend/utils/manager.py:965
 msgid "Japanese"
 msgstr "Japán"
 
@@ -2380,11 +2352,11 @@ msgstr "Ismert alkalmazás ({match}): {name}"
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr "Ismert alkalmazás: {name} (winetricks ige: '{verb}')"
 
-#: bottles/backend/utils/manager.py:963
+#: bottles/backend/utils/manager.py:967
 msgid "Korean"
 msgstr "koreai"
 
-#: bottles/frontend/ui/details-preferences.blp:332 bottles/frontend/ui/preferences.blp:28
+#: bottles/frontend/ui/details-preferences.blp:315 bottles/frontend/ui/preferences.blp:28
 msgid "Language"
 msgstr "Nyelv"
 
@@ -2397,11 +2369,11 @@ msgstr "Utoljára játszott"
 msgid "Last Used: %s – Usage Time: %s"
 msgstr "Utolsó lejátszás: %s – Lejátszási idő: %s"
 
-#: bottles/backend/managers/manager.py:1959 bottles/frontend/ui/details-preferences.blp:81
+#: bottles/backend/managers/manager.py:1936 bottles/frontend/ui/details-preferences.blp:81
 msgid "LatencyFleX"
 msgstr "LatencyFleX"
 
-#: bottles/backend/utils/manager.py:949
+#: bottles/backend/utils/manager.py:953
 msgid "Latvian"
 msgstr "lett"
 
@@ -2434,7 +2406,7 @@ msgid "Launch with Terminal"
 msgstr "Indítás terminálban"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:652 bottles/frontend/widgets/library.py:271 bottles/frontend/widgets/program.py:367
+#: bottles/frontend/views/bottle_details.py:650 bottles/frontend/widgets/library.py:271 bottles/frontend/widgets/program.py:367
 msgid "Launching \"{0}\"…"
 msgstr "\"{0}\" indítása…"
 
@@ -2485,7 +2457,7 @@ msgstr "Könyvtári rendezési sorrend"
 msgid "License"
 msgstr "Licenc"
 
-#: bottles/frontend/ui/details-preferences.blp:244
+#: bottles/frontend/ui/details-preferences.blp:227
 msgid "Limit DXVK and VKD3D applications. Set to 0 to disable."
 msgstr "Korlátozza a DXVK és VKD3D alkalmazásokat. A letiltáshoz állítsa 0-ra."
 
@@ -2505,7 +2477,7 @@ msgstr "Steam alkalmazások listázása a programok listájában"
 msgid "List Ubisoft Games in Programs List"
 msgstr "Ubisoft játékok listázása a programok listájában"
 
-#: bottles/backend/utils/manager.py:948
+#: bottles/backend/utils/manager.py:952
 msgid "Lithuanian"
 msgstr "litván"
 
@@ -2549,7 +2521,7 @@ msgstr "Főmenü"
 msgid "Manage Branches"
 msgstr "fiókok kezelése"
 
-#: bottles/frontend/ui/details-preferences.blp:450
+#: bottles/frontend/ui/details-preferences.blp:433
 msgid "Manage Drives"
 msgstr "Meghajtók kezelése"
 
@@ -2557,15 +2529,15 @@ msgstr "Meghajtók kezelése"
 msgid "Manage File Associations..."
 msgstr "Fájltársítások kezelése..."
 
-#: bottles/frontend/ui/details-preferences.blp:192
+#: bottles/frontend/ui/details-preferences.blp:174
 msgid "Manage Gamescope settings"
 msgstr "Gamescope beállítások kezelése"
 
-#: bottles/frontend/ui/details-preferences.blp:260
+#: bottles/frontend/ui/details-preferences.blp:243
 msgid "Manage MangoHud settings"
 msgstr "A MangoHud beállításainak kezelése"
 
-#: bottles/frontend/ui/details-preferences.blp:152
+#: bottles/frontend/ui/details-preferences.blp:134
 msgid "Manage Post-Processing Layer settings"
 msgstr "Utófeldolgozási réteg beállításainak kezelése"
 
@@ -2573,7 +2545,7 @@ msgstr "Utófeldolgozási réteg beállításainak kezelése"
 msgid "Manage cached files used to speed up downloads and container creation."
 msgstr "A letöltések és a Wine-környezetek létrehozásának felgyorsítására használt gyorsítótárazott fájlok kezelése."
 
-#: bottles/frontend/ui/details-preferences.blp:189
+#: bottles/frontend/ui/details-preferences.blp:171
 msgid "Manage how games should be displayed on the screen using Gamescope."
 msgstr "A Gamescope segítségével kezelheti, hogyan jelenjenek meg a játékok a képernyőn."
 
@@ -2581,7 +2553,7 @@ msgstr "A Gamescope segítségével kezelheti, hogyan jelenjenek meg a játékok
 msgid "Manage how games should be displayed."
 msgstr "Játékok megjelenésének kezelése."
 
-#: bottles/frontend/ui/details-preferences.blp:172
+#: bottles/frontend/ui/details-preferences.blp:154
 msgid "Manage lsfg-vk settings"
 msgstr "Az lsfg-vk beállításainak kezelése"
 
@@ -2589,11 +2561,11 @@ msgstr "Az lsfg-vk beállításainak kezelése"
 msgid "Manage reusable registry tweaks."
 msgstr "Az újrafelhasználható beállításjegyzék-beállítások kezelése."
 
-#: bottles/frontend/ui/details-preferences.blp:344
+#: bottles/frontend/ui/details-preferences.blp:327
 msgid "Manage the Sandbox Permissions"
 msgstr "Homokozó engedélyek kezelése"
 
-#: bottles/frontend/ui/details-preferences.blp:291
+#: bottles/frontend/ui/details-preferences.blp:274
 msgid "Manage vmtouch settings"
 msgstr "vmtouch beállítások kezelése"
 
@@ -2650,11 +2622,11 @@ msgstr "Minimális operációs rendszer verzió"
 msgid "Miscellaneous"
 msgstr "Vegyes"
 
-#: bottles/frontend/views/bottle_details.py:878
+#: bottles/frontend/views/bottle_details.py:876
 msgid "Missing Runner"
 msgstr "Hiányzó futtató"
 
-#: bottles/frontend/ui/details-preferences.blp:256
+#: bottles/frontend/ui/details-preferences.blp:239
 msgid "Monitor Performance"
 msgstr "Teljesítmény monitorozása"
 
@@ -2700,11 +2672,11 @@ msgstr "Saját Wine-környezet"
 msgid "N/A"
 msgstr "N/A"
 
-#: bottles/frontend/ui/details-preferences.blp:237
+#: bottles/frontend/ui/details-preferences.blp:220
 msgid "NTSync"
 msgstr "NTSync"
 
-#: bottles/backend/managers/manager.py:1953
+#: bottles/backend/managers/manager.py:1930
 msgid "NVAPI"
 msgstr "NVAPI"
 
@@ -2781,7 +2753,7 @@ msgstr "Jövőre"
 msgid "No"
 msgstr "Nem"
 
-#: bottles/backend/managers/manager.py:2192 bottles/backend/managers/manager.py:2387
+#: bottles/backend/managers/manager.py:2255
 msgid "No D7VK version available."
 msgstr "Nem érhető el D7VK verzió."
 
@@ -2789,7 +2761,7 @@ msgstr "Nem érhető el D7VK verzió."
 msgid "No DLL selected"
 msgstr "Nincs DLL kiválasztva"
 
-#: bottles/backend/managers/manager.py:2120 bottles/backend/managers/manager.py:2396
+#: bottles/backend/managers/manager.py:2078 bottles/backend/managers/manager.py:2264
 msgid "No DXVK version available."
 msgstr "Nem érhető el DXVK verzió."
 
@@ -2805,11 +2777,11 @@ msgstr "Nem található HIDRAW eszköz"
 msgid "No Installers Found"
 msgstr "Nem található telepítő"
 
-#: bottles/backend/managers/manager.py:2426
+#: bottles/backend/managers/manager.py:2292
 msgid "No LatencyFleX version available."
 msgstr "Nem érhető el a LatencyFleX verzió."
 
-#: bottles/backend/managers/manager.py:2414
+#: bottles/backend/managers/manager.py:2282
 msgid "No NVAPI version available."
 msgstr "Nem érhető el NVAPI verzió."
 
@@ -2829,7 +2801,7 @@ msgstr "Nincs pillanatkép"
 msgid "No Thumbnail"
 msgstr "Nincs előnézet"
 
-#: bottles/backend/managers/manager.py:2405
+#: bottles/backend/managers/manager.py:2273
 msgid "No VKD3D version available."
 msgstr "Nem érhető el VKD3D verzió."
 
@@ -2853,7 +2825,7 @@ msgstr "Nincsenek kizáró minták meghatározva."
 msgid "No files or folders selected"
 msgstr "Nincsenek kiválasztott fájlok vagy mappák"
 
-#: bottles/backend/managers/manager.py:2107
+#: bottles/backend/managers/manager.py:2065
 msgid "No graphics component version available."
 msgstr "Nem érhető el grafikus komponens verzió."
 
@@ -2877,7 +2849,7 @@ msgstr "Még nincsenek gyorsítótárazott sablonok."
 msgid "No variables selected"
 msgstr "Nincsenek kiválasztva változók"
 
-#: bottles/backend/utils/manager.py:951
+#: bottles/backend/utils/manager.py:955
 msgid "Norwegian"
 msgstr "norvég"
 
@@ -2894,11 +2866,11 @@ msgstr "Jelenleg nincs csatlakoztatva"
 msgid "Not enough disk space to create a snapshot! Requires at least {0} of free space."
 msgstr "Nincs elég lemezterület pillanatkép készítéséhez! Legalább {0} szabad területet igényel."
 
-#: bottles/backend/managers/manager.py:2010
+#: bottles/backend/managers/manager.py:1987
 msgid "Not installed"
 msgstr "Nincs telepítve"
 
-#: bottles/frontend/ui/details-preferences.blp:463
+#: bottles/frontend/ui/details-preferences.blp:446
 msgid "Notes"
 msgstr "Megjegyzések"
 
@@ -2910,7 +2882,7 @@ msgstr "Nincs mit rögzíteni"
 msgid "Notifications"
 msgstr "Értesítések"
 
-#: bottles/frontend/ui/details-preferences.blp:307
+#: bottles/frontend/ui/details-preferences.blp:290
 msgid "OBS Game Capture"
 msgstr "OBS játékrögzítés"
 
@@ -2926,7 +2898,7 @@ msgstr "OSS"
 msgid "Offer an Eagle analysis when a program closes right after starting."
 msgstr "Eagle elemzés felajánlása, amikor egy program az indítás után azonnal bezárul."
 
-#: bottles/frontend/views/bottle_preferences.py:283
+#: bottles/frontend/views/bottle_preferences.py:280
 msgid "Older NVIDIA drivers require HdrWsi and ENABLE_HDR_WSI=1 for HDR."
 msgstr "A régebbi NVIDIA illesztőprogramokhoz HdrWsi, HDR-hez pedig ENABLE_HDR_WSI=1 szükséges."
 
@@ -2984,7 +2956,7 @@ msgstr ""
 msgid "Operations"
 msgstr "Műveletek"
 
-#: bottles/frontend/views/details.py:268
+#: bottles/frontend/views/details.py:266
 msgid "Operations in progress, please wait."
 msgstr "Műveletek folyamatban, kérjük, várjon."
 
@@ -3057,7 +3029,7 @@ msgstr ""
 msgid "Pattern"
 msgstr "Minta"
 
-#: bottles/frontend/ui/details-preferences.blp:226
+#: bottles/frontend/ui/details-preferences.blp:209
 msgid "Performance"
 msgstr "Teljesítmény"
 
@@ -3089,15 +3061,15 @@ msgstr "Az új állapotok létrehozásához költözzön át az új verziókezel
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr "Kérjük, várjon, amíg a WineBridge letöltődik és telepítődik."
 
-#: bottles/backend/utils/manager.py:952
+#: bottles/backend/utils/manager.py:956
 msgid "Polish"
 msgstr "lengyel"
 
-#: bottles/backend/utils/manager.py:953
+#: bottles/backend/utils/manager.py:957
 msgid "Portuguese"
 msgstr "portugál"
 
-#: bottles/frontend/ui/details-preferences.blp:148
+#: bottles/frontend/ui/details-preferences.blp:130
 msgid "Post-Processing Effects"
 msgstr "Utófeldolgozási hatások"
 
@@ -3146,7 +3118,7 @@ msgstr "Beállítások felülbírálása"
 msgid "Prefix templates"
 msgstr "Előtag sablonok"
 
-#: bottles/frontend/ui/details-preferences.blp:286
+#: bottles/frontend/ui/details-preferences.blp:269
 msgid "Preload Game Files"
 msgstr "Játékfájlok előzetes betöltése"
 
@@ -3250,11 +3222,11 @@ msgstr "Védelem"
 msgid "ProtonDB community reports: ODbL 1.0, contents DbCL 1.0.\nwinetricks data: LGPL-2.1-or-later."
 msgstr "ProtonDB közösségi jelentések: ODbL 1.0, tartalom DbCL 1.0.\nwinetricks adatok: LGPL-2.1-vagy újabb."
 
-#: bottles/frontend/ui/details-preferences.blp:382
+#: bottles/frontend/ui/details-preferences.blp:365
 msgid "Provide a bundle of extra libraries for more compatibility with Steam games. Disable it if you run into issues."
 msgstr "Egy csomag extra könyvtárat biztosít a Steam játékokkal való nagyobb kompatibilitás érdekében. Tiltsa le, ha problémákba ütközik."
 
-#: bottles/frontend/ui/details-preferences.blp:361
+#: bottles/frontend/ui/details-preferences.blp:344
 msgid "Provide a bundle of extra libraries for more compatibility. Disable it if you run into issues."
 msgstr "Egy csomag extra könyvtárat biztosít a nagyobb kompatibilitás érdekében. Tiltsa le, ha problémákba ütközik."
 
@@ -3426,7 +3398,7 @@ msgstr "Eltávolítás a listáról"
 msgid "Remove from list (keep files)"
 msgstr ""
 
-#: bottles/frontend/views/bottle_details.py:856
+#: bottles/frontend/views/bottle_details.py:854
 msgid "Remove this container from your list, or permanently delete its directory and all files."
 msgstr ""
 
@@ -3503,7 +3475,7 @@ msgstr "Használati idő statisztikák visszaállítása?"
 msgid "Reset to Container's Defaults"
 msgstr "Visszaállítás a Wine-környezet alapértelmezéseire"
 
-#: bottles/frontend/ui/details-preferences.blp:395 bottles/frontend/ui/dialog-launch-options.blp:76 bottles/frontend/ui/dialog-launch-options.blp:113 bottles/frontend/ui/dialog-launch-options.blp:150 bottles/frontend/ui/new-bottle-dialog.blp:160
+#: bottles/frontend/ui/details-preferences.blp:378 bottles/frontend/ui/dialog-launch-options.blp:76 bottles/frontend/ui/dialog-launch-options.blp:113 bottles/frontend/ui/dialog-launch-options.blp:150 bottles/frontend/ui/new-bottle-dialog.blp:160
 msgid "Reset to Default"
 msgstr "Visszaállítás alapértelmezettre"
 
@@ -3540,11 +3512,11 @@ msgstr "Állapot visszaállítása {}…"
 msgid "Restoring state..."
 msgstr "Állapot visszaállítása..."
 
-#: bottles/frontend/widgets/state.py:123
+#: bottles/frontend/widgets/state.py:122
 msgid "Restoring this state will overwrite the current configuration and cannot be undone."
 msgstr "Ennek az állapotnak a visszaállítása felülírja az aktuális konfigurációt, és nem vonható vissza."
 
-#: bottles/frontend/views/details.py:275
+#: bottles/frontend/views/details.py:273
 msgid "Return to your containers."
 msgstr "Visszatérés a palackokhoz."
 
@@ -3557,7 +3529,7 @@ msgstr "Áttekintés"
 msgid "Review for {0}"
 msgstr "Vélemény ehhez: {0}"
 
-#: bottles/backend/utils/manager.py:954
+#: bottles/backend/utils/manager.py:958
 msgid "Romanian"
 msgstr "román"
 
@@ -3569,7 +3541,7 @@ msgstr "A szabály részletei"
 msgid "Rule name"
 msgstr "Szabály neve"
 
-#: bottles/frontend/ui/dialog-run-args.blp:33 bottles/frontend/utils/sandbox_guard.py:172 bottles/frontend/views/bottle_details.py:671 bottles/frontend/views/list.py:151
+#: bottles/frontend/ui/dialog-run-args.blp:33 bottles/frontend/utils/sandbox_guard.py:172 bottles/frontend/views/bottle_details.py:669 bottles/frontend/views/list.py:151
 msgid "Run"
 msgstr "Futtatás"
 
@@ -3657,7 +3629,7 @@ msgstr "Ugyanazzal a hozzáféréssel fut, mint a Bottles, extra leválasztás n
 msgid "Runtimes and Libraries"
 msgstr "Futási idők és könyvtárak"
 
-#: bottles/backend/utils/manager.py:955
+#: bottles/backend/utils/manager.py:959
 msgid "Russian"
 msgstr "orosz"
 
@@ -3685,7 +3657,7 @@ msgstr "Homokozó beállítások"
 msgid "Save"
 msgstr "Mentés"
 
-#: bottles/frontend/ui/details-preferences.blp:467
+#: bottles/frontend/ui/details-preferences.blp:450
 msgid "Save Notes"
 msgstr "Jegyzetek mentése"
 
@@ -3773,11 +3745,11 @@ msgstr "Válassza a Címtárat"
 msgid "Select Drive Path"
 msgstr "Lemez útvonalának kiválasztása"
 
-#: bottles/frontend/views/bottle_details.py:348 bottles/frontend/views/bottle_details.py:668 bottles/frontend/views/list.py:148
+#: bottles/frontend/views/bottle_details.py:348 bottles/frontend/views/bottle_details.py:666 bottles/frontend/views/list.py:148
 msgid "Select Executable"
 msgstr "Végrehajtható fájl kiválasztása"
 
-#: bottles/frontend/views/bottle_details.py:720
+#: bottles/frontend/views/bottle_details.py:718
 msgid "Select Executable for Eagle Analysis"
 msgstr "Válassza a Végrehajtható lehetőséget a Eagle elemzéshez"
 
@@ -3813,7 +3785,7 @@ msgstr "Erőforrásfájl kiválasztása"
 msgid "Select Runner Directory"
 msgstr "Válassza a Futtató címtárat"
 
-#: bottles/frontend/views/bottle_preferences.py:510 bottles/frontend/windows/launchoptions.py:438
+#: bottles/frontend/views/bottle_preferences.py:500 bottles/frontend/windows/launchoptions.py:438
 msgid "Select Working Directory"
 msgstr "Munkakönyvtár kiválasztása"
 
@@ -3853,11 +3825,11 @@ msgstr "Válasszon ki egy üres könyvtárat"
 msgid "Select files and folders within the container, not the container itself."
 msgstr "A palackban lévő fájlokat és mappákat válassza ki, ne magát a Wine-környezetet."
 
-#: bottles/frontend/views/bottle_details.py:747
+#: bottles/frontend/views/bottle_details.py:745
 msgid "Select the location where to save the backup archive"
 msgstr "Válassza ki a biztonsági mentés archívumának helyét"
 
-#: bottles/frontend/views/bottle_details.py:743
+#: bottles/frontend/views/bottle_details.py:741
 msgid "Select the location where to save the backup config"
 msgstr "Válassza ki a konfiguráció biztonsági mentésének helyét"
 
@@ -4039,11 +4011,11 @@ msgstr "Kihagyja a beállítást"
 msgid "Skipping {0}: not installed."
 msgstr "{0} kihagyása: nincs telepítve."
 
-#: bottles/backend/utils/manager.py:956
+#: bottles/backend/utils/manager.py:960
 msgid "Slovak"
 msgstr "szlovák"
 
-#: bottles/backend/utils/manager.py:957
+#: bottles/backend/utils/manager.py:961
 msgid "Slovenian"
 msgstr "szlovén"
 
@@ -4096,7 +4068,7 @@ msgstr "A könyvtár rendezése programnév vagy tároló és programnév szerin
 msgid "Source: {0}"
 msgstr "Forrás: {0}"
 
-#: bottles/backend/utils/manager.py:941
+#: bottles/backend/utils/manager.py:945
 msgid "Spanish"
 msgstr "spanyol"
 
@@ -4108,7 +4080,7 @@ msgstr "Telepítés megkezdése"
 msgid "Start program"
 msgstr "Indítsa el a programot"
 
-#: bottles/frontend/ui/details-preferences.blp:372
+#: bottles/frontend/ui/details-preferences.blp:355
 msgid "Start programs through WineBridge by default for this container."
 msgstr "Alapértelmezés szerint indítsa el a programokat a WineBridge-en keresztül ehhez a palackhoz."
 
@@ -4155,11 +4127,11 @@ msgstr "{} már az aktív állapot"
 msgid "States list retrieved successfully!"
 msgstr "Állapotlista sikeresen lekérve!"
 
-#: bottles/frontend/ui/details-preferences.blp:381
+#: bottles/frontend/ui/details-preferences.blp:364
 msgid "Steam Runtime"
 msgstr "Steam Runtime"
 
-#: bottles/frontend/views/bottle_preferences.py:194
+#: bottles/frontend/views/bottle_preferences.py:191
 msgid "Steam Runtime was not detected. Install it or grant Bottles access to Steam files, then restart Bottles."
 msgstr "Steam futási idő nem észlelhető. Telepítse, vagy biztosítson hozzáférést a Bottles számára a Steam fájlokhoz, majd indítsa újra a Bottles-et."
 
@@ -4217,7 +4189,7 @@ msgstr "A javaslatok technikai elemzésen alapulnak, és nem garantálják a kom
 msgid "Supported Executables"
 msgstr "Támogatott végrehajtható fájlok"
 
-#: bottles/backend/utils/manager.py:958
+#: bottles/backend/utils/manager.py:962
 msgid "Swedish"
 msgstr "svéd"
 
@@ -4233,11 +4205,11 @@ msgstr "Elágazás váltás..."
 msgid "Switching branch…"
 msgstr "Elágazás váltás…"
 
-#: bottles/frontend/ui/details-preferences.blp:230
+#: bottles/frontend/ui/details-preferences.blp:213
 msgid "Synchronization"
 msgstr "Szinkronizáció"
 
-#: bottles/backend/utils/manager.py:934 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/ui/dialog-display.blp:142 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:938 bottles/frontend/ui/details-preferences.blp:217 bottles/frontend/ui/dialog-display.blp:142 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "Rendszer"
 
@@ -4351,7 +4323,7 @@ msgstr "Megérkezett az új Wine-környezet-verziókezelő rendszer."
 msgid "The next container for this environment will take longer to create because Bottles must rebuild the template."
 msgstr "A környezet következő palackjának létrehozása tovább tart, mert a Bottles-nek újra kell építenie a sablont."
 
-#: bottles/frontend/views/bottle_preferences.py:613
+#: bottles/frontend/views/bottle_preferences.py:570
 msgid "The notes could not be saved."
 msgstr "A jegyzeteket nem sikerült elmenteni."
 
@@ -4372,7 +4344,7 @@ msgstr "A programfájl nem található. Ellenőrizze az útvonalat és az esetle
 msgid "The repository is unreachable or no installer is compatible with this container."
 msgstr "A tároló nem elérhető vagy a telepítő nem kompatibilis a palackkal."
 
-#: bottles/frontend/views/bottle_details.py:879
+#: bottles/frontend/views/bottle_details.py:877
 msgid "The runner requested by this container is missing. Restore it using your package manager, add its local directory in Preferences, or explicitly choose another runner for this container."
 msgstr "Hiányzik a Wine-környezet által kért futó. Állítsa vissza a csomagkezelővel, adja hozzá a helyi könyvtárát a Beállításokhoz, vagy válasszon kifejezetten egy másik futót ehhez a palackhoz."
 
@@ -4389,7 +4361,7 @@ msgid "The selected file is unavailable."
 msgstr "A kiválasztott fájl nem érhető el."
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2441
+#: bottles/backend/managers/manager.py:2307
 msgid "The selected {0} installation is incomplete."
 msgstr "A kiválasztott {0} telepítése nem fejeződött be."
 
@@ -4434,7 +4406,7 @@ msgstr "Idén"
 msgid "This application may work poorly. The installer was configured to provide the best possible experience, but expect glitches, instability and lack of working features."
 msgstr "Ez az alkalmazás rosszul működhet. A telepítő úgy lett beállítva, hogy a lehető legjobb élményt nyújtsa, de számítson hibákra, instabilitásra és a működő funkciók hiányára."
 
-#: bottles/frontend/views/bottle_details.py:956
+#: bottles/frontend/views/bottle_details.py:954
 msgid "This can cause data loss, corruption, and programs to malfunction."
 msgstr "Ez adatvesztést, adatsérülést és hibásan működő programokat eredményezhet."
 
@@ -4442,7 +4414,7 @@ msgstr "Ez adatvesztést, adatsérülést és hibásan működő programokat ere
 msgid "This component is not installable offline because its files are not cached."
 msgstr "Ez az összetevő nem telepíthető offline, mert a fájljai nincsenek gyorsítótárban."
 
-#: bottles/frontend/views/bottle_preferences.py:474
+#: bottles/frontend/views/bottle_preferences.py:464
 msgid "This container name is already in use."
 msgstr "A palacknév már használatban van."
 
@@ -4458,7 +4430,7 @@ msgstr "Ez a függőség nem kompatibilis ezzel a Wine-környezet architektúrá
 msgid "This dependency is not installable offline because its files are not cached."
 msgstr "Ez a függőség offline állapotban nem telepíthető, mert a fájljai nincsenek gyorsítótárban."
 
-#: bottles/frontend/views/bottle_preferences.py:200 bottles/frontend/views/bottle_preferences.py:455 bottles/frontend/views/bottle_preferences.py:403
+#: bottles/frontend/views/bottle_preferences.py:197 bottles/frontend/views/bottle_preferences.py:445 bottles/frontend/views/bottle_preferences.py:393
 msgid "This feature is unavailable on your system."
 msgstr "Ez a funkció nem érhető el a rendszerén."
 
@@ -4506,7 +4478,7 @@ msgstr "Ez az erőforrás hiányzik."
 msgid "This runner cannot create a 32-bit prefix. Select a 64-bit container."
 msgstr "Ez a Futtató nem tud 32 bites előtagot létrehozni. Válasszon ki egy 64 bites tárolót."
 
-#: bottles/frontend/views/bottle_preferences.py:909
+#: bottles/frontend/views/bottle_preferences.py:821
 msgid "This runner has no Esync, so it will use its default."
 msgstr "Ebben a Futtatóban nincs Esync, ezért az alapértelmezettet fogja használni."
 
@@ -4555,7 +4527,7 @@ msgstr "Küszöb"
 msgid "Timestamp"
 msgstr "Időbélyeg"
 
-#: bottles/frontend/views/bottle_preferences.py:410
+#: bottles/frontend/views/bottle_preferences.py:400
 msgid "To add it, please run:"
 msgstr "A hozzáadáshoz futtassa a következőt:"
 
@@ -4563,7 +4535,7 @@ msgstr "A hozzáadáshoz futtassa a következőt:"
 msgid "Today"
 msgstr "Ma"
 
-#: bottles/frontend/ui/details-preferences.blp:308
+#: bottles/frontend/ui/details-preferences.blp:291
 msgid "Toggle OBS Game Capture for all Vulkan and OpenGL programs."
 msgstr "Az OBS játékrögzítés be-/kikapcsolása minden Vulkan és OpenGL programhoz."
 
@@ -4636,7 +4608,7 @@ msgstr "Próbáld újra"
 msgid "Try a different search."
 msgstr "Próbáljon különböző keresést."
 
-#: bottles/backend/utils/manager.py:959
+#: bottles/backend/utils/manager.py:963
 msgid "Turkish"
 msgstr "török"
 
@@ -4711,7 +4683,7 @@ msgid "Updated {0} components."
 msgstr "Frissített {0} összetevők."
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:597
+#: bottles/frontend/views/bottle_details.py:595
 msgid "Updated {component} to {version}"
 msgstr "{component} frissítve {version}-re"
 
@@ -4740,7 +4712,7 @@ msgstr "DLL felülírások frissítése…"
 msgid "Updating DXVK, please wait…"
 msgstr "DXVK frissítése, kérjük, várjon…"
 
-#: bottles/frontend/ui/details-preferences.blp:72 bottles/frontend/ui/details-preferences.blp:105
+#: bottles/frontend/ui/details-preferences.blp:72
 msgid "Updating DXVK-NVAPI, please wait…"
 msgstr "DXVK-NVAPI frissítése, kérjük, várjon…"
 
@@ -4756,7 +4728,7 @@ msgstr "Futtató és összetevők frissítése, kérjük, várjon…"
 msgid "Updating VKD3D, please wait…"
 msgstr "VKD3D frissítése, kérjük, várjon…"
 
-#: bottles/frontend/ui/details-preferences.blp:323
+#: bottles/frontend/ui/details-preferences.blp:306
 msgid "Updating Windows version, please wait…"
 msgstr "Windows verzió frissítése, kérjük, várjon…"
 
@@ -4802,7 +4774,7 @@ msgstr "A használati idő statisztikája nem állítható vissza, amíg a „{}
 msgid "Usage time tracking is disabled."
 msgstr "A használati idő követése le van tiltva."
 
-#: bottles/frontend/ui/details-bottle.blp:151 bottles/frontend/ui/details-preferences.blp:371
+#: bottles/frontend/ui/details-bottle.blp:151 bottles/frontend/ui/details-preferences.blp:354
 msgid "Use WineBridge"
 msgstr "Használja a WineBridge-et"
 
@@ -4814,7 +4786,7 @@ msgstr "Használjon 64 bites Vulkan alkalmazást. Ha problémákat tapasztal, ti
 msgid "Use a lighter model with a small quality reduction."
 msgstr "Használjon könnyebb modellt kis minőségcsökkenéssel."
 
-#: bottles/frontend/ui/details-preferences.blp:341
+#: bottles/frontend/ui/details-preferences.blp:324
 msgid "Use a restricted/managed environment for this container."
 msgstr "Korlátozott/kezelt környezet használata ennél a palacknál."
 
@@ -4822,7 +4794,7 @@ msgstr "Korlátozott/kezelt környezet használata ennél a palacknál."
 msgid "Use shipping binary instead"
 msgstr "Használjon helyette szállítási bináris fájlt"
 
-#: bottles/frontend/ui/details-preferences.blp:119
+#: bottles/frontend/ui/details-preferences.blp:101
 msgid "Use the discrete graphics card to increase performance at the expense of power consumption."
 msgstr "Diszkrét videokártya használata a teljesítmény növelésére az energiafogyasztás árán."
 
@@ -4842,7 +4814,7 @@ msgstr "Felhasználói futók"
 msgid "Uses the resolution of the video game as a reference in pixels."
 msgstr "A videojáték felbontását használja referenciaként pixelben."
 
-#: bottles/backend/managers/manager.py:1947 bottles/frontend/ui/details-preferences.blp:55
+#: bottles/backend/managers/manager.py:1924 bottles/frontend/ui/details-preferences.blp:55
 msgid "VKD3D"
 msgstr "VKD3D"
 
@@ -4878,7 +4850,7 @@ msgstr "A Vulkan nem érhető el ezen a rendszeren."
 msgid "Warnings"
 msgstr "Figyelmeztetések"
 
-#: bottles/frontend/ui/details-preferences.blp:128
+#: bottles/frontend/ui/details-preferences.blp:110
 msgid "Wayland (Experimental)"
 msgstr "Wayland (kísérleti)"
 
@@ -4939,7 +4911,7 @@ msgstr "Ablakmagasság"
 msgid "Window width"
 msgstr "Ablakszélesség"
 
-#: bottles/frontend/ui/details-preferences.blp:320
+#: bottles/frontend/ui/details-preferences.blp:303
 msgid "Windows Version"
 msgstr "Windows verzió"
 
@@ -4964,7 +4936,7 @@ msgstr "Wine audio illesztőprogram"
 msgid "Wine config updated!"
 msgstr "Wine konfiguráció frissítve!"
 
-#: bottles/backend/managers/manager.py:2009
+#: bottles/backend/managers/manager.py:1986
 msgid "WineBridge"
 msgstr "WineBridge"
 
@@ -4984,7 +4956,7 @@ msgstr "WineBridge frissítés"
 msgid "WineBridge update failed"
 msgstr "A WineBridge frissítés nem sikerült"
 
-#: bottles/frontend/ui/details-preferences.blp:391 bottles/frontend/ui/dialog-launch-options.blp:143
+#: bottles/frontend/ui/details-preferences.blp:374 bottles/frontend/ui/dialog-launch-options.blp:143
 msgid "Working Directory"
 msgstr "Munkakönyvtár"
 
@@ -5056,7 +5028,7 @@ msgstr "[Shutdown] tisztítás megkezdése."
 msgid "_Application"
 msgstr "_Alkalmazás"
 
-#: bottles/frontend/ui/bulk-update-dialog.blp:22 bottles/frontend/ui/dialog-crash-report.blp:19 bottles/frontend/ui/dialog-display.blp:25 bottles/frontend/ui/dialog-duplicate.blp:20 bottles/frontend/ui/dialog-file-associations.blp:17 bottles/frontend/ui/dialog-gamescope.blp:24 bottles/frontend/ui/dialog-launch-options.blp:17 bottles/frontend/ui/dialog-lsfg-vk.blp:25 bottles/frontend/ui/dialog-mangohud.blp:25 bottles/frontend/ui/dialog-program-backups.blp:16 bottles/frontend/ui/dialog-upgrade-versioning.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:27 bottles/frontend/ui/dialog-vmtouch.blp:24 bottles/frontend/ui/dialog-winebridge-update.blp:19 bottles/frontend/ui/new-bottle-dialog.blp:23 bottles/frontend/views/bottle_details.py:860 bottles/frontend/views/bottle_details.py:958 bottles/frontend/views/preferences.py:366 bottles/frontend/views/preferences.py:828 bottles/frontend/widgets/state.py:127
+#: bottles/frontend/ui/bulk-update-dialog.blp:22 bottles/frontend/ui/dialog-crash-report.blp:19 bottles/frontend/ui/dialog-display.blp:25 bottles/frontend/ui/dialog-duplicate.blp:20 bottles/frontend/ui/dialog-file-associations.blp:17 bottles/frontend/ui/dialog-gamescope.blp:24 bottles/frontend/ui/dialog-launch-options.blp:17 bottles/frontend/ui/dialog-lsfg-vk.blp:25 bottles/frontend/ui/dialog-mangohud.blp:25 bottles/frontend/ui/dialog-program-backups.blp:16 bottles/frontend/ui/dialog-upgrade-versioning.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:27 bottles/frontend/ui/dialog-vmtouch.blp:24 bottles/frontend/ui/dialog-winebridge-update.blp:19 bottles/frontend/ui/new-bottle-dialog.blp:23 bottles/frontend/views/bottle_details.py:858 bottles/frontend/views/bottle_details.py:956 bottles/frontend/views/preferences.py:366 bottles/frontend/views/preferences.py:828 bottles/frontend/widgets/state.py:126
 msgid "_Cancel"
 msgstr "_Mégse"
 
@@ -5076,7 +5048,7 @@ msgstr "_Törlés"
 msgid "_Delete All"
 msgstr "_Összes törlése"
 
-#: bottles/frontend/views/bottle_details.py:862
+#: bottles/frontend/views/bottle_details.py:860
 msgid "_Delete Files"
 msgstr "_Fájlok törlése"
 
@@ -5084,7 +5056,7 @@ msgstr "_Fájlok törlése"
 msgid "_Delete and Cancel"
 msgstr "_Törlés és Mégse"
 
-#: bottles/frontend/utils/flatpak.py:112 bottles/frontend/views/bottle_details.py:883 bottles/frontend/views/bottle_details.py:692
+#: bottles/frontend/utils/flatpak.py:112 bottles/frontend/views/bottle_details.py:881 bottles/frontend/views/bottle_details.py:690
 msgid "_Dismiss"
 msgstr "_Elutasítás"
 
@@ -5100,11 +5072,11 @@ msgstr "_Várjon tovább"
 msgid "_Relaunch"
 msgstr "Új_raindítás"
 
-#: bottles/frontend/views/bottle_details.py:861
+#: bottles/frontend/views/bottle_details.py:859
 msgid "_Remove from List"
 msgstr "_Eltávolítás a listából"
 
-#: bottles/frontend/widgets/state.py:128
+#: bottles/frontend/widgets/state.py:127
 msgid "_Restore"
 msgstr "_Visszaállítás"
 
@@ -5185,7 +5157,7 @@ msgstr "lsfg-vk"
 msgid "lsfg-vk 1.x: MIT.\nlsfg-vk 2.x: GPL-3.0-or-later."
 msgstr "lsfg-vk 1.x: MIT.\nlsfg-vk 2.x: GPL-3.0 vagy újabb."
 
-#: bottles/frontend/views/bottle_preferences.py:364
+#: bottles/frontend/views/bottle_preferences.py:360
 msgid "lsfg-vk only supports 64-bit Vulkan applications."
 msgstr "Az lsfg-vk csak a 64 bites Vulkan alkalmazásokat támogatja."
 
@@ -5240,7 +5212,7 @@ msgid "{0} detected"
 msgstr "{0} észlelve"
 
 #, python-brace-format
-#: bottles/frontend/windows/dependency_install.py:128
+#: bottles/frontend/windows/dependency_install.py:127
 msgid "{0} failed to install."
 msgstr "A {0} telepítése nem sikerült."
 
@@ -5250,7 +5222,7 @@ msgid "{0} installed, {1} failed."
 msgstr "{0} telepítve, {1} nem sikerült."
 
 #, python-brace-format
-#: bottles/frontend/windows/dependency_install.py:126
+#: bottles/frontend/windows/dependency_install.py:125
 msgid "{0} installed."
 msgstr "{0} telepítve."
 
@@ -5270,7 +5242,7 @@ msgid "{0} positive / {1} negative reports"
 msgstr "{0} pozitív / {1} negatív jelentések"
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2373
+#: bottles/backend/managers/manager.py:2241
 msgid "{0} requires Vulkan, which is not available on this system."
 msgstr "A {0} használatához Vulkan szükséges, amely ezen a rendszeren nem érhető el."
 
@@ -5312,7 +5284,7 @@ msgid "{reason} (x{evidence})"
 msgstr "{reason} (x{evidence})"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_preferences.py:201
+#: bottles/frontend/views/bottle_preferences.py:198
 msgid "{} To add this feature, please run"
 msgstr "{} A funkció hozzáadásához futtassa"
 
