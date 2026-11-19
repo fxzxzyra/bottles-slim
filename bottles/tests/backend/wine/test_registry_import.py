@@ -56,3 +56,69 @@ def test_bulk_registry_import_retains_nonadjacent_keys_and_native_types():
         "KeyA": [{"value": "First", "data": "Font"}, {"value": "Second", "data": "Other Font"}],
         "KeyB": [{"value": "Enabled", "data": "00000001", "key_type": "dword"}],
     }]
+
+
+@pytest.mark.parametrize("operation", ["add", "remove"])
+@pytest.mark.parametrize("success", [False, True])
+def test_registry_edits_return_the_actual_command_result(monkeypatch, operation, success):
+    monkeypatch.setattr(reg, "WineDbg", lambda _config: SimpleNamespace(wait_for_process=lambda _name: None))
+    registry = reg.Reg.__new__(reg.Reg)
+    registry.config = BottleConfig(Name="Office")
+    result = Result(success, message="Command failed" if not success else "")
+    registry.launch = lambda *_args, **_kwargs: result
+    kwargs = {"key": r"HKCU\Software\Example", "value": "Enabled"}
+    if operation == "add":
+        kwargs["data"] = "Y"
+    assert getattr(registry, operation)(**kwargs) is result
+
+
+@pytest.mark.parametrize("failure", [None, "desktop", "resolution", "wineboot"])
+def test_virtual_desktop_stops_at_first_failure(monkeypatch, failure):
+    from unittest.mock import Mock
+    from bottles.backend.wine import regkeys
+
+    keys = regkeys.RegKeys(BottleConfig())
+    keys.reg = SimpleNamespace(add=Mock(side_effect=[
+        Result(failure != "desktop"), Result(failure != "resolution"),
+    ]))
+    boot = Mock(return_value=Result(failure != "wineboot"))
+    monkeypatch.setattr(regkeys, "WineBoot", lambda _config: SimpleNamespace(update=boot))
+
+    result = keys.toggle_virtual_desktop(True, "1920x1080")
+
+    assert result.ok is (failure is None)
+    assert keys.reg.add.call_count == (1 if failure == "desktop" else 2)
+    assert boot.call_count == (0 if failure in ("desktop", "resolution") else 1)
+    if failure != "desktop":
+        assert keys.reg.add.call_args.kwargs["data"] == "1920x1080"
+
+
+@pytest.mark.parametrize("method,kwargs", [
+    ("set_renderer", {"value": "vulkan"}),
+    ("set_dpi", {"value": 144}),
+    ("set_mouse_warp", {"state": 1}),
+])
+@pytest.mark.parametrize("success", [False, True])
+def test_display_registry_wrappers_propagate_failures(method, kwargs, success):
+    from bottles.backend.wine.regkeys import RegKeys
+
+    keys = RegKeys(BottleConfig())
+    result = Result(success)
+    keys.reg = SimpleNamespace(add=lambda **_kwargs: result)
+    assert getattr(keys, method)(**kwargs) is result
+
+
+@pytest.mark.parametrize("success", [False, True])
+def test_virtual_desktop_disable_does_not_restart_after_registry_failure(monkeypatch, success):
+    from unittest.mock import Mock
+    from bottles.backend.wine import regkeys
+
+    keys = regkeys.RegKeys(BottleConfig())
+    keys.reg = SimpleNamespace(remove=Mock(return_value=Result(success)))
+    boot = Mock(return_value=Result(True))
+    monkeypatch.setattr(regkeys, "WineBoot", lambda _config: SimpleNamespace(update=boot))
+    assert keys.toggle_virtual_desktop(False).ok is success
+    keys.reg.remove.assert_called_once_with(
+        key=r"HKEY_CURRENT_USER\Software\Wine\Explorer", value="Desktop",
+    )
+    assert boot.call_count == int(success)

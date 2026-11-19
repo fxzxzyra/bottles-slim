@@ -65,6 +65,7 @@ class PlaytimeGraphDialog(Adw.Window):
     ) -> None:
         super().__init__(**kwargs)
         self.set_transient_for(parent.window)
+        self.set_title(program_name)
 
         self.parent = parent
         self.program_name: str = program_name
@@ -77,6 +78,7 @@ class PlaytimeGraphDialog(Adw.Window):
         self._chart_monthly: Optional[PlaytimeChartMonthly] = None
 
         self.label_program_title.set_label(program_name)  # type: ignore
+        self.label_program_title.set_tooltip_text(program_name)
 
         # Connect signals
         self.btn_prev.connect("clicked", self.__on_prev_week)  # type: ignore
@@ -84,6 +86,7 @@ class PlaytimeGraphDialog(Adw.Window):
         self.btn_view_week.connect("toggled", self.__on_view_toggled, "week")  # type: ignore
         self.btn_view_day.connect("toggled", self.__on_view_toggled, "day")  # type: ignore
         self.btn_view_year.connect("toggled", self.__on_view_toggled, "year")  # type: ignore
+        self.btn_reset.set_sensitive(bool(bottle_id and program_id))
         self.btn_reset.connect("clicked", self.__on_reset_clicked)  # type: ignore
 
         self.__load_data()

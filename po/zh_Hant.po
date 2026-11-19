@@ -99,7 +99,7 @@ msgstr "%s 可用"
 msgid "%s template"
 msgstr "%s 模板"
 
-#: bottles/frontend/ui/details-preferences.blp:447 bottles/frontend/views/bottle_preferences.py:534 bottles/frontend/views/new_bottle_dialog.py:99
+#: bottles/frontend/ui/details-preferences.blp:416 bottles/frontend/views/bottle_preferences.py:534 bottles/frontend/views/new_bottle_dialog.py:99
 msgid "(Default)"
 msgstr "(預設)"
 
@@ -111,7 +111,7 @@ msgstr "0%"
 msgid "00:00"
 msgstr "00:00"
 
-#: bottles/frontend/windows/playtimegraph.py:370 bottles/frontend/windows/playtimegraph.py:365
+#: bottles/frontend/windows/playtimegraph.py:373 bottles/frontend/windows/playtimegraph.py:368
 msgid "0h 0m"
 msgstr "0 小時 0 分鐘"
 
@@ -119,7 +119,7 @@ msgstr "0 小時 0 分鐘"
 msgid "64-bit is recommended for most users"
 msgstr "建議大多數用戶選擇 64 位"
 
-#: bottles/frontend/windows/playtimegraph.py:448
+#: bottles/frontend/windows/playtimegraph.py:451
 msgid "<1m"
 msgstr "不足 1 分鐘"
 
@@ -160,7 +160,7 @@ msgstr "ALSA"
 msgid "About Bottles"
 msgstr "關於 Bottles"
 
-#: bottles/frontend/ui/dialog-display.blp:89
+#: bottles/frontend/ui/dialog-display.blp:91
 msgid "Activate it if the program does not retake focus on switch."
 msgstr "如果切換窗口後程序無法重新獲得焦點，請啓用此選項。"
 
@@ -218,7 +218,7 @@ msgstr "新增到 Steam"
 msgid "Add variable"
 msgstr "添加變量"
 
-#: bottles/frontend/ui/details-preferences.blp:180
+#: bottles/frontend/ui/details-preferences.blp:149
 msgid "Add various post-processing effects using vkBasalt. Only works on Vulkan."
 msgstr "使用 vkBasalt 加入多種後製特效。僅在 Vulkan 平台有效。"
 
@@ -230,7 +230,7 @@ msgstr "正在調整 Windows 版本…"
 msgid "Advanced"
 msgstr "進階"
 
-#: bottles/frontend/ui/details-preferences.blp:238
+#: bottles/frontend/ui/details-preferences.blp:207
 msgid "Advanced Display Settings"
 msgstr "進階顯示設定"
 
@@ -319,7 +319,7 @@ msgstr "分析可執行檔"
 msgid "Appearance"
 msgstr "外觀"
 
-#: bottles/frontend/ui/dialog-display.blp:138 bottles/frontend/utils/common.py:40
+#: bottles/frontend/ui/dialog-display.blp:141 bottles/frontend/utils/common.py:40
 msgid "Application"
 msgstr "應用程式"
 
@@ -344,7 +344,7 @@ msgstr "應用"
 msgid "Apply CMD default settings…"
 msgstr "正在套用 CMD 的預設設定…"
 
-#: bottles/frontend/ui/details-preferences.blp:308
+#: bottles/frontend/ui/details-preferences.blp:277
 msgid "Apply a set of optimizations to your device. Can improve game performance."
 msgstr "套用針對您裝置的最佳化設定。可提升性能。"
 
@@ -411,7 +411,7 @@ msgstr "自動關閉 Bottles"
 msgid "Automatically create snapshots before installing software or changing settings."
 msgstr "在安裝軟體或變更設定前自動建立快照。"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:154
+#: bottles/frontend/ui/dialog-playtime-graph.blp:161
 msgid "Average: 0h 0m"
 msgstr "平均：0 小時 0 分鐘"
 
@@ -482,7 +482,7 @@ msgid "Bottles Crash Report"
 msgstr "Bottles 崩潰回報"
 
 # Translators: Bottles is a proper noun referring to the app
-#: bottles/frontend/ui/details-preferences.blp:391
+#: bottles/frontend/ui/details-preferences.blp:360
 msgid "Bottles Runtime"
 msgstr "Bottles 容器"
 
@@ -620,7 +620,7 @@ msgstr "正在計算…"
 msgid "Can't reach this program in the sandbox"
 msgstr "專用沙箱無法訪問此程序"
 
-#: bottles/frontend/ui/dialog-bottle-picker.blp:17 bottles/frontend/ui/dialog-rename.blp:16 bottles/frontend/ui/dialog-run-args.blp:19 bottles/frontend/utils/sandbox_guard.py:75 bottles/frontend/utils/sandbox_guard.py:171 bottles/frontend/views/preferences.py:580 bottles/frontend/windows/playtimegraph.py:136
+#: bottles/frontend/ui/dialog-bottle-picker.blp:17 bottles/frontend/ui/dialog-rename.blp:16 bottles/frontend/ui/dialog-run-args.blp:19 bottles/frontend/utils/sandbox_guard.py:75 bottles/frontend/utils/sandbox_guard.py:171 bottles/frontend/views/preferences.py:580 bottles/frontend/windows/playtimegraph.py:139
 msgid "Cancel"
 msgstr "取消"
 
@@ -680,7 +680,7 @@ msgstr "修改視窗高度。"
 msgid "Change the window width."
 msgstr "修改視窗寬度。"
 
-#: bottles/frontend/ui/dialog-display.blp:99
+#: bottles/frontend/ui/dialog-display.blp:101
 msgid "Change this if you are running into mouse lag or desync."
 msgstr "遇到鼠標延遲或不同步時，可嘗試更改此選項。"
 
@@ -761,7 +761,7 @@ msgstr "選擇從何處啟動程式。"
 msgid "Choose the Wine installation used by this container"
 msgstr "選擇此容器使用的 Wine 安裝"
 
-#: bottles/frontend/ui/details-preferences.blp:364
+#: bottles/frontend/ui/details-preferences.blp:333
 msgid "Choose the language to use with programs."
 msgstr "選擇程式要用的語言。"
 
@@ -781,7 +781,7 @@ msgstr "選擇 Bottles 為所有容器指定的 Wine 音頻驅動。"
 msgid "Choose which view the application should be started in."
 msgstr "選擇該程式應在何種檢視下啟動。"
 
-#: bottles/frontend/ui/dialog-display.blp:133
+#: bottles/frontend/ui/dialog-display.blp:136
 msgid "Choose who handles DPI scaling. Restart programs after changing this."
 msgstr "選擇由程式或系統處理 DPI 縮放。變更後須重新啟動程式。"
 
@@ -871,7 +871,7 @@ msgstr "社區報告需要 Media Foundation 解決方案（{evidence} 條記錄�
 msgid "Community verdict"
 msgstr "社區評價"
 
-#: bottles/frontend/ui/details-preferences.blp:348
+#: bottles/frontend/ui/details-preferences.blp:317
 msgid "Compatibility"
 msgstr "相容性"
 
@@ -909,7 +909,7 @@ msgstr[0] "{0} 個容器有元件更新。"
 msgid "Component version"
 msgstr "元件版本"
 
-#: bottles/frontend/ui/bulk-update-dialog.blp:39 bottles/frontend/ui/details-preferences.blp:44
+#: bottles/frontend/ui/bulk-update-dialog.blp:39 bottles/frontend/ui/details-preferences.blp:13
 msgid "Components"
 msgstr "組件"
 
@@ -1043,7 +1043,7 @@ msgstr "正在複製到容器"
 msgid "Copyright © 2017 {developer_name}"
 msgstr "版權所有 © 2017 {developer_name}"
 
-#: bottles/frontend/windows/playtimegraph.py:198
+#: bottles/frontend/windows/playtimegraph.py:201
 msgid "Could Not Reset Usage Time Statistics"
 msgstr "無法重設使用時間統計"
 
@@ -1055,6 +1055,10 @@ msgstr "無法訪問“{0}”的桌面啓動項"
 #: bottles/frontend/views/eagle.py:235
 msgid "Could not analyse this file."
 msgstr "無法分析此文件。"
+
+#: bottles/frontend/views/bottle_preferences.py:889
+msgid "Could not change the synchronization mode."
+msgstr "無法變更同步方式。"
 
 #: bottles/frontend/utils/sandbox_guard.py:116
 msgid "Could not copy the file into the container."
@@ -1074,7 +1078,7 @@ msgstr "無法彈出驅動器 {0}"
 msgid "Could not load the installer. Please try again."
 msgstr "無法加載安裝程序，請重試。"
 
-#: bottles/frontend/windows/display.py:90
+#: bottles/frontend/windows/display.py:91
 msgid "Could not read the DPI scaling mode."
 msgstr "無法讀取 DPI 縮放方式。"
 
@@ -1092,7 +1096,7 @@ msgstr "無法移除“{0}”的桌面啓動項"
 msgid "Could not save the program: {0}"
 msgstr "無法保存程序：{0}"
 
-#: bottles/frontend/views/bottle_preferences.py:977
+#: bottles/frontend/views/bottle_preferences.py:995
 msgid "Could not switch to the selected runner."
 msgstr "無法切換到所選運行器。"
 
@@ -1228,7 +1232,7 @@ msgstr "自定義安裝程序下載地址。留空使用默認地址。"
 msgid "Czech"
 msgstr "捷克語"
 
-#: bottles/backend/managers/manager.py:1935 bottles/frontend/ui/details-preferences.blp:60
+#: bottles/backend/managers/manager.py:1935 bottles/frontend/ui/details-preferences.blp:29
 msgid "D7VK"
 msgstr "D7VK"
 
@@ -1240,7 +1244,7 @@ msgstr "DLL 組件"
 msgid "DLL Override"
 msgstr "DLL 替換"
 
-#: bottles/frontend/ui/details-preferences.blp:455 bottles/frontend/ui/dialog-dll-overrides.blp:7 bottles/frontend/ui/dialog-dll-overrides.blp:12
+#: bottles/frontend/ui/details-preferences.blp:424 bottles/frontend/ui/dialog-dll-overrides.blp:7 bottles/frontend/ui/dialog-dll-overrides.blp:12
 msgid "DLL Overrides"
 msgstr "DLL 覆寫"
 
@@ -1252,20 +1256,20 @@ msgstr "DLS降噪用於減低影格的噪聲。數值越高影格越柔和。"
 msgid "DLS sharpness increases the sharpness of a frame. Higher values make the frame sharper."
 msgstr "DLS銳利度用於提昇影格的銳利度。數值越高影格越銳利。"
 
-#: bottles/backend/managers/manager.py:1941 bottles/frontend/ui/details-preferences.blp:73
+#: bottles/backend/managers/manager.py:1941 bottles/frontend/ui/details-preferences.blp:42
 msgid "DXVK"
 msgstr "DXVK"
 
-#: bottles/frontend/ui/details-preferences.blp:99
+#: bottles/frontend/ui/details-preferences.blp:68
 msgid "DXVK NVAPI"
 msgstr "DXVK-NVAPI"
 
-#: bottles/frontend/windows/playtimegraph.py:262
+#: bottles/frontend/windows/playtimegraph.py:265
 msgid "Daily"
 msgstr "每天"
 
 #, python-brace-format
-#: bottles/frontend/windows/playtimegraph.py:250
+#: bottles/frontend/windows/playtimegraph.py:253
 msgid "Daily Average: {}"
 msgstr "日均：{}"
 
@@ -1305,19 +1309,19 @@ msgstr "除錯器"
 msgid "Declining can cause instability, performance degradation, and incompatibilities with new Bottles releases."
 msgstr "拒絕更新可能導致不穩定、性能下降，或與新版 Bottles 不兼容。"
 
-#: bottles/frontend/ui/details-preferences.blp:371 bottles/frontend/ui/new-bottle-dialog.blp:116
+#: bottles/frontend/ui/details-preferences.blp:340 bottles/frontend/ui/new-bottle-dialog.blp:116
 msgid "Dedicated Sandbox"
 msgstr "專用沙盒"
 
-#: bottles/frontend/ui/details-preferences.blp:131
+#: bottles/frontend/ui/details-preferences.blp:100
 msgid "Deep Learning Super Sampling"
 msgstr "深度學習超級採樣"
 
-#: bottles/frontend/ui/dialog-display.blp:137 bottles/frontend/ui/dialog-vkbasalt.blp:44
+#: bottles/frontend/ui/dialog-display.blp:140 bottles/frontend/ui/dialog-vkbasalt.blp:44
 msgid "Default"
 msgstr "預設"
 
-#: bottles/frontend/ui/dialog-display.blp:132
+#: bottles/frontend/ui/dialog-display.blp:135
 msgid "Default DPI Scaling Mode"
 msgstr "預設 DPI 縮放方式"
 
@@ -1454,7 +1458,7 @@ msgid "Directory"
 msgstr "目錄"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_preferences.py:678
+#: bottles/frontend/views/bottle_preferences.py:684
 msgid "Directory that contains the data of \"{}\"."
 msgstr "存放「{}」資料的目錄。"
 
@@ -1470,11 +1474,11 @@ msgstr "停用"
 msgid "Disabled. Executables will run without being checked for threats."
 msgstr "已禁用。可執行文件將在不檢查威脅的情況下運行。"
 
-#: bottles/frontend/ui/details-preferences.blp:149
+#: bottles/frontend/ui/details-preferences.blp:118
 msgid "Discrete Graphics"
 msgstr "獨立顯示卡"
 
-#: bottles/frontend/ui/details-preferences.blp:127
+#: bottles/frontend/ui/details-preferences.blp:96
 msgid "Display"
 msgstr "顯示設定"
 
@@ -1490,11 +1494,11 @@ msgstr "遊戲啓動時顯示"
 msgid "Display Settings"
 msgstr "顯示設置"
 
-#: bottles/frontend/ui/details-preferences.blp:288
+#: bottles/frontend/ui/details-preferences.blp:257
 msgid "Display monitoring information such as framerate, temperatures, CPU/GPU load and more on OpenGL and Vulkan using MangoHud."
 msgstr "利用 MangoHud，在 OpenGL 和 Vulkan 應用程式顯示影格率、溫度、CPU/GPUMangoHud負載等監測資訊。"
 
-#: bottles/frontend/windows/display.py:139
+#: bottles/frontend/windows/display.py:206
 msgid "Display settings updated"
 msgstr "顯示設定已更新"
 
@@ -1669,11 +1673,11 @@ msgstr "啓用"
 msgid "Enable playtime tracking"
 msgstr "啓用運行時長統計"
 
-#: bottles/frontend/ui/details-preferences.blp:260
+#: bottles/frontend/ui/details-preferences.blp:229
 msgid "Enable synchronization to increase performance of multicore processors."
 msgstr "啟用同步處理，以增進多核心處理器的性能。"
 
-#: bottles/frontend/ui/dialog-display.blp:109
+#: bottles/frontend/ui/dialog-display.blp:111
 msgid "Enable to use the window manager's decorations."
 msgstr "啓用後使用窗口管理器提供的窗口裝飾。"
 
@@ -1706,7 +1710,7 @@ msgstr "輸入以逗號分隔的文件擴展名。Bottles 會將此程序加入�
 msgid "Environment Variable"
 msgstr "環境變量"
 
-#: bottles/frontend/ui/details-preferences.blp:468 bottles/frontend/ui/dialog-env-vars.blp:7
+#: bottles/frontend/ui/details-preferences.blp:437 bottles/frontend/ui/dialog-env-vars.blp:7
 msgid "Environment Variables"
 msgstr "環境變數"
 
@@ -1736,7 +1740,7 @@ msgstr "錯誤"
 msgid "Estonian"
 msgstr "愛沙尼亞語"
 
-#: bottles/frontend/ui/details-preferences.blp:266
+#: bottles/frontend/ui/details-preferences.blp:235
 msgid "Esync"
 msgstr "Esync"
 
@@ -1788,7 +1792,7 @@ msgstr "匯出"
 msgid "Export Configuration…"
 msgstr "匯出配置…"
 
-#: bottles/frontend/ui/details-preferences.blp:170
+#: bottles/frontend/ui/details-preferences.blp:139
 msgid "Expose HDR to games using DXVK. Requires native Wayland or Gamescope. Older NVIDIA drivers also need HdrWsi and ENABLE_HDR_WSI=1."
 msgstr "為使用 DXVK 的遊戲提供 HDR。需要原生 Wayland 或 Gamescope。較舊的 NVIDIA 驅動還需要 HdrWsi 和 ENABLE_HDR_WSI=1。"
 
@@ -1878,7 +1882,7 @@ msgstr "更新 {component} 失敗"
 msgid "Fast Approximate Anti-Aliasing"
 msgstr "快速近似反鋸齒"
 
-#: bottles/frontend/ui/details-preferences.blp:307
+#: bottles/frontend/ui/details-preferences.blp:276
 msgid "Feral GameMode"
 msgstr "使用遊戲模式"
 
@@ -1969,7 +1973,7 @@ msgstr "強制_停止"
 msgid "Force disable any network activity even with available network connection."
 msgstr "即使網絡連接可用，也強制禁用所有網絡活動。"
 
-#: bottles/frontend/ui/details-preferences.blp:160
+#: bottles/frontend/ui/details-preferences.blp:129
 msgid "Force the experimental native Wayland driver instead of Xwayland. Requires a Wayland session."
 msgstr "強制使用實驗性的原生 Wayland 驅動，而非 Xwayland。需要 Wayland 會話。"
 
@@ -1981,7 +1985,7 @@ msgstr "強制使用闇黑主題。"
 msgid "Frame Generation"
 msgstr "幀生成"
 
-#: bottles/frontend/ui/details-preferences.blp:199
+#: bottles/frontend/ui/details-preferences.blp:168
 msgid "Frame Generation (Experimental)"
 msgstr "幀生成（實驗性）"
 
@@ -1989,7 +1993,7 @@ msgstr "幀生成（實驗性）"
 msgid "Frame Generation Settings"
 msgstr "幀生成設置"
 
-#: bottles/frontend/ui/details-preferences.blp:274 bottles/frontend/ui/dialog-gamescope.blp:141
+#: bottles/frontend/ui/details-preferences.blp:243 bottles/frontend/ui/dialog-gamescope.blp:141
 msgid "Frame Rate Limit"
 msgstr "影格率限制"
 
@@ -2001,7 +2005,7 @@ msgstr "非聚焦時的影格率"
 msgid "French"
 msgstr "法語"
 
-#: bottles/frontend/ui/details-preferences.blp:267
+#: bottles/frontend/ui/details-preferences.blp:236
 msgid "Fsync"
 msgstr "Fsync"
 
@@ -2017,11 +2021,11 @@ msgstr "完整備份…"
 msgid "Fullscreen"
 msgstr "全螢幕"
 
-#: bottles/frontend/ui/dialog-display.blp:78
+#: bottles/frontend/ui/dialog-display.blp:80
 msgid "Fullscreen Mouse Capture"
 msgstr "全屏鼠標捕獲"
 
-#: bottles/frontend/ui/dialog-display.blp:150
+#: bottles/frontend/ui/dialog-display.blp:153
 msgid "GL (Default)"
 msgstr "GL（默認）"
 
@@ -2045,7 +2049,7 @@ msgstr "遊戲"
 msgid "General"
 msgstr "常規"
 
-#: bottles/frontend/ui/details-preferences.blp:200
+#: bottles/frontend/ui/details-preferences.blp:169
 msgid "Generate additional frames with lsfg-vk. Only works with 64-bit Vulkan applications."
 msgstr "通過 lsfg-vk 生成額外幀。僅支持 64 位 Vulkan 應用。"
 
@@ -2081,7 +2085,7 @@ msgstr "希臘語"
 msgid "HIDRAW access is unavailable in a dedicated sandbox on this system."
 msgstr "此系統的專用沙箱中無法訪問 HIDRAW。"
 
-#: bottles/frontend/ui/dialog-display.blp:62 bottles/frontend/ui/dialog-gamescope.blp:63 bottles/frontend/ui/dialog-gamescope.blp:96
+#: bottles/frontend/ui/dialog-display.blp:63 bottles/frontend/ui/dialog-gamescope.blp:63 bottles/frontend/ui/dialog-gamescope.blp:96
 msgid "Height"
 msgstr "高度"
 
@@ -2105,12 +2109,12 @@ msgstr "隱藏程式"
 msgid "Hide Program"
 msgstr "隱藏程式"
 
-#: bottles/frontend/ui/details-preferences.blp:169
+#: bottles/frontend/ui/details-preferences.blp:138
 msgid "High Dynamic Range"
 msgstr "高動態範圍"
 
 #, python-brace-format
-#: bottles/frontend/windows/playtimegraph.py:263
+#: bottles/frontend/windows/playtimegraph.py:266
 msgid "Hourly Average: {}"
 msgstr "每小時平均：{}"
 
@@ -2158,19 +2162,19 @@ msgstr "導入表哈希匹配"
 msgid "Importing full backup"
 msgstr "正在導入完整備份"
 
-#: bottles/frontend/ui/details-preferences.blp:87
+#: bottles/frontend/ui/details-preferences.blp:56
 msgid "Improve Direct3D 12 compatibility by translating it to Vulkan."
 msgstr "將 Direct3D 12 轉譯成 Vulkan，以改善相容性。"
 
-#: bottles/frontend/ui/details-preferences.blp:61
+#: bottles/frontend/ui/details-preferences.blp:30
 msgid "Improve Direct3D 3/5/6/7 compatibility for 32-bit applications by translating it to Vulkan."
 msgstr "將 Direct3D 3/5/6/7 轉換為 Vulkan，以改善 32 位應用的兼容性。"
 
-#: bottles/frontend/ui/details-preferences.blp:74
+#: bottles/frontend/ui/details-preferences.blp:43
 msgid "Improve Direct3D 8/9/10/11 compatibility by translating it to Vulkan."
 msgstr "將 Direct3D 8/9/10/11 轉譯成 Vulkan，以改善相容性。"
 
-#: bottles/frontend/ui/details-preferences.blp:318
+#: bottles/frontend/ui/details-preferences.blp:287
 msgid "Improve loading time when launching the game multiple times. The game will take longer to start for the first time."
 msgstr "改善多次啟動遊戲的載入速度。遊戲初次啟動時間會變長。"
 
@@ -2182,11 +2186,11 @@ msgstr "包括為組件、依賴項和安裝程序下載的歸檔及解壓的資
 msgid "Incomplete package"
 msgstr "不完整的軟體包"
 
-#: bottles/frontend/ui/details-preferences.blp:132
+#: bottles/frontend/ui/details-preferences.blp:101
 msgid "Increase performance at the expense of visuals using DXVK-NVAPI. Only works on newer NVIDIA GPUs."
 msgstr "使用 DXVK-NVAPI，犧牲視覺效果換取性能。僅支援 NVIDIA Turing+ GPUs。"
 
-#: bottles/frontend/ui/details-preferences.blp:113
+#: bottles/frontend/ui/details-preferences.blp:82
 msgid "Increase responsiveness. Can be detected by some anti-cheat software."
 msgstr "改進反應速度。可能會被某些反作弊程式偵測到。"
 
@@ -2379,11 +2383,11 @@ msgstr "已識別應用：{name}（winetricks 指令“{verb}”）"
 msgid "Korean"
 msgstr "韓語"
 
-#: bottles/frontend/ui/details-preferences.blp:363 bottles/frontend/ui/preferences.blp:28
+#: bottles/frontend/ui/details-preferences.blp:332 bottles/frontend/ui/preferences.blp:28
 msgid "Language"
 msgstr "語言"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:316
+#: bottles/frontend/ui/dialog-playtime-graph.blp:327
 msgid "Last Used"
 msgstr "上次運行"
 
@@ -2392,7 +2396,7 @@ msgstr "上次運行"
 msgid "Last Used: %s – Usage Time: %s"
 msgstr "上次運行：%s — 運行時長：%s"
 
-#: bottles/backend/managers/manager.py:1959 bottles/frontend/ui/details-preferences.blp:112
+#: bottles/backend/managers/manager.py:1959 bottles/frontend/ui/details-preferences.blp:81
 msgid "LatencyFleX"
 msgstr "LatencyFleX"
 
@@ -2452,7 +2456,7 @@ msgstr "正在“{1}”中啓動“{0}”…"
 msgid "Legacy Wine Tools"
 msgstr "舊版 Wine 工具"
 
-#: bottles/frontend/ui/dialog-display.blp:79
+#: bottles/frontend/ui/dialog-display.blp:81
 msgid "Let the program capture mouse input when fullscreen."
 msgstr "全屏時允許程序捕獲鼠標輸入。"
 
@@ -2480,7 +2484,7 @@ msgstr "程式庫排序方式"
 msgid "License"
 msgstr "授權條款"
 
-#: bottles/frontend/ui/details-preferences.blp:275
+#: bottles/frontend/ui/details-preferences.blp:244
 msgid "Limit DXVK and VKD3D applications. Set to 0 to disable."
 msgstr "限制 DXVK 和 VKD3D 應用的幀率。設為 0 可禁用。"
 
@@ -2544,7 +2548,7 @@ msgstr "主選單"
 msgid "Manage Branches"
 msgstr "管理分支"
 
-#: bottles/frontend/ui/details-preferences.blp:481
+#: bottles/frontend/ui/details-preferences.blp:450
 msgid "Manage Drives"
 msgstr "管理硬碟"
 
@@ -2552,15 +2556,15 @@ msgstr "管理硬碟"
 msgid "Manage File Associations..."
 msgstr "管理文件關聯…"
 
-#: bottles/frontend/ui/details-preferences.blp:223
+#: bottles/frontend/ui/details-preferences.blp:192
 msgid "Manage Gamescope settings"
 msgstr "管理 Gamescope 設定"
 
-#: bottles/frontend/ui/details-preferences.blp:291
+#: bottles/frontend/ui/details-preferences.blp:260
 msgid "Manage MangoHud settings"
 msgstr "管理 MangoHud 設置"
 
-#: bottles/frontend/ui/details-preferences.blp:183
+#: bottles/frontend/ui/details-preferences.blp:152
 msgid "Manage Post-Processing Layer settings"
 msgstr "管理後製層的設定"
 
@@ -2568,7 +2572,7 @@ msgstr "管理後製層的設定"
 msgid "Manage cached files used to speed up downloads and container creation."
 msgstr "管理用於加快下載和創建容器的緩存文件。"
 
-#: bottles/frontend/ui/details-preferences.blp:220
+#: bottles/frontend/ui/details-preferences.blp:189
 msgid "Manage how games should be displayed on the screen using Gamescope."
 msgstr "管理遊戲透過 Gamescope 的顯示方式。"
 
@@ -2576,7 +2580,7 @@ msgstr "管理遊戲透過 Gamescope 的顯示方式。"
 msgid "Manage how games should be displayed."
 msgstr "管理遊戲的顯示方式。"
 
-#: bottles/frontend/ui/details-preferences.blp:203
+#: bottles/frontend/ui/details-preferences.blp:172
 msgid "Manage lsfg-vk settings"
 msgstr "管理 lsfg-vk 設置"
 
@@ -2584,11 +2588,11 @@ msgstr "管理 lsfg-vk 設置"
 msgid "Manage reusable registry tweaks."
 msgstr "管理可重復應用的註冊表調整。"
 
-#: bottles/frontend/ui/details-preferences.blp:375
+#: bottles/frontend/ui/details-preferences.blp:344
 msgid "Manage the Sandbox Permissions"
 msgstr "管理沙盒權限"
 
-#: bottles/frontend/ui/details-preferences.blp:322
+#: bottles/frontend/ui/details-preferences.blp:291
 msgid "Manage vmtouch settings"
 msgstr "管理 vmtouch 設定"
 
@@ -2649,16 +2653,16 @@ msgstr "其他"
 msgid "Missing Runner"
 msgstr "缺少執行器"
 
-#: bottles/frontend/ui/details-preferences.blp:287
+#: bottles/frontend/ui/details-preferences.blp:256
 msgid "Monitor Performance"
 msgstr "監測效能"
 
 #, python-brace-format
-#: bottles/frontend/windows/playtimegraph.py:274
+#: bottles/frontend/windows/playtimegraph.py:277
 msgid "Monthly Average: {}"
 msgstr "月均：{}"
 
-#: bottles/frontend/ui/dialog-display.blp:98
+#: bottles/frontend/ui/dialog-display.blp:100
 msgid "Mouse Warp"
 msgstr "鼠標指針重定位"
 
@@ -2695,7 +2699,7 @@ msgstr "我的容器"
 msgid "N/A"
 msgstr "N/A"
 
-#: bottles/frontend/ui/details-preferences.blp:268
+#: bottles/frontend/ui/details-preferences.blp:237
 msgid "NTSync"
 msgstr "NTSync"
 
@@ -2723,7 +2727,7 @@ msgstr "原生先於內建"
 msgid "Needs Administrator"
 msgstr "需要管理員權限"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:307 bottles/frontend/utils/playtime.py:491 bottles/frontend/windows/playtimegraph.py:372 bottles/frontend/windows/playtimegraph.py:367
+#: bottles/frontend/ui/dialog-playtime-graph.blp:318 bottles/frontend/utils/playtime.py:491 bottles/frontend/windows/playtimegraph.py:375 bottles/frontend/windows/playtimegraph.py:370
 msgid "Never"
 msgstr "從不"
 
@@ -2760,15 +2764,15 @@ msgstr "成功建立了新狀態「{0}」！"
 msgid "Next"
 msgstr "下一步"
 
-#: bottles/frontend/windows/playtimegraph.py:106
+#: bottles/frontend/windows/playtimegraph.py:109
 msgid "Next Day"
 msgstr "後一天"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:226 bottles/frontend/windows/playtimegraph.py:103
+#: bottles/frontend/ui/dialog-playtime-graph.blp:234 bottles/frontend/windows/playtimegraph.py:106
 msgid "Next Week"
 msgstr "後一周"
 
-#: bottles/frontend/windows/playtimegraph.py:109
+#: bottles/frontend/windows/playtimegraph.py:112
 msgid "Next Year"
 msgstr "後一年"
 
@@ -2788,7 +2792,7 @@ msgstr "未選擇 DLL"
 msgid "No DXVK version available."
 msgstr "沒有可用的 DXVK 版本。"
 
-#: bottles/frontend/windows/playtimegraph.py:448
+#: bottles/frontend/windows/playtimegraph.py:451
 msgid "No Data"
 msgstr "無數據"
 
@@ -2893,7 +2897,7 @@ msgstr "磁盤空間不足，無法創建快照！至少需要 {0} 可用空間�
 msgid "Not installed"
 msgstr "未安裝"
 
-#: bottles/frontend/ui/details-preferences.blp:13
+#: bottles/frontend/ui/details-preferences.blp:463
 msgid "Notes"
 msgstr "備註"
 
@@ -2905,11 +2909,11 @@ msgstr "沒有東西可以提交"
 msgid "Notifications"
 msgstr "通知"
 
-#: bottles/frontend/ui/details-preferences.blp:338
+#: bottles/frontend/ui/details-preferences.blp:307
 msgid "OBS Game Capture"
 msgstr "OBS 遊戲擷取"
 
-#: bottles/frontend/views/bottle_versioning.py:278 bottles/frontend/windows/playtimegraph.py:201
+#: bottles/frontend/views/bottle_versioning.py:278 bottles/frontend/windows/playtimegraph.py:204
 msgid "OK"
 msgstr "確定"
 
@@ -3052,7 +3056,7 @@ msgstr "移動容器後，環境內的相對路徑仍然有效。"
 msgid "Pattern"
 msgstr "樣式"
 
-#: bottles/frontend/ui/details-preferences.blp:257
+#: bottles/frontend/ui/details-preferences.blp:226
 msgid "Performance"
 msgstr "效能"
 
@@ -3092,7 +3096,7 @@ msgstr "波蘭語"
 msgid "Portuguese"
 msgstr "葡萄牙語"
 
-#: bottles/frontend/ui/details-preferences.blp:179
+#: bottles/frontend/ui/details-preferences.blp:148
 msgid "Post-Processing Effects"
 msgstr "後製特效"
 
@@ -3141,7 +3145,7 @@ msgstr "偏好設定覆寫"
 msgid "Prefix templates"
 msgstr "容器模板"
 
-#: bottles/frontend/ui/details-preferences.blp:317
+#: bottles/frontend/ui/details-preferences.blp:286
 msgid "Preload Game Files"
 msgstr "預先載入遊戲檔案"
 
@@ -3185,15 +3189,15 @@ msgstr "設定預設"
 msgid "Previous"
 msgstr "上一步"
 
-#: bottles/frontend/windows/playtimegraph.py:105
+#: bottles/frontend/windows/playtimegraph.py:108
 msgid "Previous Day"
 msgstr "前一天"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:205 bottles/frontend/windows/playtimegraph.py:102
+#: bottles/frontend/ui/dialog-playtime-graph.blp:212 bottles/frontend/windows/playtimegraph.py:105
 msgid "Previous Week"
 msgstr "前一周"
 
-#: bottles/frontend/windows/playtimegraph.py:108
+#: bottles/frontend/windows/playtimegraph.py:111
 msgid "Previous Year"
 msgstr "前一年"
 
@@ -3245,11 +3249,11 @@ msgstr "保護"
 msgid "ProtonDB community reports: ODbL 1.0, contents DbCL 1.0.\nwinetricks data: LGPL-2.1-or-later."
 msgstr "ProtonDB 社區報告：ODbL 1.0，內容採用 DbCL 1.0。\nwinetricks 數據：LGPL-2.1-or-later。"
 
-#: bottles/frontend/ui/details-preferences.blp:413
+#: bottles/frontend/ui/details-preferences.blp:382
 msgid "Provide a bundle of extra libraries for more compatibility with Steam games. Disable it if you run into issues."
 msgstr "提供額外函式庫以增加 Steam 遊戲相容性。若遇到問題請將此選項關閉。"
 
-#: bottles/frontend/ui/details-preferences.blp:392
+#: bottles/frontend/ui/details-preferences.blp:361
 msgid "Provide a bundle of extra libraries for more compatibility. Disable it if you run into issues."
 msgstr "新增額外函式庫以增加相容性。若遇到問題請將此選項關閉。"
 
@@ -3441,7 +3445,7 @@ msgstr "重新命名"
 msgid "Rename…"
 msgstr "重新命名…"
 
-#: bottles/frontend/ui/dialog-display.blp:145
+#: bottles/frontend/ui/dialog-display.blp:148
 msgid "Renderer"
 msgstr "渲染器"
 
@@ -3482,7 +3486,7 @@ msgstr "需要容器裡有安裝 Windows 版的 Steam。"
 msgid "Requires Ubisoft Connect installed in the container."
 msgstr "需要容器裡有安裝 Ubisoft Connect。"
 
-#: bottles/frontend/ui/dialog-program-backups.blp:82 bottles/frontend/windows/playtimegraph.py:137
+#: bottles/frontend/ui/dialog-program-backups.blp:82 bottles/frontend/windows/playtimegraph.py:140
 msgid "Reset"
 msgstr "重置"
 
@@ -3490,7 +3494,7 @@ msgstr "重置"
 msgid "Reset Usage Time Statistics"
 msgstr "重設使用時間統計"
 
-#: bottles/frontend/windows/playtimegraph.py:130
+#: bottles/frontend/windows/playtimegraph.py:133
 msgid "Reset Usage Time Statistics?"
 msgstr "重設使用時間統計？"
 
@@ -3498,7 +3502,7 @@ msgstr "重設使用時間統計？"
 msgid "Reset to Container's Defaults"
 msgstr "恢復至 Wine 容器 的預設值"
 
-#: bottles/frontend/ui/details-preferences.blp:426 bottles/frontend/ui/dialog-launch-options.blp:76 bottles/frontend/ui/dialog-launch-options.blp:113 bottles/frontend/ui/dialog-launch-options.blp:150 bottles/frontend/ui/new-bottle-dialog.blp:160
+#: bottles/frontend/ui/details-preferences.blp:395 bottles/frontend/ui/dialog-launch-options.blp:76 bottles/frontend/ui/dialog-launch-options.blp:113 bottles/frontend/ui/dialog-launch-options.blp:150 bottles/frontend/ui/new-bottle-dialog.blp:160
 msgid "Reset to Default"
 msgstr "重設為預設值"
 
@@ -3621,7 +3625,7 @@ msgstr "在宿主上運行此命令："
 msgid "Run without the dedicated sandbox"
 msgstr "不使用專用沙箱運行"
 
-#: bottles/frontend/ui/details-bottle.blp:232 bottles/frontend/ui/details-preferences.blp:47 bottles/frontend/ui/new-bottle-dialog.blp:109
+#: bottles/frontend/ui/details-bottle.blp:232 bottles/frontend/ui/details-preferences.blp:16 bottles/frontend/ui/new-bottle-dialog.blp:109
 msgid "Runner"
 msgstr "執行器"
 
@@ -3680,7 +3684,7 @@ msgstr "沙盒設定"
 msgid "Save"
 msgstr "儲存"
 
-#: bottles/frontend/ui/details-preferences.blp:36
+#: bottles/frontend/ui/details-preferences.blp:467
 msgid "Save Notes"
 msgstr "儲存備註"
 
@@ -3704,7 +3708,7 @@ msgstr "運行前掃描可執行文件中的惡意軟件特徵。"
 msgid "Scan with Eagle"
 msgstr "使用 Eagle 掃描"
 
-#: bottles/frontend/ui/dialog-display.blp:117
+#: bottles/frontend/ui/dialog-display.blp:119
 msgid "Screen Scaling"
 msgstr "屏幕縮放"
 
@@ -3856,7 +3860,7 @@ msgstr "選擇儲存備份封存檔的位置"
 msgid "Select the location where to save the backup config"
 msgstr "選擇儲存備份配置的位置"
 
-#: bottles/frontend/ui/dialog-display.blp:146
+#: bottles/frontend/ui/dialog-display.blp:149
 msgid "Select what backend to use for wined3d."
 msgstr "選擇 wined3d 使用的後端。"
 
@@ -3876,11 +3880,11 @@ msgstr "選擇與主可執行文件一起緩存的文件。"
 msgid "Send Report"
 msgstr "送出報告"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:293
+#: bottles/frontend/ui/dialog-playtime-graph.blp:302
 msgid "Sessions"
 msgstr "會話數"
 
-#: bottles/frontend/ui/dialog-display.blp:118
+#: bottles/frontend/ui/dialog-display.blp:120
 msgid "Set custom DPI."
 msgstr "設置自定義 DPI。"
 
@@ -4066,7 +4070,7 @@ msgstr "社交和 DRM"
 msgid "Software"
 msgstr "軟件"
 
-#: bottles/frontend/windows/display.py:138
+#: bottles/frontend/windows/display.py:205
 msgid "Some display settings could not be updated."
 msgstr "部分顯示設定無法更新。"
 
@@ -4074,7 +4078,7 @@ msgstr "部分顯示設定無法更新。"
 msgid "Some registered containers are unavailable:"
 msgstr "部分已登記的容器不可用："
 
-#: bottles/frontend/windows/playtimegraph.py:194
+#: bottles/frontend/windows/playtimegraph.py:197
 msgid "Something went wrong while resetting the statistics."
 msgstr "重設統計時發生錯誤。"
 
@@ -4103,7 +4107,7 @@ msgstr "開始安裝"
 msgid "Start program"
 msgstr "啓動程序"
 
-#: bottles/frontend/ui/details-preferences.blp:403
+#: bottles/frontend/ui/details-preferences.blp:372
 msgid "Start programs through WineBridge by default for this container."
 msgstr "默認通過 WineBridge 啓動此容器中的程序。"
 
@@ -4150,7 +4154,7 @@ msgstr "狀態版本 {} 正在使用"
 msgid "States list retrieved successfully!"
 msgstr "成功取得狀態版本列表！"
 
-#: bottles/frontend/ui/details-preferences.blp:412
+#: bottles/frontend/ui/details-preferences.blp:381
 msgid "Steam Runtime"
 msgstr "Steam 容器"
 
@@ -4228,11 +4232,11 @@ msgstr "正在切換分支…"
 msgid "Switching branch…"
 msgstr "正在切換分支…"
 
-#: bottles/frontend/ui/details-preferences.blp:261
+#: bottles/frontend/ui/details-preferences.blp:230
 msgid "Synchronization"
 msgstr "同步"
 
-#: bottles/backend/utils/manager.py:934 bottles/frontend/ui/details-preferences.blp:265 bottles/frontend/ui/dialog-display.blp:139 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:934 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/ui/dialog-display.blp:142 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "系統"
 
@@ -4260,7 +4264,7 @@ msgstr "系統運行器"
 msgid "System Wine is unavailable"
 msgstr "系統 Wine 不可用"
 
-#: bottles/frontend/ui/dialog-display.blp:88
+#: bottles/frontend/ui/dialog-display.blp:90
 msgid "Take Focus"
 msgstr "獲取焦點"
 
@@ -4346,7 +4350,7 @@ msgstr "已推出新的容器版本控制系統。"
 msgid "The next container for this environment will take longer to create because Bottles must rebuild the template."
 msgstr "Bottles 需要重新構建模板，因此下次按此配置預設創建容器會需要更長時間。"
 
-#: bottles/frontend/views/bottle_preferences.py:607
+#: bottles/frontend/views/bottle_preferences.py:613
 msgid "The notes could not be saved."
 msgstr "無法儲存備註。"
 
@@ -4359,7 +4363,7 @@ msgstr "程序“{0}”已不可用，正在將其從程序庫移除。"
 msgid "The program could not be stopped."
 msgstr "無法停止程式。"
 
-#: bottles/frontend/ui/program-entry.blp:103 bottles/frontend/utils/program.py:12
+#: bottles/frontend/ui/program-entry.blp:99 bottles/frontend/utils/program.py:12
 msgid "The program file could not be found. Check its path and any external drives."
 msgstr "找不到程式檔案，請檢查路徑及外接磁碟。"
 
@@ -4396,7 +4400,7 @@ msgstr "無法移除已保存的 DLL。"
 msgid "The tier is calculated by Eagle Intel, not by ProtonDB."
 msgstr "此等級由 Eagle Intel 計算，並非由 ProtonDB 提供。"
 
-#: bottles/frontend/ui/details-preferences.blp:48
+#: bottles/frontend/ui/details-preferences.blp:17
 msgid "The version of the Wine compatibility layer."
 msgstr "Wine 相容層的版本。"
 
@@ -4417,11 +4421,11 @@ msgstr "對於這個執行檔，這些設定會覆寫預設設定。"
 msgid "Third-Party Libraries and Special Thanks"
 msgstr "第三方函式庫與特別感謝"
 
-#: bottles/frontend/windows/playtimegraph.py:248
+#: bottles/frontend/windows/playtimegraph.py:251
 msgid "This Week"
 msgstr "本週"
 
-#: bottles/frontend/windows/playtimegraph.py:272
+#: bottles/frontend/windows/playtimegraph.py:275
 msgid "This Year"
 msgstr "今年"
 
@@ -4501,7 +4505,7 @@ msgstr "這項資源已遺失。"
 msgid "This runner cannot create a 32-bit prefix. Select a 64-bit container."
 msgstr "此執行器無法建立 32 位元環境，請選擇 64 位元容器。"
 
-#: bottles/frontend/views/bottle_preferences.py:891
+#: bottles/frontend/views/bottle_preferences.py:909
 msgid "This runner has no Esync, so it will use its default."
 msgstr "此執行器不支援 Esync，將使用其預設同步方式。"
 
@@ -4534,7 +4538,7 @@ msgid "This version of Bottles does not seem to provide all the necessary core d
 msgstr "這個版本的Bottles似乎沒有提供所有必要的核心相依套件，請與您的套件維護者聯繫或是使用來自Bottles的官方版本。"
 
 #, python-brace-format
-#: bottles/frontend/windows/playtimegraph.py:131
+#: bottles/frontend/windows/playtimegraph.py:134
 msgid "This will permanently delete all usage time data for \"{}\". This action cannot be undone."
 msgstr "這會永久刪除「{}」的全部使用時間資料，無法復原。"
 
@@ -4554,11 +4558,11 @@ msgstr "時間戳"
 msgid "To add it, please run:"
 msgstr "要添加它，請運行："
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:102 bottles/frontend/utils/playtime.py:498 bottles/frontend/windows/playtimegraph.py:262
+#: bottles/frontend/ui/dialog-playtime-graph.blp:106 bottles/frontend/utils/playtime.py:498 bottles/frontend/windows/playtimegraph.py:265
 msgid "Today"
 msgstr "今天"
 
-#: bottles/frontend/ui/details-preferences.blp:339
+#: bottles/frontend/ui/details-preferences.blp:308
 msgid "Toggle OBS Game Capture for all Vulkan and OpenGL programs."
 msgstr "切換所有 Vulkan 和 OpenGL 程式的 OBS 遊戲擷取。"
 
@@ -4598,7 +4602,7 @@ msgstr "在列表中切換更新日期"
 msgid "Tools"
 msgstr "工具"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:270
+#: bottles/frontend/ui/dialog-playtime-graph.blp:278
 msgid "Total Usage Time"
 msgstr "總運行時長"
 
@@ -4722,7 +4726,7 @@ msgstr "更新"
 msgid "Updating Components…"
 msgstr "正在更新組件…"
 
-#: bottles/frontend/ui/details-preferences.blp:64
+#: bottles/frontend/ui/details-preferences.blp:33
 msgid "Updating D7VK, please wait..."
 msgstr "正在更新 D7VK，請稍候…"
 
@@ -4730,27 +4734,27 @@ msgstr "正在更新 D7VK，請稍候…"
 msgid "Updating DLL overrides…"
 msgstr "正在更新 DLL 替換…"
 
-#: bottles/frontend/ui/details-preferences.blp:77
+#: bottles/frontend/ui/details-preferences.blp:46
 msgid "Updating DXVK, please wait…"
 msgstr "正在更新 DXVK，請稍候…"
 
-#: bottles/frontend/ui/details-preferences.blp:103 bottles/frontend/ui/details-preferences.blp:136
+#: bottles/frontend/ui/details-preferences.blp:72 bottles/frontend/ui/details-preferences.blp:105
 msgid "Updating DXVK-NVAPI, please wait…"
 msgstr "正在更新 DXVK-NVAPI，請稍候…"
 
-#: bottles/frontend/ui/details-preferences.blp:116
+#: bottles/frontend/ui/details-preferences.blp:85
 msgid "Updating LatencyFleX, please wait…"
 msgstr "正在更新 LatencyFleX，請稍候…"
 
-#: bottles/frontend/ui/details-preferences.blp:51
+#: bottles/frontend/ui/details-preferences.blp:20
 msgid "Updating Runner and components, please wait…"
 msgstr "更新執行器和組件中，請稍候…"
 
-#: bottles/frontend/ui/details-preferences.blp:90
+#: bottles/frontend/ui/details-preferences.blp:59
 msgid "Updating VKD3D, please wait…"
 msgstr "正在更新 VKD3D，請稍候…"
 
-#: bottles/frontend/ui/details-preferences.blp:354
+#: bottles/frontend/ui/details-preferences.blp:323
 msgid "Updating Windows version, please wait…"
 msgstr "正在更新 Windows 版本，請稍候…"
 
@@ -4763,7 +4767,7 @@ msgstr "正在更新 WineBridge…"
 msgid "Updating WineBridge… ({percent}%)"
 msgstr "正在更新 WineBridge…（{percent}%）"
 
-#: bottles/frontend/windows/display.py:125
+#: bottles/frontend/windows/display.py:155
 msgid "Updating display settings, please wait…"
 msgstr "正在更新顯示設定，請稍候…"
 
@@ -4788,15 +4792,15 @@ msgid "Usage Time Tracking"
 msgstr "執行時間統計"
 
 #, python-brace-format
-#: bottles/frontend/windows/playtimegraph.py:187
+#: bottles/frontend/windows/playtimegraph.py:190
 msgid "Usage time statistics cannot be reset while \"{}\" is running. Close the program and try again."
 msgstr "「{}」正在執行，無法重設使用時間統計。請關閉程式後再試。"
 
-#: bottles/frontend/windows/playtimegraph.py:192
+#: bottles/frontend/windows/playtimegraph.py:195
 msgid "Usage time tracking is disabled."
 msgstr "使用時間統計已停用。"
 
-#: bottles/frontend/ui/details-bottle.blp:151 bottles/frontend/ui/details-preferences.blp:402
+#: bottles/frontend/ui/details-bottle.blp:151 bottles/frontend/ui/details-preferences.blp:371
 msgid "Use WineBridge"
 msgstr "使用 WineBridge"
 
@@ -4808,7 +4812,7 @@ msgstr "請使用 64 位 Vulkan 應用。遇到問題時請禁用其它 Vulkan �
 msgid "Use a lighter model with a small quality reduction."
 msgstr "使用較輕量的模型，畫質會略有下降。"
 
-#: bottles/frontend/ui/details-preferences.blp:372
+#: bottles/frontend/ui/details-preferences.blp:341
 msgid "Use a restricted/managed environment for this container."
 msgstr "為此容器使用受限制的/控管的環境。"
 
@@ -4816,7 +4820,7 @@ msgstr "為此容器使用受限制的/控管的環境。"
 msgid "Use shipping binary instead"
 msgstr "改用發行版本的二進制文件"
 
-#: bottles/frontend/ui/details-preferences.blp:150
+#: bottles/frontend/ui/details-preferences.blp:119
 msgid "Use the discrete graphics card to increase performance at the expense of power consumption."
 msgstr "以增加耗電量為代價，使用獨立顯示卡提升性能。"
 
@@ -4836,7 +4840,7 @@ msgstr "用戶運行器"
 msgid "Uses the resolution of the video game as a reference in pixels."
 msgstr "以遊戲像素尺寸作為解析度。"
 
-#: bottles/backend/managers/manager.py:1947 bottles/frontend/ui/details-preferences.blp:86
+#: bottles/backend/managers/manager.py:1947 bottles/frontend/ui/details-preferences.blp:55
 msgid "VKD3D"
 msgstr "VKD3D"
 
@@ -4872,7 +4876,7 @@ msgstr "此系統無法使用 Vulkan。"
 msgid "Warnings"
 msgstr "警告"
 
-#: bottles/frontend/ui/details-preferences.blp:159
+#: bottles/frontend/ui/details-preferences.blp:128
 msgid "Wayland (Experimental)"
 msgstr "Wayland（實驗性）"
 
@@ -4884,7 +4888,7 @@ msgstr "我們找到了一或多個類似(或相同)的報告。請在提交前�
 msgid "Week"
 msgstr "周"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:136 bottles/frontend/windows/playtimegraph.py:248
+#: bottles/frontend/ui/dialog-playtime-graph.blp:142 bottles/frontend/windows/playtimegraph.py:251
 msgid "Weekly"
 msgstr "每周"
 
@@ -4913,7 +4917,7 @@ msgstr "寬度"
 msgid "Win64"
 msgstr "Win64"
 
-#: bottles/frontend/ui/dialog-display.blp:108
+#: bottles/frontend/ui/dialog-display.blp:110
 msgid "Window Manager Decorations"
 msgstr "窗口管理器裝飾"
 
@@ -4933,7 +4937,7 @@ msgstr "視窗高度"
 msgid "Window width"
 msgstr "視窗寬度"
 
-#: bottles/frontend/ui/details-preferences.blp:351
+#: bottles/frontend/ui/details-preferences.blp:320
 msgid "Windows Version"
 msgstr "Windows 版本"
 
@@ -4978,7 +4982,7 @@ msgstr "WineBridge 更新"
 msgid "WineBridge update failed"
 msgstr "WineBridge 更新失敗"
 
-#: bottles/frontend/ui/details-preferences.blp:422 bottles/frontend/ui/dialog-launch-options.blp:143
+#: bottles/frontend/ui/details-preferences.blp:391 bottles/frontend/ui/dialog-launch-options.blp:143
 msgid "Working Directory"
 msgstr "工作目錄"
 
@@ -4994,7 +4998,7 @@ msgstr "正在寫入註冊表項…"
 msgid "Year"
 msgstr "年"
 
-#: bottles/frontend/windows/playtimegraph.py:272
+#: bottles/frontend/windows/playtimegraph.py:275
 msgid "Yearly"
 msgstr "每年"
 
@@ -5195,10 +5199,6 @@ msgstr "軟件包"
 msgid "translator_credits"
 msgstr "銘謝翻譯者"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:8
-msgid "window-title"
-msgstr "窗口標題"
-
 #: data/com.usebottles.bottles.desktop.in.in:13
 msgid "wine;windows;gaming;emulate;emulator;game;"
 msgstr "wine;windows;gaming;emulate;emulator;game;"
@@ -5322,7 +5322,7 @@ msgid "{} saved"
 msgstr "已保存 {}"
 
 #, python-brace-format
-#: bottles/frontend/windows/playtimegraph.py:218
+#: bottles/frontend/windows/playtimegraph.py:221
 msgid "{} – {}"
 msgstr "{} — {}"
 

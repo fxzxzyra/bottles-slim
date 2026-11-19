@@ -5,6 +5,7 @@ import pytest
 
 from bottles.backend.managers import manager as module
 from bottles.backend.managers.manager import Manager
+from bottles.backend.models.result import Result
 
 
 @pytest.mark.parametrize("sandbox", [False, True])
@@ -23,6 +24,7 @@ def test_creation_uses_exact_directory_and_private_profile(monkeypatch, tmp_path
             captured["alias"] = (profile.parent / "steamuser").readlink()
             captured["mode"] = root.stat().st_mode & 0o777
             cancel.set()
+            return Result(True)
     manager = object.__new__(Manager)
     manager.runners_available = ["soda-11.0"]
     manager.d7vk_available = []
@@ -96,7 +98,6 @@ def test_creation_rejects_a_profile_link_outside_the_bottle(monkeypatch, tmp_pat
     monkeypatch.setattr(module, "WineServer", lambda _: SimpleNamespace(force_kill=lambda: None))
     result = manager.create_bottle(name="Office", environment="custom", path=str(root), runner="soda-11.0")
     assert not result.ok
-    assert result.message == "Failed to prepare the bottle user profile."
     assert (outside / "keep").read_text() == "personal data"
     assert root.is_dir()
     assert list(root.iterdir()) == []

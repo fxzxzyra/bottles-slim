@@ -52,6 +52,7 @@ template $DisplayDialog: Adw.Window {
               valign: center;
 
               adjustment: Adjustment spin_width {
+                lower: 1;
                 step-increment: 1;
                 upper: 7680;
               };
@@ -66,6 +67,7 @@ template $DisplayDialog: Adw.Window {
               valign: center;
 
               adjustment: Adjustment spin_height {
+                lower: 1;
                 step-increment: 1;
                 upper: 7680;
               };
@@ -122,6 +124,7 @@ template $DisplayDialog: Adw.Window {
             valign: center;
 
             adjustment: Adjustment spin_dpi {
+              lower: 1;
               step-increment: 1;
               upper: 480;
             };

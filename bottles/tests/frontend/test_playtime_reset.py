@@ -80,3 +80,29 @@ def test_reset_dialog_cancel_preserves_stats_and_confirm_clears_them(tmp_path):
             dialog.destroy()
         window.destroy()
         tracker.shutdown()
+
+
+def test_usage_statistics_fit_a_narrow_window_and_keep_the_full_program_name(tmp_path):
+    Adw.init()
+    tracker = ProcessSessionTracker(db_path=str(tmp_path / "playtime.sqlite"))
+    window = Gtk.Window()
+    dialog = None
+    try:
+        manager = SimpleNamespace(
+            get_playtime_tracker=lambda _bottle_id: tracker,
+            settings=SimpleNamespace(get_boolean=lambda _key: True),
+        )
+        parent = SimpleNamespace(window=window, manager=manager)
+        name = "A very long program name " * 30
+        dialog = PlaytimeGraphDialog(parent, name, "program", "container")
+        assert dialog.get_title() == name
+        assert dialog.label_program_title.get_tooltip_text() == name
+        # Measure real template contents, including charts and long titles.
+        # The former fixed 600px content and unbounded label both violate this.
+        minimum, *_ = dialog.get_child().measure(Gtk.Orientation.HORIZONTAL, -1)
+        assert minimum <= 480
+    finally:
+        if dialog is not None:
+            dialog.destroy()
+        window.destroy()
+        tracker.shutdown()

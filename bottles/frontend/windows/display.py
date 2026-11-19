@@ -15,15 +15,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from functools import partial
 from gettext import gettext as _
 
-from gi.repository import Adw, GLib, Gtk
+from gi.repository import Adw, Gtk
 
 from bottles.backend.logger import Logger
+from bottles.backend.models.result import Result
 from bottles.backend.utils.threading import RunAsync
 from bottles.backend.wine.reg import Reg
 from bottles.backend.wine.regkeys import RegKeys
-from bottles.frontend.utils.gtk import GtkUtils
 
 logging = Logger()
 
@@ -107,204 +108,102 @@ class DisplayDialog(Adw.Window):
                 self.combo_renderer.set_selected(index)
                 break
 
-    # Save file
-    def __idle_save(self, *args):
-        """Get resolution"""
-        width = int(self.spin_width.get_value())
-        height = int(self.spin_height.get_value())
-        resolution = f"{width}x{height}"
+    def __save(self, *_args):
+        """Capture the controls once and apply registry changes in order."""
+        parameters = self.parameters
+        rk = RegKeys(self.config)
+        tasks = []
 
-        """Queue system"""
-        self.started = 0
-        self.queued = 0
-        self.completed = 0
-        self.failed = False
+        def add(changes, operation):
+            if any(getattr(parameters, key) != value for key, value in changes.items()):
+                tasks.append((changes, operation))
 
-        def add_queue():
-            if self.started == 0:
-                self.window.show_toast(_("Updating display settings, please wait…"))
-                self.spinner_display.start()
-                self.started = 1
-            self.queue.add_task()
-            self.widget.set_sensitive(False)
-            self.queued += 1
+        desktop = self.expander_virtual_desktop.get_enable_expansion()
+        resolution = f"{int(self.spin_width.get_value())}x{int(self.spin_height.get_value())}"
+        desktop_changes = {"virtual_desktop": desktop}
+        if desktop:
+            desktop_changes["virtual_desktop_res"] = resolution
+        add(desktop_changes, partial(rk.toggle_virtual_desktop, state=desktop, resolution=resolution))
+        add({"mouse_warp": self.switch_mouse_warp.get_active()},
+            partial(rk.set_mouse_warp, state=self.switch_mouse_warp.get_active()))
+        dpi = int(self.spin_dpi.get_value())
+        add({"custom_dpi": dpi}, partial(rk.set_dpi, value=dpi))
+        scaling = dpi_scaling_modes[self.combo_dpi_scaling.get_selected()]
+        if self.dpi_scaling is not None and scaling != self.dpi_scaling:
+            tasks.append(({"dpi_scaling": scaling}, partial(rk.set_dpi_scaling, mode=scaling)))
+        renderer = renderers[self.combo_renderer.get_selected()]
+        add({"renderer": renderer}, partial(rk.set_renderer, value=renderer))
+        reg = Reg(self.config)
+        for control, key, registry_key in (
+            (self.switch_mouse_capture, "fullscreen_capture", "GrabFullscreen"),
+            (self.switch_take_focus, "take_focus", "UseTakeFocus"),
+            (self.switch_decorated, "decorated", "Decorated"),
+        ):
+            state = control.get_active()
+            add({key: state}, partial(
+                reg.add, key=r"HKEY_CURRENT_USER\Software\Wine\X11 Driver",
+                value=registry_key, data="Y" if state else "N",
+            ))
 
-        def complete_queue():
-            self.completed += 1
-            if self.queued == self.completed:
+        self.close()
+        if not tasks:
+            return
+        self.btn_save.set_sensitive(False)
+        self.widget.set_sensitive(False)
+        self.spinner_display.start()
+        self.queue.add_task()
+        self.window.show_toast(_("Updating display settings, please wait…"))
+
+        def apply():
+            results = []
+            for changes, operation in tasks:
+                try:
+                    result = operation()
+                except Exception as error:
+                    logging.error(f"Display settings update failed: {error}")
+                    result = Result(False, message=str(error))
+                results.append((changes, result))
+            return results
+
+        def completed(results, error):
+            failed = bool(error)
+            try:
+                previous = self.config.Parameters
+                parameters = previous.copy()
+                changed = False
+                for changes, result in results or []:
+                    if not result.ok:
+                        failed = True
+                        logging.error(result.message)
+                        continue
+                    for key, value in changes.items():
+                        setattr(parameters, key, value)
+                    changed = True
+                if changed:
+                    try:
+                        saved = self.manager.update_config(
+                            config=self.config, key="Parameters", value=parameters,
+                        )
+                    except Exception:
+                        self.config.Parameters = previous
+                        raise
+                    if not saved.ok:
+                        # update_config mutates before writing; retain the saved values.
+                        self.config.Parameters = previous
+                        failed = True
+                    else:
+                        self.config = saved.data["config"]
+                        self.parameters = self.config.Parameters
+            except Exception as exception:
+                failed = True
+                logging.error(f"Could not save display settings: {exception}")
+            finally:
                 self.widget.set_sensitive(True)
                 self.spinner_display.stop()
+                self.queue.end_task()
                 self.window.show_toast(
                     _("Some display settings could not be updated.")
-                    if self.failed else _("Display settings updated")
-                )
-            self.queue.end_task()
-
-        if (
-            self.expander_virtual_desktop.get_enable_expansion()
-            != self.parameters.virtual_desktop
-        ):
-            """Toggle virtual desktop"""
-
-            @GtkUtils.run_in_main_loop
-            def update(result, error=False):
-                self.config = self.manager.update_config(
-                    config=self.config,
-                    key="virtual_desktop",
-                    value=self.expander_virtual_desktop.get_enable_expansion(),
-                    scope="Parameters",
-                ).data["config"]
-                complete_queue()
-
-            add_queue()
-            rk = RegKeys(self.config)
-            RunAsync(
-                task_func=rk.toggle_virtual_desktop,
-                callback=update,
-                state=self.expander_virtual_desktop.get_enable_expansion(),
-                resolution=resolution,
-            )
-
-        if (
-            self.expander_virtual_desktop.get_enable_expansion()
-            and resolution != self.parameters.virtual_desktop_res
-        ):
-            """Set virtual desktop resolution"""
-
-            @GtkUtils.run_in_main_loop
-            def update(result, error=False):
-                self.config = self.manager.update_config(
-                    config=self.config,
-                    key="virtual_desktop_res",
-                    value=resolution,
-                    scope="Parameters",
-                ).data["config"]
-                complete_queue()
-
-            add_queue()
-            rk = RegKeys(self.config)
-            if self.expander_virtual_desktop.get_enable_expansion():
-                RunAsync(
-                    task_func=rk.toggle_virtual_desktop,
-                    callback=update,
-                    state=True,
-                    resolution=resolution,
+                    if failed else _("Display settings updated")
                 )
 
-        if self.switch_mouse_warp.get_active() != self.parameters.mouse_warp:
-            """Set mouse warp"""
-
-            @GtkUtils.run_in_main_loop
-            def update(result, error=False):
-                self.config = self.manager.update_config(
-                    config=self.config,
-                    key="mouse_warp",
-                    value=self.switch_mouse_warp.get_active(),
-                    scope="Parameters",
-                ).data["config"]
-                complete_queue()
-
-            add_queue()
-            rk = RegKeys(self.config)
-
-            RunAsync(
-                rk.set_mouse_warp,
-                callback=update,
-                state=self.switch_mouse_warp.get_active(),
-            )
-
-        if self.spin_dpi.get_value() != self.parameters.custom_dpi:
-            """Set DPI"""
-
-            @GtkUtils.run_in_main_loop
-            def update(result, error=False):
-                self.config = self.manager.update_config(
-                    config=self.config, key="custom_dpi", value=dpi, scope="Parameters"
-                ).data["config"]
-                complete_queue()
-
-            add_queue()
-            rk = RegKeys(self.config)
-            dpi = int(self.spin_dpi.get_value())
-
-            RunAsync(rk.set_dpi, callback=update, value=dpi)
-
-        dpi_scaling = dpi_scaling_modes[self.combo_dpi_scaling.get_selected()]
-        if self.dpi_scaling is not None and dpi_scaling != self.dpi_scaling:
-            def update_scaling(result, error=False):
-                if error or result is None or not result.ok:
-                    self.failed = True
-                    logging.error(str(error) if error else result.message if result else "DPI update failed")
-                else:
-                    saved = self.manager.update_config(
-                        config=self.config, key="dpi_scaling", value=dpi_scaling,
-                        scope="Parameters",
-                    )
-                    self.failed = self.failed or not saved.ok
-                complete_queue()
-
-            add_queue()
-            RunAsync(RegKeys(self.config).set_dpi_scaling, update_scaling, mode=dpi_scaling)
-
-        if renderers[self.combo_renderer.get_selected()] != self.parameters.renderer:
-            """Set renderer"""
-
-            @GtkUtils.run_in_main_loop
-            def update(result, error=False):
-                self.config = self.manager.update_config(
-                    config=self.config,
-                    key="renderer",
-                    value=renderer,
-                    scope="Parameters",
-                ).data["config"]
-                complete_queue()
-
-            add_queue()
-            rk = RegKeys(self.config)
-            renderer = renderers[self.combo_renderer.get_selected()]
-
-            RunAsync(rk.set_renderer, callback=update, value=renderer)
-
-        def toggle_x11_reg_key(state, rkey, ckey):
-            """Update x11 registry keys"""
-
-            @GtkUtils.run_in_main_loop
-            def update(result, error=False):
-                self.config = self.manager.update_config(
-                    config=self.config, key=ckey, value=state, scope="Parameters"
-                ).data["config"]
-                complete_queue()
-
-            add_queue()
-            reg = Reg(self.config)
-            _rule = "Y" if state else "N"
-
-            RunAsync(
-                reg.add,
-                callback=update,
-                key="HKEY_CURRENT_USER\\Software\\Wine\\X11 Driver",
-                value=rkey,
-                data=_rule,
-            )
-
-        if self.switch_mouse_capture.get_active() != self.parameters.fullscreen_capture:
-            toggle_x11_reg_key(
-                self.switch_mouse_capture.get_active(),
-                "GrabFullscreen",
-                "fullscreen_capture",
-            )
-        if self.switch_take_focus.get_active() != self.parameters.take_focus:
-            toggle_x11_reg_key(
-                self.switch_take_focus.get_active(), "UseTakeFocus", "take_focus"
-            )
-        if self.switch_decorated.get_active() != self.parameters.decorated:
-            toggle_x11_reg_key(
-                self.switch_decorated.get_active(), "Decorated", "decorated"
-            )
-
-        """Close window"""
-        self.close()
-        return GLib.SOURCE_REMOVE
-
-    def __save(self, *args):
-        GLib.idle_add(self.__idle_save)
+        RunAsync(apply, completed)

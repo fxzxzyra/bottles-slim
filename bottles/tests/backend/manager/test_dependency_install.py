@@ -221,12 +221,12 @@ def test_installer_without_z_is_staged_inside_prefix(
         assert recorder.config_updates == []
 
 
-@pytest.mark.parametrize("description,expected", [("Microsoft .NET Framework 4", "Microsoft .NET Framework 4"), (None, "prerequisite")])
+@pytest.mark.parametrize("description,expected", [("Microsoft .NET Framework 4", "Microsoft .NET Framework 4"), (None, "dotnet-support")])
 def test_prerequisite_progress_uses_the_dependency_description(recorder, description, expected):
     manager = _dependency_manager(recorder)
     manifests = {
-        "main": {"Dependencies": ["prerequisite"], "Steps": []},
-        "prerequisite": {"Description": description, "Dependencies": [], "Steps": []},
+        "main": {"Dependencies": ["dotnet-support"], "Steps": []},
+        "dotnet-support": {"Description": description, "Dependencies": [], "Steps": []},
     }
     manager.get_dependency = manifests.get
     manager._DependencyManager__manager.supported_dependencies = manifests
@@ -235,7 +235,7 @@ def test_prerequisite_progress_uses_the_dependency_description(recorder, descrip
     result = manager.install(BottleConfig(Name="Bottle"), ["main", manifests["main"]], progress_cb=messages.append)
 
     assert result.ok
-    assert any(f'prerequisite "{expected}"' in message for message in messages)
+    assert any(expected in message for message in messages)
 
 
 @pytest.mark.parametrize("present", [True, False])

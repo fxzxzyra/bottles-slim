@@ -53,6 +53,7 @@ class Reg(WineProgram):
 
         res = self.launch(args, communicate=True, minimal=True, action_name="add")
         logging.info(res.data)
+        return res
 
     def remove(self, key: str, value: str):
         """Remove a key from the registry"""
@@ -68,6 +69,7 @@ class Reg(WineProgram):
 
         res = self.launch(args, communicate=True, minimal=True, action_name="remove")
         logging.info(res.data)
+        return res
 
     def import_bundle(self, bundle: dict) -> Result:
         """Import a bundle of keys into the registry"""

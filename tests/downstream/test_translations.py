@@ -211,6 +211,7 @@ def test_reviewed_feature_messages_are_translated_in_every_shipped_language():
         "Usage time tracking is disabled.", "Could Not Reset Usage Time Statistics",
         "The notes could not be saved.", "Default DPI Scaling Mode",
         "Could not read the DPI scaling mode.", "Some display settings could not be updated.",
+        "Could not change the synchronization mode.",
         "This runner has no Esync, so it will use its default.",
         "This runner cannot create a 32-bit prefix. Select a 64-bit container.",
         "The program file could not be found. Check its path and any external drives.",

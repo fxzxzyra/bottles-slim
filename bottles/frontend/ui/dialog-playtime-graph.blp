@@ -5,7 +5,7 @@ template $PlaytimeGraphDialog: Adw.Window {
   modal: true;
   default-height: 600;
   destroy-with-parent: true;
-  title: _("window-title");
+  default-width: 640;
 
   ShortcutController {
     scope: managed;
@@ -62,263 +62,277 @@ template $PlaytimeGraphDialog: Adw.Window {
       }
     }
 
-    content: Box {
-      orientation: vertical;
-      halign: center;
-      valign: center;
-      width-request: 600;
-      vexpand: true;
+    content: ScrolledWindow {
+      hscrollbar-policy: never;
 
-      Box {
-        orientation: vertical;
-        margin-top: 24;
-        margin-bottom: 24;
-        margin-start: 18;
-        margin-end: 18;
-        spacing: 24;
-        // Current period stats
+      Adw.Clamp {
+        maximum-size: 640;
+
         Box {
           orientation: vertical;
-          spacing: 0;
-
-          styles [
-            "card",
-          ]
-
-          Box {
-            orientation: horizontal;
-            spacing: 12;
-            homogeneous: true;
-            margin-top: 12;
-            margin-bottom: 12;
-            margin-start: 12;
-            margin-end: 12;
-
-            Box {
-              orientation: vertical;
-              spacing: 6;
-
-              Label {
-                label: _("Today");
-                halign: start;
-
-                styles [
-                  "dim-label",
-                ]
-              }
-
-              Label label_today_time {
-                label: "0m";
-                halign: start;
-
-                styles [
-                  "title-1",
-                ]
-              }
-
-              Label label_program_title {
-
-                halign: start;
-                hexpand: true;
-
-                styles [
-                  "caption",
-                  "dim-label",
-                ]
-              }
-            }
-
-            Box {
-              orientation: vertical;
-              spacing: 6;
-
-              Label label_week_label {
-                label: _("Weekly");
-                halign: start;
-
-                styles [
-                  "dim-label",
-                ]
-              }
-
-              Label label_week_time {
-                label: "0h 0m";
-                halign: start;
-
-                styles [
-                  "title-1",
-                ]
-              }
-
-              Label label_week_avg {
-                label: _("Average: 0h 0m");
-                halign: start;
-
-                styles [
-                  "caption",
-                  "dim-label",
-                ]
-              }
-            }
-          }
-        }
-
-        // Chart area with card background
-        Box {
-          orientation: vertical;
-          spacing: 0;
-          vexpand: false;
-
-          styles [
-            "card",
-          ]
+          valign: start;
+          vexpand: true;
 
           Box {
             orientation: vertical;
-            spacing: 12;
-            margin-top: 12;
-            margin-bottom: 12;
-            margin-start: 12;
-            margin-end: 12;
-            // Bar chart container
-            Box chart_container {
+            margin-top: 24;
+            margin-bottom: 24;
+            margin-start: 18;
+            margin-end: 18;
+            spacing: 24;
+            // Current period stats
+            Box {
               orientation: vertical;
               spacing: 0;
-              valign: end;
-              // PlaytimeChart widget will be added here programmatically
-            }
 
-            Separator {
               styles [
-                "spacer",
+                "card",
               ]
+
+              Box {
+                orientation: horizontal;
+                spacing: 12;
+                homogeneous: true;
+                margin-top: 12;
+                margin-bottom: 12;
+                margin-start: 12;
+                margin-end: 12;
+
+                Box {
+                  orientation: vertical;
+                  spacing: 6;
+
+                  Label {
+                    label: _("Today");
+                    halign: start;
+
+                    styles [
+                      "dim-label",
+                    ]
+                  }
+
+                  Label label_today_time {
+                    label: "0m";
+                    halign: start;
+
+                    styles [
+                      "title-1",
+                    ]
+                  }
+
+                  Label label_program_title {
+                    ellipsize: end;
+                    max-width-chars: 24;
+
+                    halign: start;
+                    hexpand: true;
+
+                    styles [
+                      "caption",
+                      "dim-label",
+                    ]
+                  }
+                }
+
+                Box {
+                  orientation: vertical;
+                  spacing: 6;
+
+                  Label label_week_label {
+                    label: _("Weekly");
+                    halign: start;
+
+                    styles [
+                      "dim-label",
+                    ]
+                  }
+
+                  Label label_week_time {
+                    label: "0h 0m";
+                    halign: start;
+
+                    styles [
+                      "title-1",
+                    ]
+                  }
+
+                  Label label_week_avg {
+                    wrap: true;
+                    label: _("Average: 0h 0m");
+                    halign: start;
+
+                    styles [
+                      "caption",
+                      "dim-label",
+                    ]
+                  }
+                }
+              }
             }
 
-            // Chart navigation
+            // Chart area with card background
             Box {
-              orientation: horizontal;
+              orientation: vertical;
+              spacing: 0;
+              vexpand: false;
+
+              styles [
+                "card",
+              ]
+
+              Box {
+                orientation: vertical;
+                spacing: 12;
+                margin-top: 12;
+                margin-bottom: 12;
+                margin-start: 12;
+                margin-end: 12;
+                // Bar chart container
+                Box chart_container {
+                  orientation: vertical;
+                  spacing: 0;
+                  valign: end;
+                  // PlaytimeChart widget will be added here programmatically
+                }
+
+                Separator {
+                  styles [
+                    "spacer",
+                  ]
+                }
+
+                // Chart navigation
+                Box {
+                  orientation: horizontal;
+                  spacing: 12;
+
+                  Button btn_prev {
+                    icon-name: "go-previous-symbolic";
+                    valign: center;
+                    tooltip-text: _("Previous Week");
+
+                    styles [
+                      "circular",
+                    ]
+                  }
+
+                  Label label_date_range {
+                    wrap: true;
+
+                    hexpand: true;
+                    halign: center;
+                    valign: center;
+
+                    styles [
+                      "title-4",
+                    ]
+                  }
+
+                  Button btn_next {
+                    icon-name: "go-next-symbolic";
+                    valign: center;
+                    tooltip-text: _("Next Week");
+
+                    styles [
+                      "circular",
+                    ]
+                  }
+                }
+              }
+            }
+
+            // Total stats
+            Box {
+              orientation: vertical;
               spacing: 12;
 
-              Button btn_prev {
-                icon-name: "go-previous-symbolic";
-                valign: center;
-                tooltip-text: _("Previous Week");
-
-                styles [
-                  "circular",
-                ]
-              }
-
-              Label label_date_range {
-
-                hexpand: true;
-                halign: center;
-                valign: center;
-
-                styles [
-                  "title-4",
-                ]
-              }
-
-              Button btn_next {
-                icon-name: "go-next-symbolic";
-                valign: center;
-                tooltip-text: _("Next Week");
-
-                styles [
-                  "circular",
-                ]
-              }
-            }
-          }
-        }
-
-        // Total stats
-        Box {
-          orientation: vertical;
-          spacing: 12;
-
-          Box {
-            orientation: vertical;
-
-            styles [
-              "card",
-            ]
-
-            Box {
-              orientation: horizontal;
-              spacing: 24;
-              margin-top: 12;
-              margin-bottom: 12;
-              margin-start: 12;
-              margin-end: 12;
-
               Box {
                 orientation: vertical;
-                spacing: 6;
 
-                Label label_total_time {
-                  label: "0h 0m";
-                  halign: start;
+                styles [
+                  "card",
+                ]
 
-                  styles [
-                    "title-2",
-                  ]
-                }
+                Box {
+                  orientation: horizontal;
+                  spacing: 24;
+                  margin-top: 12;
+                  margin-bottom: 12;
+                  margin-start: 12;
+                  margin-end: 12;
 
-                Label {
-                  label: _("Total Usage Time");
-                  halign: start;
+                  Box {
+                    orientation: vertical;
+                    spacing: 6;
 
-                  styles [
-                    "dim-label",
-                  ]
-                }
-              }
+                    Label label_total_time {
+                      label: "0h 0m";
+                      halign: start;
 
-              Box {
-                orientation: vertical;
-                spacing: 6;
+                      styles [
+                        "title-2",
+                      ]
+                    }
 
-                Label label_sessions_count {
-                  label: "0";
-                  halign: start;
+                    Label {
+                      label: _("Total Usage Time");
+                      wrap: true;
+                      halign: start;
 
-                  styles [
-                    "title-2",
-                  ]
-                }
+                      styles [
+                        "dim-label",
+                      ]
+                    }
+                  }
 
-                Label {
-                  label: _("Sessions");
-                  halign: start;
+                  Box {
+                    orientation: vertical;
+                    spacing: 6;
 
-                  styles [
-                    "dim-label",
-                  ]
-                }
-              }
+                    Label label_sessions_count {
+                      label: "0";
+                      halign: start;
 
-              Box {
-                orientation: vertical;
-                spacing: 6;
+                      styles [
+                        "title-2",
+                      ]
+                    }
 
-                Label label_last_played {
-                  label: _("Never");
-                  halign: start;
+                    Label {
+                      label: _("Sessions");
+                      wrap: true;
+                      halign: start;
 
-                  styles [
-                    "title-2",
-                  ]
-                }
+                      styles [
+                        "dim-label",
+                      ]
+                    }
+                  }
 
-                Label {
-                  label: _("Last Used");
-                  halign: start;
+                  Box {
+                    orientation: vertical;
+                    spacing: 6;
 
-                  styles [
-                    "dim-label",
-                  ]
+                    Label label_last_played {
+                      wrap: true;
+                      label: _("Never");
+                      halign: start;
+
+                      styles [
+                        "title-2",
+                      ]
+                    }
+
+                    Label {
+                      label: _("Last Used");
+                      wrap: true;
+                      halign: start;
+
+                      styles [
+                        "dim-label",
+                      ]
+                    }
+                  }
                 }
               }
             }

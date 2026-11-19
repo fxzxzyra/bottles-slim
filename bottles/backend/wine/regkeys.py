@@ -179,29 +179,21 @@ class RegKeys:
             data=version,
         )
 
-    def toggle_virtual_desktop(self, state: bool, resolution: str = "800x600"):
-        """
-        This function toggles the virtual desktop for a bottle, updating
-        the Desktop's registry key.
-        """
-        wineboot = WineBoot(self.config)
-
+    def toggle_virtual_desktop(self, state: bool, resolution: str = "800x600") -> Result:
+        """Update the virtual desktop and report registry or wineboot failures."""
+        key = r"HKEY_CURRENT_USER\Software\Wine\Explorer"
         if state:
-            self.reg.add(
-                key="HKEY_CURRENT_USER\\Software\\Wine\\Explorer",
-                value="Desktop",
-                data="Default",
-            )
-            self.reg.add(
-                key="HKEY_CURRENT_USER\\Software\\Wine\\Explorer\\Desktops",
-                value="Default",
-                data=resolution,
+            result = self.reg.add(key=key, value="Desktop", data="Default")
+            if not result.ok:
+                return result
+            result = self.reg.add(
+                key=key + r"\Desktops", value="Default", data=resolution,
             )
         else:
-            self.reg.remove(
-                key="HKEY_CURRENT_USER\\Software\\Wine\\Explorer", value="Desktop"
-            )
-        wineboot.update()
+            result = self.reg.remove(key=key, value="Desktop")
+        if not result.ok:
+            return result
+        return WineBoot(self.config).update()
 
     def toggle_wayland_driver(self, state: bool):
         key = "HKEY_CURRENT_USER\\Software\\Wine\\Drivers"
@@ -289,7 +281,7 @@ class RegKeys:
         if value not in ["gl", "gdi", "vulkan"]:
             raise ValueError(f"{value} is not a valid renderer (gl, gdi, vulkan)")
 
-        self.reg.add(
+        return self.reg.add(
             key="HKEY_CURRENT_USER\\Software\\Wine\\Direct3D",
             value="renderer",
             data=value,
@@ -328,7 +320,7 @@ class RegKeys:
         """
         Set the DPI for a bottle.
         """
-        self.reg.add(
+        return self.reg.add(
             key="HKEY_CURRENT_USER\\Control Panel\\Desktop",
             value="LogPixels",
             data=str(value),
@@ -454,4 +446,4 @@ class RegKeys:
         if executable:
             key = f"HKEY_CURRENT_USER\\Software\\Wine\\AppDefaults\\{executable}\\DirectInput"
 
-        self.reg.add(key=key, value="MouseWarpOverride", data=values[state])
+        return self.reg.add(key=key, value="MouseWarpOverride", data=values[state])

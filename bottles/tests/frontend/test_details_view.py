@@ -101,6 +101,11 @@ def test_built_details_template_navigates_and_discards_stale_population(monkeypa
 def test_eagle_follows_the_selected_bottle():
     eagle = EagleView(SimpleNamespace(), BottleConfig())
     previous_manager = eagle.manager
+    navigation = Adw.NavigationView()
+    overview = Adw.NavigationPage(child=Gtk.Box(), title="Overview", tag="overview")
+    section = Adw.NavigationPage(child=Gtk.Box(), title="Settings", tag="settings")
+    navigation.add(overview)
+    navigation.add(section)
     unused = SimpleNamespace(set_config=lambda **kwargs: None, update=lambda **kwargs: None)
     view = SimpleNamespace(
         view_bottle=unused,
@@ -110,12 +115,16 @@ def test_eagle_follows_the_selected_bottle():
         view_registry_rules=unused,
         view_versioning=unused,
         view_eagle=eagle,
+        section_navigation=navigation,
     )
     for config in (
         BottleConfig(Name="First", Runner="soda-11.0-34"),
         BottleConfig(Name="Second", Environment="Application", Runner="system-wine"),
     ):
+        navigation.push(section)
+        assert navigation.get_visible_page() is section
         DetailsView.set_config(view, config, rebuild_pages=False)
+        assert navigation.get_visible_page() is overview
         assert eagle.config is config
         assert eagle.manager.config is config
         assert eagle.manager is not previous_manager

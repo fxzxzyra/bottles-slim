@@ -296,7 +296,10 @@ def test_bottle_notes_are_kept_when_saving_fails(success):
     notes = "Installation notes\nDo not discard this text."
     text.get_buffer().set_text(notes)
     button = Gtk.Button()
-    manager = SimpleNamespace(update_config=Mock(return_value=Result(success, {"config": config})))
+    def save(_config, **kwargs):
+        _config.Notes = kwargs["value"]
+        return Result(success, {"config": _config})
+    manager = SimpleNamespace(update_config=Mock(side_effect=save))
     view = SimpleNamespace(config=config, text_notes=text, btn_save_notes=button, manager=manager, window=SimpleNamespace(show_toast=Mock()))
 
     PreferencesView._PreferencesView__save_notes(view, button)
@@ -306,6 +309,7 @@ def test_bottle_notes_are_kept_when_saving_fails(success):
     buffer = text.get_buffer()
     assert buffer.get_text(buffer.get_start_iter(), buffer.get_end_iter(), True) == notes
     assert view.window.show_toast.called is not success
+    assert config.Notes == (notes if success else "")
 
 
 
@@ -322,3 +326,58 @@ def test_esync_warning_follows_selected_runner(monkeypatch, runner_factory, sync
     module.PreferencesView._PreferencesView__update_esync_warning(view, sync)
     probe.assert_called_once_with(shlex.quote(info.wine_for_arch(config.Arch)))
     indicator.set_visible.assert_called_once_with(visible)
+
+
+def test_notes_save_is_available_only_for_changed_text():
+    from gi.repository import Gtk
+    from bottles.frontend.views.bottle_preferences import PreferencesView
+
+    config = BottleConfig(Notes="Saved notes")
+    buffer = Gtk.TextBuffer()
+    button = Gtk.Button()
+    view = SimpleNamespace(config=config, btn_save_notes=button)
+    buffer.connect("changed", lambda buffer: PreferencesView._PreferencesView__notes_changed(view, buffer))
+    buffer.set_text("Saved notes")
+    assert not button.get_sensitive()
+    buffer.set_text("New notes")
+    assert button.get_sensitive()
+    buffer.set_text("Saved notes")
+    assert not button.get_sensitive()
+
+
+@pytest.mark.parametrize("failure", [None, "write", "exception"])
+def test_sync_stays_locked_until_completion_and_restores_failed_selection(monkeypatch, failure):
+    from gi.repository import Adw, Gtk
+    from bottles.backend.models.result import Result
+    from bottles.frontend.views import bottle_preferences as module
+
+    config = BottleConfig()
+    config.Parameters.sync = "wine"
+    combo = Adw.ComboRow(model=Gtk.StringList.new(["Wine", "Esync", "Fsync", "Ntsync"]))
+    combo.set_selected(1)
+    view = SimpleNamespace(
+        config=config, combo_sync=combo, manager=Mock(), queue=Mock(),
+        window=SimpleNamespace(show_toast=Mock()),
+        _PreferencesView__update_esync_warning=Mock(),
+    )
+    method = module.PreferencesView._PreferencesView__set_sync_type
+    view._PreferencesView__set_sync_type = lambda *_args: method(view)
+    combo.connect("notify::selected", view._PreferencesView__set_sync_type)
+    jobs = []
+    monkeypatch.setattr(module, "RunAsync", lambda *args, **kwargs: jobs.append(kwargs))
+
+    method(view)
+    assert not combo.get_sensitive()
+    view.queue.end_task.assert_not_called()
+    # The real manager mutates the config before attempting the write.
+    config.Parameters.sync = "esync"
+    jobs[0]["callback"](
+        None if failure == "exception" else Result(failure is None, {"config": config}),
+        OSError("Failed") if failure == "exception" else None,
+    )
+    assert config.Parameters.sync == ("esync" if failure is None else "wine")
+    assert combo.get_selected() == (1 if failure is None else 0)
+    assert combo.get_sensitive()
+    assert len(jobs) == 1  # Reverting the selection must not submit another write.
+    view.queue.end_task.assert_called_once()
+    assert view.window.show_toast.called is (failure is not None)

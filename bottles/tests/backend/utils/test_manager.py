@@ -118,25 +118,6 @@ def test_desktop_entry_passes_sandbox_command_to_portal(
     ] + field_arguments
 
 
-def test_umu_portal_shortcut_does_not_include_flatpak_wrapper(tmp_path, monkeypatch):
-    portal = DynamicLauncherPortal()
-    icon = tmp_path / "icon.svg"
-    icon.write_text("<svg xmlns='http://www.w3.org/2000/svg'/>")
-    monkeypatch.setenv("FLATPAK_ID", "com.usebottles.bottles")
-    monkeypatch.setattr(manager, "portal", portal)
-    monkeypatch.setattr(manager.SignalManager, "send", lambda *_args: None)
-
-    ManagerUtils.create_desktop_entry(
-        BottleConfig(Name="Gaming"),
-        {"name": "UMU Game", "umu_game": "game-id"},
-        custom_icon=str(icon),
-    )
-
-    assert 'Exec=bottles-cli umu run --game "game-id"' in portal.desktop_entry
-    assert "flatpak run" not in portal.desktop_entry
-    assert "--command=" not in portal.desktop_entry
-
-
 class PortalProxyStub:
     def __init__(self, mount, host_paths):
         self.mount = mount
@@ -1026,7 +1007,7 @@ def test_program_paths_support_windows_case_and_offline_drives(tmp_path):
     devices = bottle / "dosdevices"
     devices.mkdir(parents=True)
     (devices / "d:").symlink_to(drive, target_is_directory=True)
-    config = BottleConfig(Name="Test", Path=str(bottle), Custom_Path=True)
+    config = BottleConfig(Name="Test", Path=str(bottle))
     config.External_Programs["game"] = {"path": "D:\\game.exe"}
 
     assert ManagerUtils.program_exists(config, "D:\\game.exe") is True

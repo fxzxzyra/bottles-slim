@@ -1768,13 +1768,19 @@ def test_wineboot_preserves_the_session_display(monkeypatch, status):
 
 
 
-@pytest.mark.parametrize("runner_binary", ["/usr/bin/wine", "/runners/Wine with spaces/bin/wine64"])
-def test_launch_scripts_receive_selected_wine_binary(monkeypatch, runner_binary):
+@pytest.mark.parametrize("runner_name", ["wine", "Wine with spaces"])
+def test_launch_scripts_receive_selected_wine_binary(monkeypatch, runner_factory, runner_name):
     import shlex
     monkeypatch.setenv("WINE", "/incorrect/host/wine")
     command = WineCommand.__new__(WineCommand)
     command.capture_stderr = False
     command.config = _make_config()
+    runner = runner_factory(runner_name)
+    command.config.Runner = runner.identifier
+    command.config.Parameters.use_runtime = False
+    command.config.Parameters.use_eac_runtime = False
+    command.config.Parameters.use_be_runtime = False
+    runner_binary = runner.wine_for_arch(command.config.Arch)
     command.runner = shlex.quote(runner_binary)
     command.runner_runtime = ""
     command.steam_runtime_root = None
@@ -1782,7 +1788,14 @@ def test_launch_scripts_receive_selected_wine_binary(monkeypatch, runner_binary)
     command.arguments = ""
     command.gamescope_activated = False
     command.terminal = False
-    assert command.get_env()["WINE"] == runner_binary
+    monkeypatch.setattr(winecommand.GPUUtils, "get_gpu", lambda _self: {
+        "prime": {"discrete": None, "integrated": None}, "vendors": {},
+    })
+    monkeypatch.setattr(winecommand.DisplayUtils, "check_nvidia_device", lambda: None)
+    environment = command.get_env()
+    assert environment["WINE"] == runner_binary
+    assert environment["WINELOADER"] == runner_binary
+    assert environment["WINESERVER"] == runner.wineserver
 
 
 @pytest.mark.parametrize("output,expected", [

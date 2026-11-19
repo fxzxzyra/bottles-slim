@@ -174,7 +174,7 @@ class PreferencesView(Adw.PreferencesPage):
         self.config = config
         self.btn_save_notes.connect("clicked", self.__save_notes)
         self.text_notes.get_buffer().connect(
-            "changed", lambda *_args: self.btn_save_notes.set_sensitive(True)
+            "changed", self.__notes_changed
         )
         self.queue = details.queue
         self.details = details
@@ -599,11 +599,17 @@ class PreferencesView(Adw.PreferencesPage):
         self.combo_language.handler_unblock_by_func(self.__set_language)
         self.combo_windows.handler_unblock_by_func(self.__set_windows)
 
+    def __notes_changed(self, buffer):
+        notes = buffer.get_text(buffer.get_start_iter(), buffer.get_end_iter(), True)
+        self.btn_save_notes.set_sensitive(notes != self.config.Notes)
+
     def __save_notes(self, _button):
         buffer = self.text_notes.get_buffer()
         notes = buffer.get_text(buffer.get_start_iter(), buffer.get_end_iter(), True)
+        previous = self.config.Notes
         result = self.manager.update_config(self.config, key="Notes", value=notes)
         if not result.ok:
+            self.config.Notes = previous
             self.window.show_toast(_("The notes could not be saved."))
             return
         self.config = result.data["config"]
@@ -870,19 +876,31 @@ class PreferencesView(Adw.PreferencesPage):
         if sync == self.config.Parameters.sync:
             return
 
-        self.__update_esync_warning(sync)
-
+        previous = self.config.Parameters.sync
         self.queue.add_task()
         self.combo_sync.set_sensitive(False)
+
+        def completed(result, error):
+            if error or not result.ok:
+                self.config.Parameters.sync = previous
+                self.combo_sync.handler_block_by_func(self.__set_sync_type)
+                self.combo_sync.set_selected(sync_types.index(previous))
+                self.combo_sync.handler_unblock_by_func(self.__set_sync_type)
+                self.window.show_toast(_("Could not change the synchronization mode."))
+            else:
+                self.config = result.data["config"]
+            self.__update_esync_warning(self.config.Parameters.sync)
+            self.combo_sync.set_sensitive(True)
+            self.queue.end_task()
+
         RunAsync(
             self.manager.update_config,
+            callback=completed,
             config=self.config,
             key="sync",
             value=sync,
             scope="Parameters",
         )
-        self.combo_sync.set_sensitive(True)
-        self.queue.end_task()
 
     def __update_esync_warning(self, sync):
         if not hasattr(self, "_esync_warning"):
