@@ -4,6 +4,7 @@ import pytest
 
 from bottles.backend.managers import manager as manager_module
 from bottles.backend.managers.manager import Manager
+from bottles.backend.models.result import Result
 
 
 @pytest.mark.parametrize("expose_home_drive", (True, False))

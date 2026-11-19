@@ -73,5 +73,5 @@ def test_preflight_rejects_outdated_ui_libraries(monkeypatch):
     monkeypatch.setattr(entry.importlib, "import_module", load)
     assert entry.check_dependencies() == [
         "GI Gtk requires >= 4.10, found 4.8",
-        "GI Adw requires >= 1.6, found 1.4",
+        "GI Adw requires >= 1.7, found 1.4",
     ]

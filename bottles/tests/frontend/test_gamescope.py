@@ -140,6 +140,7 @@ def test_launch_argument_environment_does_not_override_hdr_preference(monkeypatc
     config.Parameters.gamescope = True
     config.Parameters.gamescope_fullscreen = False
     command = WineCommand.__new__(WineCommand)
+    command.capture_stderr = False
     command.config = config
     command.runner = "/usr/bin/wine"
     command.minimal = False
@@ -176,6 +177,7 @@ def test_gamescope_launcher_cleans_its_process_group(monkeypatch, tmp_path):
     config.Parameters.gamescope = True
     config.Parameters.gamescope_fullscreen = False
     command = WineCommand.__new__(WineCommand)
+    command.capture_stderr = False
     command.config = config
     command.runner = "/usr/bin/wine"
     command.minimal = False

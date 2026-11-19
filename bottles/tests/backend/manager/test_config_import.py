@@ -2,6 +2,7 @@ import pytest
 from bottles.backend.managers import manager as manager_module
 from bottles.backend.managers.manager import Manager
 from bottles.backend.models.config import BottleConfig, BottleParams
+from bottles.backend.models.result import Result
 
 
 def test_config_import_restores_runtime_settings(monkeypatch, tmp_path):

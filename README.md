@@ -8,7 +8,7 @@ Python modules use the selected interpreter's installation scheme. Resources, co
 
 ## Build and test
 
-Build dependencies include Meson >= 1.5, Ninja, Blueprint compiler, gettext, GLib tools, Python, GTK >= 4.10, libadwaita >= 1.6, GtkSourceView 5 and libportal's GTK 4 bindings. Python dependencies are listed in `requirements.txt` and `requirements.dev.txt`.
+Build dependencies include Meson >= 1.5, Ninja, Blueprint compiler, gettext, GLib tools, Python, GTK >= 4.10, libadwaita >= 1.7, GtkSourceView 5 and libportal's GTK 4 bindings. Python dependencies are listed in `requirements.txt` and `requirements.dev.txt`.
 
 ```sh
 meson setup build --prefix=/usr

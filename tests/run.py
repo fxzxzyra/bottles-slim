@@ -29,7 +29,7 @@ PYTHON_DEPENDENCIES = {
     "patoolib": "patool", "pathvalidate": "pathvalidate", "pefile": "pefile",
     "yara": "yara-python", "cairo": "pycairo", "gi": "PyGObject",
 }
-MINIMUM_UI_VERSIONS = {"Gtk": (4, 10), "Adw": (1, 6)}
+MINIMUM_UI_VERSIONS = {"Gtk": (4, 10), "Adw": (1, 7)}
 
 GI_DEPENDENCIES = {
     "GLib": "2.0", "Gio": "2.0", "Gdk": "4.0", "Gtk": "4.0",

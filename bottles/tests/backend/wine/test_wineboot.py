@@ -86,6 +86,7 @@ def test_forced_dll_overrides_take_precedence(monkeypatch, tmp_path, runner_fact
     )
 
     winecmd = WineCommand.__new__(WineCommand)
+    winecmd.capture_stderr = False
     winecmd.config = config
     winecmd.minimal = True
     winecmd.arguments = ""

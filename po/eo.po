@@ -15,77 +15,77 @@ msgid "\"Force disable any network activity even with available network connecti
 msgstr "\"Forvu malŝalti ajnan retan agadon eĉ kun disponebla retkonekto.\""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:345 bottles/frontend/views/eagle.py:769
+#: bottles/frontend/views/bottle_details.py:345 bottles/frontend/views/eagle.py:772
 msgid "\"{0}\" added"
 msgstr "\"{0}\" aldonita"
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:885
+#: bottles/frontend/widgets/program.py:904
 msgid "\"{0}\" added to your Steam library"
 msgstr "\"{0}\" aldonita al via Steam biblioteko"
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:817
+#: bottles/frontend/widgets/program.py:836
 msgid "\"{0}\" added to your library"
 msgstr "\"{0}\" aldonita al via biblioteko"
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:361
+#: bottles/frontend/widgets/program.py:379
 msgid "\"{0}\" closed right after starting. Scan it with Eagle to check for missing dependencies, packers or known threats?"
 msgstr "\"{0}\" fermiĝis tuj post ekfunkciigo. Skanu ĝin per Eagle por kontroli mankantajn dependecojn, pakistojn aŭ konatajn minacojn?"
 
 #, fuzzy, python-brace-format
-#: bottles/frontend/widgets/dependency.py:241
+#: bottles/frontend/widgets/dependency.py:251
 msgid "\"{0}\" failed to install"
 msgstr "[{0}] dosieroj aldonotaj."
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:505
+#: bottles/frontend/widgets/program.py:524
 msgid "\"{0}\" hidden"
 msgstr "\"{0}\" kaŝita"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:224
+#: bottles/frontend/widgets/dependency.py:231
 msgid "\"{0}\" installed"
 msgstr "«{0}» instalita"
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:439
+#: bottles/frontend/widgets/program.py:457
 msgid "\"{0}\" matches patterns associated with malware ({1}). Bottles strongly advises against running it."
 msgstr "\"{0}\" kongruas kun ŝablonoj asociitaj kun malware ({1}). Bottles forte konsilas kontraŭ funkcii ĝin."
 
 #, fuzzy, python-brace-format
-#: bottles/frontend/widgets/program.py:540
+#: bottles/frontend/widgets/program.py:559
 msgid "\"{0}\" removed"
 msgstr "[{0}] dosieroj forviŝotaj."
 
 #, python-brace-format
-#: bottles/frontend/views/library.py:87
+#: bottles/frontend/views/library.py:93
 msgid "\"{0}\" removed from the library."
 msgstr "\"{0}\" forigita el la biblioteko."
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:867
+#: bottles/frontend/widgets/program.py:886
 msgid "\"{0}\" removed from your library"
 msgstr "\"{0}\" forigita de via biblioteko"
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:575
+#: bottles/frontend/widgets/program.py:594
 msgid "\"{0}\" renamed to \"{1}\""
 msgstr "\"{0}\" renomita al \"{1}\""
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:507
+#: bottles/frontend/widgets/program.py:526
 msgid "\"{0}\" showed"
 msgstr "\"{0}\" montrita"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:221
+#: bottles/frontend/widgets/dependency.py:228
 msgid "\"{0}\" uninstalled"
 msgstr "«{0}» malinstalita"
 
 #, python-format
-#: bottles/frontend/utils/playtime.py:476
+#: bottles/frontend/utils/playtime.py:507
 msgid "%d days ago"
 msgstr "antaŭ %d tagoj"
 
@@ -95,11 +95,11 @@ msgid "%s Available"
 msgstr "%s Havebla"
 
 #, python-format
-#: bottles/frontend/views/preferences.py:736
+#: bottles/frontend/views/preferences.py:747
 msgid "%s template"
 msgstr "ŝablono %s"
 
-#: bottles/frontend/ui/details-preferences.blp:416 bottles/frontend/views/bottle_preferences.py:526 bottles/frontend/views/new_bottle_dialog.py:99
+#: bottles/frontend/ui/details-preferences.blp:447 bottles/frontend/views/bottle_preferences.py:534 bottles/frontend/views/new_bottle_dialog.py:99
 msgid "(Default)"
 msgstr "(Defaŭlte)"
 
@@ -107,11 +107,11 @@ msgstr "(Defaŭlte)"
 msgid "0%"
 msgstr "0%"
 
-#: bottles/frontend/ui/dialog-installer.blp:123
+#: bottles/frontend/ui/dialog-installer.blp:127
 msgid "00:00"
 msgstr "00:00"
 
-#: bottles/frontend/windows/playtimegraph.py:284 bottles/frontend/windows/playtimegraph.py:279
+#: bottles/frontend/windows/playtimegraph.py:370 bottles/frontend/windows/playtimegraph.py:365
 msgid "0h 0m"
 msgstr "0h 0m"
 
@@ -119,7 +119,7 @@ msgstr "0h 0m"
 msgid "64-bit is recommended for most users"
 msgstr "64-bita estas rekomendita por plej multaj uzantoj"
 
-#: bottles/frontend/windows/playtimegraph.py:362
+#: bottles/frontend/windows/playtimegraph.py:448
 msgid "<1m"
 msgstr "<1m"
 
@@ -143,7 +143,7 @@ msgstr "Nova kopio estas kreita kiam ĉi tiu programo eliras."
 msgid "A program is running"
 msgstr "programo funkcias"
 
-#: bottles/backend/managers/manager.py:692
+#: bottles/backend/managers/manager.py:700
 msgid "A runner with this name is already registered."
 msgstr "Rulilo kun ĉi tiu nomo jam estas registrita."
 
@@ -151,7 +151,7 @@ msgstr "Rulilo kun ĉi tiu nomo jam estas registrita."
 msgid "A snapshot saves the current state of your container, so you can restore it later if something goes wrong."
 msgstr "Momentfoto konservas la nunan staton de via Wine-medio, do vi povas restarigi ĝin poste se io misfunkcias."
 
-#: bottles/frontend/ui/preferences.blp:213
+#: bottles/frontend/ui/preferences.blp:223
 msgid "ALSA"
 msgstr "ALSA"
 
@@ -177,7 +177,7 @@ msgstr "Aktiva por {0}"
 msgid "Add"
 msgstr "Aldoni"
 
-#: bottles/frontend/ui/program-entry.blp:57 bottles/frontend/widgets/program.py:690
+#: bottles/frontend/ui/program-entry.blp:57 bottles/frontend/widgets/program.py:709
 msgid "Add Desktop Entry"
 msgstr "Aldoni Labortablan Eniron"
 
@@ -202,12 +202,12 @@ msgid "Add and Launch Program"
 msgstr "Aldonu kaj Lanĉu Programon"
 
 #, python-brace-format
-#: bottles/backend/managers/eagle.py:446
+#: bottles/backend/managers/eagle.py:447
 msgid "Add launch argument {argument} (community evidence x{evidence})"
 msgstr "Aldonu lanĉan argumenton {argument} (komunuma indico x{evidence})"
 
 #, fuzzy
-#: bottles/frontend/ui/program-entry.blp:53 bottles/frontend/widgets/program.py:877
+#: bottles/frontend/ui/program-entry.blp:53 bottles/frontend/widgets/program.py:896
 msgid "Add to Library"
 msgstr "Malhela Reĝimo"
 
@@ -219,21 +219,21 @@ msgstr "Aldonu al Steam"
 msgid "Add variable"
 msgstr "Aldonu variablon"
 
-#: bottles/frontend/ui/details-preferences.blp:149
+#: bottles/frontend/ui/details-preferences.blp:180
 msgid "Add various post-processing effects using vkBasalt. Only works on Vulkan."
 msgstr "Aldonu diversajn post-pretigajn efikojn uzante vkBasalt. Funkcias nur sur Vulkan."
 
-#: bottles/backend/managers/dependency.py:308
+#: bottles/backend/managers/dependency.py:317
 msgid "Adjusting Windows version…"
 msgstr "Ĝustigante Vindozan version..."
 
 #, fuzzy
-#: bottles/frontend/ui/preferences.blp:173
+#: bottles/frontend/ui/preferences.blp:183
 msgid "Advanced"
 msgstr "Altnivelaj opcioj"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:207
+#: bottles/frontend/ui/details-preferences.blp:238
 msgid "Advanced Display Settings"
 msgstr "Agordi internaĵojn."
 
@@ -257,7 +257,7 @@ msgstr "Ĉiuj dosieroj"
 msgid "All Ready!"
 msgstr "Ĉio Preta!"
 
-#: bottles/frontend/ui/preferences.blp:320
+#: bottles/frontend/ui/preferences.blp:330
 msgid "All caches"
 msgstr "Ĉiuj kaŝmemoroj"
 
@@ -266,7 +266,7 @@ msgstr "Ĉiuj kaŝmemoroj"
 msgid "All messages"
 msgstr "Forviŝi staton"
 
-#: bottles/frontend/ui/preferences.blp:386
+#: bottles/frontend/ui/preferences.blp:396
 msgid "All prefix templates"
 msgstr "Ĉiuj prefiksaj ŝablonoj"
 
@@ -303,7 +303,7 @@ msgstr "Analizitaj Dosieroj"
 msgid "Analysing Executable"
 msgstr "Analizante Efektivaĵon"
 
-#: bottles/frontend/views/eagle.py:562
+#: bottles/frontend/views/eagle.py:565
 msgid "Analysis Insights"
 msgstr "Analizaj Scioj"
 
@@ -311,7 +311,7 @@ msgstr "Analizaj Scioj"
 msgid "Analysis Results"
 msgstr "Analizaj Rezultoj"
 
-#: bottles/frontend/views/eagle.py:231
+#: bottles/frontend/views/eagle.py:234
 msgid "Analysis failed"
 msgstr "Analizo malsukcesis"
 
@@ -324,7 +324,7 @@ msgstr "Analizu Efektivaĵon"
 msgid "Appearance"
 msgstr "Aspekto"
 
-#: bottles/frontend/utils/common.py:40
+#: bottles/frontend/ui/dialog-display.blp:138 bottles/frontend/utils/common.py:40
 msgid "Application"
 msgstr "Apliko"
 
@@ -345,15 +345,15 @@ msgstr "Aplikita {} al ĉi tiu Wine-medio"
 msgid "Apply"
 msgstr "Apliki"
 
-#: bottles/backend/managers/manager.py:1658
+#: bottles/backend/managers/manager.py:1686
 msgid "Apply CMD default settings…"
 msgstr "Apliki CMD-defaŭltajn agordojn..."
 
-#: bottles/frontend/ui/details-preferences.blp:277
+#: bottles/frontend/ui/details-preferences.blp:308
 msgid "Apply a set of optimizations to your device. Can improve game performance."
 msgstr "Apliku aron da optimumigoj al via aparato. Povas plibonigi ludadon."
 
-#: bottles/frontend/views/eagle.py:662
+#: bottles/frontend/views/eagle.py:665
 msgid "Apply this recommendation"
 msgstr "Apliku ĉi tiun rekomendon"
 
@@ -361,16 +361,16 @@ msgstr "Apliku ĉi tiun rekomendon"
 msgid "Apply this rule only a single time per container."
 msgstr "Apliku ĉi tiun regulon nur unu fojon por Wine-medio."
 
-#: bottles/backend/managers/dependency.py:309
+#: bottles/backend/managers/dependency.py:318
 msgid "Applying Windows version…"
 msgstr "Aplikanta Vindozan version..."
 
 #, fuzzy, python-brace-format
-#: bottles/backend/managers/manager.py:1709
+#: bottles/backend/managers/manager.py:1741
 msgid "Applying environment: {0}…"
 msgstr "Efektivigante medion: {0}…"
 
-#: bottles/frontend/ui/new-bottle-dialog.blp:101 bottles/frontend/views/eagle.py:256
+#: bottles/frontend/ui/new-bottle-dialog.blp:101 bottles/frontend/views/eagle.py:259
 msgid "Architecture"
 msgstr "Arkitekturo"
 
@@ -388,11 +388,11 @@ msgstr "Ĉu vi certas, ke vi volas konstante forigi \"{}\"?"
 msgid "Are you sure you want to restore this state?"
 msgstr "Ĉu vi certas, ke vi volas restarigi ĉi tiun staton?"
 
-#: bottles/frontend/ui/preferences.blp:206
+#: bottles/frontend/ui/preferences.blp:216
 msgid "Audio Driver"
 msgstr "Aŭdio-pelilo"
 
-#: bottles/frontend/views/eagle.py:429
+#: bottles/frontend/views/eagle.py:432
 msgid "Audio Engine"
 msgstr "Aŭdiomotoro"
 
@@ -418,7 +418,7 @@ msgstr "Aŭtomate fermu Bottles"
 msgid "Automatically create snapshots before installing software or changing settings."
 msgstr "Aŭtomate kreu momentfotojn antaŭ ol instali programaron aŭ ŝanĝi agordojn."
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:143
+#: bottles/frontend/ui/dialog-playtime-graph.blp:154
 msgid "Average: 0h 0m"
 msgstr "Mezumo: 0h 0m"
 
@@ -489,7 +489,7 @@ msgid "Bottles Crash Report"
 msgstr "Bottles Kraŝa Raporto"
 
 # Translators: Bottles is a proper noun referring to the app
-#: bottles/frontend/ui/details-preferences.blp:360
+#: bottles/frontend/ui/details-preferences.blp:391
 msgid "Bottles Runtime"
 msgstr "Bottles Rultempo"
 
@@ -509,7 +509,7 @@ msgstr "Bottles havas tute novan Versioning System kiu ne estas malantaŭen kong
 msgid "Bottles is running in a sandbox, a restricted permission environment needed to keep you safe. If the program won't run, consider moving inside the container (3 dots icon on the top), then launch from there."
 msgstr "Bottles funkcias en sablokesto, limigita permesa medio necesa por konservi vin sekura. Se la programo ne funkcios, konsideru movi enen de la Wine-medio (piktogramo de 3 punktoj sur la supro), tiam lanĉu de tie."
 
-#: bottles/frontend/ui/preferences.blp:433
+#: bottles/frontend/ui/preferences.blp:443
 msgid "Bottles is running in offline mode, so DLLs are not available."
 msgstr "Bottles funkcias en eksterreta reĝimo, do DLL-oj ne haveblas."
 
@@ -521,7 +521,7 @@ msgstr "Bottles funkcias en eksterreta reĝimo, do dependecoj ne disponeblas."
 msgid "Bottles needs direct Flatpak access to this folder for reliable container storage. Grant access, restart Bottles, then select the folder again."
 msgstr "Bottles bezonas rektan Flatpak-aliron al ĉi tiu dosierujo por fidinda botelstokado. Donu aliron, rekomencu Bottles, tiam elektu la dosierujon denove."
 
-#: bottles/frontend/views/preferences.py:353
+#: bottles/frontend/views/preferences.py:362
 msgid "Bottles needs to be relaunched to use the updated repositories.\n\nBe sure to close every program launched from Bottles before relaunching Bottles, as not doing so can cause data loss, corruption and programs to malfunction."
 msgstr "Bottles devas esti relanĉita por uzi la ĝisdatigitajn deponejojn.\n\nNepre fermu ĉiun programon lanĉitan de Bottles antaŭ relanĉi Bottles, ĉar ne fari tion povas kaŭzi datumperdon, korupton kaj misfunkciadon de programoj."
 
@@ -567,7 +567,7 @@ msgstr "Foliumi Instalilojn"
 msgid "Browse Path"
 msgstr "Foliumi dosierindikojn"
 
-#: bottles/frontend/views/eagle.py:282
+#: bottles/frontend/views/eagle.py:285
 msgid "Build Date"
 msgstr "Konstrua dato"
 
@@ -580,7 +580,7 @@ msgstr "Integrita (Wine)"
 msgid "Builtin, then Native"
 msgstr "Integrita, poste Indiĝena"
 
-#: bottles/backend/utils/manager.py:902
+#: bottles/backend/utils/manager.py:935
 msgid "Bulgarian"
 msgstr "bulgara"
 
@@ -598,7 +598,7 @@ msgstr "Krei"
 msgid "C_ustom"
 msgstr "Propra"
 
-#: bottles/frontend/ui/preferences.blp:291
+#: bottles/frontend/ui/preferences.blp:301
 msgid "Cache"
 msgstr "Kaŝmemoro"
 
@@ -607,17 +607,17 @@ msgid "Cache work directory"
 msgstr "Cache labordosierujo"
 
 #, python-format
-#: bottles/frontend/views/preferences.py:748
+#: bottles/frontend/views/preferences.py:759
 msgid "Cached prefix for the %s environment"
 msgstr "Kaŝmemorigita prefikso por la medio %s"
 
 #, python-format
-#: bottles/frontend/views/preferences.py:743
+#: bottles/frontend/views/preferences.py:754
 msgid "Cached prefix for the %s environment, created on %s"
 msgstr "Kaŝmemorigita prefikso por la %s-medio, kreita sur %s"
 
 #, fuzzy
-#: bottles/backend/managers/manager.py:1865
+#: bottles/backend/managers/manager.py:1902
 msgid "Caching template…"
 msgstr "Kreante botelon…"
 
@@ -625,7 +625,7 @@ msgstr "Kreante botelon…"
 msgid "Calculating..."
 msgstr "Kalkulado..."
 
-#: bottles/backend/state.py:155 bottles/frontend/widgets/component.py:149 bottles/frontend/widgets/component.py:209
+#: bottles/backend/state.py:155 bottles/frontend/widgets/component.py:150 bottles/frontend/widgets/component.py:212
 msgid "Calculating…"
 msgstr "Kalkulante..."
 
@@ -633,7 +633,7 @@ msgstr "Kalkulante..."
 msgid "Can't reach this program in the sandbox"
 msgstr "Ne povas atingi ĉi tiun programon en la sablokesto"
 
-#: bottles/frontend/ui/dialog-bottle-picker.blp:17 bottles/frontend/ui/dialog-rename.blp:16 bottles/frontend/ui/dialog-run-args.blp:19 bottles/frontend/utils/sandbox_guard.py:75 bottles/frontend/utils/sandbox_guard.py:171 bottles/frontend/views/preferences.py:569
+#: bottles/frontend/ui/dialog-bottle-picker.blp:17 bottles/frontend/ui/dialog-rename.blp:16 bottles/frontend/ui/dialog-run-args.blp:19 bottles/frontend/utils/sandbox_guard.py:75 bottles/frontend/utils/sandbox_guard.py:171 bottles/frontend/views/preferences.py:580 bottles/frontend/windows/playtimegraph.py:136
 msgid "Cancel"
 msgstr "Nuligi"
 
@@ -645,7 +645,7 @@ msgstr "Ĉu Nuligi Wine-medion Kreadon?"
 msgid "Cancel task"
 msgstr "Nuligi taskon"
 
-#: bottles/backend/managers/manager.py:1402
+#: bottles/backend/managers/manager.py:1410
 msgid "Cancellation requested. Stopping after the current step…"
 msgstr "Nuligo petita. Ĉesante post la nuna paŝo..."
 
@@ -661,7 +661,7 @@ msgstr "Nuligi nun ĉesos la agordon post kiam la nuna paŝo finiĝos kaj forigo
 msgid "Cancelling..."
 msgstr "Nuligo..."
 
-#: bottles/frontend/views/new_bottle_dialog.py:462 bottles/frontend/views/new_bottle_dialog.py:465 bottles/frontend/widgets/component.py:266 bottles/frontend/windows/winebridgeupdate.py:102
+#: bottles/frontend/views/new_bottle_dialog.py:462 bottles/frontend/views/new_bottle_dialog.py:465 bottles/frontend/widgets/component.py:279 bottles/frontend/windows/winebridgeupdate.py:102
 msgid "Cancelling…"
 msgstr "Nuligo..."
 
@@ -698,7 +698,7 @@ msgstr "Ŝanĝi fenestran larĝon."
 msgid "Change this if you are running into mouse lag or desync."
 msgstr "Ŝanĝu ĉi tion se vi renkontas musan malfruon aŭ malsinkronigon."
 
-#: bottles/frontend/ui/preferences.blp:271
+#: bottles/frontend/ui/preferences.blp:281
 msgid "Check Installed Runners"
 msgstr "Kontrolu Instalitajn Kuristojn"
 
@@ -710,7 +710,7 @@ msgstr "Kontrolu Vian Kuriston"
 msgid "Check and Continue"
 msgstr "Kontrolu kaj Daŭrigu"
 
-#: bottles/frontend/ui/preferences.blp:119 bottles/frontend/views/preferences.py:293
+#: bottles/frontend/ui/preferences.blp:129 bottles/frontend/views/preferences.py:297
 msgid "Check executables for malware patterns before running them."
 msgstr "Kontrolu ruleblajn ŝablonojn pri malware antaŭ ol ruli ilin."
 
@@ -718,11 +718,11 @@ msgstr "Kontrolu ruleblajn ŝablonojn pri malware antaŭ ol ruli ilin."
 msgid "Check your connection or try again later."
 msgstr "Kontrolu vian konekton aŭ provu denove poste."
 
-#: bottles/backend/utils/manager.py:927
+#: bottles/backend/utils/manager.py:960
 msgid "Chinese (Simplified)"
 msgstr "ĉina (simpligita)"
 
-#: bottles/backend/utils/manager.py:929
+#: bottles/backend/utils/manager.py:962
 msgid "Chinese (Traditional)"
 msgstr "Ĉina (Tradicia)"
 
@@ -778,7 +778,7 @@ msgstr "Fermi Botelojn post lanĉo de programo"
 msgid "Choose the Wine installation used by this container"
 msgstr "Elektu la Wine-instalaĵon uzatan de ĉi tiu Wine-medio"
 
-#: bottles/frontend/ui/details-preferences.blp:333
+#: bottles/frontend/ui/details-preferences.blp:364
 msgid "Choose the language to use with programs."
 msgstr "Elektu la lingvon por uzi kun programoj."
 
@@ -790,7 +790,7 @@ msgstr "Elektu la lingvon uzatan de la interfaco Bottles."
 msgid "Choose where automatic backups are stored."
 msgstr "Elektu kie aŭtomataj sekurkopioj estas konservitaj."
 
-#: bottles/frontend/ui/preferences.blp:207
+#: bottles/frontend/ui/preferences.blp:217
 msgid "Choose which Wine audio driver Bottles should enforce for all containers."
 msgstr "Elektu kiun Wine aŭdŝoforo Bottles devas devigi por ĉiuj Wine-medioj."
 
@@ -799,7 +799,11 @@ msgstr "Elektu kiun Wine aŭdŝoforo Bottles devas devigi por ĉiuj Wine-medioj.
 msgid "Choose which view the application should be started in."
 msgstr "Elektu tiun vidon, kiu montriĝos post lanĉo de programo."
 
-#: bottles/frontend/ui/preferences.blp:85
+#: bottles/frontend/ui/dialog-display.blp:133
+msgid "Choose who handles DPI scaling. Restart programs after changing this."
+msgstr "Elektu kiu pritraktas DPI-skalon. Rekomencu programojn post ŝanĝi ĉi tion."
+
+#: bottles/frontend/ui/preferences.blp:95
 msgid "Clean temp files when Bottles launches?"
 msgstr "Ĉu purigi tempdosierojn kiam Bottles lanĉas?"
 
@@ -807,11 +811,11 @@ msgstr "Ĉu purigi tempdosierojn kiam Bottles lanĉas?"
 msgid "Clean the temp path when booting the system."
 msgstr "Malplenigi dosierujon de provizoraĵoj dum starto."
 
-#: bottles/backend/managers/dependency.py:302
+#: bottles/backend/managers/dependency.py:311
 msgid "Cleaning previous files…"
 msgstr "Purigado de antaŭaj dosieroj..."
 
-#: bottles/backend/managers/manager.py:273
+#: bottles/backend/managers/manager.py:274
 msgid "Cleaning temporary files…"
 msgstr "Purigado de provizoraj dosieroj..."
 
@@ -827,11 +831,11 @@ msgstr "Klarigi DLL-vojon"
 msgid "Clear Selection"
 msgstr "Klara Elekto"
 
-#: bottles/frontend/views/preferences.py:778
+#: bottles/frontend/views/preferences.py:789
 msgid "Clearing the temp cache removes downloaded archives and extracted files, so future installs may take longer."
 msgstr "Malplenigo de la tempkaŝmemoro forigas elŝutitajn arkivojn kaj ĉerpitajn dosierojn, do estontaj instaloj povas daŭri pli longe."
 
-#: bottles/frontend/ui/preferences.blp:354
+#: bottles/frontend/ui/preferences.blp:364
 msgid "Clearing this cache can increase download times because resources must be fetched again."
 msgstr "Malplenigi ĉi tiun kaŝmemoron povas pliigi elŝutajn tempojn ĉar rimedoj devas esti prenitaj denove."
 
@@ -839,11 +843,11 @@ msgstr "Malplenigi ĉi tiun kaŝmemoron povas pliigi elŝutajn tempojn ĉar rime
 msgid "Close"
 msgstr "Fermu"
 
-#: bottles/frontend/ui/preferences.blp:94
+#: bottles/frontend/ui/preferences.blp:104
 msgid "Close Bottles After Starting a Program"
 msgstr "Fermu Bottles Post Komenco de Programo"
 
-#: bottles/frontend/ui/preferences.blp:95
+#: bottles/frontend/ui/preferences.blp:105
 msgid "Close Bottles after starting a program from the file manager."
 msgstr "Fermu Bottles post lanĉo de programo de la dosieradministranto."
 
@@ -873,7 +877,7 @@ msgid "Committing state..."
 msgstr "Faranta ŝtato..."
 
 #, python-brace-format
-#: bottles/backend/managers/eagle.py:345
+#: bottles/backend/managers/eagle.py:346
 msgid "Community match ({match}): {name}, tier {tier}, {reports} reports"
 msgstr "Komunuma matĉo ({match}): {name}, nivelo {tier}, {reports} raportoj"
 
@@ -882,11 +886,11 @@ msgstr "Komunuma matĉo ({match}): {name}, nivelo {tier}, {reports} raportoj"
 msgid "Community reports needing a Media Foundation workaround (x{evidence})"
 msgstr "Komunumaj raportoj bezonas solvon de Media Foundation (x{evidence})"
 
-#: bottles/frontend/views/eagle.py:360
+#: bottles/frontend/views/eagle.py:363
 msgid "Community verdict"
 msgstr "Komunuma verdikto"
 
-#: bottles/frontend/ui/details-preferences.blp:317
+#: bottles/frontend/ui/details-preferences.blp:348
 msgid "Compatibility"
 msgstr "Kongrueco"
 
@@ -894,12 +898,12 @@ msgstr "Kongrueco"
 msgid "Compatibility Warnings"
 msgstr "Kongruaj Avertoj"
 
-#: bottles/frontend/views/eagle.py:275
+#: bottles/frontend/views/eagle.py:278
 msgid "Compiler"
 msgstr "Kompililo"
 
 #, fuzzy
-#: bottles/frontend/ui/dialog-installer.blp:176
+#: bottles/frontend/ui/dialog-installer.blp:180
 msgid "Completed!"
 msgstr "Montri version"
 
@@ -916,7 +920,7 @@ msgid "Component update suggestions"
 msgstr "Proponoj pri ĝisdatigo de komponantoj"
 
 #, python-brace-format
-#: bottles/frontend/views/list.py:328
+#: bottles/frontend/views/list.py:333
 msgid "Component updates are available for {0} container."
 msgid_plural "Component updates are available for {0} containers."
 msgstr[0] ""
@@ -928,11 +932,11 @@ msgid "Component version"
 msgstr "Montri version"
 
 #, fuzzy
-#: bottles/frontend/ui/bulk-update-dialog.blp:39 bottles/frontend/ui/details-preferences.blp:13
+#: bottles/frontend/ui/bulk-update-dialog.blp:39 bottles/frontend/ui/details-preferences.blp:44
 msgid "Components"
 msgstr "Montri version"
 
-#: bottles/frontend/ui/preferences.blp:240
+#: bottles/frontend/ui/preferences.blp:250
 msgid "Components Repository"
 msgstr "Deponejo de Komponantoj"
 
@@ -948,7 +952,7 @@ msgstr "Agorda Dosiero…"
 msgid "Configure Automatic Backups"
 msgstr "Agordi Aŭtomatajn Rezervojn"
 
-#: bottles/backend/managers/manager.py:1671
+#: bottles/backend/managers/manager.py:1699
 msgid "Configuring audio driver…"
 msgstr "Agordante sonŝoforon..."
 
@@ -985,7 +989,11 @@ msgstr "Kreiĝis Wine-medio"
 msgid "Container Duplication Failed"
 msgstr "Duobligo de Wine-medio Malsukcesis"
 
-#: bottles/frontend/main.py:110
+#: bottles/frontend/ui/preferences.blp:54
+msgid "Container Name"
+msgstr "Nomo de Ujo"
+
+#: bottles/frontend/main.py:111
 msgid "Container UUID"
 msgstr "Wine-medio UUID"
 
@@ -1025,7 +1033,7 @@ msgstr "Stirpanelo"
 msgid "Control which variables from your system are visible to programs inside this container"
 msgstr "Kontrolu kiuj variabloj de via sistemo estas videblaj al programoj ene de ĉi tiu Wine-medio"
 
-#: bottles/frontend/utils/flatpak.py:61 bottles/frontend/views/bottle_preferences.py:460
+#: bottles/frontend/utils/flatpak.py:61 bottles/frontend/views/bottle_preferences.py:468
 msgid "Copied to clipboard"
 msgstr "Kopiita al tondujo"
 
@@ -1033,7 +1041,7 @@ msgstr "Kopiita al tondujo"
 msgid "Copies the file into a temporary folder inside the container. Files stored next to it are not included, so it may not work fully."
 msgstr "Kopias la dosieron en provizoran dosierujon ene de la Wine-medio. Dosieroj konservitaj apud ĝi ne estas inkluzivitaj, do ĝi eble ne plene funkcias."
 
-#: bottles/frontend/utils/flatpak.py:92 bottles/frontend/views/bottle_preferences.py:420 bottles/frontend/widgets/program.py:711
+#: bottles/frontend/utils/flatpak.py:92 bottles/frontend/views/bottle_preferences.py:427 bottles/frontend/widgets/program.py:730
 msgid "Copy command"
 msgstr "Kopiu komando"
 
@@ -1049,7 +1057,7 @@ msgstr "Kopiu nur la elektitajn konservajn datumojn anstataŭ krei momentfoton d
 msgid "Copy to clipboard"
 msgstr "Kopiu al tondujo"
 
-#: bottles/backend/managers/dependency.py:300 bottles/backend/managers/dependency.py:301
+#: bottles/backend/managers/dependency.py:309 bottles/backend/managers/dependency.py:310
 msgid "Copying files…"
 msgstr "Kopiante dosierojn..."
 
@@ -1058,16 +1066,20 @@ msgid "Copying into the container"
 msgstr "Kopiante en la Wine-medion"
 
 #, python-brace-format
-#: bottles/frontend/main.py:384
+#: bottles/frontend/main.py:388
 msgid "Copyright © 2017 {developer_name}"
 msgstr "Kopirajto © 2017 {developer_name}"
 
+#: bottles/frontend/windows/playtimegraph.py:198
+msgid "Could Not Reset Usage Time Statistics"
+msgstr "Ne Eblis Restarigi Statistikojn pri Uzado-Tempo"
+
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:553
+#: bottles/frontend/widgets/program.py:572
 msgid "Could not access the desktop entry for \"{0}\""
 msgstr "Ne eblis aliri la labortablan eniron por \"{0}\""
 
-#: bottles/frontend/views/eagle.py:232
+#: bottles/frontend/views/eagle.py:235
 msgid "Could not analyse this file."
 msgstr "Ne eblis analizi ĉi tiun dosieron."
 
@@ -1076,7 +1088,7 @@ msgid "Could not copy the file into the container."
 msgstr "Ne eblis kopii la dosieron en la Wine-medion."
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:624
+#: bottles/frontend/widgets/program.py:643
 msgid "Could not create a Desktop Entry for \"{0}\""
 msgstr "Ne eblis krei Labortablan Eniron por \"{0}\""
 
@@ -1089,21 +1101,25 @@ msgstr "Ne eblis elĵeti stiradon {0}"
 msgid "Could not load the installer. Please try again."
 msgstr "Ne eblis ŝargi la instalilon. Bonvolu provi denove."
 
+#: bottles/frontend/windows/display.py:90
+msgid "Could not read the DPI scaling mode."
+msgstr "Ne eblis legi la DPI-skalreĝimon."
+
 #: bottles/frontend/views/bottle_details.py:839
 msgid "Could not remove the container."
 msgstr "Ne eblis forigi la Wine-medion."
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:528 bottles/frontend/widgets/program.py:657
+#: bottles/frontend/widgets/program.py:547 bottles/frontend/widgets/program.py:676
 msgid "Could not remove the desktop entry for \"{0}\""
 msgstr "Ne eblis forigi la labortablan eniron por \"{0}\""
 
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:761
+#: bottles/frontend/views/eagle.py:764
 msgid "Could not save the program: {0}"
 msgstr "Ne eblis konservi la programon: {0}"
 
-#: bottles/frontend/views/bottle_preferences.py:936
+#: bottles/frontend/views/bottle_preferences.py:977
 msgid "Could not switch to the selected runner."
 msgstr "Ne eblis ŝanĝi al la elektita kuristo."
 
@@ -1112,16 +1128,16 @@ msgid "Could not update Wine HIDRAW preferences"
 msgstr "Ne eblis ĝisdatigi Wine HIDRAW-preferojn"
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:788
+#: bottles/frontend/widgets/program.py:807
 msgid "Could not update file associations for \"{0}\""
 msgstr "Ne eblis ĝisdatigi dosierajn asociojn por \"{0}\""
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:591
+#: bottles/frontend/widgets/program.py:610
 msgid "Could not update the desktop entry for \"{0}\""
 msgstr "Ne eblis ĝisdatigi la labortablan eniron por \"{0}\""
 
-#: bottles/frontend/widgets/library.py:243
+#: bottles/frontend/widgets/library.py:244
 msgid "Cover image updated."
 msgstr "Kovrilbildo ĝisdatigita."
 
@@ -1184,7 +1200,7 @@ msgstr "Kreante branĉon..."
 msgid "Creating snapshot…"
 msgstr "Kreante momentfoton..."
 
-#: bottles/backend/managers/manager.py:1838
+#: bottles/backend/managers/manager.py:1875
 msgid "Creating versioning state 0…"
 msgstr "Kreante versian staton 0…"
 
@@ -1201,11 +1217,11 @@ msgstr "Kreditoj kaj Licenco"
 msgid "Critical"
 msgstr "Kritika"
 
-#: bottles/backend/utils/manager.py:912
+#: bottles/backend/utils/manager.py:945
 msgid "Croatian"
 msgstr "kroata"
 
-#: bottles/frontend/views/eagle.py:437
+#: bottles/frontend/views/eagle.py:440
 msgid "Crypto and Hashing"
 msgstr "Kripto kaj Hashing"
 
@@ -1227,37 +1243,37 @@ msgstr "Ruli kun argumentoj"
 msgid "Custom Gamescope Options"
 msgstr "Propraj Gamescope Opcioj"
 
-#: bottles/frontend/ui/preferences.blp:241
+#: bottles/frontend/ui/preferences.blp:251
 msgid "Custom URL for components. Leave empty to use the default endpoint."
 msgstr "Propra URL por komponantoj. Lasu malplena por uzi la defaŭltan finpunkton."
 
-#: bottles/frontend/ui/preferences.blp:247
+#: bottles/frontend/ui/preferences.blp:257
 msgid "Custom URL for dependencies. Leave empty to use the default endpoint."
 msgstr "Propra URL por dependecoj. Lasu malplena por uzi la defaŭltan finpunkton."
 
-#: bottles/frontend/ui/preferences.blp:253
+#: bottles/frontend/ui/preferences.blp:263
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr "Propra URL por instaliloj. Lasu malplena por uzi la defaŭltan finpunkton."
 
-#: bottles/backend/utils/manager.py:903
+#: bottles/backend/utils/manager.py:936
 msgid "Czech"
 msgstr "ĉeĥa"
 
-#: bottles/backend/managers/manager.py:1898 bottles/frontend/ui/details-preferences.blp:29
+#: bottles/backend/managers/manager.py:1935 bottles/frontend/ui/details-preferences.blp:60
 msgid "D7VK"
 msgstr "D7VK"
 
 #, fuzzy
-#: bottles/frontend/ui/preferences.blp:421
+#: bottles/frontend/ui/preferences.blp:431
 msgid "DLL Components"
 msgstr "Montri version"
 
-#: bottles/frontend/views/eagle.py:376
+#: bottles/frontend/views/eagle.py:379
 msgid "DLL Override"
 msgstr "DLL Anstataŭigo"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:424 bottles/frontend/ui/dialog-dll-overrides.blp:7 bottles/frontend/ui/dialog-dll-overrides.blp:12
+#: bottles/frontend/ui/details-preferences.blp:455 bottles/frontend/ui/dialog-dll-overrides.blp:7 bottles/frontend/ui/dialog-dll-overrides.blp:12
 msgid "DLL Overrides"
 msgstr "DLL-Superregoj"
 
@@ -1269,25 +1285,25 @@ msgstr "DLS-senbruo malpliigas la bruon de kadro. Pli altaj valoroj igas la kadr
 msgid "DLS sharpness increases the sharpness of a frame. Higher values make the frame sharper."
 msgstr "DLS-akreco pliigas la akrecon de kadro. Pli altaj valoroj igas la kadron pli akra."
 
-#: bottles/backend/managers/manager.py:1904 bottles/frontend/ui/details-preferences.blp:42
+#: bottles/backend/managers/manager.py:1941 bottles/frontend/ui/details-preferences.blp:73
 msgid "DXVK"
 msgstr "DXVK"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:68
+#: bottles/frontend/ui/details-preferences.blp:99
 msgid "DXVK NVAPI"
 msgstr "Versio de DXVK"
 
-#: bottles/frontend/windows/playtimegraph.py:176
+#: bottles/frontend/windows/playtimegraph.py:262
 msgid "Daily"
 msgstr "Ĉiutage"
 
 #, python-brace-format
-#: bottles/frontend/windows/playtimegraph.py:164
+#: bottles/frontend/windows/playtimegraph.py:250
 msgid "Daily Average: {}"
 msgstr "Ĉiutaga Mezumo: {}"
 
-#: bottles/backend/utils/manager.py:904
+#: bottles/backend/utils/manager.py:937
 msgid "Danish"
 msgstr "dana"
 
@@ -1304,11 +1320,11 @@ msgstr "Malhela etoso"
 msgid "Data Protection"
 msgstr "Protekto de datumoj"
 
-#: bottles/frontend/main.py:370
+#: bottles/frontend/main.py:374
 msgid "Data derived from ProtonDB and winetricks"
 msgstr "Datenoj derivitaj de ProtonDB kaj vintrukoj"
 
-#: bottles/frontend/views/eagle.py:410
+#: bottles/frontend/views/eagle.py:413
 msgid "Data license"
 msgstr "Datuma permesilo"
 
@@ -1325,24 +1341,28 @@ msgstr "Serĉi erarojn"
 msgid "Declining can cause instability, performance degradation, and incompatibilities with new Bottles releases."
 msgstr "Malkresko povas kaŭzi malstabilecon, rendimento-malboniĝon kaj nekongruojn kun novaj Bottles-eldonoj."
 
-#: bottles/frontend/ui/details-preferences.blp:340 bottles/frontend/ui/new-bottle-dialog.blp:116
+#: bottles/frontend/ui/details-preferences.blp:371 bottles/frontend/ui/new-bottle-dialog.blp:116
 msgid "Dedicated Sandbox"
 msgstr "Dediĉita Sablokesto"
 
-#: bottles/frontend/ui/details-preferences.blp:100
+#: bottles/frontend/ui/details-preferences.blp:131
 msgid "Deep Learning Super Sampling"
 msgstr "Profunda Lernado Super Sampling"
 
-#: bottles/frontend/ui/dialog-vkbasalt.blp:44
+#: bottles/frontend/ui/dialog-display.blp:137 bottles/frontend/ui/dialog-vkbasalt.blp:44
 msgid "Default"
 msgstr "Defaŭlte"
+
+#: bottles/frontend/ui/dialog-display.blp:132
+msgid "Default DPI Scaling Mode"
+msgstr "Defaŭlta DPI-Skala Reĝimo"
 
 #, fuzzy
 #: bottles/frontend/ui/dialog-vkbasalt.blp:48
 msgid "Default Settings"
 msgstr "Agordi internaĵojn."
 
-#: bottles/frontend/ui/preferences.blp:196
+#: bottles/frontend/ui/preferences.blp:206
 msgid "Default Z: Drive in New Containers"
 msgstr "Defaŭlta Z: Veturi en Nova Wine-medioj"
 
@@ -1367,20 +1387,20 @@ msgstr "Forigi Branĉon"
 msgid "Delete Container…"
 msgstr "Krei Wine-medion"
 
-#: bottles/frontend/views/preferences.py:766
+#: bottles/frontend/views/preferences.py:777
 msgid "Delete all caches?"
 msgstr "Ĉu forigi ĉiujn kaŝmemorojn?"
 
-#: bottles/frontend/views/preferences.py:788
+#: bottles/frontend/views/preferences.py:799
 msgid "Delete all prefix templates?"
 msgstr "Ĉu forigi ĉiujn prefiksajn ŝablonojn?"
 
-#: bottles/frontend/views/preferences.py:777
+#: bottles/frontend/views/preferences.py:788
 msgid "Delete temp cache?"
 msgstr "Ĉu forigi tempkaŝmemoron?"
 
 #, python-format
-#: bottles/frontend/views/preferences.py:799
+#: bottles/frontend/views/preferences.py:810
 msgid "Delete the %s template?"
 msgstr "Ĉu forigi la ŝablonon %s?"
 
@@ -1401,7 +1421,7 @@ msgstr "Senbruigita Luma Akrigo"
 msgid "Dependencies"
 msgstr "Dependaĵoj"
 
-#: bottles/frontend/ui/preferences.blp:246
+#: bottles/frontend/ui/preferences.blp:256
 msgid "Dependencies Repository"
 msgstr "Dependeca Deponejo"
 
@@ -1436,21 +1456,21 @@ msgstr "Dependaĵoj"
 msgid "Description"
 msgstr "Priskribo"
 
-#: bottles/frontend/widgets/program.py:747
+#: bottles/frontend/widgets/program.py:766
 msgid "Desktop Entry Could Not Be Created"
 msgstr "Labortabla Eniro Ne Eblis Esti Kreita"
 
-#: bottles/frontend/widgets/program.py:733
+#: bottles/frontend/widgets/program.py:752
 msgid "Desktop Entry Created Manually"
 msgstr "Labortabla Eniro Kreita Mane"
 
 #, fuzzy, python-brace-format
-#: bottles/frontend/widgets/program.py:631
+#: bottles/frontend/widgets/program.py:650
 msgid "Desktop Entry created for \"{0}\""
 msgstr "Savkopio konserviĝis ĉe {0}."
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:665
+#: bottles/frontend/widgets/program.py:684
 msgid "Desktop Entry removed for \"{0}\""
 msgstr "Labortabla Eniro forigita por \"{0}\""
 
@@ -1463,20 +1483,20 @@ msgstr "Celo"
 msgid "Details"
 msgstr "Detaloj pri botelo"
 
-#: bottles/frontend/ui/preferences.blp:128
+#: bottles/frontend/ui/preferences.blp:138
 msgid "Detect Crashes"
 msgstr "Detekti Kraŝojn"
 
-#: bottles/frontend/widgets/program.py:360
+#: bottles/frontend/widgets/program.py:378
 msgid "Did the app close unexpectedly?"
 msgstr "Ĉu la aplikaĵo fermiĝis neatendite?"
 
-#: bottles/frontend/views/preferences.py:562
+#: bottles/frontend/views/preferences.py:573
 msgid "Directory"
 msgstr "Dosierujo"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_preferences.py:656
+#: bottles/frontend/views/bottle_preferences.py:678
 msgid "Directory that contains the data of \"{}\"."
 msgstr "Dosierujo kiu enhavas la datumojn de \"{}\"."
 
@@ -1484,21 +1504,21 @@ msgstr "Dosierujo kiu enhavas la datumojn de \"{}\"."
 msgid "Disable the default Z: drive"
 msgstr "Malebligu la defaŭltan Z: stiradon"
 
-#: bottles/frontend/ui/dialog-launch-options.blp:178 bottles/frontend/ui/dll-override-entry.blp:13 bottles/frontend/ui/preferences.blp:215 bottles/frontend/views/bottle_preferences.py:559 bottles/frontend/views/bottle_preferences.py:560 bottles/frontend/views/bottle_preferences.py:561 bottles/frontend/views/bottle_preferences.py:562 bottles/frontend/windows/launchoptions.py:455
+#: bottles/frontend/ui/dialog-launch-options.blp:178 bottles/frontend/ui/dll-override-entry.blp:13 bottles/frontend/ui/preferences.blp:225 bottles/frontend/views/bottle_preferences.py:567 bottles/frontend/views/bottle_preferences.py:568 bottles/frontend/views/bottle_preferences.py:569 bottles/frontend/views/bottle_preferences.py:570 bottles/frontend/windows/launchoptions.py:455
 msgid "Disabled"
 msgstr "Malŝaltita"
 
-#: bottles/frontend/views/preferences.py:298
+#: bottles/frontend/views/preferences.py:302
 msgid "Disabled. Executables will run without being checked for threats."
 msgstr "Malŝaltita. Ekzekutaĵoj funkcios sen esti kontrolitaj por minacoj."
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:118
+#: bottles/frontend/ui/details-preferences.blp:149
 msgid "Discrete Graphics"
 msgstr "Aparta Grafikprocesoro"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:96
+#: bottles/frontend/ui/details-preferences.blp:127
 msgid "Display"
 msgstr "Agordi internaĵojn."
 
@@ -1514,20 +1534,20 @@ msgstr "Montru Je Ludo-Komenco"
 msgid "Display Settings"
 msgstr "Montraj Agordoj"
 
-#: bottles/frontend/ui/details-preferences.blp:257
+#: bottles/frontend/ui/details-preferences.blp:288
 msgid "Display monitoring information such as framerate, temperatures, CPU/GPU load and more on OpenGL and Vulkan using MangoHud."
 msgstr "Montru monitorajn informojn kiel framfrekvencon, temperaturojn, CPU/GPU-ŝarĝon kaj pli sur OpenGL kaj Vulkan uzante MangoHud."
 
 #, fuzzy
-#: bottles/frontend/windows/display.py:118
+#: bottles/frontend/windows/display.py:139
 msgid "Display settings updated"
 msgstr "Agordi internaĵojn."
 
-#: bottles/frontend/ui/preferences.blp:177
+#: bottles/frontend/ui/preferences.blp:187
 msgid "Display unstable versions of components and installers."
 msgstr "Montru malstabilajn versiojn de komponantoj kaj instaliloj."
 
-#: bottles/frontend/widgets/program.py:444
+#: bottles/frontend/widgets/program.py:462
 msgid "Do Not Run"
 msgstr "Ne Kuru"
 
@@ -1562,7 +1582,7 @@ msgid "Downloading WineBridge…"
 msgstr "Elŝutante WineBridge..."
 
 #, python-brace-format
-#: bottles/backend/managers/dependency.py:288
+#: bottles/backend/managers/dependency.py:297
 msgid "Downloading {0}..."
 msgstr "Elŝutante {0}..."
 
@@ -1604,7 +1624,7 @@ msgstr "Kopii Wine-medion"
 msgid "Duplicating…"
 msgstr "Elŝutante…"
 
-#: bottles/backend/utils/manager.py:917
+#: bottles/backend/utils/manager.py:950
 msgid "Dutch"
 msgstr "nederlanda"
 
@@ -1613,7 +1633,7 @@ msgstr "nederlanda"
 msgid "Dynamic Link Libraries can be specified to be builtin (provided by Wine) or native (provided by the program)."
 msgstr "Dinamike Ligitaj Bibliotekoj (DLL) estas specifeblaj kiel integritaj (provizitaj de Wine) aŭ indiĝenaj (provizitaj de la programo)"
 
-#: bottles/frontend/ui/preferences.blp:115
+#: bottles/frontend/ui/preferences.blp:125
 msgid "Eagle"
 msgstr "Eagle"
 
@@ -1621,19 +1641,19 @@ msgstr "Eagle"
 msgid "Eagle Analysis"
 msgstr "Eagle Analizo"
 
-#: bottles/frontend/views/eagle.py:978
+#: bottles/frontend/views/eagle.py:981
 msgid "Eagle Analysis Report"
 msgstr "Eagle Analiza Raporto"
 
-#: bottles/frontend/ui/preferences.blp:221
+#: bottles/frontend/ui/preferences.blp:231
 msgid "Eagle Deep Scan Limit"
 msgstr "Eagle Profunda Skanado Limo"
 
-#: bottles/frontend/views/eagle.py:290 bottles/frontend/windows/eagleintel.py:31
+#: bottles/frontend/views/eagle.py:293 bottles/frontend/windows/eagleintel.py:31
 msgid "Eagle Intelligence"
 msgstr "Eagle Inteligenteco"
 
-#: bottles/frontend/main.py:369
+#: bottles/frontend/main.py:373
 msgid "Eagle Intelligence Data"
 msgstr "Eagle Inteligentaj Datumoj"
 
@@ -1669,11 +1689,11 @@ msgstr "Randa Detekto"
 msgid "Edit"
 msgstr "Redaktu"
 
-#: bottles/frontend/views/preferences.py:559
+#: bottles/frontend/views/preferences.py:570
 msgid "Edit Runner"
 msgstr "Redaktu Rulilon"
 
-#: bottles/frontend/views/preferences.py:629 bottles/frontend/views/preferences.py:643
+#: bottles/frontend/views/preferences.py:640 bottles/frontend/views/preferences.py:654
 msgid "Edit Runner Registration"
 msgstr "Redaktu Rulilo-Registradon"
 
@@ -1702,7 +1722,7 @@ msgid "Enable playtime tracking"
 msgstr "Ebligu ludtempan spuradon"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:229
+#: bottles/frontend/ui/details-preferences.blp:260
 msgid "Enable synchronization to increase performance of multicore processors."
 msgstr "Sinkronigo pliigas rendimenton por plurkernaj procesoroj."
 
@@ -1711,23 +1731,23 @@ msgid "Enable to use the window manager's decorations."
 msgstr "Ebligu uzi la ornamadojn de la fenestra administranto."
 
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:679
+#: bottles/frontend/views/eagle.py:682
 msgid "Enable {0} for this container first"
 msgstr "Ebligu {0} unue por ĉi tiu Wine-medio"
 
-#: bottles/backend/managers/manager.py:1665
+#: bottles/backend/managers/manager.py:1693
 msgid "Enabling font smoothing…"
 msgstr "Ebligante tiparan glatigon..."
 
-#: bottles/frontend/views/eagle.py:438
+#: bottles/frontend/views/eagle.py:441
 msgid "Engines and Frameworks"
 msgstr "Motoroj kaj Kadroj"
 
-#: bottles/backend/utils/manager.py:907
+#: bottles/backend/utils/manager.py:940
 msgid "English"
 msgstr "la angla"
 
-#: bottles/backend/managers/manager.py:679
+#: bottles/backend/managers/manager.py:687
 msgid "Enter a runner name."
 msgstr "Enigu nomon de Rulilo."
 
@@ -1735,12 +1755,12 @@ msgstr "Enigu nomon de Rulilo."
 msgid "Enter file extensions separated by commas. Bottles will make this program available in the system Open With menu without changing your default application."
 msgstr "Enigu dosier-etendojn apartigitajn per komoj. Bottles disponigos ĉi tiun programon en la menuo Malfermu Kun de la sistemo sen ŝanĝi vian defaŭltan aplikaĵon."
 
-#: bottles/frontend/views/eagle.py:370
+#: bottles/frontend/views/eagle.py:373
 msgid "Environment Variable"
 msgstr "Media Variablo"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:437 bottles/frontend/ui/dialog-env-vars.blp:7
+#: bottles/frontend/ui/details-preferences.blp:468 bottles/frontend/ui/dialog-env-vars.blp:7
 msgid "Environment Variables"
 msgstr "Mediaj variabloj"
 
@@ -1753,12 +1773,12 @@ msgid "Epic Games listing"
 msgstr "Epic Games-listo"
 
 #, python-brace-format
-#: bottles/frontend/main.py:229
+#: bottles/frontend/main.py:232
 msgid "Error while processing URI: {0}"
 msgstr "Eraro dum prilaborado de URI: {0}"
 
 #, python-brace-format
-#: bottles/frontend/main.py:195
+#: bottles/frontend/main.py:192
 msgid "Error while processing executable: {0}"
 msgstr "Eraro dum prilaborado de plenumebla: {0}"
 
@@ -1766,23 +1786,23 @@ msgstr "Eraro dum prilaborado de plenumebla: {0}"
 msgid "Errors"
 msgstr "Eraroj"
 
-#: bottles/backend/utils/manager.py:909
+#: bottles/backend/utils/manager.py:942
 msgid "Estonian"
 msgstr "estona"
 
-#: bottles/frontend/ui/details-preferences.blp:235
+#: bottles/frontend/ui/details-preferences.blp:266
 msgid "Esync"
 msgstr "Esync"
 
-#: bottles/frontend/views/eagle.py:388
+#: bottles/frontend/views/eagle.py:391
 msgid "Evidence note"
 msgstr "Indika noto"
 
-#: bottles/frontend/views/eagle.py:337
+#: bottles/frontend/views/eagle.py:340
 msgid "Exact application name"
 msgstr "Ekzakta aplika nomo"
 
-#: bottles/frontend/views/eagle.py:334
+#: bottles/frontend/views/eagle.py:337
 msgid "Exact binary hash match"
 msgstr "Ekzakta binara hash-matĉo"
 
@@ -1790,7 +1810,7 @@ msgstr "Ekzakta binara hash-matĉo"
 msgid "Exclusion Patterns"
 msgstr "Ekskludaj Ŝablonoj"
 
-#: bottles/frontend/main.py:94
+#: bottles/frontend/main.py:95
 msgid "Executable path"
 msgstr "Dosierindiko de ruleblaĵo"
 
@@ -1825,21 +1845,21 @@ msgstr "Eksporto"
 msgid "Export Configuration…"
 msgstr "Agordoj"
 
-#: bottles/frontend/ui/details-preferences.blp:139
+#: bottles/frontend/ui/details-preferences.blp:170
 msgid "Expose HDR to games using DXVK. Requires native Wayland or Gamescope. Older NVIDIA drivers also need HdrWsi and ENABLE_HDR_WSI=1."
 msgstr "Eksponu HDR al ludoj uzante DXVK. Postulas indiĝenan Wayland aŭ Gamescope. Pli malnovaj NVIDIA-ŝoforoj ankaŭ bezonas HdrWsi kaj ENABLE_HDR_WSI=1."
 
-#: bottles/frontend/ui/preferences.blp:197
+#: bottles/frontend/ui/preferences.blp:207
 msgid "Expose the filesystem, including your home directory, through Z:."
 msgstr "Eksponu la dosiersistemon, inkluzive de via hejma dosierujo, tra Z:."
 
 #, python-brace-format
-#: bottles/backend/managers/dependency.py:296
+#: bottles/backend/managers/dependency.py:305
 msgid "Extracting {0} from cabinet…"
 msgstr "Eltiro de {0} el kabineto..."
 
 #, python-brace-format
-#: bottles/backend/managers/dependency.py:295
+#: bottles/backend/managers/dependency.py:304
 msgid "Extracting {0}…"
 msgstr "Eltiro de {0}..."
 
@@ -1863,7 +1883,7 @@ msgstr "FXAA-kvalita rando-sojlo minimumo estas la minimuma valoro de malhelaj p
 msgid "FXAA subpixel quality decreases aliasing at the subpixel level. Higher values make the frame softer."
 msgstr "FXAA-subpiksela kvalito malpliigas kaŝnomon ĉe la subpiksela nivelo. Pli altaj valoroj igas la kadron pli mola."
 
-#: bottles/backend/managers/manager.py:1524 bottles/backend/managers/manager.py:1589
+#: bottles/backend/managers/manager.py:1543 bottles/backend/managers/manager.py:1608
 msgid "Failed to create container directory."
 msgstr "Malsukcesis krei dosierujon de Wine-medio."
 
@@ -1871,34 +1891,38 @@ msgstr "Malsukcesis krei dosierujon de Wine-medio."
 msgid "Failed to create snapshot: No space left on device."
 msgstr "Malsukcesis krei momentfoton: Ne restas spaco sur la aparato."
 
-#: bottles/backend/managers/manager.py:1614
+#: bottles/backend/managers/manager.py:1631 bottles/backend/managers/manager.py:1642
 msgid "Failed to initialize the Wine prefix."
 msgstr "Malsukcesis pravalorigi la prefikson Wine."
 
 #, python-format
-#: bottles/backend/managers/manager.py:1791 bottles/backend/managers/manager.py:1796
+#: bottles/backend/managers/manager.py:1826 bottles/backend/managers/manager.py:1831
 msgid "Failed to install dependency: %s"
 msgstr "Malsukcesis instali dependecon: %s"
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2416
+#: bottles/backend/managers/manager.py:2453
 msgid "Failed to install {0}."
 msgstr "Malsukcesis instali {0}."
 
+#: bottles/backend/managers/manager.py:1616
+msgid "Failed to prepare the container user profile."
+msgstr "Malsukcesis prepari la uzantan profilon."
+
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2416
+#: bottles/backend/managers/manager.py:2453
 msgid "Failed to remove {0}."
 msgstr "Malsukcesis forigi {0}."
 
-#: bottles/backend/managers/manager.py:2101
+#: bottles/backend/managers/manager.py:2138
 msgid "Failed to restore graphics components."
 msgstr "Malsukcesis restarigi grafikajn komponantojn."
 
-#: bottles/backend/managers/manager.py:1625
+#: bottles/backend/managers/manager.py:1653
 msgid "Failed to sandbox the container user directory."
 msgstr "Malsukcesis sablokesto de la botela uzantdosierujo."
 
-#: bottles/backend/managers/manager.py:2191
+#: bottles/backend/managers/manager.py:2228
 msgid "Failed to save and roll back the D7VK configuration."
 msgstr "Malsukcesis konservi kaj refari la agordon de D7VK."
 
@@ -1912,7 +1936,7 @@ msgid "Fast Approximate Anti-Aliasing"
 msgstr "Rapida Proksimuma Kontraŭ-Aliasing"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:276
+#: bottles/frontend/ui/details-preferences.blp:307
 msgid "Feral GameMode"
 msgstr "Uzi Gamemode"
 
@@ -1935,7 +1959,7 @@ msgid "File Extensions"
 msgstr "Dosieraj Etendoj"
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:781
+#: bottles/frontend/widgets/program.py:800
 msgid "File associations updated for \"{0}\""
 msgstr "Dosiero-asocioj ĝisdatigitaj por \"{0}\""
 
@@ -1951,15 +1975,15 @@ msgstr "Dosieroj kaj Dosierujoj"
 msgid "Files to cache"
 msgstr "Dosieroj al kaŝmemoro"
 
-#: bottles/backend/managers/dependency.py:492
+#: bottles/backend/managers/dependency.py:524
 msgid "Finalizing installation..."
 msgstr "Finante instaladon..."
 
-#: bottles/backend/managers/manager.py:1843
+#: bottles/backend/managers/manager.py:1880
 msgid "Finalizing…"
 msgstr "Finante..."
 
-#: bottles/backend/utils/manager.py:910
+#: bottles/backend/utils/manager.py:943
 msgid "Finnish"
 msgstr "finna"
 
@@ -1983,7 +2007,7 @@ msgstr "Dosierujo-Aliro Bezonata"
 msgid "Force Offline"
 msgstr "Forto eksterrete"
 
-#: bottles/frontend/ui/preferences.blp:186
+#: bottles/frontend/ui/preferences.blp:196
 msgid "Force Offline Mode"
 msgstr "Devigi Senkonektan Reĝimon"
 
@@ -2000,11 +2024,11 @@ msgstr "Forto Ĉesigi ĉiujn Procezojn (Denaska metodo)"
 msgid "Force _Stop"
 msgstr "Forto _Halti"
 
-#: bottles/frontend/ui/preferences.blp:187
+#: bottles/frontend/ui/preferences.blp:197
 msgid "Force disable any network activity even with available network connection."
 msgstr "Forto malŝalti ajnan retan agadon eĉ kun disponebla retkonekto."
 
-#: bottles/frontend/ui/details-preferences.blp:129
+#: bottles/frontend/ui/details-preferences.blp:160
 msgid "Force the experimental native Wayland driver instead of Xwayland. Requires a Wayland session."
 msgstr "Devigu la eksperimentan indiĝenan Wayland-ŝoforon anstataŭ Xwayland. Postulas Wayland-sesion."
 
@@ -2016,7 +2040,7 @@ msgstr "Devigu la uzon de malhela temo."
 msgid "Frame Generation"
 msgstr "Kadra Generacio"
 
-#: bottles/frontend/ui/details-preferences.blp:168
+#: bottles/frontend/ui/details-preferences.blp:199
 msgid "Frame Generation (Experimental)"
 msgstr "Kadra Generacio (Eksperimenta)"
 
@@ -2024,7 +2048,7 @@ msgstr "Kadra Generacio (Eksperimenta)"
 msgid "Frame Generation Settings"
 msgstr "Kadra Generacio-Agordoj"
 
-#: bottles/frontend/ui/details-preferences.blp:243 bottles/frontend/ui/dialog-gamescope.blp:141
+#: bottles/frontend/ui/details-preferences.blp:274 bottles/frontend/ui/dialog-gamescope.blp:141
 msgid "Frame Rate Limit"
 msgstr "Limo de Framfrekvenco"
 
@@ -2032,11 +2056,11 @@ msgstr "Limo de Framfrekvenco"
 msgid "Frame Rate Limit When Unfocused"
 msgstr "Limo de kadra indico kiam nefokusita"
 
-#: bottles/backend/utils/manager.py:911
+#: bottles/backend/utils/manager.py:944
 msgid "French"
 msgstr "franca"
 
-#: bottles/frontend/ui/details-preferences.blp:236
+#: bottles/frontend/ui/details-preferences.blp:267
 msgid "Fsync"
 msgstr "Fsync"
 
@@ -2057,7 +2081,7 @@ msgstr "Plenekrano"
 msgid "Fullscreen Mouse Capture"
 msgstr "Plenekrana Muskapto"
 
-#: bottles/frontend/ui/dialog-display.blp:137
+#: bottles/frontend/ui/dialog-display.blp:150
 msgid "GL (Default)"
 msgstr "GL (Defaŭlta)"
 
@@ -2073,24 +2097,24 @@ msgstr "Gamescope"
 msgid "Gamescope Settings"
 msgstr "Gamescope Agordoj"
 
-#: bottles/frontend/utils/common.py:40 bottles/frontend/views/preferences.py:752
+#: bottles/frontend/utils/common.py:40 bottles/frontend/views/preferences.py:763
 msgid "Gaming"
 msgstr "Ludado"
 
-#: bottles/frontend/ui/preferences.blp:10 bottles/frontend/ui/preferences.blp:61
+#: bottles/frontend/ui/preferences.blp:10 bottles/frontend/ui/preferences.blp:71
 msgid "General"
 msgstr "Ĝenerala"
 
-#: bottles/frontend/ui/details-preferences.blp:169
+#: bottles/frontend/ui/details-preferences.blp:200
 msgid "Generate additional frames with lsfg-vk. Only works with 64-bit Vulkan applications."
 msgstr "Generu pliajn kadrojn per lsfg-vk. Funkcias nur kun 64-bitaj Vulkan-aplikoj."
 
 #, fuzzy
-#: bottles/backend/managers/manager.py:1533
+#: bottles/backend/managers/manager.py:1552
 msgid "Generating container configuration…"
 msgstr "Konektostato: ne konektita…"
 
-#: bottles/backend/utils/manager.py:905
+#: bottles/backend/utils/manager.py:938
 msgid "German"
 msgstr "germana"
 
@@ -2103,15 +2127,15 @@ msgstr "Reen"
 msgid "Got It"
 msgstr "Kaptis"
 
-#: bottles/frontend/views/preferences.py:586
+#: bottles/frontend/views/preferences.py:597
 msgid "Grant Bottles direct access to the runner directory, then select it again."
 msgstr "Donu Bottles rektan aliron al la kuristo dosierujo, tiam elektu ĝin denove."
 
-#: bottles/frontend/views/eagle.py:428
+#: bottles/frontend/views/eagle.py:431
 msgid "Graphics API"
 msgstr "Grafika API"
 
-#: bottles/backend/utils/manager.py:906
+#: bottles/backend/utils/manager.py:939
 msgid "Greek"
 msgstr "greka"
 
@@ -2145,12 +2169,12 @@ msgstr "Programoj"
 msgid "Hide Program"
 msgstr "Programoj"
 
-#: bottles/frontend/ui/details-preferences.blp:138
+#: bottles/frontend/ui/details-preferences.blp:169
 msgid "High Dynamic Range"
 msgstr "Alta Dinamika Intervalo"
 
 #, python-brace-format
-#: bottles/frontend/windows/playtimegraph.py:177
+#: bottles/frontend/windows/playtimegraph.py:263
 msgid "Hourly Average: {}"
 msgstr "Hora Mezumo: {}"
 
@@ -2158,7 +2182,7 @@ msgstr "Hora Mezumo: {}"
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr "Kiom ofte ĝisdatigi sean korbaton. Difinas maksimuman timestand-eraron por abruptaj eliroj."
 
-#: bottles/backend/utils/manager.py:913
+#: bottles/backend/utils/manager.py:946
 msgid "Hungarian"
 msgstr "hungara"
 
@@ -2166,7 +2190,7 @@ msgstr "hungara"
 msgid "I still want to report."
 msgstr "Mi ankoraŭ volas raporti."
 
-#: bottles/frontend/widgets/library.py:247
+#: bottles/frontend/widgets/library.py:248
 msgid "Images"
 msgstr "Bildoj"
 
@@ -2192,7 +2216,7 @@ msgstr "Importi Wine-mediojn…"
 msgid "Import failed"
 msgstr "Enportilo"
 
-#: bottles/frontend/views/eagle.py:335
+#: bottles/frontend/views/eagle.py:338
 msgid "Import hash match"
 msgstr "Importi hash-matĉon"
 
@@ -2200,23 +2224,23 @@ msgstr "Importi hash-matĉon"
 msgid "Importing full backup"
 msgstr "Importado de plena sekurkopio"
 
-#: bottles/frontend/ui/details-preferences.blp:56
+#: bottles/frontend/ui/details-preferences.blp:87
 msgid "Improve Direct3D 12 compatibility by translating it to Vulkan."
 msgstr "Plibonigu Direct3D 12-kongruon tradukante ĝin al Vulkan."
 
-#: bottles/frontend/ui/details-preferences.blp:30
+#: bottles/frontend/ui/details-preferences.blp:61
 msgid "Improve Direct3D 3/5/6/7 compatibility for 32-bit applications by translating it to Vulkan."
 msgstr "Plibonigu Direct3D 3/5/6/7-kongruon por 32-bitaj aplikoj tradukante ĝin al Vulkan."
 
-#: bottles/frontend/ui/details-preferences.blp:43
+#: bottles/frontend/ui/details-preferences.blp:74
 msgid "Improve Direct3D 8/9/10/11 compatibility by translating it to Vulkan."
 msgstr "Plibonigu Direct3D 8/9/10/11-kongruon tradukante ĝin al Vulkan."
 
-#: bottles/frontend/ui/details-preferences.blp:287
+#: bottles/frontend/ui/details-preferences.blp:318
 msgid "Improve loading time when launching the game multiple times. The game will take longer to start for the first time."
 msgstr "Plibonigu la ŝarĝan tempon dum lanĉo de la ludo plurfoje. La ludo daŭros pli longe por komenci por la unua fojo."
 
-#: bottles/frontend/ui/preferences.blp:350
+#: bottles/frontend/ui/preferences.blp:360
 msgid "Includes archives and extracted resources downloaded for components, dependencies, and installers."
 msgstr "Inkluzivas arkivojn kaj eltiritajn rimedojn elŝutitajn por komponantoj, dependecoj kaj instaliloj."
 
@@ -2224,11 +2248,11 @@ msgstr "Inkluzivas arkivojn kaj eltiritajn rimedojn elŝutitajn por komponantoj,
 msgid "Incomplete package"
 msgstr "Nekompleta pako"
 
-#: bottles/frontend/ui/details-preferences.blp:101
+#: bottles/frontend/ui/details-preferences.blp:132
 msgid "Increase performance at the expense of visuals using DXVK-NVAPI. Only works on newer NVIDIA GPUs."
 msgstr "Pliigu rendimenton koste de bildoj uzante DXVK-NVAPI. Funkcias nur sur pli novaj NVIDIA GPU-oj."
 
-#: bottles/frontend/ui/details-preferences.blp:82
+#: bottles/frontend/ui/details-preferences.blp:113
 msgid "Increase responsiveness. Can be detected by some anti-cheat software."
 msgstr "Pliigi respondecon. Povas esti detektita de iu kontraŭ-trompanta programaro."
 
@@ -2240,7 +2264,7 @@ msgstr "Pligrandigu tekstograndecon rilate al la sistema agordo."
 msgid "Info"
 msgstr "Informoj"
 
-#: bottles/frontend/views/eagle.py:432
+#: bottles/frontend/views/eagle.py:435
 msgid "Input"
 msgstr "Enigo"
 
@@ -2270,20 +2294,20 @@ msgstr "Instalu programojn prizorgatajn de nia komunumo.\n\nDosieroj sur ĉi tiu
 msgid "Install this Program"
 msgstr "Instalitaj programoj"
 
-#: bottles/frontend/views/bottle_preferences.py:160
+#: bottles/frontend/views/bottle_preferences.py:165
 msgid "Install vkbasalt-cli to edit vkBasalt settings."
 msgstr "Instalu vkbasalt-cli por redakti vkBasalt-agordojn."
 
 #, fuzzy
-#: bottles/frontend/ui/dialog-installer.blp:195
+#: bottles/frontend/ui/dialog-installer.blp:199
 msgid "Installation Failed!"
 msgstr "Instaliloj"
 
-#: bottles/frontend/views/eagle.py:440
+#: bottles/frontend/views/eagle.py:443
 msgid "Installer Type"
 msgstr "Instalilo-Tipo"
 
-#: bottles/backend/managers/dependency.py:684
+#: bottles/backend/managers/dependency.py:755
 msgid "Installer completed."
 msgstr "Instalilo finiĝis."
 
@@ -2309,7 +2333,7 @@ msgstr "Instaliloj"
 msgid "Installers"
 msgstr "Instaliloj"
 
-#: bottles/frontend/ui/preferences.blp:252
+#: bottles/frontend/ui/preferences.blp:262
 msgid "Installers Repository"
 msgstr "Deponejo de Instaliloj"
 
@@ -2318,19 +2342,19 @@ msgstr "Deponejo de Instaliloj"
 msgid "Installing \"{0}\"..."
 msgstr "Instalante \"{0}\"..."
 
-#: bottles/backend/managers/manager.py:1816
+#: bottles/backend/managers/manager.py:1853
 msgid "Installing D7VK..."
 msgstr "Instalante D7VK..."
 
-#: bottles/backend/managers/manager.py:1771
+#: bottles/backend/managers/manager.py:1806
 msgid "Installing DXVK-NVAPI…"
 msgstr "Instalante DXVK-NVAPI…"
 
-#: bottles/backend/managers/manager.py:1740
+#: bottles/backend/managers/manager.py:1775
 msgid "Installing DXVK…"
 msgstr "Instalante DXVK…"
 
-#: bottles/backend/managers/manager.py:1755
+#: bottles/backend/managers/manager.py:1790
 msgid "Installing VKD3D…"
 msgstr "Instalante VKD3D…"
 
@@ -2339,7 +2363,7 @@ msgid "Installing Windows dependencies…"
 msgstr "Instalante dependaĵojn de Windows…"
 
 #, python-format
-#: bottles/backend/managers/manager.py:1785
+#: bottles/backend/managers/manager.py:1820
 msgid "Installing dependency: %s …"
 msgstr "Instalante dependaĵon %s en botelo…"
 
@@ -2348,12 +2372,12 @@ msgstr "Instalante dependaĵon %s en botelo…"
 msgid "Installing dependency: {0}"
 msgstr "Instalado de dependeco: {0}"
 
-#: bottles/backend/managers/dependency.py:293 bottles/backend/managers/dependency.py:294
+#: bottles/backend/managers/dependency.py:302 bottles/backend/managers/dependency.py:303
 msgid "Installing fonts…"
 msgstr "Instalante tiparojn..."
 
 #, python-brace-format
-#: bottles/backend/managers/dependency.py:412
+#: bottles/backend/managers/dependency.py:423
 msgid "Installing prerequisite “{0}”…"
 msgstr "Instalante antaŭkondiĉon \"{0}\"..."
 
@@ -2368,12 +2392,12 @@ msgid "Installing {0}…"
 msgstr "Instalante {0}…"
 
 #, python-brace-format
-#: bottles/frontend/windows/dependency_install.py:47
+#: bottles/frontend/windows/dependency_install.py:50
 msgid "Installing “{0}”…"
 msgstr "Instalante \"{0}\"..."
 
 #, fuzzy
-#: bottles/frontend/widgets/component.py:227
+#: bottles/frontend/widgets/component.py:230
 msgid "Installing…"
 msgstr "Instalante DXVK…"
 
@@ -2383,15 +2407,15 @@ msgid "Integer Scaling"
 msgstr "Ŝalti administradon de versioj"
 
 #, fuzzy
-#: bottles/frontend/ui/preferences.blp:139
+#: bottles/frontend/ui/preferences.blp:149
 msgid "Integrations"
 msgstr "Tradukoj"
 
-#: bottles/frontend/main.py:210
+#: bottles/frontend/main.py:217
 msgid "Invalid URI (syntax: bottles:run/<bottle>/<program>)"
 msgstr "Nevalida URI (sintakso: Wine-medioj:run/<Wine-medio>/<program>)"
 
-#: bottles/backend/managers/manager.py:2061
+#: bottles/backend/managers/manager.py:2098
 msgid "Invalid graphics component."
 msgstr "Nevalida grafika komponanto."
 
@@ -2399,7 +2423,7 @@ msgstr "Nevalida grafika komponanto."
 msgid "Issues that may prevent this program from running."
 msgstr "Problemoj kiuj povas malhelpi ĉi tiun programon funkcii."
 
-#: bottles/backend/utils/manager.py:914
+#: bottles/backend/utils/manager.py:947
 msgid "Italian"
 msgstr "itala"
 
@@ -2408,7 +2432,7 @@ msgstr "itala"
 msgid "Item name"
 msgstr "Botela nomo"
 
-#: bottles/backend/utils/manager.py:928
+#: bottles/backend/utils/manager.py:961
 msgid "Japanese"
 msgstr "japana"
 
@@ -2417,7 +2441,7 @@ msgid "Keyboard Shortcuts"
 msgstr "Klavaraj Ŝparvojoj"
 
 #, python-brace-format
-#: bottles/backend/managers/eagle.py:339
+#: bottles/backend/managers/eagle.py:340
 msgid "Known application ({match}): {name}"
 msgstr "Konata aplikaĵo ({match}): {name}"
 
@@ -2426,28 +2450,28 @@ msgstr "Konata aplikaĵo ({match}): {name}"
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr "Konata aplikaĵo: {name} (vintrikoj-verbo '{verb}')"
 
-#: bottles/backend/utils/manager.py:930
+#: bottles/backend/utils/manager.py:963
 msgid "Korean"
 msgstr "korea"
 
-#: bottles/frontend/ui/details-preferences.blp:332 bottles/frontend/ui/preferences.blp:28
+#: bottles/frontend/ui/details-preferences.blp:363 bottles/frontend/ui/preferences.blp:28
 msgid "Language"
 msgstr "Lingvo"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:305
+#: bottles/frontend/ui/dialog-playtime-graph.blp:316
 msgid "Last Used"
 msgstr "Laste Ludita"
 
 #, python-format
-#: bottles/frontend/utils/playtime.py:504
+#: bottles/frontend/utils/playtime.py:535
 msgid "Last Used: %s – Usage Time: %s"
 msgstr "Laste Ludita: %s - Ludtempo: %s"
 
-#: bottles/backend/managers/manager.py:1922 bottles/frontend/ui/details-preferences.blp:81
+#: bottles/backend/managers/manager.py:1959 bottles/frontend/ui/details-preferences.blp:112
 msgid "LatencyFleX"
 msgstr "LatencyFleX"
 
-#: bottles/backend/utils/manager.py:916
+#: bottles/backend/utils/manager.py:949
 msgid "Latvian"
 msgstr "latva"
 
@@ -2456,7 +2480,7 @@ msgstr "latva"
 msgid "Launch"
 msgstr "Ŝanĝi Opciojn pri Lanĉado"
 
-#: bottles/frontend/views/eagle.py:382
+#: bottles/frontend/views/eagle.py:385
 msgid "Launch Argument"
 msgstr "Lanĉi Argumenton"
 
@@ -2483,22 +2507,22 @@ msgid "Launch with Terminal"
 msgstr "Lanĉo per Terminalo"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:652 bottles/frontend/widgets/library.py:270 bottles/frontend/widgets/program.py:349
+#: bottles/frontend/views/bottle_details.py:652 bottles/frontend/widgets/library.py:271 bottles/frontend/widgets/program.py:367
 msgid "Launching \"{0}\"…"
 msgstr "Lanĉante «{0}»…"
 
 #, python-brace-format
-#: bottles/frontend/main.py:166
+#: bottles/frontend/main.py:167
 msgid "Launching with URI: {0}"
 msgstr "Lanĉo kun URI: {0}"
 
 #, python-brace-format
-#: bottles/frontend/main.py:161
+#: bottles/frontend/main.py:162
 msgid "Launching with executable: {0}"
 msgstr "Lanĉo kun rulebla: {0}"
 
 #, python-brace-format
-#: bottles/frontend/views/list.py:131
+#: bottles/frontend/views/list.py:136
 msgid "Launching “{0}” in “{1}”…"
 msgstr "Lanĉante \"{0}\" en \"{1}\"..."
 
@@ -2523,11 +2547,19 @@ msgstr "Bibliotekoj aŭ rultempoj postulataj de ĉi tiu programo."
 msgid "Library"
 msgstr "Malhela Reĝimo"
 
+#: bottles/frontend/ui/preferences.blp:50
+msgid "Library Order"
+msgstr "Biblioteko-Ordo"
+
+#: data/com.usebottles.bottles.gschema.xml
+msgid "Library sort order"
+msgstr "Biblioteko ordigo"
+
 #: bottles/frontend/ui/dependency-entry.blp:21
 msgid "License"
 msgstr "Permesilo"
 
-#: bottles/frontend/ui/details-preferences.blp:244
+#: bottles/frontend/ui/details-preferences.blp:275
 msgid "Limit DXVK and VKD3D applications. Set to 0 to disable."
 msgstr "Limigu aplikojn DXVK kaj VKD3D. Agordu al 0 por malŝalti."
 
@@ -2535,23 +2567,23 @@ msgstr "Limigu aplikojn DXVK kaj VKD3D. Agordu al 0 por malŝalti."
 msgid "Limit system environment"
 msgstr "Limiga sistema medio"
 
-#: bottles/frontend/ui/preferences.blp:152
+#: bottles/frontend/ui/preferences.blp:162
 msgid "List Epic Games in Programs List"
 msgstr "Listo de Epopeaj Ludoj en Listo de Programoj"
 
-#: bottles/frontend/ui/preferences.blp:142
+#: bottles/frontend/ui/preferences.blp:152
 msgid "List Steam Apps in Programs List"
 msgstr "Listo de Steam-Aplikoj en Listo de Programoj"
 
-#: bottles/frontend/ui/preferences.blp:162
+#: bottles/frontend/ui/preferences.blp:172
 msgid "List Ubisoft Games in Programs List"
 msgstr "Listigu Ubisoft-Ludojn en Listo de Programoj"
 
-#: bottles/backend/utils/manager.py:915
+#: bottles/backend/utils/manager.py:948
 msgid "Lithuanian"
 msgstr "litova"
 
-#: bottles/backend/managers/manager.py:291
+#: bottles/backend/managers/manager.py:292
 msgid "Loading containers…"
 msgstr "Ŝarĝante Wine-mediojn..."
 
@@ -2592,7 +2624,7 @@ msgid "Manage Branches"
 msgstr "Administri branĉojn"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:450
+#: bottles/frontend/ui/details-preferences.blp:481
 msgid "Manage Drives"
 msgstr "Administri rulilojn"
 
@@ -2600,23 +2632,23 @@ msgstr "Administri rulilojn"
 msgid "Manage File Associations..."
 msgstr "Administri Dosierajn Asociojn..."
 
-#: bottles/frontend/ui/details-preferences.blp:192
+#: bottles/frontend/ui/details-preferences.blp:223
 msgid "Manage Gamescope settings"
 msgstr "Administri Gamescope-agordojn"
 
-#: bottles/frontend/ui/details-preferences.blp:260
+#: bottles/frontend/ui/details-preferences.blp:291
 msgid "Manage MangoHud settings"
 msgstr "Administri MangoHud-agordojn"
 
-#: bottles/frontend/ui/details-preferences.blp:152
+#: bottles/frontend/ui/details-preferences.blp:183
 msgid "Manage Post-Processing Layer settings"
 msgstr "Administri agordojn de Post-traktado de Tavolo"
 
-#: bottles/frontend/ui/preferences.blp:317
+#: bottles/frontend/ui/preferences.blp:327
 msgid "Manage cached files used to speed up downloads and container creation."
 msgstr "Administri kaŝmemoritajn dosierojn uzatajn por akceli elŝutojn kaj kreadon de Wine-medioj."
 
-#: bottles/frontend/ui/details-preferences.blp:189
+#: bottles/frontend/ui/details-preferences.blp:220
 msgid "Manage how games should be displayed on the screen using Gamescope."
 msgstr "Administru kiel ludoj devus esti montritaj sur la ekrano uzante Gamescope."
 
@@ -2624,7 +2656,7 @@ msgstr "Administru kiel ludoj devus esti montritaj sur la ekrano uzante Gamescop
 msgid "Manage how games should be displayed."
 msgstr "Administri kiel ludoj devus esti montritaj."
 
-#: bottles/frontend/ui/details-preferences.blp:172
+#: bottles/frontend/ui/details-preferences.blp:203
 msgid "Manage lsfg-vk settings"
 msgstr "Administri lsfg-vk-agordojn"
 
@@ -2633,11 +2665,11 @@ msgid "Manage reusable registry tweaks."
 msgstr "Administri reuzeblajn registrojn."
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:344
+#: bottles/frontend/ui/details-preferences.blp:375
 msgid "Manage the Sandbox Permissions"
 msgstr "Administri versiojn de DXVK"
 
-#: bottles/frontend/ui/details-preferences.blp:291
+#: bottles/frontend/ui/details-preferences.blp:322
 msgid "Manage vmtouch settings"
 msgstr "Administri vmtouch-agordojn"
 
@@ -2646,7 +2678,7 @@ msgid "MangoHud Settings"
 msgstr "MangoHud Agordoj"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:144 bottles/frontend/widgets/installer.py:85
+#: bottles/frontend/widgets/dependency.py:147 bottles/frontend/widgets/installer.py:85
 msgid "Manifest for {0}"
 msgstr "Manifesto de {0}"
 
@@ -2654,7 +2686,7 @@ msgstr "Manifesto de {0}"
 msgid "Manual Restore"
 msgstr "Mana Restarigo"
 
-#: bottles/frontend/views/eagle.py:341
+#: bottles/frontend/views/eagle.py:344
 msgid "Match confidence"
 msgstr "Konfido de matĉo"
 
@@ -2670,7 +2702,7 @@ msgstr "Maksimumaj Serĉaj Paŝoj"
 msgid "Max Search Steps Diagonal"
 msgstr "Maksimuma Serĉaj Paŝoj Diagonala"
 
-#: bottles/frontend/ui/preferences.blp:222
+#: bottles/frontend/ui/preferences.blp:232
 msgid "Maximum binaries to analyze when extracting installers."
 msgstr "Maksimumaj binaroj analizendaj ĉe eltiro de instaliloj."
 
@@ -2678,7 +2710,7 @@ msgstr "Maksimumaj binaroj analizendaj ĉe eltiro de instaliloj."
 msgid "Maximum number of binaries to scan when analysing installers. Higher values provide more thorough analysis but take longer."
 msgstr "Maksimuma nombro da binaroj por skani dum analizado de instaliloj. Pli altaj valoroj provizas pli profundan analizon sed daŭras pli longe."
 
-#: bottles/frontend/views/eagle.py:436
+#: bottles/frontend/views/eagle.py:439
 msgid "Media Playback"
 msgstr "Amaskomunikila Reproduktado"
 
@@ -2686,7 +2718,7 @@ msgstr "Amaskomunikila Reproduktado"
 msgid "Message"
 msgstr "Mesaĝo"
 
-#: bottles/frontend/views/eagle.py:261
+#: bottles/frontend/views/eagle.py:264
 msgid "Minimum OS Version"
 msgstr "Minimuma OS-Versio"
 
@@ -2700,12 +2732,12 @@ msgid "Missing Runner"
 msgstr "Ruliloj de Wine"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:256
+#: bottles/frontend/ui/details-preferences.blp:287
 msgid "Monitor Performance"
 msgstr "Rendimento"
 
 #, python-brace-format
-#: bottles/frontend/windows/playtimegraph.py:188
+#: bottles/frontend/windows/playtimegraph.py:274
 msgid "Monthly Average: {}"
 msgstr "Monata Mezumo: {}"
 
@@ -2743,19 +2775,19 @@ msgstr "Multobligilo"
 msgid "My container"
 msgstr "Nova Wine-medio"
 
-#: bottles/frontend/ui/task-entry.blp:15 bottles/frontend/views/list.py:83 bottles/frontend/views/list.py:91
+#: bottles/frontend/ui/task-entry.blp:15 bottles/frontend/views/list.py:88 bottles/frontend/views/list.py:96
 msgid "N/A"
 msgstr "Ne aplikebla"
 
-#: bottles/frontend/ui/details-preferences.blp:237
+#: bottles/frontend/ui/details-preferences.blp:268
 msgid "NTSync"
 msgstr "NTSync"
 
-#: bottles/backend/managers/manager.py:1916
+#: bottles/backend/managers/manager.py:1953
 msgid "NVAPI"
 msgstr "NVAPI"
 
-#: bottles/frontend/ui/details-preferences.blp:7 bottles/frontend/ui/dialog-duplicate.blp:40 bottles/frontend/ui/dialog-registry-rules.blp:25 bottles/frontend/ui/new-bottle-dialog.blp:45 bottles/frontend/views/preferences.py:561
+#: bottles/frontend/ui/details-preferences.blp:7 bottles/frontend/ui/dialog-duplicate.blp:40 bottles/frontend/ui/dialog-registry-rules.blp:25 bottles/frontend/ui/new-bottle-dialog.blp:45 bottles/frontend/views/preferences.py:572
 msgid "Name"
 msgstr "Nomo"
 
@@ -2772,15 +2804,15 @@ msgstr "Indiĝena (Vindoza)"
 msgid "Native, then Builtin"
 msgstr "Indiĝena, poste Integrita"
 
-#: bottles/frontend/views/eagle.py:266
+#: bottles/frontend/views/eagle.py:269
 msgid "Needs Administrator"
 msgstr "Bezonas Administranton"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:296 bottles/frontend/utils/playtime.py:460 bottles/frontend/windows/playtimegraph.py:286 bottles/frontend/windows/playtimegraph.py:281
+#: bottles/frontend/ui/dialog-playtime-graph.blp:307 bottles/frontend/utils/playtime.py:491 bottles/frontend/windows/playtimegraph.py:372 bottles/frontend/windows/playtimegraph.py:367
 msgid "Never"
 msgstr "Neniam"
 
-#: bottles/frontend/utils/playtime.py:494
+#: bottles/frontend/utils/playtime.py:525
 msgid "Never Used"
 msgstr "Neniam Ludita"
 
@@ -2816,23 +2848,23 @@ msgstr "Nova stato [{0}] sukcese kreita!"
 msgid "Next"
 msgstr "Sekven"
 
-#: bottles/frontend/windows/playtimegraph.py:103
+#: bottles/frontend/windows/playtimegraph.py:106
 msgid "Next Day"
 msgstr "Venonta Tago"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:215 bottles/frontend/windows/playtimegraph.py:100
+#: bottles/frontend/ui/dialog-playtime-graph.blp:226 bottles/frontend/windows/playtimegraph.py:103
 msgid "Next Week"
 msgstr "Venontan Semajnon"
 
-#: bottles/frontend/windows/playtimegraph.py:106
+#: bottles/frontend/windows/playtimegraph.py:109
 msgid "Next Year"
 msgstr "Venontjare"
 
-#: bottles/frontend/views/eagle.py:267
+#: bottles/frontend/views/eagle.py:270
 msgid "No"
 msgstr "Ne"
 
-#: bottles/backend/managers/manager.py:2155 bottles/backend/managers/manager.py:2350
+#: bottles/backend/managers/manager.py:2192 bottles/backend/managers/manager.py:2387
 msgid "No D7VK version available."
 msgstr "Neniu versio de D7VK havebla."
 
@@ -2840,11 +2872,11 @@ msgstr "Neniu versio de D7VK havebla."
 msgid "No DLL selected"
 msgstr "Neniu DLL elektita"
 
-#: bottles/backend/managers/manager.py:2083 bottles/backend/managers/manager.py:2359
+#: bottles/backend/managers/manager.py:2120 bottles/backend/managers/manager.py:2396
 msgid "No DXVK version available."
 msgstr "Neniu versio de DXVK havebla."
 
-#: bottles/frontend/windows/playtimegraph.py:362
+#: bottles/frontend/windows/playtimegraph.py:448
 msgid "No Data"
 msgstr "Neniuj Datumoj"
 
@@ -2856,11 +2888,11 @@ msgstr "Neniuj aparatoj HIDRAW trovitaj"
 msgid "No Installers Found"
 msgstr "Neniu instalilo trovita"
 
-#: bottles/backend/managers/manager.py:2389
+#: bottles/backend/managers/manager.py:2426
 msgid "No LatencyFleX version available."
 msgstr "Neniu versio de LatencyFleX havebla."
 
-#: bottles/backend/managers/manager.py:2377
+#: bottles/backend/managers/manager.py:2414
 msgid "No NVAPI version available."
 msgstr "Neniu versio de NVAPI havebla."
 
@@ -2880,11 +2912,11 @@ msgstr "Neniu momentfoto trovita"
 msgid "No Thumbnail"
 msgstr "Neniu Bildeto"
 
-#: bottles/backend/managers/manager.py:2368
+#: bottles/backend/managers/manager.py:2405
 msgid "No VKD3D version available."
 msgstr "Neniu versio de VKD3D havebla."
 
-#: bottles/backend/managers/eagle.py:333
+#: bottles/backend/managers/eagle.py:334
 msgid "No community intelligence match"
 msgstr "Neniu komunuma spionmatĉo"
 
@@ -2905,7 +2937,7 @@ msgstr "Mediaj variabloj"
 msgid "No files or folders selected"
 msgstr "Neniuj dosieroj aŭ dosierujoj elektitaj"
 
-#: bottles/backend/managers/manager.py:2070
+#: bottles/backend/managers/manager.py:2107
 msgid "No graphics component version available."
 msgstr "Neniu versio de grafika komponanto disponebla."
 
@@ -2921,7 +2953,7 @@ msgstr "Neniu vojo specifita"
 msgid "No rules yet"
 msgstr "Ankoraŭ neniuj reguloj"
 
-#: bottles/frontend/views/preferences.py:699
+#: bottles/frontend/views/preferences.py:710
 msgid "No templates cached yet."
 msgstr "Ankoraŭ neniuj ŝablonoj konservitaj en kaŝmemoro."
 
@@ -2929,11 +2961,11 @@ msgstr "Ankoraŭ neniuj ŝablonoj konservitaj en kaŝmemoro."
 msgid "No variables selected"
 msgstr "Neniuj variabloj elektita"
 
-#: bottles/backend/utils/manager.py:918
+#: bottles/backend/utils/manager.py:951
 msgid "Norwegian"
 msgstr "norvega"
 
-#: bottles/frontend/widgets/program.py:372
+#: bottles/frontend/widgets/program.py:390
 msgid "Not Now"
 msgstr "Ne Nun"
 
@@ -2946,35 +2978,39 @@ msgstr "Nuntempe ne konektita"
 msgid "Not enough disk space to create a snapshot! Requires at least {0} of free space."
 msgstr "Ne sufiĉa diskospaco por krei momentfoton! Postulas almenaŭ {0} da libera spaco."
 
-#: bottles/backend/managers/manager.py:1973
+#: bottles/backend/managers/manager.py:2010
 msgid "Not installed"
 msgstr "Ne instalita"
+
+#: bottles/frontend/ui/details-preferences.blp:13
+msgid "Notes"
+msgstr "Notoj"
 
 #: bottles/backend/managers/versioning.py:177
 msgid "Nothing to commit"
 msgstr "Nenion fari"
 
-#: bottles/frontend/ui/preferences.blp:64 data/com.usebottles.bottles.gschema.xml
+#: bottles/frontend/ui/preferences.blp:74 data/com.usebottles.bottles.gschema.xml
 msgid "Notifications"
 msgstr "Sciigoj"
 
-#: bottles/frontend/ui/details-preferences.blp:307
+#: bottles/frontend/ui/details-preferences.blp:338
 msgid "OBS Game Capture"
 msgstr "OBS Ludo-Kapto"
 
-#: bottles/frontend/views/bottle_versioning.py:278
+#: bottles/frontend/views/bottle_versioning.py:278 bottles/frontend/windows/playtimegraph.py:201
 msgid "OK"
 msgstr "Bone"
 
-#: bottles/frontend/ui/preferences.blp:214
+#: bottles/frontend/ui/preferences.blp:224
 msgid "OSS"
 msgstr "OSS"
 
-#: bottles/frontend/ui/preferences.blp:129 data/com.usebottles.bottles.gschema.xml
+#: bottles/frontend/ui/preferences.blp:139 data/com.usebottles.bottles.gschema.xml
 msgid "Offer an Eagle analysis when a program closes right after starting."
 msgstr "Proponu analizon de Eagle kiam programo fermiĝas tuj post komenciĝo."
 
-#: bottles/frontend/views/bottle_preferences.py:274
+#: bottles/frontend/views/bottle_preferences.py:283
 msgid "Older NVIDIA drivers require HdrWsi and ENABLE_HDR_WSI=1 for HDR."
 msgstr "Pli malnovaj NVIDIA-ŝoforoj postulas HdrWsi kaj ENABLE_HDR_WSI=1 por HDR."
 
@@ -3019,12 +3055,12 @@ msgid "Open the backup folder and copy a generation's files back into the contai
 msgstr "Malfermu la rezervan dosierujon kaj kopiu la dosierojn de generacio reen en la Wine-medion."
 
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:396
+#: bottles/frontend/views/eagle.py:399
 msgid "Open {0} data source"
 msgstr "Malfermu {0}-datumfonton"
 
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:407
+#: bottles/frontend/views/eagle.py:410
 msgid "Open {0} license"
 msgstr "Malfermu permesilon {0}"
 
@@ -3034,7 +3070,7 @@ msgid "Operations"
 msgstr "Tradukoj"
 
 #, fuzzy
-#: bottles/frontend/views/details.py:267
+#: bottles/frontend/views/details.py:268
 msgid "Operations in progress, please wait."
 msgstr "Montri version"
 
@@ -3050,7 +3086,7 @@ msgstr "Optimumigita por ludoj, ludmaŝinoj kaj 3D-aplikoj"
 msgid "Optimized for productivity software"
 msgstr "Optimumigita por produktiveca programaro"
 
-#: bottles/backend/managers/manager.py:1683
+#: bottles/backend/managers/manager.py:1711
 msgid "Optimizing environment…"
 msgstr "Optimumigante medion…"
 
@@ -3059,24 +3095,24 @@ msgstr "Optimumigante medion…"
 msgid "Options"
 msgstr "Tradukoj"
 
-#: bottles/backend/managers/manager.py:268
+#: bottles/backend/managers/manager.py:269
 msgid "Organizing components…"
 msgstr "Organizante komponantojn..."
 
-#: bottles/backend/managers/manager.py:283
+#: bottles/backend/managers/manager.py:284
 msgid "Organizing dependencies…"
 msgstr "Organizante dependecojn..."
 
-#: bottles/backend/managers/manager.py:288
+#: bottles/backend/managers/manager.py:289
 msgid "Organizing installers…"
 msgstr "Organizante instalilojn..."
 
-#: bottles/frontend/ui/preferences.blp:237
+#: bottles/frontend/ui/preferences.blp:247
 msgid "Override the default repositories Bottles uses when downloading resources."
 msgstr "Anstataŭigu la defaŭltajn deponejojn, kiujn Bottles uzas dum elŝutado de rimedoj."
 
 #, python-brace-format
-#: bottles/backend/managers/eagle.py:430
+#: bottles/backend/managers/eagle.py:431
 msgid "Override {name}={value} (community evidence x{evidence})"
 msgstr "Anstataŭigi {name}={value} (komunuma indico x{evidence})"
 
@@ -3085,12 +3121,12 @@ msgstr "Anstataŭigi {name}={value} (komunuma indico x{evidence})"
 msgid "Overrides"
 msgstr "DLL-Superregoj"
 
-#: bottles/frontend/ui/preferences.blp:316
+#: bottles/frontend/ui/preferences.blp:326
 msgid "Overview"
 msgstr "Superrigardo"
 
 #, fuzzy
-#: bottles/frontend/main.py:118
+#: bottles/frontend/main.py:119
 msgid "Pass arguments"
 msgstr "Ruli kun argumentoj"
 
@@ -3110,7 +3146,7 @@ msgstr "Vojetoj ene de la Wine-medio restas validaj se la Wine-medio estas movit
 msgid "Pattern"
 msgstr "Ŝablono"
 
-#: bottles/frontend/ui/details-preferences.blp:226
+#: bottles/frontend/ui/details-preferences.blp:257
 msgid "Performance"
 msgstr "Rendimento"
 
@@ -3122,7 +3158,7 @@ msgstr "Reĝimo de Efikeco"
 msgid "Performing final checks…"
 msgstr "Farante finajn kontrolojn..."
 
-#: bottles/frontend/views/eagle.py:435
+#: bottles/frontend/views/eagle.py:438
 msgid "Physics Engine"
 msgstr "Fizika Motoro"
 
@@ -3142,15 +3178,15 @@ msgstr "Bonvolu migri al la nova Versiosistemo por krei novajn ŝtatojn."
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr "Bonvolu atendi dum WineBridge elŝutas kaj instalas."
 
-#: bottles/backend/utils/manager.py:919
+#: bottles/backend/utils/manager.py:952
 msgid "Polish"
 msgstr "pola"
 
-#: bottles/backend/utils/manager.py:920
+#: bottles/backend/utils/manager.py:953
 msgid "Portuguese"
 msgstr "portugala"
 
-#: bottles/frontend/ui/details-preferences.blp:148
+#: bottles/frontend/ui/details-preferences.blp:179
 msgid "Post-Processing Effects"
 msgstr "Post-traktado-Efikoj"
 
@@ -3167,12 +3203,12 @@ msgstr "Postkurita Skripto"
 msgid "Post-run Script Arguments"
 msgstr "Post-kuritaj Skripto-Argumentoj"
 
-#: bottles/frontend/widgets/program.py:438
+#: bottles/frontend/widgets/program.py:456
 msgid "Potential threat detected"
 msgstr "Ebla minaco detektita"
 
 #, fuzzy
-#: bottles/frontend/ui/preferences.blp:176
+#: bottles/frontend/ui/preferences.blp:186
 msgid "Pre-Release"
 msgstr "Antaŭversio"
 
@@ -3197,39 +3233,39 @@ msgstr "Preferoj"
 msgid "Preferences Overrides"
 msgstr "Preferencoj"
 
-#: bottles/frontend/ui/preferences.blp:382
+#: bottles/frontend/ui/preferences.blp:392
 msgid "Prefix templates"
 msgstr "Prefiksaj ŝablonoj"
 
-#: bottles/frontend/ui/details-preferences.blp:286
+#: bottles/frontend/ui/details-preferences.blp:317
 msgid "Preload Game Files"
 msgstr "Antaŭŝargi Luddosieroj"
 
-#: bottles/backend/managers/manager.py:253
+#: bottles/backend/managers/manager.py:254
 msgid "Preparing WineBridge…"
 msgstr "Preparante WineBridge..."
 
-#: bottles/backend/managers/manager.py:220
+#: bottles/backend/managers/manager.py:221
 msgid "Preparing folders…"
 msgstr "Preparante dosierujojn..."
 
-#: bottles/backend/managers/dependency.py:394
+#: bottles/backend/managers/dependency.py:405
 msgid "Preparing installation..."
 msgstr "Preparante instaladon..."
 
-#: bottles/frontend/windows/dependency_install.py:48
+#: bottles/frontend/windows/dependency_install.py:51
 msgid "Preparing installation…"
 msgstr "Preparante instaladon..."
 
-#: bottles/frontend/ui/dialog-installer.blp:117 bottles/frontend/windows/installer.py:213
+#: bottles/frontend/ui/dialog-installer.blp:121 bottles/frontend/windows/installer.py:213
 msgid "Preparing installer..."
 msgstr "Preparante instalilon..."
 
-#: bottles/backend/managers/manager.py:258
+#: bottles/backend/managers/manager.py:259
 msgid "Preparing runners…"
 msgstr "Preparante kuristojn..."
 
-#: bottles/backend/managers/manager.py:248
+#: bottles/backend/managers/manager.py:249
 msgid "Preparing runtimes…"
 msgstr "Preparante rultempojn..."
 
@@ -3245,23 +3281,23 @@ msgstr "Antaŭagordo"
 msgid "Previous"
 msgstr "Antaŭa"
 
-#: bottles/frontend/windows/playtimegraph.py:102
+#: bottles/frontend/windows/playtimegraph.py:105
 msgid "Previous Day"
 msgstr "Antaŭa Tago"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:194 bottles/frontend/windows/playtimegraph.py:99
+#: bottles/frontend/ui/dialog-playtime-graph.blp:205 bottles/frontend/windows/playtimegraph.py:102
 msgid "Previous Week"
 msgstr "Antaŭa Semajno"
 
-#: bottles/frontend/windows/playtimegraph.py:105
+#: bottles/frontend/windows/playtimegraph.py:108
 msgid "Previous Year"
 msgstr "Antaŭa Jaro"
 
-#: bottles/frontend/views/eagle.py:338
+#: bottles/frontend/views/eagle.py:341
 msgid "Probable application name"
 msgstr "Verŝajna aplika nomo"
 
-#: bottles/frontend/ui/dialog-installer.blp:64
+#: bottles/frontend/ui/dialog-installer.blp:67
 msgid "Proceed"
 msgstr "Procedi"
 
@@ -3269,7 +3305,7 @@ msgstr "Procedi"
 msgid "Processing installer steps…"
 msgstr "Prilaborado de instalilaj paŝoj..."
 
-#: bottles/frontend/views/eagle.py:246
+#: bottles/frontend/views/eagle.py:249
 msgid "Product Name"
 msgstr "Produkta Nomo"
 
@@ -3277,6 +3313,10 @@ msgstr "Produkta Nomo"
 #: bottles/frontend/ui/installer-entry.blp:69
 msgid "Program Menu"
 msgstr "Programoj"
+
+#: bottles/frontend/ui/preferences.blp:53
+msgid "Program Name"
+msgstr "Nomo de Programo"
 
 #, fuzzy
 #: bottles/frontend/ui/program-entry.blp:91
@@ -3295,27 +3335,27 @@ msgstr "Programoj en ĉi tiu Wine-medio povas aliri krudajn USB-aparatojn permes
 msgid "Programs in this container can read controllers and global keystrokes while enabled."
 msgstr "Programoj en ĉi tiu Wine-medio povas legi regilojn kaj tutmondajn klavpremojn dum ĝi estas ebligita."
 
-#: bottles/frontend/views/eagle.py:433
+#: bottles/frontend/views/eagle.py:436
 msgid "Protection"
 msgstr "Protekto"
 
-#: bottles/frontend/main.py:372
+#: bottles/frontend/main.py:376
 msgid "ProtonDB community reports: ODbL 1.0, contents DbCL 1.0.\nwinetricks data: LGPL-2.1-or-later."
 msgstr "ProtonDB-komunumaj raportoj: ODbL 1.0, enhavo DbCL 1.0.\nwinetricks datumoj: LGPL-2.1-aŭ-poste."
 
-#: bottles/frontend/ui/details-preferences.blp:382
+#: bottles/frontend/ui/details-preferences.blp:413
 msgid "Provide a bundle of extra libraries for more compatibility with Steam games. Disable it if you run into issues."
 msgstr "Provizu aron da kromaj bibliotekoj por pli da kongruo kun Steam-ludoj. Malebligu ĝin se vi renkontas problemojn."
 
-#: bottles/frontend/ui/details-preferences.blp:361
+#: bottles/frontend/ui/details-preferences.blp:392
 msgid "Provide a bundle of extra libraries for more compatibility. Disable it if you run into issues."
 msgstr "Provizu aron da kromaj bibliotekoj por pli da kongruo. Malebligu ĝin se vi renkontas problemojn."
 
-#: bottles/frontend/views/eagle.py:251
+#: bottles/frontend/views/eagle.py:254
 msgid "Publisher"
 msgstr "Eldonisto"
 
-#: bottles/frontend/ui/preferences.blp:212
+#: bottles/frontend/ui/preferences.blp:222
 msgid "PulseAudio"
 msgstr "PulseAudio"
 
@@ -3327,7 +3367,7 @@ msgstr "Kvalita Rando-Sojlo"
 msgid "Quality Edge Threshold Minimum"
 msgstr "Kvalita Rando-Sojlo Minimumo"
 
-#: bottles/backend/managers/eagle.py:978 bottles/backend/managers/eagle.py:610
+#: bottles/backend/managers/eagle.py:1010 bottles/backend/managers/eagle.py:624
 msgid "Querying community intelligence..."
 msgstr "Pridemando de komunuma inteligenteco..."
 
@@ -3343,11 +3383,11 @@ msgstr "Ĉesu"
 msgid "Quit and reopen Bottles to apply changes."
 msgstr "Forlasu kaj remalfermu Bottles por apliki ŝanĝojn."
 
-#: bottles/frontend/views/preferences.py:448
+#: bottles/frontend/views/preferences.py:457
 msgid "Quit and reopen Bottles to apply the language."
 msgstr "Forlasu kaj remalfermu Bottles por apliki la lingvon."
 
-#: bottles/frontend/views/eagle.py:420
+#: bottles/frontend/views/eagle.py:423
 msgid "Rating method"
 msgstr "Taksa metodo"
 
@@ -3379,7 +3419,7 @@ msgstr "Restarti Vindozon"
 msgid "Recommended Dependencies"
 msgstr "Rekomenditaj Dependecoj"
 
-#: bottles/frontend/ui/preferences.blp:105
+#: bottles/frontend/ui/preferences.blp:115
 msgid "Record usage time statistics for programs launched from Bottles."
 msgstr "Rekordu ludtempostatistikon por programoj lanĉitaj de Bottles."
 
@@ -3387,7 +3427,7 @@ msgstr "Rekordu ludtempostatistikon por programoj lanĉitaj de Bottles."
 msgid "Refresh"
 msgstr "Reŝargi"
 
-#: bottles/frontend/ui/preferences.blp:283 bottles/frontend/views/preferences.py:559
+#: bottles/frontend/ui/preferences.blp:293 bottles/frontend/views/preferences.py:570
 msgid "Register Runner"
 msgstr "Registri rulilon"
 
@@ -3395,7 +3435,7 @@ msgstr "Registri rulilon"
 msgid "Register a container in its current directory. Its files stay where they are."
 msgstr "Registri Wine-medion en ĝia nuna dosierujo. Ĝiaj dosieroj restas kie ili estas."
 
-#: bottles/frontend/ui/preferences.blp:278
+#: bottles/frontend/ui/preferences.blp:288
 msgid "Register a name and an existing Wine directory. Bottles does not copy, update, or delete its files."
 msgstr "Registru nomon kaj ekzistantan Wine-dosierujon. Bottles ne kopias, ĝisdatigas aŭ forigas siajn dosierojn."
 
@@ -3407,15 +3447,15 @@ msgstr "Registri Rulilon en Preferoj antaŭ krei Wine-medion"
 msgid "Register an Existing Container"
 msgstr "Registri Ekzistantan Wine-medion"
 
-#: bottles/backend/managers/dependency.py:306
+#: bottles/backend/managers/dependency.py:315
 msgid "Registering fonts…"
 msgstr "Registrante tiparojn..."
 
-#: bottles/backend/managers/dependency.py:303
+#: bottles/backend/managers/dependency.py:312
 msgid "Registering libraries…"
 msgstr "Registrado de bibliotekoj..."
 
-#: bottles/frontend/views/eagle.py:441
+#: bottles/frontend/views/eagle.py:444
 msgid "Registry"
 msgstr "Registro"
 
@@ -3444,7 +3484,7 @@ msgstr "Registraj reguloj estas konservitaj loke kaj povas esti aplikataj al Win
 msgid "Reinstall"
 msgstr "Malinstali"
 
-#: bottles/frontend/views/preferences.py:352
+#: bottles/frontend/views/preferences.py:361
 msgid "Relaunch Bottles?"
 msgstr "Ĉu relanĉi Bottles?"
 
@@ -3456,7 +3496,7 @@ msgstr "Testa Antaŭversio"
 msgid "Remove"
 msgstr "Forigi"
 
-#: bottles/frontend/widgets/program.py:690
+#: bottles/frontend/widgets/program.py:709
 msgid "Remove Desktop Entry"
 msgstr "Forigi Labortablan Eniron"
 
@@ -3464,25 +3504,25 @@ msgstr "Forigi Labortablan Eniron"
 msgid "Remove Old Components"
 msgstr "Forigi Malnovajn Komponentojn"
 
-#: bottles/frontend/ui/preferences.blp:321
+#: bottles/frontend/ui/preferences.blp:331
 msgid "Remove every cached download and template. Bottles will recreate them when required, which may take longer."
 msgstr "Forigu ĉiun kaŝmemoritan elŝuton kaj ŝablonon. Bottles rekreos ilin kiam necese, kio povas daŭri pli longe."
 
-#: bottles/frontend/ui/preferences.blp:387
+#: bottles/frontend/ui/preferences.blp:397
 msgid "Remove every cached prefix template. Bottles will rebuild them when a new container is created, which may take longer."
 msgstr "Forigu ĉiun kaŝmemoritan prefiksan ŝablonon. Bottles rekonstruos ilin kiam nova Wine-medio estos kreita, kio povas daŭri pli longe."
 
 #, fuzzy
-#: bottles/frontend/ui/library-entry.blp:121 bottles/frontend/widgets/program.py:877
+#: bottles/frontend/ui/library-entry.blp:121 bottles/frontend/widgets/program.py:896
 msgid "Remove from Library"
 msgstr "Forigi el Programo-dosierujo"
 
 #, fuzzy
-#: bottles/frontend/ui/program-entry.blp:79 bottles/frontend/views/list.py:249
+#: bottles/frontend/ui/program-entry.blp:79 bottles/frontend/views/list.py:254
 msgid "Remove from List"
 msgstr "Forigi el Programo-dosierujo"
 
-#: bottles/frontend/views/preferences.py:633
+#: bottles/frontend/views/preferences.py:644
 msgid "Remove from list (keep files)"
 msgstr "Forigi el listo (konservu dosierojn)"
 
@@ -3490,11 +3530,11 @@ msgstr "Forigi el listo (konservu dosierojn)"
 msgid "Remove this container from your list, or permanently delete its directory and all files."
 msgstr "Forigu ĉi tiun Wine-medion el via listo, aŭ konstante forigu ĝian dosierujon kaj ĉiujn dosierojn."
 
-#: bottles/frontend/views/preferences.py:789
+#: bottles/frontend/views/preferences.py:800
 msgid "Removing all prefix templates will slow down the next container creation while Bottles rebuilds them."
 msgstr "Forigi ĉiujn prefiksajn ŝablonojn malrapidigos la venontan botelkreadon dum Bottles rekonstruas ilin."
 
-#: bottles/frontend/views/preferences.py:767
+#: bottles/frontend/views/preferences.py:778
 msgid "Removing every cache will make Bottles re-download resources and rebuild templates, which can take longer."
 msgstr "Forigi ĉiun kaŝmemoron igos Bottles re-elŝuti rimedojn kaj rekonstrui ŝablonojn, kiuj povas daŭri pli longe."
 
@@ -3508,11 +3548,11 @@ msgstr "Alinomi botelon"
 msgid "Rename…"
 msgstr "Alinomi botelon"
 
-#: bottles/frontend/ui/dialog-display.blp:132
+#: bottles/frontend/ui/dialog-display.blp:145
 msgid "Renderer"
 msgstr "Reprezentilo"
 
-#: bottles/backend/managers/dependency.py:307
+#: bottles/backend/managers/dependency.py:316
 msgid "Replacing fonts…"
 msgstr "Anstataŭigante tiparojn..."
 
@@ -3533,26 +3573,34 @@ msgstr "Raportu problemon aŭ mankantan dependecon."
 msgid "Reports mention winetricks verb '{verb}' (x{evidence})"
 msgstr "Raportoj mencias vintrukverbon '{verb}' (x{evidence})"
 
-#: bottles/frontend/ui/preferences.blp:236
+#: bottles/frontend/ui/preferences.blp:246
 msgid "Repositories"
 msgstr "Deponejoj"
 
-#: bottles/frontend/ui/preferences.blp:153
+#: bottles/frontend/ui/preferences.blp:163
 msgid "Requires Epic Games Store installed in the container."
 msgstr "Postulas Epic Games Store instalitan en la Wine-medio."
 
-#: bottles/frontend/ui/preferences.blp:143
+#: bottles/frontend/ui/preferences.blp:153
 msgid "Requires Steam for Windows installed in the container."
 msgstr "Postulas Steam por Vindozo instalita en la Wine-medio."
 
 #, fuzzy
-#: bottles/frontend/ui/preferences.blp:163
+#: bottles/frontend/ui/preferences.blp:173
 msgid "Requires Ubisoft Connect installed in the container."
 msgstr "Administrado de versioj estas aktiva por ĉi tiu Wine-medio."
 
-#: bottles/frontend/ui/dialog-program-backups.blp:82
+#: bottles/frontend/ui/dialog-program-backups.blp:82 bottles/frontend/windows/playtimegraph.py:137
 msgid "Reset"
 msgstr "Restarigi"
+
+#: bottles/frontend/ui/dialog-playtime-graph.blp:56
+msgid "Reset Usage Time Statistics"
+msgstr "Restarigi Statistikojn pri Uzado"
+
+#: bottles/frontend/windows/playtimegraph.py:130
+msgid "Reset Usage Time Statistics?"
+msgstr "Restarigi Uzadotempon-Statistiko?"
 
 #, fuzzy
 #: bottles/frontend/ui/dialog-launch-options.blp:208
@@ -3560,7 +3608,7 @@ msgid "Reset to Container's Defaults"
 msgstr "Detaloj pri Wine-medio"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:395 bottles/frontend/ui/dialog-launch-options.blp:76 bottles/frontend/ui/dialog-launch-options.blp:113 bottles/frontend/ui/dialog-launch-options.blp:150 bottles/frontend/ui/new-bottle-dialog.blp:160
+#: bottles/frontend/ui/details-preferences.blp:426 bottles/frontend/ui/dialog-launch-options.blp:76 bottles/frontend/ui/dialog-launch-options.blp:113 bottles/frontend/ui/dialog-launch-options.blp:150 bottles/frontend/ui/new-bottle-dialog.blp:160
 msgid "Reset to Default"
 msgstr "Detaloj pri botelo"
 
@@ -3603,7 +3651,7 @@ msgid "Restoring this state will overwrite the current configuration and cannot 
 msgstr "Restarigi ĉi tiun staton anstataŭigos la nunan agordon kaj ne povas esti malfarita."
 
 #, fuzzy
-#: bottles/frontend/views/details.py:274
+#: bottles/frontend/views/details.py:275
 msgid "Return to your containers."
 msgstr "Nomu vian Wine-medion"
 
@@ -3616,7 +3664,7 @@ msgstr "Recenzo"
 msgid "Review for {0}"
 msgstr "Manifesto de {0}"
 
-#: bottles/backend/utils/manager.py:921
+#: bottles/backend/utils/manager.py:954
 msgid "Romanian"
 msgstr "rumana"
 
@@ -3628,16 +3676,16 @@ msgstr "Reguldetaloj"
 msgid "Rule name"
 msgstr "Regulonomo"
 
-#: bottles/frontend/ui/dialog-run-args.blp:33 bottles/frontend/utils/sandbox_guard.py:172 bottles/frontend/views/bottle_details.py:671 bottles/frontend/views/list.py:146
+#: bottles/frontend/ui/dialog-run-args.blp:33 bottles/frontend/utils/sandbox_guard.py:172 bottles/frontend/views/bottle_details.py:671 bottles/frontend/views/list.py:151
 msgid "Run"
 msgstr "Ruli"
 
-#: bottles/frontend/widgets/program.py:445
+#: bottles/frontend/widgets/program.py:463
 msgid "Run Anyway"
 msgstr "Kuru Ĉiukaze"
 
 #, python-brace-format
-#: bottles/frontend/views/list.py:109
+#: bottles/frontend/views/list.py:114
 msgid "Run Executable in “{0}”"
 msgstr "Run Executable en \"{0}\""
 
@@ -3688,25 +3736,26 @@ msgstr "Rulu ĉi tiun komandon sur la gastiganto:"
 msgid "Run without the dedicated sandbox"
 msgstr "Kuru sen la dediĉita sablokesto"
 
-#: bottles/frontend/ui/details-bottle.blp:232 bottles/frontend/ui/details-preferences.blp:16 bottles/frontend/ui/new-bottle-dialog.blp:109
+#: bottles/frontend/ui/details-bottle.blp:232 bottles/frontend/ui/details-preferences.blp:47 bottles/frontend/ui/new-bottle-dialog.blp:109
 msgid "Runner"
 msgstr "Rulilo"
 
-#: bottles/frontend/ui/preferences.blp:261
+#: bottles/frontend/ui/preferences.blp:271
 msgid "Runners"
 msgstr "Ruliloj"
 
-#: bottles/backend/managers/dependency.py:310
-msgid "Running uninstaller…"
-msgstr "Rulante malinstalilon..."
+#, python-brace-format
+#: bottles/backend/managers/dependency.py:319
+msgid "Running uninstaller ({0})…"
+msgstr "Rulante malinstalilon ({0})..."
 
 #, python-brace-format
-#: bottles/backend/managers/dependency.py:314 bottles/frontend/windows/installer.py:289
+#: bottles/backend/managers/dependency.py:325 bottles/frontend/windows/installer.py:289
 msgid "Running {0}..."
 msgstr "Kurante {0}..."
 
 #, python-brace-format
-#: bottles/backend/managers/dependency.py:291 bottles/backend/managers/dependency.py:292
+#: bottles/backend/managers/dependency.py:300 bottles/backend/managers/dependency.py:301
 msgid "Running {0}…"
 msgstr "Kurante {0}..."
 
@@ -3714,11 +3763,11 @@ msgstr "Kurante {0}..."
 msgid "Runs with the same access as Bottles, without the extra isolation."
 msgstr "Funkcias kun la sama aliro kiel Bottles, sen la ekstra izoliteco."
 
-#: bottles/frontend/views/eagle.py:430
+#: bottles/frontend/views/eagle.py:433
 msgid "Runtimes and Libraries"
 msgstr "Rultempoj kaj Bibliotekoj"
 
-#: bottles/backend/utils/manager.py:922
+#: bottles/backend/utils/manager.py:955
 msgid "Russian"
 msgstr "rusa"
 
@@ -3743,9 +3792,13 @@ msgstr "SMAA-sojlo specifas la sentemon de rando-detekto. Pli malaltaj valoroj d
 msgid "Sandbox Settings"
 msgstr "Agordi internaĵojn."
 
-#: bottles/frontend/ui/dialog-display.blp:32 bottles/frontend/ui/dialog-gamescope.blp:31 bottles/frontend/ui/dialog-launch-options.blp:33 bottles/frontend/ui/dialog-lsfg-vk.blp:32 bottles/frontend/ui/dialog-mangohud.blp:32 bottles/frontend/ui/dialog-rename.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:34 bottles/frontend/ui/dialog-vmtouch.blp:31 bottles/frontend/views/preferences.py:570
+#: bottles/frontend/ui/dialog-display.blp:32 bottles/frontend/ui/dialog-gamescope.blp:31 bottles/frontend/ui/dialog-launch-options.blp:33 bottles/frontend/ui/dialog-lsfg-vk.blp:32 bottles/frontend/ui/dialog-mangohud.blp:32 bottles/frontend/ui/dialog-rename.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:34 bottles/frontend/ui/dialog-vmtouch.blp:31 bottles/frontend/views/preferences.py:581
 msgid "Save"
 msgstr "Konservi"
+
+#: bottles/frontend/ui/details-preferences.blp:36
+msgid "Save Notes"
+msgstr "Konservu Notojn"
 
 #: bottles/frontend/ui/dialog-registry-rules.blp:89
 msgid "Save Rule"
@@ -3755,7 +3808,7 @@ msgstr "Konservi Regulon"
 msgid "Scale Bottles text relative to the system font size."
 msgstr "Skali Bottles tekston rilate al la sistema tiparogrando."
 
-#: bottles/frontend/ui/preferences.blp:118
+#: bottles/frontend/ui/preferences.blp:128
 msgid "Scan Files for Threats"
 msgstr "Skanu Dosieroj por Minacoj"
 
@@ -3763,7 +3816,7 @@ msgstr "Skanu Dosieroj por Minacoj"
 msgid "Scan executables for malware patterns before running them."
 msgstr "Skanu ekzekutaĵojn por malware ŝablonoj antaŭ ruli ilin."
 
-#: bottles/frontend/widgets/program.py:373
+#: bottles/frontend/widgets/program.py:391
 msgid "Scan with Eagle"
 msgstr "Skanu per Eagle"
 
@@ -3824,7 +3877,7 @@ msgstr "Elektu Agordon"
 msgid "Select Container"
 msgstr "Krei Wine-medion"
 
-#: bottles/frontend/widgets/library.py:254
+#: bottles/frontend/widgets/library.py:255
 msgid "Select Cover Image"
 msgstr "Elektu Kovbildon"
 
@@ -3838,7 +3891,7 @@ msgid "Select Drive Path"
 msgstr "Krei botelon"
 
 #, fuzzy
-#: bottles/frontend/views/bottle_details.py:348 bottles/frontend/views/bottle_details.py:668 bottles/frontend/views/list.py:143
+#: bottles/frontend/views/bottle_details.py:348 bottles/frontend/views/bottle_details.py:668 bottles/frontend/views/list.py:148
 msgid "Select Executable"
 msgstr "Krei botelon"
 
@@ -3875,12 +3928,12 @@ msgstr "Elekti skripton antaŭ rulado"
 msgid "Select Resource File"
 msgstr "Krei botelon"
 
-#: bottles/frontend/views/preferences.py:564 bottles/frontend/views/preferences.py:591
+#: bottles/frontend/views/preferences.py:575 bottles/frontend/views/preferences.py:602
 msgid "Select Runner Directory"
 msgstr "Elektu Rulilo-Adresaron"
 
 #, fuzzy
-#: bottles/frontend/views/bottle_preferences.py:502 bottles/frontend/windows/launchoptions.py:438
+#: bottles/frontend/views/bottle_preferences.py:510 bottles/frontend/windows/launchoptions.py:438
 msgid "Select Working Directory"
 msgstr "Ruldosierujo"
 
@@ -3898,7 +3951,7 @@ msgstr "Agordoj"
 msgid "Select a backup folder and at least one file or folder."
 msgstr "Elektu rezervan dosierujon kaj almenaŭ unu dosieron aŭ dosierujon."
 
-#: bottles/backend/managers/manager.py:683
+#: bottles/backend/managers/manager.py:691
 msgid "Select a permanent runner directory, not a document portal path."
 msgstr "Elektu konstantan Rulilo-dosierujon, ne dokumentportalan vojon."
 
@@ -3910,7 +3963,7 @@ msgstr "Elektu Malplenan Botelan Adresaron"
 msgid "Select an Existing Container"
 msgstr "Elektu Ekzistantan Wine-medion"
 
-#: bottles/backend/managers/manager.py:681
+#: bottles/backend/managers/manager.py:689
 msgid "Select an absolute runner directory."
 msgstr "Elektu absolutan Rulilo-dosierujon."
 
@@ -3930,7 +3983,7 @@ msgstr "Elektu la lokon, kie konserviĝos la savkopia arkivo"
 msgid "Select the location where to save the backup config"
 msgstr "Elektu la lokon, kie konserviĝos la savkopio de agordoj"
 
-#: bottles/frontend/ui/dialog-display.blp:133
+#: bottles/frontend/ui/dialog-display.blp:146
 msgid "Select what backend to use for wined3d."
 msgstr "Elektu kian backend uzi por wined3d."
 
@@ -3951,7 +4004,7 @@ msgstr "Elektu kiuj dosieroj estu konservitaj apud la ĉefa rulebla."
 msgid "Send Report"
 msgstr "Montri raporton"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:282
+#: bottles/frontend/ui/dialog-playtime-graph.blp:293
 msgid "Sessions"
 msgstr "Sesioj"
 
@@ -3960,32 +4013,32 @@ msgid "Set custom DPI."
 msgstr "Agordu propran DPI."
 
 #, python-brace-format
-#: bottles/backend/managers/eagle.py:414
+#: bottles/backend/managers/eagle.py:415
 msgid "Set {name}={value} (community evidence x{evidence})"
 msgstr "Agordu {name}={value} (komunuma indico x{evidence})"
 
 #, fuzzy
-#: bottles/backend/managers/manager.py:1647
+#: bottles/backend/managers/manager.py:1675
 msgid "Setting Windows version…"
 msgstr "Montri version"
 
-#: bottles/backend/managers/manager.py:223
+#: bottles/backend/managers/manager.py:224
 msgid "Setting up D7VK..."
 msgstr "Agordante D7VK..."
 
-#: bottles/backend/managers/manager.py:228
+#: bottles/backend/managers/manager.py:229
 msgid "Setting up DXVK…"
 msgstr "Agordante DXVK..."
 
-#: bottles/backend/managers/manager.py:243
+#: bottles/backend/managers/manager.py:244
 msgid "Setting up LatencyFleX…"
 msgstr "Agordante LatencyFleX..."
 
-#: bottles/backend/managers/manager.py:238
+#: bottles/backend/managers/manager.py:239
 msgid "Setting up NVAPI…"
 msgstr "Agordante NVAPI..."
 
-#: bottles/backend/managers/manager.py:233
+#: bottles/backend/managers/manager.py:234
 msgid "Setting up VKD3D…"
 msgstr "Agordante VKD3D..."
 
@@ -4022,11 +4075,11 @@ msgstr "Akriga Forto"
 msgid "Sharpness"
 msgstr "Akreco"
 
-#: bottles/frontend/ui/preferences.blp:74
+#: bottles/frontend/ui/preferences.blp:84
 msgid "Show Component Updates"
 msgstr "Montri Komponantajn Ĝisdatigojn"
 
-#: bottles/frontend/ui/dialog-installer.blp:133 bottles/frontend/windows/installer.py:326
+#: bottles/frontend/ui/dialog-installer.blp:137 bottles/frontend/windows/installer.py:326
 msgid "Show Details"
 msgstr "Montru Detalojn"
 
@@ -4056,20 +4109,20 @@ msgid "Show Program"
 msgstr "Programoj"
 
 #, fuzzy
-#: bottles/frontend/ui/dialog-installer.blp:179
+#: bottles/frontend/ui/dialog-installer.blp:183
 msgid "Show Programs"
 msgstr "Programoj"
 
 #, fuzzy
-#: bottles/frontend/ui/preferences.blp:50
+#: bottles/frontend/ui/preferences.blp:60
 msgid "Show Update Date"
 msgstr "Montri daton de ĝisdatigo"
 
-#: bottles/frontend/ui/preferences.blp:75
+#: bottles/frontend/ui/preferences.blp:85
 msgid "Show component update suggestions for all containers."
 msgstr "Montru sugestojn pri komponantoj por ĉiuj Wine-medioj."
 
-#: bottles/frontend/ui/preferences.blp:65
+#: bottles/frontend/ui/preferences.blp:75
 msgid "Show notifications for downloads and installs."
 msgstr "Sciigi pri elŝutoj kaj instaloj."
 
@@ -4093,7 +4146,7 @@ msgstr "Montru sugestojn pri ĝisdatigo de kuristo kaj komponantoj por Wine-medi
 msgid "Show sandbox warning"
 msgstr "Montru averton pri sablokesto"
 
-#: bottles/frontend/main.py:86
+#: bottles/frontend/main.py:87
 msgid "Show version"
 msgstr "Montri version"
 
@@ -4114,11 +4167,16 @@ msgstr "Simulu vindozan sistemhalton"
 msgid "Skip Setup"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:923
+#, python-brace-format
+#: bottles/backend/managers/dependency.py:773
+msgid "Skipping {0}: not installed."
+msgstr "Preterpasi {0}: ne instalita."
+
+#: bottles/backend/utils/manager.py:956
 msgid "Slovak"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:924
+#: bottles/backend/utils/manager.py:957
 msgid "Slovenian"
 msgstr ""
 
@@ -4138,28 +4196,40 @@ msgstr ""
 msgid "Snapshots"
 msgstr ""
 
-#: bottles/frontend/views/eagle.py:431
+#: bottles/frontend/views/eagle.py:434
 msgid "Social and DRM"
 msgstr ""
 
-#: bottles/frontend/views/preferences.py:753
+#: bottles/frontend/views/preferences.py:764
 msgid "Software"
 msgstr ""
 
-#: bottles/backend/managers/manager.py:1194
+#: bottles/frontend/windows/display.py:138
+msgid "Some display settings could not be updated."
+msgstr "Kelkaj ekranaj agordoj ne povus esti ĝisdatigitaj."
+
+#: bottles/backend/managers/manager.py:1202
 msgid "Some registered containers are unavailable:"
 msgstr ""
 
-#: bottles/frontend/ui/dialog-installer.blp:196
+#: bottles/frontend/windows/playtimegraph.py:194
+msgid "Something went wrong while resetting the statistics."
+msgstr "Io misfunkciis dum restarigo de la statistiko."
+
+#: bottles/frontend/ui/dialog-installer.blp:200
 msgid "Something went wrong."
 msgstr ""
 
+#: data/com.usebottles.bottles.gschema.xml
+msgid "Sort the library by program name or by container and program name."
+msgstr "Ordigu la bibliotekon laŭ programnomo aŭ laŭ ujo kaj programnomo."
+
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:399
+#: bottles/frontend/views/eagle.py:402
 msgid "Source: {0}"
 msgstr ""
 
-#: bottles/backend/utils/manager.py:908
+#: bottles/backend/utils/manager.py:941
 msgid "Spanish"
 msgstr ""
 
@@ -4172,7 +4242,7 @@ msgstr "Tradukoj"
 msgid "Start program"
 msgstr ""
 
-#: bottles/frontend/ui/details-preferences.blp:372
+#: bottles/frontend/ui/details-preferences.blp:403
 msgid "Start programs through WineBridge by default for this container."
 msgstr ""
 
@@ -4221,11 +4291,11 @@ msgid "States list retrieved successfully!"
 msgstr "Sukcese malpleniĝis dosierujo de provizoraĵoj!"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:381
+#: bottles/frontend/ui/details-preferences.blp:412
 msgid "Steam Runtime"
 msgstr "Botela nomo"
 
-#: bottles/frontend/views/bottle_preferences.py:185
+#: bottles/frontend/views/bottle_preferences.py:194
 msgid "Steam Runtime was not detected. Install it or grant Bottles access to Steam files, then restart Bottles."
 msgstr "Steam Rultempo ne estis detektita. Instalu ĝin aŭ donu Bottles-aliron al Steam-dosieroj, tiam rekomencu Bottles."
 
@@ -4233,7 +4303,7 @@ msgstr "Steam Rultempo ne estis detektita. Instalu ĝin aŭ donu Bottles-aliron 
 msgid "Steam apps listing"
 msgstr "listo de Steam-aplikoj"
 
-#: bottles/frontend/views/eagle.py:336
+#: bottles/frontend/views/eagle.py:339
 msgid "Steam installation match"
 msgstr "Steam instala matĉo"
 
@@ -4255,7 +4325,7 @@ msgid "Stop program"
 msgstr "Haltigu programon"
 
 #, python-brace-format
-#: bottles/frontend/widgets/library.py:287 bottles/frontend/widgets/program.py:470
+#: bottles/frontend/widgets/library.py:291 bottles/frontend/widgets/program.py:488
 msgid "Stopping \"{0}\"…"
 msgstr "Haltigante «{0}»…"
 
@@ -4284,7 +4354,7 @@ msgstr "Sugestoj baziĝas sur teknika analizo kaj ne garantias kongruecon."
 msgid "Supported Executables"
 msgstr "Subtenataj ekzekuteblaj"
 
-#: bottles/backend/utils/manager.py:925
+#: bottles/backend/utils/manager.py:958
 msgid "Swedish"
 msgstr "sveda"
 
@@ -4300,15 +4370,15 @@ msgstr "Ŝanĝante branĉon..."
 msgid "Switching branch…"
 msgstr "Ŝanĝante branĉon..."
 
-#: bottles/frontend/ui/details-preferences.blp:230
+#: bottles/frontend/ui/details-preferences.blp:261
 msgid "Synchronization"
 msgstr "Sinkronigo"
 
-#: bottles/backend/utils/manager.py:901 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:934 bottles/frontend/ui/details-preferences.blp:265 bottles/frontend/ui/dialog-display.blp:139 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "Sistemo"
 
-#: bottles/frontend/ui/preferences.blp:39 bottles/frontend/ui/preferences.blp:211 bottles/frontend/views/preferences.py:225
+#: bottles/frontend/ui/preferences.blp:39 bottles/frontend/ui/preferences.blp:221 bottles/frontend/views/preferences.py:226
 msgid "System Default"
 msgstr "Sistemo Defaŭlto"
 
@@ -4320,15 +4390,15 @@ msgstr "Sistema Medio"
 msgid "System File Types"
 msgstr "Sistemaj Dosieroj"
 
-#: bottles/frontend/views/eagle.py:439
+#: bottles/frontend/views/eagle.py:442
 msgid "System Interaction"
 msgstr "Sistema Interago"
 
-#: bottles/frontend/ui/preferences.blp:265
+#: bottles/frontend/ui/preferences.blp:275
 msgid "System Runners"
 msgstr "Sistema Kuristoj"
 
-#: bottles/frontend/views/preferences.py:652
+#: bottles/frontend/views/preferences.py:663
 msgid "System Wine is unavailable"
 msgstr "Sistemo Wine ne disponeblas"
 
@@ -4341,11 +4411,11 @@ msgid "Task Manager"
 msgstr "Administrilo de Taskoj"
 
 #, fuzzy
-#: bottles/frontend/ui/preferences.blp:84
+#: bottles/frontend/ui/preferences.blp:94
 msgid "Temp Files"
 msgstr "Provizoraj dosieroj"
 
-#: bottles/frontend/ui/preferences.blp:353
+#: bottles/frontend/ui/preferences.blp:363
 msgid "Temp cache"
 msgstr "Tempkaŝmemoro"
 
@@ -4353,15 +4423,15 @@ msgstr "Tempkaŝmemoro"
 msgid "Temp cleaning"
 msgstr "Forviŝado de provizoraĵoj"
 
-#: bottles/frontend/ui/preferences.blp:349
+#: bottles/frontend/ui/preferences.blp:359
 msgid "Temp files"
 msgstr "Tempaj dosieroj"
 
-#: bottles/backend/managers/manager.py:1572
+#: bottles/backend/managers/manager.py:1591
 msgid "Template found, applying…"
 msgstr "Ŝablono trovita, aplikata..."
 
-#: bottles/frontend/views/preferences.py:701
+#: bottles/frontend/views/preferences.py:712
 msgid "Templates are created after you make the first container for each environment."
 msgstr "Ŝablonoj estas kreitaj post kiam vi faras la unuan Wine-medion por ĉiu medio."
 
@@ -4371,7 +4441,7 @@ msgstr "Teksta Grandeco"
 
 #. execute wineboot on the bottle path
 #, fuzzy
-#: bottles/backend/managers/manager.py:1607
+#: bottles/backend/managers/manager.py:1628
 msgid "The Wine config is being updated…"
 msgstr "Reagordante Wine…"
 
@@ -4380,31 +4450,31 @@ msgid "The container could not be duplicated."
 msgstr "La Wine-medio ne povis esti duobligita."
 
 #, python-brace-format
-#: bottles/frontend/widgets/library.py:74
+#: bottles/frontend/widgets/library.py:75
 msgid "The container for \"{0}\" is unavailable."
 msgstr "La Wine-medio por \"{0}\" ne estas disponebla."
 
-#: bottles/frontend/widgets/library.py:228
+#: bottles/frontend/widgets/library.py:229
 msgid "The cover image could not be opened."
 msgstr "La kovrilbildo ne povis esti malfermita."
 
-#: bottles/frontend/widgets/library.py:239
+#: bottles/frontend/widgets/library.py:240
 msgid "The cover image could not be saved."
 msgstr "La kovrilbildo ne povis esti konservita."
 
-#: bottles/frontend/widgets/program.py:755
+#: bottles/frontend/widgets/program.py:774
 msgid "The desktop portal and the manual fallback both failed. Check that your desktop entry folders are writable and try again."
 msgstr "La labortabla portalo kaj la manlibro-rezervo ambaŭ malsukcesis. Kontrolu, ke viaj labortablaj enirdosierujoj estas skribeblaj kaj provu denove."
 
-#: bottles/frontend/widgets/program.py:749
+#: bottles/frontend/widgets/program.py:768
 msgid "The desktop portal and the manual fallback both failed. Close Bottles, run the command below, reopen Bottles and try again."
 msgstr "La labortabla portalo kaj la manlibro-rezervo ambaŭ malsukcesis. Fermu Bottles, rulu la komandon sube, remalfermu Bottles kaj provu denove."
 
-#: bottles/frontend/widgets/program.py:741
+#: bottles/frontend/widgets/program.py:760
 msgid "The desktop portal was unavailable, so Bottles used its manual fallback. If the entry does not appear, check the permissions of your desktop entry folders and try again."
 msgstr "La labortabla portalo estis neatingebla, do Bottles uzis sian manlibron. Se la eniro ne aperas, kontrolu la permesojn de viaj labortablaj enirdosierujoj kaj provu denove."
 
-#: bottles/frontend/widgets/program.py:735
+#: bottles/frontend/widgets/program.py:754
 msgid "The desktop portal was unavailable, so Bottles used its manual fallback. If the entry does not appear, close Bottles, run the command below, reopen Bottles and try again."
 msgstr "La labortabla portalo estis neatingebla, do Bottles uzis sian manlibron. Se la eniro ne aperas, fermu Bottles, rulu la komandon sube, remalfermu Bottles kaj provu denove."
 
@@ -4416,18 +4486,26 @@ msgstr "La instalado malsukcesis. Ĉi tio povas esti pro eraro de deponejo, part
 msgid "The new container versioning system has landed."
 msgstr "La nova botela versiosistemo surteriĝis."
 
-#: bottles/frontend/views/preferences.py:800
+#: bottles/frontend/views/preferences.py:811
 msgid "The next container for this environment will take longer to create because Bottles must rebuild the template."
 msgstr "La sekva Wine-medio por ĉi tiu medio daŭros pli longe por krei ĉar Bottles devas rekonstrui la ŝablonon."
 
+#: bottles/frontend/views/bottle_preferences.py:607
+msgid "The notes could not be saved."
+msgstr "La notoj ne povis esti konservitaj."
+
 #, python-brace-format
-#: bottles/frontend/widgets/library.py:83
+#: bottles/frontend/widgets/library.py:84
 msgid "The program \"{0}\" is no longer available. Removing it from the library."
 msgstr "La programo \"{0}\" ne plu disponeblas. Forigante ĝin el la biblioteko."
 
-#: bottles/frontend/widgets/library.py:293
+#: bottles/frontend/widgets/library.py:297
 msgid "The program could not be stopped."
 msgstr "La programo ne eblis haltigi."
+
+#: bottles/frontend/ui/program-entry.blp:103 bottles/frontend/utils/program.py:12
+msgid "The program file could not be found. Check its path and any external drives."
+msgstr "La programdosiero ne troviĝis. Kontrolu ĝian vojon kaj ajnajn eksterajn diskojn."
 
 #: bottles/frontend/ui/details-installers.blp:33
 msgid "The repository is unreachable or no installer is compatible with this container."
@@ -4441,7 +4519,7 @@ msgstr "La kuristo petita de ĉi tiu Wine-medio mankas. Restarigu ĝin uzante vi
 msgid "The selected DLL is no longer available."
 msgstr "La elektita DLL ne plu disponeblas."
 
-#: bottles/frontend/widgets/library.py:234
+#: bottles/frontend/widgets/library.py:235
 msgid "The selected file is not a valid image."
 msgstr "La elektita dosiero ne estas valida bildo."
 
@@ -4450,7 +4528,7 @@ msgid "The selected file is unavailable."
 msgstr "La elektita dosiero ne disponeblas."
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2404
+#: bottles/backend/managers/manager.py:2441
 msgid "The selected {0} installation is incomplete."
 msgstr "La elektita {0}-instalaĵo estas nekompleta."
 
@@ -4458,15 +4536,15 @@ msgstr "La elektita {0}-instalaĵo estas nekompleta."
 msgid "The stored DLL could not be removed."
 msgstr "La stokita DLL ne povus esti forigita."
 
-#: bottles/frontend/views/eagle.py:421
+#: bottles/frontend/views/eagle.py:424
 msgid "The tier is calculated by Eagle Intel, not by ProtonDB."
 msgstr "La nivelo estas kalkulita de Eagle Intel, ne de ProtonDB."
 
-#: bottles/frontend/ui/details-preferences.blp:17
+#: bottles/frontend/ui/details-preferences.blp:48
 msgid "The version of the Wine compatibility layer."
 msgstr "La versio de la kongrua tavolo Wine."
 
-#: bottles/frontend/ui/preferences.blp:383
+#: bottles/frontend/ui/preferences.blp:393
 msgid "These caches store ready-made prefixes for each environment so new containers start faster."
 msgstr "Ĉi tiuj kaŝmemoroj stokas pretajn prefiksojn por ĉiu medio, por ke novaj Wine-medioj komenciĝu pli rapide."
 
@@ -4479,15 +4557,15 @@ msgstr "Ĉi tiuj etendaĵoj estas nevalidaj aŭ nekonataj al la sistemo: {0}"
 msgid "These settings will override the default settings for this executable."
 msgstr "Ĉi tiuj agordoj anstataŭigos la defaŭltajn agordojn por ĉi tiu rulebla."
 
-#: bottles/frontend/main.py:389
+#: bottles/frontend/main.py:393
 msgid "Third-Party Libraries and Special Thanks"
 msgstr "Triaj Bibliotekoj kaj Specialaj Dankoj"
 
-#: bottles/frontend/windows/playtimegraph.py:162
+#: bottles/frontend/windows/playtimegraph.py:248
 msgid "This Week"
 msgstr "Ĉi tiu Semajno"
 
-#: bottles/frontend/windows/playtimegraph.py:186
+#: bottles/frontend/windows/playtimegraph.py:272
 msgid "This Year"
 msgstr "Ĉi-Jare"
 
@@ -4499,29 +4577,29 @@ msgstr "Ĉi tiu aplikaĵo povas funkcii malbone. La instalilo estis agordita por
 msgid "This can cause data loss, corruption, and programs to malfunction."
 msgstr "Ĉi tio povas kaŭzi datumperdon, korupton kaj misfunkciadon de programoj."
 
-#: bottles/frontend/widgets/component.py:86
+#: bottles/frontend/widgets/component.py:87
 msgid "This component is not installable offline because its files are not cached."
 msgstr "Ĉi tiu komponanto ne estas instalebla eksterrete ĉar ĝiaj dosieroj ne estas konservitaj en kaŝmemoro."
 
 #, fuzzy
-#: bottles/frontend/views/bottle_preferences.py:466
+#: bottles/frontend/views/bottle_preferences.py:474
 msgid "This container name is already in use."
 msgstr "Specialaj signoj estas malpermesataj!"
 
-#: bottles/frontend/ui/dialog-duplicate.blp:66 bottles/frontend/ui/dialog-installer.blp:97 bottles/frontend/ui/dialog-upgrade-versioning.blp:107 bottles/frontend/ui/new-bottle-dialog.blp:220
+#: bottles/frontend/ui/dialog-duplicate.blp:66 bottles/frontend/ui/dialog-installer.blp:101 bottles/frontend/ui/dialog-upgrade-versioning.blp:107 bottles/frontend/ui/new-bottle-dialog.blp:220
 msgid "This could take a while."
 msgstr "Ĉi tio povus daŭri iom da tempo."
 
-#: bottles/frontend/widgets/dependency.py:79
+#: bottles/frontend/widgets/dependency.py:82
 msgid "This dependency is not compatible with this container architecture."
 msgstr "Ĉi tiu dependeco ne kongruas kun ĉi tiu botela arkitekturo."
 
-#: bottles/frontend/widgets/dependency.py:128
+#: bottles/frontend/widgets/dependency.py:131
 msgid "This dependency is not installable offline because its files are not cached."
 msgstr "Ĉi tiu dependeco ne estas instalebla eksterrete ĉar ĝiaj dosieroj ne estas konservitaj en kaŝmemoro."
 
 #, fuzzy
-#: bottles/frontend/views/bottle_preferences.py:191 bottles/frontend/views/bottle_preferences.py:448 bottles/frontend/views/bottle_preferences.py:396
+#: bottles/frontend/views/bottle_preferences.py:200 bottles/frontend/views/bottle_preferences.py:455 bottles/frontend/views/bottle_preferences.py:403
 msgid "This feature is unavailable on your system."
 msgstr "Gamemode estas aŭ ne havebla aŭ ne ruliĝanta en via sistemo."
 
@@ -4566,23 +4644,31 @@ msgstr "Ĉi tiu programo funkcias kun rimarkindaj misfunkciadoj, sed ĉi tiuj mi
 msgid "This resource is missing."
 msgstr "Ĉi tiu rimedo mankas."
 
-#: bottles/backend/managers/manager.py:697
+#: bottles/backend/managers/manager.py:1436
+msgid "This runner cannot create a 32-bit prefix. Select a 64-bit container."
+msgstr "Ĉi tiu Rulilo ne povas krei 32-bitan prefikson. Elektu 64-bitan ujon."
+
+#: bottles/frontend/views/bottle_preferences.py:891
+msgid "This runner has no Esync, so it will use its default."
+msgstr "Ĉi tiu Rulilo ne havas Esync, do ĝi uzos sian defaŭltan."
+
+#: bottles/backend/managers/manager.py:705
 msgid "This runner is already provided by the system."
 msgstr "Ĉi tiu Rulilo jam estas provizita de la sistemo."
 
-#: bottles/backend/managers/manager.py:694
+#: bottles/backend/managers/manager.py:702
 msgid "This runner is already registered."
 msgstr "Ĉi tiu Rulilo jam estas registrita."
 
-#: bottles/backend/managers/manager.py:714
+#: bottles/backend/managers/manager.py:722
 msgid "This runner is managed outside Bottles."
 msgstr "Ĉi tiu kuristo estas administrita ekster Bottles."
 
-#: bottles/backend/managers/manager.py:711
+#: bottles/backend/managers/manager.py:719
 msgid "This runner is used by a container."
 msgstr "Ĉi tiu kurilo estas uzata de Wine-medio."
 
-#: bottles/backend/managers/manager.py:687
+#: bottles/backend/managers/manager.py:695
 msgid "This runner registration no longer exists."
 msgstr "Ĉi tiu Rulilo-registrado ne plu ekzistas."
 
@@ -4593,6 +4679,11 @@ msgstr "Ĉi tiu agordo superas la tutmondan agordon de la Wine-medio."
 #: bottles/frontend/ui/dialog-deps-check.blp:15
 msgid "This version of Bottles does not seem to provide all the necessary core dependencies, please contact the package maintainer or use an official version."
 msgstr "Ĉi tiu versio de Bottles ŝajnas ne havigi ĉiujn necesajn kerndependecojn, bonvolu kontakti la pak-prizorganton aŭ uzi oficialan version."
+
+#, python-brace-format
+#: bottles/frontend/windows/playtimegraph.py:131
+msgid "This will permanently delete all usage time data for \"{}\". This action cannot be undone."
+msgstr "Ĉi tio konstante forigos ĉiujn uztempajn datumojn por \"{}\". Ĉi tiu ago ne povas esti malfarita."
 
 #, fuzzy
 #: bottles/frontend/ui/dialog-launch-options.blp:43
@@ -4607,16 +4698,16 @@ msgstr "Sojlo"
 msgid "Timestamp"
 msgstr "Tempomarko"
 
-#: bottles/frontend/views/bottle_preferences.py:403
+#: bottles/frontend/views/bottle_preferences.py:410
 msgid "To add it, please run:"
 msgstr "Por aldoni ĝin, bonvolu ruli:"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:91 bottles/frontend/utils/playtime.py:467 bottles/frontend/windows/playtimegraph.py:176
+#: bottles/frontend/ui/dialog-playtime-graph.blp:102 bottles/frontend/utils/playtime.py:498 bottles/frontend/windows/playtimegraph.py:262
 msgid "Today"
 msgstr "Hodiaŭ"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:308
+#: bottles/frontend/ui/details-preferences.blp:339
 msgid "Toggle OBS Game Capture for all Vulkan and OpenGL programs."
 msgstr "Serĉi instalitajn programojn"
 
@@ -4660,7 +4751,7 @@ msgstr "Ŝaltu ĝisdatigan daton en listo"
 msgid "Tools"
 msgstr "Iloj"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:259
+#: bottles/frontend/ui/dialog-playtime-graph.blp:270
 msgid "Total Usage Time"
 msgstr "Tuta Ludtempo"
 
@@ -4681,7 +4772,7 @@ msgstr "Ellasiloj: {}"
 msgid "Troubleshooting"
 msgstr "Solvo de problemoj"
 
-#: bottles/frontend/widgets/program.py:450
+#: bottles/frontend/widgets/program.py:468
 msgid "Trust this file and do not warn again"
 msgstr "Fidu ĉi tiun dosieron kaj ne avertu denove"
 
@@ -4693,7 +4784,7 @@ msgstr "Provu Denove"
 msgid "Try a different search."
 msgstr "Provu alian serĉon."
 
-#: bottles/backend/utils/manager.py:926
+#: bottles/backend/utils/manager.py:959
 msgid "Turkish"
 msgstr "turka"
 
@@ -4715,11 +4806,11 @@ msgid "Unable to Create Container"
 msgstr "Krei novan Wine-medion"
 
 #, python-brace-format
-#: bottles/frontend/views/preferences.py:641
+#: bottles/frontend/views/preferences.py:652
 msgid "Unavailable: {0}"
 msgstr "Nedisponebla: {0}"
 
-#: bottles/frontend/views/library.py:89
+#: bottles/frontend/views/library.py:95
 msgid "Undo"
 msgstr "Malfari"
 
@@ -4731,11 +4822,11 @@ msgstr "Malinstali"
 msgid "Uninstaller"
 msgstr "Malinstalilo"
 
-#: bottles/frontend/ui/installer-entry.blp:42 bottles/frontend/views/preferences.py:761
+#: bottles/backend/managers/dependency.py:320 bottles/frontend/ui/installer-entry.blp:42 bottles/frontend/views/preferences.py:772
 msgid "Unknown"
 msgstr "Nekonata"
 
-#: bottles/backend/managers/dependency.py:299
+#: bottles/backend/managers/dependency.py:308
 msgid "Unpacking archive…"
 msgstr "Malpakado de arkivo..."
 
@@ -4786,40 +4877,40 @@ msgstr "Ĝisdatigoj"
 msgid "Updating Components…"
 msgstr "Ĝisdatigo de Komponentoj..."
 
-#: bottles/frontend/ui/details-preferences.blp:33
+#: bottles/frontend/ui/details-preferences.blp:64
 msgid "Updating D7VK, please wait..."
 msgstr "Ĝisdatigas D7VK, bonvolu atendi..."
 
-#: bottles/backend/managers/dependency.py:304
+#: bottles/backend/managers/dependency.py:313
 msgid "Updating DLL overrides…"
 msgstr "Ĝisdatigi DLL-anstataŭigas..."
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:46
+#: bottles/frontend/ui/details-preferences.blp:77
 msgid "Updating DXVK, please wait…"
 msgstr "Ĝisdatigante statojn…"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:72 bottles/frontend/ui/details-preferences.blp:105
+#: bottles/frontend/ui/details-preferences.blp:103 bottles/frontend/ui/details-preferences.blp:136
 msgid "Updating DXVK-NVAPI, please wait…"
 msgstr "Instalante DXVK-NVAPI…"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:85
+#: bottles/frontend/ui/details-preferences.blp:116
 msgid "Updating LatencyFleX, please wait…"
 msgstr "Ĝisdatigante statojn…"
 
-#: bottles/frontend/ui/details-preferences.blp:20
+#: bottles/frontend/ui/details-preferences.blp:51
 msgid "Updating Runner and components, please wait…"
 msgstr "Ĝisdatigante Runner kaj komponantojn, bonvolu atendi..."
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:59
+#: bottles/frontend/ui/details-preferences.blp:90
 msgid "Updating VKD3D, please wait…"
 msgstr "Ĝisdatigante statojn…"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:323
+#: bottles/frontend/ui/details-preferences.blp:354
 msgid "Updating Windows version, please wait…"
 msgstr "Montri version"
 
@@ -4833,11 +4924,11 @@ msgid "Updating WineBridge… ({percent}%)"
 msgstr "Ĝisdatigas WineBridge... ({percent}%)"
 
 #, fuzzy
-#: bottles/frontend/windows/display.py:106
+#: bottles/frontend/windows/display.py:125
 msgid "Updating display settings, please wait…"
 msgstr "Montri version"
 
-#: bottles/frontend/widgets/component.py:96
+#: bottles/frontend/widgets/component.py:97
 msgid "Upgrade"
 msgstr "Ĝisdatigo"
 
@@ -4849,15 +4940,24 @@ msgstr "Ĝisdatigo Bezonata"
 msgid "Upscales the resolution when using a resolution higher than the game resolution in pixels."
 msgstr "Plialtigas la rezolucion kiam oni uzas rezolucion pli altan ol la ludrezolucio en pikseloj."
 
-#: bottles/frontend/views/eagle.py:434
+#: bottles/frontend/views/eagle.py:437
 msgid "Upscaling Technology"
 msgstr "Altskala Teknologio"
 
-#: bottles/frontend/ui/preferences.blp:104
+#: bottles/frontend/ui/preferences.blp:114
 msgid "Usage Time Tracking"
 msgstr "Spurado de uzotempo"
 
-#: bottles/frontend/ui/details-bottle.blp:151 bottles/frontend/ui/details-preferences.blp:371
+#, python-brace-format
+#: bottles/frontend/windows/playtimegraph.py:187
+msgid "Usage time statistics cannot be reset while \"{}\" is running. Close the program and try again."
+msgstr "Uzadotempostatistikoj ne povas esti rekomencigitaj dum \"{}\" funkcias. Fermu la programon kaj provu denove."
+
+#: bottles/frontend/windows/playtimegraph.py:192
+msgid "Usage time tracking is disabled."
+msgstr "Spurado de uzado de tempo estas malŝaltita."
+
+#: bottles/frontend/ui/details-bottle.blp:151 bottles/frontend/ui/details-preferences.blp:402
 msgid "Use WineBridge"
 msgstr "Uzu WineBridge"
 
@@ -4869,19 +4969,19 @@ msgstr "Uzu 64-bitan Vulkan-aplikaĵon. Malebligu aliajn tavolojn de Vulkan se v
 msgid "Use a lighter model with a small quality reduction."
 msgstr "Uzu pli malpezan modelon kun malgranda kvalita redukto."
 
-#: bottles/frontend/ui/details-preferences.blp:341
+#: bottles/frontend/ui/details-preferences.blp:372
 msgid "Use a restricted/managed environment for this container."
 msgstr "Uzu limigitan/administritan medion por ĉi tiu Wine-medio."
 
-#: bottles/frontend/views/eagle.py:628
+#: bottles/frontend/views/eagle.py:631
 msgid "Use shipping binary instead"
 msgstr "Uzu sendan binaron anstataŭe"
 
-#: bottles/frontend/ui/details-preferences.blp:119
+#: bottles/frontend/ui/details-preferences.blp:150
 msgid "Use the discrete graphics card to increase performance at the expense of power consumption."
 msgstr "Uzu la diskretan grafikan karton por pliigi rendimenton koste de elektrokonsumo."
 
-#: bottles/frontend/ui/preferences.blp:266
+#: bottles/frontend/ui/preferences.blp:276
 msgid "Used by default. Installed and updated by your distribution or Flatpak packaging."
 msgstr "Uzita defaŭlte. Instalita kaj ĝisdatigita de via distribuo aŭ Flatpak-pakaĵo."
 
@@ -4889,7 +4989,7 @@ msgstr "Uzita defaŭlte. Instalita kaj ĝisdatigita de via distribuo aŭ Flatpak
 msgid "User"
 msgstr "Uzanto"
 
-#: bottles/frontend/ui/preferences.blp:277
+#: bottles/frontend/ui/preferences.blp:287
 msgid "User Runners"
 msgstr "Uzantkuristoj"
 
@@ -4897,7 +4997,7 @@ msgstr "Uzantkuristoj"
 msgid "Uses the resolution of the video game as a reference in pixels."
 msgstr "Uzas la rezolucion de la videoludo kiel referencon en pikseloj."
 
-#: bottles/backend/managers/manager.py:1910 bottles/frontend/ui/details-preferences.blp:55
+#: bottles/backend/managers/manager.py:1947 bottles/frontend/ui/details-preferences.blp:86
 msgid "VKD3D"
 msgstr "VKD3D"
 
@@ -4922,7 +5022,7 @@ msgstr "Uzi virtualan labortablon"
 msgid "Vmtouch Settings"
 msgstr "Agordoj de Vmtouch"
 
-#: bottles/frontend/main.py:379
+#: bottles/frontend/main.py:383
 msgid "Vulkan frame generation layer"
 msgstr "Vulkan framgenera tavolo"
 
@@ -4935,7 +5035,7 @@ msgstr "Vulkan ne disponeblas en ĉi tiu sistemo."
 msgid "Warnings"
 msgstr "Averto"
 
-#: bottles/frontend/ui/details-preferences.blp:128
+#: bottles/frontend/ui/details-preferences.blp:159
 msgid "Wayland (Experimental)"
 msgstr "Wayland (Eksperimenta)"
 
@@ -4947,7 +5047,7 @@ msgstr "Ni trovis unu aŭ pli similajn (aŭ identajn) raportojn. Bonvolu certigi
 msgid "Week"
 msgstr "Semajno"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:125 bottles/frontend/windows/playtimegraph.py:162
+#: bottles/frontend/ui/dialog-playtime-graph.blp:136 bottles/frontend/windows/playtimegraph.py:248
 msgid "Weekly"
 msgstr "Ĉiusemajne"
 
@@ -4964,7 +5064,7 @@ msgstr "Kiam vera, Bottles registras ludtempan telemetrion al loka SQLite-datumb
 msgid "Whether Bottles should use the dark color scheme."
 msgstr "Ĉu Bottles devus uzi la malhelan kolorskemon."
 
-#: bottles/frontend/ui/preferences.blp:51
+#: bottles/frontend/ui/preferences.blp:61
 msgid "Whether to show the update date in the container list."
 msgstr "Ĉu montri la ĝisdatigon en la botellisto."
 
@@ -4999,7 +5099,7 @@ msgid "Window width"
 msgstr "Larĝo de fenestro"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:320
+#: bottles/frontend/ui/details-preferences.blp:351
 msgid "Windows Version"
 msgstr "Montri version"
 
@@ -5022,11 +5122,11 @@ msgid "Wine audio driver"
 msgstr "Wine sonŝoforo"
 
 #, fuzzy
-#: bottles/backend/managers/manager.py:1617
+#: bottles/backend/managers/manager.py:1645
 msgid "Wine config updated!"
 msgstr "Reagordiĝis Wine!"
 
-#: bottles/backend/managers/manager.py:1972
+#: bottles/backend/managers/manager.py:2009
 msgid "WineBridge"
 msgstr "WineBridge"
 
@@ -5047,7 +5147,7 @@ msgid "WineBridge update failed"
 msgstr "WineBridge-ĝisdatigo malsukcesis"
 
 #, fuzzy
-#: bottles/frontend/ui/details-preferences.blp:391 bottles/frontend/ui/dialog-launch-options.blp:143
+#: bottles/frontend/ui/details-preferences.blp:422 bottles/frontend/ui/dialog-launch-options.blp:143
 msgid "Working Directory"
 msgstr "Ruldosierujo"
 
@@ -5055,7 +5155,7 @@ msgstr "Ruldosierujo"
 msgid "Write below the arguments to be passed to the executable."
 msgstr "Skribu malsupre la argumentojn por esti transdonitaj al la plenumebla."
 
-#: bottles/backend/managers/dependency.py:305
+#: bottles/backend/managers/dependency.py:314
 msgid "Writing registry keys…"
 msgstr "Skribante registrajn ŝlosilojn..."
 
@@ -5063,15 +5163,15 @@ msgstr "Skribante registrajn ŝlosilojn..."
 msgid "Year"
 msgstr "Jaro"
 
-#: bottles/frontend/windows/playtimegraph.py:186
+#: bottles/frontend/windows/playtimegraph.py:272
 msgid "Yearly"
 msgstr "Ĉiujare"
 
-#: bottles/frontend/views/eagle.py:267
+#: bottles/frontend/views/eagle.py:270
 msgid "Yes"
 msgstr "Jes"
 
-#: bottles/frontend/utils/playtime.py:471
+#: bottles/frontend/utils/playtime.py:502
 msgid "Yesterday"
 msgstr "Hieraŭ"
 
@@ -5095,23 +5195,23 @@ msgstr "Vi havas nekonservitajn ŝanĝojn. Kreu momentfoton por konservi ilin."
 msgid "You're offline :("
 msgstr "Vi estas eksterrete :("
 
-#: bottles/frontend/main.py:266
+#: bottles/frontend/main.py:270
 msgid "[Activate] request received."
 msgstr "[Aktivigi] ricevita peto."
 
-#: bottles/frontend/main.py:300
+#: bottles/frontend/main.py:304
 msgid "[Help] request received."
 msgstr "Riceviĝis peto [Helpo]."
 
-#: bottles/frontend/main.py:284
+#: bottles/frontend/main.py:288
 msgid "[Quit] request received."
 msgstr "Riceviĝis peto [Forlasi]."
 
-#: bottles/frontend/main.py:310
+#: bottles/frontend/main.py:314
 msgid "[Refresh] request received."
 msgstr "Riceviĝis peto [Reŝargi]."
 
-#: bottles/frontend/main.py:237
+#: bottles/frontend/main.py:240
 msgid "[Shutdown] cleanup starting."
 msgstr "[Malŝalto] purigado komenciĝas."
 
@@ -5121,7 +5221,7 @@ msgid "_Application"
 msgstr "Elŝutante…"
 
 #, fuzzy
-#: bottles/frontend/ui/bulk-update-dialog.blp:22 bottles/frontend/ui/dialog-crash-report.blp:19 bottles/frontend/ui/dialog-display.blp:25 bottles/frontend/ui/dialog-duplicate.blp:20 bottles/frontend/ui/dialog-file-associations.blp:17 bottles/frontend/ui/dialog-gamescope.blp:24 bottles/frontend/ui/dialog-launch-options.blp:17 bottles/frontend/ui/dialog-lsfg-vk.blp:25 bottles/frontend/ui/dialog-mangohud.blp:25 bottles/frontend/ui/dialog-program-backups.blp:16 bottles/frontend/ui/dialog-upgrade-versioning.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:27 bottles/frontend/ui/dialog-vmtouch.blp:24 bottles/frontend/ui/dialog-winebridge-update.blp:19 bottles/frontend/ui/new-bottle-dialog.blp:23 bottles/frontend/views/bottle_details.py:860 bottles/frontend/views/bottle_details.py:958 bottles/frontend/views/preferences.py:357 bottles/frontend/views/preferences.py:817 bottles/frontend/widgets/state.py:127
+#: bottles/frontend/ui/bulk-update-dialog.blp:22 bottles/frontend/ui/dialog-crash-report.blp:19 bottles/frontend/ui/dialog-display.blp:25 bottles/frontend/ui/dialog-duplicate.blp:20 bottles/frontend/ui/dialog-file-associations.blp:17 bottles/frontend/ui/dialog-gamescope.blp:24 bottles/frontend/ui/dialog-launch-options.blp:17 bottles/frontend/ui/dialog-lsfg-vk.blp:25 bottles/frontend/ui/dialog-mangohud.blp:25 bottles/frontend/ui/dialog-program-backups.blp:16 bottles/frontend/ui/dialog-upgrade-versioning.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:27 bottles/frontend/ui/dialog-vmtouch.blp:24 bottles/frontend/ui/dialog-winebridge-update.blp:19 bottles/frontend/ui/new-bottle-dialog.blp:23 bottles/frontend/views/bottle_details.py:860 bottles/frontend/views/bottle_details.py:958 bottles/frontend/views/preferences.py:366 bottles/frontend/views/preferences.py:828 bottles/frontend/widgets/state.py:127
 msgid "_Cancel"
 msgstr "Nuligi"
 
@@ -5130,15 +5230,15 @@ msgid "_Cancel Creation"
 msgstr "_Nuligi Kreadon"
 
 #, fuzzy
-#: bottles/frontend/ui/dialog-dependency-install.blp:80 bottles/frontend/ui/dialog-winebridge-update.blp:25 bottles/frontend/ui/new-bottle-dialog.blp:276 bottles/frontend/widgets/program.py:725
+#: bottles/frontend/ui/dialog-dependency-install.blp:80 bottles/frontend/ui/dialog-winebridge-update.blp:25 bottles/frontend/ui/new-bottle-dialog.blp:276 bottles/frontend/widgets/program.py:744
 msgid "_Close"
 msgstr "Fermi"
 
-#: bottles/frontend/ui/preferences.blp:369 bottles/frontend/ui/preferences.blp:402 bottles/frontend/views/preferences.py:818 bottles/frontend/views/preferences.py:724
+#: bottles/frontend/ui/preferences.blp:379 bottles/frontend/ui/preferences.blp:412 bottles/frontend/views/preferences.py:829 bottles/frontend/views/preferences.py:735
 msgid "_Delete"
 msgstr "_Forigi"
 
-#: bottles/frontend/ui/preferences.blp:336
+#: bottles/frontend/ui/preferences.blp:346
 msgid "_Delete All"
 msgstr "_Forigi Ĉion"
 
@@ -5163,7 +5263,7 @@ msgstr "Videoludado"
 msgid "_Keep Waiting"
 msgstr "_Daŭre Atendu"
 
-#: bottles/frontend/views/preferences.py:358
+#: bottles/frontend/views/preferences.py:367
 msgid "_Relaunch"
 msgstr "_Relanĉi"
 
@@ -5187,7 +5287,7 @@ msgstr "_Ĝisdatigi"
 msgid "application verb metadata"
 msgstr "metadatenoj de aplikaj verboj"
 
-#: bottles/backend/managers/dependency.py:289
+#: bottles/backend/managers/dependency.py:298
 msgid "archive"
 msgstr "arkivo"
 
@@ -5232,27 +5332,27 @@ msgstr "ekz.: ludusavi sekurkopio --fortu \"Ludonomo\""
 msgid "e.g.: ludusavi restore --force \"Game Name\""
 msgstr "ekz.: ludusavi restaŭri --force \"Ludonomo\""
 
-#: bottles/backend/managers/dependency.py:297
+#: bottles/backend/managers/dependency.py:306
 msgid "files"
 msgstr "dosieroj"
 
-#: bottles/backend/managers/dependency.py:291 bottles/backend/managers/dependency.py:292
+#: bottles/backend/managers/dependency.py:300 bottles/backend/managers/dependency.py:301
 msgid "installer"
 msgstr "instalilo"
 
-#: bottles/frontend/main.py:102
+#: bottles/frontend/main.py:103
 msgid "lnk path"
 msgstr "Dosierindiko de simbola ligo"
 
-#: bottles/frontend/main.py:378
+#: bottles/frontend/main.py:382
 msgid "lsfg-vk"
 msgstr "lsfg-vk"
 
-#: bottles/frontend/main.py:381
+#: bottles/frontend/main.py:385
 msgid "lsfg-vk 1.x: MIT.\nlsfg-vk 2.x: GPL-3.0-or-later."
 msgstr "lsfg-vk 1.x: MIT.\nlsfg-vk 2.x: GPL-3.0-aŭ-poste."
 
-#: bottles/frontend/views/bottle_preferences.py:357
+#: bottles/frontend/views/bottle_preferences.py:364
 msgid "lsfg-vk only supports 64-bit Vulkan applications."
 msgstr "lsfg-vk nur subtenas 64-bitajn Vulkan-aplikaĵojn."
 
@@ -5260,11 +5360,11 @@ msgstr "lsfg-vk nur subtenas 64-bitajn Vulkan-aplikaĵojn."
 msgid "lsfg-vk requires a legitimate copy of Lossless Scaling. Bottles keeps a private copy inside this container and excludes it from backups and duplicates."
 msgstr "lsfg-vk postulas legitiman kopion de Lossless Scaling. Bottles konservas privatan kopion ene de ĉi tiu Wine-medio kaj ekskludas ĝin de sekurkopioj kaj duplikatoj."
 
-#: bottles/backend/managers/dependency.py:295
+#: bottles/backend/managers/dependency.py:304
 msgid "package"
 msgstr "pako"
 
-#: bottles/frontend/main.py:365
+#: bottles/frontend/main.py:369
 msgid "translator_credits"
 msgstr "tradukisto_kreditoj"
 
@@ -5306,12 +5406,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:533
+#: bottles/frontend/views/eagle.py:536
 msgid "{0} detected"
 msgstr "{0} detektita"
 
 #, python-brace-format
-#: bottles/frontend/windows/dependency_install.py:125
+#: bottles/frontend/windows/dependency_install.py:128
 msgid "{0} failed to install."
 msgstr "{0} malsukcesis instali."
 
@@ -5321,7 +5421,7 @@ msgid "{0} installed, {1} failed."
 msgstr "{0} instalita, {1} malsukcesis."
 
 #, python-brace-format
-#: bottles/frontend/windows/dependency_install.py:123
+#: bottles/frontend/windows/dependency_install.py:126
 msgid "{0} installed."
 msgstr "{0} instalita."
 
@@ -5336,12 +5436,12 @@ msgid "{0} is now available in the programs view."
 msgstr "{0} nun haveblas en la programo-vido."
 
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:361
+#: bottles/frontend/views/eagle.py:364
 msgid "{0} positive / {1} negative reports"
 msgstr "{0} pozitivaj / {1} negativaj raportoj"
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2336
+#: bottles/backend/managers/manager.py:2373
 msgid "{0} requires Vulkan, which is not available on this system."
 msgstr "{0} postulas Vulkan, kiu ne disponeblas en ĉi tiu sistemo."
 
@@ -5353,37 +5453,37 @@ msgstr[0] ""
 msgstr[1] ""
 
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:356
+#: bottles/frontend/views/eagle.py:359
 msgid "{0}% positive verdicts"
 msgstr "{0}% pozitivaj verdiktoj"
 
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:299
+#: bottles/frontend/views/eagle.py:302
 msgid "{0}, compatibility signals from {1} community reports"
 msgstr "{0}, kongruecsignaloj de {1} komunumaraportoj"
 
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:293
+#: bottles/frontend/views/eagle.py:296
 msgid "{0}, recognized from curated application metadata"
 msgstr "{0}, rekonita de vikariitaj aplikaĵmetadatenoj"
 
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:411
+#: bottles/frontend/views/eagle.py:414
 msgid "{0}: {1}"
 msgstr "{0}: {1}"
 
 #, python-brace-format
-#: bottles/backend/managers/eagle.py:400
+#: bottles/backend/managers/eagle.py:401
 msgid "{name} ({reason}, x{evidence})"
 msgstr "{name} ({reason}, x{evidence})"
 
 #, python-brace-format
-#: bottles/backend/managers/eagle.py:371
+#: bottles/backend/managers/eagle.py:372
 msgid "{reason} (x{evidence})"
 msgstr "{reason} (x{evidence})"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_preferences.py:192
+#: bottles/frontend/views/bottle_preferences.py:201
 msgid "{} To add this feature, please run"
 msgstr "{} Por aldoni ĉi tiun funkcion, bonvolu kuri"
 
@@ -5398,7 +5498,7 @@ msgid "{} saved"
 msgstr "{} konservita"
 
 #, python-brace-format
-#: bottles/frontend/windows/playtimegraph.py:132
+#: bottles/frontend/windows/playtimegraph.py:218
 msgid "{} – {}"
 msgstr "{} - {}"
 

@@ -202,3 +202,24 @@ def test_appstream_is_not_a_translation_source():
     metadata = ET.parse(ROOT / "data/com.usebottles.bottles.metainfo.xml.in")
     assert not any("{http://www.w3.org/XML/1998/namespace}lang" in element.attrib
                    for element in metadata.iter())
+
+
+def test_reviewed_feature_messages_are_translated_in_every_shipped_language():
+    messages = (
+        "Notes", "Save Notes", "Library Order", "Program Name", "Container Name",
+        "Reset Usage Time Statistics", "Reset Usage Time Statistics?",
+        "Usage time tracking is disabled.", "Could Not Reset Usage Time Statistics",
+        "The notes could not be saved.", "Default DPI Scaling Mode",
+        "Could not read the DPI scaling mode.", "Some display settings could not be updated.",
+        "This runner has no Esync, so it will use its default.",
+        "This runner cannot create a 32-bit prefix. Select a 64-bit container.",
+        "The program file could not be found. Check its path and any external drives.",
+        "Failed to prepare the container user profile.",
+        "Running uninstaller ({0})…", "Skipping {0}: not installed.",
+    )
+    for language in (ROOT / "po/LINGUAS").read_text().split():
+        catalog = _catalog_entries(ROOT / "po" / (language + ".po"))
+        for message in messages:
+            entry = catalog[None, message]
+            assert entry["msgstr"].strip(), (language, message)
+            assert "fuzzy" not in entry.get("_flags", []), (language, message)

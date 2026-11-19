@@ -15,77 +15,77 @@ msgid "\"Force disable any network activity even with available network connecti
 msgstr "\"사용 가능한 네트워크 연결이 있어도 모든 네트워크 활동을 강제로 비활성화합니다.\""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:345 bottles/frontend/views/eagle.py:769
+#: bottles/frontend/views/bottle_details.py:345 bottles/frontend/views/eagle.py:772
 msgid "\"{0}\" added"
 msgstr "\"{0}\" 추가됨"
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:885
+#: bottles/frontend/widgets/program.py:904
 msgid "\"{0}\" added to your Steam library"
 msgstr "\"{0}\"이 Steam 라이브러리에 추가되었습니다"
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:817
+#: bottles/frontend/widgets/program.py:836
 msgid "\"{0}\" added to your library"
 msgstr "\"{0}\"이 라이브러리에 추가되었습니다"
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:361
+#: bottles/frontend/widgets/program.py:379
 msgid "\"{0}\" closed right after starting. Scan it with Eagle to check for missing dependencies, packers or known threats?"
 msgstr "\"{0}\"는 시작 직후 닫혔습니다. Eagle로 스캔하여 누락된 종속성, 패커 또는 알려진 위협을 확인하시겠습니까?"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:241
+#: bottles/frontend/widgets/dependency.py:251
 msgid "\"{0}\" failed to install"
 msgstr "\"{0}\" 설치에 실패했습니다"
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:505
+#: bottles/frontend/widgets/program.py:524
 msgid "\"{0}\" hidden"
 msgstr "\"{0}\"이 숨겨졌습니다"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:224
+#: bottles/frontend/widgets/dependency.py:231
 msgid "\"{0}\" installed"
 msgstr "\"{0}\"이 설치되었습니다"
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:439
+#: bottles/frontend/widgets/program.py:457
 msgid "\"{0}\" matches patterns associated with malware ({1}). Bottles strongly advises against running it."
 msgstr "\"{0}\"는 맬웨어({1})와 관련된 패턴과 일치합니다. Bottles는 실행하지 말 것을 강력히 권고합니다."
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:540
+#: bottles/frontend/widgets/program.py:559
 msgid "\"{0}\" removed"
 msgstr "\"{0}\"이 제거되었습니다"
 
 #, python-brace-format
-#: bottles/frontend/views/library.py:87
+#: bottles/frontend/views/library.py:93
 msgid "\"{0}\" removed from the library."
 msgstr "\"{0}\"가 라이브러리에서 제거되었습니다."
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:867
+#: bottles/frontend/widgets/program.py:886
 msgid "\"{0}\" removed from your library"
 msgstr "\"{0}\"가 라이브러리에서 제거되었습니다."
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:575
+#: bottles/frontend/widgets/program.py:594
 msgid "\"{0}\" renamed to \"{1}\""
 msgstr "\"{0}\"이 \"{1}\"으로 이름이 변경되었습니다"
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:507
+#: bottles/frontend/widgets/program.py:526
 msgid "\"{0}\" showed"
 msgstr "\"{0}\"이 보여집니다"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:221
+#: bottles/frontend/widgets/dependency.py:228
 msgid "\"{0}\" uninstalled"
 msgstr "\"{0}\"이 제거되었습니다"
 
 #, python-format
-#: bottles/frontend/utils/playtime.py:476
+#: bottles/frontend/utils/playtime.py:507
 msgid "%d days ago"
 msgstr "%d일 전"
 
@@ -95,11 +95,11 @@ msgid "%s Available"
 msgstr "%s 사용 가능"
 
 #, python-format
-#: bottles/frontend/views/preferences.py:736
+#: bottles/frontend/views/preferences.py:747
 msgid "%s template"
 msgstr "%s 템플릿"
 
-#: bottles/frontend/ui/details-preferences.blp:416 bottles/frontend/views/bottle_preferences.py:526 bottles/frontend/views/new_bottle_dialog.py:99
+#: bottles/frontend/ui/details-preferences.blp:447 bottles/frontend/views/bottle_preferences.py:534 bottles/frontend/views/new_bottle_dialog.py:99
 msgid "(Default)"
 msgstr "(기본값)"
 
@@ -107,11 +107,11 @@ msgstr "(기본값)"
 msgid "0%"
 msgstr "0%"
 
-#: bottles/frontend/ui/dialog-installer.blp:123
+#: bottles/frontend/ui/dialog-installer.blp:127
 msgid "00:00"
 msgstr "00:00"
 
-#: bottles/frontend/windows/playtimegraph.py:284 bottles/frontend/windows/playtimegraph.py:279
+#: bottles/frontend/windows/playtimegraph.py:370 bottles/frontend/windows/playtimegraph.py:365
 msgid "0h 0m"
 msgstr "0시 0분"
 
@@ -119,7 +119,7 @@ msgstr "0시 0분"
 msgid "64-bit is recommended for most users"
 msgstr "대부분의 사용자에게 64비트가 권장됩니다."
 
-#: bottles/frontend/windows/playtimegraph.py:362
+#: bottles/frontend/windows/playtimegraph.py:448
 msgid "<1m"
 msgstr "<1m"
 
@@ -143,7 +143,7 @@ msgstr "이 프로그램이 종료되면 새 복사본이 생성됩니다."
 msgid "A program is running"
 msgstr "프로그램이 실행 중입니다."
 
-#: bottles/backend/managers/manager.py:692
+#: bottles/backend/managers/manager.py:700
 msgid "A runner with this name is already registered."
 msgstr "이 이름을 가진 실행기가 이미 등록되어 있습니다."
 
@@ -151,7 +151,7 @@ msgstr "이 이름을 가진 실행기가 이미 등록되어 있습니다."
 msgid "A snapshot saves the current state of your container, so you can restore it later if something goes wrong."
 msgstr "스냅샷은 Wine 실행 환경의 현재 상태를 저장하므로 나중에 문제가 발생하면 복원할 수 있습니다."
 
-#: bottles/frontend/ui/preferences.blp:213
+#: bottles/frontend/ui/preferences.blp:223
 msgid "ALSA"
 msgstr "ALSA"
 
@@ -177,7 +177,7 @@ msgstr "{0}에 대해 활성"
 msgid "Add"
 msgstr "추가"
 
-#: bottles/frontend/ui/program-entry.blp:57 bottles/frontend/widgets/program.py:690
+#: bottles/frontend/ui/program-entry.blp:57 bottles/frontend/widgets/program.py:709
 msgid "Add Desktop Entry"
 msgstr "데스크탑 항목 추가"
 
@@ -202,11 +202,11 @@ msgid "Add and Launch Program"
 msgstr "프로그램 추가 및 실행"
 
 #, python-brace-format
-#: bottles/backend/managers/eagle.py:446
+#: bottles/backend/managers/eagle.py:447
 msgid "Add launch argument {argument} (community evidence x{evidence})"
 msgstr "시작 인수 {argument} 추가(커뮤니티 증거 x{evidence})"
 
-#: bottles/frontend/ui/program-entry.blp:53 bottles/frontend/widgets/program.py:877
+#: bottles/frontend/ui/program-entry.blp:53 bottles/frontend/widgets/program.py:896
 msgid "Add to Library"
 msgstr "라이브러리에 추가"
 
@@ -218,19 +218,19 @@ msgstr "Steam에 추가"
 msgid "Add variable"
 msgstr "변수 추가"
 
-#: bottles/frontend/ui/details-preferences.blp:149
+#: bottles/frontend/ui/details-preferences.blp:180
 msgid "Add various post-processing effects using vkBasalt. Only works on Vulkan."
 msgstr "vkBasalt를 활용해 다양한 후처리 효과를 추가합니다. Vulkan에서만 사용 가능합니다."
 
-#: bottles/backend/managers/dependency.py:308
+#: bottles/backend/managers/dependency.py:317
 msgid "Adjusting Windows version…"
 msgstr "Windows 버전 조정 중…"
 
-#: bottles/frontend/ui/preferences.blp:173
+#: bottles/frontend/ui/preferences.blp:183
 msgid "Advanced"
 msgstr "고급"
 
-#: bottles/frontend/ui/details-preferences.blp:207
+#: bottles/frontend/ui/details-preferences.blp:238
 msgid "Advanced Display Settings"
 msgstr "고급 디스플레이 설정"
 
@@ -254,7 +254,7 @@ msgstr "모든 파일"
 msgid "All Ready!"
 msgstr "모두 준비되었습니다!"
 
-#: bottles/frontend/ui/preferences.blp:320
+#: bottles/frontend/ui/preferences.blp:330
 msgid "All caches"
 msgstr "모든 캐시"
 
@@ -262,7 +262,7 @@ msgstr "모든 캐시"
 msgid "All messages"
 msgstr "모든 메세지"
 
-#: bottles/frontend/ui/preferences.blp:386
+#: bottles/frontend/ui/preferences.blp:396
 msgid "All prefix templates"
 msgstr "모든 접두사 템플릿"
 
@@ -299,7 +299,7 @@ msgstr "분석된 파일"
 msgid "Analysing Executable"
 msgstr "실행 파일 분석 중"
 
-#: bottles/frontend/views/eagle.py:562
+#: bottles/frontend/views/eagle.py:565
 msgid "Analysis Insights"
 msgstr "분석 통찰력"
 
@@ -307,7 +307,7 @@ msgstr "분석 통찰력"
 msgid "Analysis Results"
 msgstr "분석 결과"
 
-#: bottles/frontend/views/eagle.py:231
+#: bottles/frontend/views/eagle.py:234
 msgid "Analysis failed"
 msgstr "분석 실패"
 
@@ -319,7 +319,7 @@ msgstr "실행 파일 분석"
 msgid "Appearance"
 msgstr "모양"
 
-#: bottles/frontend/utils/common.py:40
+#: bottles/frontend/ui/dialog-display.blp:138 bottles/frontend/utils/common.py:40
 msgid "Application"
 msgstr "애플리케이션"
 
@@ -340,15 +340,15 @@ msgstr "이 Wine 실행 환경에 {}를 적용했습니다."
 msgid "Apply"
 msgstr "적용"
 
-#: bottles/backend/managers/manager.py:1658
+#: bottles/backend/managers/manager.py:1686
 msgid "Apply CMD default settings…"
 msgstr "CMD 기본 설정 적용 중…"
 
-#: bottles/frontend/ui/details-preferences.blp:277
+#: bottles/frontend/ui/details-preferences.blp:308
 msgid "Apply a set of optimizations to your device. Can improve game performance."
 msgstr "장치에 최적화 세트를 적용합니다. 게임 성능을 향상시킬 수 있습니다."
 
-#: bottles/frontend/views/eagle.py:662
+#: bottles/frontend/views/eagle.py:665
 msgid "Apply this recommendation"
 msgstr "이 권장 사항을 적용합니다."
 
@@ -356,16 +356,16 @@ msgstr "이 권장 사항을 적용합니다."
 msgid "Apply this rule only a single time per container."
 msgstr "이 규칙은 병당 한 번만 적용됩니다."
 
-#: bottles/backend/managers/dependency.py:309
+#: bottles/backend/managers/dependency.py:318
 msgid "Applying Windows version…"
 msgstr "Windows 버전을 적용하는 중…"
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:1709
+#: bottles/backend/managers/manager.py:1741
 msgid "Applying environment: {0}…"
 msgstr "환경 {0} 적용 중…"
 
-#: bottles/frontend/ui/new-bottle-dialog.blp:101 bottles/frontend/views/eagle.py:256
+#: bottles/frontend/ui/new-bottle-dialog.blp:101 bottles/frontend/views/eagle.py:259
 msgid "Architecture"
 msgstr "아키텍처"
 
@@ -382,11 +382,11 @@ msgstr "정말로 \"{}\"를 영구적으로 삭제하시겠습니까?"
 msgid "Are you sure you want to restore this state?"
 msgstr "이 상태를 복원하시겠습니까?"
 
-#: bottles/frontend/ui/preferences.blp:206
+#: bottles/frontend/ui/preferences.blp:216
 msgid "Audio Driver"
 msgstr "오디오 드라이버"
 
-#: bottles/frontend/views/eagle.py:429
+#: bottles/frontend/views/eagle.py:432
 msgid "Audio Engine"
 msgstr "오디오 엔진"
 
@@ -411,7 +411,7 @@ msgstr "자동으로 Bottles 종료"
 msgid "Automatically create snapshots before installing software or changing settings."
 msgstr "프로그램 설치 혹은 설정 변경 이전에 자동으로 스냅샷을 생성합니다."
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:143
+#: bottles/frontend/ui/dialog-playtime-graph.blp:154
 msgid "Average: 0h 0m"
 msgstr "평균: 0시간 0분"
 
@@ -482,7 +482,7 @@ msgid "Bottles Crash Report"
 msgstr "Bottles 충돌 보고서"
 
 # Translators: Bottles is a proper noun referring to the app
-#: bottles/frontend/ui/details-preferences.blp:360
+#: bottles/frontend/ui/details-preferences.blp:391
 msgid "Bottles Runtime"
 msgstr "Bottles 런타임"
 
@@ -502,7 +502,7 @@ msgstr "Bottles에는 이전 버전과 호환되지 않는 새로운 버전 관�
 msgid "Bottles is running in a sandbox, a restricted permission environment needed to keep you safe. If the program won't run, consider moving inside the container (3 dots icon on the top), then launch from there."
 msgstr "Bottles는 당신을 안전하게 보호하기 위해 제한된 권한 환경인 샌드박스에서 실행되고 있습니다. 프로그램이 실행되지 않는다면, Wine 실행 환경 내부로 이동한 후(상단의 3점 아이콘), 거기서 실행해 보세요."
 
-#: bottles/frontend/ui/preferences.blp:433
+#: bottles/frontend/ui/preferences.blp:443
 msgid "Bottles is running in offline mode, so DLLs are not available."
 msgstr "Bottles가 오프라인 모드로 실행 중이므로 DLL들을 사용할 수 없습니다."
 
@@ -514,7 +514,7 @@ msgstr "Bottles가 오프라인 모드에서 실행 중이므로 종속성을 �
 msgid "Bottles needs direct Flatpak access to this folder for reliable container storage. Grant access, restart Bottles, then select the folder again."
 msgstr "Bottles는 안정적인 Wine 실행 환경 보관을 위해 이 폴더에 대한 직접적인 Flatpak 액세스가 필요합니다. 액세스 권한을 부여하고 Bottles를 다시 시작한 다음 폴더를 다시 선택하세요."
 
-#: bottles/frontend/views/preferences.py:353
+#: bottles/frontend/views/preferences.py:362
 msgid "Bottles needs to be relaunched to use the updated repositories.\n\nBe sure to close every program launched from Bottles before relaunching Bottles, as not doing so can cause data loss, corruption and programs to malfunction."
 msgstr "업데이트된 리포지토리를 사용하려면 Bottles를 다시 시작해야 합니다.\n\nBottles를 다시 시작하기 전에 Bottles에서 시작된 모든 프로그램을 닫으십시오. 그렇지 않으면 데이터 손실, 손상 및 프로그램 오작동이 발생할 수 있습니다."
 
@@ -558,7 +558,7 @@ msgstr "설치 프로그램 찾아보기"
 msgid "Browse Path"
 msgstr "경로 열기"
 
-#: bottles/frontend/views/eagle.py:282
+#: bottles/frontend/views/eagle.py:285
 msgid "Build Date"
 msgstr "빌드 날짜"
 
@@ -570,7 +570,7 @@ msgstr "내장 (Wine)"
 msgid "Builtin, then Native"
 msgstr "내장부터 사용"
 
-#: bottles/backend/utils/manager.py:902
+#: bottles/backend/utils/manager.py:935
 msgid "Bulgarian"
 msgstr "불가리아어"
 
@@ -586,7 +586,7 @@ msgstr "생성"
 msgid "C_ustom"
 msgstr "커스텀"
 
-#: bottles/frontend/ui/preferences.blp:291
+#: bottles/frontend/ui/preferences.blp:301
 msgid "Cache"
 msgstr "캐시"
 
@@ -595,16 +595,16 @@ msgid "Cache work directory"
 msgstr "캐시 작업 디렉터리"
 
 #, python-format
-#: bottles/frontend/views/preferences.py:748
+#: bottles/frontend/views/preferences.py:759
 msgid "Cached prefix for the %s environment"
 msgstr "%s 환경의 캐시된 접두사"
 
 #, python-format
-#: bottles/frontend/views/preferences.py:743
+#: bottles/frontend/views/preferences.py:754
 msgid "Cached prefix for the %s environment, created on %s"
 msgstr "%s에서 생성된 %s 환경의 캐시된 접두사"
 
-#: bottles/backend/managers/manager.py:1865
+#: bottles/backend/managers/manager.py:1902
 msgid "Caching template…"
 msgstr "템플릿 캐싱 중…"
 
@@ -612,7 +612,7 @@ msgstr "템플릿 캐싱 중…"
 msgid "Calculating..."
 msgstr "계산 중..."
 
-#: bottles/backend/state.py:155 bottles/frontend/widgets/component.py:149 bottles/frontend/widgets/component.py:209
+#: bottles/backend/state.py:155 bottles/frontend/widgets/component.py:150 bottles/frontend/widgets/component.py:212
 msgid "Calculating…"
 msgstr "계산 중…"
 
@@ -620,7 +620,7 @@ msgstr "계산 중…"
 msgid "Can't reach this program in the sandbox"
 msgstr "샌드박스에서 이 프로그램에 접근할 수 없습니다."
 
-#: bottles/frontend/ui/dialog-bottle-picker.blp:17 bottles/frontend/ui/dialog-rename.blp:16 bottles/frontend/ui/dialog-run-args.blp:19 bottles/frontend/utils/sandbox_guard.py:75 bottles/frontend/utils/sandbox_guard.py:171 bottles/frontend/views/preferences.py:569
+#: bottles/frontend/ui/dialog-bottle-picker.blp:17 bottles/frontend/ui/dialog-rename.blp:16 bottles/frontend/ui/dialog-run-args.blp:19 bottles/frontend/utils/sandbox_guard.py:75 bottles/frontend/utils/sandbox_guard.py:171 bottles/frontend/views/preferences.py:580 bottles/frontend/windows/playtimegraph.py:136
 msgid "Cancel"
 msgstr "취소"
 
@@ -632,7 +632,7 @@ msgstr "Wine 실행 환경 생성을 취소하시겠습니까?"
 msgid "Cancel task"
 msgstr "작업 취소"
 
-#: bottles/backend/managers/manager.py:1402
+#: bottles/backend/managers/manager.py:1410
 msgid "Cancellation requested. Stopping after the current step…"
 msgstr "취소가 요청되었습니다. 현재 단계 후에 중지 중..."
 
@@ -648,7 +648,7 @@ msgstr "지금 취소하면 현재 단계가 완료되면 설정이 중지되고
 msgid "Cancelling..."
 msgstr "취소 중..."
 
-#: bottles/frontend/views/new_bottle_dialog.py:462 bottles/frontend/views/new_bottle_dialog.py:465 bottles/frontend/widgets/component.py:266 bottles/frontend/windows/winebridgeupdate.py:102
+#: bottles/frontend/views/new_bottle_dialog.py:462 bottles/frontend/views/new_bottle_dialog.py:465 bottles/frontend/widgets/component.py:279 bottles/frontend/windows/winebridgeupdate.py:102
 msgid "Cancelling…"
 msgstr "취소 중…"
 
@@ -684,7 +684,7 @@ msgstr "창 너비를 변경합니다."
 msgid "Change this if you are running into mouse lag or desync."
 msgstr "마우스 지연 또는 비동기화가 발생하는 경우 이를 변경하십시오."
 
-#: bottles/frontend/ui/preferences.blp:271
+#: bottles/frontend/ui/preferences.blp:281
 msgid "Check Installed Runners"
 msgstr "설치된 실행기 확인"
 
@@ -696,7 +696,7 @@ msgstr "실행기 확인"
 msgid "Check and Continue"
 msgstr "확인하고 계속하세요"
 
-#: bottles/frontend/ui/preferences.blp:119 bottles/frontend/views/preferences.py:293
+#: bottles/frontend/ui/preferences.blp:129 bottles/frontend/views/preferences.py:297
 msgid "Check executables for malware patterns before running them."
 msgstr "실행하기 전에 실행 파일에서 맬웨어 패턴을 확인하세요."
 
@@ -704,11 +704,11 @@ msgstr "실행하기 전에 실행 파일에서 맬웨어 패턴을 확인하세
 msgid "Check your connection or try again later."
 msgstr "연결을 확인하거나 나중에 다시 시도하세요."
 
-#: bottles/backend/utils/manager.py:927
+#: bottles/backend/utils/manager.py:960
 msgid "Chinese (Simplified)"
 msgstr "중국어(간체)"
 
-#: bottles/backend/utils/manager.py:929
+#: bottles/backend/utils/manager.py:962
 msgid "Chinese (Traditional)"
 msgstr "중국어(번체)"
 
@@ -761,7 +761,7 @@ msgstr "프로그램이 시작될 위치를 선택하세요."
 msgid "Choose the Wine installation used by this container"
 msgstr "이 Wine 실행 환경에서 사용되는 Wine 설치를 선택합니다."
 
-#: bottles/frontend/ui/details-preferences.blp:333
+#: bottles/frontend/ui/details-preferences.blp:364
 msgid "Choose the language to use with programs."
 msgstr "프로그램에 사용할 언어를 선택하세요."
 
@@ -773,7 +773,7 @@ msgstr "Bottles 인터페이스에서 사용되는 언어를 선택합니다."
 msgid "Choose where automatic backups are stored."
 msgstr "자동 백업이 저장되는 위치를 선택합니다."
 
-#: bottles/frontend/ui/preferences.blp:207
+#: bottles/frontend/ui/preferences.blp:217
 msgid "Choose which Wine audio driver Bottles should enforce for all containers."
 msgstr "모든 Wine 실행 환경에 대해 적용해야 하는 Wine 오디오 드라이버 Bottles를 선택합니다."
 
@@ -781,7 +781,11 @@ msgstr "모든 Wine 실행 환경에 대해 적용해야 하는 Wine 오디오 �
 msgid "Choose which view the application should be started in."
 msgstr "애플리케이션을 시작할 때 표시할 화면을 선택합니다."
 
-#: bottles/frontend/ui/preferences.blp:85
+#: bottles/frontend/ui/dialog-display.blp:133
+msgid "Choose who handles DPI scaling. Restart programs after changing this."
+msgstr "DPI 스케일링을 처리하는 사람을 선택합니다. 이를 변경한 후 프로그램을 다시 시작하십시오."
+
+#: bottles/frontend/ui/preferences.blp:95
 msgid "Clean temp files when Bottles launches?"
 msgstr "Bottles를 시작할 때 임시 파일을 정리하시겠습니까?"
 
@@ -789,11 +793,11 @@ msgstr "Bottles를 시작할 때 임시 파일을 정리하시겠습니까?"
 msgid "Clean the temp path when booting the system."
 msgstr "시스템을 부팅할때 임시 디렉터리 경로를 청소합니다."
 
-#: bottles/backend/managers/dependency.py:302
+#: bottles/backend/managers/dependency.py:311
 msgid "Cleaning previous files…"
 msgstr "이전 파일을 정리하는 중…"
 
-#: bottles/backend/managers/manager.py:273
+#: bottles/backend/managers/manager.py:274
 msgid "Cleaning temporary files…"
 msgstr "임시 파일을 정리하는 중…"
 
@@ -809,11 +813,11 @@ msgstr "DLL 경로 지우기"
 msgid "Clear Selection"
 msgstr "선택 지우기"
 
-#: bottles/frontend/views/preferences.py:778
+#: bottles/frontend/views/preferences.py:789
 msgid "Clearing the temp cache removes downloaded archives and extracted files, so future installs may take longer."
 msgstr "임시 캐시를 지우면 다운로드한 아카이브와 추출된 파일이 제거되므로 향후 설치에 시간이 더 오래 걸릴 수 있습니다."
 
-#: bottles/frontend/ui/preferences.blp:354
+#: bottles/frontend/ui/preferences.blp:364
 msgid "Clearing this cache can increase download times because resources must be fetched again."
 msgstr "이 캐시를 지우면 리소스를 다시 가져와야 하므로 다운로드 시간이 늘어날 수 있습니다."
 
@@ -821,11 +825,11 @@ msgstr "이 캐시를 지우면 리소스를 다시 가져와야 하므로 다�
 msgid "Close"
 msgstr "닫기"
 
-#: bottles/frontend/ui/preferences.blp:94
+#: bottles/frontend/ui/preferences.blp:104
 msgid "Close Bottles After Starting a Program"
 msgstr "프로그램 실행 이후 Bottles 닫기"
 
-#: bottles/frontend/ui/preferences.blp:95
+#: bottles/frontend/ui/preferences.blp:105
 msgid "Close Bottles after starting a program from the file manager."
 msgstr "파일 관리자에서 프로그램 실행한 후 Bottles를 종료합니다."
 
@@ -854,7 +858,7 @@ msgid "Committing state..."
 msgstr "커밋 상태..."
 
 #, python-brace-format
-#: bottles/backend/managers/eagle.py:345
+#: bottles/backend/managers/eagle.py:346
 msgid "Community match ({match}): {name}, tier {tier}, {reports} reports"
 msgstr "커뮤니티 일치({match}): {name}, 계층 {tier}, {reports} 보고서"
 
@@ -863,11 +867,11 @@ msgstr "커뮤니티 일치({match}): {name}, 계층 {tier}, {reports} 보고서
 msgid "Community reports needing a Media Foundation workaround (x{evidence})"
 msgstr "미디어 재단 해결 방법이 필요한 커뮤니티 보고서(x{evidence})"
 
-#: bottles/frontend/views/eagle.py:360
+#: bottles/frontend/views/eagle.py:363
 msgid "Community verdict"
 msgstr "커뮤니티 평결"
 
-#: bottles/frontend/ui/details-preferences.blp:317
+#: bottles/frontend/ui/details-preferences.blp:348
 msgid "Compatibility"
 msgstr "호환성"
 
@@ -875,11 +879,11 @@ msgstr "호환성"
 msgid "Compatibility Warnings"
 msgstr "호환성 경고"
 
-#: bottles/frontend/views/eagle.py:275
+#: bottles/frontend/views/eagle.py:278
 msgid "Compiler"
 msgstr "컴파일러"
 
-#: bottles/frontend/ui/dialog-installer.blp:176
+#: bottles/frontend/ui/dialog-installer.blp:180
 msgid "Completed!"
 msgstr "완료되었습니다!"
 
@@ -896,7 +900,7 @@ msgid "Component update suggestions"
 msgstr "구성요소 업데이트 제안"
 
 #, python-brace-format
-#: bottles/frontend/views/list.py:328
+#: bottles/frontend/views/list.py:333
 msgid "Component updates are available for {0} container."
 msgid_plural "Component updates are available for {0} containers."
 msgstr[0] ""
@@ -905,11 +909,11 @@ msgstr[0] ""
 msgid "Component version"
 msgstr "컴포넌트 버전"
 
-#: bottles/frontend/ui/bulk-update-dialog.blp:39 bottles/frontend/ui/details-preferences.blp:13
+#: bottles/frontend/ui/bulk-update-dialog.blp:39 bottles/frontend/ui/details-preferences.blp:44
 msgid "Components"
 msgstr "구성 요소"
 
-#: bottles/frontend/ui/preferences.blp:240
+#: bottles/frontend/ui/preferences.blp:250
 msgid "Components Repository"
 msgstr "구성 요소 저장소"
 
@@ -925,7 +929,7 @@ msgstr "구성 파일…"
 msgid "Configure Automatic Backups"
 msgstr "자동 백업 구성"
 
-#: bottles/backend/managers/manager.py:1671
+#: bottles/backend/managers/manager.py:1699
 msgid "Configuring audio driver…"
 msgstr "오디오 드라이버 구성 중…"
 
@@ -958,7 +962,11 @@ msgstr "Wine 실행 환경이 복제되었습니다"
 msgid "Container Duplication Failed"
 msgstr "Wine 실행 환경 복제 실패"
 
-#: bottles/frontend/main.py:110
+#: bottles/frontend/ui/preferences.blp:54
+msgid "Container Name"
+msgstr "컨테이너 이름"
+
+#: bottles/frontend/main.py:111
 msgid "Container UUID"
 msgstr "Wine 실행 환경 UUID"
 
@@ -998,7 +1006,7 @@ msgstr "제어판"
 msgid "Control which variables from your system are visible to programs inside this container"
 msgstr "이 Wine 실행 환경 안에 있는 프로그램에 시스템의 어떤 변수가 표시되는지 제어합니다."
 
-#: bottles/frontend/utils/flatpak.py:61 bottles/frontend/views/bottle_preferences.py:460
+#: bottles/frontend/utils/flatpak.py:61 bottles/frontend/views/bottle_preferences.py:468
 msgid "Copied to clipboard"
 msgstr "클립보드에 복사되었습니다."
 
@@ -1006,7 +1014,7 @@ msgstr "클립보드에 복사되었습니다."
 msgid "Copies the file into a temporary folder inside the container. Files stored next to it are not included, so it may not work fully."
 msgstr ""
 
-#: bottles/frontend/utils/flatpak.py:92 bottles/frontend/views/bottle_preferences.py:420 bottles/frontend/widgets/program.py:711
+#: bottles/frontend/utils/flatpak.py:92 bottles/frontend/views/bottle_preferences.py:427 bottles/frontend/widgets/program.py:730
 msgid "Copy command"
 msgstr ""
 
@@ -1022,7 +1030,7 @@ msgstr ""
 msgid "Copy to clipboard"
 msgstr "클립보드에 복사"
 
-#: bottles/backend/managers/dependency.py:300 bottles/backend/managers/dependency.py:301
+#: bottles/backend/managers/dependency.py:309 bottles/backend/managers/dependency.py:310
 msgid "Copying files…"
 msgstr ""
 
@@ -1031,16 +1039,20 @@ msgid "Copying into the container"
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/main.py:384
+#: bottles/frontend/main.py:388
 msgid "Copyright © 2017 {developer_name}"
 msgstr ""
 
+#: bottles/frontend/windows/playtimegraph.py:198
+msgid "Could Not Reset Usage Time Statistics"
+msgstr "사용 시간 통계를 재설정할 수 없습니다."
+
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:553
+#: bottles/frontend/widgets/program.py:572
 msgid "Could not access the desktop entry for \"{0}\""
 msgstr ""
 
-#: bottles/frontend/views/eagle.py:232
+#: bottles/frontend/views/eagle.py:235
 msgid "Could not analyse this file."
 msgstr ""
 
@@ -1049,7 +1061,7 @@ msgid "Could not copy the file into the container."
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:624
+#: bottles/frontend/widgets/program.py:643
 msgid "Could not create a Desktop Entry for \"{0}\""
 msgstr ""
 
@@ -1062,21 +1074,25 @@ msgstr ""
 msgid "Could not load the installer. Please try again."
 msgstr ""
 
+#: bottles/frontend/windows/display.py:90
+msgid "Could not read the DPI scaling mode."
+msgstr "DPI 스케일링 모드를 읽을 수 없습니다."
+
 #: bottles/frontend/views/bottle_details.py:839
 msgid "Could not remove the container."
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:528 bottles/frontend/widgets/program.py:657
+#: bottles/frontend/widgets/program.py:547 bottles/frontend/widgets/program.py:676
 msgid "Could not remove the desktop entry for \"{0}\""
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:761
+#: bottles/frontend/views/eagle.py:764
 msgid "Could not save the program: {0}"
 msgstr ""
 
-#: bottles/frontend/views/bottle_preferences.py:936
+#: bottles/frontend/views/bottle_preferences.py:977
 msgid "Could not switch to the selected runner."
 msgstr ""
 
@@ -1085,16 +1101,16 @@ msgid "Could not update Wine HIDRAW preferences"
 msgstr "Wine HIDRAW 기본 설정을 업데이트할 수 없습니다."
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:788
+#: bottles/frontend/widgets/program.py:807
 msgid "Could not update file associations for \"{0}\""
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:591
+#: bottles/frontend/widgets/program.py:610
 msgid "Could not update the desktop entry for \"{0}\""
 msgstr "\"{0}\"에 대한 데스크탑 항목을 업데이트할 수 없습니다."
 
-#: bottles/frontend/widgets/library.py:243
+#: bottles/frontend/widgets/library.py:244
 msgid "Cover image updated."
 msgstr "표지 이미지가 업데이트되었습니다."
 
@@ -1154,7 +1170,7 @@ msgstr "분기 생성 중..."
 msgid "Creating snapshot…"
 msgstr "스냅샷 생성 중..."
 
-#: bottles/backend/managers/manager.py:1838
+#: bottles/backend/managers/manager.py:1875
 msgid "Creating versioning state 0…"
 msgstr "버전 관리의 초기 상태를 만드는 중…"
 
@@ -1171,11 +1187,11 @@ msgstr "크레딧 및 라이선스"
 msgid "Critical"
 msgstr "치명적인"
 
-#: bottles/backend/utils/manager.py:912
+#: bottles/backend/utils/manager.py:945
 msgid "Croatian"
 msgstr "크로아티아어"
 
-#: bottles/frontend/views/eagle.py:437
+#: bottles/frontend/views/eagle.py:440
 msgid "Crypto and Hashing"
 msgstr "암호화 및 해싱"
 
@@ -1196,35 +1212,35 @@ msgstr "커스텀 인자"
 msgid "Custom Gamescope Options"
 msgstr "사용자 정의 Gamescope 옵션"
 
-#: bottles/frontend/ui/preferences.blp:241
+#: bottles/frontend/ui/preferences.blp:251
 msgid "Custom URL for components. Leave empty to use the default endpoint."
 msgstr "구성요소에 대한 사용자 정의 URL입니다. 기본 엔드포인트를 사용하려면 비워 두세요."
 
-#: bottles/frontend/ui/preferences.blp:247
+#: bottles/frontend/ui/preferences.blp:257
 msgid "Custom URL for dependencies. Leave empty to use the default endpoint."
 msgstr "종속성을 위한 사용자 정의 URL입니다. 기본 엔드포인트를 사용하려면 비워 두세요."
 
-#: bottles/frontend/ui/preferences.blp:253
+#: bottles/frontend/ui/preferences.blp:263
 msgid "Custom URL for installers. Leave empty to use the default endpoint."
 msgstr "설치 프로그램을 위한 사용자 정의 URL입니다. 기본 엔드포인트를 사용하려면 비워 두세요."
 
-#: bottles/backend/utils/manager.py:903
+#: bottles/backend/utils/manager.py:936
 msgid "Czech"
 msgstr "체코어"
 
-#: bottles/backend/managers/manager.py:1898 bottles/frontend/ui/details-preferences.blp:29
+#: bottles/backend/managers/manager.py:1935 bottles/frontend/ui/details-preferences.blp:60
 msgid "D7VK"
 msgstr "D7VK"
 
-#: bottles/frontend/ui/preferences.blp:421
+#: bottles/frontend/ui/preferences.blp:431
 msgid "DLL Components"
 msgstr "DLL 구성 요소"
 
-#: bottles/frontend/views/eagle.py:376
+#: bottles/frontend/views/eagle.py:379
 msgid "DLL Override"
 msgstr "DLL 재정의"
 
-#: bottles/frontend/ui/details-preferences.blp:424 bottles/frontend/ui/dialog-dll-overrides.blp:7 bottles/frontend/ui/dialog-dll-overrides.blp:12
+#: bottles/frontend/ui/details-preferences.blp:455 bottles/frontend/ui/dialog-dll-overrides.blp:7 bottles/frontend/ui/dialog-dll-overrides.blp:12
 msgid "DLL Overrides"
 msgstr "DLL 재정의"
 
@@ -1236,24 +1252,24 @@ msgstr "DLS denoise는 프레임의 노이즈를 줄입니다. 값이 높을수�
 msgid "DLS sharpness increases the sharpness of a frame. Higher values make the frame sharper."
 msgstr "DLS 선명도는 프레임의 선명도를 증가시킵니다. 값이 높을수록 프레임이 더 선명해집니다."
 
-#: bottles/backend/managers/manager.py:1904 bottles/frontend/ui/details-preferences.blp:42
+#: bottles/backend/managers/manager.py:1941 bottles/frontend/ui/details-preferences.blp:73
 msgid "DXVK"
 msgstr "DXVK"
 
-#: bottles/frontend/ui/details-preferences.blp:68
+#: bottles/frontend/ui/details-preferences.blp:99
 msgid "DXVK NVAPI"
 msgstr "DXVK NVAPI"
 
-#: bottles/frontend/windows/playtimegraph.py:176
+#: bottles/frontend/windows/playtimegraph.py:262
 msgid "Daily"
 msgstr "매일"
 
 #, python-brace-format
-#: bottles/frontend/windows/playtimegraph.py:164
+#: bottles/frontend/windows/playtimegraph.py:250
 msgid "Daily Average: {}"
 msgstr "일일 평균: {}"
 
-#: bottles/backend/utils/manager.py:904
+#: bottles/backend/utils/manager.py:937
 msgid "Danish"
 msgstr "덴마크어"
 
@@ -1269,11 +1285,11 @@ msgstr "다크 테마"
 msgid "Data Protection"
 msgstr "데이터 보호"
 
-#: bottles/frontend/main.py:370
+#: bottles/frontend/main.py:374
 msgid "Data derived from ProtonDB and winetricks"
 msgstr "ProtonDB 및 winetricks에서 파생된 데이터"
 
-#: bottles/frontend/views/eagle.py:410
+#: bottles/frontend/views/eagle.py:413
 msgid "Data license"
 msgstr "데이터 라이센스"
 
@@ -1289,23 +1305,27 @@ msgstr "디버거"
 msgid "Declining can cause instability, performance degradation, and incompatibilities with new Bottles releases."
 msgstr "거부하면 불안정성, 성능 저하 및 새로운 Bottles 릴리스와의 비호환성이 발생할 수 있습니다."
 
-#: bottles/frontend/ui/details-preferences.blp:340 bottles/frontend/ui/new-bottle-dialog.blp:116
+#: bottles/frontend/ui/details-preferences.blp:371 bottles/frontend/ui/new-bottle-dialog.blp:116
 msgid "Dedicated Sandbox"
 msgstr "전용 샌드박스"
 
-#: bottles/frontend/ui/details-preferences.blp:100
+#: bottles/frontend/ui/details-preferences.blp:131
 msgid "Deep Learning Super Sampling"
 msgstr "심층 학습 수퍼샘플링"
 
-#: bottles/frontend/ui/dialog-vkbasalt.blp:44
+#: bottles/frontend/ui/dialog-display.blp:137 bottles/frontend/ui/dialog-vkbasalt.blp:44
 msgid "Default"
 msgstr "기본값"
+
+#: bottles/frontend/ui/dialog-display.blp:132
+msgid "Default DPI Scaling Mode"
+msgstr "기본 DPI 스케일링 모드"
 
 #: bottles/frontend/ui/dialog-vkbasalt.blp:48
 msgid "Default Settings"
 msgstr "기본값 설정"
 
-#: bottles/frontend/ui/preferences.blp:196
+#: bottles/frontend/ui/preferences.blp:206
 msgid "Default Z: Drive in New Containers"
 msgstr "기본 Z: 새 Bottles의 드라이브"
 
@@ -1329,20 +1349,20 @@ msgstr "분기 삭제"
 msgid "Delete Container…"
 msgstr "Wine 실행 환경 삭제하기…"
 
-#: bottles/frontend/views/preferences.py:766
+#: bottles/frontend/views/preferences.py:777
 msgid "Delete all caches?"
 msgstr "모든 캐시를 삭제하시겠습니까?"
 
-#: bottles/frontend/views/preferences.py:788
+#: bottles/frontend/views/preferences.py:799
 msgid "Delete all prefix templates?"
 msgstr "모든 접두사 템플릿을 삭제하시겠습니까?"
 
-#: bottles/frontend/views/preferences.py:777
+#: bottles/frontend/views/preferences.py:788
 msgid "Delete temp cache?"
 msgstr "임시 캐시를 삭제하시겠습니까?"
 
 #, python-format
-#: bottles/frontend/views/preferences.py:799
+#: bottles/frontend/views/preferences.py:810
 msgid "Delete the %s template?"
 msgstr "%s 템플릿을 삭제하시겠습니까?"
 
@@ -1363,7 +1383,7 @@ msgstr "노이즈 제거 LUMA 샤프닝(DLS)"
 msgid "Dependencies"
 msgstr "의존성"
 
-#: bottles/frontend/ui/preferences.blp:246
+#: bottles/frontend/ui/preferences.blp:256
 msgid "Dependencies Repository"
 msgstr "종속성 저장소"
 
@@ -1395,21 +1415,21 @@ msgstr "의존성 이름"
 msgid "Description"
 msgstr "설명"
 
-#: bottles/frontend/widgets/program.py:747
+#: bottles/frontend/widgets/program.py:766
 msgid "Desktop Entry Could Not Be Created"
 msgstr "데스크탑 항목을 생성할 수 없습니다."
 
-#: bottles/frontend/widgets/program.py:733
+#: bottles/frontend/widgets/program.py:752
 msgid "Desktop Entry Created Manually"
 msgstr "수동으로 생성된 데스크탑 항목"
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:631
+#: bottles/frontend/widgets/program.py:650
 msgid "Desktop Entry created for \"{0}\""
 msgstr "\"{0}\"에 대한 데스크탑 항목이 생성되었습니다"
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:665
+#: bottles/frontend/widgets/program.py:684
 msgid "Desktop Entry removed for \"{0}\""
 msgstr "\"{0}\"에 대한 데스크탑 항목이 제거되었습니다."
 
@@ -1421,20 +1441,20 @@ msgstr "대상"
 msgid "Details"
 msgstr "자세한 정보"
 
-#: bottles/frontend/ui/preferences.blp:128
+#: bottles/frontend/ui/preferences.blp:138
 msgid "Detect Crashes"
 msgstr "충돌 감지"
 
-#: bottles/frontend/widgets/program.py:360
+#: bottles/frontend/widgets/program.py:378
 msgid "Did the app close unexpectedly?"
 msgstr "앱이 예기치 않게 종료되었습니까?"
 
-#: bottles/frontend/views/preferences.py:562
+#: bottles/frontend/views/preferences.py:573
 msgid "Directory"
 msgstr "디렉터리"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_preferences.py:656
+#: bottles/frontend/views/bottle_preferences.py:678
 msgid "Directory that contains the data of \"{}\"."
 msgstr "\"{}\"의 데이터를 포함하는 디렉터리."
 
@@ -1442,19 +1462,19 @@ msgstr "\"{}\"의 데이터를 포함하는 디렉터리."
 msgid "Disable the default Z: drive"
 msgstr "기본 Z: 드라이브 비활성화"
 
-#: bottles/frontend/ui/dialog-launch-options.blp:178 bottles/frontend/ui/dll-override-entry.blp:13 bottles/frontend/ui/preferences.blp:215 bottles/frontend/views/bottle_preferences.py:559 bottles/frontend/views/bottle_preferences.py:560 bottles/frontend/views/bottle_preferences.py:561 bottles/frontend/views/bottle_preferences.py:562 bottles/frontend/windows/launchoptions.py:455
+#: bottles/frontend/ui/dialog-launch-options.blp:178 bottles/frontend/ui/dll-override-entry.blp:13 bottles/frontend/ui/preferences.blp:225 bottles/frontend/views/bottle_preferences.py:567 bottles/frontend/views/bottle_preferences.py:568 bottles/frontend/views/bottle_preferences.py:569 bottles/frontend/views/bottle_preferences.py:570 bottles/frontend/windows/launchoptions.py:455
 msgid "Disabled"
 msgstr "비활성화"
 
-#: bottles/frontend/views/preferences.py:298
+#: bottles/frontend/views/preferences.py:302
 msgid "Disabled. Executables will run without being checked for threats."
 msgstr "비활성화되었습니다. 실행 파일은 위협을 확인하지 않고 실행됩니다."
 
-#: bottles/frontend/ui/details-preferences.blp:118
+#: bottles/frontend/ui/details-preferences.blp:149
 msgid "Discrete Graphics"
 msgstr "단독 GPU"
 
-#: bottles/frontend/ui/details-preferences.blp:96
+#: bottles/frontend/ui/details-preferences.blp:127
 msgid "Display"
 msgstr "디스플레이"
 
@@ -1470,19 +1490,19 @@ msgstr "게임 시작 시 표시"
 msgid "Display Settings"
 msgstr "디스플레이 설정"
 
-#: bottles/frontend/ui/details-preferences.blp:257
+#: bottles/frontend/ui/details-preferences.blp:288
 msgid "Display monitoring information such as framerate, temperatures, CPU/GPU load and more on OpenGL and Vulkan using MangoHud."
 msgstr "MangoHud를 이용해 프레임레이트, 온도, CPU/GPU 부하와 기타 OpenGL과 Vulkan 정보를 표시합니다."
 
-#: bottles/frontend/windows/display.py:118
+#: bottles/frontend/windows/display.py:139
 msgid "Display settings updated"
 msgstr "디스플레이 설정 업데이트됨"
 
-#: bottles/frontend/ui/preferences.blp:177
+#: bottles/frontend/ui/preferences.blp:187
 msgid "Display unstable versions of components and installers."
 msgstr "구성 요소 및 설치 프로그램의 불안정한 버전을 표시합니다."
 
-#: bottles/frontend/widgets/program.py:444
+#: bottles/frontend/widgets/program.py:462
 msgid "Do Not Run"
 msgstr "실행 안 함"
 
@@ -1515,7 +1535,7 @@ msgid "Downloading WineBridge…"
 msgstr "WineBridge 다운로드 중…"
 
 #, python-brace-format
-#: bottles/backend/managers/dependency.py:288
+#: bottles/backend/managers/dependency.py:297
 msgid "Downloading {0}..."
 msgstr "{0} 다운로드 중..."
 
@@ -1553,7 +1573,7 @@ msgstr "Wine 실행 환경 복제…"
 msgid "Duplicating…"
 msgstr "복제중…"
 
-#: bottles/backend/utils/manager.py:917
+#: bottles/backend/utils/manager.py:950
 msgid "Dutch"
 msgstr "네덜란드어"
 
@@ -1561,7 +1581,7 @@ msgstr "네덜란드어"
 msgid "Dynamic Link Libraries can be specified to be builtin (provided by Wine) or native (provided by the program)."
 msgstr "Dynamic Link Libraries는 내장(Wine으로 제공) 또는 네이티브(프로그램으로 제공)로 지정할 수 있습니다."
 
-#: bottles/frontend/ui/preferences.blp:115
+#: bottles/frontend/ui/preferences.blp:125
 msgid "Eagle"
 msgstr "Eagle"
 
@@ -1569,19 +1589,19 @@ msgstr "Eagle"
 msgid "Eagle Analysis"
 msgstr "Eagle 분석"
 
-#: bottles/frontend/views/eagle.py:978
+#: bottles/frontend/views/eagle.py:981
 msgid "Eagle Analysis Report"
 msgstr "Eagle 분석 보고서"
 
-#: bottles/frontend/ui/preferences.blp:221
+#: bottles/frontend/ui/preferences.blp:231
 msgid "Eagle Deep Scan Limit"
 msgstr "Eagle 정밀 스캔 제한"
 
-#: bottles/frontend/views/eagle.py:290 bottles/frontend/windows/eagleintel.py:31
+#: bottles/frontend/views/eagle.py:293 bottles/frontend/windows/eagleintel.py:31
 msgid "Eagle Intelligence"
 msgstr "Eagle 인텔리전스"
 
-#: bottles/frontend/main.py:369
+#: bottles/frontend/main.py:373
 msgid "Eagle Intelligence Data"
 msgstr "Eagle 인텔리전스 데이터"
 
@@ -1617,11 +1637,11 @@ msgstr "경계 감지"
 msgid "Edit"
 msgstr "편집"
 
-#: bottles/frontend/views/preferences.py:559
+#: bottles/frontend/views/preferences.py:570
 msgid "Edit Runner"
 msgstr "실행 편집"
 
-#: bottles/frontend/views/preferences.py:629 bottles/frontend/views/preferences.py:643
+#: bottles/frontend/views/preferences.py:640 bottles/frontend/views/preferences.py:654
 msgid "Edit Runner Registration"
 msgstr "실행기 등록 편집"
 
@@ -1649,7 +1669,7 @@ msgstr "활성화"
 msgid "Enable playtime tracking"
 msgstr "플레이 시간 추적 활성화"
 
-#: bottles/frontend/ui/details-preferences.blp:229
+#: bottles/frontend/ui/details-preferences.blp:260
 msgid "Enable synchronization to increase performance of multicore processors."
 msgstr "동기화를 활성화하여 멀티 코어 프로세서의 성능을 향상시킵니다."
 
@@ -1658,23 +1678,23 @@ msgid "Enable to use the window manager's decorations."
 msgstr "창 관리자의 장식을 사용할 수 있습니다."
 
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:679
+#: bottles/frontend/views/eagle.py:682
 msgid "Enable {0} for this container first"
 msgstr "먼저 이 Wine 실행 환경에 대해 {0}를 활성화합니다."
 
-#: bottles/backend/managers/manager.py:1665
+#: bottles/backend/managers/manager.py:1693
 msgid "Enabling font smoothing…"
 msgstr "글꼴 다듬기 활성화 중…"
 
-#: bottles/frontend/views/eagle.py:438
+#: bottles/frontend/views/eagle.py:441
 msgid "Engines and Frameworks"
 msgstr "엔진 및 프레임워크"
 
-#: bottles/backend/utils/manager.py:907
+#: bottles/backend/utils/manager.py:940
 msgid "English"
 msgstr "영어"
 
-#: bottles/backend/managers/manager.py:679
+#: bottles/backend/managers/manager.py:687
 msgid "Enter a runner name."
 msgstr "실행기 이름을 입력하세요."
 
@@ -1682,11 +1702,11 @@ msgstr "실행기 이름을 입력하세요."
 msgid "Enter file extensions separated by commas. Bottles will make this program available in the system Open With menu without changing your default application."
 msgstr "파일 확장자를 쉼표로 구분하여 입력하세요. Bottles는 기본 응용 프로그램을 변경하지 않고도 시스템 연결 프로그램 메뉴에서 이 프로그램을 사용할 수 있도록 합니다."
 
-#: bottles/frontend/views/eagle.py:370
+#: bottles/frontend/views/eagle.py:373
 msgid "Environment Variable"
 msgstr "환경 변수"
 
-#: bottles/frontend/ui/details-preferences.blp:437 bottles/frontend/ui/dialog-env-vars.blp:7
+#: bottles/frontend/ui/details-preferences.blp:468 bottles/frontend/ui/dialog-env-vars.blp:7
 msgid "Environment Variables"
 msgstr "환경 변수"
 
@@ -1699,12 +1719,12 @@ msgid "Epic Games listing"
 msgstr "Epic Games 목록"
 
 #, python-brace-format
-#: bottles/frontend/main.py:229
+#: bottles/frontend/main.py:232
 msgid "Error while processing URI: {0}"
 msgstr "URI 처리 중 오류 발생: {0}"
 
 #, python-brace-format
-#: bottles/frontend/main.py:195
+#: bottles/frontend/main.py:192
 msgid "Error while processing executable: {0}"
 msgstr "실행 파일 처리 중 오류 발생: {0}"
 
@@ -1712,23 +1732,23 @@ msgstr "실행 파일 처리 중 오류 발생: {0}"
 msgid "Errors"
 msgstr "에러"
 
-#: bottles/backend/utils/manager.py:909
+#: bottles/backend/utils/manager.py:942
 msgid "Estonian"
 msgstr "에스토니아어"
 
-#: bottles/frontend/ui/details-preferences.blp:235
+#: bottles/frontend/ui/details-preferences.blp:266
 msgid "Esync"
 msgstr "Esync"
 
-#: bottles/frontend/views/eagle.py:388
+#: bottles/frontend/views/eagle.py:391
 msgid "Evidence note"
 msgstr "증거 메모"
 
-#: bottles/frontend/views/eagle.py:337
+#: bottles/frontend/views/eagle.py:340
 msgid "Exact application name"
 msgstr "정확한 애플리케이션 이름"
 
-#: bottles/frontend/views/eagle.py:334
+#: bottles/frontend/views/eagle.py:337
 msgid "Exact binary hash match"
 msgstr "정확한 바이너리 해시 일치"
 
@@ -1736,7 +1756,7 @@ msgstr "정확한 바이너리 해시 일치"
 msgid "Exclusion Patterns"
 msgstr "제외 패턴"
 
-#: bottles/frontend/main.py:94
+#: bottles/frontend/main.py:95
 msgid "Executable path"
 msgstr "실행 파일 경로"
 
@@ -1768,21 +1788,21 @@ msgstr "내보내기"
 msgid "Export Configuration…"
 msgstr "설정 내보내기…"
 
-#: bottles/frontend/ui/details-preferences.blp:139
+#: bottles/frontend/ui/details-preferences.blp:170
 msgid "Expose HDR to games using DXVK. Requires native Wayland or Gamescope. Older NVIDIA drivers also need HdrWsi and ENABLE_HDR_WSI=1."
 msgstr "DXVK를 사용하여 게임에 HDR을 노출합니다. 기본 Wayland 또는 Gamescope가 필요합니다. 이전 NVIDIA 드라이버에도 HdrWsi 및 ENABLE_HDR_WSI=1이 필요합니다."
 
-#: bottles/frontend/ui/preferences.blp:197
+#: bottles/frontend/ui/preferences.blp:207
 msgid "Expose the filesystem, including your home directory, through Z:."
 msgstr "Z:를 통해 홈 디렉터리를 포함한 파일 시스템을 노출합니다."
 
 #, python-brace-format
-#: bottles/backend/managers/dependency.py:296
+#: bottles/backend/managers/dependency.py:305
 msgid "Extracting {0} from cabinet…"
 msgstr "캐비닛에서 {0}를 추출하는 중…"
 
 #, python-brace-format
-#: bottles/backend/managers/dependency.py:295
+#: bottles/backend/managers/dependency.py:304
 msgid "Extracting {0}…"
 msgstr "{0} 추출 중…"
 
@@ -1806,7 +1826,7 @@ msgstr "FXAA 품질 경계 임계값 최소값은 FXAA 알고리즘이 무시하
 msgid "FXAA subpixel quality decreases aliasing at the subpixel level. Higher values make the frame softer."
 msgstr "FXAA 서브픽셀 품질은 서브픽셀 수준에서 앨리어싱을 감소시킵니다. 값이 높을수록 프레임이 더 부드러워집니다."
 
-#: bottles/backend/managers/manager.py:1524 bottles/backend/managers/manager.py:1589
+#: bottles/backend/managers/manager.py:1543 bottles/backend/managers/manager.py:1608
 msgid "Failed to create container directory."
 msgstr "Wine 실행 환경 경로 생성에 실패했습니다."
 
@@ -1814,34 +1834,38 @@ msgstr "Wine 실행 환경 경로 생성에 실패했습니다."
 msgid "Failed to create snapshot: No space left on device."
 msgstr "스냅샷 생성 실패: 장치에 남은 공간이 없습니다."
 
-#: bottles/backend/managers/manager.py:1614
+#: bottles/backend/managers/manager.py:1631 bottles/backend/managers/manager.py:1642
 msgid "Failed to initialize the Wine prefix."
 msgstr "Wine 접두사를 초기화하지 못했습니다."
 
 #, python-format
-#: bottles/backend/managers/manager.py:1791 bottles/backend/managers/manager.py:1796
+#: bottles/backend/managers/manager.py:1826 bottles/backend/managers/manager.py:1831
 msgid "Failed to install dependency: %s"
 msgstr "종속성 설치 실패: %s"
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2416
+#: bottles/backend/managers/manager.py:2453
 msgid "Failed to install {0}."
 msgstr "{0}를 설치하지 못했습니다."
 
+#: bottles/backend/managers/manager.py:1616
+msgid "Failed to prepare the container user profile."
+msgstr "컨테이너 사용자 프로필을 준비하지 못했습니다."
+
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2416
+#: bottles/backend/managers/manager.py:2453
 msgid "Failed to remove {0}."
 msgstr "{0}를 제거하지 못했습니다."
 
-#: bottles/backend/managers/manager.py:2101
+#: bottles/backend/managers/manager.py:2138
 msgid "Failed to restore graphics components."
 msgstr "그래픽 구성 요소를 복원하지 못했습니다."
 
-#: bottles/backend/managers/manager.py:1625
+#: bottles/backend/managers/manager.py:1653
 msgid "Failed to sandbox the container user directory."
 msgstr "Wine 실행 환경 사용자 디렉터리를 샌드박스 처리하지 못했습니다."
 
-#: bottles/backend/managers/manager.py:2191
+#: bottles/backend/managers/manager.py:2228
 msgid "Failed to save and roll back the D7VK configuration."
 msgstr "D7VK 구성을 저장하고 롤백하지 못했습니다."
 
@@ -1854,7 +1878,7 @@ msgstr "{component} 업데이트 실패"
 msgid "Fast Approximate Anti-Aliasing"
 msgstr "고속 근사 안티 앨리어싱(FXAA)"
 
-#: bottles/frontend/ui/details-preferences.blp:276
+#: bottles/frontend/ui/details-preferences.blp:307
 msgid "Feral GameMode"
 msgstr "야생 게임 모드"
 
@@ -1877,7 +1901,7 @@ msgid "File Extensions"
 msgstr "파일 확장자"
 
 #, python-brace-format
-#: bottles/frontend/widgets/program.py:781
+#: bottles/frontend/widgets/program.py:800
 msgid "File associations updated for \"{0}\""
 msgstr "\"{0}\"에 대한 파일 연결이 업데이트되었습니다."
 
@@ -1893,15 +1917,15 @@ msgstr "파일 및 폴더"
 msgid "Files to cache"
 msgstr "캐시할 파일"
 
-#: bottles/backend/managers/dependency.py:492
+#: bottles/backend/managers/dependency.py:524
 msgid "Finalizing installation..."
 msgstr "설치를 마무리하는 중..."
 
-#: bottles/backend/managers/manager.py:1843
+#: bottles/backend/managers/manager.py:1880
 msgid "Finalizing…"
 msgstr "완료 중…"
 
-#: bottles/backend/utils/manager.py:910
+#: bottles/backend/utils/manager.py:943
 msgid "Finnish"
 msgstr "핀란드어"
 
@@ -1925,7 +1949,7 @@ msgstr "폴더 액세스 필요"
 msgid "Force Offline"
 msgstr "강제 오프라인"
 
-#: bottles/frontend/ui/preferences.blp:186
+#: bottles/frontend/ui/preferences.blp:196
 msgid "Force Offline Mode"
 msgstr "강제 오프라인 모드"
 
@@ -1941,11 +1965,11 @@ msgstr "모든 프로세스 강제 중지(기본 방법)"
 msgid "Force _Stop"
 msgstr "강제 종료"
 
-#: bottles/frontend/ui/preferences.blp:187
+#: bottles/frontend/ui/preferences.blp:197
 msgid "Force disable any network activity even with available network connection."
 msgstr "사용 가능한 네트워크 연결이 있어도 모든 네트워크 활동을 강제로 비활성화합니다."
 
-#: bottles/frontend/ui/details-preferences.blp:129
+#: bottles/frontend/ui/details-preferences.blp:160
 msgid "Force the experimental native Wayland driver instead of Xwayland. Requires a Wayland session."
 msgstr "Xwayland 대신 실험적인 기본 Wayland 드라이버를 강제합니다. Wayland 세션이 필요합니다."
 
@@ -1957,7 +1981,7 @@ msgstr "강제로 다크 테마를 사용합니다."
 msgid "Frame Generation"
 msgstr "프레임 생성"
 
-#: bottles/frontend/ui/details-preferences.blp:168
+#: bottles/frontend/ui/details-preferences.blp:199
 msgid "Frame Generation (Experimental)"
 msgstr "프레임 생성(실험적)"
 
@@ -1965,7 +1989,7 @@ msgstr "프레임 생성(실험적)"
 msgid "Frame Generation Settings"
 msgstr "프레임 생성 설정"
 
-#: bottles/frontend/ui/details-preferences.blp:243 bottles/frontend/ui/dialog-gamescope.blp:141
+#: bottles/frontend/ui/details-preferences.blp:274 bottles/frontend/ui/dialog-gamescope.blp:141
 msgid "Frame Rate Limit"
 msgstr "프레임 속도 제한"
 
@@ -1973,11 +1997,11 @@ msgstr "프레임 속도 제한"
 msgid "Frame Rate Limit When Unfocused"
 msgstr "초점이 맞지 않을 때의 프레임 속도 제한"
 
-#: bottles/backend/utils/manager.py:911
+#: bottles/backend/utils/manager.py:944
 msgid "French"
 msgstr "프랑스어"
 
-#: bottles/frontend/ui/details-preferences.blp:236
+#: bottles/frontend/ui/details-preferences.blp:267
 msgid "Fsync"
 msgstr "Fsync"
 
@@ -1997,7 +2021,7 @@ msgstr "전체 화면"
 msgid "Fullscreen Mouse Capture"
 msgstr "전체 화면 마우스 캡처"
 
-#: bottles/frontend/ui/dialog-display.blp:137
+#: bottles/frontend/ui/dialog-display.blp:150
 msgid "GL (Default)"
 msgstr "GL(기본값)"
 
@@ -2013,23 +2037,23 @@ msgstr "Gamescope"
 msgid "Gamescope Settings"
 msgstr "Gamescope 설정"
 
-#: bottles/frontend/utils/common.py:40 bottles/frontend/views/preferences.py:752
+#: bottles/frontend/utils/common.py:40 bottles/frontend/views/preferences.py:763
 msgid "Gaming"
 msgstr "게임"
 
-#: bottles/frontend/ui/preferences.blp:10 bottles/frontend/ui/preferences.blp:61
+#: bottles/frontend/ui/preferences.blp:10 bottles/frontend/ui/preferences.blp:71
 msgid "General"
 msgstr "일반"
 
-#: bottles/frontend/ui/details-preferences.blp:169
+#: bottles/frontend/ui/details-preferences.blp:200
 msgid "Generate additional frames with lsfg-vk. Only works with 64-bit Vulkan applications."
 msgstr "lsfg-vk를 사용하여 추가 프레임을 생성합니다. 64비트 Vulkan 애플리케이션에서만 작동합니다."
 
-#: bottles/backend/managers/manager.py:1533
+#: bottles/backend/managers/manager.py:1552
 msgid "Generating container configuration…"
 msgstr "Wine 실행 환경 구성 생성중…"
 
-#: bottles/backend/utils/manager.py:905
+#: bottles/backend/utils/manager.py:938
 msgid "German"
 msgstr "독일어"
 
@@ -2041,15 +2065,15 @@ msgstr "뒤로 가기"
 msgid "Got It"
 msgstr "알겠습니다"
 
-#: bottles/frontend/views/preferences.py:586
+#: bottles/frontend/views/preferences.py:597
 msgid "Grant Bottles direct access to the runner directory, then select it again."
 msgstr "Bottles에 실행기 디렉터리에 대한 직접 액세스 권한을 부여한 다음 다시 선택합니다."
 
-#: bottles/frontend/views/eagle.py:428
+#: bottles/frontend/views/eagle.py:431
 msgid "Graphics API"
 msgstr "그래픽 API"
 
-#: bottles/backend/utils/manager.py:906
+#: bottles/backend/utils/manager.py:939
 msgid "Greek"
 msgstr "그리스어"
 
@@ -2081,12 +2105,12 @@ msgstr "숨겨진 프로그램 숨기기"
 msgid "Hide Program"
 msgstr "프로그램 숨기기"
 
-#: bottles/frontend/ui/details-preferences.blp:138
+#: bottles/frontend/ui/details-preferences.blp:169
 msgid "High Dynamic Range"
 msgstr "높은 동적 범위"
 
 #, python-brace-format
-#: bottles/frontend/windows/playtimegraph.py:177
+#: bottles/frontend/windows/playtimegraph.py:263
 msgid "Hourly Average: {}"
 msgstr "시간별 평균: {}"
 
@@ -2094,7 +2118,7 @@ msgstr "시간별 평균: {}"
 msgid "How often to update session heartbeat. Defines max timestamp error for abrupt exits."
 msgstr "세션 하트비트를 업데이트하는 빈도입니다. 갑작스러운 종료에 대한 최대 타임스탬프 오류를 정의합니다."
 
-#: bottles/backend/utils/manager.py:913
+#: bottles/backend/utils/manager.py:946
 msgid "Hungarian"
 msgstr "헝가리어"
 
@@ -2102,7 +2126,7 @@ msgstr "헝가리어"
 msgid "I still want to report."
 msgstr "추가 보고."
 
-#: bottles/frontend/widgets/library.py:247
+#: bottles/frontend/widgets/library.py:248
 msgid "Images"
 msgstr "이미지"
 
@@ -2126,7 +2150,7 @@ msgstr "Wine 실행 환경 가져오기…"
 msgid "Import failed"
 msgstr "불러오기에 실패했습니다"
 
-#: bottles/frontend/views/eagle.py:335
+#: bottles/frontend/views/eagle.py:338
 msgid "Import hash match"
 msgstr "해시 일치 가져오기"
 
@@ -2134,23 +2158,23 @@ msgstr "해시 일치 가져오기"
 msgid "Importing full backup"
 msgstr "전체 백업 가져오기"
 
-#: bottles/frontend/ui/details-preferences.blp:56
+#: bottles/frontend/ui/details-preferences.blp:87
 msgid "Improve Direct3D 12 compatibility by translating it to Vulkan."
 msgstr "Vulkan으로 번역하여 Direct3D 12 호환성을 개선합니다."
 
-#: bottles/frontend/ui/details-preferences.blp:30
+#: bottles/frontend/ui/details-preferences.blp:61
 msgid "Improve Direct3D 3/5/6/7 compatibility for 32-bit applications by translating it to Vulkan."
 msgstr "Vulkan로 변환하여 32비트 응용 프로그램에 대한 Direct3D 3/5/6/7 호환성을 향상시킵니다."
 
-#: bottles/frontend/ui/details-preferences.blp:43
+#: bottles/frontend/ui/details-preferences.blp:74
 msgid "Improve Direct3D 8/9/10/11 compatibility by translating it to Vulkan."
 msgstr "Vulkan으로 번역하여 Direct3D 8/9/10/11 호환성을 개선합니다."
 
-#: bottles/frontend/ui/details-preferences.blp:287
+#: bottles/frontend/ui/details-preferences.blp:318
 msgid "Improve loading time when launching the game multiple times. The game will take longer to start for the first time."
 msgstr "게임을 여러 번 시작할수록 로딩 시간이 향상됩니다. 게임을 처음 시작하는 데 시간이 더 오래 걸립니다."
 
-#: bottles/frontend/ui/preferences.blp:350
+#: bottles/frontend/ui/preferences.blp:360
 msgid "Includes archives and extracted resources downloaded for components, dependencies, and installers."
 msgstr "구성 요소, 종속성 및 설치 프로그램에 대해 다운로드한 아카이브 및 추출된 리소스를 포함합니다."
 
@@ -2158,11 +2182,11 @@ msgstr "구성 요소, 종속성 및 설치 프로그램에 대해 다운로드�
 msgid "Incomplete package"
 msgstr "완전하지 않은 패키지"
 
-#: bottles/frontend/ui/details-preferences.blp:101
+#: bottles/frontend/ui/details-preferences.blp:132
 msgid "Increase performance at the expense of visuals using DXVK-NVAPI. Only works on newer NVIDIA GPUs."
 msgstr "DXVK-NVAPI를 이용해 화질은 비교적 떨어지지만 성능을 높입니다. 신형 엔비디아 GPU에서만 작동합니다."
 
-#: bottles/frontend/ui/details-preferences.blp:82
+#: bottles/frontend/ui/details-preferences.blp:113
 msgid "Increase responsiveness. Can be detected by some anti-cheat software."
 msgstr "응답성을 향상시킵니다. 몇몇 안티 치트 소프트웨어에서 감지될 수 있습니다."
 
@@ -2174,7 +2198,7 @@ msgstr "시스템 설정에 따라 텍스트 크기를 늘립니다."
 msgid "Info"
 msgstr "정보"
 
-#: bottles/frontend/views/eagle.py:432
+#: bottles/frontend/views/eagle.py:435
 msgid "Input"
 msgstr "입력"
 
@@ -2202,19 +2226,19 @@ msgstr "커뮤니티에서 제안된 프로그램을 설치합니다.\n\n이 페
 msgid "Install this Program"
 msgstr "이 프로그램 설치"
 
-#: bottles/frontend/views/bottle_preferences.py:160
+#: bottles/frontend/views/bottle_preferences.py:165
 msgid "Install vkbasalt-cli to edit vkBasalt settings."
 msgstr "vkBasalt 설정을 편집하려면 vkbasalt-cli를 설치하세요."
 
-#: bottles/frontend/ui/dialog-installer.blp:195
+#: bottles/frontend/ui/dialog-installer.blp:199
 msgid "Installation Failed!"
 msgstr "설치를 실패했습니다!"
 
-#: bottles/frontend/views/eagle.py:440
+#: bottles/frontend/views/eagle.py:443
 msgid "Installer Type"
 msgstr "설치 프로그램 유형"
 
-#: bottles/backend/managers/dependency.py:684
+#: bottles/backend/managers/dependency.py:755
 msgid "Installer completed."
 msgstr "설치 프로그램이 완료되었습니다."
 
@@ -2238,7 +2262,7 @@ msgstr "설치 프로그램 이름"
 msgid "Installers"
 msgstr "설치 프로그램"
 
-#: bottles/frontend/ui/preferences.blp:252
+#: bottles/frontend/ui/preferences.blp:262
 msgid "Installers Repository"
 msgstr "설치 프로그램 저장소"
 
@@ -2247,19 +2271,19 @@ msgstr "설치 프로그램 저장소"
 msgid "Installing \"{0}\"..."
 msgstr "\"{0}\" 설치 중..."
 
-#: bottles/backend/managers/manager.py:1816
+#: bottles/backend/managers/manager.py:1853
 msgid "Installing D7VK..."
 msgstr "D7VK 설치 중..."
 
-#: bottles/backend/managers/manager.py:1771
+#: bottles/backend/managers/manager.py:1806
 msgid "Installing DXVK-NVAPI…"
 msgstr "DXVK-NVAPI 설치 중…"
 
-#: bottles/backend/managers/manager.py:1740
+#: bottles/backend/managers/manager.py:1775
 msgid "Installing DXVK…"
 msgstr "DXVK 설치 중…"
 
-#: bottles/backend/managers/manager.py:1755
+#: bottles/backend/managers/manager.py:1790
 msgid "Installing VKD3D…"
 msgstr "VKD3D 설치 중…"
 
@@ -2268,7 +2292,7 @@ msgid "Installing Windows dependencies…"
 msgstr "Windows 의존성 설치…"
 
 #, python-format
-#: bottles/backend/managers/manager.py:1785
+#: bottles/backend/managers/manager.py:1820
 msgid "Installing dependency: %s …"
 msgstr "의존성 %s 다운로드 중…"
 
@@ -2277,12 +2301,12 @@ msgstr "의존성 %s 다운로드 중…"
 msgid "Installing dependency: {0}"
 msgstr "종속성 설치: {0}"
 
-#: bottles/backend/managers/dependency.py:293 bottles/backend/managers/dependency.py:294
+#: bottles/backend/managers/dependency.py:302 bottles/backend/managers/dependency.py:303
 msgid "Installing fonts…"
 msgstr "글꼴 설치 중…"
 
 #, python-brace-format
-#: bottles/backend/managers/dependency.py:412
+#: bottles/backend/managers/dependency.py:423
 msgid "Installing prerequisite “{0}”…"
 msgstr "필수 구성 요소 \"{0}\" 설치 중…"
 
@@ -2297,11 +2321,11 @@ msgid "Installing {0}…"
 msgstr "{0} 설치 중…"
 
 #, python-brace-format
-#: bottles/frontend/windows/dependency_install.py:47
+#: bottles/frontend/windows/dependency_install.py:50
 msgid "Installing “{0}”…"
 msgstr "“{0}” 설치 중…"
 
-#: bottles/frontend/widgets/component.py:227
+#: bottles/frontend/widgets/component.py:230
 msgid "Installing…"
 msgstr "설치 중…"
 
@@ -2309,15 +2333,15 @@ msgstr "설치 중…"
 msgid "Integer Scaling"
 msgstr "숫자로 조정"
 
-#: bottles/frontend/ui/preferences.blp:139
+#: bottles/frontend/ui/preferences.blp:149
 msgid "Integrations"
 msgstr "통합"
 
-#: bottles/frontend/main.py:210
+#: bottles/frontend/main.py:217
 msgid "Invalid URI (syntax: bottles:run/<bottle>/<program>)"
 msgstr "잘못된 URI (구문: bottles:run/<Wine 실행 환경>/<program>)"
 
-#: bottles/backend/managers/manager.py:2061
+#: bottles/backend/managers/manager.py:2098
 msgid "Invalid graphics component."
 msgstr "잘못된 그래픽 구성 요소입니다."
 
@@ -2325,7 +2349,7 @@ msgstr "잘못된 그래픽 구성 요소입니다."
 msgid "Issues that may prevent this program from running."
 msgstr "이 프로그램이 실행되지 못하게 할 수 있는 문제입니다."
 
-#: bottles/backend/utils/manager.py:914
+#: bottles/backend/utils/manager.py:947
 msgid "Italian"
 msgstr "이탈리아어"
 
@@ -2333,7 +2357,7 @@ msgstr "이탈리아어"
 msgid "Item name"
 msgstr "항목 이름"
 
-#: bottles/backend/utils/manager.py:928
+#: bottles/backend/utils/manager.py:961
 msgid "Japanese"
 msgstr "일본어"
 
@@ -2342,7 +2366,7 @@ msgid "Keyboard Shortcuts"
 msgstr "키보드 단축키"
 
 #, python-brace-format
-#: bottles/backend/managers/eagle.py:339
+#: bottles/backend/managers/eagle.py:340
 msgid "Known application ({match}): {name}"
 msgstr "알려진 애플리케이션({match}): {name}"
 
@@ -2351,28 +2375,28 @@ msgstr "알려진 애플리케이션({match}): {name}"
 msgid "Known application: {name} (winetricks verb '{verb}')"
 msgstr "알려진 응용 프로그램: {name}(winetricks 동사 '{verb}')"
 
-#: bottles/backend/utils/manager.py:930
+#: bottles/backend/utils/manager.py:963
 msgid "Korean"
 msgstr "한국어"
 
-#: bottles/frontend/ui/details-preferences.blp:332 bottles/frontend/ui/preferences.blp:28
+#: bottles/frontend/ui/details-preferences.blp:363 bottles/frontend/ui/preferences.blp:28
 msgid "Language"
 msgstr "언어"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:305
+#: bottles/frontend/ui/dialog-playtime-graph.blp:316
 msgid "Last Used"
 msgstr "마지막으로 재생됨"
 
 #, python-format
-#: bottles/frontend/utils/playtime.py:504
+#: bottles/frontend/utils/playtime.py:535
 msgid "Last Used: %s – Usage Time: %s"
 msgstr "마지막 플레이: %s – 플레이 시간: %s"
 
-#: bottles/backend/managers/manager.py:1922 bottles/frontend/ui/details-preferences.blp:81
+#: bottles/backend/managers/manager.py:1959 bottles/frontend/ui/details-preferences.blp:112
 msgid "LatencyFleX"
 msgstr "LatencyFleX(LFX)"
 
-#: bottles/backend/utils/manager.py:916
+#: bottles/backend/utils/manager.py:949
 msgid "Latvian"
 msgstr "라트비아어"
 
@@ -2380,7 +2404,7 @@ msgstr "라트비아어"
 msgid "Launch"
 msgstr "실행"
 
-#: bottles/frontend/views/eagle.py:382
+#: bottles/frontend/views/eagle.py:385
 msgid "Launch Argument"
 msgstr "인수 실행"
 
@@ -2405,22 +2429,22 @@ msgid "Launch with Terminal"
 msgstr "터미널로 실행"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_details.py:652 bottles/frontend/widgets/library.py:270 bottles/frontend/widgets/program.py:349
+#: bottles/frontend/views/bottle_details.py:652 bottles/frontend/widgets/library.py:271 bottles/frontend/widgets/program.py:367
 msgid "Launching \"{0}\"…"
 msgstr "\"{0}\" 실행중…"
 
 #, python-brace-format
-#: bottles/frontend/main.py:166
+#: bottles/frontend/main.py:167
 msgid "Launching with URI: {0}"
 msgstr "URI로 시작: {0}"
 
 #, python-brace-format
-#: bottles/frontend/main.py:161
+#: bottles/frontend/main.py:162
 msgid "Launching with executable: {0}"
 msgstr "실행 파일로 시작: {0}"
 
 #, python-brace-format
-#: bottles/frontend/views/list.py:131
+#: bottles/frontend/views/list.py:136
 msgid "Launching “{0}” in “{1}”…"
 msgstr "\"{1}\"에서 \"{0}\" 실행…"
 
@@ -2444,11 +2468,19 @@ msgstr "이 프로그램에 필요한 라이브러리 또는 런타임입니다.
 msgid "Library"
 msgstr "라이브러리"
 
+#: bottles/frontend/ui/preferences.blp:50
+msgid "Library Order"
+msgstr "라이브러리 주문"
+
+#: data/com.usebottles.bottles.gschema.xml
+msgid "Library sort order"
+msgstr "라이브러리 정렬 순서"
+
 #: bottles/frontend/ui/dependency-entry.blp:21
 msgid "License"
 msgstr "라이선스"
 
-#: bottles/frontend/ui/details-preferences.blp:244
+#: bottles/frontend/ui/details-preferences.blp:275
 msgid "Limit DXVK and VKD3D applications. Set to 0 to disable."
 msgstr "DXVK 및 VKD3D 애플리케이션을 제한합니다. 비활성화하려면 0으로 설정합니다."
 
@@ -2456,23 +2488,23 @@ msgstr "DXVK 및 VKD3D 애플리케이션을 제한합니다. 비활성화하려
 msgid "Limit system environment"
 msgstr "시스템 환경 제한"
 
-#: bottles/frontend/ui/preferences.blp:152
+#: bottles/frontend/ui/preferences.blp:162
 msgid "List Epic Games in Programs List"
 msgstr "프로그램 목록에 Epic Games 나열"
 
-#: bottles/frontend/ui/preferences.blp:142
+#: bottles/frontend/ui/preferences.blp:152
 msgid "List Steam Apps in Programs List"
 msgstr "프로그램 목록에 Steam 앱 나열"
 
-#: bottles/frontend/ui/preferences.blp:162
+#: bottles/frontend/ui/preferences.blp:172
 msgid "List Ubisoft Games in Programs List"
 msgstr "프로그램 목록에 Ubisoft Games 나열"
 
-#: bottles/backend/utils/manager.py:915
+#: bottles/backend/utils/manager.py:948
 msgid "Lithuanian"
 msgstr "리투아니아어"
 
-#: bottles/backend/managers/manager.py:291
+#: bottles/backend/managers/manager.py:292
 msgid "Loading containers…"
 msgstr "Wine 실행 환경 로드 중…"
 
@@ -2512,7 +2544,7 @@ msgstr "메인 메뉴"
 msgid "Manage Branches"
 msgstr "지점 관리"
 
-#: bottles/frontend/ui/details-preferences.blp:450
+#: bottles/frontend/ui/details-preferences.blp:481
 msgid "Manage Drives"
 msgstr "드라이브 관리"
 
@@ -2520,23 +2552,23 @@ msgstr "드라이브 관리"
 msgid "Manage File Associations..."
 msgstr "파일 연결 관리..."
 
-#: bottles/frontend/ui/details-preferences.blp:192
+#: bottles/frontend/ui/details-preferences.blp:223
 msgid "Manage Gamescope settings"
 msgstr "Gamescope 설정 관리"
 
-#: bottles/frontend/ui/details-preferences.blp:260
+#: bottles/frontend/ui/details-preferences.blp:291
 msgid "Manage MangoHud settings"
 msgstr "MangoHud 설정 관리"
 
-#: bottles/frontend/ui/details-preferences.blp:152
+#: bottles/frontend/ui/details-preferences.blp:183
 msgid "Manage Post-Processing Layer settings"
 msgstr "후처리 레이어 설정 관리"
 
-#: bottles/frontend/ui/preferences.blp:317
+#: bottles/frontend/ui/preferences.blp:327
 msgid "Manage cached files used to speed up downloads and container creation."
 msgstr "다운로드 및 Wine 실행 환경 생성 속도를 높이는 데 사용되는 캐시된 파일을 관리합니다."
 
-#: bottles/frontend/ui/details-preferences.blp:189
+#: bottles/frontend/ui/details-preferences.blp:220
 msgid "Manage how games should be displayed on the screen using Gamescope."
 msgstr "Gamescope을 사용하여 게임을 화면에 표시하는 방법 관리."
 
@@ -2544,7 +2576,7 @@ msgstr "Gamescope을 사용하여 게임을 화면에 표시하는 방법 관리
 msgid "Manage how games should be displayed."
 msgstr "게임 표시 방법 관리."
 
-#: bottles/frontend/ui/details-preferences.blp:172
+#: bottles/frontend/ui/details-preferences.blp:203
 msgid "Manage lsfg-vk settings"
 msgstr "lsfg-vk 설정 관리"
 
@@ -2552,11 +2584,11 @@ msgstr "lsfg-vk 설정 관리"
 msgid "Manage reusable registry tweaks."
 msgstr "재사용 가능한 레지스트리 조정을 관리합니다."
 
-#: bottles/frontend/ui/details-preferences.blp:344
+#: bottles/frontend/ui/details-preferences.blp:375
 msgid "Manage the Sandbox Permissions"
 msgstr "샌드박스 권한 관리"
 
-#: bottles/frontend/ui/details-preferences.blp:291
+#: bottles/frontend/ui/details-preferences.blp:322
 msgid "Manage vmtouch settings"
 msgstr "vmtouch 설정 관리"
 
@@ -2565,7 +2597,7 @@ msgid "MangoHud Settings"
 msgstr "MangoHud 설정"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:144 bottles/frontend/widgets/installer.py:85
+#: bottles/frontend/widgets/dependency.py:147 bottles/frontend/widgets/installer.py:85
 msgid "Manifest for {0}"
 msgstr "{0} 에 대한 Manifest"
 
@@ -2573,7 +2605,7 @@ msgstr "{0} 에 대한 Manifest"
 msgid "Manual Restore"
 msgstr "수동 복원"
 
-#: bottles/frontend/views/eagle.py:341
+#: bottles/frontend/views/eagle.py:344
 msgid "Match confidence"
 msgstr "일치 신뢰도"
 
@@ -2589,7 +2621,7 @@ msgstr "최대 탐색 단계"
 msgid "Max Search Steps Diagonal"
 msgstr "대각선 최대 탐색 단계"
 
-#: bottles/frontend/ui/preferences.blp:222
+#: bottles/frontend/ui/preferences.blp:232
 msgid "Maximum binaries to analyze when extracting installers."
 msgstr "설치 프로그램을 추출할 때 분석할 최대 바이너리입니다."
 
@@ -2597,7 +2629,7 @@ msgstr "설치 프로그램을 추출할 때 분석할 최대 바이너리입니
 msgid "Maximum number of binaries to scan when analysing installers. Higher values provide more thorough analysis but take longer."
 msgstr "설치 프로그램을 분석할 때 스캔할 최대 바이너리 수입니다. 값이 높을수록 더 철저한 분석이 제공되지만 시간이 더 오래 걸립니다."
 
-#: bottles/frontend/views/eagle.py:436
+#: bottles/frontend/views/eagle.py:439
 msgid "Media Playback"
 msgstr "미디어 재생"
 
@@ -2605,7 +2637,7 @@ msgstr "미디어 재생"
 msgid "Message"
 msgstr "메시지"
 
-#: bottles/frontend/views/eagle.py:261
+#: bottles/frontend/views/eagle.py:264
 msgid "Minimum OS Version"
 msgstr "최소 OS 버전"
 
@@ -2617,12 +2649,12 @@ msgstr "기타"
 msgid "Missing Runner"
 msgstr "실행기가 누락됨"
 
-#: bottles/frontend/ui/details-preferences.blp:256
+#: bottles/frontend/ui/details-preferences.blp:287
 msgid "Monitor Performance"
 msgstr "성능 출력"
 
 #, python-brace-format
-#: bottles/frontend/windows/playtimegraph.py:188
+#: bottles/frontend/windows/playtimegraph.py:274
 msgid "Monthly Average: {}"
 msgstr "월평균: {}"
 
@@ -2659,19 +2691,19 @@ msgstr "승수"
 msgid "My container"
 msgstr "내 Wine 실행 환경"
 
-#: bottles/frontend/ui/task-entry.blp:15 bottles/frontend/views/list.py:83 bottles/frontend/views/list.py:91
+#: bottles/frontend/ui/task-entry.blp:15 bottles/frontend/views/list.py:88 bottles/frontend/views/list.py:96
 msgid "N/A"
 msgstr "N/A"
 
-#: bottles/frontend/ui/details-preferences.blp:237
+#: bottles/frontend/ui/details-preferences.blp:268
 msgid "NTSync"
 msgstr "NTSync"
 
-#: bottles/backend/managers/manager.py:1916
+#: bottles/backend/managers/manager.py:1953
 msgid "NVAPI"
 msgstr "NVAPI"
 
-#: bottles/frontend/ui/details-preferences.blp:7 bottles/frontend/ui/dialog-duplicate.blp:40 bottles/frontend/ui/dialog-registry-rules.blp:25 bottles/frontend/ui/new-bottle-dialog.blp:45 bottles/frontend/views/preferences.py:561
+#: bottles/frontend/ui/details-preferences.blp:7 bottles/frontend/ui/dialog-duplicate.blp:40 bottles/frontend/ui/dialog-registry-rules.blp:25 bottles/frontend/ui/new-bottle-dialog.blp:45 bottles/frontend/views/preferences.py:572
 msgid "Name"
 msgstr "이름"
 
@@ -2687,15 +2719,15 @@ msgstr "네이티브 (Windows)"
 msgid "Native, then Builtin"
 msgstr "네이티브부터 사용"
 
-#: bottles/frontend/views/eagle.py:266
+#: bottles/frontend/views/eagle.py:269
 msgid "Needs Administrator"
 msgstr "관리자 필요"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:296 bottles/frontend/utils/playtime.py:460 bottles/frontend/windows/playtimegraph.py:286 bottles/frontend/windows/playtimegraph.py:281
+#: bottles/frontend/ui/dialog-playtime-graph.blp:307 bottles/frontend/utils/playtime.py:491 bottles/frontend/windows/playtimegraph.py:372 bottles/frontend/windows/playtimegraph.py:367
 msgid "Never"
 msgstr "절대 안 함"
 
-#: bottles/frontend/utils/playtime.py:494
+#: bottles/frontend/utils/playtime.py:525
 msgid "Never Used"
 msgstr "재생된 적이 없음"
 
@@ -2728,23 +2760,23 @@ msgstr "새로운 상태 [{0}] 가 성공적으로 생성되었습니다!"
 msgid "Next"
 msgstr "다음"
 
-#: bottles/frontend/windows/playtimegraph.py:103
+#: bottles/frontend/windows/playtimegraph.py:106
 msgid "Next Day"
 msgstr "다음 날"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:215 bottles/frontend/windows/playtimegraph.py:100
+#: bottles/frontend/ui/dialog-playtime-graph.blp:226 bottles/frontend/windows/playtimegraph.py:103
 msgid "Next Week"
 msgstr "다음 주"
 
-#: bottles/frontend/windows/playtimegraph.py:106
+#: bottles/frontend/windows/playtimegraph.py:109
 msgid "Next Year"
 msgstr "내년"
 
-#: bottles/frontend/views/eagle.py:267
+#: bottles/frontend/views/eagle.py:270
 msgid "No"
 msgstr "아니요"
 
-#: bottles/backend/managers/manager.py:2155 bottles/backend/managers/manager.py:2350
+#: bottles/backend/managers/manager.py:2192 bottles/backend/managers/manager.py:2387
 msgid "No D7VK version available."
 msgstr "D7VK 버전을 사용할 수 없습니다."
 
@@ -2752,11 +2784,11 @@ msgstr "D7VK 버전을 사용할 수 없습니다."
 msgid "No DLL selected"
 msgstr "DLL이 선택되지 않았습니다."
 
-#: bottles/backend/managers/manager.py:2083 bottles/backend/managers/manager.py:2359
+#: bottles/backend/managers/manager.py:2120 bottles/backend/managers/manager.py:2396
 msgid "No DXVK version available."
 msgstr "사용 가능한 DXVK 버전이 없습니다."
 
-#: bottles/frontend/windows/playtimegraph.py:362
+#: bottles/frontend/windows/playtimegraph.py:448
 msgid "No Data"
 msgstr "데이터 없음"
 
@@ -2768,11 +2800,11 @@ msgstr "HIDRAW 장치를 찾을 수 없습니다."
 msgid "No Installers Found"
 msgstr "설치 프로그램 없음"
 
-#: bottles/backend/managers/manager.py:2389
+#: bottles/backend/managers/manager.py:2426
 msgid "No LatencyFleX version available."
 msgstr "LatencyFleX 버전을 사용할 수 없습니다."
 
-#: bottles/backend/managers/manager.py:2377
+#: bottles/backend/managers/manager.py:2414
 msgid "No NVAPI version available."
 msgstr "사용 가능한 NVAPI 버전이 없습니다."
 
@@ -2792,11 +2824,11 @@ msgstr "스냅샷 없음"
 msgid "No Thumbnail"
 msgstr "썸네일 없음"
 
-#: bottles/backend/managers/manager.py:2368
+#: bottles/backend/managers/manager.py:2405
 msgid "No VKD3D version available."
 msgstr "VKD3D 버전을 사용할 수 없습니다."
 
-#: bottles/backend/managers/eagle.py:333
+#: bottles/backend/managers/eagle.py:334
 msgid "No community intelligence match"
 msgstr "커뮤니티 인텔리전스 일치 없음"
 
@@ -2816,7 +2848,7 @@ msgstr "정의된 제외 패턴이 없습니다."
 msgid "No files or folders selected"
 msgstr "선택한 파일 또는 폴더가 없습니다."
 
-#: bottles/backend/managers/manager.py:2070
+#: bottles/backend/managers/manager.py:2107
 msgid "No graphics component version available."
 msgstr "사용 가능한 그래픽 구성 요소 버전이 없습니다."
 
@@ -2832,7 +2864,7 @@ msgstr "경로 선택 안 됨"
 msgid "No rules yet"
 msgstr "아직 규칙이 없습니다."
 
-#: bottles/frontend/views/preferences.py:699
+#: bottles/frontend/views/preferences.py:710
 msgid "No templates cached yet."
 msgstr "아직 캐시된 템플릿이 없습니다."
 
@@ -2840,11 +2872,11 @@ msgstr "아직 캐시된 템플릿이 없습니다."
 msgid "No variables selected"
 msgstr "선택된 변수가 없습니다."
 
-#: bottles/backend/utils/manager.py:918
+#: bottles/backend/utils/manager.py:951
 msgid "Norwegian"
 msgstr "노르웨이어"
 
-#: bottles/frontend/widgets/program.py:372
+#: bottles/frontend/widgets/program.py:390
 msgid "Not Now"
 msgstr "지금은 아님"
 
@@ -2857,35 +2889,39 @@ msgstr "현재 연결되어 있지 않음"
 msgid "Not enough disk space to create a snapshot! Requires at least {0} of free space."
 msgstr "스냅샷을 생성할 디스크 공간이 부족합니다! 최소 {0} 이상의 여유 공간이 필요합니다."
 
-#: bottles/backend/managers/manager.py:1973
+#: bottles/backend/managers/manager.py:2010
 msgid "Not installed"
 msgstr "설치되지 않음"
+
+#: bottles/frontend/ui/details-preferences.blp:13
+msgid "Notes"
+msgstr "참고"
 
 #: bottles/backend/managers/versioning.py:177
 msgid "Nothing to commit"
 msgstr "기록할 내용이 없습니다"
 
-#: bottles/frontend/ui/preferences.blp:64 data/com.usebottles.bottles.gschema.xml
+#: bottles/frontend/ui/preferences.blp:74 data/com.usebottles.bottles.gschema.xml
 msgid "Notifications"
 msgstr "알림"
 
-#: bottles/frontend/ui/details-preferences.blp:307
+#: bottles/frontend/ui/details-preferences.blp:338
 msgid "OBS Game Capture"
 msgstr "OBS 게임 캡쳐"
 
-#: bottles/frontend/views/bottle_versioning.py:278
+#: bottles/frontend/views/bottle_versioning.py:278 bottles/frontend/windows/playtimegraph.py:201
 msgid "OK"
 msgstr "확인"
 
-#: bottles/frontend/ui/preferences.blp:214
+#: bottles/frontend/ui/preferences.blp:224
 msgid "OSS"
 msgstr "OSS"
 
-#: bottles/frontend/ui/preferences.blp:129 data/com.usebottles.bottles.gschema.xml
+#: bottles/frontend/ui/preferences.blp:139 data/com.usebottles.bottles.gschema.xml
 msgid "Offer an Eagle analysis when a program closes right after starting."
 msgstr "프로그램이 시작된 직후 닫힐 때 Eagle 분석을 제공합니다."
 
-#: bottles/frontend/views/bottle_preferences.py:274
+#: bottles/frontend/views/bottle_preferences.py:283
 msgid "Older NVIDIA drivers require HdrWsi and ENABLE_HDR_WSI=1 for HDR."
 msgstr "이전 NVIDIA 드라이버에는 HDR용 HdrWsi 및 ENABLE_HDR_WSI=1이 필요합니다."
 
@@ -2930,12 +2966,12 @@ msgid "Open the backup folder and copy a generation's files back into the contai
 msgstr "백업 폴더를 열고 세대의 파일을 다시 Wine 실행 환경에 복사합니다."
 
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:396
+#: bottles/frontend/views/eagle.py:399
 msgid "Open {0} data source"
 msgstr "{0} 데이터 소스 열기"
 
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:407
+#: bottles/frontend/views/eagle.py:410
 msgid "Open {0} license"
 msgstr "{0} 라이센스 열기"
 
@@ -2943,7 +2979,7 @@ msgstr "{0} 라이센스 열기"
 msgid "Operations"
 msgstr "운영"
 
-#: bottles/frontend/views/details.py:267
+#: bottles/frontend/views/details.py:268
 msgid "Operations in progress, please wait."
 msgstr "작업이 진행 중입니다. 잠시만 기다려 주세요."
 
@@ -2959,7 +2995,7 @@ msgstr "게임, 게임 엔진 및 3D 앱에 최적화됨"
 msgid "Optimized for productivity software"
 msgstr "생산성 소프트웨어에 최적화됨"
 
-#: bottles/backend/managers/manager.py:1683
+#: bottles/backend/managers/manager.py:1711
 msgid "Optimizing environment…"
 msgstr "환경 최적화 중…"
 
@@ -2967,24 +3003,24 @@ msgstr "환경 최적화 중…"
 msgid "Options"
 msgstr "옵션"
 
-#: bottles/backend/managers/manager.py:268
+#: bottles/backend/managers/manager.py:269
 msgid "Organizing components…"
 msgstr "구성 요소 구성 중…"
 
-#: bottles/backend/managers/manager.py:283
+#: bottles/backend/managers/manager.py:284
 msgid "Organizing dependencies…"
 msgstr "종속성 구성 중..."
 
-#: bottles/backend/managers/manager.py:288
+#: bottles/backend/managers/manager.py:289
 msgid "Organizing installers…"
 msgstr "설치 프로그램 구성 중…"
 
-#: bottles/frontend/ui/preferences.blp:237
+#: bottles/frontend/ui/preferences.blp:247
 msgid "Override the default repositories Bottles uses when downloading resources."
 msgstr "리소스를 다운로드할 때 Bottles가 사용하는 기본 리포지토리를 재정의합니다."
 
 #, python-brace-format
-#: bottles/backend/managers/eagle.py:430
+#: bottles/backend/managers/eagle.py:431
 msgid "Override {name}={value} (community evidence x{evidence})"
 msgstr "{name}={value} 재정의(커뮤니티 증거 x{evidence})"
 
@@ -2992,11 +3028,11 @@ msgstr "{name}={value} 재정의(커뮤니티 증거 x{evidence})"
 msgid "Overrides"
 msgstr "재정의"
 
-#: bottles/frontend/ui/preferences.blp:316
+#: bottles/frontend/ui/preferences.blp:326
 msgid "Overview"
 msgstr "개요"
 
-#: bottles/frontend/main.py:118
+#: bottles/frontend/main.py:119
 msgid "Pass arguments"
 msgstr "통과 인자들"
 
@@ -3016,7 +3052,7 @@ msgstr "Wine 실행 환경이 이동해도 Wine 실행 환경 내부 경로는 �
 msgid "Pattern"
 msgstr "패턴"
 
-#: bottles/frontend/ui/details-preferences.blp:226
+#: bottles/frontend/ui/details-preferences.blp:257
 msgid "Performance"
 msgstr "성능"
 
@@ -3028,7 +3064,7 @@ msgstr "성능 모드"
 msgid "Performing final checks…"
 msgstr "최종 확인 중…"
 
-#: bottles/frontend/views/eagle.py:435
+#: bottles/frontend/views/eagle.py:438
 msgid "Physics Engine"
 msgstr "물리 엔진"
 
@@ -3048,15 +3084,15 @@ msgstr "새로운 상태를 생성하기위해 새로운 버전 관리 시스템
 msgid "Please wait while WineBridge is downloading and installing."
 msgstr "WineBridge를 다운로드하고 설치하는 동안 잠시 기다려 주십시오."
 
-#: bottles/backend/utils/manager.py:919
+#: bottles/backend/utils/manager.py:952
 msgid "Polish"
 msgstr "폴란드어"
 
-#: bottles/backend/utils/manager.py:920
+#: bottles/backend/utils/manager.py:953
 msgid "Portuguese"
 msgstr "포르투갈어"
 
-#: bottles/frontend/ui/details-preferences.blp:148
+#: bottles/frontend/ui/details-preferences.blp:179
 msgid "Post-Processing Effects"
 msgstr "후처리 효과"
 
@@ -3073,11 +3109,11 @@ msgstr "실행 후 스크립트"
 msgid "Post-run Script Arguments"
 msgstr "실행 후 스크립트 인수"
 
-#: bottles/frontend/widgets/program.py:438
+#: bottles/frontend/widgets/program.py:456
 msgid "Potential threat detected"
 msgstr "잠재적인 위협이 감지되었습니다."
 
-#: bottles/frontend/ui/preferences.blp:176
+#: bottles/frontend/ui/preferences.blp:186
 msgid "Pre-Release"
 msgstr "사전 출시"
 
@@ -3101,39 +3137,39 @@ msgstr "기본 설정"
 msgid "Preferences Overrides"
 msgstr "기본 설정 재정의"
 
-#: bottles/frontend/ui/preferences.blp:382
+#: bottles/frontend/ui/preferences.blp:392
 msgid "Prefix templates"
 msgstr "접두사 템플릿"
 
-#: bottles/frontend/ui/details-preferences.blp:286
+#: bottles/frontend/ui/details-preferences.blp:317
 msgid "Preload Game Files"
 msgstr "게임 파일 미리 불러오기"
 
-#: bottles/backend/managers/manager.py:253
+#: bottles/backend/managers/manager.py:254
 msgid "Preparing WineBridge…"
 msgstr "WineBridge 준비 중…"
 
-#: bottles/backend/managers/manager.py:220
+#: bottles/backend/managers/manager.py:221
 msgid "Preparing folders…"
 msgstr "폴더 준비 중…"
 
-#: bottles/backend/managers/dependency.py:394
+#: bottles/backend/managers/dependency.py:405
 msgid "Preparing installation..."
 msgstr "설치 준비 중..."
 
-#: bottles/frontend/windows/dependency_install.py:48
+#: bottles/frontend/windows/dependency_install.py:51
 msgid "Preparing installation…"
 msgstr "설치 준비 중…"
 
-#: bottles/frontend/ui/dialog-installer.blp:117 bottles/frontend/windows/installer.py:213
+#: bottles/frontend/ui/dialog-installer.blp:121 bottles/frontend/windows/installer.py:213
 msgid "Preparing installer..."
 msgstr "설치 프로그램 준비 중..."
 
-#: bottles/backend/managers/manager.py:258
+#: bottles/backend/managers/manager.py:259
 msgid "Preparing runners…"
 msgstr "실행기 준비 중…"
 
-#: bottles/backend/managers/manager.py:248
+#: bottles/backend/managers/manager.py:249
 msgid "Preparing runtimes…"
 msgstr "런타임 준비 중…"
 
@@ -3149,23 +3185,23 @@ msgstr "사전 설정"
 msgid "Previous"
 msgstr "이전"
 
-#: bottles/frontend/windows/playtimegraph.py:102
+#: bottles/frontend/windows/playtimegraph.py:105
 msgid "Previous Day"
 msgstr "전날"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:194 bottles/frontend/windows/playtimegraph.py:99
+#: bottles/frontend/ui/dialog-playtime-graph.blp:205 bottles/frontend/windows/playtimegraph.py:102
 msgid "Previous Week"
 msgstr "이전 주"
 
-#: bottles/frontend/windows/playtimegraph.py:105
+#: bottles/frontend/windows/playtimegraph.py:108
 msgid "Previous Year"
 msgstr "전년도"
 
-#: bottles/frontend/views/eagle.py:338
+#: bottles/frontend/views/eagle.py:341
 msgid "Probable application name"
 msgstr "가능한 애플리케이션 이름"
 
-#: bottles/frontend/ui/dialog-installer.blp:64
+#: bottles/frontend/ui/dialog-installer.blp:67
 msgid "Proceed"
 msgstr "진행"
 
@@ -3173,13 +3209,17 @@ msgstr "진행"
 msgid "Processing installer steps…"
 msgstr "설치 프로그램 과정 처리 중…"
 
-#: bottles/frontend/views/eagle.py:246
+#: bottles/frontend/views/eagle.py:249
 msgid "Product Name"
 msgstr "제품 이름"
 
 #: bottles/frontend/ui/installer-entry.blp:69
 msgid "Program Menu"
 msgstr "프로그램 메뉴"
+
+#: bottles/frontend/ui/preferences.blp:53
+msgid "Program Name"
+msgstr "프로그램 이름"
 
 #: bottles/frontend/ui/program-entry.blp:91
 msgid "Program name"
@@ -3197,27 +3237,27 @@ msgstr "이 Wine 실행 환경에 있는 프로그램은 활성화된 동안 호
 msgid "Programs in this container can read controllers and global keystrokes while enabled."
 msgstr "이 Wine 실행 환경에 있는 프로그램은 활성화된 동안 컨트롤러와 전역 키 입력을 읽을 수 있습니다."
 
-#: bottles/frontend/views/eagle.py:433
+#: bottles/frontend/views/eagle.py:436
 msgid "Protection"
 msgstr "보호"
 
-#: bottles/frontend/main.py:372
+#: bottles/frontend/main.py:376
 msgid "ProtonDB community reports: ODbL 1.0, contents DbCL 1.0.\nwinetricks data: LGPL-2.1-or-later."
 msgstr "ProtonDB 커뮤니티 보고서: ODbL 1.0, 콘텐츠 DbCL 1.0.\nwinetricks 데이터: LGPL-2.1 이상."
 
-#: bottles/frontend/ui/details-preferences.blp:382
+#: bottles/frontend/ui/details-preferences.blp:413
 msgid "Provide a bundle of extra libraries for more compatibility with Steam games. Disable it if you run into issues."
 msgstr "Steam 게임과 호환성을 높이기 위해 추가 라이브러리 번들을 제공합니다. 문제가 발생하면 비활성화하십시오."
 
-#: bottles/frontend/ui/details-preferences.blp:361
+#: bottles/frontend/ui/details-preferences.blp:392
 msgid "Provide a bundle of extra libraries for more compatibility. Disable it if you run into issues."
 msgstr "더 많은 호환성을 위해 추가 라이브러리 번들을 제공합니다. 문제가 발생하면 비활성화하십시오."
 
-#: bottles/frontend/views/eagle.py:251
+#: bottles/frontend/views/eagle.py:254
 msgid "Publisher"
 msgstr "게시자"
 
-#: bottles/frontend/ui/preferences.blp:212
+#: bottles/frontend/ui/preferences.blp:222
 msgid "PulseAudio"
 msgstr "펄스오디오"
 
@@ -3229,7 +3269,7 @@ msgstr "품질 경계 임계값"
 msgid "Quality Edge Threshold Minimum"
 msgstr "품질 경계 임계값 최소값"
 
-#: bottles/backend/managers/eagle.py:978 bottles/backend/managers/eagle.py:610
+#: bottles/backend/managers/eagle.py:1010 bottles/backend/managers/eagle.py:624
 msgid "Querying community intelligence..."
 msgstr "커뮤니티 인텔리전스 쿼리 중..."
 
@@ -3245,11 +3285,11 @@ msgstr "종료"
 msgid "Quit and reopen Bottles to apply changes."
 msgstr "Bottles를 종료했다가 다시 열어 변경 사항을 적용합니다."
 
-#: bottles/frontend/views/preferences.py:448
+#: bottles/frontend/views/preferences.py:457
 msgid "Quit and reopen Bottles to apply the language."
 msgstr "Bottles를 종료했다가 다시 열어 언어를 적용합니다."
 
-#: bottles/frontend/views/eagle.py:420
+#: bottles/frontend/views/eagle.py:423
 msgid "Rating method"
 msgstr "평가 방법"
 
@@ -3277,7 +3317,7 @@ msgstr "재시작"
 msgid "Recommended Dependencies"
 msgstr "권장 종속성"
 
-#: bottles/frontend/ui/preferences.blp:105
+#: bottles/frontend/ui/preferences.blp:115
 msgid "Record usage time statistics for programs launched from Bottles."
 msgstr "Bottles에서 시작된 프로그램에 대한 재생 시간 통계를 기록합니다."
 
@@ -3285,7 +3325,7 @@ msgstr "Bottles에서 시작된 프로그램에 대한 재생 시간 통계를 �
 msgid "Refresh"
 msgstr "새로 고침"
 
-#: bottles/frontend/ui/preferences.blp:283 bottles/frontend/views/preferences.py:559
+#: bottles/frontend/ui/preferences.blp:293 bottles/frontend/views/preferences.py:570
 msgid "Register Runner"
 msgstr "실행기 등록"
 
@@ -3293,7 +3333,7 @@ msgstr "실행기 등록"
 msgid "Register a container in its current directory. Its files stay where they are."
 msgstr "현재 디렉터리에 Wine 실행 환경을 등록합니다. 해당 파일은 현재 위치에 유지됩니다."
 
-#: bottles/frontend/ui/preferences.blp:278
+#: bottles/frontend/ui/preferences.blp:288
 msgid "Register a name and an existing Wine directory. Bottles does not copy, update, or delete its files."
 msgstr "이름과 기존 Wine 디렉터리를 등록합니다. Bottles는 해당 파일을 복사, 업데이트 또는 삭제하지 않습니다."
 
@@ -3305,15 +3345,15 @@ msgstr "Wine 실행 환경을 만들기 전에 환경설정에 실행기를 등�
 msgid "Register an Existing Container"
 msgstr "기존 Wine 실행 환경 등록"
 
-#: bottles/backend/managers/dependency.py:306
+#: bottles/backend/managers/dependency.py:315
 msgid "Registering fonts…"
 msgstr "글꼴 등록 중…"
 
-#: bottles/backend/managers/dependency.py:303
+#: bottles/backend/managers/dependency.py:312
 msgid "Registering libraries…"
 msgstr "라이브러리 등록 중…"
 
-#: bottles/frontend/views/eagle.py:441
+#: bottles/frontend/views/eagle.py:444
 msgid "Registry"
 msgstr "레지스트리"
 
@@ -3341,7 +3381,7 @@ msgstr "레지스트리 규칙은 로컬에 저장되며 요청 시 Wine 실행 
 msgid "Reinstall"
 msgstr "재설치"
 
-#: bottles/frontend/views/preferences.py:352
+#: bottles/frontend/views/preferences.py:361
 msgid "Relaunch Bottles?"
 msgstr "Bottles를 다시 시작하시겠습니까?"
 
@@ -3353,7 +3393,7 @@ msgstr "릴리스 후보"
 msgid "Remove"
 msgstr "제거"
 
-#: bottles/frontend/widgets/program.py:690
+#: bottles/frontend/widgets/program.py:709
 msgid "Remove Desktop Entry"
 msgstr "데스크탑 항목 제거"
 
@@ -3361,23 +3401,23 @@ msgstr "데스크탑 항목 제거"
 msgid "Remove Old Components"
 msgstr "이전 구성 요소 제거"
 
-#: bottles/frontend/ui/preferences.blp:321
+#: bottles/frontend/ui/preferences.blp:331
 msgid "Remove every cached download and template. Bottles will recreate them when required, which may take longer."
 msgstr "캐시된 모든 다운로드 및 템플릿을 제거합니다. Bottles는 필요할 때 이를 다시 생성하므로 시간이 더 오래 걸릴 수 있습니다."
 
-#: bottles/frontend/ui/preferences.blp:387
+#: bottles/frontend/ui/preferences.blp:397
 msgid "Remove every cached prefix template. Bottles will rebuild them when a new container is created, which may take longer."
 msgstr "캐시된 모든 접두사 템플릿을 제거합니다. Bottles는 새 Wine 실행 환경이 생성될 때 이를 재구축하므로 시간이 더 오래 걸릴 수 있습니다."
 
-#: bottles/frontend/ui/library-entry.blp:121 bottles/frontend/widgets/program.py:877
+#: bottles/frontend/ui/library-entry.blp:121 bottles/frontend/widgets/program.py:896
 msgid "Remove from Library"
 msgstr "라이브러리에서 제거"
 
-#: bottles/frontend/ui/program-entry.blp:79 bottles/frontend/views/list.py:249
+#: bottles/frontend/ui/program-entry.blp:79 bottles/frontend/views/list.py:254
 msgid "Remove from List"
 msgstr "목록에서 제거"
 
-#: bottles/frontend/views/preferences.py:633
+#: bottles/frontend/views/preferences.py:644
 msgid "Remove from list (keep files)"
 msgstr "목록에서 제거(파일 유지)"
 
@@ -3385,11 +3425,11 @@ msgstr "목록에서 제거(파일 유지)"
 msgid "Remove this container from your list, or permanently delete its directory and all files."
 msgstr "목록에서 이 Wine 실행 환경을 제거하거나 해당 디렉토리와 모든 파일을 영구적으로 삭제하십시오."
 
-#: bottles/frontend/views/preferences.py:789
+#: bottles/frontend/views/preferences.py:800
 msgid "Removing all prefix templates will slow down the next container creation while Bottles rebuilds them."
 msgstr "모든 접두사 템플릿을 제거하면 Bottles가 다시 작성하는 동안 다음 Wine 실행 환경 생성 속도가 느려집니다."
 
-#: bottles/frontend/views/preferences.py:767
+#: bottles/frontend/views/preferences.py:778
 msgid "Removing every cache will make Bottles re-download resources and rebuild templates, which can take longer."
 msgstr "모든 캐시를 제거하면 Bottles가 리소스를 다시 다운로드하고 템플릿을 다시 작성하므로 시간이 더 오래 걸릴 수 있습니다."
 
@@ -3401,11 +3441,11 @@ msgstr "이름 변경"
 msgid "Rename…"
 msgstr "이름 바꾸기…"
 
-#: bottles/frontend/ui/dialog-display.blp:132
+#: bottles/frontend/ui/dialog-display.blp:145
 msgid "Renderer"
 msgstr "렌더러"
 
-#: bottles/backend/managers/dependency.py:307
+#: bottles/backend/managers/dependency.py:316
 msgid "Replacing fonts…"
 msgstr "글꼴 교체 중…"
 
@@ -3426,31 +3466,39 @@ msgstr "문제 또는 누락된 의존성을 보고합니다."
 msgid "Reports mention winetricks verb '{verb}' (x{evidence})"
 msgstr "보고서에는 winetricks 동사 '{verb}'(x{evidence})가 언급되어 있습니다."
 
-#: bottles/frontend/ui/preferences.blp:236
+#: bottles/frontend/ui/preferences.blp:246
 msgid "Repositories"
 msgstr "저장소"
 
-#: bottles/frontend/ui/preferences.blp:153
+#: bottles/frontend/ui/preferences.blp:163
 msgid "Requires Epic Games Store installed in the container."
 msgstr "Wine 실행 환경에 Epic Games Store가 설치되어 있어야 합니다."
 
-#: bottles/frontend/ui/preferences.blp:143
+#: bottles/frontend/ui/preferences.blp:153
 msgid "Requires Steam for Windows installed in the container."
 msgstr "Wine 실행 환경에 Windows용 Steam이 설치되어 있어야 합니다."
 
-#: bottles/frontend/ui/preferences.blp:163
+#: bottles/frontend/ui/preferences.blp:173
 msgid "Requires Ubisoft Connect installed in the container."
 msgstr "Wine 실행 환경에 Ubisoft Connect가 설치되어 있어야 합니다."
 
-#: bottles/frontend/ui/dialog-program-backups.blp:82
+#: bottles/frontend/ui/dialog-program-backups.blp:82 bottles/frontend/windows/playtimegraph.py:137
 msgid "Reset"
 msgstr "재설정"
+
+#: bottles/frontend/ui/dialog-playtime-graph.blp:56
+msgid "Reset Usage Time Statistics"
+msgstr "사용 시간 통계 재설정"
+
+#: bottles/frontend/windows/playtimegraph.py:130
+msgid "Reset Usage Time Statistics?"
+msgstr "사용 시간 통계를 재설정하시겠습니까?"
 
 #: bottles/frontend/ui/dialog-launch-options.blp:208
 msgid "Reset to Container's Defaults"
 msgstr "기본값으로 재설정"
 
-#: bottles/frontend/ui/details-preferences.blp:395 bottles/frontend/ui/dialog-launch-options.blp:76 bottles/frontend/ui/dialog-launch-options.blp:113 bottles/frontend/ui/dialog-launch-options.blp:150 bottles/frontend/ui/new-bottle-dialog.blp:160
+#: bottles/frontend/ui/details-preferences.blp:426 bottles/frontend/ui/dialog-launch-options.blp:76 bottles/frontend/ui/dialog-launch-options.blp:113 bottles/frontend/ui/dialog-launch-options.blp:150 bottles/frontend/ui/new-bottle-dialog.blp:160
 msgid "Reset to Default"
 msgstr "기본값으로 재설정"
 
@@ -3491,7 +3539,7 @@ msgstr "상태를 복원하는 중..."
 msgid "Restoring this state will overwrite the current configuration and cannot be undone."
 msgstr "이 상태를 복원하면 현재 구성을 덮어쓰게 되며 취소할 수 없습니다."
 
-#: bottles/frontend/views/details.py:274
+#: bottles/frontend/views/details.py:275
 msgid "Return to your containers."
 msgstr "Wine 실행 환경으로 돌아가세요."
 
@@ -3504,7 +3552,7 @@ msgstr "검토"
 msgid "Review for {0}"
 msgstr "{0}에 대한 리뷰"
 
-#: bottles/backend/utils/manager.py:921
+#: bottles/backend/utils/manager.py:954
 msgid "Romanian"
 msgstr "루마니아어"
 
@@ -3516,16 +3564,16 @@ msgstr "규칙 세부정보"
 msgid "Rule name"
 msgstr "규칙 이름"
 
-#: bottles/frontend/ui/dialog-run-args.blp:33 bottles/frontend/utils/sandbox_guard.py:172 bottles/frontend/views/bottle_details.py:671 bottles/frontend/views/list.py:146
+#: bottles/frontend/ui/dialog-run-args.blp:33 bottles/frontend/utils/sandbox_guard.py:172 bottles/frontend/views/bottle_details.py:671 bottles/frontend/views/list.py:151
 msgid "Run"
 msgstr "실행"
 
-#: bottles/frontend/widgets/program.py:445
+#: bottles/frontend/widgets/program.py:463
 msgid "Run Anyway"
 msgstr "어쨌든 실행"
 
 #, python-brace-format
-#: bottles/frontend/views/list.py:109
+#: bottles/frontend/views/list.py:114
 msgid "Run Executable in “{0}”"
 msgstr "\"{0}\"에서 실행 파일 실행"
 
@@ -3573,25 +3621,26 @@ msgstr "호스트에서 다음 명령을 실행합니다."
 msgid "Run without the dedicated sandbox"
 msgstr "전용 샌드박스 없이 실행"
 
-#: bottles/frontend/ui/details-bottle.blp:232 bottles/frontend/ui/details-preferences.blp:16 bottles/frontend/ui/new-bottle-dialog.blp:109
+#: bottles/frontend/ui/details-bottle.blp:232 bottles/frontend/ui/details-preferences.blp:47 bottles/frontend/ui/new-bottle-dialog.blp:109
 msgid "Runner"
 msgstr "실행기"
 
-#: bottles/frontend/ui/preferences.blp:261
+#: bottles/frontend/ui/preferences.blp:271
 msgid "Runners"
 msgstr "실행기"
 
-#: bottles/backend/managers/dependency.py:310
-msgid "Running uninstaller…"
-msgstr "제거 프로그램 실행 중..."
+#, python-brace-format
+#: bottles/backend/managers/dependency.py:319
+msgid "Running uninstaller ({0})…"
+msgstr "제거 프로그램 실행 중({0})…"
 
 #, python-brace-format
-#: bottles/backend/managers/dependency.py:314 bottles/frontend/windows/installer.py:289
+#: bottles/backend/managers/dependency.py:325 bottles/frontend/windows/installer.py:289
 msgid "Running {0}..."
 msgstr "{0} 실행 중..."
 
 #, python-brace-format
-#: bottles/backend/managers/dependency.py:291 bottles/backend/managers/dependency.py:292
+#: bottles/backend/managers/dependency.py:300 bottles/backend/managers/dependency.py:301
 msgid "Running {0}…"
 msgstr "{0} 실행 중…"
 
@@ -3599,11 +3648,11 @@ msgstr "{0} 실행 중…"
 msgid "Runs with the same access as Bottles, without the extra isolation."
 msgstr "추가 격리 없이 Bottles와 동일한 액세스로 실행됩니다."
 
-#: bottles/frontend/views/eagle.py:430
+#: bottles/frontend/views/eagle.py:433
 msgid "Runtimes and Libraries"
 msgstr "런타임 및 라이브러리"
 
-#: bottles/backend/utils/manager.py:922
+#: bottles/backend/utils/manager.py:955
 msgid "Russian"
 msgstr "러시아어"
 
@@ -3627,9 +3676,13 @@ msgstr "SMAA 임계값은 경계 감지의 민감도를 지정합니다. 값이 
 msgid "Sandbox Settings"
 msgstr "샌드박스 설정"
 
-#: bottles/frontend/ui/dialog-display.blp:32 bottles/frontend/ui/dialog-gamescope.blp:31 bottles/frontend/ui/dialog-launch-options.blp:33 bottles/frontend/ui/dialog-lsfg-vk.blp:32 bottles/frontend/ui/dialog-mangohud.blp:32 bottles/frontend/ui/dialog-rename.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:34 bottles/frontend/ui/dialog-vmtouch.blp:31 bottles/frontend/views/preferences.py:570
+#: bottles/frontend/ui/dialog-display.blp:32 bottles/frontend/ui/dialog-gamescope.blp:31 bottles/frontend/ui/dialog-launch-options.blp:33 bottles/frontend/ui/dialog-lsfg-vk.blp:32 bottles/frontend/ui/dialog-mangohud.blp:32 bottles/frontend/ui/dialog-rename.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:34 bottles/frontend/ui/dialog-vmtouch.blp:31 bottles/frontend/views/preferences.py:581
 msgid "Save"
 msgstr "저장"
+
+#: bottles/frontend/ui/details-preferences.blp:36
+msgid "Save Notes"
+msgstr "메모 저장"
 
 #: bottles/frontend/ui/dialog-registry-rules.blp:89
 msgid "Save Rule"
@@ -3639,7 +3692,7 @@ msgstr "규칙 저장"
 msgid "Scale Bottles text relative to the system font size."
 msgstr "시스템 글꼴 크기를 기준으로 Bottles 텍스트의 크기를 조정합니다."
 
-#: bottles/frontend/ui/preferences.blp:118
+#: bottles/frontend/ui/preferences.blp:128
 msgid "Scan Files for Threats"
 msgstr "파일에서 위협 검색"
 
@@ -3647,7 +3700,7 @@ msgstr "파일에서 위협 검색"
 msgid "Scan executables for malware patterns before running them."
 msgstr "실행하기 전에 실행 파일에서 맬웨어 패턴을 검색합니다."
 
-#: bottles/frontend/widgets/program.py:373
+#: bottles/frontend/widgets/program.py:391
 msgid "Scan with Eagle"
 msgstr "Eagle로 스캔"
 
@@ -3703,7 +3756,7 @@ msgstr "구성 선택"
 msgid "Select Container"
 msgstr "Wine 실행 환경 선택"
 
-#: bottles/frontend/widgets/library.py:254
+#: bottles/frontend/widgets/library.py:255
 msgid "Select Cover Image"
 msgstr "표지 이미지 선택"
 
@@ -3715,7 +3768,7 @@ msgstr "디렉터리 선택"
 msgid "Select Drive Path"
 msgstr "드라이브 경로 선택"
 
-#: bottles/frontend/views/bottle_details.py:348 bottles/frontend/views/bottle_details.py:668 bottles/frontend/views/list.py:143
+#: bottles/frontend/views/bottle_details.py:348 bottles/frontend/views/bottle_details.py:668 bottles/frontend/views/list.py:148
 msgid "Select Executable"
 msgstr "실행 파일 선택"
 
@@ -3751,11 +3804,11 @@ msgstr "실행 전 스크립트 선택"
 msgid "Select Resource File"
 msgstr "리소스 파일 선택"
 
-#: bottles/frontend/views/preferences.py:564 bottles/frontend/views/preferences.py:591
+#: bottles/frontend/views/preferences.py:575 bottles/frontend/views/preferences.py:602
 msgid "Select Runner Directory"
 msgstr "실행기 디렉토리 선택"
 
-#: bottles/frontend/views/bottle_preferences.py:502 bottles/frontend/windows/launchoptions.py:438
+#: bottles/frontend/views/bottle_preferences.py:510 bottles/frontend/windows/launchoptions.py:438
 msgid "Select Working Directory"
 msgstr "작업 디렉터리 선택"
 
@@ -3771,7 +3824,7 @@ msgstr "구성 파일 선택"
 msgid "Select a backup folder and at least one file or folder."
 msgstr "백업 폴더와 하나 이상의 파일 또는 폴더를 선택합니다."
 
-#: bottles/backend/managers/manager.py:683
+#: bottles/backend/managers/manager.py:691
 msgid "Select a permanent runner directory, not a document portal path."
 msgstr "문서 포털 경로가 아닌 영구 실행기 디렉터리를 선택하세요."
 
@@ -3783,7 +3836,7 @@ msgstr "빈 Wine 실행 환경 디렉터리 선택"
 msgid "Select an Existing Container"
 msgstr "기존 Wine 실행 환경 선택"
 
-#: bottles/backend/managers/manager.py:681
+#: bottles/backend/managers/manager.py:689
 msgid "Select an absolute runner directory."
 msgstr "절대 실행기 디렉터리를 선택합니다."
 
@@ -3803,7 +3856,7 @@ msgstr "백업 데이터를 저장할 위치 선택하세요"
 msgid "Select the location where to save the backup config"
 msgstr "백업 구성 파일을 저장할 위치를 선택하세요"
 
-#: bottles/frontend/ui/dialog-display.blp:133
+#: bottles/frontend/ui/dialog-display.blp:146
 msgid "Select what backend to use for wined3d."
 msgstr "wined3d에 사용할 백엔드를 선택하세요."
 
@@ -3823,7 +3876,7 @@ msgstr "기본 실행 파일과 함께 캐시되어야 하는 파일을 선택�
 msgid "Send Report"
 msgstr "버그 신고"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:282
+#: bottles/frontend/ui/dialog-playtime-graph.blp:293
 msgid "Sessions"
 msgstr "세션"
 
@@ -3832,31 +3885,31 @@ msgid "Set custom DPI."
 msgstr "사용자 정의 DPI를 설정합니다."
 
 #, python-brace-format
-#: bottles/backend/managers/eagle.py:414
+#: bottles/backend/managers/eagle.py:415
 msgid "Set {name}={value} (community evidence x{evidence})"
 msgstr "{name}={value} 설정(커뮤니티 증거 x{evidence})"
 
-#: bottles/backend/managers/manager.py:1647
+#: bottles/backend/managers/manager.py:1675
 msgid "Setting Windows version…"
 msgstr "Windows 버전 설정 중…"
 
-#: bottles/backend/managers/manager.py:223
+#: bottles/backend/managers/manager.py:224
 msgid "Setting up D7VK..."
 msgstr "D7VK 설정 중..."
 
-#: bottles/backend/managers/manager.py:228
+#: bottles/backend/managers/manager.py:229
 msgid "Setting up DXVK…"
 msgstr "DXVK 설정 중…"
 
-#: bottles/backend/managers/manager.py:243
+#: bottles/backend/managers/manager.py:244
 msgid "Setting up LatencyFleX…"
 msgstr "LatencyFleX 설정 중…"
 
-#: bottles/backend/managers/manager.py:238
+#: bottles/backend/managers/manager.py:239
 msgid "Setting up NVAPI…"
 msgstr "NVAPI 설정 중..."
 
-#: bottles/backend/managers/manager.py:233
+#: bottles/backend/managers/manager.py:234
 msgid "Setting up VKD3D…"
 msgstr "VKD3D 설정 중…"
 
@@ -3892,11 +3945,11 @@ msgstr "샤프닝 강도"
 msgid "Sharpness"
 msgstr "선명도"
 
-#: bottles/frontend/ui/preferences.blp:74
+#: bottles/frontend/ui/preferences.blp:84
 msgid "Show Component Updates"
 msgstr "구성 요소 업데이트 표시"
 
-#: bottles/frontend/ui/dialog-installer.blp:133 bottles/frontend/windows/installer.py:326
+#: bottles/frontend/ui/dialog-installer.blp:137 bottles/frontend/windows/installer.py:326
 msgid "Show Details"
 msgstr "세부 정보 표시"
 
@@ -3920,19 +3973,19 @@ msgstr "Manifest 표시…"
 msgid "Show Program"
 msgstr "프로그램 보기"
 
-#: bottles/frontend/ui/dialog-installer.blp:179
+#: bottles/frontend/ui/dialog-installer.blp:183
 msgid "Show Programs"
 msgstr "프로그램 보이기"
 
-#: bottles/frontend/ui/preferences.blp:50
+#: bottles/frontend/ui/preferences.blp:60
 msgid "Show Update Date"
 msgstr "업데이트 날짜 표시"
 
-#: bottles/frontend/ui/preferences.blp:75
+#: bottles/frontend/ui/preferences.blp:85
 msgid "Show component update suggestions for all containers."
 msgstr "모든 Wine 실행 환경에 대한 구성 요소 업데이트 제안을 표시합니다."
 
-#: bottles/frontend/ui/preferences.blp:65
+#: bottles/frontend/ui/preferences.blp:75
 msgid "Show notifications for downloads and installs."
 msgstr "다운로드 및 설치에 대한 알림을 표시합니다."
 
@@ -3956,7 +4009,7 @@ msgstr "Wine 실행 환경에 대한 실행기 및 구성 요소 업데이트 �
 msgid "Show sandbox warning"
 msgstr "샌드박스 경고 보기"
 
-#: bottles/frontend/main.py:86
+#: bottles/frontend/main.py:87
 msgid "Show version"
 msgstr "버전 표시"
 
@@ -3976,11 +4029,16 @@ msgstr "Windows 시스템 종료 시뮬레이션"
 msgid "Skip Setup"
 msgstr "설정 건너뛰기"
 
-#: bottles/backend/utils/manager.py:923
+#, python-brace-format
+#: bottles/backend/managers/dependency.py:773
+msgid "Skipping {0}: not installed."
+msgstr "{0} 건너뛰기: 설치되지 않았습니다."
+
+#: bottles/backend/utils/manager.py:956
 msgid "Slovak"
 msgstr "슬로바키아어"
 
-#: bottles/backend/utils/manager.py:924
+#: bottles/backend/utils/manager.py:957
 msgid "Slovenian"
 msgstr "슬로베니아어"
 
@@ -4000,28 +4058,40 @@ msgstr "스냅샷 생성이 취소되었습니다."
 msgid "Snapshots"
 msgstr "스냅샷"
 
-#: bottles/frontend/views/eagle.py:431
+#: bottles/frontend/views/eagle.py:434
 msgid "Social and DRM"
 msgstr "소셜 및 DRM"
 
-#: bottles/frontend/views/preferences.py:753
+#: bottles/frontend/views/preferences.py:764
 msgid "Software"
 msgstr "소프트웨어"
 
-#: bottles/backend/managers/manager.py:1194
+#: bottles/frontend/windows/display.py:138
+msgid "Some display settings could not be updated."
+msgstr "일부 디스플레이 설정을 업데이트할 수 없습니다."
+
+#: bottles/backend/managers/manager.py:1202
 msgid "Some registered containers are unavailable:"
 msgstr "일부 등록된 Wine 실행 환경을 사용할 수 없습니다."
 
-#: bottles/frontend/ui/dialog-installer.blp:196
+#: bottles/frontend/windows/playtimegraph.py:194
+msgid "Something went wrong while resetting the statistics."
+msgstr "통계를 재설정하는 동안 문제가 발생했습니다."
+
+#: bottles/frontend/ui/dialog-installer.blp:200
 msgid "Something went wrong."
 msgstr "오류가 발생했습니다."
 
+#: data/com.usebottles.bottles.gschema.xml
+msgid "Sort the library by program name or by container and program name."
+msgstr "프로그램 이름이나 컨테이너 및 프로그램 이름별로 라이브러리를 정렬합니다."
+
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:399
+#: bottles/frontend/views/eagle.py:402
 msgid "Source: {0}"
 msgstr "소스: {0}"
 
-#: bottles/backend/utils/manager.py:908
+#: bottles/backend/utils/manager.py:941
 msgid "Spanish"
 msgstr "스페인어"
 
@@ -4033,7 +4103,7 @@ msgstr "설치 시작"
 msgid "Start program"
 msgstr "프로그램 시작"
 
-#: bottles/frontend/ui/details-preferences.blp:372
+#: bottles/frontend/ui/details-preferences.blp:403
 msgid "Start programs through WineBridge by default for this container."
 msgstr "이 Wine 실행 환경에 대해 기본적으로 WineBridge를 통해 프로그램을 시작합니다."
 
@@ -4080,11 +4150,11 @@ msgstr "상태 {}는 이미 활성화되었습니다"
 msgid "States list retrieved successfully!"
 msgstr "상태 목록이 성공적으로 검색되었습니다!"
 
-#: bottles/frontend/ui/details-preferences.blp:381
+#: bottles/frontend/ui/details-preferences.blp:412
 msgid "Steam Runtime"
 msgstr "스팀 런타임"
 
-#: bottles/frontend/views/bottle_preferences.py:185
+#: bottles/frontend/views/bottle_preferences.py:194
 msgid "Steam Runtime was not detected. Install it or grant Bottles access to Steam files, then restart Bottles."
 msgstr "Steam 런타임이 감지되지 않았습니다. 이를 설치하거나 Bottles에 Steam 파일에 대한 액세스 권한을 부여한 다음 Bottles를 다시 시작하십시오."
 
@@ -4092,7 +4162,7 @@ msgstr "Steam 런타임이 감지되지 않았습니다. 이를 설치하거나 
 msgid "Steam apps listing"
 msgstr "Steam 앱 목록"
 
-#: bottles/frontend/views/eagle.py:336
+#: bottles/frontend/views/eagle.py:339
 msgid "Steam installation match"
 msgstr "Steam 설치 일치"
 
@@ -4114,7 +4184,7 @@ msgid "Stop program"
 msgstr "프로그램 중지"
 
 #, python-brace-format
-#: bottles/frontend/widgets/library.py:287 bottles/frontend/widgets/program.py:470
+#: bottles/frontend/widgets/library.py:291 bottles/frontend/widgets/program.py:488
 msgid "Stopping \"{0}\"…"
 msgstr "\"{0}\" 중지 중…"
 
@@ -4142,7 +4212,7 @@ msgstr "제안은 기술적 분석을 기반으로 하며 호환성을 보장하
 msgid "Supported Executables"
 msgstr "지원되는 실행 파일"
 
-#: bottles/backend/utils/manager.py:925
+#: bottles/backend/utils/manager.py:958
 msgid "Swedish"
 msgstr "스웨덴어"
 
@@ -4158,15 +4228,15 @@ msgstr "분기 전환 중..."
 msgid "Switching branch…"
 msgstr "분기 전환 중…"
 
-#: bottles/frontend/ui/details-preferences.blp:230
+#: bottles/frontend/ui/details-preferences.blp:261
 msgid "Synchronization"
 msgstr "동기화"
 
-#: bottles/backend/utils/manager.py:901 bottles/frontend/ui/details-preferences.blp:234 bottles/frontend/utils/common.py:28
+#: bottles/backend/utils/manager.py:934 bottles/frontend/ui/details-preferences.blp:265 bottles/frontend/ui/dialog-display.blp:139 bottles/frontend/utils/common.py:28
 msgid "System"
 msgstr "시스템"
 
-#: bottles/frontend/ui/preferences.blp:39 bottles/frontend/ui/preferences.blp:211 bottles/frontend/views/preferences.py:225
+#: bottles/frontend/ui/preferences.blp:39 bottles/frontend/ui/preferences.blp:221 bottles/frontend/views/preferences.py:226
 msgid "System Default"
 msgstr "시스템 기본값"
 
@@ -4178,15 +4248,15 @@ msgstr "시스템 환경"
 msgid "System File Types"
 msgstr "시스템 파일 유형"
 
-#: bottles/frontend/views/eagle.py:439
+#: bottles/frontend/views/eagle.py:442
 msgid "System Interaction"
 msgstr "시스템 상호 작용"
 
-#: bottles/frontend/ui/preferences.blp:265
+#: bottles/frontend/ui/preferences.blp:275
 msgid "System Runners"
 msgstr "시스템 실행기"
 
-#: bottles/frontend/views/preferences.py:652
+#: bottles/frontend/views/preferences.py:663
 msgid "System Wine is unavailable"
 msgstr "시스템 Wine를 사용할 수 없습니다."
 
@@ -4198,11 +4268,11 @@ msgstr "집중하세요"
 msgid "Task Manager"
 msgstr "작업 관리자"
 
-#: bottles/frontend/ui/preferences.blp:84
+#: bottles/frontend/ui/preferences.blp:94
 msgid "Temp Files"
 msgstr "임시 파일"
 
-#: bottles/frontend/ui/preferences.blp:353
+#: bottles/frontend/ui/preferences.blp:363
 msgid "Temp cache"
 msgstr "임시 캐시"
 
@@ -4210,15 +4280,15 @@ msgstr "임시 캐시"
 msgid "Temp cleaning"
 msgstr "임시 디렉터리 청소"
 
-#: bottles/frontend/ui/preferences.blp:349
+#: bottles/frontend/ui/preferences.blp:359
 msgid "Temp files"
 msgstr "임시 파일"
 
-#: bottles/backend/managers/manager.py:1572
+#: bottles/backend/managers/manager.py:1591
 msgid "Template found, applying…"
 msgstr "템플릿 발견, 적용중…"
 
-#: bottles/frontend/views/preferences.py:701
+#: bottles/frontend/views/preferences.py:712
 msgid "Templates are created after you make the first container for each environment."
 msgstr "각 환경에 대한 첫 번째 Wine 실행 환경을 만든 후에 템플릿이 생성됩니다."
 
@@ -4227,7 +4297,7 @@ msgid "Text Size"
 msgstr "텍스트 크기"
 
 #. execute wineboot on the bottle path
-#: bottles/backend/managers/manager.py:1607
+#: bottles/backend/managers/manager.py:1628
 msgid "The Wine config is being updated…"
 msgstr "Wine 설정 업데이트 중…"
 
@@ -4236,31 +4306,31 @@ msgid "The container could not be duplicated."
 msgstr "Wine 실행 환경을 복제할 수 없습니다."
 
 #, python-brace-format
-#: bottles/frontend/widgets/library.py:74
+#: bottles/frontend/widgets/library.py:75
 msgid "The container for \"{0}\" is unavailable."
 msgstr "\"{0}\"용 Wine 실행 환경을 사용할 수 없습니다."
 
-#: bottles/frontend/widgets/library.py:228
+#: bottles/frontend/widgets/library.py:229
 msgid "The cover image could not be opened."
 msgstr "표지 이미지를 열 수 없습니다."
 
-#: bottles/frontend/widgets/library.py:239
+#: bottles/frontend/widgets/library.py:240
 msgid "The cover image could not be saved."
 msgstr "표지 이미지를 저장할 수 없습니다."
 
-#: bottles/frontend/widgets/program.py:755
+#: bottles/frontend/widgets/program.py:774
 msgid "The desktop portal and the manual fallback both failed. Check that your desktop entry folders are writable and try again."
 msgstr "데스크톱 포털과 수동 대체가 모두 실패했습니다. 데스크탑 항목 폴더가 쓰기 가능한지 확인하고 다시 시도하십시오."
 
-#: bottles/frontend/widgets/program.py:749
+#: bottles/frontend/widgets/program.py:768
 msgid "The desktop portal and the manual fallback both failed. Close Bottles, run the command below, reopen Bottles and try again."
 msgstr "데스크톱 포털과 수동 대체가 모두 실패했습니다. Bottles를 닫고 아래 명령을 실행한 후 Bottles를 다시 열고 다시 시도하세요."
 
-#: bottles/frontend/widgets/program.py:741
+#: bottles/frontend/widgets/program.py:760
 msgid "The desktop portal was unavailable, so Bottles used its manual fallback. If the entry does not appear, check the permissions of your desktop entry folders and try again."
 msgstr "데스크톱 포털을 사용할 수 없으므로 Bottles가 수동 대체를 사용했습니다. 항목이 나타나지 않으면 데스크탑 항목 폴더의 권한을 확인하고 다시 시도하십시오."
 
-#: bottles/frontend/widgets/program.py:735
+#: bottles/frontend/widgets/program.py:754
 msgid "The desktop portal was unavailable, so Bottles used its manual fallback. If the entry does not appear, close Bottles, run the command below, reopen Bottles and try again."
 msgstr "데스크톱 포털을 사용할 수 없으므로 Bottles가 수동 대체를 사용했습니다. 항목이 나타나지 않으면 Bottles를 닫고 아래 명령을 실행한 후 Bottles를 다시 열고 다시 시도하십시오."
 
@@ -4272,18 +4342,26 @@ msgstr "설치에 실패했습니다. 저장소 오류, 부분 다운로드 또�
 msgid "The new container versioning system has landed."
 msgstr "새 Wine 실행 환경 버전 관리 시스템이 도입되었습니다."
 
-#: bottles/frontend/views/preferences.py:800
+#: bottles/frontend/views/preferences.py:811
 msgid "The next container for this environment will take longer to create because Bottles must rebuild the template."
 msgstr "Bottles가 템플릿을 다시 작성해야 하므로 이 환경의 다음 Wine 실행 환경을 생성하는 데 시간이 더 오래 걸립니다."
 
+#: bottles/frontend/views/bottle_preferences.py:607
+msgid "The notes could not be saved."
+msgstr "메모를 저장할 수 없습니다."
+
 #, python-brace-format
-#: bottles/frontend/widgets/library.py:83
+#: bottles/frontend/widgets/library.py:84
 msgid "The program \"{0}\" is no longer available. Removing it from the library."
 msgstr "\"{0}\" 프로그램을 더 이상 사용할 수 없습니다. 라이브러리에서 제거합니다."
 
-#: bottles/frontend/widgets/library.py:293
+#: bottles/frontend/widgets/library.py:297
 msgid "The program could not be stopped."
 msgstr "프로그램을 중지할 수 없습니다."
+
+#: bottles/frontend/ui/program-entry.blp:103 bottles/frontend/utils/program.py:12
+msgid "The program file could not be found. Check its path and any external drives."
+msgstr "프로그램 파일을 찾을 수 없습니다. 경로와 외부 드라이브를 확인하세요."
 
 #: bottles/frontend/ui/details-installers.blp:33
 msgid "The repository is unreachable or no installer is compatible with this container."
@@ -4297,7 +4375,7 @@ msgstr "이 Wine 실행 환경에서 요청한 실행기가 없습니다. 패키
 msgid "The selected DLL is no longer available."
 msgstr "선택한 DLL을 더 이상 사용할 수 없습니다."
 
-#: bottles/frontend/widgets/library.py:234
+#: bottles/frontend/widgets/library.py:235
 msgid "The selected file is not a valid image."
 msgstr "선택한 파일이 유효한 이미지가 아닙니다."
 
@@ -4306,7 +4384,7 @@ msgid "The selected file is unavailable."
 msgstr "선택한 파일을 사용할 수 없습니다."
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2404
+#: bottles/backend/managers/manager.py:2441
 msgid "The selected {0} installation is incomplete."
 msgstr "선택한 {0} 설치가 완료되지 않았습니다."
 
@@ -4314,15 +4392,15 @@ msgstr "선택한 {0} 설치가 완료되지 않았습니다."
 msgid "The stored DLL could not be removed."
 msgstr "저장된 DLL을 제거할 수 없습니다."
 
-#: bottles/frontend/views/eagle.py:421
+#: bottles/frontend/views/eagle.py:424
 msgid "The tier is calculated by Eagle Intel, not by ProtonDB."
 msgstr "계층은 ProtonDB가 아닌 Eagle Intel에 의해 계산됩니다."
 
-#: bottles/frontend/ui/details-preferences.blp:17
+#: bottles/frontend/ui/details-preferences.blp:48
 msgid "The version of the Wine compatibility layer."
 msgstr "Wine 호환성 계층의 버전."
 
-#: bottles/frontend/ui/preferences.blp:383
+#: bottles/frontend/ui/preferences.blp:393
 msgid "These caches store ready-made prefixes for each environment so new containers start faster."
 msgstr "이러한 캐시는 각 환경에 대해 미리 만들어진 접두사를 저장하므로 새 Wine 실행 환경이 더 빠르게 시작됩니다."
 
@@ -4335,15 +4413,15 @@ msgstr "다음 확장은 유효하지 않거나 시스템에서 알 수 없습�
 msgid "These settings will override the default settings for this executable."
 msgstr "이 설정은 이 실행 파일의 기본 설정을 재정의합니다."
 
-#: bottles/frontend/main.py:389
+#: bottles/frontend/main.py:393
 msgid "Third-Party Libraries and Special Thanks"
 msgstr "서드파티 라이브러리와 특별히 감사한 분들"
 
-#: bottles/frontend/windows/playtimegraph.py:162
+#: bottles/frontend/windows/playtimegraph.py:248
 msgid "This Week"
 msgstr "이번 주"
 
-#: bottles/frontend/windows/playtimegraph.py:186
+#: bottles/frontend/windows/playtimegraph.py:272
 msgid "This Year"
 msgstr "올해"
 
@@ -4355,27 +4433,27 @@ msgstr "이 애플리케이션은 제대로 작동하지 않을 수 있습니다
 msgid "This can cause data loss, corruption, and programs to malfunction."
 msgstr "이로 인해 데이터 손실 및 프로그램 오작동이 발생할 수 있습니다."
 
-#: bottles/frontend/widgets/component.py:86
+#: bottles/frontend/widgets/component.py:87
 msgid "This component is not installable offline because its files are not cached."
 msgstr "이 구성 요소는 해당 파일이 캐시되지 않기 때문에 오프라인으로 설치할 수 없습니다."
 
-#: bottles/frontend/views/bottle_preferences.py:466
+#: bottles/frontend/views/bottle_preferences.py:474
 msgid "This container name is already in use."
 msgstr "이 Wine 실행 환경 이름은 이미 사용 중입니다."
 
-#: bottles/frontend/ui/dialog-duplicate.blp:66 bottles/frontend/ui/dialog-installer.blp:97 bottles/frontend/ui/dialog-upgrade-versioning.blp:107 bottles/frontend/ui/new-bottle-dialog.blp:220
+#: bottles/frontend/ui/dialog-duplicate.blp:66 bottles/frontend/ui/dialog-installer.blp:101 bottles/frontend/ui/dialog-upgrade-versioning.blp:107 bottles/frontend/ui/new-bottle-dialog.blp:220
 msgid "This could take a while."
 msgstr "이 작업은 시간이 걸릴 수 있습니다."
 
-#: bottles/frontend/widgets/dependency.py:79
+#: bottles/frontend/widgets/dependency.py:82
 msgid "This dependency is not compatible with this container architecture."
 msgstr "이 종속성은 이 Wine 실행 환경 아키텍처와 호환되지 않습니다."
 
-#: bottles/frontend/widgets/dependency.py:128
+#: bottles/frontend/widgets/dependency.py:131
 msgid "This dependency is not installable offline because its files are not cached."
 msgstr "이 종속성은 해당 파일이 캐시되지 않기 때문에 오프라인으로 설치할 수 없습니다."
 
-#: bottles/frontend/views/bottle_preferences.py:191 bottles/frontend/views/bottle_preferences.py:448 bottles/frontend/views/bottle_preferences.py:396
+#: bottles/frontend/views/bottle_preferences.py:200 bottles/frontend/views/bottle_preferences.py:455 bottles/frontend/views/bottle_preferences.py:403
 msgid "This feature is unavailable on your system."
 msgstr "이 기능은 현재 시스템에서 사용할 수 없습니다."
 
@@ -4419,23 +4497,31 @@ msgstr "이 프로그램은 눈에 띄는 결함이 있지만, 이러한 결함�
 msgid "This resource is missing."
 msgstr "이 리소스가 누락되었습니다."
 
-#: bottles/backend/managers/manager.py:697
+#: bottles/backend/managers/manager.py:1436
+msgid "This runner cannot create a 32-bit prefix. Select a 64-bit container."
+msgstr "이 실행기에서는 32비트 접두사를 생성할 수 없습니다. 64비트 컨테이너를 선택합니다."
+
+#: bottles/frontend/views/bottle_preferences.py:891
+msgid "This runner has no Esync, so it will use its default."
+msgstr "이 실행기에는 Esync가 없으므로 기본값을 사용합니다."
+
+#: bottles/backend/managers/manager.py:705
 msgid "This runner is already provided by the system."
 msgstr "이 실행기는 시스템에서 이미 제공됩니다."
 
-#: bottles/backend/managers/manager.py:694
+#: bottles/backend/managers/manager.py:702
 msgid "This runner is already registered."
 msgstr "이 실행기는 이미 등록되어 있습니다."
 
-#: bottles/backend/managers/manager.py:714
+#: bottles/backend/managers/manager.py:722
 msgid "This runner is managed outside Bottles."
 msgstr "이 실행기는 Bottles 외부에서 관리됩니다."
 
-#: bottles/backend/managers/manager.py:711
+#: bottles/backend/managers/manager.py:719
 msgid "This runner is used by a container."
 msgstr "이 실행기는 Wine 실행 환경에서 사용됩니다."
 
-#: bottles/backend/managers/manager.py:687
+#: bottles/backend/managers/manager.py:695
 msgid "This runner registration no longer exists."
 msgstr "이 실행기 등록은 더 이상 존재하지 않습니다."
 
@@ -4446,6 +4532,11 @@ msgstr "이 설정은 Wine 실행 환경의 전역 설정을 재정의합니다.
 #: bottles/frontend/ui/dialog-deps-check.blp:15
 msgid "This version of Bottles does not seem to provide all the necessary core dependencies, please contact the package maintainer or use an official version."
 msgstr "이 버전의 Bottles는 필요한 핵심 Dependencies를 모두 제공하지 않는 것 같습니다. 패키지 유지 관리자에게 문의하거나 공식 버전을 사용하십시오."
+
+#, python-brace-format
+#: bottles/frontend/windows/playtimegraph.py:131
+msgid "This will permanently delete all usage time data for \"{}\". This action cannot be undone."
+msgstr "\"{}\"에 대한 모든 사용 시간 데이터가 영구적으로 삭제됩니다. 이 작업은 취소할 수 없습니다."
 
 #: bottles/frontend/ui/dialog-launch-options.blp:43
 msgid "Those arguments will be passed at launch."
@@ -4459,15 +4550,15 @@ msgstr "임계값"
 msgid "Timestamp"
 msgstr "타임스탬프"
 
-#: bottles/frontend/views/bottle_preferences.py:403
+#: bottles/frontend/views/bottle_preferences.py:410
 msgid "To add it, please run:"
 msgstr "추가하려면 다음을 실행하세요."
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:91 bottles/frontend/utils/playtime.py:467 bottles/frontend/windows/playtimegraph.py:176
+#: bottles/frontend/ui/dialog-playtime-graph.blp:102 bottles/frontend/utils/playtime.py:498 bottles/frontend/windows/playtimegraph.py:262
 msgid "Today"
 msgstr "오늘"
 
-#: bottles/frontend/ui/details-preferences.blp:308
+#: bottles/frontend/ui/details-preferences.blp:339
 msgid "Toggle OBS Game Capture for all Vulkan and OpenGL programs."
 msgstr "모든 Vulkan 및 OpenGL 프로그램을 위해 OBS 게임 캡쳐를 켜거나 끄세요."
 
@@ -4507,7 +4598,7 @@ msgstr "목록에서 업데이트 날짜 토글"
 msgid "Tools"
 msgstr "도구"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:259
+#: bottles/frontend/ui/dialog-playtime-graph.blp:270
 msgid "Total Usage Time"
 msgstr "총 재생 시간"
 
@@ -4528,7 +4619,7 @@ msgstr "트리거: {}"
 msgid "Troubleshooting"
 msgstr "문제 해결"
 
-#: bottles/frontend/widgets/program.py:450
+#: bottles/frontend/widgets/program.py:468
 msgid "Trust this file and do not warn again"
 msgstr "이 파일을 신뢰하고 다시 경고하지 않음"
 
@@ -4540,7 +4631,7 @@ msgstr "다시 시도"
 msgid "Try a different search."
 msgstr "다른 검색을 시도해 보세요."
 
-#: bottles/backend/utils/manager.py:926
+#: bottles/backend/utils/manager.py:959
 msgid "Turkish"
 msgstr "터키어"
 
@@ -4561,11 +4652,11 @@ msgid "Unable to Create Container"
 msgstr "Wine 실행 환경을 생성할 수 없습니다"
 
 #, python-brace-format
-#: bottles/frontend/views/preferences.py:641
+#: bottles/frontend/views/preferences.py:652
 msgid "Unavailable: {0}"
 msgstr "사용할 수 없음: {0}"
 
-#: bottles/frontend/views/library.py:89
+#: bottles/frontend/views/library.py:95
 msgid "Undo"
 msgstr "실행 취소"
 
@@ -4577,11 +4668,11 @@ msgstr "제거"
 msgid "Uninstaller"
 msgstr "제거 프로그램"
 
-#: bottles/frontend/ui/installer-entry.blp:42 bottles/frontend/views/preferences.py:761
+#: bottles/backend/managers/dependency.py:320 bottles/frontend/ui/installer-entry.blp:42 bottles/frontend/views/preferences.py:772
 msgid "Unknown"
 msgstr "알 수 없는"
 
-#: bottles/backend/managers/dependency.py:299
+#: bottles/backend/managers/dependency.py:308
 msgid "Unpacking archive…"
 msgstr "아카이브 압축을 푸는 중…"
 
@@ -4631,35 +4722,35 @@ msgstr "업데이트"
 msgid "Updating Components…"
 msgstr "구성요소 업데이트 중…"
 
-#: bottles/frontend/ui/details-preferences.blp:33
+#: bottles/frontend/ui/details-preferences.blp:64
 msgid "Updating D7VK, please wait..."
 msgstr "D7VK를 업데이트하는 중입니다. 잠시 기다려 주십시오..."
 
-#: bottles/backend/managers/dependency.py:304
+#: bottles/backend/managers/dependency.py:313
 msgid "Updating DLL overrides…"
 msgstr "DLL 재정의 업데이트 중…"
 
-#: bottles/frontend/ui/details-preferences.blp:46
+#: bottles/frontend/ui/details-preferences.blp:77
 msgid "Updating DXVK, please wait…"
 msgstr "DXVK를 업데이트하는 중입니다. 잠시만 기다려 주십시오…"
 
-#: bottles/frontend/ui/details-preferences.blp:72 bottles/frontend/ui/details-preferences.blp:105
+#: bottles/frontend/ui/details-preferences.blp:103 bottles/frontend/ui/details-preferences.blp:136
 msgid "Updating DXVK-NVAPI, please wait…"
 msgstr "DXVK-NVAPI를 업데이트하는 중입니다. 잠시만 기다려 주십시오…"
 
-#: bottles/frontend/ui/details-preferences.blp:85
+#: bottles/frontend/ui/details-preferences.blp:116
 msgid "Updating LatencyFleX, please wait…"
 msgstr "LatencyFleX를 업데이트하는 중입니다. 잠시만 기다려 주십시오…"
 
-#: bottles/frontend/ui/details-preferences.blp:20
+#: bottles/frontend/ui/details-preferences.blp:51
 msgid "Updating Runner and components, please wait…"
 msgstr "실행기 및 구성 요소를 업데이트하는 중입니다. 잠시만 기다려 주십시오…"
 
-#: bottles/frontend/ui/details-preferences.blp:59
+#: bottles/frontend/ui/details-preferences.blp:90
 msgid "Updating VKD3D, please wait…"
 msgstr "VKD3D를 업데이트하는 중입니다. 잠시만 기다려 주십시오…"
 
-#: bottles/frontend/ui/details-preferences.blp:323
+#: bottles/frontend/ui/details-preferences.blp:354
 msgid "Updating Windows version, please wait…"
 msgstr "Windows 버전을 업데이트하는 중, 잠시만 기다려주십시오…"
 
@@ -4672,11 +4763,11 @@ msgstr "WineBridge 업데이트 중…"
 msgid "Updating WineBridge… ({percent}%)"
 msgstr "WineBridge 업데이트 중… ({percent}%)"
 
-#: bottles/frontend/windows/display.py:106
+#: bottles/frontend/windows/display.py:125
 msgid "Updating display settings, please wait…"
 msgstr "디스플레이 설정을 업데이트하는 중입니다. 잠시만 기다려주세요…"
 
-#: bottles/frontend/widgets/component.py:96
+#: bottles/frontend/widgets/component.py:97
 msgid "Upgrade"
 msgstr "업그레이드"
 
@@ -4688,15 +4779,24 @@ msgstr "업그레이드가 필요합니다"
 msgid "Upscales the resolution when using a resolution higher than the game resolution in pixels."
 msgstr "픽셀 단위의 게임 해상도보다 높은 해상도를 사용할 때 해상도를 업스케일링합니다."
 
-#: bottles/frontend/views/eagle.py:434
+#: bottles/frontend/views/eagle.py:437
 msgid "Upscaling Technology"
 msgstr "업스케일링 기술"
 
-#: bottles/frontend/ui/preferences.blp:104
+#: bottles/frontend/ui/preferences.blp:114
 msgid "Usage Time Tracking"
 msgstr "사용 시간 기록"
 
-#: bottles/frontend/ui/details-bottle.blp:151 bottles/frontend/ui/details-preferences.blp:371
+#, python-brace-format
+#: bottles/frontend/windows/playtimegraph.py:187
+msgid "Usage time statistics cannot be reset while \"{}\" is running. Close the program and try again."
+msgstr "\"{}\"가 실행되는 동안에는 사용 시간 통계를 재설정할 수 없습니다. 프로그램을 닫고 다시 시도하십시오."
+
+#: bottles/frontend/windows/playtimegraph.py:192
+msgid "Usage time tracking is disabled."
+msgstr "사용 시간 추적이 비활성화되었습니다."
+
+#: bottles/frontend/ui/details-bottle.blp:151 bottles/frontend/ui/details-preferences.blp:402
 msgid "Use WineBridge"
 msgstr "WineBridge 사용"
 
@@ -4708,19 +4808,19 @@ msgstr "64비트 Vulkan 애플리케이션을 사용합니다. 문제가 발생�
 msgid "Use a lighter model with a small quality reduction."
 msgstr "품질 저하가 적은 더 가벼운 모델을 사용합니다."
 
-#: bottles/frontend/ui/details-preferences.blp:341
+#: bottles/frontend/ui/details-preferences.blp:372
 msgid "Use a restricted/managed environment for this container."
 msgstr "이 Wine 실행 환경에는 제한된/관리된 환경을 사용합니다."
 
-#: bottles/frontend/views/eagle.py:628
+#: bottles/frontend/views/eagle.py:631
 msgid "Use shipping binary instead"
 msgstr "대신 배송 바이너리 사용"
 
-#: bottles/frontend/ui/details-preferences.blp:119
+#: bottles/frontend/ui/details-preferences.blp:150
 msgid "Use the discrete graphics card to increase performance at the expense of power consumption."
 msgstr "단독 그래픽 카드를 이용해 전력 사용량은 높아지나 성능을 향상시킵니다."
 
-#: bottles/frontend/ui/preferences.blp:266
+#: bottles/frontend/ui/preferences.blp:276
 msgid "Used by default. Installed and updated by your distribution or Flatpak packaging."
 msgstr "기본적으로 사용됩니다. 배포판 또는 Flatpak 패키징으로 설치 및 업데이트됩니다."
 
@@ -4728,7 +4828,7 @@ msgstr "기본적으로 사용됩니다. 배포판 또는 Flatpak 패키징으�
 msgid "User"
 msgstr "사용자"
 
-#: bottles/frontend/ui/preferences.blp:277
+#: bottles/frontend/ui/preferences.blp:287
 msgid "User Runners"
 msgstr "사용자 실행기"
 
@@ -4736,7 +4836,7 @@ msgstr "사용자 실행기"
 msgid "Uses the resolution of the video game as a reference in pixels."
 msgstr "비디오 게임의 해상도는 픽셀 단위의 기준으로 사용합니다."
 
-#: bottles/backend/managers/manager.py:1910 bottles/frontend/ui/details-preferences.blp:55
+#: bottles/backend/managers/manager.py:1947 bottles/frontend/ui/details-preferences.blp:86
 msgid "VKD3D"
 msgstr "VKD3D"
 
@@ -4760,7 +4860,7 @@ msgstr "가상 데스크톱"
 msgid "Vmtouch Settings"
 msgstr "Vmtouch 설정"
 
-#: bottles/frontend/main.py:379
+#: bottles/frontend/main.py:383
 msgid "Vulkan frame generation layer"
 msgstr "Vulkan 프레임 생성 레이어"
 
@@ -4772,7 +4872,7 @@ msgstr "Vulkan는 이 시스템에서 사용할 수 없습니다."
 msgid "Warnings"
 msgstr "경고"
 
-#: bottles/frontend/ui/details-preferences.blp:128
+#: bottles/frontend/ui/details-preferences.blp:159
 msgid "Wayland (Experimental)"
 msgstr "Wayland(실험적)"
 
@@ -4784,7 +4884,7 @@ msgstr "하나 이상의 유사한(또는 동일한) 보고서를 발견했습�
 msgid "Week"
 msgstr "주"
 
-#: bottles/frontend/ui/dialog-playtime-graph.blp:125 bottles/frontend/windows/playtimegraph.py:162
+#: bottles/frontend/ui/dialog-playtime-graph.blp:136 bottles/frontend/windows/playtimegraph.py:248
 msgid "Weekly"
 msgstr "매주"
 
@@ -4801,7 +4901,7 @@ msgstr "true인 경우 Bottles는 플레이 시간 원격 측정을 로컬 SQLit
 msgid "Whether Bottles should use the dark color scheme."
 msgstr "Bottles가 다크 컬러를 사용할지에 대한 여부입니다."
 
-#: bottles/frontend/ui/preferences.blp:51
+#: bottles/frontend/ui/preferences.blp:61
 msgid "Whether to show the update date in the container list."
 msgstr "Wine 실행 환경 목록에 업데이트 날짜를 표시할지 여부입니다."
 
@@ -4833,7 +4933,7 @@ msgstr "창 높이"
 msgid "Window width"
 msgstr "창 너비"
 
-#: bottles/frontend/ui/details-preferences.blp:320
+#: bottles/frontend/ui/details-preferences.blp:351
 msgid "Windows Version"
 msgstr "Windows 버전"
 
@@ -4854,11 +4954,11 @@ msgstr "Wine 실행 환경"
 msgid "Wine audio driver"
 msgstr "Wine 오디오 드라이버"
 
-#: bottles/backend/managers/manager.py:1617
+#: bottles/backend/managers/manager.py:1645
 msgid "Wine config updated!"
 msgstr "Wine 설정 업데이트 완료!"
 
-#: bottles/backend/managers/manager.py:1972
+#: bottles/backend/managers/manager.py:2009
 msgid "WineBridge"
 msgstr "WineBridge"
 
@@ -4878,7 +4978,7 @@ msgstr "WineBridge 업데이트"
 msgid "WineBridge update failed"
 msgstr "WineBridge 업데이트 실패"
 
-#: bottles/frontend/ui/details-preferences.blp:391 bottles/frontend/ui/dialog-launch-options.blp:143
+#: bottles/frontend/ui/details-preferences.blp:422 bottles/frontend/ui/dialog-launch-options.blp:143
 msgid "Working Directory"
 msgstr "작업 디렉터리"
 
@@ -4886,7 +4986,7 @@ msgstr "작업 디렉터리"
 msgid "Write below the arguments to be passed to the executable."
 msgstr "실행파일에 전달할 인자를 아래에 작성하세요."
 
-#: bottles/backend/managers/dependency.py:305
+#: bottles/backend/managers/dependency.py:314
 msgid "Writing registry keys…"
 msgstr "레지스트리 키를 쓰는 중…"
 
@@ -4894,15 +4994,15 @@ msgstr "레지스트리 키를 쓰는 중…"
 msgid "Year"
 msgstr "연도"
 
-#: bottles/frontend/windows/playtimegraph.py:186
+#: bottles/frontend/windows/playtimegraph.py:272
 msgid "Yearly"
 msgstr "매년"
 
-#: bottles/frontend/views/eagle.py:267
+#: bottles/frontend/views/eagle.py:270
 msgid "Yes"
 msgstr "예"
 
-#: bottles/frontend/utils/playtime.py:471
+#: bottles/frontend/utils/playtime.py:502
 msgid "Yesterday"
 msgstr "어제"
 
@@ -4926,23 +5026,23 @@ msgstr "저장되지 않은 변경 사항이 있습니다. 스냅샷을 만들�
 msgid "You're offline :("
 msgstr "당신은 오프라인 상태입니다 :("
 
-#: bottles/frontend/main.py:266
+#: bottles/frontend/main.py:270
 msgid "[Activate] request received."
 msgstr "[활성화] 요청이 수신되었습니다."
 
-#: bottles/frontend/main.py:300
+#: bottles/frontend/main.py:304
 msgid "[Help] request received."
 msgstr "[Help] 요청이 수락되었습니다."
 
-#: bottles/frontend/main.py:284
+#: bottles/frontend/main.py:288
 msgid "[Quit] request received."
 msgstr "[Quit] 요청이 수락되었습니다."
 
-#: bottles/frontend/main.py:310
+#: bottles/frontend/main.py:314
 msgid "[Refresh] request received."
 msgstr "[Refresh] 요청이 수락되었습니다."
 
-#: bottles/frontend/main.py:237
+#: bottles/frontend/main.py:240
 msgid "[Shutdown] cleanup starting."
 msgstr "[종료] 정리가 시작됩니다."
 
@@ -4950,7 +5050,7 @@ msgstr "[종료] 정리가 시작됩니다."
 msgid "_Application"
 msgstr "_어플리케이션"
 
-#: bottles/frontend/ui/bulk-update-dialog.blp:22 bottles/frontend/ui/dialog-crash-report.blp:19 bottles/frontend/ui/dialog-display.blp:25 bottles/frontend/ui/dialog-duplicate.blp:20 bottles/frontend/ui/dialog-file-associations.blp:17 bottles/frontend/ui/dialog-gamescope.blp:24 bottles/frontend/ui/dialog-launch-options.blp:17 bottles/frontend/ui/dialog-lsfg-vk.blp:25 bottles/frontend/ui/dialog-mangohud.blp:25 bottles/frontend/ui/dialog-program-backups.blp:16 bottles/frontend/ui/dialog-upgrade-versioning.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:27 bottles/frontend/ui/dialog-vmtouch.blp:24 bottles/frontend/ui/dialog-winebridge-update.blp:19 bottles/frontend/ui/new-bottle-dialog.blp:23 bottles/frontend/views/bottle_details.py:860 bottles/frontend/views/bottle_details.py:958 bottles/frontend/views/preferences.py:357 bottles/frontend/views/preferences.py:817 bottles/frontend/widgets/state.py:127
+#: bottles/frontend/ui/bulk-update-dialog.blp:22 bottles/frontend/ui/dialog-crash-report.blp:19 bottles/frontend/ui/dialog-display.blp:25 bottles/frontend/ui/dialog-duplicate.blp:20 bottles/frontend/ui/dialog-file-associations.blp:17 bottles/frontend/ui/dialog-gamescope.blp:24 bottles/frontend/ui/dialog-launch-options.blp:17 bottles/frontend/ui/dialog-lsfg-vk.blp:25 bottles/frontend/ui/dialog-mangohud.blp:25 bottles/frontend/ui/dialog-program-backups.blp:16 bottles/frontend/ui/dialog-upgrade-versioning.blp:21 bottles/frontend/ui/dialog-vkbasalt.blp:27 bottles/frontend/ui/dialog-vmtouch.blp:24 bottles/frontend/ui/dialog-winebridge-update.blp:19 bottles/frontend/ui/new-bottle-dialog.blp:23 bottles/frontend/views/bottle_details.py:860 bottles/frontend/views/bottle_details.py:958 bottles/frontend/views/preferences.py:366 bottles/frontend/views/preferences.py:828 bottles/frontend/widgets/state.py:127
 msgid "_Cancel"
 msgstr "_취소"
 
@@ -4958,15 +5058,15 @@ msgstr "_취소"
 msgid "_Cancel Creation"
 msgstr "_생성 취소"
 
-#: bottles/frontend/ui/dialog-dependency-install.blp:80 bottles/frontend/ui/dialog-winebridge-update.blp:25 bottles/frontend/ui/new-bottle-dialog.blp:276 bottles/frontend/widgets/program.py:725
+#: bottles/frontend/ui/dialog-dependency-install.blp:80 bottles/frontend/ui/dialog-winebridge-update.blp:25 bottles/frontend/ui/new-bottle-dialog.blp:276 bottles/frontend/widgets/program.py:744
 msgid "_Close"
 msgstr "_닫기"
 
-#: bottles/frontend/ui/preferences.blp:369 bottles/frontend/ui/preferences.blp:402 bottles/frontend/views/preferences.py:818 bottles/frontend/views/preferences.py:724
+#: bottles/frontend/ui/preferences.blp:379 bottles/frontend/ui/preferences.blp:412 bottles/frontend/views/preferences.py:829 bottles/frontend/views/preferences.py:735
 msgid "_Delete"
 msgstr "_삭제"
 
-#: bottles/frontend/ui/preferences.blp:336
+#: bottles/frontend/ui/preferences.blp:346
 msgid "_Delete All"
 msgstr "_모두 삭제"
 
@@ -4990,7 +5090,7 @@ msgstr "_게이밍"
 msgid "_Keep Waiting"
 msgstr "_계속 기다리세요"
 
-#: bottles/frontend/views/preferences.py:358
+#: bottles/frontend/views/preferences.py:367
 msgid "_Relaunch"
 msgstr "_다시 시작"
 
@@ -5014,7 +5114,7 @@ msgstr "_업데이트"
 msgid "application verb metadata"
 msgstr "애플리케이션 동사 메타데이터"
 
-#: bottles/backend/managers/dependency.py:289
+#: bottles/backend/managers/dependency.py:298
 msgid "archive"
 msgstr "아카이브"
 
@@ -5059,27 +5159,27 @@ msgstr "예: ludusavi backup --force \"게임 이름\""
 msgid "e.g.: ludusavi restore --force \"Game Name\""
 msgstr "예: ludusavi Restore --force \"게임 이름\""
 
-#: bottles/backend/managers/dependency.py:297
+#: bottles/backend/managers/dependency.py:306
 msgid "files"
 msgstr "파일"
 
-#: bottles/backend/managers/dependency.py:291 bottles/backend/managers/dependency.py:292
+#: bottles/backend/managers/dependency.py:300 bottles/backend/managers/dependency.py:301
 msgid "installer"
 msgstr "설치 프로그램"
 
-#: bottles/frontend/main.py:102
+#: bottles/frontend/main.py:103
 msgid "lnk path"
 msgstr "링크 경로"
 
-#: bottles/frontend/main.py:378
+#: bottles/frontend/main.py:382
 msgid "lsfg-vk"
 msgstr "lsfg-vk"
 
-#: bottles/frontend/main.py:381
+#: bottles/frontend/main.py:385
 msgid "lsfg-vk 1.x: MIT.\nlsfg-vk 2.x: GPL-3.0-or-later."
 msgstr "lsfg-vk 1.x: MIT.\nlsfg-vk 2.x: GPL-3.0 이상."
 
-#: bottles/frontend/views/bottle_preferences.py:357
+#: bottles/frontend/views/bottle_preferences.py:364
 msgid "lsfg-vk only supports 64-bit Vulkan applications."
 msgstr "lsfg-vk는 64비트 Vulkan 애플리케이션만 지원합니다."
 
@@ -5087,11 +5187,11 @@ msgstr "lsfg-vk는 64비트 Vulkan 애플리케이션만 지원합니다."
 msgid "lsfg-vk requires a legitimate copy of Lossless Scaling. Bottles keeps a private copy inside this container and excludes it from backups and duplicates."
 msgstr "lsfg-vk에는 무손실 스케일링의 합법적인 사본이 필요합니다. Bottles는 이 Wine 실행 환경 안에 개인 복사본을 보관하고 백업 및 복제에서 제외합니다."
 
-#: bottles/backend/managers/dependency.py:295
+#: bottles/backend/managers/dependency.py:304
 msgid "package"
 msgstr "패키지"
 
-#: bottles/frontend/main.py:365
+#: bottles/frontend/main.py:369
 msgid "translator_credits"
 msgstr "번역에 도움을 주신 분들"
 
@@ -5131,12 +5231,12 @@ msgid_plural "{0} dependencies installed."
 msgstr[0] ""
 
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:533
+#: bottles/frontend/views/eagle.py:536
 msgid "{0} detected"
 msgstr "{0} 감지됨"
 
 #, python-brace-format
-#: bottles/frontend/windows/dependency_install.py:125
+#: bottles/frontend/windows/dependency_install.py:128
 msgid "{0} failed to install."
 msgstr "{0}를 설치하지 못했습니다."
 
@@ -5146,7 +5246,7 @@ msgid "{0} installed, {1} failed."
 msgstr "{0}가 설치되었으며 {1}가 실패했습니다."
 
 #, python-brace-format
-#: bottles/frontend/windows/dependency_install.py:123
+#: bottles/frontend/windows/dependency_install.py:126
 msgid "{0} installed."
 msgstr "{0}가 설치되었습니다."
 
@@ -5161,12 +5261,12 @@ msgid "{0} is now available in the programs view."
 msgstr "{0}이 프로그램 보기에서 이제 이용 가능합니다."
 
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:361
+#: bottles/frontend/views/eagle.py:364
 msgid "{0} positive / {1} negative reports"
 msgstr "{0} 양성/{1} 음성 보고서"
 
 #, python-brace-format
-#: bottles/backend/managers/manager.py:2336
+#: bottles/backend/managers/manager.py:2373
 msgid "{0} requires Vulkan, which is not available on this system."
 msgstr "{0}에는 Vulkan가 필요하지만 이 시스템에서는 사용할 수 없습니다."
 
@@ -5177,37 +5277,37 @@ msgid_plural "{0} selected paths"
 msgstr[0] ""
 
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:356
+#: bottles/frontend/views/eagle.py:359
 msgid "{0}% positive verdicts"
 msgstr "{0}% 긍정적인 평가"
 
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:299
+#: bottles/frontend/views/eagle.py:302
 msgid "{0}, compatibility signals from {1} community reports"
 msgstr "{0}, {1} 커뮤니티 보고서의 호환성 신호"
 
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:293
+#: bottles/frontend/views/eagle.py:296
 msgid "{0}, recognized from curated application metadata"
 msgstr "{0}, 선별된 애플리케이션 메타데이터에서 인식됨"
 
 #, python-brace-format
-#: bottles/frontend/views/eagle.py:411
+#: bottles/frontend/views/eagle.py:414
 msgid "{0}: {1}"
 msgstr "{0}: {1}"
 
 #, python-brace-format
-#: bottles/backend/managers/eagle.py:400
+#: bottles/backend/managers/eagle.py:401
 msgid "{name} ({reason}, x{evidence})"
 msgstr "{name}({reason}, x{evidence})"
 
 #, python-brace-format
-#: bottles/backend/managers/eagle.py:371
+#: bottles/backend/managers/eagle.py:372
 msgid "{reason} (x{evidence})"
 msgstr "{reason} (x{evidence})"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_preferences.py:192
+#: bottles/frontend/views/bottle_preferences.py:201
 msgid "{} To add this feature, please run"
 msgstr "{} 이 기능을 추가하려면 다음을 실행하십시오."
 
@@ -5222,7 +5322,7 @@ msgid "{} saved"
 msgstr "{}가 저장되었습니다."
 
 #, python-brace-format
-#: bottles/frontend/windows/playtimegraph.py:132
+#: bottles/frontend/windows/playtimegraph.py:218
 msgid "{} – {}"
 msgstr "{} – {}"
 

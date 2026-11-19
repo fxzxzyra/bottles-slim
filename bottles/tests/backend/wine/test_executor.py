@@ -1187,6 +1187,7 @@ def test_winecommand_filters_host_environment(monkeypatch, tmp_path, runner_fact
     )
 
     winecmd = WineCommand.__new__(WineCommand)
+    winecmd.capture_stderr = False
     winecmd.config = config
     winecmd.minimal = True
     winecmd.arguments = ""
@@ -1219,6 +1220,7 @@ def test_wayland_sandbox_clears_parent_display(monkeypatch, tmp_path):
     )
 
     winecmd = WineCommand.__new__(WineCommand)
+    winecmd.capture_stderr = False
     winecmd.config = config
     winecmd.env = {"WAYLAND_DISPLAY": "wayland-0"}
     winecmd.cwd = str(bottle_path)
@@ -1291,6 +1293,7 @@ def test_dedicated_sandbox_uses_selected_runtime_path(
     )
 
     winecmd = WineCommand.__new__(WineCommand)
+    winecmd.capture_stderr = False
     winecmd.config = config
     winecmd.minimal = True
     winecmd.arguments = ""
@@ -1341,6 +1344,7 @@ def test_host_wrappers_run_outside_steam_runtime(
     )
 
     winecmd = WineCommand.__new__(WineCommand)
+    winecmd.capture_stderr = False
     winecmd.config = config
     winecmd.minimal = False
     winecmd.arguments = ""
@@ -1381,6 +1385,7 @@ def test_steam_runtime_uses_supported_command_separator(
     )
 
     winecmd = WineCommand.__new__(WineCommand)
+    winecmd.capture_stderr = False
     winecmd.config = config
     winecmd.minimal = True
     winecmd.arguments = ""
@@ -1418,6 +1423,7 @@ def test_dedicated_sandbox_shares_forwarded_document_read_write(monkeypatch, tmp
     )
 
     winecmd = WineCommand.__new__(WineCommand)
+    winecmd.capture_stderr = False
     winecmd.config = config
     winecmd.arguments = " ".join(shlex.quote(arg) for arg in (document, other_path))
     winecmd.command = "cmd /c {} {}".format(
@@ -1550,6 +1556,7 @@ def test_plain_wine_uses_newest_discovered_steam_runtime_with_spaces(monkeypatch
     monkeypatch.setattr(winecommand.RuntimeManager, "get_runtimes", lambda _category: runtimes)
 
     command = WineCommand.__new__(WineCommand)
+    command.capture_stderr = False
     command.config = BottleConfig(Runner="ordinary-wine")
     command.config.Parameters.use_steam_runtime = True
     command.runner = "/runner/bin/wine"
@@ -1766,6 +1773,7 @@ def test_launch_scripts_receive_selected_wine_binary(monkeypatch, runner_binary)
     import shlex
     monkeypatch.setenv("WINE", "/incorrect/host/wine")
     command = WineCommand.__new__(WineCommand)
+    command.capture_stderr = False
     command.config = _make_config()
     command.runner = shlex.quote(runner_binary)
     command.runner_runtime = ""

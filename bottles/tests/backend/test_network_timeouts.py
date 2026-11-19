@@ -520,15 +520,15 @@ def test_default_repository_fallbacks_are_commit_pinned(monkeypatch):
 
     assert repositories["components"]["sources"][0] == (
         "https://raw.githubusercontent.com/bottlesdevs/components/"
-        "ca85d78de054022caa3447272b9f5ea41bb14d16/"
+        "23290642be570b05a0e87bd0fa2dce50ff17ae36/"
     )
     assert repositories["dependencies"]["sources"][0] == (
         "https://raw.githubusercontent.com/bottlesdevs/dependencies/"
-        "23bd12fd717c506addb0b05859a5f8635036f225/"
+        "ff1811fc3df01127199a9939fa799fdaa2595adf/"
     )
     assert repositories["installers"]["sources"][0] == (
         "https://raw.githubusercontent.com/bottlesdevs/programs/"
-        "a5573868da1f9b15dabff86ef98d1c5ac17bd715/"
+        "09db52b7dab76267520f427a74e614564261c0df/"
     )
 
 

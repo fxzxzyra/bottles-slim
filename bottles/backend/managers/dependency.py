@@ -316,8 +316,8 @@ class DependencyManager:
             "replace_font": _("Replacing fonts…"),
             "set_windows": _("Adjusting Windows version…"),
             "use_windows": _("Applying Windows version…"),
-            "uninstall": _("Running uninstaller ({0})...").format(
-                file_name or _("unknown")
+            "uninstall": _("Running uninstaller ({0})…").format(
+                file_name or _("Unknown")
             ),
         }
 

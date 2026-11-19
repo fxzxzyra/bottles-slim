@@ -81,6 +81,18 @@
     <display_length compare="ge">768</display_length>
   </requires>
   <releases>
+    <release version="67.7" date="2026-11-19">
+      <description translate="no">
+        <p>Downstream release tracking upstream 67.7 with the reviewed 65.4 feature baseline.</p>
+        <ul>
+          <li>Fix program stopping, dependency installation, Wine initialization and executable analysis</li>
+          <li>Add usage time reset, container notes and program library sorting</li>
+          <li>Provide the selected Wine executable to launch scripts and support multiple dependency uninstallers</li>
+          <li>Add DPI scaling controls, Esync capability warnings and missing program file detection</li>
+          <li>Unify navigation and dialogs, refresh translations and remove foreign Wine environment discovery</li>
+        </ul>
+      </description>
+    </release>
     <release version="67.4" date="2026-10-18">
       <description translate="no">
         <p>Independent downstream release using upstream version numbering and a reviewed 65.4 feature baseline.</p>
