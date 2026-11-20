@@ -178,9 +178,6 @@ class EnvironmentVariablesDialog(Adw.Dialog):
         self.__valid_inherited_name = False
         self.__update_inherited_state()
 
-    def present(self):
-        return super().present(self.window)
-
     def __validate(self, *_args):
         self.__valid_name = GtkUtils.validate_entry(
             self.entry_new_var, lambda var_name: not var_name == "WINEDLLOVERRIDES"

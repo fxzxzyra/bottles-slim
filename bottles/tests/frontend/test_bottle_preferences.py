@@ -473,3 +473,38 @@ def test_component_controls_share_worker_completion_and_failed_selection(monkeyp
     assert combo.get_selected() == (1 if success else 2)
     assert view.window.show_toast.called is not success
     view.queue.end_task.assert_called_once()
+
+
+@pytest.mark.parametrize("dialog_name", [
+    "EnvironmentVariablesDialog", "DLLOverridesDialog", "DrivesDialog",
+])
+def test_feature_dialog_uses_native_presentation_signature(monkeypatch, tmp_path, dialog_name):
+    from gi.repository import Adw, Gtk
+    from bottles.frontend.views import bottle_preferences
+
+    parent = Gtk.Window()
+    parent.manager = Mock()
+    config = BottleConfig(Path=str(tmp_path))
+    presented = []
+    monkeypatch.setattr(Adw.Dialog, "present", lambda dialog, parent: presented.append((dialog, parent)))
+    monkeypatch.setattr(Gtk.Window, "present", lambda window: presented.append((window, None)))
+    view = SimpleNamespace(window=parent, config=config)
+    try:
+        bottle_preferences.PreferencesView._PreferencesView__show_feature_dialog(
+            view, None, getattr(bottle_preferences, dialog_name),
+        )
+        assert len(presented) == 1
+        dialog, received_parent = presented[0]
+        assert dialog.config is config
+        if isinstance(dialog, Adw.Dialog):
+            assert received_parent is parent
+        else:
+            assert received_parent is None
+            assert dialog.get_transient_for() is parent
+    finally:
+        for dialog, _ in presented:
+            if isinstance(dialog, Gtk.Window):
+                dialog.destroy()
+            else:
+                dialog.close()
+        parent.destroy()
