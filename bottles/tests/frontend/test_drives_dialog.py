@@ -12,6 +12,7 @@ from bottles.frontend.windows import drives
 def test_missing_c_drive_is_not_available(monkeypatch):
     dialog = SimpleNamespace(
         config=object(),
+        _rows=[],
         _DrivesDialog__alphabet="ABC",
         str_list_letters=Mock(),
         btn_save=Mock(),
@@ -75,3 +76,45 @@ def test_removed_drive_letter_can_be_added_without_reopening(monkeypatch, tmp_pa
     finally:
         dialog.destroy()
         window.destroy()
+
+
+def test_drive_window_refresh_reads_wine_mapping_changes(tmp_path):
+    devices = tmp_path / "dosdevices"
+    devices.mkdir()
+    (devices / "d:").symlink_to("../../disc")
+    (devices / "d::").symlink_to("/dev/sr0")
+    window = Gtk.Window()
+    window.manager = Mock()
+    dialog = drives.DrivesDialog(window, BottleConfig(Path=str(tmp_path)))
+    try:
+        assert [row.get_title() for row in dialog._rows] == ["D"]
+        (devices / "d:").unlink()
+        (devices / "e:").symlink_to("../../new")
+        # The same refresh is used when the window regains focus from winecfg.
+        dialog._DrivesDialog__populate_combo_and_drives()
+        assert [row.get_title() for row in dialog._rows] == ["E"]
+        assert dialog._rows[0].get_text() == "../../new"
+        letters = [dialog.str_list_letters.get_string(i)
+                   for i in range(dialog.str_list_letters.get_n_items())]
+        assert "D" in letters and "E" not in letters
+    finally:
+        dialog.destroy()
+        window.destroy()
+
+
+def test_focus_refresh_preserves_unsaved_rows_when_wine_mappings_are_unchanged(tmp_path):
+    devices = tmp_path / "dosdevices"
+    devices.mkdir()
+    (devices / "d:").symlink_to("../../disc")
+    refresh = Mock()
+    dialog = SimpleNamespace(
+        config=BottleConfig(Path=str(tmp_path)),
+        is_active=lambda: True,
+        _drive_snapshot={"D": "../../disc"},
+        _DrivesDialog__populate_combo_and_drives=refresh,
+    )
+    drives.DrivesDialog._DrivesDialog__refresh_on_focus(dialog)
+    refresh.assert_not_called()
+    (devices / "d:").unlink()
+    drives.DrivesDialog._DrivesDialog__refresh_on_focus(dialog)
+    refresh.assert_called_once()

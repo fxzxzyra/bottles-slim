@@ -35,7 +35,7 @@ msgid "\"{0}\" closed right after starting. Scan it with Eagle to check for miss
 msgstr "„{0}“ затвори веднага след стартиране. Да го сканирате с Eagle, за да проверите за липсващи зависимости, пакети или известни заплахи?"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:251
+#: bottles/frontend/widgets/dependency.py:261
 msgid "\"{0}\" failed to install"
 msgstr "Инсталирането на „{0}“ е неуспешно"
 
@@ -45,7 +45,7 @@ msgid "\"{0}\" hidden"
 msgstr "„{0}“ е скрита"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:231
+#: bottles/frontend/widgets/dependency.py:241
 msgid "\"{0}\" installed"
 msgstr "„{0}“ е инсталирана"
 
@@ -80,7 +80,7 @@ msgid "\"{0}\" showed"
 msgstr "„{0}“ е показана"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:228
+#: bottles/frontend/widgets/dependency.py:238
 msgid "\"{0}\" uninstalled"
 msgstr "„{0}“ е деинсталирана"
 
@@ -274,7 +274,7 @@ msgstr "Всички променливи на системната среда �
 msgid "All triggers"
 msgstr "Всички тригери"
 
-#: bottles/frontend/windows/generic.py:24
+#: bottles/frontend/views/bottle_dependencies.py:246 bottles/frontend/widgets/dependency.py:155 bottles/frontend/windows/generic.py:24
 msgid "An error has occurred."
 msgstr "Възникна грешка."
 
@@ -809,7 +809,7 @@ msgstr "Почистване"
 msgid "Clear DLL path"
 msgstr "Изчистване на DLL пътя"
 
-#: bottles/frontend/ui/new-bottle-dialog.blp:126 bottles/frontend/views/bottle_dependencies.py:122
+#: bottles/frontend/ui/new-bottle-dialog.blp:126 bottles/frontend/views/bottle_dependencies.py:121
 msgid "Clear Selection"
 msgstr "Изчистване на селекцията"
 
@@ -1404,7 +1404,7 @@ msgstr "Меню на зависимостите"
 msgid "Dependency description"
 msgstr "Описание на зависимостта"
 
-#: bottles/frontend/views/bottle_dependencies.py:196
+#: bottles/frontend/views/bottle_dependencies.py:195
 msgid "Dependency installation failed."
 msgstr "Неуспешно инсталиране на зависимост."
 
@@ -2256,7 +2256,7 @@ msgid "Installers Repository"
 msgstr "Хранилище на инсталатори"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:149
+#: bottles/frontend/views/bottle_dependencies.py:148
 msgid "Installing \"{0}\"..."
 msgstr "Инсталиране на \"{0}\"..."
 
@@ -2574,7 +2574,7 @@ msgid "MangoHud Settings"
 msgstr "Настройки на MangoHud"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:147 bottles/frontend/widgets/installer.py:85
+#: bottles/frontend/widgets/dependency.py:160 bottles/frontend/widgets/installer.py:85
 msgid "Manifest for {0}"
 msgstr "Манифест на {0}"
 
@@ -3717,7 +3717,7 @@ msgstr "Допълнително меню"
 msgid "Select"
 msgstr "Избиране"
 
-#: bottles/frontend/ui/details-dependencies.blp:93 bottles/frontend/views/bottle_dependencies.py:122
+#: bottles/frontend/ui/details-dependencies.blp:93 bottles/frontend/views/bottle_dependencies.py:121
 msgid "Select All"
 msgstr "Изберете всички"
 
@@ -4426,7 +4426,7 @@ msgstr "Това може да отнеме известно време."
 msgid "This dependency is not compatible with this container architecture."
 msgstr "Тази зависимост не е съвместима с тази архитектура на среда на Wine."
 
-#: bottles/frontend/widgets/dependency.py:131
+#: bottles/frontend/widgets/dependency.py:125
 msgid "This dependency is not installable offline because its files are not cached."
 msgstr "Тази зависимост не може да се инсталира офлайн, защото нейните файлове не са кеширани."
 
@@ -5193,14 +5193,14 @@ msgid "winetricks {verb} mentioned in reports"
 msgstr "winetricks {verb}, споменат в докладите"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:183
+#: bottles/frontend/views/bottle_dependencies.py:182
 msgid "{0} dependency"
 msgid_plural "{0} dependencies"
 msgstr[0] ""
 msgstr[1] ""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:207
+#: bottles/frontend/views/bottle_dependencies.py:206
 msgid "{0} dependency installed."
 msgid_plural "{0} dependencies installed."
 msgstr[0] ""
@@ -5217,7 +5217,7 @@ msgid "{0} failed to install."
 msgstr "{0} не успя да се инсталира."
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:205
+#: bottles/frontend/views/bottle_dependencies.py:204
 msgid "{0} installed, {1} failed."
 msgstr "{0} е инсталиран, {1} е неуспешен."
 

@@ -35,7 +35,7 @@ msgid "\"{0}\" closed right after starting. Scan it with Eagle to check for miss
 msgstr "تم إغلاق \"{0}\" مباشرة بعد البدء. قم بمسحه ضوئيًا باستخدام Eagle للتحقق من التبعيات المفقودة أو أدوات التعبئة أو التهديدات المعروفة؟"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:251
+#: bottles/frontend/widgets/dependency.py:261
 msgid "\"{0}\" failed to install"
 msgstr "فشل تثبيت \"{0}\""
 
@@ -45,7 +45,7 @@ msgid "\"{0}\" hidden"
 msgstr "أُخفي \"{0}\""
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:231
+#: bottles/frontend/widgets/dependency.py:241
 msgid "\"{0}\" installed"
 msgstr "ثُبِّت \"{0}\""
 
@@ -80,7 +80,7 @@ msgid "\"{0}\" showed"
 msgstr "عُرض \"{0}\""
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:228
+#: bottles/frontend/widgets/dependency.py:238
 msgid "\"{0}\" uninstalled"
 msgstr "أُزيل «{0}»"
 
@@ -274,7 +274,7 @@ msgstr "سيتم توريث كافة متغيرات بيئة النظام"
 msgid "All triggers"
 msgstr "جميع المشغلات"
 
-#: bottles/frontend/windows/generic.py:24
+#: bottles/frontend/views/bottle_dependencies.py:246 bottles/frontend/widgets/dependency.py:155 bottles/frontend/windows/generic.py:24
 msgid "An error has occurred."
 msgstr "حصل خطأ."
 
@@ -809,7 +809,7 @@ msgstr "التنظيف"
 msgid "Clear DLL path"
 msgstr "مسح مسار DLL"
 
-#: bottles/frontend/ui/new-bottle-dialog.blp:126 bottles/frontend/views/bottle_dependencies.py:122
+#: bottles/frontend/ui/new-bottle-dialog.blp:126 bottles/frontend/views/bottle_dependencies.py:121
 msgid "Clear Selection"
 msgstr "مسح التحديد"
 
@@ -1408,7 +1408,7 @@ msgstr "قائمة التبعيَّات"
 msgid "Dependency description"
 msgstr "وصف التبعية"
 
-#: bottles/frontend/views/bottle_dependencies.py:196
+#: bottles/frontend/views/bottle_dependencies.py:195
 msgid "Dependency installation failed."
 msgstr "فشل تثبيت التبعية."
 
@@ -2260,7 +2260,7 @@ msgid "Installers Repository"
 msgstr "مستودع أدوات التثبيت"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:149
+#: bottles/frontend/views/bottle_dependencies.py:148
 msgid "Installing \"{0}\"..."
 msgstr "تثبيت \"{0}\"..."
 
@@ -2578,7 +2578,7 @@ msgid "MangoHud Settings"
 msgstr "إعدادات MangoHud"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:147 bottles/frontend/widgets/installer.py:85
+#: bottles/frontend/widgets/dependency.py:160 bottles/frontend/widgets/installer.py:85
 msgid "Manifest for {0}"
 msgstr "البيان لـ {0}"
 
@@ -3721,7 +3721,7 @@ msgstr "القائمة الفرعية"
 msgid "Select"
 msgstr "اختر"
 
-#: bottles/frontend/ui/details-dependencies.blp:93 bottles/frontend/views/bottle_dependencies.py:122
+#: bottles/frontend/ui/details-dependencies.blp:93 bottles/frontend/views/bottle_dependencies.py:121
 msgid "Select All"
 msgstr "حدد الكل"
 
@@ -4430,7 +4430,7 @@ msgstr "قد يستغرق هذا بعض الوقت."
 msgid "This dependency is not compatible with this container architecture."
 msgstr "هذه التبعية غير متوافقة مع بنية البيئة Wine هذه."
 
-#: bottles/frontend/widgets/dependency.py:131
+#: bottles/frontend/widgets/dependency.py:125
 msgid "This dependency is not installable offline because its files are not cached."
 msgstr "هذه التبعية غير قابلة للتثبيت دون اتصال لأن ملفاتها غير مخزنة مؤقتًا."
 
@@ -5201,7 +5201,7 @@ msgid "winetricks {verb} mentioned in reports"
 msgstr "حيل النبيذ {verb} مذكورة في التقارير"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:183
+#: bottles/frontend/views/bottle_dependencies.py:182
 msgid "{0} dependency"
 msgid_plural "{0} dependencies"
 msgstr[0] ""
@@ -5212,7 +5212,7 @@ msgstr[4] ""
 msgstr[5] ""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:207
+#: bottles/frontend/views/bottle_dependencies.py:206
 msgid "{0} dependency installed."
 msgid_plural "{0} dependencies installed."
 msgstr[0] ""
@@ -5233,7 +5233,7 @@ msgid "{0} failed to install."
 msgstr "فشل تثبيت {0}."
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:205
+#: bottles/frontend/views/bottle_dependencies.py:204
 msgid "{0} installed, {1} failed."
 msgstr "تم تثبيت {0}، وفشل {1}."
 

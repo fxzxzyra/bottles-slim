@@ -35,7 +35,7 @@ msgid "\"{0}\" closed right after starting. Scan it with Eagle to check for miss
 msgstr "\"{0}\" ڕاستەوخۆ دوای دەستپێکردن داخراوە. بە Eagle سکان بکە بۆ پشکنینی وابەستەییە ونبووەکان، پاککەرەوەکان یان هەڕەشە ناسراوەکان؟"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:251
+#: bottles/frontend/widgets/dependency.py:261
 msgid "\"{0}\" failed to install"
 msgstr "دامەزراندنی «{0}» سەرکەوتوو نەبوو"
 
@@ -45,7 +45,7 @@ msgid "\"{0}\" hidden"
 msgstr "\"{0}\" شاراوەتەوە"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:231
+#: bottles/frontend/widgets/dependency.py:241
 msgid "\"{0}\" installed"
 msgstr "«{0}» دامەزرا"
 
@@ -80,7 +80,7 @@ msgid "\"{0}\" showed"
 msgstr "\"{0}\" نیشان درا"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:228
+#: bottles/frontend/widgets/dependency.py:238
 msgid "\"{0}\" uninstalled"
 msgstr "«{0}» لابرا"
 
@@ -279,7 +279,7 @@ msgstr "هەموو گۆڕاوەکانی ژینگەی سیستەم بە میرا�
 msgid "All triggers"
 msgstr "هەموو هاندەرەکان"
 
-#: bottles/frontend/windows/generic.py:24
+#: bottles/frontend/views/bottle_dependencies.py:246 bottles/frontend/widgets/dependency.py:155 bottles/frontend/windows/generic.py:24
 msgid "An error has occurred."
 msgstr "هەڵەیەک ڕوویدا."
 
@@ -827,7 +827,7 @@ msgstr "پاککردنەوە"
 msgid "Clear DLL path"
 msgstr "ڕێڕەوی DLL پاک بکەرەوە"
 
-#: bottles/frontend/ui/new-bottle-dialog.blp:126 bottles/frontend/views/bottle_dependencies.py:122
+#: bottles/frontend/ui/new-bottle-dialog.blp:126 bottles/frontend/views/bottle_dependencies.py:121
 msgid "Clear Selection"
 msgstr "هەڵبژاردنی ڕوون"
 
@@ -1445,7 +1445,7 @@ msgstr "پێبەندییەکان"
 msgid "Dependency description"
 msgstr "پێبەندییەکان"
 
-#: bottles/frontend/views/bottle_dependencies.py:196
+#: bottles/frontend/views/bottle_dependencies.py:195
 msgid "Dependency installation failed."
 msgstr "دامەزراندنی وابەستەیی شکستی هێنا."
 
@@ -2327,7 +2327,7 @@ msgid "Installers Repository"
 msgstr "کۆگای دامەزرێنەران"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:149
+#: bottles/frontend/views/bottle_dependencies.py:148
 msgid "Installing \"{0}\"..."
 msgstr "دامەزراندنی \"{0}\"..."
 
@@ -2656,7 +2656,7 @@ msgid "MangoHud Settings"
 msgstr "ڕێکخستنەکانی MangoHud"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:147 bottles/frontend/widgets/installer.py:85
+#: bottles/frontend/widgets/dependency.py:160 bottles/frontend/widgets/installer.py:85
 msgid "Manifest for {0}"
 msgstr "مەنەفێست بۆ {0}"
 
@@ -3844,7 +3844,7 @@ msgstr "مێنۆی لاوەکی"
 msgid "Select"
 msgstr "دیاریکردن"
 
-#: bottles/frontend/ui/details-dependencies.blp:93 bottles/frontend/views/bottle_dependencies.py:122
+#: bottles/frontend/ui/details-dependencies.blp:93 bottles/frontend/views/bottle_dependencies.py:121
 msgid "Select All"
 msgstr "هەموویان هەڵبژێرە"
 
@@ -4578,7 +4578,7 @@ msgstr "ئەمە دەتوانێت ماوەیەک بخایەنێت."
 msgid "This dependency is not compatible with this container architecture."
 msgstr "ئەم وابەستەییە لەگەڵ ئەم بیناسازییە شووشەیەدا ناگونجێت."
 
-#: bottles/frontend/widgets/dependency.py:131
+#: bottles/frontend/widgets/dependency.py:125
 msgid "This dependency is not installable offline because its files are not cached."
 msgstr "ئەم وابەستەییە لە دەرەوەی هێڵ دامەزراو نییە چونکە فایلەکانی لە کاشدا نین."
 
@@ -5371,14 +5371,14 @@ msgid "winetricks {verb} mentioned in reports"
 msgstr "winetricks {verb} لە ڕاپۆرتەکاندا باسکراوە"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:183
+#: bottles/frontend/views/bottle_dependencies.py:182
 msgid "{0} dependency"
 msgid_plural "{0} dependencies"
 msgstr[0] ""
 msgstr[1] ""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:207
+#: bottles/frontend/views/bottle_dependencies.py:206
 msgid "{0} dependency installed."
 msgid_plural "{0} dependencies installed."
 msgstr[0] ""
@@ -5395,7 +5395,7 @@ msgid "{0} failed to install."
 msgstr "{0} شکستی هێنا لە دامەزراندن."
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:205
+#: bottles/frontend/views/bottle_dependencies.py:204
 msgid "{0} installed, {1} failed."
 msgstr "{0} دامەزراوە، {1} شکستی هێناوە."
 

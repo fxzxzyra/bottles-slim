@@ -35,7 +35,7 @@ msgid "\"{0}\" closed right after starting. Scan it with Eagle to check for miss
 msgstr "\"{0}\" ditutup sejurus selepas bermula. Imbasnya dengan Eagle untuk menyemak kebergantungan yang hilang, pembungkus atau ancaman yang diketahui?"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:251
+#: bottles/frontend/widgets/dependency.py:261
 msgid "\"{0}\" failed to install"
 msgstr "Pemasangan “{0}” gagal"
 
@@ -45,7 +45,7 @@ msgid "\"{0}\" hidden"
 msgstr "\"{0}\" tersembunyi"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:231
+#: bottles/frontend/widgets/dependency.py:241
 msgid "\"{0}\" installed"
 msgstr "“{0}” dipasang"
 
@@ -80,7 +80,7 @@ msgid "\"{0}\" showed"
 msgstr "\"{0}\" ditunjukkan"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:228
+#: bottles/frontend/widgets/dependency.py:238
 msgid "\"{0}\" uninstalled"
 msgstr "“{0}” dinyahpasang"
 
@@ -279,7 +279,7 @@ msgstr "Semua pembolehubah persekitaran sistem akan diwarisi"
 msgid "All triggers"
 msgstr "Semua pencetus"
 
-#: bottles/frontend/windows/generic.py:24
+#: bottles/frontend/views/bottle_dependencies.py:246 bottles/frontend/widgets/dependency.py:155 bottles/frontend/windows/generic.py:24
 msgid "An error has occurred."
 msgstr "Suatu kesalahan telah berlaku."
 
@@ -827,7 +827,7 @@ msgstr "Pembersihan"
 msgid "Clear DLL path"
 msgstr "Kosongkan laluan DLL"
 
-#: bottles/frontend/ui/new-bottle-dialog.blp:126 bottles/frontend/views/bottle_dependencies.py:122
+#: bottles/frontend/ui/new-bottle-dialog.blp:126 bottles/frontend/views/bottle_dependencies.py:121
 msgid "Clear Selection"
 msgstr "Kosongkan Pilihan"
 
@@ -1445,7 +1445,7 @@ msgstr "Pengantung"
 msgid "Dependency description"
 msgstr "Pengantung"
 
-#: bottles/frontend/views/bottle_dependencies.py:196
+#: bottles/frontend/views/bottle_dependencies.py:195
 msgid "Dependency installation failed."
 msgstr "Pemasangan kebergantungan gagal."
 
@@ -2328,7 +2328,7 @@ msgid "Installers Repository"
 msgstr "Repositori Pemasang"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:149
+#: bottles/frontend/views/bottle_dependencies.py:148
 msgid "Installing \"{0}\"..."
 msgstr "Memasang \"{0}\"..."
 
@@ -2657,7 +2657,7 @@ msgid "MangoHud Settings"
 msgstr "Tetapan MangoHud"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:147 bottles/frontend/widgets/installer.py:85
+#: bottles/frontend/widgets/dependency.py:160 bottles/frontend/widgets/installer.py:85
 msgid "Manifest for {0}"
 msgstr "Kenyataan untuk {0}"
 
@@ -3844,7 +3844,7 @@ msgstr "Menu Kedua"
 msgid "Select"
 msgstr "Pilih"
 
-#: bottles/frontend/ui/details-dependencies.blp:93 bottles/frontend/views/bottle_dependencies.py:122
+#: bottles/frontend/ui/details-dependencies.blp:93 bottles/frontend/views/bottle_dependencies.py:121
 msgid "Select All"
 msgstr "Pilih Semua"
 
@@ -4577,7 +4577,7 @@ msgstr "Ini mungkin mengambil sedikit masa."
 msgid "This dependency is not compatible with this container architecture."
 msgstr "Kebergantungan ini tidak serasi dengan seni bina persekitaran Wine ini."
 
-#: bottles/frontend/widgets/dependency.py:131
+#: bottles/frontend/widgets/dependency.py:125
 msgid "This dependency is not installable offline because its files are not cached."
 msgstr "Kebergantungan ini tidak boleh dipasang di luar talian kerana failnya tidak dicache."
 
@@ -5365,13 +5365,13 @@ msgid "winetricks {verb} mentioned in reports"
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:183
+#: bottles/frontend/views/bottle_dependencies.py:182
 msgid "{0} dependency"
 msgid_plural "{0} dependencies"
 msgstr[0] ""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:207
+#: bottles/frontend/views/bottle_dependencies.py:206
 msgid "{0} dependency installed."
 msgid_plural "{0} dependencies installed."
 msgstr[0] ""
@@ -5387,7 +5387,7 @@ msgid "{0} failed to install."
 msgstr ""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:205
+#: bottles/frontend/views/bottle_dependencies.py:204
 msgid "{0} installed, {1} failed."
 msgstr ""
 

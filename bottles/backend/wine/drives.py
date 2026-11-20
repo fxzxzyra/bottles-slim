@@ -19,17 +19,16 @@ class Drives:
         if os.path.exists(self.dosdevices_path):
             for drive in os.listdir(self.dosdevices_path):
                 if os.path.islink(f"{self.dosdevices_path}/{drive}"):
-                    letter = os.path.basename(drive).replace(":", "").upper()
-                    if len(letter) == 1 and letter.isalpha():
+                    letter = drive[0].upper()
+                    if (len(drive) == 2 and drive[1] == ":"
+                            and letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
                         path = os.readlink(f"{self.dosdevices_path}/{drive}")
                         drives[letter] = path
         return drives
 
     def get_drive(self, letter: str):
         """Get a drive from the bottle"""
-        if letter in self.get_all():
-            return self.get_all().get(letter)
-        return None
+        return self.get_all().get(letter.upper().rstrip(":"))
 
     def is_ejectable(self, letter: str) -> bool:
         """Return whether the drive has a Wine device link."""

@@ -117,12 +117,6 @@ class DependencyEntry(Adw.ActionRow):
             not self.manager.utils_conn.status
             and dependency[0] not in self.config.Installed_Dependencies
         )
-        if needs_offline_check and not cached and self.config.Installed_Dependencies:
-            cached = self.manager.dependency_manager.is_dependency_cached(
-                dependency[0],
-                arch=self.config.Arch,
-                installed=self.config.Installed_Dependencies,
-            )
 
         if needs_offline_check and not cached:
             self.btn_install.set_visible(False)
@@ -142,23 +136,39 @@ class DependencyEntry(Adw.ActionRow):
         This function pop up a dialog with the manifest
         of the dependency
         """
-        SourceDialog(
-            parent=self.window,
-            title=_("Manifest for {0}").format(self.dependency[0]),
-            message=self.manager.dependency_manager.get_dependency(
-                name=self.dependency[0], plain=True
-            ),
-        ).present()
+        self.__load_manifest(plain=True)
 
     def open_license(self, _widget):
-        """
-        This function pop up a dialog with the license
-        of the dependency
-        """
-        manifest = self.manager.dependency_manager.get_dependency(
-            name=self.dependency[0]
+        self.__load_manifest(plain=False)
+
+    def __load_manifest(self, plain):
+        self.btn_manifest.set_sensitive(False)
+        self.btn_license.set_sensitive(False)
+        self.spinner.set_visible(True)
+
+        def complete(manifest, error):
+            self.btn_manifest.set_sensitive(True)
+            self.btn_license.set_sensitive(True)
+            self.spinner.set_visible(False)
+            if (error is not None or not manifest
+                    or not plain and (not isinstance(manifest, dict) or not manifest.get("License_url"))):
+                self.window.show_toast(_("An error has occurred."))
+                return
+            if plain:
+                SourceDialog(
+                    parent=self.window,
+                    title=_("Manifest for {0}").format(self.dependency[0]),
+                    message=manifest,
+                ).present()
+            else:
+                webbrowser.open(manifest["License_url"])
+
+        RunAsync(
+            self.manager.dependency_manager.get_dependency,
+            callback=complete,
+            name=self.dependency[0],
+            plain=plain,
         )
-        webbrowser.open(manifest["License_url"])
 
     def open_bug_report(self, _widget):
         query = urlencode({"title": f"{self.dependency[0]}: "})

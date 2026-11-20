@@ -35,7 +35,7 @@ msgid "\"{0}\" closed right after starting. Scan it with Eagle to check for miss
 msgstr "\"{0}\" pechouse xusto despois de comezar. Escanealo con Eagle para comprobar se faltan dependencias, empaquetadores ou ameazas coñecidas?"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:251
+#: bottles/frontend/widgets/dependency.py:261
 msgid "\"{0}\" failed to install"
 msgstr "\"{0}\" fallou ao instalarse"
 
@@ -45,7 +45,7 @@ msgid "\"{0}\" hidden"
 msgstr "\"{0}\" oculto"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:231
+#: bottles/frontend/widgets/dependency.py:241
 msgid "\"{0}\" installed"
 msgstr "\"{0}\" instalado"
 
@@ -80,7 +80,7 @@ msgid "\"{0}\" showed"
 msgstr "mostrouse \"{0}\"."
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:228
+#: bottles/frontend/widgets/dependency.py:238
 msgid "\"{0}\" uninstalled"
 msgstr "\"{0}\" desinstalado"
 
@@ -279,7 +279,7 @@ msgstr ""
 msgid "All triggers"
 msgstr ""
 
-#: bottles/frontend/windows/generic.py:24
+#: bottles/frontend/views/bottle_dependencies.py:246 bottles/frontend/widgets/dependency.py:155 bottles/frontend/windows/generic.py:24
 msgid "An error has occurred."
 msgstr "Produciuse un erro."
 
@@ -824,7 +824,7 @@ msgstr "limpeza"
 msgid "Clear DLL path"
 msgstr "Limpar a ruta DLL"
 
-#: bottles/frontend/ui/new-bottle-dialog.blp:126 bottles/frontend/views/bottle_dependencies.py:122
+#: bottles/frontend/ui/new-bottle-dialog.blp:126 bottles/frontend/views/bottle_dependencies.py:121
 msgid "Clear Selection"
 msgstr "Borrar selección"
 
@@ -1435,7 +1435,7 @@ msgstr "Menú de dependencia"
 msgid "Dependency description"
 msgstr "Descrición da dependencia"
 
-#: bottles/frontend/views/bottle_dependencies.py:196
+#: bottles/frontend/views/bottle_dependencies.py:195
 msgid "Dependency installation failed."
 msgstr "fallou a instalación da dependencia."
 
@@ -2309,7 +2309,7 @@ msgid "Installers Repository"
 msgstr "Repositorio de instaladores"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:149
+#: bottles/frontend/views/bottle_dependencies.py:148
 msgid "Installing \"{0}\"..."
 msgstr "Instalando \"{0}\"..."
 
@@ -2637,7 +2637,7 @@ msgid "MangoHud Settings"
 msgstr "Configuración de MangoHud"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:147 bottles/frontend/widgets/installer.py:85
+#: bottles/frontend/widgets/dependency.py:160 bottles/frontend/widgets/installer.py:85
 msgid "Manifest for {0}"
 msgstr "Manifesto de {0}"
 
@@ -3811,7 +3811,7 @@ msgstr "Menú secundario"
 msgid "Select"
 msgstr "Seleccionar"
 
-#: bottles/frontend/ui/details-dependencies.blp:93 bottles/frontend/views/bottle_dependencies.py:122
+#: bottles/frontend/ui/details-dependencies.blp:93 bottles/frontend/views/bottle_dependencies.py:121
 msgid "Select All"
 msgstr "Seleccionar todo"
 
@@ -4536,7 +4536,7 @@ msgstr "Isto pode tomar un tempo."
 msgid "This dependency is not compatible with this container architecture."
 msgstr "esta dependencia non é compatible con esta arquitectura de contorna de Wine."
 
-#: bottles/frontend/widgets/dependency.py:131
+#: bottles/frontend/widgets/dependency.py:125
 msgid "This dependency is not installable offline because its files are not cached."
 msgstr "esta dependencia non se pode instalar sen conexión porque os seus ficheiros non están na memoria caché."
 
@@ -5323,14 +5323,14 @@ msgid "winetricks {verb} mentioned in reports"
 msgstr "trucos de viño {verb} mencionados nos informes"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:183
+#: bottles/frontend/views/bottle_dependencies.py:182
 msgid "{0} dependency"
 msgid_plural "{0} dependencies"
 msgstr[0] ""
 msgstr[1] ""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:207
+#: bottles/frontend/views/bottle_dependencies.py:206
 msgid "{0} dependency installed."
 msgid_plural "{0} dependencies installed."
 msgstr[0] ""
@@ -5347,7 +5347,7 @@ msgid "{0} failed to install."
 msgstr "fallo ao instalar {0}."
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:205
+#: bottles/frontend/views/bottle_dependencies.py:204
 msgid "{0} installed, {1} failed."
 msgstr "{0} instalado, {1} fallou."
 

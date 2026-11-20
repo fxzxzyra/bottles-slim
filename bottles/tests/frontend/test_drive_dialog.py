@@ -82,3 +82,18 @@ def test_drive_entry_runs_wine_eject(monkeypatch):
     assert calls == ["D:"]
     assert entry.btn_eject.set_sensitive.call_args_list == [call(False), call(True)]
     entry.parent.window.show_toast.assert_called_once()
+
+
+def test_relative_drive_path_is_not_marked_invalid_and_can_be_saved(tmp_path):
+    from bottles.frontend.windows.drives import DriveEntry
+
+    config = BottleConfig(Path=str(tmp_path))
+    parent = SimpleNamespace(config=config, window=SimpleNamespace(manager=Mock()))
+    entry = DriveEntry(parent, ["D", "../../old"])
+    assert not entry.has_css_class("error")
+    entry.set_text("../../disc")
+    assert not entry.has_css_class("error")
+    assert entry.get_show_apply_button()
+    entry.emit("apply")
+    assert (tmp_path / "dosdevices" / "d:").readlink().as_posix() == "../../disc"
+    assert not entry.get_show_apply_button()

@@ -116,9 +116,9 @@ def test_installed_dependency_without_uninstaller_cannot_be_removed(uninstaller)
 
 @pytest.mark.parametrize(
     ("online", "expects_lookup"),
-    ((True, False), (False, True)),
+    ((True, False), (False, False)),
 )
-def test_cache_lookup_only_runs_offline(online, expects_lookup):
+def test_row_construction_never_reads_dependency_manifests(online, expects_lookup):
     cache_calls = []
     window = _make_window(online=online, cache_calls=cache_calls)
     config = BottleConfig(Name="Bottle", Installed_Dependencies=["arial32"])

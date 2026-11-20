@@ -35,7 +35,7 @@ msgid "\"{0}\" closed right after starting. Scan it with Eagle to check for miss
 msgstr "\"{0}\" zatvoren odmah nakon pokretanja. Skenirati ga pomoću Eagle da provjerite da li nedostaju zavisnosti, pakeri ili poznate prijetnje?"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:251
+#: bottles/frontend/widgets/dependency.py:261
 msgid "\"{0}\" failed to install"
 msgstr "Instalacija \"{0}\" nije uspjela"
 
@@ -45,7 +45,7 @@ msgid "\"{0}\" hidden"
 msgstr "\"{0}\" skriveno"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:231
+#: bottles/frontend/widgets/dependency.py:241
 msgid "\"{0}\" installed"
 msgstr "\"{0}\" je instaliran"
 
@@ -80,7 +80,7 @@ msgid "\"{0}\" showed"
 msgstr "\"{0}\" prikazano"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:228
+#: bottles/frontend/widgets/dependency.py:238
 msgid "\"{0}\" uninstalled"
 msgstr "\"{0}\" je deinstaliran"
 
@@ -273,7 +273,7 @@ msgstr "Sve varijable sistemskog okruženja bit će naslijeđene"
 msgid "All triggers"
 msgstr "Svi okidači"
 
-#: bottles/frontend/windows/generic.py:24
+#: bottles/frontend/views/bottle_dependencies.py:246 bottles/frontend/widgets/dependency.py:155 bottles/frontend/windows/generic.py:24
 msgid "An error has occurred."
 msgstr "Došlo je do greške."
 
@@ -806,7 +806,7 @@ msgstr "Čišćenje"
 msgid "Clear DLL path"
 msgstr "Očisti DLL putanju"
 
-#: bottles/frontend/ui/new-bottle-dialog.blp:126 bottles/frontend/views/bottle_dependencies.py:122
+#: bottles/frontend/ui/new-bottle-dialog.blp:126 bottles/frontend/views/bottle_dependencies.py:121
 msgid "Clear Selection"
 msgstr "Obriši odabir"
 
@@ -1402,7 +1402,7 @@ msgstr "Meni zavisnosti"
 msgid "Dependency description"
 msgstr "Opis zavisnosti"
 
-#: bottles/frontend/views/bottle_dependencies.py:196
+#: bottles/frontend/views/bottle_dependencies.py:195
 msgid "Dependency installation failed."
 msgstr "Instalacija ovisnosti nije uspjela."
 
@@ -2254,7 +2254,7 @@ msgid "Installers Repository"
 msgstr "Repozitorijum instalatera"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:149
+#: bottles/frontend/views/bottle_dependencies.py:148
 msgid "Installing \"{0}\"..."
 msgstr "Instaliranje \"{0}\"..."
 
@@ -2572,7 +2572,7 @@ msgid "MangoHud Settings"
 msgstr "MangoHud postavke"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:147 bottles/frontend/widgets/installer.py:85
+#: bottles/frontend/widgets/dependency.py:160 bottles/frontend/widgets/installer.py:85
 msgid "Manifest for {0}"
 msgstr "Manifest za {0}"
 
@@ -3715,7 +3715,7 @@ msgstr "Sekundarni meni"
 msgid "Select"
 msgstr "Odaberite"
 
-#: bottles/frontend/ui/details-dependencies.blp:93 bottles/frontend/views/bottle_dependencies.py:122
+#: bottles/frontend/ui/details-dependencies.blp:93 bottles/frontend/views/bottle_dependencies.py:121
 msgid "Select All"
 msgstr "Odaberite sve"
 
@@ -4423,7 +4423,7 @@ msgstr "Ovo bi moglo potrajati."
 msgid "This dependency is not compatible with this container architecture."
 msgstr "Ova zavisnost nije kompatibilna s ovom arhitekturom Wine okruženja."
 
-#: bottles/frontend/widgets/dependency.py:131
+#: bottles/frontend/widgets/dependency.py:125
 msgid "This dependency is not installable offline because its files are not cached."
 msgstr "Ova zavisnost se ne može instalirati van mreže jer njene datoteke nisu keširane."
 
@@ -5189,7 +5189,7 @@ msgid "winetricks {verb} mentioned in reports"
 msgstr "winetricks {verb} spomenut u izvještajima"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:183
+#: bottles/frontend/views/bottle_dependencies.py:182
 msgid "{0} dependency"
 msgid_plural "{0} dependencies"
 msgstr[0] ""
@@ -5197,7 +5197,7 @@ msgstr[1] ""
 msgstr[2] ""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:207
+#: bottles/frontend/views/bottle_dependencies.py:206
 msgid "{0} dependency installed."
 msgid_plural "{0} dependencies installed."
 msgstr[0] ""
@@ -5215,7 +5215,7 @@ msgid "{0} failed to install."
 msgstr "{0} nije uspjela instalacija."
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:205
+#: bottles/frontend/views/bottle_dependencies.py:204
 msgid "{0} installed, {1} failed."
 msgstr "{0} instaliran, {1} nije uspio."
 

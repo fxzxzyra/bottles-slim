@@ -35,7 +35,7 @@ msgid "\"{0}\" closed right after starting. Scan it with Eagle to check for miss
 msgstr "“{0}”啓動後立即退出。是否使用 Eagle 掃描，檢查缺失依賴、加殼或已知威脅？"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:251
+#: bottles/frontend/widgets/dependency.py:261
 msgid "\"{0}\" failed to install"
 msgstr "「{0}」安裝失敗"
 
@@ -45,7 +45,7 @@ msgid "\"{0}\" hidden"
 msgstr "「{0}」已隱藏"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:231
+#: bottles/frontend/widgets/dependency.py:241
 msgid "\"{0}\" installed"
 msgstr "「{0}」已安裝"
 
@@ -80,7 +80,7 @@ msgid "\"{0}\" showed"
 msgstr "「{0}」已顯示"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:228
+#: bottles/frontend/widgets/dependency.py:238
 msgid "\"{0}\" uninstalled"
 msgstr "「{0}」已解除安裝"
 
@@ -274,7 +274,7 @@ msgstr "繼承所有系統環境變量"
 msgid "All triggers"
 msgstr "所有觸發條件"
 
-#: bottles/frontend/windows/generic.py:24
+#: bottles/frontend/views/bottle_dependencies.py:246 bottles/frontend/widgets/dependency.py:155 bottles/frontend/windows/generic.py:24
 msgid "An error has occurred."
 msgstr "發生錯誤。"
 
@@ -809,7 +809,7 @@ msgstr "清理"
 msgid "Clear DLL path"
 msgstr "清除 DLL 路徑"
 
-#: bottles/frontend/ui/new-bottle-dialog.blp:126 bottles/frontend/views/bottle_dependencies.py:122
+#: bottles/frontend/ui/new-bottle-dialog.blp:126 bottles/frontend/views/bottle_dependencies.py:121
 msgid "Clear Selection"
 msgstr "清除選擇"
 
@@ -1403,7 +1403,7 @@ msgstr "相依套件選單"
 msgid "Dependency description"
 msgstr "相依項目描述"
 
-#: bottles/frontend/views/bottle_dependencies.py:196
+#: bottles/frontend/views/bottle_dependencies.py:195
 msgid "Dependency installation failed."
 msgstr "安裝依賴項失敗。"
 
@@ -2255,7 +2255,7 @@ msgid "Installers Repository"
 msgstr "安裝程序倉庫"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:149
+#: bottles/frontend/views/bottle_dependencies.py:148
 msgid "Installing \"{0}\"..."
 msgstr "正在安裝“{0}”…"
 
@@ -2573,7 +2573,7 @@ msgid "MangoHud Settings"
 msgstr "MangoHud 設置"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:147 bottles/frontend/widgets/installer.py:85
+#: bottles/frontend/widgets/dependency.py:160 bottles/frontend/widgets/installer.py:85
 msgid "Manifest for {0}"
 msgstr "{0} 的清單"
 
@@ -3716,7 +3716,7 @@ msgstr "第二選單"
 msgid "Select"
 msgstr "選取"
 
-#: bottles/frontend/ui/details-dependencies.blp:93 bottles/frontend/views/bottle_dependencies.py:122
+#: bottles/frontend/ui/details-dependencies.blp:93 bottles/frontend/views/bottle_dependencies.py:121
 msgid "Select All"
 msgstr "全選"
 
@@ -4425,7 +4425,7 @@ msgstr "這需要一點時間。"
 msgid "This dependency is not compatible with this container architecture."
 msgstr "此依賴項不兼容該容器的架構。"
 
-#: bottles/frontend/widgets/dependency.py:131
+#: bottles/frontend/widgets/dependency.py:125
 msgid "This dependency is not installable offline because its files are not cached."
 msgstr "依賴項文件未緩存，無法離線安裝。"
 
@@ -5191,13 +5191,13 @@ msgid "winetricks {verb} mentioned in reports"
 msgstr "報告提及 winetricks 指令 {verb}"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:183
+#: bottles/frontend/views/bottle_dependencies.py:182
 msgid "{0} dependency"
 msgid_plural "{0} dependencies"
 msgstr[0] "{0} 個相依項目"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:207
+#: bottles/frontend/views/bottle_dependencies.py:206
 msgid "{0} dependency installed."
 msgid_plural "{0} dependencies installed."
 msgstr[0] "已安裝 {0} 個相依項目。"
@@ -5213,7 +5213,7 @@ msgid "{0} failed to install."
 msgstr "安裝 {0} 失敗。"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:205
+#: bottles/frontend/views/bottle_dependencies.py:204
 msgid "{0} installed, {1} failed."
 msgstr "已安裝 {0} 項，{1} 項失敗。"
 

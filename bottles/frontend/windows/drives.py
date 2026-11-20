@@ -19,7 +19,7 @@ import os
 import string
 from gettext import gettext as _
 
-from gi.repository import Adw, GLib, Gtk
+from gi.repository import Adw, Gtk
 
 from bottles.backend.utils.manager import ManagerUtils
 from bottles.backend.utils.threading import RunAsync
@@ -86,7 +86,7 @@ class DriveEntry(Adw.EntryRow):
 
     def __validate(self, *_args):
         path = self.get_text()
-        valid = bool(path and os.path.isabs(path))
+        valid = bool(path and "\x00" not in path)
         self.set_show_apply_button(valid and path != self.drive[1])
         if path and not valid:
             self.add_css_class("error")
@@ -95,7 +95,7 @@ class DriveEntry(Adw.EntryRow):
 
     def __save(self, *_args):
         path = self.get_text()
-        if not path or not os.path.isabs(path):
+        if not path or "\x00" in path:
             return
 
         Drives(self.config).set_drive_path(self.drive[0], path)
@@ -135,6 +135,7 @@ class DriveEntry(Adw.EntryRow):
         """Remove drive from bottle's configuration and destroy its widget"""
         Drives(self.config).remove_drive(self.drive[0])
         self.parent.list_drives.remove(self)
+        self.parent._rows.remove(self)
         self.parent.add_combo_letter(self.drive[0])
 
 
@@ -160,26 +161,42 @@ class DrivesDialog(Adw.Window):
         self.manager = window.manager
         self.config = config
 
+        self._rows = []
         self.__populate_combo_and_drives()
+        self.connect("notify::is-active", self.__refresh_on_focus)
 
         # connect signals
         self.btn_save.connect("clicked", self.__save)
 
     def __save(self, *_args):
         """Add a new drive to bottle's configuration"""
+        if not self.str_list_letters.get_n_items():
+            return
         index = self.combo_letter.get_selected()
         drive_letter = self.str_list_letters.get_string(index)
         _entry = DriveEntry(parent=self, drive=[drive_letter, ""])
 
-        GLib.idle_add(self.list_drives.add, _entry)
+        self.list_drives.add(_entry)
+        self._rows.append(_entry)
         self.str_list_letters.remove(index)
+        self.btn_save.set_sensitive(self.str_list_letters.get_n_items() > 0)
+
+    def __refresh_on_focus(self, *_args):
+        if self.is_active() and Drives(self.config).get_all() != self._drive_snapshot:
+            self.__populate_combo_and_drives()
 
     def __populate_combo_and_drives(self):
         """
         Populate lists of combo letters and drives
         based on the existing ones from bottle's configuration
         """
+        for row in self._rows:
+            self.list_drives.remove(row)
+        self._rows.clear()
+        self.str_list_letters.splice(0, self.str_list_letters.get_n_items(), [])
+        self.btn_save.set_sensitive(False)
         drives = Drives(self.config).get_all()
+        self._drive_snapshot = drives
         for letter in self.__alphabet:
             if letter == "C" and letter not in drives:
                 continue
@@ -196,7 +213,8 @@ class DrivesDialog(Adw.Window):
                     )
                 else:
                     _entry = DriveEntry(parent=self, drive=[letter, drives[letter]])
-                GLib.idle_add(self.list_drives.add, _entry)
+                self.list_drives.add(_entry)
+                self._rows.append(_entry)
 
     def add_combo_letter(self, letter: str):
         idx_new = next(
@@ -204,3 +222,4 @@ class DrivesDialog(Adw.Window):
             self.str_list_letters.get_n_items(),
         )
         self.str_list_letters.splice(idx_new, 0, [letter])
+        self.btn_save.set_sensitive(True)

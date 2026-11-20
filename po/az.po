@@ -35,7 +35,7 @@ msgid "\"{0}\" closed right after starting. Scan it with Eagle to check for miss
 msgstr "\"{0}\" başladıqdan dərhal sonra bağlandı. Çatışmayan asılılıqları, paketləri və ya məlum təhlükələri yoxlamaq üçün onu Eagle ilə skan edin?"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:251
+#: bottles/frontend/widgets/dependency.py:261
 msgid "\"{0}\" failed to install"
 msgstr "\"{0}\" quraşdırmaq alınmadı"
 
@@ -45,7 +45,7 @@ msgid "\"{0}\" hidden"
 msgstr "\"{0}\" gizlədilib"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:231
+#: bottles/frontend/widgets/dependency.py:241
 msgid "\"{0}\" installed"
 msgstr "\"{0}\" quraşdırılıb"
 
@@ -80,7 +80,7 @@ msgid "\"{0}\" showed"
 msgstr "\"{0}\" göstərdi"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:228
+#: bottles/frontend/widgets/dependency.py:238
 msgid "\"{0}\" uninstalled"
 msgstr "\"{0}\" silindi"
 
@@ -273,7 +273,7 @@ msgstr "Bütün sistem mühiti dəyişənləri miras alınacaq"
 msgid "All triggers"
 msgstr "Bütün tetikleyiciler"
 
-#: bottles/frontend/windows/generic.py:24
+#: bottles/frontend/views/bottle_dependencies.py:246 bottles/frontend/widgets/dependency.py:155 bottles/frontend/windows/generic.py:24
 msgid "An error has occurred."
 msgstr "Xəta baş verdi."
 
@@ -806,7 +806,7 @@ msgstr "Təmizləmə"
 msgid "Clear DLL path"
 msgstr "DLL yolunu təmizləyin"
 
-#: bottles/frontend/ui/new-bottle-dialog.blp:126 bottles/frontend/views/bottle_dependencies.py:122
+#: bottles/frontend/ui/new-bottle-dialog.blp:126 bottles/frontend/views/bottle_dependencies.py:121
 msgid "Clear Selection"
 msgstr "Seçimi təmizləyin"
 
@@ -1401,7 +1401,7 @@ msgstr "Aslılıq Menyusu"
 msgid "Dependency description"
 msgstr "Aslılıq açıqlaması"
 
-#: bottles/frontend/views/bottle_dependencies.py:196
+#: bottles/frontend/views/bottle_dependencies.py:195
 msgid "Dependency installation failed."
 msgstr "Asılılığın quraşdırılması uğursuz oldu."
 
@@ -2254,7 +2254,7 @@ msgid "Installers Repository"
 msgstr "Quraşdırıcılar Anbarı"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:149
+#: bottles/frontend/views/bottle_dependencies.py:148
 msgid "Installing \"{0}\"..."
 msgstr "\"{0}\" quraşdırılır..."
 
@@ -2572,7 +2572,7 @@ msgid "MangoHud Settings"
 msgstr "MangoHud Parametrləri"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:147 bottles/frontend/widgets/installer.py:85
+#: bottles/frontend/widgets/dependency.py:160 bottles/frontend/widgets/installer.py:85
 msgid "Manifest for {0}"
 msgstr "{0} üçün manifest"
 
@@ -3715,7 +3715,7 @@ msgstr "İkinci Dərəcəli Menyu"
 msgid "Select"
 msgstr "Seç"
 
-#: bottles/frontend/ui/details-dependencies.blp:93 bottles/frontend/views/bottle_dependencies.py:122
+#: bottles/frontend/ui/details-dependencies.blp:93 bottles/frontend/views/bottle_dependencies.py:121
 msgid "Select All"
 msgstr "Hamısını seçin"
 
@@ -4423,7 +4423,7 @@ msgstr "Bu bir müddət çəkə bilər."
 msgid "This dependency is not compatible with this container architecture."
 msgstr "Bu asılılıq bu Wine mühiti arxitekturasına uyğun gəlmir."
 
-#: bottles/frontend/widgets/dependency.py:131
+#: bottles/frontend/widgets/dependency.py:125
 msgid "This dependency is not installable offline because its files are not cached."
 msgstr "Bu asılılıq oflayn quraşdırıla bilməz, çünki onun faylları keşlənmir."
 
@@ -5188,14 +5188,14 @@ msgid "winetricks {verb} mentioned in reports"
 msgstr "hesabatlarda qeyd olunan winetricks {verb}"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:183
+#: bottles/frontend/views/bottle_dependencies.py:182
 msgid "{0} dependency"
 msgid_plural "{0} dependencies"
 msgstr[0] ""
 msgstr[1] ""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:207
+#: bottles/frontend/views/bottle_dependencies.py:206
 msgid "{0} dependency installed."
 msgid_plural "{0} dependencies installed."
 msgstr[0] ""
@@ -5212,7 +5212,7 @@ msgid "{0} failed to install."
 msgstr "{0} quraşdırmaq alınmadı."
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:205
+#: bottles/frontend/views/bottle_dependencies.py:204
 msgid "{0} installed, {1} failed."
 msgstr "{0} quraşdırıldı, {1} uğursuz oldu."
 

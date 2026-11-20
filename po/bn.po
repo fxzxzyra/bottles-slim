@@ -35,7 +35,7 @@ msgid "\"{0}\" closed right after starting. Scan it with Eagle to check for miss
 msgstr "\"{0}\" শুরু হওয়ার পরপরই বন্ধ হয়ে গেছে। অনুপস্থিত নির্ভরতা, প্যাকার বা পরিচিত হুমকি পরীক্ষা করতে Eagle দিয়ে এটি স্ক্যান করুন?"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:251
+#: bottles/frontend/widgets/dependency.py:261
 msgid "\"{0}\" failed to install"
 msgstr "“{0}” ইনস্টল করা যায়নি"
 
@@ -45,7 +45,7 @@ msgid "\"{0}\" hidden"
 msgstr "\"{0}\" লুকানো আছে"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:231
+#: bottles/frontend/widgets/dependency.py:241
 msgid "\"{0}\" installed"
 msgstr "“{0}” ইনস্টল হয়েছে"
 
@@ -80,7 +80,7 @@ msgid "\"{0}\" showed"
 msgstr "\"{0}\" দেখিয়েছে"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:228
+#: bottles/frontend/widgets/dependency.py:238
 msgid "\"{0}\" uninstalled"
 msgstr "“{0}” আনইনস্টল হয়েছে"
 
@@ -274,7 +274,7 @@ msgstr "সমস্ত সিস্টেম এনভায়রনমেন�
 msgid "All triggers"
 msgstr "সমস্ত ট্রিগার"
 
-#: bottles/frontend/windows/generic.py:24
+#: bottles/frontend/views/bottle_dependencies.py:246 bottles/frontend/widgets/dependency.py:155 bottles/frontend/windows/generic.py:24
 msgid "An error has occurred."
 msgstr "একটি ত্রুটি ঘটেছে৷"
 
@@ -814,7 +814,7 @@ msgstr "ক্লিনআপ"
 msgid "Clear DLL path"
 msgstr "DLL পথ পরিষ্কার করুন"
 
-#: bottles/frontend/ui/new-bottle-dialog.blp:126 bottles/frontend/views/bottle_dependencies.py:122
+#: bottles/frontend/ui/new-bottle-dialog.blp:126 bottles/frontend/views/bottle_dependencies.py:121
 msgid "Clear Selection"
 msgstr "নির্বাচন পরিষ্কার করুন"
 
@@ -1424,7 +1424,7 @@ msgstr "নির্ভরতা মেনু"
 msgid "Dependency description"
 msgstr "নির্ভরতার বিবরণ"
 
-#: bottles/frontend/views/bottle_dependencies.py:196
+#: bottles/frontend/views/bottle_dependencies.py:195
 msgid "Dependency installation failed."
 msgstr "নির্ভরতা ইনস্টলেশন ব্যর্থ হয়েছে৷"
 
@@ -2287,7 +2287,7 @@ msgid "Installers Repository"
 msgstr "ইনস্টলার রিপোজিটরি"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:149
+#: bottles/frontend/views/bottle_dependencies.py:148
 msgid "Installing \"{0}\"..."
 msgstr "\"{0}\" ইনস্টল করা হচ্ছে..."
 
@@ -2610,7 +2610,7 @@ msgid "MangoHud Settings"
 msgstr "MangoHud সেটিংস"
 
 #, python-brace-format
-#: bottles/frontend/widgets/dependency.py:147 bottles/frontend/widgets/installer.py:85
+#: bottles/frontend/widgets/dependency.py:160 bottles/frontend/widgets/installer.py:85
 msgid "Manifest for {0}"
 msgstr "{0} এর জন্য ম্যানিফেস্ট"
 
@@ -3768,7 +3768,7 @@ msgstr "সেকেন্ডারি মেনু"
 msgid "Select"
 msgstr "নির্বাচন করুন"
 
-#: bottles/frontend/ui/details-dependencies.blp:93 bottles/frontend/views/bottle_dependencies.py:122
+#: bottles/frontend/ui/details-dependencies.blp:93 bottles/frontend/views/bottle_dependencies.py:121
 msgid "Select All"
 msgstr "সব নির্বাচন করুন"
 
@@ -4492,7 +4492,7 @@ msgstr "এতে কিছু সময় লাগতে পারে।"
 msgid "This dependency is not compatible with this container architecture."
 msgstr "এই নির্ভরতা এই Wine পরিবেশ আর্কিটেকচারের সাথে সামঞ্জস্যপূর্ণ নয়।"
 
-#: bottles/frontend/widgets/dependency.py:131
+#: bottles/frontend/widgets/dependency.py:125
 msgid "This dependency is not installable offline because its files are not cached."
 msgstr "এই নির্ভরতা অফলাইনে ইনস্টলযোগ্য নয় কারণ এর ফাইলগুলি ক্যাশে করা হয়নি৷"
 
@@ -5268,14 +5268,14 @@ msgid "winetricks {verb} mentioned in reports"
 msgstr "winetricks {verb} রিপোর্টে উল্লেখ করা হয়েছে"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:183
+#: bottles/frontend/views/bottle_dependencies.py:182
 msgid "{0} dependency"
 msgid_plural "{0} dependencies"
 msgstr[0] ""
 msgstr[1] ""
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:207
+#: bottles/frontend/views/bottle_dependencies.py:206
 msgid "{0} dependency installed."
 msgid_plural "{0} dependencies installed."
 msgstr[0] ""
@@ -5292,7 +5292,7 @@ msgid "{0} failed to install."
 msgstr "{0} ইনস্টল করতে ব্যর্থ হয়েছে৷"
 
 #, python-brace-format
-#: bottles/frontend/views/bottle_dependencies.py:205
+#: bottles/frontend/views/bottle_dependencies.py:204
 msgid "{0} installed, {1} failed."
 msgstr "{0} ইনস্টল করা হয়েছে, {1} ব্যর্থ হয়েছে৷"
 

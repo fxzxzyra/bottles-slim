@@ -15,7 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import time
 from gettext import gettext as _, ngettext
 from typing import Optional
 
@@ -27,7 +26,6 @@ from bottles.backend.models.result import Result
 from bottles.backend.state import EventManager, Events
 from bottles.backend.utils.threading import RunAsync
 from bottles.frontend.utils.common import open_doc_url
-from bottles.frontend.utils.gtk import GtkUtils
 from bottles.frontend.widgets.dependency import DependencyEntry
 from bottles.frontend.windows.dependency_install import DependencyInstallDialog
 
@@ -37,7 +35,6 @@ logging = Logger()
 @Gtk.Template(resource_path="/com/usebottles/bottles/details-dependencies.ui")
 class DependenciesView(Adw.Bin):
     __gtype_name__ = "DetailsDependencies"
-    __registry = []
 
     # region Widgets
     list_dependencies = Gtk.Template.Child()
@@ -48,7 +45,6 @@ class DependenciesView(Adw.Bin):
     entry_search = Gtk.Template.Child()
     actions = Gtk.Template.Child()
     search_bar = Gtk.Template.Child()
-    ev_controller = Gtk.EventControllerKey.new()
     spinner_loading = Gtk.Template.Child()
     stack = Gtk.Template.Child()
 
@@ -62,6 +58,9 @@ class DependenciesView(Adw.Bin):
         self.manager = details.window.manager
         self.config = config
         self.queue = details.queue
+        self.__registry = []
+        self._load_generation = 0
+        self.ev_controller = Gtk.EventControllerKey.new()
 
         self.ev_controller.connect("key-released", self.__search_dependencies)
         # also re-filter on text changes (e.g. clicking the clear icon, which
@@ -229,51 +228,64 @@ class DependenciesView(Adw.Bin):
         if config is None:
             config = BottleConfig()
         self.config = config
+        self._load_generation += 1
+        generation = self._load_generation
+        installed = list(config.Installed_Dependencies)
+        online = self.manager.utils_conn.status
         self.btn_select_all.set_sensitive(False)
         self.btn_install_selected.set_sensitive(False)
 
         self.stack.set_visible_child_name("page_loading")
 
-        def new_dependency(dependency, plain=False):
-            entry = DependencyEntry(
-                window=self.window,
-                config=self.config,
-                dependency=dependency,
-                plain=plain,
-            )
-            self.__registry.append(entry)
-            self.list_dependencies.append(entry)
-            entry.check_select.connect("toggled", self.__selection_changed)
-            entry.check_select.connect("notify::visible", self.__selection_changed)
-            self.__selection_changed()
+        def callback(dependencies, error):
+            if generation != self._load_generation:
+                return
+            self.empty_list()
+            if error is not None:
+                self.stack.set_visible_child_name("page_offline")
+                self.window.show_toast(_("An error has occurred."))
+                return
 
-        @GtkUtils.run_in_main_loop
-        def callback(_result, _error=False):
-            page = (
-                "page_deps"
-                if self.manager.supported_dependencies or self.manager.utils_conn.status
-                else "page_offline"
-            )
-            self.stack.set_visible_child_name(page)
+            # One row per main-loop iteration keeps input and animation responsive.
+            pending = iter(dependencies)
+
+            def add_row():
+                if generation != self._load_generation:
+                    return GLib.SOURCE_REMOVE
+                dependency = next(pending, None)
+                if dependency is None:
+                    self.__selection_changed()
+                    self.stack.set_visible_child_name(
+                        "page_deps" if dependencies or online else "page_offline"
+                    )
+                    return GLib.SOURCE_REMOVE
+                entry = DependencyEntry(
+                    window=self.window, config=config, dependency=dependency,
+                )
+                self.__registry.append(entry)
+                self.list_dependencies.append(entry)
+                entry.check_select.connect("toggled", self.__selection_changed)
+                entry.check_select.connect("notify::visible", self.__selection_changed)
+                return GLib.SOURCE_CONTINUE
+
+            GLib.idle_add(add_row)
 
         def process_dependencies():
-            time.sleep(0.3)  # workaround for freezing bug on bottle load
             EventManager.wait(Events.DependenciesOrganizing)
-            dependencies = self.manager.supported_dependencies
-
-            GLib.idle_add(self.empty_list)
-
-            if len(dependencies.keys()) > 0:
-                for dep in dependencies.items():
-                    if dep[0] in self.config.Installed_Dependencies:
-                        continue  # Do not list already installed dependencies
-
-                    GLib.idle_add(new_dependency, dep)
-
-            if len(self.config.Installed_Dependencies) > 0:
-                for dep in self.config.Installed_Dependencies:
-                    if dep in dependencies:
-                        dep = (dep, dependencies[dep])
-                        GLib.idle_add(new_dependency, dep)
+            catalog = self.manager.supported_dependencies
+            dependencies = []
+            for name, metadata in list(catalog.items()):
+                metadata = dict(metadata)
+                cached = metadata.get("Cached", {})
+                if (not online and name not in installed
+                        and not (isinstance(cached, dict) and cached.get(config.Arch))
+                        and installed):
+                    metadata["Cached"] = {
+                        config.Arch: self.manager.dependency_manager.is_dependency_cached(
+                            name, arch=config.Arch, installed=installed,
+                        ),
+                    }
+                dependencies.append((name, metadata))
+            return dependencies
 
         RunAsync(process_dependencies, callback=callback)
